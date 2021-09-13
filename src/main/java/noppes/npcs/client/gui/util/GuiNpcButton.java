@@ -1,0 +1,89 @@
+package noppes.npcs.client.gui.util;
+
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiButton;
+import net.minecraft.util.text.translation.I18n;
+
+public class GuiNpcButton extends GuiButton {
+     protected String[] display;
+     private int displayValue;
+     public int field_146127_k;
+
+     public GuiNpcButton(int i, int j, int k, String s) {
+          super(i, j, k, I18n.func_74838_a(s));
+          this.displayValue = 0;
+          this.field_146127_k = i;
+     }
+
+     public GuiNpcButton(int i, int j, int k, String[] display, int val) {
+          this(i, j, k, display[val]);
+          this.display = display;
+          this.displayValue = val;
+     }
+
+     public GuiNpcButton(int i, int j, int k, int l, int m, String string) {
+          super(i, j, k, l, m, I18n.func_74838_a(string));
+          this.displayValue = 0;
+          this.field_146127_k = i;
+     }
+
+     public GuiNpcButton(int i, int j, int k, int l, int m, String string, boolean enabled) {
+          this(i, j, k, l, m, string);
+          this.field_146124_l = enabled;
+     }
+
+     public GuiNpcButton(int i, int j, int k, int l, int m, String[] display, int val) {
+          this(i, j, k, l, m, display.length == 0 ? "" : display[val % display.length]);
+          this.display = display;
+          this.displayValue = display.length == 0 ? 0 : val % display.length;
+     }
+
+     public GuiNpcButton(int i, int j, int k, int l, int m, int val, String... display) {
+          this(i, j, k, l, m, display.length == 0 ? "" : display[val % display.length]);
+          this.display = display;
+          this.displayValue = display.length == 0 ? 0 : val % display.length;
+     }
+
+     public void setDisplayText(String text) {
+          this.field_146126_j = I18n.func_74838_a(text);
+     }
+
+     public int getValue() {
+          return this.displayValue;
+     }
+
+     public void setEnabled(boolean bo) {
+          this.field_146124_l = bo;
+     }
+
+     public void setVisible(boolean b) {
+          this.field_146125_m = b;
+     }
+
+     public boolean getVisible() {
+          return this.field_146125_m;
+     }
+
+     public void setDisplay(int value) {
+          this.displayValue = value;
+          this.setDisplayText(this.display[value]);
+     }
+
+     public void setTextColor(int color) {
+          this.packedFGColour = color;
+     }
+
+     public boolean func_146116_c(Minecraft minecraft, int i, int j) {
+          boolean bo = super.func_146116_c(minecraft, i, j);
+          if (bo && this.display != null && this.display.length != 0) {
+               this.displayValue = (this.displayValue + 1) % this.display.length;
+               this.setDisplayText(this.display[this.displayValue]);
+          }
+
+          return bo;
+     }
+
+     public int getWidth() {
+          return this.field_146120_f;
+     }
+}

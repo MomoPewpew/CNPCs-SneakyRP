@@ -1,0 +1,39 @@
+package noppes.npcs.containers;
+
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.Container;
+import net.minecraft.inventory.Slot;
+import net.minecraft.item.ItemStack;
+import noppes.npcs.NoppesUtilServer;
+import noppes.npcs.controllers.data.Quest;
+import noppes.npcs.quests.QuestItem;
+
+public class ContainerNpcQuestTypeItem extends Container {
+     public ContainerNpcQuestTypeItem(EntityPlayer player) {
+          Quest quest = NoppesUtilServer.getEditingQuest(player);
+
+          int j1;
+          for(j1 = 0; j1 < 3; ++j1) {
+               this.func_75146_a(new Slot(((QuestItem)quest.questInterface).items, j1, 44, 39 + j1 * 25));
+          }
+
+          for(j1 = 0; j1 < 3; ++j1) {
+               for(int l1 = 0; l1 < 9; ++l1) {
+                    this.func_75146_a(new Slot(player.field_71071_by, l1 + j1 * 9 + 9, 8 + l1 * 18, 113 + j1 * 18));
+               }
+          }
+
+          for(j1 = 0; j1 < 9; ++j1) {
+               this.func_75146_a(new Slot(player.field_71071_by, j1, 8 + j1 * 18, 171));
+          }
+
+     }
+
+     public ItemStack func_82846_b(EntityPlayer par1EntityPlayer, int i) {
+          return null;
+     }
+
+     public boolean func_75145_c(EntityPlayer entityplayer) {
+          return true;
+     }
+}

@@ -1,0 +1,4054 @@
+{
+  "micdoodle8/mods/galacticraft/api/client/tabs/TabRegistry": {
+    "name": "micdoodle8/mods/galacticraft/api/client/tabs/TabRegistry",
+    "annotations": [
+      {
+        "type": "METHOD",
+        "name": "Lnet/minecraftforge/fml/common/eventhandler/SubscribeEvent;",
+        "target": "guiPostInit(Lnet/minecraftforge/client/event/GuiScreenEvent$InitGuiEvent$Post;)V"
+      }
+    ]
+  },
+  "noppes/npcs/AbilityEventHandler": {
+    "name": "noppes/npcs/AbilityEventHandler",
+    "annotations": [
+      {
+        "type": "METHOD",
+        "name": "Lnet/minecraftforge/fml/common/eventhandler/SubscribeEvent;",
+        "target": "invoke(Lnoppes/npcs/api/event/NpcEvent$DamagedEvent;)V"
+      }
+    ]
+  },
+  "noppes/npcs/CommonProxy": {
+    "name": "noppes/npcs/CommonProxy",
+    "interfaces": [
+      "net/minecraftforge/fml/common/network/IGuiHandler"
+    ]
+  },
+  "noppes/npcs/CustomEntities": {
+    "name": "noppes/npcs/CustomEntities",
+    "annotations": [
+      {
+        "type": "METHOD",
+        "name": "Lnet/minecraftforge/fml/common/eventhandler/SubscribeEvent;",
+        "target": "register(Lnet/minecraftforge/event/RegistryEvent$Register;)V"
+      }
+    ]
+  },
+  "noppes/npcs/CustomItems": {
+    "name": "noppes/npcs/CustomItems",
+    "annotations": [
+      {
+        "type": "CLASS",
+        "name": "Lnet/minecraftforge/fml/common/registry/GameRegistry$ObjectHolder;",
+        "target": "noppes/npcs/CustomItems",
+        "value": {
+          "value": "customnpcs"
+        }
+      },
+      {
+        "type": "FIELD",
+        "name": "Lnet/minecraftforge/fml/common/registry/GameRegistry$ObjectHolder;",
+        "target": "wand",
+        "value": {
+          "value": "npcwand"
+        }
+      },
+      {
+        "type": "FIELD",
+        "name": "Lnet/minecraftforge/fml/common/registry/GameRegistry$ObjectHolder;",
+        "target": "cloner",
+        "value": {
+          "value": "npcmobcloner"
+        }
+      },
+      {
+        "type": "FIELD",
+        "name": "Lnet/minecraftforge/fml/common/registry/GameRegistry$ObjectHolder;",
+        "target": "scripter",
+        "value": {
+          "value": "npcscripter"
+        }
+      },
+      {
+        "type": "FIELD",
+        "name": "Lnet/minecraftforge/fml/common/registry/GameRegistry$ObjectHolder;",
+        "target": "moving",
+        "value": {
+          "value": "npcmovingpath"
+        }
+      },
+      {
+        "type": "FIELD",
+        "name": "Lnet/minecraftforge/fml/common/registry/GameRegistry$ObjectHolder;",
+        "target": "mount",
+        "value": {
+          "value": "npcmounter"
+        }
+      },
+      {
+        "type": "FIELD",
+        "name": "Lnet/minecraftforge/fml/common/registry/GameRegistry$ObjectHolder;",
+        "target": "teleporter",
+        "value": {
+          "value": "npcteleporter"
+        }
+      },
+      {
+        "type": "FIELD",
+        "name": "Lnet/minecraftforge/fml/common/registry/GameRegistry$ObjectHolder;",
+        "target": "scriptedDoorTool",
+        "value": {
+          "value": "npcscripteddoortool"
+        }
+      },
+      {
+        "type": "FIELD",
+        "name": "Lnet/minecraftforge/fml/common/registry/GameRegistry$ObjectHolder;",
+        "target": "scripted_item",
+        "value": {
+          "value": "scripted_item"
+        }
+      },
+      {
+        "type": "FIELD",
+        "name": "Lnet/minecraftforge/fml/common/registry/GameRegistry$ObjectHolder;",
+        "target": "nbt_book",
+        "value": {
+          "value": "nbt_book"
+        }
+      },
+      {
+        "type": "FIELD",
+        "name": "Lnet/minecraftforge/fml/common/registry/GameRegistry$ObjectHolder;",
+        "target": "soulstoneEmpty",
+        "value": {
+          "value": "npcsoulstoneempty"
+        }
+      },
+      {
+        "type": "FIELD",
+        "name": "Lnet/minecraftforge/fml/common/registry/GameRegistry$ObjectHolder;",
+        "target": "soulstoneFull",
+        "value": {
+          "value": "npcsoulstonefilled"
+        }
+      },
+      {
+        "type": "FIELD",
+        "name": "Lnet/minecraftforge/fml/common/registry/GameRegistry$ObjectHolder;",
+        "target": "redstoneBlock",
+        "value": {
+          "value": "npcredstoneblock"
+        }
+      },
+      {
+        "type": "FIELD",
+        "name": "Lnet/minecraftforge/fml/common/registry/GameRegistry$ObjectHolder;",
+        "target": "mailbox",
+        "value": {
+          "value": "npcmailbox"
+        }
+      },
+      {
+        "type": "FIELD",
+        "name": "Lnet/minecraftforge/fml/common/registry/GameRegistry$ObjectHolder;",
+        "target": "waypoint",
+        "value": {
+          "value": "npcwaypoint"
+        }
+      },
+      {
+        "type": "FIELD",
+        "name": "Lnet/minecraftforge/fml/common/registry/GameRegistry$ObjectHolder;",
+        "target": "border",
+        "value": {
+          "value": "npcborder"
+        }
+      },
+      {
+        "type": "FIELD",
+        "name": "Lnet/minecraftforge/fml/common/registry/GameRegistry$ObjectHolder;",
+        "target": "scripted",
+        "value": {
+          "value": "npcscripted"
+        }
+      },
+      {
+        "type": "FIELD",
+        "name": "Lnet/minecraftforge/fml/common/registry/GameRegistry$ObjectHolder;",
+        "target": "scriptedDoor",
+        "value": {
+          "value": "npcscripteddoor"
+        }
+      },
+      {
+        "type": "FIELD",
+        "name": "Lnet/minecraftforge/fml/common/registry/GameRegistry$ObjectHolder;",
+        "target": "builder",
+        "value": {
+          "value": "npcbuilderblock"
+        }
+      },
+      {
+        "type": "FIELD",
+        "name": "Lnet/minecraftforge/fml/common/registry/GameRegistry$ObjectHolder;",
+        "target": "copy",
+        "value": {
+          "value": "npccopyblock"
+        }
+      },
+      {
+        "type": "FIELD",
+        "name": "Lnet/minecraftforge/fml/common/registry/GameRegistry$ObjectHolder;",
+        "target": "carpentyBench",
+        "value": {
+          "value": "npccarpentybench"
+        }
+      },
+      {
+        "type": "METHOD",
+        "name": "Lnet/minecraftforge/fml/common/eventhandler/SubscribeEvent;",
+        "target": "registerBlocks(Lnet/minecraftforge/event/RegistryEvent$Register;)V"
+      },
+      {
+        "type": "METHOD",
+        "name": "Lnet/minecraftforge/fml/common/eventhandler/SubscribeEvent;",
+        "target": "registerItems(Lnet/minecraftforge/event/RegistryEvent$Register;)V"
+      },
+      {
+        "type": "METHOD",
+        "name": "Lnet/minecraftforge/fml/common/eventhandler/SubscribeEvent;",
+        "target": "registerRecipes(Lnet/minecraftforge/event/RegistryEvent$Register;)V"
+      },
+      {
+        "type": "METHOD",
+        "name": "Lnet/minecraftforge/fml/common/eventhandler/SubscribeEvent;",
+        "target": "registerModels(Lnet/minecraftforge/client/event/ModelRegistryEvent;)V"
+      }
+    ]
+  },
+  "noppes/npcs/CustomNpcs": {
+    "name": "noppes/npcs/CustomNpcs",
+    "annotations": [
+      {
+        "type": "CLASS",
+        "name": "Lnet/minecraftforge/fml/common/Mod;",
+        "target": "noppes/npcs/CustomNpcs",
+        "values": {
+          "acceptedMinecraftVersions": {
+            "value": "1.12, 1.12.1, 1.12.2"
+          },
+          "modid": {
+            "value": "customnpcs"
+          },
+          "name": {
+            "value": "CustomNpcs"
+          },
+          "version": {
+            "value": "1.12"
+          }
+        }
+      },
+      {
+        "type": "FIELD",
+        "name": "Lnoppes/npcs/config/ConfigProp;",
+        "target": "EnableScripting",
+        "values": {
+          "info": {
+            "value": "Whether scripting is enabled or not"
+          }
+        }
+      },
+      {
+        "type": "FIELD",
+        "name": "Lnoppes/npcs/config/ConfigProp;",
+        "target": "NashorArguments",
+        "values": {
+          "info": {
+            "value": "Arguments given to the Nashorn scripting library"
+          }
+        }
+      },
+      {
+        "type": "FIELD",
+        "name": "Lnoppes/npcs/config/ConfigProp;",
+        "target": "EnableChatBubbles",
+        "values": {
+          "info": {
+            "value": "Disable Chat Bubbles"
+          }
+        }
+      },
+      {
+        "type": "FIELD",
+        "name": "Lnoppes/npcs/config/ConfigProp;",
+        "target": "NpcNavRange",
+        "values": {
+          "info": {
+            "value": "Navigation search range for NPCs. Not recommended to increase if you have a slow pc or on a server"
+          }
+        }
+      },
+      {
+        "type": "FIELD",
+        "name": "Lnoppes/npcs/config/ConfigProp;",
+        "target": "NpcUseOpCommands",
+        "values": {
+          "info": {
+            "value": "Set to true if you want the dialog command option to be able to use op commands like tp etc"
+          }
+        }
+      },
+      {
+        "type": "FIELD",
+        "name": "Lnoppes/npcs/config/ConfigProp;",
+        "target": "InventoryGuiEnabled"
+      },
+      {
+        "type": "FIELD",
+        "name": "Lnoppes/npcs/config/ConfigProp;",
+        "target": "FixUpdateFromPre_1_12"
+      },
+      {
+        "type": "FIELD",
+        "name": "Lnoppes/npcs/config/ConfigProp;",
+        "target": "DisablePermissions",
+        "values": {
+          "info": {
+            "value": "If you are running sponge and you want to disable the permissions set this to true"
+          }
+        }
+      },
+      {
+        "type": "FIELD",
+        "name": "Lnoppes/npcs/config/ConfigProp;",
+        "target": "SceneButtonsEnabled"
+      },
+      {
+        "type": "FIELD",
+        "name": "Lnoppes/npcs/config/ConfigProp;",
+        "target": "EnableDefaultEyes"
+      },
+      {
+        "type": "FIELD",
+        "name": "Lnet/minecraftforge/fml/common/SidedProxy;",
+        "target": "proxy",
+        "values": {
+          "clientSide": {
+            "value": "noppes.npcs.client.ClientProxy"
+          },
+          "serverSide": {
+            "value": "noppes.npcs.CommonProxy"
+          }
+        }
+      },
+      {
+        "type": "FIELD",
+        "name": "Lnoppes/npcs/config/ConfigProp;",
+        "target": "EnableUpdateChecker",
+        "values": {
+          "info": {
+            "value": "Enables CustomNpcs startup update message"
+          }
+        }
+      },
+      {
+        "type": "FIELD",
+        "name": "Lnoppes/npcs/config/ConfigProp;",
+        "target": "OpsOnly",
+        "values": {
+          "info": {
+            "value": "Only ops can create and edit npcs"
+          }
+        }
+      },
+      {
+        "type": "FIELD",
+        "name": "Lnoppes/npcs/config/ConfigProp;",
+        "target": "DefaultInteractLine",
+        "values": {
+          "info": {
+            "value": "Default interact line. Leave empty to not have one"
+          }
+        }
+      },
+      {
+        "type": "FIELD",
+        "name": "Lnoppes/npcs/config/ConfigProp;",
+        "target": "ChuckLoaders",
+        "values": {
+          "info": {
+            "value": "Number of chunk loading npcs that can be active at the same time"
+          }
+        }
+      },
+      {
+        "type": "FIELD",
+        "name": "Lnoppes/npcs/config/ConfigProp;",
+        "target": "LeavesDecayEnabled",
+        "values": {
+          "info": {
+            "value": "Enables leaves decay"
+          }
+        }
+      },
+      {
+        "type": "FIELD",
+        "name": "Lnoppes/npcs/config/ConfigProp;",
+        "target": "VineGrowthEnabled",
+        "values": {
+          "info": {
+            "value": "Enables Vine Growth"
+          }
+        }
+      },
+      {
+        "type": "FIELD",
+        "name": "Lnoppes/npcs/config/ConfigProp;",
+        "target": "IceMeltsEnabled",
+        "values": {
+          "info": {
+            "value": "Enables Ice Melting"
+          }
+        }
+      },
+      {
+        "type": "FIELD",
+        "name": "Lnoppes/npcs/config/ConfigProp;",
+        "target": "SoulStoneAnimals",
+        "values": {
+          "info": {
+            "value": "Normal players can use soulstone on animals"
+          }
+        }
+      },
+      {
+        "type": "FIELD",
+        "name": "Lnoppes/npcs/config/ConfigProp;",
+        "target": "SoulStoneNPCs",
+        "values": {
+          "info": {
+            "value": "Normal players can use soulstone on all npcs"
+          }
+        }
+      },
+      {
+        "type": "FIELD",
+        "name": "Lnoppes/npcs/config/ConfigProp;",
+        "target": "HeadWearType",
+        "values": {
+          "info": {
+            "value": "Type 0 \u003d Normal, Type 1 \u003d Solid"
+          }
+        }
+      },
+      {
+        "type": "FIELD",
+        "name": "Lnoppes/npcs/config/ConfigProp;",
+        "target": "FontType",
+        "values": {
+          "info": {
+            "value": "When set to Minecraft it will use minecrafts font, when Default it will use OpenSans. Can only use fonts installed on your PC"
+          }
+        }
+      },
+      {
+        "type": "FIELD",
+        "name": "Lnoppes/npcs/config/ConfigProp;",
+        "target": "FontSize",
+        "values": {
+          "info": {
+            "value": "Font size for custom fonts (doesn\u0027t work with minecrafts font)"
+          }
+        }
+      },
+      {
+        "type": "FIELD",
+        "name": "Lnoppes/npcs/config/ConfigProp;",
+        "target": "NpcSpeachTriggersChatEvent"
+      },
+      {
+        "type": "METHOD",
+        "name": "Lnet/minecraftforge/fml/common/Mod$EventHandler;",
+        "target": "load(Lnet/minecraftforge/fml/common/event/FMLPreInitializationEvent;)V"
+      },
+      {
+        "type": "METHOD",
+        "name": "Lnet/minecraftforge/fml/common/Mod$EventHandler;",
+        "target": "load(Lnet/minecraftforge/fml/common/event/FMLInitializationEvent;)V"
+      },
+      {
+        "type": "METHOD",
+        "name": "Lnet/minecraftforge/fml/common/Mod$EventHandler;",
+        "target": "setAboutToStart(Lnet/minecraftforge/fml/common/event/FMLServerAboutToStartEvent;)V"
+      },
+      {
+        "type": "METHOD",
+        "name": "Lnet/minecraftforge/fml/common/Mod$EventHandler;",
+        "target": "started(Lnet/minecraftforge/fml/common/event/FMLServerStartedEvent;)V"
+      },
+      {
+        "type": "METHOD",
+        "name": "Lnet/minecraftforge/fml/common/Mod$EventHandler;",
+        "target": "stopped(Lnet/minecraftforge/fml/common/event/FMLServerStoppedEvent;)V"
+      },
+      {
+        "type": "METHOD",
+        "name": "Lnet/minecraftforge/fml/common/Mod$EventHandler;",
+        "target": "serverstart(Lnet/minecraftforge/fml/common/event/FMLServerStartingEvent;)V"
+      }
+    ]
+  },
+  "noppes/npcs/CustomNpcs$1": {
+    "name": "noppes/npcs/CustomNpcs$1",
+    "interfaces": [
+      "net/minecraftforge/common/capabilities/Capability$IStorage"
+    ]
+  },
+  "noppes/npcs/CustomNpcs$2": {
+    "name": "noppes/npcs/CustomNpcs$2",
+    "interfaces": [
+      "net/minecraftforge/common/capabilities/Capability$IStorage"
+    ]
+  },
+  "noppes/npcs/CustomNpcs$3": {
+    "name": "noppes/npcs/CustomNpcs$3",
+    "interfaces": [
+      "net/minecraftforge/common/capabilities/Capability$IStorage"
+    ]
+  },
+  "noppes/npcs/CustomNpcs$4": {
+    "name": "noppes/npcs/CustomNpcs$4",
+    "interfaces": [
+      "net/minecraftforge/common/capabilities/Capability$IStorage"
+    ]
+  },
+  "noppes/npcs/NpcMiscInventory": {
+    "name": "noppes/npcs/NpcMiscInventory",
+    "interfaces": [
+      "net/minecraft/inventory/IInventory"
+    ]
+  },
+  "noppes/npcs/PacketHandlerPlayer": {
+    "name": "noppes/npcs/PacketHandlerPlayer",
+    "annotations": [
+      {
+        "type": "METHOD",
+        "name": "Lnet/minecraftforge/fml/common/eventhandler/SubscribeEvent;",
+        "target": "onServerPacket(Lnet/minecraftforge/fml/common/network/FMLNetworkEvent$ServerCustomPacketEvent;)V"
+      }
+    ]
+  },
+  "noppes/npcs/PacketHandlerServer": {
+    "name": "noppes/npcs/PacketHandlerServer",
+    "annotations": [
+      {
+        "type": "METHOD",
+        "name": "Lnet/minecraftforge/fml/common/eventhandler/SubscribeEvent;",
+        "target": "onServerPacket(Lnet/minecraftforge/fml/common/network/FMLNetworkEvent$ServerCustomPacketEvent;)V"
+      }
+    ]
+  },
+  "noppes/npcs/ScriptItemEventHandler": {
+    "name": "noppes/npcs/ScriptItemEventHandler",
+    "annotations": [
+      {
+        "type": "METHOD",
+        "name": "Lnet/minecraftforge/fml/common/eventhandler/SubscribeEvent;",
+        "target": "invoke(Lnet/minecraftforge/event/entity/EntityJoinWorldEvent;)V"
+      },
+      {
+        "type": "METHOD",
+        "name": "Lnet/minecraftforge/fml/common/eventhandler/SubscribeEvent;",
+        "target": "invoke(Lnet/minecraftforge/event/entity/item/ItemTossEvent;)V"
+      },
+      {
+        "type": "METHOD",
+        "name": "Lnet/minecraftforge/fml/common/eventhandler/SubscribeEvent;",
+        "target": "invoke(Lnet/minecraftforge/event/entity/player/EntityItemPickupEvent;)V"
+      }
+    ]
+  },
+  "noppes/npcs/ScriptPlayerEventHandler": {
+    "name": "noppes/npcs/ScriptPlayerEventHandler",
+    "annotations": [
+      {
+        "type": "METHOD",
+        "name": "Lnet/minecraftforge/fml/common/eventhandler/SubscribeEvent;",
+        "target": "onServerTick(Lnet/minecraftforge/fml/common/gameevent/TickEvent$PlayerTickEvent;)V"
+      },
+      {
+        "type": "METHOD",
+        "name": "Lnet/minecraftforge/fml/common/eventhandler/SubscribeEvent;",
+        "target": "invoke(Lnet/minecraftforge/event/entity/player/PlayerInteractEvent$LeftClickBlock;)V"
+      },
+      {
+        "type": "METHOD",
+        "name": "Lnet/minecraftforge/fml/common/eventhandler/SubscribeEvent;",
+        "target": "invoke(Lnet/minecraftforge/event/entity/player/PlayerInteractEvent$RightClickBlock;)V"
+      },
+      {
+        "type": "METHOD",
+        "name": "Lnet/minecraftforge/fml/common/eventhandler/SubscribeEvent;",
+        "target": "invoke(Lnet/minecraftforge/event/entity/player/PlayerInteractEvent$EntityInteract;)V"
+      },
+      {
+        "type": "METHOD",
+        "name": "Lnet/minecraftforge/fml/common/eventhandler/SubscribeEvent;",
+        "target": "invoke(Lnet/minecraftforge/event/entity/player/PlayerInteractEvent$RightClickItem;)V"
+      },
+      {
+        "type": "METHOD",
+        "name": "Lnet/minecraftforge/fml/common/eventhandler/SubscribeEvent;",
+        "target": "invoke(Lnet/minecraftforge/event/entity/player/ArrowLooseEvent;)V"
+      },
+      {
+        "type": "METHOD",
+        "name": "Lnet/minecraftforge/fml/common/eventhandler/SubscribeEvent;",
+        "target": "invoke(Lnet/minecraftforge/event/world/BlockEvent$BreakEvent;)V"
+      },
+      {
+        "type": "METHOD",
+        "name": "Lnet/minecraftforge/fml/common/eventhandler/SubscribeEvent;",
+        "target": "invoke(Lnet/minecraftforge/event/entity/item/ItemTossEvent;)V"
+      },
+      {
+        "type": "METHOD",
+        "name": "Lnet/minecraftforge/fml/common/eventhandler/SubscribeEvent;",
+        "target": "invoke(Lnet/minecraftforge/event/entity/player/EntityItemPickupEvent;)V"
+      },
+      {
+        "type": "METHOD",
+        "name": "Lnet/minecraftforge/fml/common/eventhandler/SubscribeEvent;",
+        "target": "invoke(Lnet/minecraftforge/event/entity/player/PlayerContainerEvent$Open;)V"
+      },
+      {
+        "type": "METHOD",
+        "name": "Lnet/minecraftforge/fml/common/eventhandler/SubscribeEvent;",
+        "target": "invoke(Lnet/minecraftforge/event/entity/player/PlayerContainerEvent$Close;)V"
+      },
+      {
+        "type": "METHOD",
+        "name": "Lnet/minecraftforge/fml/common/eventhandler/SubscribeEvent;",
+        "target": "invoke(Lnet/minecraftforge/event/entity/living/LivingDeathEvent;)V"
+      },
+      {
+        "type": "METHOD",
+        "name": "Lnet/minecraftforge/fml/common/eventhandler/SubscribeEvent;",
+        "target": "invoke(Lnet/minecraftforge/event/entity/living/LivingHurtEvent;)V"
+      },
+      {
+        "type": "METHOD",
+        "name": "Lnet/minecraftforge/fml/common/eventhandler/SubscribeEvent;",
+        "target": "invoke(Lnet/minecraftforge/event/entity/living/LivingAttackEvent;)V"
+      },
+      {
+        "type": "METHOD",
+        "name": "Lnet/minecraftforge/fml/common/eventhandler/SubscribeEvent;",
+        "target": "invoke(Lnet/minecraftforge/fml/common/gameevent/PlayerEvent$PlayerLoggedInEvent;)V"
+      },
+      {
+        "type": "METHOD",
+        "name": "Lnet/minecraftforge/fml/common/eventhandler/SubscribeEvent;",
+        "target": "invoke(Lnet/minecraftforge/fml/common/gameevent/PlayerEvent$PlayerLoggedOutEvent;)V"
+      },
+      {
+        "type": "METHOD",
+        "name": "Lnet/minecraftforge/fml/common/eventhandler/SubscribeEvent;",
+        "target": "invoke(Lnet/minecraftforge/event/ServerChatEvent;)V",
+        "values": {
+          "priority": {
+            "type": "ENUM",
+            "value": "Lnet/minecraftforge/fml/common/eventhandler/EventPriority;/HIGHEST"
+          }
+        }
+      }
+    ]
+  },
+  "noppes/npcs/ScriptPlayerEventHandler$ForgeEventHandler": {
+    "name": "noppes/npcs/ScriptPlayerEventHandler$ForgeEventHandler",
+    "annotations": [
+      {
+        "type": "METHOD",
+        "name": "Lnet/minecraftforge/fml/common/eventhandler/SubscribeEvent;",
+        "target": "forgeEntity(Lnet/minecraftforge/fml/common/eventhandler/Event;)V"
+      }
+    ]
+  },
+  "noppes/npcs/ServerEventsHandler": {
+    "name": "noppes/npcs/ServerEventsHandler",
+    "annotations": [
+      {
+        "type": "METHOD",
+        "name": "Lnet/minecraftforge/fml/common/eventhandler/SubscribeEvent;",
+        "target": "invoke(Lnet/minecraftforge/event/entity/player/PlayerInteractEvent$EntityInteract;)V"
+      },
+      {
+        "type": "METHOD",
+        "name": "Lnet/minecraftforge/fml/common/eventhandler/SubscribeEvent;",
+        "target": "invoke(Lnet/minecraftforge/event/entity/living/LivingDeathEvent;)V"
+      },
+      {
+        "type": "METHOD",
+        "name": "Lnet/minecraftforge/fml/common/eventhandler/SubscribeEvent;",
+        "target": "pickUp(Lnet/minecraftforge/event/entity/player/EntityItemPickupEvent;)V"
+      },
+      {
+        "type": "METHOD",
+        "name": "Lnet/minecraftforge/fml/common/eventhandler/SubscribeEvent;",
+        "target": "commandGive(Lnet/minecraftforge/event/CommandEvent;)V"
+      },
+      {
+        "type": "METHOD",
+        "name": "Lnet/minecraftforge/fml/common/eventhandler/SubscribeEvent;",
+        "target": "world(Lnet/minecraftforge/event/entity/EntityJoinWorldEvent;)V"
+      },
+      {
+        "type": "METHOD",
+        "name": "Lnet/minecraftforge/fml/common/eventhandler/SubscribeEvent;",
+        "target": "populateChunk(Lnet/minecraftforge/event/terraingen/PopulateChunkEvent$Post;)V"
+      },
+      {
+        "type": "METHOD",
+        "name": "Lnet/minecraftforge/fml/common/eventhandler/SubscribeEvent;",
+        "target": "attachEntity(Lnet/minecraftforge/event/AttachCapabilitiesEvent;)V",
+        "values": {
+          "priority": {
+            "type": "ENUM",
+            "value": "Lnet/minecraftforge/fml/common/eventhandler/EventPriority;/LOW"
+          }
+        }
+      },
+      {
+        "type": "METHOD",
+        "name": "Lnet/minecraftforge/fml/common/eventhandler/SubscribeEvent;",
+        "target": "attachItem(Lnet/minecraftforge/event/AttachCapabilitiesEvent;)V"
+      },
+      {
+        "type": "METHOD",
+        "name": "Lnet/minecraftforge/fml/common/eventhandler/SubscribeEvent;",
+        "target": "savePlayer(Lnet/minecraftforge/event/entity/player/PlayerEvent$SaveToFile;)V"
+      },
+      {
+        "type": "METHOD",
+        "name": "Lnet/minecraftforge/fml/common/eventhandler/SubscribeEvent;",
+        "target": "saveChunk(Lnet/minecraftforge/event/world/ChunkDataEvent$Save;)V"
+      },
+      {
+        "type": "METHOD",
+        "name": "Lnet/minecraftforge/fml/common/eventhandler/SubscribeEvent;",
+        "target": "playerTracking(Lnet/minecraftforge/event/entity/player/PlayerEvent$StartTracking;)V"
+      }
+    ]
+  },
+  "noppes/npcs/ServerTickHandler": {
+    "name": "noppes/npcs/ServerTickHandler",
+    "annotations": [
+      {
+        "type": "METHOD",
+        "name": "Lnet/minecraftforge/fml/common/eventhandler/SubscribeEvent;",
+        "target": "onServerTick(Lnet/minecraftforge/fml/common/gameevent/TickEvent$PlayerTickEvent;)V"
+      },
+      {
+        "type": "METHOD",
+        "name": "Lnet/minecraftforge/fml/common/eventhandler/SubscribeEvent;",
+        "target": "onServerTick(Lnet/minecraftforge/fml/common/gameevent/TickEvent$WorldTickEvent;)V"
+      },
+      {
+        "type": "METHOD",
+        "name": "Lnet/minecraftforge/fml/common/eventhandler/SubscribeEvent;",
+        "target": "onServerTick(Lnet/minecraftforge/fml/common/gameevent/TickEvent$ServerTickEvent;)V"
+      },
+      {
+        "type": "METHOD",
+        "name": "Lnet/minecraftforge/fml/common/eventhandler/SubscribeEvent;",
+        "target": "playerLogin(Lnet/minecraftforge/fml/common/gameevent/PlayerEvent$PlayerLoggedInEvent;)V"
+      }
+    ]
+  },
+  "noppes/npcs/ability/AbilityBlock": {
+    "name": "noppes/npcs/ability/AbilityBlock",
+    "interfaces": [
+      "noppes/npcs/ability/IAbilityDamaged"
+    ]
+  },
+  "noppes/npcs/ability/AbilityPull": {
+    "name": "noppes/npcs/ability/AbilityPull",
+    "interfaces": [
+      "noppes/npcs/ability/IAbilityUpdate"
+    ]
+  },
+  "noppes/npcs/ability/AbilitySmash": {
+    "name": "noppes/npcs/ability/AbilitySmash",
+    "interfaces": [
+      "noppes/npcs/ability/IAbilityUpdate"
+    ]
+  },
+  "noppes/npcs/ability/AbilitySnare": {
+    "name": "noppes/npcs/ability/AbilitySnare",
+    "interfaces": [
+      "noppes/npcs/ability/IAbilityUpdate"
+    ]
+  },
+  "noppes/npcs/ability/AbilityTeleport": {
+    "name": "noppes/npcs/ability/AbilityTeleport",
+    "interfaces": [
+      "noppes/npcs/ability/IAbilityUpdate"
+    ]
+  },
+  "noppes/npcs/ability/AbstractAbility": {
+    "name": "noppes/npcs/ability/AbstractAbility",
+    "interfaces": [
+      "noppes/npcs/ability/IAbility"
+    ]
+  },
+  "noppes/npcs/ability/IAbilityAttack": {
+    "name": "noppes/npcs/ability/IAbilityAttack",
+    "interfaces": [
+      "noppes/npcs/ability/IAbility"
+    ]
+  },
+  "noppes/npcs/ability/IAbilityDamaged": {
+    "name": "noppes/npcs/ability/IAbilityDamaged",
+    "interfaces": [
+      "noppes/npcs/ability/IAbility"
+    ]
+  },
+  "noppes/npcs/ability/IAbilityUpdate": {
+    "name": "noppes/npcs/ability/IAbilityUpdate",
+    "interfaces": [
+      "noppes/npcs/ability/IAbility"
+    ]
+  },
+  "noppes/npcs/ai/selector/NPCAttackSelector": {
+    "name": "noppes/npcs/ai/selector/NPCAttackSelector",
+    "interfaces": [
+      "com/google/common/base/Predicate"
+    ]
+  },
+  "noppes/npcs/ai/selector/NPCInteractSelector": {
+    "name": "noppes/npcs/ai/selector/NPCInteractSelector",
+    "interfaces": [
+      "com/google/common/base/Predicate"
+    ]
+  },
+  "noppes/npcs/api/CommandNoppesBase$SubCommand": {
+    "name": "noppes/npcs/api/CommandNoppesBase$SubCommand",
+    "interfaces": [
+      "java/lang/annotation/Annotation"
+    ]
+  },
+  "noppes/npcs/api/IContainerCustomChest": {
+    "name": "noppes/npcs/api/IContainerCustomChest",
+    "interfaces": [
+      "noppes/npcs/api/IContainer"
+    ]
+  },
+  "noppes/npcs/api/block/IBlockFluidContainer": {
+    "name": "noppes/npcs/api/block/IBlockFluidContainer",
+    "interfaces": [
+      "noppes/npcs/api/block/IBlock"
+    ]
+  },
+  "noppes/npcs/api/block/IBlockScripted": {
+    "name": "noppes/npcs/api/block/IBlockScripted",
+    "interfaces": [
+      "noppes/npcs/api/block/IBlock"
+    ]
+  },
+  "noppes/npcs/api/block/IBlockScriptedDoor": {
+    "name": "noppes/npcs/api/block/IBlockScriptedDoor",
+    "interfaces": [
+      "noppes/npcs/api/block/IBlock"
+    ]
+  },
+  "noppes/npcs/api/block/package-info": {
+    "name": "noppes/npcs/api/block/package-info",
+    "annotations": [
+      {
+        "type": "CLASS",
+        "name": "Lnet/minecraftforge/fml/common/API;",
+        "target": "noppes/npcs/api/block/package-info",
+        "values": {
+          "apiVersion": {
+            "value": "0.1"
+          },
+          "owner": {
+            "value": "customnpcs"
+          },
+          "provides": {
+            "value": "Core|Blocks"
+          }
+        }
+      }
+    ]
+  },
+  "noppes/npcs/api/constants/package-info": {
+    "name": "noppes/npcs/api/constants/package-info",
+    "annotations": [
+      {
+        "type": "CLASS",
+        "name": "Lnet/minecraftforge/fml/common/API;",
+        "target": "noppes/npcs/api/constants/package-info",
+        "values": {
+          "apiVersion": {
+            "value": "0.1"
+          },
+          "owner": {
+            "value": "customnpcs"
+          },
+          "provides": {
+            "value": "Core|Constants"
+          }
+        }
+      }
+    ]
+  },
+  "noppes/npcs/api/entity/IAnimal": {
+    "name": "noppes/npcs/api/entity/IAnimal",
+    "interfaces": [
+      "noppes/npcs/api/entity/IEntityLiving"
+    ]
+  },
+  "noppes/npcs/api/entity/IArrow": {
+    "name": "noppes/npcs/api/entity/IArrow",
+    "interfaces": [
+      "noppes/npcs/api/entity/IEntity"
+    ]
+  },
+  "noppes/npcs/api/entity/ICustomNpc": {
+    "name": "noppes/npcs/api/entity/ICustomNpc",
+    "interfaces": [
+      "noppes/npcs/api/entity/IEntityLiving"
+    ]
+  },
+  "noppes/npcs/api/entity/IEntityItem": {
+    "name": "noppes/npcs/api/entity/IEntityItem",
+    "interfaces": [
+      "noppes/npcs/api/entity/IEntity"
+    ]
+  },
+  "noppes/npcs/api/entity/IEntityLiving": {
+    "name": "noppes/npcs/api/entity/IEntityLiving",
+    "interfaces": [
+      "noppes/npcs/api/entity/IEntityLivingBase"
+    ]
+  },
+  "noppes/npcs/api/entity/IEntityLivingBase": {
+    "name": "noppes/npcs/api/entity/IEntityLivingBase",
+    "interfaces": [
+      "noppes/npcs/api/entity/IEntity"
+    ]
+  },
+  "noppes/npcs/api/entity/IMonster": {
+    "name": "noppes/npcs/api/entity/IMonster",
+    "interfaces": [
+      "noppes/npcs/api/entity/IEntityLiving"
+    ]
+  },
+  "noppes/npcs/api/entity/IPixelmon": {
+    "name": "noppes/npcs/api/entity/IPixelmon",
+    "interfaces": [
+      "noppes/npcs/api/entity/IAnimal"
+    ]
+  },
+  "noppes/npcs/api/entity/IPlayer": {
+    "name": "noppes/npcs/api/entity/IPlayer",
+    "interfaces": [
+      "noppes/npcs/api/entity/IEntityLivingBase"
+    ]
+  },
+  "noppes/npcs/api/entity/IProjectile": {
+    "name": "noppes/npcs/api/entity/IProjectile",
+    "interfaces": [
+      "noppes/npcs/api/entity/IThrowable"
+    ]
+  },
+  "noppes/npcs/api/entity/IThrowable": {
+    "name": "noppes/npcs/api/entity/IThrowable",
+    "interfaces": [
+      "noppes/npcs/api/entity/IEntity"
+    ]
+  },
+  "noppes/npcs/api/entity/IVillager": {
+    "name": "noppes/npcs/api/entity/IVillager",
+    "interfaces": [
+      "noppes/npcs/api/entity/IEntityLiving"
+    ]
+  },
+  "noppes/npcs/api/entity/data/package-info": {
+    "name": "noppes/npcs/api/entity/data/package-info",
+    "annotations": [
+      {
+        "type": "CLASS",
+        "name": "Lnet/minecraftforge/fml/common/API;",
+        "target": "noppes/npcs/api/entity/data/package-info",
+        "values": {
+          "apiVersion": {
+            "value": "0.1"
+          },
+          "owner": {
+            "value": "customnpcs"
+          },
+          "provides": {
+            "value": "Core|Entities|Data|Role"
+          }
+        }
+      }
+    ]
+  },
+  "noppes/npcs/api/entity/data/role/IJobFollower": {
+    "name": "noppes/npcs/api/entity/data/role/IJobFollower",
+    "interfaces": [
+      "noppes/npcs/api/entity/data/INPCJob"
+    ]
+  },
+  "noppes/npcs/api/entity/data/role/IJobPuppet": {
+    "name": "noppes/npcs/api/entity/data/role/IJobPuppet",
+    "interfaces": [
+      "noppes/npcs/api/entity/data/INPCJob"
+    ]
+  },
+  "noppes/npcs/api/entity/data/role/IRoleFollower": {
+    "name": "noppes/npcs/api/entity/data/role/IRoleFollower",
+    "interfaces": [
+      "noppes/npcs/api/entity/data/INPCRole"
+    ]
+  },
+  "noppes/npcs/api/entity/data/role/IRoleTrader": {
+    "name": "noppes/npcs/api/entity/data/role/IRoleTrader",
+    "interfaces": [
+      "noppes/npcs/api/entity/data/INPCRole"
+    ]
+  },
+  "noppes/npcs/api/entity/data/role/IRoleTransporter": {
+    "name": "noppes/npcs/api/entity/data/role/IRoleTransporter",
+    "interfaces": [
+      "noppes/npcs/api/entity/data/INPCRole"
+    ]
+  },
+  "noppes/npcs/api/entity/data/role/package-info": {
+    "name": "noppes/npcs/api/entity/data/role/package-info",
+    "annotations": [
+      {
+        "type": "CLASS",
+        "name": "Lnet/minecraftforge/fml/common/API;",
+        "target": "noppes/npcs/api/entity/data/role/package-info",
+        "values": {
+          "apiVersion": {
+            "value": "0.1"
+          },
+          "owner": {
+            "value": "customnpcs"
+          },
+          "provides": {
+            "value": "Core|Entities|Data"
+          }
+        }
+      }
+    ]
+  },
+  "noppes/npcs/api/entity/package-info": {
+    "name": "noppes/npcs/api/entity/package-info",
+    "annotations": [
+      {
+        "type": "CLASS",
+        "name": "Lnet/minecraftforge/fml/common/API;",
+        "target": "noppes/npcs/api/entity/package-info",
+        "values": {
+          "apiVersion": {
+            "value": "0.1"
+          },
+          "owner": {
+            "value": "customnpcs"
+          },
+          "provides": {
+            "value": "Core|Entities"
+          }
+        }
+      }
+    ]
+  },
+  "noppes/npcs/api/event/BlockEvent$DoorToggleEvent": {
+    "name": "noppes/npcs/api/event/BlockEvent$DoorToggleEvent",
+    "annotations": [
+      {
+        "type": "CLASS",
+        "name": "Lnet/minecraftforge/fml/common/eventhandler/Cancelable;",
+        "target": "noppes/npcs/api/event/BlockEvent$DoorToggleEvent"
+      }
+    ]
+  },
+  "noppes/npcs/api/event/BlockEvent$EntityFallenUponEvent": {
+    "name": "noppes/npcs/api/event/BlockEvent$EntityFallenUponEvent",
+    "annotations": [
+      {
+        "type": "CLASS",
+        "name": "Lnet/minecraftforge/fml/common/eventhandler/Cancelable;",
+        "target": "noppes/npcs/api/event/BlockEvent$EntityFallenUponEvent"
+      }
+    ]
+  },
+  "noppes/npcs/api/event/BlockEvent$ExplodedEvent": {
+    "name": "noppes/npcs/api/event/BlockEvent$ExplodedEvent",
+    "annotations": [
+      {
+        "type": "CLASS",
+        "name": "Lnet/minecraftforge/fml/common/eventhandler/Cancelable;",
+        "target": "noppes/npcs/api/event/BlockEvent$ExplodedEvent"
+      }
+    ]
+  },
+  "noppes/npcs/api/event/BlockEvent$HarvestedEvent": {
+    "name": "noppes/npcs/api/event/BlockEvent$HarvestedEvent",
+    "annotations": [
+      {
+        "type": "CLASS",
+        "name": "Lnet/minecraftforge/fml/common/eventhandler/Cancelable;",
+        "target": "noppes/npcs/api/event/BlockEvent$HarvestedEvent"
+      }
+    ]
+  },
+  "noppes/npcs/api/event/BlockEvent$InteractEvent": {
+    "name": "noppes/npcs/api/event/BlockEvent$InteractEvent",
+    "annotations": [
+      {
+        "type": "CLASS",
+        "name": "Lnet/minecraftforge/fml/common/eventhandler/Cancelable;",
+        "target": "noppes/npcs/api/event/BlockEvent$InteractEvent"
+      }
+    ]
+  },
+  "noppes/npcs/api/event/DialogEvent$OpenEvent": {
+    "name": "noppes/npcs/api/event/DialogEvent$OpenEvent",
+    "annotations": [
+      {
+        "type": "CLASS",
+        "name": "Lnet/minecraftforge/fml/common/eventhandler/Cancelable;",
+        "target": "noppes/npcs/api/event/DialogEvent$OpenEvent"
+      }
+    ]
+  },
+  "noppes/npcs/api/event/DialogEvent$OptionEvent": {
+    "name": "noppes/npcs/api/event/DialogEvent$OptionEvent",
+    "annotations": [
+      {
+        "type": "CLASS",
+        "name": "Lnet/minecraftforge/fml/common/eventhandler/Cancelable;",
+        "target": "noppes/npcs/api/event/DialogEvent$OptionEvent"
+      }
+    ]
+  },
+  "noppes/npcs/api/event/ForgeEvent": {
+    "name": "noppes/npcs/api/event/ForgeEvent",
+    "annotations": [
+      {
+        "type": "CLASS",
+        "name": "Lnet/minecraftforge/fml/common/eventhandler/Cancelable;",
+        "target": "noppes/npcs/api/event/ForgeEvent"
+      }
+    ]
+  },
+  "noppes/npcs/api/event/ForgeEvent$EntityEvent": {
+    "name": "noppes/npcs/api/event/ForgeEvent$EntityEvent",
+    "annotations": [
+      {
+        "type": "CLASS",
+        "name": "Lnet/minecraftforge/fml/common/eventhandler/Cancelable;",
+        "target": "noppes/npcs/api/event/ForgeEvent$EntityEvent"
+      }
+    ]
+  },
+  "noppes/npcs/api/event/ForgeEvent$WorldEvent": {
+    "name": "noppes/npcs/api/event/ForgeEvent$WorldEvent",
+    "annotations": [
+      {
+        "type": "CLASS",
+        "name": "Lnet/minecraftforge/fml/common/eventhandler/Cancelable;",
+        "target": "noppes/npcs/api/event/ForgeEvent$WorldEvent"
+      }
+    ]
+  },
+  "noppes/npcs/api/event/ItemEvent$AttackEvent": {
+    "name": "noppes/npcs/api/event/ItemEvent$AttackEvent",
+    "annotations": [
+      {
+        "type": "CLASS",
+        "name": "Lnet/minecraftforge/fml/common/eventhandler/Cancelable;",
+        "target": "noppes/npcs/api/event/ItemEvent$AttackEvent"
+      }
+    ]
+  },
+  "noppes/npcs/api/event/ItemEvent$InteractEvent": {
+    "name": "noppes/npcs/api/event/ItemEvent$InteractEvent",
+    "annotations": [
+      {
+        "type": "CLASS",
+        "name": "Lnet/minecraftforge/fml/common/eventhandler/Cancelable;",
+        "target": "noppes/npcs/api/event/ItemEvent$InteractEvent"
+      }
+    ]
+  },
+  "noppes/npcs/api/event/ItemEvent$SpawnEvent": {
+    "name": "noppes/npcs/api/event/ItemEvent$SpawnEvent",
+    "annotations": [
+      {
+        "type": "CLASS",
+        "name": "Lnet/minecraftforge/fml/common/eventhandler/Cancelable;",
+        "target": "noppes/npcs/api/event/ItemEvent$SpawnEvent"
+      }
+    ]
+  },
+  "noppes/npcs/api/event/ItemEvent$TossedEvent": {
+    "name": "noppes/npcs/api/event/ItemEvent$TossedEvent",
+    "annotations": [
+      {
+        "type": "CLASS",
+        "name": "Lnet/minecraftforge/fml/common/eventhandler/Cancelable;",
+        "target": "noppes/npcs/api/event/ItemEvent$TossedEvent"
+      }
+    ]
+  },
+  "noppes/npcs/api/event/NpcEvent$DamagedEvent": {
+    "name": "noppes/npcs/api/event/NpcEvent$DamagedEvent",
+    "annotations": [
+      {
+        "type": "CLASS",
+        "name": "Lnet/minecraftforge/fml/common/eventhandler/Cancelable;",
+        "target": "noppes/npcs/api/event/NpcEvent$DamagedEvent"
+      }
+    ]
+  },
+  "noppes/npcs/api/event/NpcEvent$InteractEvent": {
+    "name": "noppes/npcs/api/event/NpcEvent$InteractEvent",
+    "annotations": [
+      {
+        "type": "CLASS",
+        "name": "Lnet/minecraftforge/fml/common/eventhandler/Cancelable;",
+        "target": "noppes/npcs/api/event/NpcEvent$InteractEvent"
+      }
+    ]
+  },
+  "noppes/npcs/api/event/NpcEvent$MeleeAttackEvent": {
+    "name": "noppes/npcs/api/event/NpcEvent$MeleeAttackEvent",
+    "annotations": [
+      {
+        "type": "CLASS",
+        "name": "Lnet/minecraftforge/fml/common/eventhandler/Cancelable;",
+        "target": "noppes/npcs/api/event/NpcEvent$MeleeAttackEvent"
+      }
+    ]
+  },
+  "noppes/npcs/api/event/NpcEvent$TargetEvent": {
+    "name": "noppes/npcs/api/event/NpcEvent$TargetEvent",
+    "annotations": [
+      {
+        "type": "CLASS",
+        "name": "Lnet/minecraftforge/fml/common/eventhandler/Cancelable;",
+        "target": "noppes/npcs/api/event/NpcEvent$TargetEvent"
+      }
+    ]
+  },
+  "noppes/npcs/api/event/NpcEvent$TargetLostEvent": {
+    "name": "noppes/npcs/api/event/NpcEvent$TargetLostEvent",
+    "annotations": [
+      {
+        "type": "CLASS",
+        "name": "Lnet/minecraftforge/fml/common/eventhandler/Cancelable;",
+        "target": "noppes/npcs/api/event/NpcEvent$TargetLostEvent"
+      }
+    ]
+  },
+  "noppes/npcs/api/event/PlayerEvent$AttackEvent": {
+    "name": "noppes/npcs/api/event/PlayerEvent$AttackEvent",
+    "annotations": [
+      {
+        "type": "CLASS",
+        "name": "Lnet/minecraftforge/fml/common/eventhandler/Cancelable;",
+        "target": "noppes/npcs/api/event/PlayerEvent$AttackEvent"
+      }
+    ]
+  },
+  "noppes/npcs/api/event/PlayerEvent$BreakEvent": {
+    "name": "noppes/npcs/api/event/PlayerEvent$BreakEvent",
+    "annotations": [
+      {
+        "type": "CLASS",
+        "name": "Lnet/minecraftforge/fml/common/eventhandler/Cancelable;",
+        "target": "noppes/npcs/api/event/PlayerEvent$BreakEvent"
+      }
+    ]
+  },
+  "noppes/npcs/api/event/PlayerEvent$ChatEvent": {
+    "name": "noppes/npcs/api/event/PlayerEvent$ChatEvent",
+    "annotations": [
+      {
+        "type": "CLASS",
+        "name": "Lnet/minecraftforge/fml/common/eventhandler/Cancelable;",
+        "target": "noppes/npcs/api/event/PlayerEvent$ChatEvent"
+      }
+    ]
+  },
+  "noppes/npcs/api/event/PlayerEvent$DamagedEntityEvent": {
+    "name": "noppes/npcs/api/event/PlayerEvent$DamagedEntityEvent",
+    "annotations": [
+      {
+        "type": "CLASS",
+        "name": "Lnet/minecraftforge/fml/common/eventhandler/Cancelable;",
+        "target": "noppes/npcs/api/event/PlayerEvent$DamagedEntityEvent"
+      }
+    ]
+  },
+  "noppes/npcs/api/event/PlayerEvent$DamagedEvent": {
+    "name": "noppes/npcs/api/event/PlayerEvent$DamagedEvent",
+    "annotations": [
+      {
+        "type": "CLASS",
+        "name": "Lnet/minecraftforge/fml/common/eventhandler/Cancelable;",
+        "target": "noppes/npcs/api/event/PlayerEvent$DamagedEvent"
+      }
+    ]
+  },
+  "noppes/npcs/api/event/PlayerEvent$DiedEvent": {
+    "name": "noppes/npcs/api/event/PlayerEvent$DiedEvent",
+    "annotations": [
+      {
+        "type": "CLASS",
+        "name": "Lnet/minecraftforge/fml/common/eventhandler/Cancelable;",
+        "target": "noppes/npcs/api/event/PlayerEvent$DiedEvent"
+      }
+    ]
+  },
+  "noppes/npcs/api/event/PlayerEvent$InteractEvent": {
+    "name": "noppes/npcs/api/event/PlayerEvent$InteractEvent",
+    "annotations": [
+      {
+        "type": "CLASS",
+        "name": "Lnet/minecraftforge/fml/common/eventhandler/Cancelable;",
+        "target": "noppes/npcs/api/event/PlayerEvent$InteractEvent"
+      }
+    ]
+  },
+  "noppes/npcs/api/event/PlayerEvent$PickUpEvent": {
+    "name": "noppes/npcs/api/event/PlayerEvent$PickUpEvent",
+    "annotations": [
+      {
+        "type": "CLASS",
+        "name": "Lnet/minecraftforge/fml/common/eventhandler/Cancelable;",
+        "target": "noppes/npcs/api/event/PlayerEvent$PickUpEvent"
+      }
+    ]
+  },
+  "noppes/npcs/api/event/PlayerEvent$RangedLaunchedEvent": {
+    "name": "noppes/npcs/api/event/PlayerEvent$RangedLaunchedEvent",
+    "annotations": [
+      {
+        "type": "CLASS",
+        "name": "Lnet/minecraftforge/fml/common/eventhandler/Cancelable;",
+        "target": "noppes/npcs/api/event/PlayerEvent$RangedLaunchedEvent"
+      }
+    ]
+  },
+  "noppes/npcs/api/event/PlayerEvent$TossEvent": {
+    "name": "noppes/npcs/api/event/PlayerEvent$TossEvent",
+    "annotations": [
+      {
+        "type": "CLASS",
+        "name": "Lnet/minecraftforge/fml/common/eventhandler/Cancelable;",
+        "target": "noppes/npcs/api/event/PlayerEvent$TossEvent"
+      }
+    ]
+  },
+  "noppes/npcs/api/event/QuestEvent$QuestStartEvent": {
+    "name": "noppes/npcs/api/event/QuestEvent$QuestStartEvent",
+    "annotations": [
+      {
+        "type": "CLASS",
+        "name": "Lnet/minecraftforge/fml/common/eventhandler/Cancelable;",
+        "target": "noppes/npcs/api/event/QuestEvent$QuestStartEvent"
+      }
+    ]
+  },
+  "noppes/npcs/api/event/RoleEvent$FollowerHireEvent": {
+    "name": "noppes/npcs/api/event/RoleEvent$FollowerHireEvent",
+    "annotations": [
+      {
+        "type": "CLASS",
+        "name": "Lnet/minecraftforge/fml/common/eventhandler/Cancelable;",
+        "target": "noppes/npcs/api/event/RoleEvent$FollowerHireEvent"
+      }
+    ]
+  },
+  "noppes/npcs/api/event/RoleEvent$MailmanEvent": {
+    "name": "noppes/npcs/api/event/RoleEvent$MailmanEvent",
+    "annotations": [
+      {
+        "type": "CLASS",
+        "name": "Lnet/minecraftforge/fml/common/eventhandler/Cancelable;",
+        "target": "noppes/npcs/api/event/RoleEvent$MailmanEvent"
+      }
+    ]
+  },
+  "noppes/npcs/api/event/RoleEvent$TraderEvent": {
+    "name": "noppes/npcs/api/event/RoleEvent$TraderEvent",
+    "annotations": [
+      {
+        "type": "CLASS",
+        "name": "Lnet/minecraftforge/fml/common/eventhandler/Cancelable;",
+        "target": "noppes/npcs/api/event/RoleEvent$TraderEvent"
+      }
+    ]
+  },
+  "noppes/npcs/api/event/RoleEvent$TransporterUnlockedEvent": {
+    "name": "noppes/npcs/api/event/RoleEvent$TransporterUnlockedEvent",
+    "annotations": [
+      {
+        "type": "CLASS",
+        "name": "Lnet/minecraftforge/fml/common/eventhandler/Cancelable;",
+        "target": "noppes/npcs/api/event/RoleEvent$TransporterUnlockedEvent"
+      }
+    ]
+  },
+  "noppes/npcs/api/event/RoleEvent$TransporterUseEvent": {
+    "name": "noppes/npcs/api/event/RoleEvent$TransporterUseEvent",
+    "annotations": [
+      {
+        "type": "CLASS",
+        "name": "Lnet/minecraftforge/fml/common/eventhandler/Cancelable;",
+        "target": "noppes/npcs/api/event/RoleEvent$TransporterUseEvent"
+      }
+    ]
+  },
+  "noppes/npcs/api/event/package-info": {
+    "name": "noppes/npcs/api/event/package-info",
+    "annotations": [
+      {
+        "type": "CLASS",
+        "name": "Lnet/minecraftforge/fml/common/API;",
+        "target": "noppes/npcs/api/event/package-info",
+        "values": {
+          "apiVersion": {
+            "value": "0.1"
+          },
+          "owner": {
+            "value": "customnpcs"
+          },
+          "provides": {
+            "value": "Core|Events"
+          }
+        }
+      }
+    ]
+  },
+  "noppes/npcs/api/gui/IButton": {
+    "name": "noppes/npcs/api/gui/IButton",
+    "interfaces": [
+      "noppes/npcs/api/gui/ICustomGuiComponent"
+    ]
+  },
+  "noppes/npcs/api/gui/IItemSlot": {
+    "name": "noppes/npcs/api/gui/IItemSlot",
+    "interfaces": [
+      "noppes/npcs/api/gui/ICustomGuiComponent"
+    ]
+  },
+  "noppes/npcs/api/gui/ILabel": {
+    "name": "noppes/npcs/api/gui/ILabel",
+    "interfaces": [
+      "noppes/npcs/api/gui/ICustomGuiComponent"
+    ]
+  },
+  "noppes/npcs/api/gui/IScroll": {
+    "name": "noppes/npcs/api/gui/IScroll",
+    "interfaces": [
+      "noppes/npcs/api/gui/ICustomGuiComponent"
+    ]
+  },
+  "noppes/npcs/api/gui/ITextField": {
+    "name": "noppes/npcs/api/gui/ITextField",
+    "interfaces": [
+      "noppes/npcs/api/gui/ICustomGuiComponent"
+    ]
+  },
+  "noppes/npcs/api/gui/ITexturedButton": {
+    "name": "noppes/npcs/api/gui/ITexturedButton",
+    "interfaces": [
+      "noppes/npcs/api/gui/IButton"
+    ]
+  },
+  "noppes/npcs/api/gui/ITexturedRect": {
+    "name": "noppes/npcs/api/gui/ITexturedRect",
+    "interfaces": [
+      "noppes/npcs/api/gui/ICustomGuiComponent"
+    ]
+  },
+  "noppes/npcs/api/gui/package-info": {
+    "name": "noppes/npcs/api/gui/package-info",
+    "annotations": [
+      {
+        "type": "CLASS",
+        "name": "Lnet/minecraftforge/fml/common/API;",
+        "target": "noppes/npcs/api/gui/package-info",
+        "values": {
+          "apiVersion": {
+            "value": "0.1"
+          },
+          "owner": {
+            "value": "customnpcs"
+          },
+          "provides": {
+            "value": "Core|Gui"
+          }
+        }
+      }
+    ]
+  },
+  "noppes/npcs/api/handler/data/package-info": {
+    "name": "noppes/npcs/api/handler/data/package-info",
+    "annotations": [
+      {
+        "type": "CLASS",
+        "name": "Lnet/minecraftforge/fml/common/API;",
+        "target": "noppes/npcs/api/handler/data/package-info",
+        "values": {
+          "apiVersion": {
+            "value": "0.1"
+          },
+          "owner": {
+            "value": "customnpcs"
+          },
+          "provides": {
+            "value": "Core|Handlers|Data"
+          }
+        }
+      }
+    ]
+  },
+  "noppes/npcs/api/handler/package-info": {
+    "name": "noppes/npcs/api/handler/package-info",
+    "annotations": [
+      {
+        "type": "CLASS",
+        "name": "Lnet/minecraftforge/fml/common/API;",
+        "target": "noppes/npcs/api/handler/package-info",
+        "values": {
+          "apiVersion": {
+            "value": "0.1"
+          },
+          "owner": {
+            "value": "customnpcs"
+          },
+          "provides": {
+            "value": "Core|Handlers"
+          }
+        }
+      }
+    ]
+  },
+  "noppes/npcs/api/item/IItemArmor": {
+    "name": "noppes/npcs/api/item/IItemArmor",
+    "interfaces": [
+      "noppes/npcs/api/item/IItemStack"
+    ]
+  },
+  "noppes/npcs/api/item/IItemBlock": {
+    "name": "noppes/npcs/api/item/IItemBlock",
+    "interfaces": [
+      "noppes/npcs/api/item/IItemStack"
+    ]
+  },
+  "noppes/npcs/api/item/IItemBook": {
+    "name": "noppes/npcs/api/item/IItemBook",
+    "interfaces": [
+      "noppes/npcs/api/item/IItemStack"
+    ]
+  },
+  "noppes/npcs/api/item/IItemScripted": {
+    "name": "noppes/npcs/api/item/IItemScripted",
+    "interfaces": [
+      "noppes/npcs/api/item/IItemStack"
+    ]
+  },
+  "noppes/npcs/api/package-info": {
+    "name": "noppes/npcs/api/package-info",
+    "annotations": [
+      {
+        "type": "CLASS",
+        "name": "Lnet/minecraftforge/fml/common/API;",
+        "target": "noppes/npcs/api/package-info",
+        "values": {
+          "apiVersion": {
+            "value": "0.1"
+          },
+          "owner": {
+            "value": "customnpcs"
+          },
+          "provides": {
+            "value": "Core"
+          }
+        }
+      }
+    ]
+  },
+  "noppes/npcs/api/wrapper/AnimalWrapper": {
+    "name": "noppes/npcs/api/wrapper/AnimalWrapper",
+    "interfaces": [
+      "noppes/npcs/api/entity/IAnimal"
+    ]
+  },
+  "noppes/npcs/api/wrapper/ArrowWrapper": {
+    "name": "noppes/npcs/api/wrapper/ArrowWrapper",
+    "interfaces": [
+      "noppes/npcs/api/entity/IArrow"
+    ]
+  },
+  "noppes/npcs/api/wrapper/BlockFluidContainerWrapper": {
+    "name": "noppes/npcs/api/wrapper/BlockFluidContainerWrapper",
+    "interfaces": [
+      "noppes/npcs/api/block/IBlockFluidContainer"
+    ]
+  },
+  "noppes/npcs/api/wrapper/BlockPosWrapper": {
+    "name": "noppes/npcs/api/wrapper/BlockPosWrapper",
+    "interfaces": [
+      "noppes/npcs/api/IPos"
+    ]
+  },
+  "noppes/npcs/api/wrapper/BlockScriptedDoorWrapper": {
+    "name": "noppes/npcs/api/wrapper/BlockScriptedDoorWrapper",
+    "interfaces": [
+      "noppes/npcs/api/block/IBlockScriptedDoor"
+    ]
+  },
+  "noppes/npcs/api/wrapper/BlockScriptedWrapper": {
+    "name": "noppes/npcs/api/wrapper/BlockScriptedWrapper",
+    "interfaces": [
+      "noppes/npcs/api/block/IBlockScripted"
+    ]
+  },
+  "noppes/npcs/api/wrapper/BlockWrapper": {
+    "name": "noppes/npcs/api/wrapper/BlockWrapper",
+    "interfaces": [
+      "noppes/npcs/api/block/IBlock"
+    ]
+  },
+  "noppes/npcs/api/wrapper/BlockWrapper$1": {
+    "name": "noppes/npcs/api/wrapper/BlockWrapper$1",
+    "interfaces": [
+      "noppes/npcs/api/entity/data/IData"
+    ]
+  },
+  "noppes/npcs/api/wrapper/BlockWrapper$2": {
+    "name": "noppes/npcs/api/wrapper/BlockWrapper$2",
+    "interfaces": [
+      "noppes/npcs/api/entity/data/IData"
+    ]
+  },
+  "noppes/npcs/api/wrapper/ContainerCustomChestWrapper": {
+    "name": "noppes/npcs/api/wrapper/ContainerCustomChestWrapper",
+    "interfaces": [
+      "noppes/npcs/api/IContainerCustomChest"
+    ]
+  },
+  "noppes/npcs/api/wrapper/ContainerWrapper": {
+    "name": "noppes/npcs/api/wrapper/ContainerWrapper",
+    "interfaces": [
+      "noppes/npcs/api/IContainer"
+    ]
+  },
+  "noppes/npcs/api/wrapper/DamageSourceWrapper": {
+    "name": "noppes/npcs/api/wrapper/DamageSourceWrapper",
+    "interfaces": [
+      "noppes/npcs/api/IDamageSource"
+    ]
+  },
+  "noppes/npcs/api/wrapper/DimensionWrapper": {
+    "name": "noppes/npcs/api/wrapper/DimensionWrapper",
+    "interfaces": [
+      "noppes/npcs/api/IDimension"
+    ]
+  },
+  "noppes/npcs/api/wrapper/EntityItemWrapper": {
+    "name": "noppes/npcs/api/wrapper/EntityItemWrapper",
+    "interfaces": [
+      "noppes/npcs/api/entity/IEntityItem"
+    ]
+  },
+  "noppes/npcs/api/wrapper/EntityLivingBaseWrapper": {
+    "name": "noppes/npcs/api/wrapper/EntityLivingBaseWrapper",
+    "interfaces": [
+      "noppes/npcs/api/entity/IEntityLivingBase"
+    ]
+  },
+  "noppes/npcs/api/wrapper/EntityLivingWrapper": {
+    "name": "noppes/npcs/api/wrapper/EntityLivingWrapper",
+    "interfaces": [
+      "noppes/npcs/api/entity/IEntityLiving"
+    ]
+  },
+  "noppes/npcs/api/wrapper/EntityWrapper": {
+    "name": "noppes/npcs/api/wrapper/EntityWrapper",
+    "interfaces": [
+      "noppes/npcs/api/entity/IEntity"
+    ]
+  },
+  "noppes/npcs/api/wrapper/EntityWrapper$1": {
+    "name": "noppes/npcs/api/wrapper/EntityWrapper$1",
+    "interfaces": [
+      "noppes/npcs/api/entity/data/IData"
+    ]
+  },
+  "noppes/npcs/api/wrapper/EntityWrapper$2": {
+    "name": "noppes/npcs/api/wrapper/EntityWrapper$2",
+    "interfaces": [
+      "noppes/npcs/api/entity/data/IData"
+    ]
+  },
+  "noppes/npcs/api/wrapper/ItemArmorWrapper": {
+    "name": "noppes/npcs/api/wrapper/ItemArmorWrapper",
+    "interfaces": [
+      "noppes/npcs/api/item/IItemArmor"
+    ]
+  },
+  "noppes/npcs/api/wrapper/ItemBlockWrapper": {
+    "name": "noppes/npcs/api/wrapper/ItemBlockWrapper",
+    "interfaces": [
+      "noppes/npcs/api/item/IItemBlock"
+    ]
+  },
+  "noppes/npcs/api/wrapper/ItemBookWrapper": {
+    "name": "noppes/npcs/api/wrapper/ItemBookWrapper",
+    "interfaces": [
+      "noppes/npcs/api/item/IItemBook"
+    ]
+  },
+  "noppes/npcs/api/wrapper/ItemScriptedWrapper": {
+    "name": "noppes/npcs/api/wrapper/ItemScriptedWrapper",
+    "interfaces": [
+      "noppes/npcs/api/item/IItemScripted",
+      "noppes/npcs/controllers/IScriptHandler"
+    ]
+  },
+  "noppes/npcs/api/wrapper/ItemStackWrapper": {
+    "name": "noppes/npcs/api/wrapper/ItemStackWrapper",
+    "interfaces": [
+      "noppes/npcs/api/item/IItemStack",
+      "net/minecraftforge/common/capabilities/ICapabilityProvider",
+      "net/minecraftforge/common/capabilities/ICapabilitySerializable"
+    ],
+    "annotations": [
+      {
+        "type": "FIELD",
+        "name": "Lnet/minecraftforge/common/capabilities/CapabilityInject;",
+        "target": "ITEMSCRIPTEDDATA_CAPABILITY",
+        "value": {
+          "type": "CLASS",
+          "value": "Lnoppes/npcs/api/wrapper/ItemStackWrapper;"
+        }
+      }
+    ]
+  },
+  "noppes/npcs/api/wrapper/ItemStackWrapper$1": {
+    "name": "noppes/npcs/api/wrapper/ItemStackWrapper$1",
+    "interfaces": [
+      "noppes/npcs/api/entity/data/IData"
+    ]
+  },
+  "noppes/npcs/api/wrapper/ItemStackWrapper$2": {
+    "name": "noppes/npcs/api/wrapper/ItemStackWrapper$2",
+    "interfaces": [
+      "noppes/npcs/api/entity/data/IData"
+    ]
+  },
+  "noppes/npcs/api/wrapper/MonsterWrapper": {
+    "name": "noppes/npcs/api/wrapper/MonsterWrapper",
+    "interfaces": [
+      "noppes/npcs/api/entity/IMonster"
+    ]
+  },
+  "noppes/npcs/api/wrapper/NBTWrapper": {
+    "name": "noppes/npcs/api/wrapper/NBTWrapper",
+    "interfaces": [
+      "noppes/npcs/api/INbt"
+    ]
+  },
+  "noppes/npcs/api/wrapper/NPCWrapper": {
+    "name": "noppes/npcs/api/wrapper/NPCWrapper",
+    "interfaces": [
+      "noppes/npcs/api/entity/ICustomNpc"
+    ]
+  },
+  "noppes/npcs/api/wrapper/PixelmonWrapper": {
+    "name": "noppes/npcs/api/wrapper/PixelmonWrapper",
+    "interfaces": [
+      "noppes/npcs/api/entity/IPixelmon"
+    ]
+  },
+  "noppes/npcs/api/wrapper/PlayerWrapper": {
+    "name": "noppes/npcs/api/wrapper/PlayerWrapper",
+    "interfaces": [
+      "noppes/npcs/api/entity/IPlayer"
+    ]
+  },
+  "noppes/npcs/api/wrapper/PlayerWrapper$1": {
+    "name": "noppes/npcs/api/wrapper/PlayerWrapper$1",
+    "interfaces": [
+      "noppes/npcs/api/entity/data/IData"
+    ]
+  },
+  "noppes/npcs/api/wrapper/PlayerWrapper$2": {
+    "name": "noppes/npcs/api/wrapper/PlayerWrapper$2",
+    "interfaces": [
+      "noppes/npcs/api/entity/data/IPixelmonPlayerData"
+    ]
+  },
+  "noppes/npcs/api/wrapper/ProjectileWrapper": {
+    "name": "noppes/npcs/api/wrapper/ProjectileWrapper",
+    "interfaces": [
+      "noppes/npcs/api/entity/IProjectile"
+    ]
+  },
+  "noppes/npcs/api/wrapper/RayTraceWrapper": {
+    "name": "noppes/npcs/api/wrapper/RayTraceWrapper",
+    "interfaces": [
+      "noppes/npcs/api/IRayTrace"
+    ]
+  },
+  "noppes/npcs/api/wrapper/ScoreboardObjectiveWrapper": {
+    "name": "noppes/npcs/api/wrapper/ScoreboardObjectiveWrapper",
+    "interfaces": [
+      "noppes/npcs/api/IScoreboardObjective"
+    ]
+  },
+  "noppes/npcs/api/wrapper/ScoreboardScoreWrapper": {
+    "name": "noppes/npcs/api/wrapper/ScoreboardScoreWrapper",
+    "interfaces": [
+      "noppes/npcs/api/IScoreboardScore"
+    ]
+  },
+  "noppes/npcs/api/wrapper/ScoreboardTeamWrapper": {
+    "name": "noppes/npcs/api/wrapper/ScoreboardTeamWrapper",
+    "interfaces": [
+      "noppes/npcs/api/IScoreboardTeam"
+    ]
+  },
+  "noppes/npcs/api/wrapper/ScoreboardWrapper": {
+    "name": "noppes/npcs/api/wrapper/ScoreboardWrapper",
+    "interfaces": [
+      "noppes/npcs/api/IScoreboard"
+    ]
+  },
+  "noppes/npcs/api/wrapper/ThrowableWrapper": {
+    "name": "noppes/npcs/api/wrapper/ThrowableWrapper",
+    "interfaces": [
+      "noppes/npcs/api/entity/IThrowable"
+    ]
+  },
+  "noppes/npcs/api/wrapper/VillagerWrapper": {
+    "name": "noppes/npcs/api/wrapper/VillagerWrapper",
+    "interfaces": [
+      "noppes/npcs/api/entity/IVillager"
+    ]
+  },
+  "noppes/npcs/api/wrapper/WorldWrapper": {
+    "name": "noppes/npcs/api/wrapper/WorldWrapper",
+    "interfaces": [
+      "noppes/npcs/api/IWorld"
+    ]
+  },
+  "noppes/npcs/api/wrapper/WorldWrapper$1": {
+    "name": "noppes/npcs/api/wrapper/WorldWrapper$1",
+    "interfaces": [
+      "noppes/npcs/api/entity/data/IData"
+    ]
+  },
+  "noppes/npcs/api/wrapper/WorldWrapper$2": {
+    "name": "noppes/npcs/api/wrapper/WorldWrapper$2",
+    "interfaces": [
+      "noppes/npcs/api/entity/data/IData"
+    ]
+  },
+  "noppes/npcs/api/wrapper/WrapperEntityData": {
+    "name": "noppes/npcs/api/wrapper/WrapperEntityData",
+    "interfaces": [
+      "net/minecraftforge/common/capabilities/ICapabilityProvider"
+    ],
+    "annotations": [
+      {
+        "type": "FIELD",
+        "name": "Lnet/minecraftforge/common/capabilities/CapabilityInject;",
+        "target": "ENTITYDATA_CAPABILITY",
+        "value": {
+          "type": "CLASS",
+          "value": "Lnoppes/npcs/api/wrapper/WrapperEntityData;"
+        }
+      }
+    ]
+  },
+  "noppes/npcs/api/wrapper/gui/CustomGuiButtonWrapper": {
+    "name": "noppes/npcs/api/wrapper/gui/CustomGuiButtonWrapper",
+    "interfaces": [
+      "noppes/npcs/api/gui/IButton"
+    ]
+  },
+  "noppes/npcs/api/wrapper/gui/CustomGuiComponentWrapper": {
+    "name": "noppes/npcs/api/wrapper/gui/CustomGuiComponentWrapper",
+    "interfaces": [
+      "noppes/npcs/api/gui/ICustomGuiComponent"
+    ]
+  },
+  "noppes/npcs/api/wrapper/gui/CustomGuiItemSlotWrapper": {
+    "name": "noppes/npcs/api/wrapper/gui/CustomGuiItemSlotWrapper",
+    "interfaces": [
+      "noppes/npcs/api/gui/IItemSlot"
+    ]
+  },
+  "noppes/npcs/api/wrapper/gui/CustomGuiLabelWrapper": {
+    "name": "noppes/npcs/api/wrapper/gui/CustomGuiLabelWrapper",
+    "interfaces": [
+      "noppes/npcs/api/gui/ILabel"
+    ]
+  },
+  "noppes/npcs/api/wrapper/gui/CustomGuiScrollWrapper": {
+    "name": "noppes/npcs/api/wrapper/gui/CustomGuiScrollWrapper",
+    "interfaces": [
+      "noppes/npcs/api/gui/IScroll"
+    ]
+  },
+  "noppes/npcs/api/wrapper/gui/CustomGuiTextFieldWrapper": {
+    "name": "noppes/npcs/api/wrapper/gui/CustomGuiTextFieldWrapper",
+    "interfaces": [
+      "noppes/npcs/api/gui/ITextField"
+    ]
+  },
+  "noppes/npcs/api/wrapper/gui/CustomGuiTexturedRectWrapper": {
+    "name": "noppes/npcs/api/wrapper/gui/CustomGuiTexturedRectWrapper",
+    "interfaces": [
+      "noppes/npcs/api/gui/ITexturedRect"
+    ]
+  },
+  "noppes/npcs/api/wrapper/gui/CustomGuiWrapper": {
+    "name": "noppes/npcs/api/wrapper/gui/CustomGuiWrapper",
+    "interfaces": [
+      "noppes/npcs/api/gui/ICustomGui"
+    ]
+  },
+  "noppes/npcs/blocks/BlockBorder": {
+    "name": "noppes/npcs/blocks/BlockBorder",
+    "interfaces": [
+      "noppes/npcs/util/IPermission"
+    ]
+  },
+  "noppes/npcs/blocks/BlockBuilder": {
+    "name": "noppes/npcs/blocks/BlockBuilder",
+    "interfaces": [
+      "noppes/npcs/util/IPermission"
+    ]
+  },
+  "noppes/npcs/blocks/BlockCopy": {
+    "name": "noppes/npcs/blocks/BlockCopy",
+    "interfaces": [
+      "noppes/npcs/util/IPermission"
+    ]
+  },
+  "noppes/npcs/blocks/BlockNpcDoorInterface": {
+    "name": "noppes/npcs/blocks/BlockNpcDoorInterface",
+    "interfaces": [
+      "net/minecraft/block/ITileEntityProvider"
+    ]
+  },
+  "noppes/npcs/blocks/BlockNpcRedstone": {
+    "name": "noppes/npcs/blocks/BlockNpcRedstone",
+    "interfaces": [
+      "noppes/npcs/util/IPermission"
+    ]
+  },
+  "noppes/npcs/blocks/BlockScripted": {
+    "name": "noppes/npcs/blocks/BlockScripted",
+    "interfaces": [
+      "noppes/npcs/util/IPermission"
+    ]
+  },
+  "noppes/npcs/blocks/BlockScriptedDoor": {
+    "name": "noppes/npcs/blocks/BlockScriptedDoor",
+    "interfaces": [
+      "noppes/npcs/util/IPermission"
+    ]
+  },
+  "noppes/npcs/blocks/BlockWaypoint": {
+    "name": "noppes/npcs/blocks/BlockWaypoint",
+    "interfaces": [
+      "noppes/npcs/util/IPermission"
+    ]
+  },
+  "noppes/npcs/blocks/tiles/TileBorder": {
+    "name": "noppes/npcs/blocks/tiles/TileBorder",
+    "interfaces": [
+      "com/google/common/base/Predicate",
+      "net/minecraft/util/ITickable"
+    ]
+  },
+  "noppes/npcs/blocks/tiles/TileBuilder": {
+    "name": "noppes/npcs/blocks/tiles/TileBuilder",
+    "interfaces": [
+      "net/minecraft/util/ITickable"
+    ]
+  },
+  "noppes/npcs/blocks/tiles/TileDoor": {
+    "name": "noppes/npcs/blocks/tiles/TileDoor",
+    "interfaces": [
+      "net/minecraft/util/ITickable"
+    ]
+  },
+  "noppes/npcs/blocks/tiles/TileNpcContainer": {
+    "name": "noppes/npcs/blocks/tiles/TileNpcContainer",
+    "interfaces": [
+      "net/minecraft/inventory/IInventory"
+    ]
+  },
+  "noppes/npcs/blocks/tiles/TileRedstoneBlock": {
+    "name": "noppes/npcs/blocks/tiles/TileRedstoneBlock",
+    "interfaces": [
+      "net/minecraft/util/ITickable"
+    ]
+  },
+  "noppes/npcs/blocks/tiles/TileScripted": {
+    "name": "noppes/npcs/blocks/tiles/TileScripted",
+    "interfaces": [
+      "net/minecraft/util/ITickable",
+      "noppes/npcs/controllers/IScriptBlockHandler"
+    ]
+  },
+  "noppes/npcs/blocks/tiles/TileScripted$TextPlane": {
+    "name": "noppes/npcs/blocks/tiles/TileScripted$TextPlane",
+    "interfaces": [
+      "noppes/npcs/api/block/ITextPlane"
+    ]
+  },
+  "noppes/npcs/blocks/tiles/TileScriptedDoor": {
+    "name": "noppes/npcs/blocks/tiles/TileScriptedDoor",
+    "interfaces": [
+      "net/minecraft/util/ITickable",
+      "noppes/npcs/controllers/IScriptBlockHandler"
+    ]
+  },
+  "noppes/npcs/blocks/tiles/TileWaypoint": {
+    "name": "noppes/npcs/blocks/tiles/TileWaypoint",
+    "interfaces": [
+      "net/minecraft/util/ITickable"
+    ]
+  },
+  "noppes/npcs/client/ClientEventHandler": {
+    "name": "noppes/npcs/client/ClientEventHandler",
+    "annotations": [
+      {
+        "type": "METHOD",
+        "name": "Lnet/minecraftforge/fml/common/eventhandler/SubscribeEvent;",
+        "target": "onRenderTick(Lnet/minecraftforge/client/event/RenderWorldLastEvent;)V"
+      },
+      {
+        "type": "METHOD",
+        "name": "Lnet/minecraftforge/fml/common/eventhandler/SubscribeEvent;",
+        "target": "post(Lnet/minecraftforge/client/event/RenderLivingEvent$Post;)V"
+      }
+    ]
+  },
+  "noppes/npcs/client/ClientTickHandler": {
+    "name": "noppes/npcs/client/ClientTickHandler",
+    "annotations": [
+      {
+        "type": "METHOD",
+        "name": "Lnet/minecraftforge/fml/common/eventhandler/SubscribeEvent;",
+        "target": "onClientTick(Lnet/minecraftforge/fml/common/gameevent/TickEvent$ClientTickEvent;)V",
+        "values": {
+          "priority": {
+            "type": "ENUM",
+            "value": "Lnet/minecraftforge/fml/common/eventhandler/EventPriority;/LOWEST"
+          }
+        }
+      },
+      {
+        "type": "METHOD",
+        "name": "Lnet/minecraftforge/fml/common/eventhandler/SubscribeEvent;",
+        "target": "onKey(Lnet/minecraftforge/fml/common/gameevent/InputEvent$KeyInputEvent;)V"
+      },
+      {
+        "type": "METHOD",
+        "name": "Lnet/minecraftforge/fml/common/eventhandler/SubscribeEvent;",
+        "target": "invoke(Lnet/minecraftforge/event/entity/player/PlayerInteractEvent$LeftClickEmpty;)V"
+      }
+    ]
+  },
+  "noppes/npcs/client/CustomNpcResourceListener": {
+    "name": "noppes/npcs/client/CustomNpcResourceListener",
+    "interfaces": [
+      "net/minecraft/client/resources/IResourceManagerReloadListener"
+    ]
+  },
+  "noppes/npcs/client/PacketHandlerClient": {
+    "name": "noppes/npcs/client/PacketHandlerClient",
+    "annotations": [
+      {
+        "type": "METHOD",
+        "name": "Lnet/minecraftforge/fml/common/eventhandler/SubscribeEvent;",
+        "target": "onPacketData(Lnet/minecraftforge/fml/common/network/FMLNetworkEvent$ClientCustomPacketEvent;)V"
+      }
+    ]
+  },
+  "noppes/npcs/client/RenderChatMessages": {
+    "name": "noppes/npcs/client/RenderChatMessages",
+    "interfaces": [
+      "noppes/npcs/IChatMessages"
+    ]
+  },
+  "noppes/npcs/client/gui/GuiAchievement": {
+    "name": "noppes/npcs/client/gui/GuiAchievement",
+    "interfaces": [
+      "net/minecraft/client/gui/toasts/IToast"
+    ]
+  },
+  "noppes/npcs/client/gui/GuiBlockBuilder": {
+    "name": "noppes/npcs/client/gui/GuiBlockBuilder",
+    "interfaces": [
+      "noppes/npcs/client/gui/util/IGuiData",
+      "noppes/npcs/client/gui/util/ICustomScrollListener",
+      "noppes/npcs/client/gui/util/IScrollData",
+      "net/minecraft/client/gui/GuiYesNoCallback"
+    ]
+  },
+  "noppes/npcs/client/gui/GuiBlockBuilder$1": {
+    "name": "noppes/npcs/client/gui/GuiBlockBuilder$1",
+    "interfaces": [
+      "noppes/npcs/schematics/ISchematic"
+    ]
+  },
+  "noppes/npcs/client/gui/GuiBlockCopy": {
+    "name": "noppes/npcs/client/gui/GuiBlockCopy",
+    "interfaces": [
+      "noppes/npcs/client/gui/util/IGuiData",
+      "noppes/npcs/client/gui/util/ITextfieldListener"
+    ]
+  },
+  "noppes/npcs/client/gui/GuiBorderBlock": {
+    "name": "noppes/npcs/client/gui/GuiBorderBlock",
+    "interfaces": [
+      "noppes/npcs/client/gui/util/IGuiData"
+    ]
+  },
+  "noppes/npcs/client/gui/GuiNPCFactionSelection": {
+    "name": "noppes/npcs/client/gui/GuiNPCFactionSelection",
+    "interfaces": [
+      "noppes/npcs/client/gui/util/IScrollData"
+    ]
+  },
+  "noppes/npcs/client/gui/GuiNPCLinesEdit": {
+    "name": "noppes/npcs/client/gui/GuiNPCLinesEdit",
+    "interfaces": [
+      "noppes/npcs/client/gui/util/IGuiData",
+      "noppes/npcs/client/gui/util/ISubGuiListener"
+    ]
+  },
+  "noppes/npcs/client/gui/GuiNbtBook": {
+    "name": "noppes/npcs/client/gui/GuiNbtBook",
+    "interfaces": [
+      "noppes/npcs/client/gui/util/IGuiData"
+    ]
+  },
+  "noppes/npcs/client/gui/GuiNpcDimension": {
+    "name": "noppes/npcs/client/gui/GuiNpcDimension",
+    "interfaces": [
+      "noppes/npcs/client/gui/util/IScrollData"
+    ]
+  },
+  "noppes/npcs/client/gui/GuiNpcMobSpawner": {
+    "name": "noppes/npcs/client/gui/GuiNpcMobSpawner",
+    "interfaces": [
+      "noppes/npcs/client/gui/util/IGuiData"
+    ]
+  },
+  "noppes/npcs/client/gui/GuiNpcMobSpawnerAdd": {
+    "name": "noppes/npcs/client/gui/GuiNpcMobSpawnerAdd",
+    "interfaces": [
+      "net/minecraft/client/gui/GuiYesNoCallback",
+      "noppes/npcs/client/gui/util/IGuiData"
+    ]
+  },
+  "noppes/npcs/client/gui/GuiNpcMobSpawnerMounter": {
+    "name": "noppes/npcs/client/gui/GuiNpcMobSpawnerMounter",
+    "interfaces": [
+      "noppes/npcs/client/gui/util/IGuiData"
+    ]
+  },
+  "noppes/npcs/client/gui/GuiNpcMobSpawnerSelector": {
+    "name": "noppes/npcs/client/gui/GuiNpcMobSpawnerSelector",
+    "interfaces": [
+      "noppes/npcs/client/gui/util/IGuiData"
+    ]
+  },
+  "noppes/npcs/client/gui/GuiNpcPather": {
+    "name": "noppes/npcs/client/gui/GuiNpcPather",
+    "interfaces": [
+      "noppes/npcs/client/gui/util/IGuiData"
+    ]
+  },
+  "noppes/npcs/client/gui/GuiNpcRedstoneBlock": {
+    "name": "noppes/npcs/client/gui/GuiNpcRedstoneBlock",
+    "interfaces": [
+      "noppes/npcs/client/gui/util/IGuiData"
+    ]
+  },
+  "noppes/npcs/client/gui/GuiNpcRemoteEditor": {
+    "name": "noppes/npcs/client/gui/GuiNpcRemoteEditor",
+    "interfaces": [
+      "noppes/npcs/client/gui/util/IScrollData",
+      "net/minecraft/client/gui/GuiYesNoCallback"
+    ]
+  },
+  "noppes/npcs/client/gui/GuiNpcWaypoint": {
+    "name": "noppes/npcs/client/gui/GuiNpcWaypoint",
+    "interfaces": [
+      "noppes/npcs/client/gui/util/IGuiData"
+    ]
+  },
+  "noppes/npcs/client/gui/SubGuiColorSelector": {
+    "name": "noppes/npcs/client/gui/SubGuiColorSelector",
+    "interfaces": [
+      "noppes/npcs/client/gui/util/ITextfieldListener"
+    ]
+  },
+  "noppes/npcs/client/gui/SubGuiMailmanSendSetup": {
+    "name": "noppes/npcs/client/gui/SubGuiMailmanSendSetup",
+    "interfaces": [
+      "noppes/npcs/client/gui/util/ITextfieldListener",
+      "noppes/npcs/client/gui/util/GuiSelectionListener"
+    ]
+  },
+  "noppes/npcs/client/gui/SubGuiNpcAvailability": {
+    "name": "noppes/npcs/client/gui/SubGuiNpcAvailability",
+    "interfaces": [
+      "noppes/npcs/client/gui/util/ITextfieldListener",
+      "noppes/npcs/client/gui/util/GuiSelectionListener",
+      "noppes/npcs/client/gui/util/IGuiData"
+    ]
+  },
+  "noppes/npcs/client/gui/SubGuiNpcAvailabilityDialog": {
+    "name": "noppes/npcs/client/gui/SubGuiNpcAvailabilityDialog",
+    "interfaces": [
+      "noppes/npcs/client/gui/util/ISubGuiListener"
+    ]
+  },
+  "noppes/npcs/client/gui/SubGuiNpcAvailabilityQuest": {
+    "name": "noppes/npcs/client/gui/SubGuiNpcAvailabilityQuest",
+    "interfaces": [
+      "noppes/npcs/client/gui/util/GuiSelectionListener"
+    ]
+  },
+  "noppes/npcs/client/gui/SubGuiNpcAvailabilityScoreboard": {
+    "name": "noppes/npcs/client/gui/SubGuiNpcAvailabilityScoreboard",
+    "interfaces": [
+      "noppes/npcs/client/gui/util/ITextfieldListener"
+    ]
+  },
+  "noppes/npcs/client/gui/SubGuiNpcCommand": {
+    "name": "noppes/npcs/client/gui/SubGuiNpcCommand",
+    "interfaces": [
+      "noppes/npcs/client/gui/util/ITextfieldListener"
+    ]
+  },
+  "noppes/npcs/client/gui/SubGuiNpcFactionOptions": {
+    "name": "noppes/npcs/client/gui/SubGuiNpcFactionOptions",
+    "interfaces": [
+      "noppes/npcs/client/gui/util/IScrollData",
+      "noppes/npcs/client/gui/util/ICustomScrollListener"
+    ]
+  },
+  "noppes/npcs/client/gui/SubGuiNpcFactionPoints": {
+    "name": "noppes/npcs/client/gui/SubGuiNpcFactionPoints",
+    "interfaces": [
+      "noppes/npcs/client/gui/util/ITextfieldListener"
+    ]
+  },
+  "noppes/npcs/client/gui/SubGuiNpcMeleeProperties": {
+    "name": "noppes/npcs/client/gui/SubGuiNpcMeleeProperties",
+    "interfaces": [
+      "noppes/npcs/client/gui/util/ITextfieldListener"
+    ]
+  },
+  "noppes/npcs/client/gui/SubGuiNpcMovement": {
+    "name": "noppes/npcs/client/gui/SubGuiNpcMovement",
+    "interfaces": [
+      "noppes/npcs/client/gui/util/ITextfieldListener"
+    ]
+  },
+  "noppes/npcs/client/gui/SubGuiNpcName": {
+    "name": "noppes/npcs/client/gui/SubGuiNpcName",
+    "interfaces": [
+      "noppes/npcs/client/gui/util/ITextfieldListener"
+    ]
+  },
+  "noppes/npcs/client/gui/SubGuiNpcProjectiles": {
+    "name": "noppes/npcs/client/gui/SubGuiNpcProjectiles",
+    "interfaces": [
+      "noppes/npcs/client/gui/util/ITextfieldListener"
+    ]
+  },
+  "noppes/npcs/client/gui/SubGuiNpcRangeProperties": {
+    "name": "noppes/npcs/client/gui/SubGuiNpcRangeProperties",
+    "interfaces": [
+      "noppes/npcs/client/gui/util/ITextfieldListener",
+      "noppes/npcs/client/gui/util/ISubGuiListener"
+    ]
+  },
+  "noppes/npcs/client/gui/SubGuiNpcResistanceProperties": {
+    "name": "noppes/npcs/client/gui/SubGuiNpcResistanceProperties",
+    "interfaces": [
+      "noppes/npcs/client/gui/util/ISliderListener"
+    ]
+  },
+  "noppes/npcs/client/gui/SubGuiNpcRespawn": {
+    "name": "noppes/npcs/client/gui/SubGuiNpcRespawn",
+    "interfaces": [
+      "noppes/npcs/client/gui/util/ITextfieldListener"
+    ]
+  },
+  "noppes/npcs/client/gui/SubGuiNpcTextArea": {
+    "name": "noppes/npcs/client/gui/SubGuiNpcTextArea",
+    "interfaces": [
+      "noppes/npcs/client/gui/util/ITextChangeListener"
+    ]
+  },
+  "noppes/npcs/client/gui/advanced/GuiNPCAdvancedLinkedNpc": {
+    "name": "noppes/npcs/client/gui/advanced/GuiNPCAdvancedLinkedNpc",
+    "interfaces": [
+      "noppes/npcs/client/gui/util/IScrollData",
+      "noppes/npcs/client/gui/util/ICustomScrollListener"
+    ]
+  },
+  "noppes/npcs/client/gui/advanced/GuiNPCDialogNpcOptions": {
+    "name": "noppes/npcs/client/gui/advanced/GuiNPCDialogNpcOptions",
+    "interfaces": [
+      "noppes/npcs/client/gui/util/GuiSelectionListener",
+      "noppes/npcs/client/gui/util/IGuiData"
+    ]
+  },
+  "noppes/npcs/client/gui/advanced/GuiNPCFactionSetup": {
+    "name": "noppes/npcs/client/gui/advanced/GuiNPCFactionSetup",
+    "interfaces": [
+      "noppes/npcs/client/gui/util/IScrollData",
+      "noppes/npcs/client/gui/util/ICustomScrollListener"
+    ]
+  },
+  "noppes/npcs/client/gui/advanced/GuiNPCMarks": {
+    "name": "noppes/npcs/client/gui/advanced/GuiNPCMarks",
+    "interfaces": [
+      "noppes/npcs/client/gui/util/ISubGuiListener"
+    ]
+  },
+  "noppes/npcs/client/gui/advanced/GuiNPCNightSetup": {
+    "name": "noppes/npcs/client/gui/advanced/GuiNPCNightSetup",
+    "interfaces": [
+      "noppes/npcs/client/gui/util/IGuiData"
+    ]
+  },
+  "noppes/npcs/client/gui/advanced/GuiNPCSoundsMenu": {
+    "name": "noppes/npcs/client/gui/advanced/GuiNPCSoundsMenu",
+    "interfaces": [
+      "noppes/npcs/client/gui/util/ITextfieldListener",
+      "noppes/npcs/client/gui/util/ISubGuiListener"
+    ]
+  },
+  "noppes/npcs/client/gui/custom/GuiCustom": {
+    "name": "noppes/npcs/client/gui/custom/GuiCustom",
+    "interfaces": [
+      "noppes/npcs/client/gui/util/ICustomScrollListener",
+      "noppes/npcs/client/gui/util/IGuiData"
+    ]
+  },
+  "noppes/npcs/client/gui/custom/components/CustomGuiButton": {
+    "name": "noppes/npcs/client/gui/custom/components/CustomGuiButton",
+    "interfaces": [
+      "noppes/npcs/client/gui/custom/interfaces/IClickListener"
+    ]
+  },
+  "noppes/npcs/client/gui/custom/components/CustomGuiLabel": {
+    "name": "noppes/npcs/client/gui/custom/components/CustomGuiLabel",
+    "interfaces": [
+      "noppes/npcs/client/gui/custom/interfaces/IGuiComponent"
+    ]
+  },
+  "noppes/npcs/client/gui/custom/components/CustomGuiScrollComponent": {
+    "name": "noppes/npcs/client/gui/custom/components/CustomGuiScrollComponent",
+    "interfaces": [
+      "noppes/npcs/client/gui/custom/interfaces/IDataHolder",
+      "noppes/npcs/client/gui/custom/interfaces/IClickListener"
+    ]
+  },
+  "noppes/npcs/client/gui/custom/components/CustomGuiTextField": {
+    "name": "noppes/npcs/client/gui/custom/components/CustomGuiTextField",
+    "interfaces": [
+      "noppes/npcs/client/gui/custom/interfaces/IDataHolder",
+      "noppes/npcs/client/gui/custom/interfaces/IClickListener",
+      "noppes/npcs/client/gui/custom/interfaces/IKeyListener"
+    ]
+  },
+  "noppes/npcs/client/gui/custom/components/CustomGuiTexturedRect": {
+    "name": "noppes/npcs/client/gui/custom/components/CustomGuiTexturedRect",
+    "interfaces": [
+      "noppes/npcs/client/gui/custom/interfaces/IGuiComponent"
+    ]
+  },
+  "noppes/npcs/client/gui/custom/interfaces/IClickListener": {
+    "name": "noppes/npcs/client/gui/custom/interfaces/IClickListener",
+    "interfaces": [
+      "noppes/npcs/client/gui/custom/interfaces/IGuiComponent"
+    ]
+  },
+  "noppes/npcs/client/gui/custom/interfaces/IDataHolder": {
+    "name": "noppes/npcs/client/gui/custom/interfaces/IDataHolder",
+    "interfaces": [
+      "noppes/npcs/client/gui/custom/interfaces/IGuiComponent"
+    ]
+  },
+  "noppes/npcs/client/gui/custom/interfaces/IKeyListener": {
+    "name": "noppes/npcs/client/gui/custom/interfaces/IKeyListener",
+    "interfaces": [
+      "noppes/npcs/client/gui/custom/interfaces/IGuiComponent"
+    ]
+  },
+  "noppes/npcs/client/gui/global/GuiDialogEdit": {
+    "name": "noppes/npcs/client/gui/global/GuiDialogEdit",
+    "interfaces": [
+      "noppes/npcs/client/gui/util/ISubGuiListener",
+      "noppes/npcs/client/gui/util/ITextfieldListener"
+    ]
+  },
+  "noppes/npcs/client/gui/global/GuiNPCManageBanks": {
+    "name": "noppes/npcs/client/gui/global/GuiNPCManageBanks",
+    "interfaces": [
+      "noppes/npcs/client/gui/util/IScrollData",
+      "noppes/npcs/client/gui/util/ICustomScrollListener",
+      "noppes/npcs/client/gui/util/ITextfieldListener",
+      "noppes/npcs/client/gui/util/IGuiData"
+    ]
+  },
+  "noppes/npcs/client/gui/global/GuiNPCManageDialogs": {
+    "name": "noppes/npcs/client/gui/global/GuiNPCManageDialogs",
+    "interfaces": [
+      "noppes/npcs/client/gui/util/ISubGuiListener",
+      "noppes/npcs/client/gui/util/ICustomScrollListener",
+      "net/minecraft/client/gui/GuiYesNoCallback"
+    ]
+  },
+  "noppes/npcs/client/gui/global/GuiNPCManageFactions": {
+    "name": "noppes/npcs/client/gui/global/GuiNPCManageFactions",
+    "interfaces": [
+      "noppes/npcs/client/gui/util/IScrollData",
+      "noppes/npcs/client/gui/util/ICustomScrollListener",
+      "noppes/npcs/client/gui/util/ITextfieldListener",
+      "noppes/npcs/client/gui/util/IGuiData",
+      "noppes/npcs/client/gui/util/ISubGuiListener"
+    ]
+  },
+  "noppes/npcs/client/gui/global/GuiNPCManageLinkedNpc": {
+    "name": "noppes/npcs/client/gui/global/GuiNPCManageLinkedNpc",
+    "interfaces": [
+      "noppes/npcs/client/gui/util/IScrollData",
+      "noppes/npcs/client/gui/util/ISubGuiListener"
+    ]
+  },
+  "noppes/npcs/client/gui/global/GuiNPCManageQuest": {
+    "name": "noppes/npcs/client/gui/global/GuiNPCManageQuest",
+    "interfaces": [
+      "noppes/npcs/client/gui/util/ISubGuiListener",
+      "noppes/npcs/client/gui/util/ICustomScrollListener",
+      "net/minecraft/client/gui/GuiYesNoCallback"
+    ]
+  },
+  "noppes/npcs/client/gui/global/GuiNPCManageTransporters": {
+    "name": "noppes/npcs/client/gui/global/GuiNPCManageTransporters",
+    "interfaces": [
+      "noppes/npcs/client/gui/util/IScrollData"
+    ]
+  },
+  "noppes/npcs/client/gui/global/GuiNpcManagePlayerData": {
+    "name": "noppes/npcs/client/gui/global/GuiNpcManagePlayerData",
+    "interfaces": [
+      "noppes/npcs/client/gui/util/IScrollData",
+      "noppes/npcs/client/gui/util/ICustomScrollListener"
+    ]
+  },
+  "noppes/npcs/client/gui/global/GuiNpcManageRecipes": {
+    "name": "noppes/npcs/client/gui/global/GuiNpcManageRecipes",
+    "interfaces": [
+      "noppes/npcs/client/gui/util/IScrollData",
+      "noppes/npcs/client/gui/util/IGuiData",
+      "noppes/npcs/client/gui/util/ICustomScrollListener",
+      "noppes/npcs/client/gui/util/ITextfieldListener"
+    ]
+  },
+  "noppes/npcs/client/gui/global/GuiNpcNaturalSpawns": {
+    "name": "noppes/npcs/client/gui/global/GuiNpcNaturalSpawns",
+    "interfaces": [
+      "noppes/npcs/client/gui/util/IGuiData",
+      "noppes/npcs/client/gui/util/IScrollData",
+      "noppes/npcs/client/gui/util/ITextfieldListener",
+      "noppes/npcs/client/gui/util/ICustomScrollListener",
+      "noppes/npcs/client/gui/util/ISliderListener"
+    ]
+  },
+  "noppes/npcs/client/gui/global/GuiNpcQuestReward": {
+    "name": "noppes/npcs/client/gui/global/GuiNpcQuestReward",
+    "interfaces": [
+      "noppes/npcs/client/gui/util/ITextfieldListener"
+    ]
+  },
+  "noppes/npcs/client/gui/global/GuiQuestEdit": {
+    "name": "noppes/npcs/client/gui/global/GuiQuestEdit",
+    "interfaces": [
+      "noppes/npcs/client/gui/util/ISubGuiListener",
+      "noppes/npcs/client/gui/util/GuiSelectionListener",
+      "noppes/npcs/client/gui/util/ITextfieldListener"
+    ]
+  },
+  "noppes/npcs/client/gui/global/SubGuiNpcDialogOption": {
+    "name": "noppes/npcs/client/gui/global/SubGuiNpcDialogOption",
+    "interfaces": [
+      "noppes/npcs/client/gui/util/ITextfieldListener",
+      "noppes/npcs/client/gui/util/ISubGuiListener"
+    ]
+  },
+  "noppes/npcs/client/gui/mainmenu/GuiNPCInv": {
+    "name": "noppes/npcs/client/gui/mainmenu/GuiNPCInv",
+    "interfaces": [
+      "noppes/npcs/client/gui/util/ISliderListener",
+      "noppes/npcs/client/gui/util/IGuiData"
+    ]
+  },
+  "noppes/npcs/client/gui/mainmenu/GuiNpcAI": {
+    "name": "noppes/npcs/client/gui/mainmenu/GuiNpcAI",
+    "interfaces": [
+      "noppes/npcs/client/gui/util/ITextfieldListener",
+      "noppes/npcs/client/gui/util/IGuiData"
+    ]
+  },
+  "noppes/npcs/client/gui/mainmenu/GuiNpcAdvanced": {
+    "name": "noppes/npcs/client/gui/mainmenu/GuiNpcAdvanced",
+    "interfaces": [
+      "noppes/npcs/client/gui/util/IGuiData"
+    ]
+  },
+  "noppes/npcs/client/gui/mainmenu/GuiNpcDisplay": {
+    "name": "noppes/npcs/client/gui/mainmenu/GuiNpcDisplay",
+    "interfaces": [
+      "noppes/npcs/client/gui/util/ITextfieldListener",
+      "noppes/npcs/client/gui/util/IGuiData"
+    ]
+  },
+  "noppes/npcs/client/gui/mainmenu/GuiNpcStats": {
+    "name": "noppes/npcs/client/gui/mainmenu/GuiNpcStats",
+    "interfaces": [
+      "noppes/npcs/client/gui/util/ITextfieldListener",
+      "noppes/npcs/client/gui/util/IGuiData"
+    ]
+  },
+  "noppes/npcs/client/gui/model/GuiCreationEntities": {
+    "name": "noppes/npcs/client/gui/model/GuiCreationEntities",
+    "interfaces": [
+      "noppes/npcs/client/gui/util/ICustomScrollListener"
+    ]
+  },
+  "noppes/npcs/client/gui/model/GuiCreationExtra": {
+    "name": "noppes/npcs/client/gui/model/GuiCreationExtra",
+    "interfaces": [
+      "noppes/npcs/client/gui/util/ICustomScrollListener"
+    ]
+  },
+  "noppes/npcs/client/gui/model/GuiCreationLoad": {
+    "name": "noppes/npcs/client/gui/model/GuiCreationLoad",
+    "interfaces": [
+      "noppes/npcs/client/gui/util/ICustomScrollListener"
+    ]
+  },
+  "noppes/npcs/client/gui/model/GuiCreationParts": {
+    "name": "noppes/npcs/client/gui/model/GuiCreationParts",
+    "interfaces": [
+      "noppes/npcs/client/gui/util/ITextfieldListener",
+      "noppes/npcs/client/gui/util/ICustomScrollListener"
+    ]
+  },
+  "noppes/npcs/client/gui/model/GuiCreationScale": {
+    "name": "noppes/npcs/client/gui/model/GuiCreationScale",
+    "interfaces": [
+      "noppes/npcs/client/gui/util/ISliderListener",
+      "noppes/npcs/client/gui/util/ICustomScrollListener"
+    ]
+  },
+  "noppes/npcs/client/gui/model/GuiCreationScreenInterface": {
+    "name": "noppes/npcs/client/gui/model/GuiCreationScreenInterface",
+    "interfaces": [
+      "noppes/npcs/client/gui/util/ISubGuiListener",
+      "noppes/npcs/client/gui/util/ISliderListener"
+    ]
+  },
+  "noppes/npcs/client/gui/model/GuiModelColor": {
+    "name": "noppes/npcs/client/gui/model/GuiModelColor",
+    "interfaces": [
+      "noppes/npcs/client/gui/util/ITextfieldListener"
+    ]
+  },
+  "noppes/npcs/client/gui/player/GuiDialogInteract": {
+    "name": "noppes/npcs/client/gui/player/GuiDialogInteract",
+    "interfaces": [
+      "noppes/npcs/client/gui/util/IGuiClose"
+    ]
+  },
+  "noppes/npcs/client/gui/player/GuiFaction": {
+    "name": "noppes/npcs/client/gui/player/GuiFaction",
+    "interfaces": [
+      "noppes/npcs/client/gui/util/IGuiData"
+    ]
+  },
+  "noppes/npcs/client/gui/player/GuiMailbox": {
+    "name": "noppes/npcs/client/gui/player/GuiMailbox",
+    "interfaces": [
+      "noppes/npcs/client/gui/util/IGuiData",
+      "noppes/npcs/client/gui/util/ICustomScrollListener",
+      "net/minecraft/client/gui/GuiYesNoCallback"
+    ]
+  },
+  "noppes/npcs/client/gui/player/GuiMailmanWrite": {
+    "name": "noppes/npcs/client/gui/player/GuiMailmanWrite",
+    "interfaces": [
+      "noppes/npcs/client/gui/util/ITextfieldListener",
+      "noppes/npcs/client/gui/util/IGuiError",
+      "noppes/npcs/client/gui/util/IGuiClose",
+      "net/minecraft/client/gui/GuiYesNoCallback"
+    ]
+  },
+  "noppes/npcs/client/gui/player/GuiNPCBankChest": {
+    "name": "noppes/npcs/client/gui/player/GuiNPCBankChest",
+    "interfaces": [
+      "noppes/npcs/client/gui/util/IGuiData"
+    ]
+  },
+  "noppes/npcs/client/gui/player/GuiNpcFollower": {
+    "name": "noppes/npcs/client/gui/player/GuiNpcFollower",
+    "interfaces": [
+      "noppes/npcs/client/gui/util/IGuiData"
+    ]
+  },
+  "noppes/npcs/client/gui/player/GuiQuestCompletion": {
+    "name": "noppes/npcs/client/gui/player/GuiQuestCompletion",
+    "interfaces": [
+      "noppes/npcs/client/gui/util/ITopButtonListener"
+    ]
+  },
+  "noppes/npcs/client/gui/player/GuiQuestLog": {
+    "name": "noppes/npcs/client/gui/player/GuiQuestLog",
+    "interfaces": [
+      "noppes/npcs/client/gui/util/ITopButtonListener",
+      "noppes/npcs/client/gui/util/ICustomScrollListener"
+    ]
+  },
+  "noppes/npcs/client/gui/player/GuiTransportSelection": {
+    "name": "noppes/npcs/client/gui/player/GuiTransportSelection",
+    "interfaces": [
+      "noppes/npcs/client/gui/util/ITopButtonListener",
+      "noppes/npcs/client/gui/util/IScrollData"
+    ]
+  },
+  "noppes/npcs/client/gui/player/companion/GuiNpcCompanionStats": {
+    "name": "noppes/npcs/client/gui/player/companion/GuiNpcCompanionStats",
+    "interfaces": [
+      "noppes/npcs/client/gui/util/IGuiData"
+    ]
+  },
+  "noppes/npcs/client/gui/questtypes/GuiNpcQuestTypeDialog": {
+    "name": "noppes/npcs/client/gui/questtypes/GuiNpcQuestTypeDialog",
+    "interfaces": [
+      "noppes/npcs/client/gui/util/GuiSelectionListener",
+      "noppes/npcs/client/gui/util/IGuiData"
+    ]
+  },
+  "noppes/npcs/client/gui/questtypes/GuiNpcQuestTypeItem": {
+    "name": "noppes/npcs/client/gui/questtypes/GuiNpcQuestTypeItem",
+    "interfaces": [
+      "noppes/npcs/client/gui/util/ITextfieldListener"
+    ]
+  },
+  "noppes/npcs/client/gui/questtypes/GuiNpcQuestTypeKill": {
+    "name": "noppes/npcs/client/gui/questtypes/GuiNpcQuestTypeKill",
+    "interfaces": [
+      "noppes/npcs/client/gui/util/ITextfieldListener",
+      "noppes/npcs/client/gui/util/ICustomScrollListener"
+    ]
+  },
+  "noppes/npcs/client/gui/questtypes/GuiNpcQuestTypeLocation": {
+    "name": "noppes/npcs/client/gui/questtypes/GuiNpcQuestTypeLocation",
+    "interfaces": [
+      "noppes/npcs/client/gui/util/ITextfieldListener"
+    ]
+  },
+  "noppes/npcs/client/gui/questtypes/GuiNpcQuestTypeManual": {
+    "name": "noppes/npcs/client/gui/questtypes/GuiNpcQuestTypeManual",
+    "interfaces": [
+      "noppes/npcs/client/gui/util/ITextfieldListener"
+    ]
+  },
+  "noppes/npcs/client/gui/roles/GuiNpcBankSetup": {
+    "name": "noppes/npcs/client/gui/roles/GuiNpcBankSetup",
+    "interfaces": [
+      "noppes/npcs/client/gui/util/IScrollData",
+      "noppes/npcs/client/gui/util/ICustomScrollListener"
+    ]
+  },
+  "noppes/npcs/client/gui/roles/GuiNpcBard": {
+    "name": "noppes/npcs/client/gui/roles/GuiNpcBard",
+    "interfaces": [
+      "noppes/npcs/client/gui/util/ISubGuiListener"
+    ]
+  },
+  "noppes/npcs/client/gui/roles/GuiNpcCompanion": {
+    "name": "noppes/npcs/client/gui/roles/GuiNpcCompanion",
+    "interfaces": [
+      "noppes/npcs/client/gui/util/ITextfieldListener",
+      "noppes/npcs/client/gui/util/ISliderListener"
+    ]
+  },
+  "noppes/npcs/client/gui/roles/GuiNpcConversation": {
+    "name": "noppes/npcs/client/gui/roles/GuiNpcConversation",
+    "interfaces": [
+      "noppes/npcs/client/gui/util/ITextfieldListener",
+      "noppes/npcs/client/gui/util/GuiSelectionListener"
+    ]
+  },
+  "noppes/npcs/client/gui/roles/GuiNpcFollowerJob": {
+    "name": "noppes/npcs/client/gui/roles/GuiNpcFollowerJob",
+    "interfaces": [
+      "noppes/npcs/client/gui/util/ICustomScrollListener"
+    ]
+  },
+  "noppes/npcs/client/gui/roles/GuiNpcPuppet": {
+    "name": "noppes/npcs/client/gui/roles/GuiNpcPuppet",
+    "interfaces": [
+      "noppes/npcs/client/gui/util/ISliderListener",
+      "noppes/npcs/client/gui/util/ICustomScrollListener"
+    ]
+  },
+  "noppes/npcs/client/gui/roles/GuiNpcSpawner": {
+    "name": "noppes/npcs/client/gui/roles/GuiNpcSpawner",
+    "interfaces": [
+      "noppes/npcs/client/gui/util/ITextfieldListener",
+      "noppes/npcs/client/gui/util/IGuiData"
+    ]
+  },
+  "noppes/npcs/client/gui/roles/GuiNpcTraderSetup": {
+    "name": "noppes/npcs/client/gui/roles/GuiNpcTraderSetup",
+    "interfaces": [
+      "noppes/npcs/client/gui/util/ITextfieldListener"
+    ]
+  },
+  "noppes/npcs/client/gui/roles/GuiNpcTransporter": {
+    "name": "noppes/npcs/client/gui/roles/GuiNpcTransporter",
+    "interfaces": [
+      "noppes/npcs/client/gui/util/IScrollData",
+      "noppes/npcs/client/gui/util/IGuiData"
+    ]
+  },
+  "noppes/npcs/client/gui/roles/GuiRoleDialog": {
+    "name": "noppes/npcs/client/gui/roles/GuiRoleDialog",
+    "interfaces": [
+      "noppes/npcs/client/gui/util/ISubGuiListener"
+    ]
+  },
+  "noppes/npcs/client/gui/roles/SubGuiNpcConversationLine": {
+    "name": "noppes/npcs/client/gui/roles/SubGuiNpcConversationLine",
+    "interfaces": [
+      "noppes/npcs/client/gui/util/ITextfieldListener",
+      "noppes/npcs/client/gui/util/ISubGuiListener"
+    ]
+  },
+  "noppes/npcs/client/gui/script/GuiScriptInterface": {
+    "name": "noppes/npcs/client/gui/script/GuiScriptInterface",
+    "interfaces": [
+      "noppes/npcs/client/gui/util/IGuiData",
+      "noppes/npcs/client/gui/util/ITextChangeListener"
+    ]
+  },
+  "noppes/npcs/client/gui/select/GuiDialogSelection": {
+    "name": "noppes/npcs/client/gui/select/GuiDialogSelection",
+    "interfaces": [
+      "noppes/npcs/client/gui/util/ICustomScrollListener"
+    ]
+  },
+  "noppes/npcs/client/gui/select/GuiQuestSelection": {
+    "name": "noppes/npcs/client/gui/select/GuiQuestSelection",
+    "interfaces": [
+      "noppes/npcs/client/gui/util/ICustomScrollListener"
+    ]
+  },
+  "noppes/npcs/client/gui/select/GuiSoundSelection": {
+    "name": "noppes/npcs/client/gui/select/GuiSoundSelection",
+    "interfaces": [
+      "noppes/npcs/client/gui/util/ICustomScrollListener"
+    ]
+  },
+  "noppes/npcs/client/gui/select/GuiTextureSelection": {
+    "name": "noppes/npcs/client/gui/select/GuiTextureSelection",
+    "interfaces": [
+      "noppes/npcs/client/gui/util/ICustomScrollListener"
+    ]
+  },
+  "noppes/npcs/client/gui/swing/GuiJTextArea": {
+    "name": "noppes/npcs/client/gui/swing/GuiJTextArea",
+    "interfaces": [
+      "java/awt/event/WindowListener"
+    ]
+  },
+  "noppes/npcs/client/gui/util/GuiNpcMenu": {
+    "name": "noppes/npcs/client/gui/util/GuiNpcMenu",
+    "interfaces": [
+      "net/minecraft/client/gui/GuiYesNoCallback"
+    ]
+  },
+  "noppes/npcs/client/gui/util/GuiTextArea": {
+    "name": "noppes/npcs/client/gui/util/GuiTextArea",
+    "interfaces": [
+      "noppes/npcs/client/gui/util/IGui",
+      "noppes/npcs/client/gui/util/IKeyListener",
+      "noppes/npcs/client/gui/util/IMouseListener"
+    ]
+  },
+  "noppes/npcs/client/layer/LayerGlow": {
+    "name": "noppes/npcs/client/layer/LayerGlow",
+    "interfaces": [
+      "net/minecraft/client/renderer/entity/layers/LayerRenderer"
+    ]
+  },
+  "noppes/npcs/client/layer/LayerHeadwear": {
+    "name": "noppes/npcs/client/layer/LayerHeadwear",
+    "interfaces": [
+      "noppes/npcs/client/layer/LayerPreRender"
+    ]
+  },
+  "noppes/npcs/client/layer/LayerInterface": {
+    "name": "noppes/npcs/client/layer/LayerInterface",
+    "interfaces": [
+      "net/minecraft/client/renderer/entity/layers/LayerRenderer"
+    ]
+  },
+  "noppes/npcs/client/layer/LayerLegs": {
+    "name": "noppes/npcs/client/layer/LayerLegs",
+    "interfaces": [
+      "noppes/npcs/client/layer/LayerPreRender"
+    ]
+  },
+  "noppes/npcs/client/layer/LayerSlimeNpc": {
+    "name": "noppes/npcs/client/layer/LayerSlimeNpc",
+    "interfaces": [
+      "net/minecraft/client/renderer/entity/layers/LayerRenderer"
+    ]
+  },
+  "noppes/npcs/command/CmdClone": {
+    "name": "noppes/npcs/command/CmdClone",
+    "annotations": [
+      {
+        "type": "METHOD",
+        "name": "Lnoppes/npcs/api/CommandNoppesBase$SubCommand;",
+        "target": "add(Lnet/minecraft/server/MinecraftServer;Lnet/minecraft/command/ICommandSender;[Ljava/lang/String;)V",
+        "values": {
+          "desc": {
+            "value": "Add NPC(s) to clone storage"
+          },
+          "permission": {
+            "type": "INT",
+            "value": "4"
+          },
+          "usage": {
+            "value": "\u003cnpc\u003e \u003ctab\u003e [clonedname]"
+          }
+        }
+      },
+      {
+        "type": "METHOD",
+        "name": "Lnoppes/npcs/api/CommandNoppesBase$SubCommand;",
+        "target": "list(Lnet/minecraft/server/MinecraftServer;Lnet/minecraft/command/ICommandSender;[Ljava/lang/String;)V",
+        "values": {
+          "desc": {
+            "value": "List NPC from clone storage"
+          },
+          "permission": {
+            "type": "INT",
+            "value": "2"
+          },
+          "usage": {
+            "value": "\u003ctab\u003e"
+          }
+        }
+      },
+      {
+        "type": "METHOD",
+        "name": "Lnoppes/npcs/api/CommandNoppesBase$SubCommand;",
+        "target": "del(Lnet/minecraft/server/MinecraftServer;Lnet/minecraft/command/ICommandSender;[Ljava/lang/String;)V",
+        "values": {
+          "desc": {
+            "value": "Remove NPC from clone storage"
+          },
+          "permission": {
+            "type": "INT",
+            "value": "4"
+          },
+          "usage": {
+            "value": "\u003cname\u003e \u003ctab\u003e"
+          }
+        }
+      },
+      {
+        "type": "METHOD",
+        "name": "Lnoppes/npcs/api/CommandNoppesBase$SubCommand;",
+        "target": "spawn(Lnet/minecraft/server/MinecraftServer;Lnet/minecraft/command/ICommandSender;[Ljava/lang/String;)V",
+        "values": {
+          "desc": {
+            "value": "Spawn cloned NPC"
+          },
+          "permission": {
+            "type": "INT",
+            "value": "2"
+          },
+          "usage": {
+            "value": "\u003cname\u003e \u003ctab\u003e [[world:]x,y,z]] [newname]"
+          }
+        }
+      },
+      {
+        "type": "METHOD",
+        "name": "Lnoppes/npcs/api/CommandNoppesBase$SubCommand;",
+        "target": "grid(Lnet/minecraft/server/MinecraftServer;Lnet/minecraft/command/ICommandSender;[Ljava/lang/String;)Z",
+        "values": {
+          "desc": {
+            "value": "Spawn multiple cloned NPC in a grid"
+          },
+          "permission": {
+            "type": "INT",
+            "value": "2"
+          },
+          "usage": {
+            "value": "\u003cname\u003e \u003ctab\u003e \u003clenght\u003e \u003cwidth\u003e [[world:]x,y,z]] [newname]"
+          }
+        }
+      }
+    ]
+  },
+  "noppes/npcs/command/CmdConfig": {
+    "name": "noppes/npcs/command/CmdConfig",
+    "annotations": [
+      {
+        "type": "METHOD",
+        "name": "Lnoppes/npcs/api/CommandNoppesBase$SubCommand;",
+        "target": "leavesdecay(Lnet/minecraft/server/MinecraftServer;Lnet/minecraft/command/ICommandSender;[Ljava/lang/String;)V",
+        "values": {
+          "desc": {
+            "value": "Disable/Enable the natural leaves decay"
+          },
+          "usage": {
+            "value": "[true/false]"
+          }
+        }
+      },
+      {
+        "type": "METHOD",
+        "name": "Lnoppes/npcs/api/CommandNoppesBase$SubCommand;",
+        "target": "vinegrowth(Lnet/minecraft/server/MinecraftServer;Lnet/minecraft/command/ICommandSender;[Ljava/lang/String;)V",
+        "values": {
+          "desc": {
+            "value": "Disable/Enable the vines growing"
+          },
+          "usage": {
+            "value": "[true/false]"
+          }
+        }
+      },
+      {
+        "type": "METHOD",
+        "name": "Lnoppes/npcs/api/CommandNoppesBase$SubCommand;",
+        "target": "icemelts(Lnet/minecraft/server/MinecraftServer;Lnet/minecraft/command/ICommandSender;[Ljava/lang/String;)V",
+        "values": {
+          "desc": {
+            "value": "Disable/Enable the ice melting"
+          },
+          "usage": {
+            "value": "[true/false]"
+          }
+        }
+      },
+      {
+        "type": "METHOD",
+        "name": "Lnoppes/npcs/api/CommandNoppesBase$SubCommand;",
+        "target": "freezenpcs(Lnet/minecraft/server/MinecraftServer;Lnet/minecraft/command/ICommandSender;[Ljava/lang/String;)V",
+        "values": {
+          "desc": {
+            "value": "Freezes/Unfreezes npcs"
+          },
+          "usage": {
+            "value": "[true/false]"
+          }
+        }
+      },
+      {
+        "type": "METHOD",
+        "name": "Lnoppes/npcs/api/CommandNoppesBase$SubCommand;",
+        "target": "debug(Lnet/minecraft/server/MinecraftServer;Lnet/minecraft/command/ICommandSender;[Ljava/lang/String;)V",
+        "values": {
+          "desc": {
+            "value": "Add debug info to log"
+          },
+          "usage": {
+            "value": "\u003ctrue/false\u003e"
+          }
+        }
+      },
+      {
+        "type": "METHOD",
+        "name": "Lnoppes/npcs/api/CommandNoppesBase$SubCommand;",
+        "target": "scripting(Lnet/minecraft/server/MinecraftServer;Lnet/minecraft/command/ICommandSender;[Ljava/lang/String;)V",
+        "values": {
+          "desc": {
+            "value": "Enables/Disables scripting"
+          },
+          "usage": {
+            "value": "[true/false]"
+          }
+        }
+      },
+      {
+        "type": "METHOD",
+        "name": "Lnoppes/npcs/api/CommandNoppesBase$SubCommand;",
+        "target": "chunkloaders(Lnet/minecraft/server/MinecraftServer;Lnet/minecraft/command/ICommandSender;[Ljava/lang/String;)V",
+        "values": {
+          "desc": {
+            "value": "Set how many active chunkloaders you can have"
+          },
+          "usage": {
+            "value": "\u003cnumber\u003e"
+          }
+        }
+      },
+      {
+        "type": "METHOD",
+        "name": "Lnoppes/npcs/api/CommandNoppesBase$SubCommand;",
+        "target": "font(Lnet/minecraft/server/MinecraftServer;Lnet/minecraft/command/ICommandSender;[Ljava/lang/String;)V",
+        "values": {
+          "desc": {
+            "value": "Get/Set font"
+          },
+          "permission": {
+            "type": "INT",
+            "value": "2"
+          },
+          "usage": {
+            "value": "[type] [size]"
+          }
+        }
+      }
+    ]
+  },
+  "noppes/npcs/command/CmdDialog": {
+    "name": "noppes/npcs/command/CmdDialog",
+    "annotations": [
+      {
+        "type": "METHOD",
+        "name": "Lnoppes/npcs/api/CommandNoppesBase$SubCommand;",
+        "target": "read(Lnet/minecraft/server/MinecraftServer;Lnet/minecraft/command/ICommandSender;[Ljava/lang/String;)V",
+        "values": {
+          "desc": {
+            "value": "force read"
+          },
+          "permission": {
+            "type": "INT",
+            "value": "2"
+          },
+          "usage": {
+            "value": "\u003cplayer\u003e \u003cdialog\u003e"
+          }
+        }
+      },
+      {
+        "type": "METHOD",
+        "name": "Lnoppes/npcs/api/CommandNoppesBase$SubCommand;",
+        "target": "unread(Lnet/minecraft/server/MinecraftServer;Lnet/minecraft/command/ICommandSender;[Ljava/lang/String;)V",
+        "values": {
+          "desc": {
+            "value": "force unread dialog"
+          },
+          "permission": {
+            "type": "INT",
+            "value": "2"
+          },
+          "usage": {
+            "value": "\u003cplayer\u003e \u003cdialog\u003e"
+          }
+        }
+      },
+      {
+        "type": "METHOD",
+        "name": "Lnoppes/npcs/api/CommandNoppesBase$SubCommand;",
+        "target": "reload(Lnet/minecraft/server/MinecraftServer;Lnet/minecraft/command/ICommandSender;[Ljava/lang/String;)V",
+        "values": {
+          "desc": {
+            "value": "reload dialogs from disk"
+          },
+          "permission": {
+            "type": "INT",
+            "value": "4"
+          }
+        }
+      },
+      {
+        "type": "METHOD",
+        "name": "Lnoppes/npcs/api/CommandNoppesBase$SubCommand;",
+        "target": "show(Lnet/minecraft/server/MinecraftServer;Lnet/minecraft/command/ICommandSender;[Ljava/lang/String;)V",
+        "values": {
+          "desc": {
+            "value": "show dialog"
+          },
+          "permission": {
+            "type": "INT",
+            "value": "2"
+          },
+          "usage": {
+            "value": "\u003cplayer\u003e \u003cdialog\u003e \u003cname\u003e"
+          }
+        }
+      }
+    ]
+  },
+  "noppes/npcs/command/CmdFaction": {
+    "name": "noppes/npcs/command/CmdFaction",
+    "annotations": [
+      {
+        "type": "METHOD",
+        "name": "Lnoppes/npcs/api/CommandNoppesBase$SubCommand;",
+        "target": "add(Lnet/minecraft/server/MinecraftServer;Lnet/minecraft/command/ICommandSender;[Ljava/lang/String;)V",
+        "values": {
+          "desc": {
+            "value": "Add points"
+          },
+          "usage": {
+            "value": "\u003cpoints\u003e"
+          }
+        }
+      },
+      {
+        "type": "METHOD",
+        "name": "Lnoppes/npcs/api/CommandNoppesBase$SubCommand;",
+        "target": "subtract(Lnet/minecraft/server/MinecraftServer;Lnet/minecraft/command/ICommandSender;[Ljava/lang/String;)V",
+        "values": {
+          "desc": {
+            "value": "Substract points"
+          },
+          "usage": {
+            "value": "\u003cpoints\u003e"
+          }
+        }
+      },
+      {
+        "type": "METHOD",
+        "name": "Lnoppes/npcs/api/CommandNoppesBase$SubCommand;",
+        "target": "reset(Lnet/minecraft/server/MinecraftServer;Lnet/minecraft/command/ICommandSender;[Ljava/lang/String;)V",
+        "values": {
+          "desc": {
+            "value": "Reset points to default"
+          }
+        }
+      },
+      {
+        "type": "METHOD",
+        "name": "Lnoppes/npcs/api/CommandNoppesBase$SubCommand;",
+        "target": "set(Lnet/minecraft/server/MinecraftServer;Lnet/minecraft/command/ICommandSender;[Ljava/lang/String;)V",
+        "values": {
+          "desc": {
+            "value": "Set points"
+          },
+          "usage": {
+            "value": "\u003cpoints\u003e"
+          }
+        }
+      },
+      {
+        "type": "METHOD",
+        "name": "Lnoppes/npcs/api/CommandNoppesBase$SubCommand;",
+        "target": "drop(Lnet/minecraft/server/MinecraftServer;Lnet/minecraft/command/ICommandSender;[Ljava/lang/String;)V",
+        "values": {
+          "desc": {
+            "value": "Drop relationship"
+          }
+        }
+      }
+    ]
+  },
+  "noppes/npcs/command/CmdMark": {
+    "name": "noppes/npcs/command/CmdMark",
+    "annotations": [
+      {
+        "type": "METHOD",
+        "name": "Lnoppes/npcs/api/CommandNoppesBase$SubCommand;",
+        "target": "set(Lnet/minecraft/server/MinecraftServer;Lnet/minecraft/command/ICommandSender;[Ljava/lang/String;)V",
+        "values": {
+          "desc": {
+            "value": "Set mark (warning overrides existing marks)"
+          },
+          "usage": {
+            "value": "\u003c@e\u003e \u003ctype\u003e [color]"
+          }
+        }
+      },
+      {
+        "type": "METHOD",
+        "name": "Lnoppes/npcs/api/CommandNoppesBase$SubCommand;",
+        "target": "clear(Lnet/minecraft/server/MinecraftServer;Lnet/minecraft/command/ICommandSender;[Ljava/lang/String;)V",
+        "values": {
+          "desc": {
+            "value": "Clear mark"
+          },
+          "usage": {
+            "value": "\u003c@e\u003e"
+          }
+        }
+      }
+    ]
+  },
+  "noppes/npcs/command/CmdNPC": {
+    "name": "noppes/npcs/command/CmdNPC",
+    "annotations": [
+      {
+        "type": "METHOD",
+        "name": "Lnoppes/npcs/api/CommandNoppesBase$SubCommand;",
+        "target": "home(Lnet/minecraft/server/MinecraftServer;Lnet/minecraft/command/ICommandSender;[Ljava/lang/String;)V",
+        "values": {
+          "desc": {
+            "value": "Set Home (respawn place)"
+          },
+          "permission": {
+            "type": "INT",
+            "value": "2"
+          },
+          "usage": {
+            "value": "[x] [y] [z]"
+          }
+        }
+      },
+      {
+        "type": "METHOD",
+        "name": "Lnoppes/npcs/api/CommandNoppesBase$SubCommand;",
+        "target": "visible(Lnet/minecraft/server/MinecraftServer;Lnet/minecraft/command/ICommandSender;[Ljava/lang/String;)V",
+        "values": {
+          "desc": {
+            "value": "Set NPC visibility"
+          },
+          "permission": {
+            "type": "INT",
+            "value": "2"
+          },
+          "usage": {
+            "value": "[true/false/semi]"
+          }
+        }
+      },
+      {
+        "type": "METHOD",
+        "name": "Lnoppes/npcs/api/CommandNoppesBase$SubCommand;",
+        "target": "delete(Lnet/minecraft/server/MinecraftServer;Lnet/minecraft/command/ICommandSender;[Ljava/lang/String;)V",
+        "values": {
+          "desc": {
+            "value": "Delete an NPC"
+          }
+        }
+      },
+      {
+        "type": "METHOD",
+        "name": "Lnoppes/npcs/api/CommandNoppesBase$SubCommand;",
+        "target": "owner(Lnet/minecraft/server/MinecraftServer;Lnet/minecraft/command/ICommandSender;[Ljava/lang/String;)V",
+        "values": {
+          "desc": {
+            "value": "Sets the owner of an follower/companion"
+          },
+          "permission": {
+            "type": "INT",
+            "value": "2"
+          },
+          "usage": {
+            "value": "[player]"
+          }
+        }
+      },
+      {
+        "type": "METHOD",
+        "name": "Lnoppes/npcs/api/CommandNoppesBase$SubCommand;",
+        "target": "name(Lnet/minecraft/server/MinecraftServer;Lnet/minecraft/command/ICommandSender;[Ljava/lang/String;)V",
+        "values": {
+          "desc": {
+            "value": "Set NPC name"
+          },
+          "permission": {
+            "type": "INT",
+            "value": "2"
+          },
+          "usage": {
+            "value": "[name]"
+          }
+        }
+      },
+      {
+        "type": "METHOD",
+        "name": "Lnoppes/npcs/api/CommandNoppesBase$SubCommand;",
+        "target": "reset(Lnet/minecraft/server/MinecraftServer;Lnet/minecraft/command/ICommandSender;[Ljava/lang/String;)V",
+        "values": {
+          "desc": {
+            "value": "Resets the npc"
+          },
+          "permission": {
+            "type": "INT",
+            "value": "2"
+          },
+          "usage": {
+            "value": "[name]"
+          }
+        }
+      },
+      {
+        "type": "METHOD",
+        "name": "Lnoppes/npcs/api/CommandNoppesBase$SubCommand;",
+        "target": "create(Lnet/minecraft/server/MinecraftServer;Lnet/minecraft/command/ICommandSender;[Ljava/lang/String;)V",
+        "values": {
+          "desc": {
+            "value": "Creates an NPC"
+          },
+          "usage": {
+            "value": "[name]"
+          }
+        }
+      }
+    ]
+  },
+  "noppes/npcs/command/CmdQuest": {
+    "name": "noppes/npcs/command/CmdQuest",
+    "annotations": [
+      {
+        "type": "METHOD",
+        "name": "Lnoppes/npcs/api/CommandNoppesBase$SubCommand;",
+        "target": "start(Lnet/minecraft/server/MinecraftServer;Lnet/minecraft/command/ICommandSender;[Ljava/lang/String;)V",
+        "values": {
+          "desc": {
+            "value": "Start a quest"
+          },
+          "permission": {
+            "type": "INT",
+            "value": "2"
+          },
+          "usage": {
+            "value": "\u003cplayer\u003e \u003cquest\u003e"
+          }
+        }
+      },
+      {
+        "type": "METHOD",
+        "name": "Lnoppes/npcs/api/CommandNoppesBase$SubCommand;",
+        "target": "finish(Lnet/minecraft/server/MinecraftServer;Lnet/minecraft/command/ICommandSender;[Ljava/lang/String;)V",
+        "values": {
+          "desc": {
+            "value": "Finish a quest"
+          },
+          "usage": {
+            "value": "\u003cplayer\u003e \u003cquest\u003e"
+          }
+        }
+      },
+      {
+        "type": "METHOD",
+        "name": "Lnoppes/npcs/api/CommandNoppesBase$SubCommand;",
+        "target": "stop(Lnet/minecraft/server/MinecraftServer;Lnet/minecraft/command/ICommandSender;[Ljava/lang/String;)V",
+        "values": {
+          "desc": {
+            "value": "Stop a started quest"
+          },
+          "permission": {
+            "type": "INT",
+            "value": "2"
+          },
+          "usage": {
+            "value": "\u003cplayer\u003e \u003cquest\u003e"
+          }
+        }
+      },
+      {
+        "type": "METHOD",
+        "name": "Lnoppes/npcs/api/CommandNoppesBase$SubCommand;",
+        "target": "remove(Lnet/minecraft/server/MinecraftServer;Lnet/minecraft/command/ICommandSender;[Ljava/lang/String;)V",
+        "values": {
+          "desc": {
+            "value": "Removes a quest from finished and active quests"
+          },
+          "permission": {
+            "type": "INT",
+            "value": "2"
+          },
+          "usage": {
+            "value": "\u003cplayer\u003e \u003cquest\u003e"
+          }
+        }
+      },
+      {
+        "type": "METHOD",
+        "name": "Lnoppes/npcs/api/CommandNoppesBase$SubCommand;",
+        "target": "objective(Lnet/minecraft/server/MinecraftServer;Lnet/minecraft/command/ICommandSender;[Ljava/lang/String;)V",
+        "values": {
+          "desc": {
+            "value": "get/set objectives for quests progress"
+          },
+          "permission": {
+            "type": "INT",
+            "value": "2"
+          },
+          "usage": {
+            "value": "\u003cplayer\u003e \u003cquest\u003e [objective] [value]"
+          }
+        }
+      },
+      {
+        "type": "METHOD",
+        "name": "Lnoppes/npcs/api/CommandNoppesBase$SubCommand;",
+        "target": "reload(Lnet/minecraft/server/MinecraftServer;Lnet/minecraft/command/ICommandSender;[Ljava/lang/String;)V",
+        "values": {
+          "desc": {
+            "value": "reload quests from disk"
+          },
+          "permission": {
+            "type": "INT",
+            "value": "4"
+          }
+        }
+      }
+    ]
+  },
+  "noppes/npcs/command/CmdScene": {
+    "name": "noppes/npcs/command/CmdScene",
+    "annotations": [
+      {
+        "type": "METHOD",
+        "name": "Lnoppes/npcs/api/CommandNoppesBase$SubCommand;",
+        "target": "time(Lnet/minecraft/server/MinecraftServer;Lnet/minecraft/command/ICommandSender;[Ljava/lang/String;)V",
+        "values": {
+          "desc": {
+            "value": "Get/Set scene time"
+          },
+          "permission": {
+            "type": "INT",
+            "value": "2"
+          },
+          "usage": {
+            "value": "[time] [name]"
+          }
+        }
+      },
+      {
+        "type": "METHOD",
+        "name": "Lnoppes/npcs/api/CommandNoppesBase$SubCommand;",
+        "target": "reset(Lnet/minecraft/server/MinecraftServer;Lnet/minecraft/command/ICommandSender;[Ljava/lang/String;)V",
+        "values": {
+          "desc": {
+            "value": "Reset scene"
+          },
+          "permission": {
+            "type": "INT",
+            "value": "2"
+          },
+          "usage": {
+            "value": "[name]"
+          }
+        }
+      },
+      {
+        "type": "METHOD",
+        "name": "Lnoppes/npcs/api/CommandNoppesBase$SubCommand;",
+        "target": "start(Lnet/minecraft/server/MinecraftServer;Lnet/minecraft/command/ICommandSender;[Ljava/lang/String;)V",
+        "values": {
+          "desc": {
+            "value": "Start scene"
+          },
+          "permission": {
+            "type": "INT",
+            "value": "2"
+          },
+          "usage": {
+            "value": "\u003cname\u003e"
+          }
+        }
+      },
+      {
+        "type": "METHOD",
+        "name": "Lnoppes/npcs/api/CommandNoppesBase$SubCommand;",
+        "target": "pause(Lnet/minecraft/server/MinecraftServer;Lnet/minecraft/command/ICommandSender;[Ljava/lang/String;)V",
+        "values": {
+          "desc": {
+            "value": "Pause scene"
+          },
+          "permission": {
+            "type": "INT",
+            "value": "2"
+          },
+          "usage": {
+            "value": "[name]"
+          }
+        }
+      }
+    ]
+  },
+  "noppes/npcs/command/CmdSchematics": {
+    "name": "noppes/npcs/command/CmdSchematics",
+    "annotations": [
+      {
+        "type": "METHOD",
+        "name": "Lnoppes/npcs/api/CommandNoppesBase$SubCommand;",
+        "target": "build(Lnet/minecraft/server/MinecraftServer;Lnet/minecraft/command/ICommandSender;[Ljava/lang/String;)V",
+        "values": {
+          "desc": {
+            "value": "Build the schematic"
+          },
+          "permission": {
+            "type": "INT",
+            "value": "4"
+          },
+          "usage": {
+            "value": "\u003cname\u003e [rotation] [[world:]x,y,z]]"
+          }
+        }
+      },
+      {
+        "type": "METHOD",
+        "name": "Lnoppes/npcs/api/CommandNoppesBase$SubCommand;",
+        "target": "stop(Lnet/minecraft/server/MinecraftServer;Lnet/minecraft/command/ICommandSender;[Ljava/lang/String;)V",
+        "values": {
+          "desc": {
+            "value": "Stops the current build"
+          },
+          "permission": {
+            "type": "INT",
+            "value": "4"
+          }
+        }
+      },
+      {
+        "type": "METHOD",
+        "name": "Lnoppes/npcs/api/CommandNoppesBase$SubCommand;",
+        "target": "info(Lnet/minecraft/server/MinecraftServer;Lnet/minecraft/command/ICommandSender;[Ljava/lang/String;)V",
+        "values": {
+          "desc": {
+            "value": "Gives info about the current build"
+          },
+          "permission": {
+            "type": "INT",
+            "value": "4"
+          }
+        }
+      },
+      {
+        "type": "METHOD",
+        "name": "Lnoppes/npcs/api/CommandNoppesBase$SubCommand;",
+        "target": "list(Lnet/minecraft/server/MinecraftServer;Lnet/minecraft/command/ICommandSender;[Ljava/lang/String;)V",
+        "values": {
+          "desc": {
+            "value": "Lists available schematics"
+          },
+          "permission": {
+            "type": "INT",
+            "value": "4"
+          }
+        }
+      }
+    ]
+  },
+  "noppes/npcs/command/CmdScript": {
+    "name": "noppes/npcs/command/CmdScript",
+    "annotations": [
+      {
+        "type": "METHOD",
+        "name": "Lnoppes/npcs/api/CommandNoppesBase$SubCommand;",
+        "target": "reload(Lnet/minecraft/server/MinecraftServer;Lnet/minecraft/command/ICommandSender;[Ljava/lang/String;)Ljava/lang/Boolean;",
+        "values": {
+          "desc": {
+            "value": "Reload scripts and saved data from disks script folder."
+          }
+        }
+      },
+      {
+        "type": "METHOD",
+        "name": "Lnoppes/npcs/api/CommandNoppesBase$SubCommand;",
+        "target": "run(Lnet/minecraft/server/MinecraftServer;Lnet/minecraft/command/ICommandSender;[Ljava/lang/String;)Ljava/lang/Boolean;",
+        "values": {
+          "desc": {
+            "value": "Runs scriptCommand in the players scripts"
+          },
+          "usage": {
+            "value": "[args]"
+          }
+        }
+      }
+    ]
+  },
+  "noppes/npcs/config/ConfigProp": {
+    "name": "noppes/npcs/config/ConfigProp",
+    "interfaces": [
+      "java/lang/annotation/Annotation"
+    ]
+  },
+  "noppes/npcs/containers/InventoryNPC": {
+    "name": "noppes/npcs/containers/InventoryNPC",
+    "interfaces": [
+      "net/minecraft/inventory/IInventory"
+    ]
+  },
+  "noppes/npcs/containers/InventoryNpcTrader": {
+    "name": "noppes/npcs/containers/InventoryNpcTrader",
+    "interfaces": [
+      "net/minecraft/inventory/IInventory"
+    ]
+  },
+  "noppes/npcs/controllers/ChunkController": {
+    "name": "noppes/npcs/controllers/ChunkController",
+    "interfaces": [
+      "net/minecraftforge/common/ForgeChunkManager$LoadingCallback"
+    ]
+  },
+  "noppes/npcs/controllers/DialogController": {
+    "name": "noppes/npcs/controllers/DialogController",
+    "interfaces": [
+      "noppes/npcs/api/handler/IDialogHandler"
+    ]
+  },
+  "noppes/npcs/controllers/FactionController": {
+    "name": "noppes/npcs/controllers/FactionController",
+    "interfaces": [
+      "noppes/npcs/api/handler/IFactionHandler"
+    ]
+  },
+  "noppes/npcs/controllers/IScriptBlockHandler": {
+    "name": "noppes/npcs/controllers/IScriptBlockHandler",
+    "interfaces": [
+      "noppes/npcs/controllers/IScriptHandler"
+    ]
+  },
+  "noppes/npcs/controllers/QuestController": {
+    "name": "noppes/npcs/controllers/QuestController",
+    "interfaces": [
+      "noppes/npcs/api/handler/IQuestHandler"
+    ]
+  },
+  "noppes/npcs/controllers/RecipeController": {
+    "name": "noppes/npcs/controllers/RecipeController",
+    "interfaces": [
+      "noppes/npcs/api/handler/IRecipeHandler"
+    ]
+  },
+  "noppes/npcs/controllers/ScriptContainer$Dump": {
+    "name": "noppes/npcs/controllers/ScriptContainer$Dump",
+    "interfaces": [
+      "java/util/function/Function"
+    ]
+  },
+  "noppes/npcs/controllers/ScriptContainer$Log": {
+    "name": "noppes/npcs/controllers/ScriptContainer$Log",
+    "interfaces": [
+      "java/util/function/Function"
+    ]
+  },
+  "noppes/npcs/controllers/ScriptController": {
+    "name": "noppes/npcs/controllers/ScriptController",
+    "annotations": [
+      {
+        "type": "METHOD",
+        "name": "Lnet/minecraftforge/fml/common/eventhandler/SubscribeEvent;",
+        "target": "saveWorld(Lnet/minecraftforge/event/world/WorldEvent$Save;)V"
+      }
+    ]
+  },
+  "noppes/npcs/controllers/ServerCloneController": {
+    "name": "noppes/npcs/controllers/ServerCloneController",
+    "interfaces": [
+      "noppes/npcs/api/handler/ICloneHandler"
+    ]
+  },
+  "noppes/npcs/controllers/data/Availability": {
+    "name": "noppes/npcs/controllers/data/Availability",
+    "interfaces": [
+      "noppes/npcs/ICompatibilty",
+      "noppes/npcs/api/handler/data/IAvailability"
+    ]
+  },
+  "noppes/npcs/controllers/data/Dialog": {
+    "name": "noppes/npcs/controllers/data/Dialog",
+    "interfaces": [
+      "noppes/npcs/ICompatibilty",
+      "noppes/npcs/api/handler/data/IDialog"
+    ]
+  },
+  "noppes/npcs/controllers/data/DialogCategory": {
+    "name": "noppes/npcs/controllers/data/DialogCategory",
+    "interfaces": [
+      "noppes/npcs/api/handler/data/IDialogCategory"
+    ]
+  },
+  "noppes/npcs/controllers/data/DialogOption": {
+    "name": "noppes/npcs/controllers/data/DialogOption",
+    "interfaces": [
+      "noppes/npcs/api/handler/data/IDialogOption"
+    ]
+  },
+  "noppes/npcs/controllers/data/Faction": {
+    "name": "noppes/npcs/controllers/data/Faction",
+    "interfaces": [
+      "noppes/npcs/api/handler/data/IFaction"
+    ]
+  },
+  "noppes/npcs/controllers/data/ForgeScriptData": {
+    "name": "noppes/npcs/controllers/data/ForgeScriptData",
+    "interfaces": [
+      "noppes/npcs/controllers/IScriptHandler"
+    ]
+  },
+  "noppes/npcs/controllers/data/Line": {
+    "name": "noppes/npcs/controllers/data/Line",
+    "interfaces": [
+      "noppes/npcs/api/entity/data/ILine"
+    ]
+  },
+  "noppes/npcs/controllers/data/MarkData": {
+    "name": "noppes/npcs/controllers/data/MarkData",
+    "interfaces": [
+      "net/minecraftforge/common/capabilities/ICapabilityProvider"
+    ],
+    "annotations": [
+      {
+        "type": "FIELD",
+        "name": "Lnet/minecraftforge/common/capabilities/CapabilityInject;",
+        "target": "MARKDATA_CAPABILITY",
+        "value": {
+          "type": "CLASS",
+          "value": "Lnoppes/npcs/controllers/data/MarkData;"
+        }
+      }
+    ]
+  },
+  "noppes/npcs/controllers/data/MarkData$Mark": {
+    "name": "noppes/npcs/controllers/data/MarkData$Mark",
+    "interfaces": [
+      "noppes/npcs/api/entity/data/IMark"
+    ]
+  },
+  "noppes/npcs/controllers/data/PlayerData": {
+    "name": "noppes/npcs/controllers/data/PlayerData",
+    "interfaces": [
+      "net/minecraftforge/common/capabilities/ICapabilityProvider"
+    ],
+    "annotations": [
+      {
+        "type": "FIELD",
+        "name": "Lnet/minecraftforge/common/capabilities/CapabilityInject;",
+        "target": "PLAYERDATA_CAPABILITY",
+        "value": {
+          "type": "CLASS",
+          "value": "Lnoppes/npcs/controllers/data/PlayerData;"
+        }
+      }
+    ]
+  },
+  "noppes/npcs/controllers/data/PlayerMail": {
+    "name": "noppes/npcs/controllers/data/PlayerMail",
+    "interfaces": [
+      "net/minecraft/inventory/IInventory",
+      "noppes/npcs/api/entity/data/IPlayerMail"
+    ]
+  },
+  "noppes/npcs/controllers/data/PlayerScriptData": {
+    "name": "noppes/npcs/controllers/data/PlayerScriptData",
+    "interfaces": [
+      "noppes/npcs/controllers/IScriptHandler"
+    ]
+  },
+  "noppes/npcs/controllers/data/Quest": {
+    "name": "noppes/npcs/controllers/data/Quest",
+    "interfaces": [
+      "noppes/npcs/ICompatibilty",
+      "noppes/npcs/api/handler/data/IQuest"
+    ]
+  },
+  "noppes/npcs/controllers/data/QuestCategory": {
+    "name": "noppes/npcs/controllers/data/QuestCategory",
+    "interfaces": [
+      "noppes/npcs/api/handler/data/IQuestCategory"
+    ]
+  },
+  "noppes/npcs/controllers/data/RecipeCarpentry": {
+    "name": "noppes/npcs/controllers/data/RecipeCarpentry",
+    "interfaces": [
+      "noppes/npcs/api/handler/data/IRecipe"
+    ]
+  },
+  "noppes/npcs/controllers/data/TransportLocation": {
+    "name": "noppes/npcs/controllers/data/TransportLocation",
+    "interfaces": [
+      "noppes/npcs/api/entity/data/role/IRoleTransporter$ITransportLocation"
+    ]
+  },
+  "noppes/npcs/entity/EntityNPCInterface": {
+    "name": "noppes/npcs/entity/EntityNPCInterface",
+    "interfaces": [
+      "net/minecraftforge/fml/common/registry/IEntityAdditionalSpawnData",
+      "net/minecraft/command/ICommandSender",
+      "net/minecraft/entity/IRangedAttackMob",
+      "net/minecraft/entity/passive/IAnimals"
+    ]
+  },
+  "noppes/npcs/entity/data/DataAI": {
+    "name": "noppes/npcs/entity/data/DataAI",
+    "interfaces": [
+      "noppes/npcs/api/entity/data/INPCAi"
+    ]
+  },
+  "noppes/npcs/entity/data/DataAdvanced": {
+    "name": "noppes/npcs/entity/data/DataAdvanced",
+    "interfaces": [
+      "noppes/npcs/api/entity/data/INPCAdvanced"
+    ]
+  },
+  "noppes/npcs/entity/data/DataDisplay": {
+    "name": "noppes/npcs/entity/data/DataDisplay",
+    "interfaces": [
+      "noppes/npcs/api/entity/data/INPCDisplay"
+    ]
+  },
+  "noppes/npcs/entity/data/DataInventory": {
+    "name": "noppes/npcs/entity/data/DataInventory",
+    "interfaces": [
+      "net/minecraft/inventory/IInventory",
+      "noppes/npcs/api/entity/data/INPCInventory"
+    ]
+  },
+  "noppes/npcs/entity/data/DataMelee": {
+    "name": "noppes/npcs/entity/data/DataMelee",
+    "interfaces": [
+      "noppes/npcs/api/entity/data/INPCMelee"
+    ]
+  },
+  "noppes/npcs/entity/data/DataRanged": {
+    "name": "noppes/npcs/entity/data/DataRanged",
+    "interfaces": [
+      "noppes/npcs/api/entity/data/INPCRanged"
+    ]
+  },
+  "noppes/npcs/entity/data/DataScenes$SceneEvent": {
+    "name": "noppes/npcs/entity/data/DataScenes$SceneEvent",
+    "interfaces": [
+      "java/lang/Comparable"
+    ]
+  },
+  "noppes/npcs/entity/data/DataScript": {
+    "name": "noppes/npcs/entity/data/DataScript",
+    "interfaces": [
+      "noppes/npcs/controllers/IScriptHandler"
+    ]
+  },
+  "noppes/npcs/entity/data/DataStats": {
+    "name": "noppes/npcs/entity/data/DataStats",
+    "interfaces": [
+      "noppes/npcs/api/entity/data/INPCStats"
+    ]
+  },
+  "noppes/npcs/entity/data/DataTimers": {
+    "name": "noppes/npcs/entity/data/DataTimers",
+    "interfaces": [
+      "noppes/npcs/api/ITimers"
+    ]
+  },
+  "noppes/npcs/items/ItemMounter": {
+    "name": "noppes/npcs/items/ItemMounter",
+    "interfaces": [
+      "noppes/npcs/util/IPermission"
+    ]
+  },
+  "noppes/npcs/items/ItemNbtBook": {
+    "name": "noppes/npcs/items/ItemNbtBook",
+    "interfaces": [
+      "noppes/npcs/util/IPermission"
+    ]
+  },
+  "noppes/npcs/items/ItemNpcCloner": {
+    "name": "noppes/npcs/items/ItemNpcCloner",
+    "interfaces": [
+      "noppes/npcs/util/IPermission"
+    ]
+  },
+  "noppes/npcs/items/ItemNpcMovingPath": {
+    "name": "noppes/npcs/items/ItemNpcMovingPath",
+    "interfaces": [
+      "noppes/npcs/util/IPermission"
+    ]
+  },
+  "noppes/npcs/items/ItemNpcScripter": {
+    "name": "noppes/npcs/items/ItemNpcScripter",
+    "interfaces": [
+      "noppes/npcs/util/IPermission"
+    ]
+  },
+  "noppes/npcs/items/ItemNpcWand": {
+    "name": "noppes/npcs/items/ItemNpcWand",
+    "interfaces": [
+      "noppes/npcs/util/IPermission"
+    ]
+  },
+  "noppes/npcs/items/ItemScripted": {
+    "name": "noppes/npcs/items/ItemScripted",
+    "interfaces": [
+      "noppes/npcs/util/IPermission"
+    ]
+  },
+  "noppes/npcs/items/ItemScriptedDoor": {
+    "name": "noppes/npcs/items/ItemScriptedDoor",
+    "interfaces": [
+      "noppes/npcs/util/IPermission"
+    ]
+  },
+  "noppes/npcs/items/ItemTeleporter": {
+    "name": "noppes/npcs/items/ItemTeleporter",
+    "interfaces": [
+      "noppes/npcs/util/IPermission"
+    ]
+  },
+  "noppes/npcs/quests/QuestDialog$QuestDialogObjective": {
+    "name": "noppes/npcs/quests/QuestDialog$QuestDialogObjective",
+    "interfaces": [
+      "noppes/npcs/api/handler/data/IQuestObjective"
+    ]
+  },
+  "noppes/npcs/quests/QuestItem$QuestItemObjective": {
+    "name": "noppes/npcs/quests/QuestItem$QuestItemObjective",
+    "interfaces": [
+      "noppes/npcs/api/handler/data/IQuestObjective"
+    ]
+  },
+  "noppes/npcs/quests/QuestKill$QuestKillObjective": {
+    "name": "noppes/npcs/quests/QuestKill$QuestKillObjective",
+    "interfaces": [
+      "noppes/npcs/api/handler/data/IQuestObjective"
+    ]
+  },
+  "noppes/npcs/quests/QuestLocation$QuestLocationObjective": {
+    "name": "noppes/npcs/quests/QuestLocation$QuestLocationObjective",
+    "interfaces": [
+      "noppes/npcs/api/handler/data/IQuestObjective"
+    ]
+  },
+  "noppes/npcs/quests/QuestManual$QuestManualObjective": {
+    "name": "noppes/npcs/quests/QuestManual$QuestManualObjective",
+    "interfaces": [
+      "noppes/npcs/api/handler/data/IQuestObjective"
+    ]
+  },
+  "noppes/npcs/roles/JobBard": {
+    "name": "noppes/npcs/roles/JobBard",
+    "interfaces": [
+      "noppes/npcs/api/entity/data/role/IJobBard"
+    ]
+  },
+  "noppes/npcs/roles/JobBuilder": {
+    "name": "noppes/npcs/roles/JobBuilder",
+    "interfaces": [
+      "noppes/npcs/api/entity/data/role/IJobBuilder"
+    ]
+  },
+  "noppes/npcs/roles/JobFarmer": {
+    "name": "noppes/npcs/roles/JobFarmer",
+    "interfaces": [
+      "noppes/npcs/controllers/MassBlockController$IMassBlock",
+      "noppes/npcs/api/entity/data/role/IJobFarmer"
+    ]
+  },
+  "noppes/npcs/roles/JobFollower": {
+    "name": "noppes/npcs/roles/JobFollower",
+    "interfaces": [
+      "noppes/npcs/api/entity/data/role/IJobFollower"
+    ]
+  },
+  "noppes/npcs/roles/JobInterface": {
+    "name": "noppes/npcs/roles/JobInterface",
+    "interfaces": [
+      "noppes/npcs/api/entity/data/INPCJob"
+    ]
+  },
+  "noppes/npcs/roles/JobPuppet": {
+    "name": "noppes/npcs/roles/JobPuppet",
+    "interfaces": [
+      "noppes/npcs/api/entity/data/role/IJobPuppet"
+    ]
+  },
+  "noppes/npcs/roles/JobPuppet$PartConfig": {
+    "name": "noppes/npcs/roles/JobPuppet$PartConfig",
+    "interfaces": [
+      "noppes/npcs/api/entity/data/role/IJobPuppet$IJobPuppetPart"
+    ]
+  },
+  "noppes/npcs/roles/JobSpawner": {
+    "name": "noppes/npcs/roles/JobSpawner",
+    "interfaces": [
+      "noppes/npcs/api/entity/data/role/IJobSpawner"
+    ]
+  },
+  "noppes/npcs/roles/RoleDialog": {
+    "name": "noppes/npcs/roles/RoleDialog",
+    "interfaces": [
+      "noppes/npcs/api/entity/data/role/IRoleDialog"
+    ]
+  },
+  "noppes/npcs/roles/RoleFollower": {
+    "name": "noppes/npcs/roles/RoleFollower",
+    "interfaces": [
+      "noppes/npcs/api/entity/data/role/IRoleFollower"
+    ]
+  },
+  "noppes/npcs/roles/RoleInterface": {
+    "name": "noppes/npcs/roles/RoleInterface",
+    "interfaces": [
+      "noppes/npcs/api/entity/data/INPCRole"
+    ]
+  },
+  "noppes/npcs/roles/RoleTrader": {
+    "name": "noppes/npcs/roles/RoleTrader",
+    "interfaces": [
+      "noppes/npcs/api/entity/data/role/IRoleTrader"
+    ]
+  },
+  "noppes/npcs/roles/RoleTransporter": {
+    "name": "noppes/npcs/roles/RoleTransporter",
+    "interfaces": [
+      "noppes/npcs/api/entity/data/role/IRoleTransporter"
+    ]
+  },
+  "noppes/npcs/schematics/Blueprint": {
+    "name": "noppes/npcs/schematics/Blueprint",
+    "interfaces": [
+      "noppes/npcs/schematics/ISchematic"
+    ]
+  },
+  "noppes/npcs/schematics/Schematic": {
+    "name": "noppes/npcs/schematics/Schematic",
+    "interfaces": [
+      "noppes/npcs/schematics/ISchematic"
+    ]
+  },
+  "noppes/npcs/util/NaturalOrderComparator": {
+    "name": "noppes/npcs/util/NaturalOrderComparator",
+    "interfaces": [
+      "java/util/Comparator"
+    ]
+  }
+}

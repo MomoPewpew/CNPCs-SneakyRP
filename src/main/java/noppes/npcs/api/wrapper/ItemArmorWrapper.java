@@ -1,0 +1,26 @@
+package noppes.npcs.api.wrapper;
+
+import net.minecraft.item.ItemArmor;
+import net.minecraft.item.ItemStack;
+import noppes.npcs.api.item.IItemArmor;
+
+public class ItemArmorWrapper extends ItemStackWrapper implements IItemArmor {
+     protected ItemArmor armor;
+
+     protected ItemArmorWrapper(ItemStack item) {
+          super(item);
+          this.armor = (ItemArmor)item.func_77973_b();
+     }
+
+     public int getType() {
+          return 3;
+     }
+
+     public int getArmorSlot() {
+          return this.armor.func_185083_B_().func_188452_c();
+     }
+
+     public String getArmorMaterial() {
+          return this.armor.func_82812_d().func_179242_c();
+     }
+}
