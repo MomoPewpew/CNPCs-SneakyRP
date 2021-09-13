@@ -54,9 +54,9 @@ public class ServerEventsHandler {
      public void invoke(EntityInteract event) {
           ItemStack item = event.getEntityPlayer().func_184614_ca();
           if (item != null) {
-               boolean isRemote = event.getEntityPlayer().world.field_72995_K;
+               boolean isRemote = event.getEntityPlayer().world.isRemote;
                boolean npcInteracted = event.getTarget() instanceof EntityNPCInterface;
-               if (isRemote || !CustomNpcs.OpsOnly || event.getEntityPlayer().func_184102_h().func_184103_al().func_152596_g(event.getEntityPlayer().func_146103_bH())) {
+               if (isRemote || !CustomNpcs.OpsOnly || event.getEntityPlayer().getServer().getPlayerList().func_152596_g(event.getEntityPlayer().func_146103_bH())) {
                     if (!isRemote && item.func_77973_b() == CustomItems.soulstoneEmpty && event.getTarget() instanceof EntityLivingBase) {
                          ((ItemSoulstoneEmpty)item.func_77973_b()).store((EntityLivingBase)event.getTarget(), item, event.getEntityPlayer());
                     }
@@ -128,7 +128,7 @@ public class ServerEventsHandler {
 
      @SubscribeEvent
      public void invoke(LivingDeathEvent event) {
-          if (!event.getEntityLiving().world.field_72995_K) {
+          if (!event.getEntityLiving().world.isRemote) {
                Entity source = NoppesUtilServer.GetDamageSourcee(event.getSource());
                if (source != null) {
                     if (source instanceof EntityNPCInterface && event.getEntityLiving() != null) {
@@ -196,7 +196,7 @@ public class ServerEventsHandler {
                          } while(data.quest.type != 2 && data.quest.type != 4);
 
                          if (data.quest.type == 4 && all) {
-                              List list = player.world.func_72872_a(EntityPlayer.class, entity.func_174813_aQ().func_72314_b(10.0D, 10.0D, 10.0D));
+                              List list = player.world.getEntitiesWithinAABB(EntityPlayer.class, entity.getEntityBoundingBox().expand(10.0D, 10.0D, 10.0D));
                               Iterator var10 = list.iterator();
 
                               while(var10.hasNext()) {
@@ -231,7 +231,7 @@ public class ServerEventsHandler {
 
      @SubscribeEvent
      public void pickUp(EntityItemPickupEvent event) {
-          if (!event.getEntityPlayer().world.field_72995_K) {
+          if (!event.getEntityPlayer().world.isRemote) {
                PlayerQuestData playerdata = PlayerData.get(event.getEntityPlayer()).questData;
                playerdata.checkQuestCompletion(event.getEntityPlayer(), 0);
           }
@@ -241,8 +241,8 @@ public class ServerEventsHandler {
      public void commandGive(CommandEvent event) {
           if (event.getSender().func_130014_f_() instanceof WorldServer && event.getCommand() instanceof CommandGive) {
                try {
-                    EntityPlayer player = CommandBase.func_184888_a(event.getSender().func_184102_h(), event.getSender(), event.getParameters()[0]);
-                    player.func_184102_h().field_175589_i.add(ListenableFutureTask.create(Executors.callable(() -> {
+                    EntityPlayer player = CommandBase.func_184888_a(event.getSender().getServer(), event.getSender(), event.getParameters()[0]);
+                    player.getServer().field_175589_i.add(ListenableFutureTask.create(Executors.callable(() -> {
                          PlayerQuestData playerdata = PlayerData.get(player).questData;
                          playerdata.checkQuestCompletion(player, 0);
                     })));
@@ -254,7 +254,7 @@ public class ServerEventsHandler {
 
      @SubscribeEvent
      public void world(EntityJoinWorldEvent event) {
-          if (!event.getWorld().field_72995_K && event.getEntity() instanceof EntityPlayer) {
+          if (!event.getWorld().isRemote && event.getEntity() instanceof EntityPlayer) {
                PlayerData data = PlayerData.get((EntityPlayer)event.getEntity());
                data.updateCompanion(event.getWorld());
           }
@@ -277,7 +277,7 @@ public class ServerEventsHandler {
                MarkData.register(event);
           }
 
-          if (((Entity)event.getObject()).world != null && !((Entity)event.getObject()).world.field_72995_K && ((Entity)event.getObject()).world instanceof WorldServer) {
+          if (((Entity)event.getObject()).world != null && !((Entity)event.getObject()).world.isRemote && ((Entity)event.getObject()).world instanceof WorldServer) {
                WrapperEntityData.register(event);
           }
 
@@ -314,7 +314,7 @@ public class ServerEventsHandler {
 
      @SubscribeEvent
      public void playerTracking(StartTracking event) {
-          if (event.getTarget() instanceof EntityLivingBase && !event.getTarget().world.field_72995_K) {
+          if (event.getTarget() instanceof EntityLivingBase && !event.getTarget().world.isRemote) {
                MarkData data = MarkData.get((EntityLivingBase)event.getTarget());
                if (!data.marks.isEmpty()) {
                     Server.sendData((EntityPlayerMP)event.getEntityPlayer(), EnumPacketClient.MARK_DATA, event.getTarget().func_145782_y(), data.getNBT());

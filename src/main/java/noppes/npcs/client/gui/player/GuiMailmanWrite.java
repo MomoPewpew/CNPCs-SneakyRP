@@ -64,7 +64,7 @@ public class GuiMailmanWrite extends GuiContainerNPCInterface implements ITextfi
           }
 
           if (this.bookPages != null) {
-               this.bookPages = this.bookPages.func_74737_b();
+               this.bookPages = this.bookPages.copy();
                this.bookTotalPages = this.bookPages.tagCount();
                if (this.bookTotalPages < 1) {
                     this.bookTotalPages = 1;

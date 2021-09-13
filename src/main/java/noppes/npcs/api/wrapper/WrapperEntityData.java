@@ -59,7 +59,7 @@ public class WrapperEntityData implements ICapabilityProvider {
      }
 
      private static WrapperEntityData getData(Entity entity) {
-          if (entity != null && entity.world != null && !entity.world.field_72995_K) {
+          if (entity != null && entity.world != null && !entity.world.isRemote) {
                if (entity instanceof EntityPlayerMP) {
                     return new WrapperEntityData(new PlayerWrapper((EntityPlayerMP)entity));
                } else if (PixelmonHelper.isPixelmon(entity)) {

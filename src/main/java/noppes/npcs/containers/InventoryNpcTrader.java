@@ -18,41 +18,41 @@ public class InventoryNpcTrader implements IInventory {
           this.con = con;
           this.inventoryTitle = s;
           this.slotsCount = i;
-          this.inventoryContents = NonNullList.func_191197_a(i, ItemStack.field_190927_a);
+          this.inventoryContents = NonNullList.func_191197_a(i, ItemStack.EMPTY);
      }
 
-     public ItemStack func_70301_a(int i) {
+     public ItemStack getStackInSlot(int i) {
           ItemStack toBuy = (ItemStack)this.inventoryContents.get(i);
-          return NoppesUtilServer.IsItemStackNull(toBuy) ? ItemStack.field_190927_a : toBuy.func_77946_l();
+          return NoppesUtilServer.IsItemStackNull(toBuy) ? ItemStack.EMPTY : toBuy.copy();
      }
 
-     public ItemStack func_70298_a(int i, int j) {
+     public ItemStack decrStackSize(int i, int j) {
           ItemStack stack = (ItemStack)this.inventoryContents.get(i);
-          return !NoppesUtilServer.IsItemStackNull(stack) ? stack.func_77946_l() : ItemStack.field_190927_a;
+          return !NoppesUtilServer.IsItemStackNull(stack) ? stack.copy() : ItemStack.EMPTY;
      }
 
-     public void func_70299_a(int i, ItemStack itemstack) {
-          if (!itemstack.func_190926_b()) {
-               this.inventoryContents.set(i, itemstack.func_77946_l());
+     public void setInventorySlotContents(int i, ItemStack itemstack) {
+          if (!itemstack.isEmpty()) {
+               this.inventoryContents.set(i, itemstack.copy());
           }
 
-          this.func_70296_d();
+          this.markDirty();
      }
 
-     public int func_70302_i_() {
+     public int getSizeInventory() {
           return this.slotsCount;
      }
 
-     public int func_70297_j_() {
+     public int getInventoryStackLimit() {
           return 64;
      }
 
-     public boolean func_70300_a(EntityPlayer entityplayer) {
+     public boolean isUseableByPlayer(EntityPlayer entityplayer) {
           return true;
      }
 
-     public ItemStack func_70304_b(int i) {
-          return (ItemStack)this.inventoryContents.set(i, ItemStack.field_190927_a);
+     public ItemStack removeStackFromSlot(int i) {
+          return (ItemStack)this.inventoryContents.set(i, ItemStack.EMPTY);
      }
 
      public boolean func_94041_b(int i, ItemStack itemstack) {
@@ -67,8 +67,8 @@ public class InventoryNpcTrader implements IInventory {
           return true;
      }
 
-     public void func_70296_d() {
-          this.con.func_75130_a(this);
+     public void markDirty() {
+          this.con.onCraftMatrixChanged(this);
      }
 
      public void func_174889_b(EntityPlayer player) {
@@ -96,9 +96,9 @@ public class InventoryNpcTrader implements IInventory {
      }
 
      public boolean func_191420_l() {
-          for(int slot = 0; slot < this.func_70302_i_(); ++slot) {
-               ItemStack item = this.func_70301_a(slot);
-               if (!NoppesUtilServer.IsItemStackNull(item) && !item.func_190926_b()) {
+          for(int slot = 0; slot < this.getSizeInventory(); ++slot) {
+               ItemStack item = this.getStackInSlot(slot);
+               if (!NoppesUtilServer.IsItemStackNull(item) && !item.isEmpty()) {
                     return false;
                }
           }

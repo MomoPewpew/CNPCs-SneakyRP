@@ -6,7 +6,7 @@ import noppes.npcs.api.wrapper.ItemStackWrapper;
 
 public class ItemStackEmptyWrapper extends ItemStackWrapper {
      public ItemStackEmptyWrapper() {
-          super(ItemStack.field_190927_a);
+          super(ItemStack.EMPTY);
      }
 
      public IData getTempdata() {

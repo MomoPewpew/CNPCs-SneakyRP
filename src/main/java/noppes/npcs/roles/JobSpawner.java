@@ -53,12 +53,12 @@ public class JobSpawner extends JobInterface implements IJobSpawner {
           this.saveCompound(this.compound5, "SpawnerNBT5", compound);
           this.saveCompound(this.compound6, "SpawnerNBT6", compound);
           compound.setString("SpawnerId", this.id);
-          compound.func_74757_a("SpawnerDoesntDie", this.doesntDie);
+          compound.setBoolean("SpawnerDoesntDie", this.doesntDie);
           compound.setInteger("SpawnerType", this.spawnType);
           compound.setInteger("SpawnerXOffset", this.xOffset);
           compound.setInteger("SpawnerYOffset", this.yOffset);
           compound.setInteger("SpawnerZOffset", this.zOffset);
-          compound.func_74757_a("DespawnOnTargetLost", this.despawnOnTargetLost);
+          compound.setBoolean("DespawnOnTargetLost", this.despawnOnTargetLost);
           return compound;
      }
 
@@ -93,10 +93,10 @@ public class JobSpawner extends JobInterface implements IJobSpawner {
           this.compound6 = compound.getCompoundTag("SpawnerNBT6");
           this.id = compound.getString("SpawnerId");
           this.doesntDie = compound.getBoolean("SpawnerDoesntDie");
-          this.spawnType = compound.func_74762_e("SpawnerType");
-          this.xOffset = compound.func_74762_e("SpawnerXOffset");
-          this.yOffset = compound.func_74762_e("SpawnerYOffset");
-          this.zOffset = compound.func_74762_e("SpawnerZOffset");
+          this.spawnType = compound.getInteger("SpawnerType");
+          this.xOffset = compound.getInteger("SpawnerXOffset");
+          this.yOffset = compound.getInteger("SpawnerYOffset");
+          this.zOffset = compound.getInteger("SpawnerZOffset");
           this.despawnOnTargetLost = compound.getBoolean("DespawnOnTargetLost");
      }
 
@@ -314,7 +314,7 @@ public class JobSpawner extends JobInterface implements IJobSpawner {
           EntityLivingBase entity;
           for(Iterator var1 = this.spawned.iterator(); var1.hasNext(); this.setTarget(entity, this.npc.func_70638_az())) {
                entity = (EntityLivingBase)var1.next();
-               int i = entity.getEntityData().func_74762_e("NpcSpawnerNr");
+               int i = entity.getEntityData().getInteger("NpcSpawnerNr");
                if (i > this.number) {
                     this.number = i;
                }
@@ -391,7 +391,7 @@ public class JobSpawner extends JobInterface implements IJobSpawner {
 
      private List getNearbySpawned() {
           List spawnList = new ArrayList();
-          List list = this.npc.world.func_72872_a(EntityLivingBase.class, this.npc.func_174813_aQ().func_72314_b(40.0D, 40.0D, 40.0D));
+          List list = this.npc.world.getEntitiesWithinAABB(EntityLivingBase.class, this.npc.getEntityBoundingBox().expand(40.0D, 40.0D, 40.0D));
           Iterator var3 = list.iterator();
 
           while(var3.hasNext()) {

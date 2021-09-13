@@ -9,10 +9,10 @@ public class TileColorable extends TileNpcEntity {
      public int color = 14;
      public int rotation;
 
-     public void func_145839_a(NBTTagCompound compound) {
-          super.func_145839_a(compound);
-          this.color = compound.func_74762_e("BannerColor");
-          this.rotation = compound.func_74762_e("BannerRotation");
+     public void readFromNBT(NBTTagCompound compound) {
+          super.readFromNBT(compound);
+          this.color = compound.getInteger("BannerColor");
+          this.rotation = compound.getInteger("BannerRotation");
      }
 
      public NBTTagCompound func_189515_b(NBTTagCompound compound) {
@@ -27,7 +27,7 @@ public class TileColorable extends TileNpcEntity {
 
      public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity pkt) {
           NBTTagCompound compound = pkt.func_148857_g();
-          this.func_145839_a(compound);
+          this.readFromNBT(compound);
      }
 
      public SPacketUpdateTileEntity func_189518_D_() {
@@ -43,7 +43,7 @@ public class TileColorable extends TileNpcEntity {
      }
 
      public AxisAlignedBB getRenderBoundingBox() {
-          return new AxisAlignedBB((double)this.field_174879_c.func_177958_n(), (double)this.field_174879_c.func_177956_o(), (double)this.field_174879_c.func_177952_p(), (double)(this.field_174879_c.func_177958_n() + 1), (double)(this.field_174879_c.func_177956_o() + 1), (double)(this.field_174879_c.func_177952_p() + 1));
+          return new AxisAlignedBB((double)this.field_174879_c.getX(), (double)this.field_174879_c.getY(), (double)this.field_174879_c.getZ(), (double)(this.field_174879_c.getX() + 1), (double)(this.field_174879_c.getY() + 1), (double)(this.field_174879_c.getZ() + 1));
      }
 
      public int powerProvided() {

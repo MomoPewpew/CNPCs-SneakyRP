@@ -43,8 +43,8 @@ public class TileScriptedDoor extends TileDoor implements ITickable, IScriptBloc
           return this.blockDummy;
      }
 
-     public void func_145839_a(NBTTagCompound compound) {
-          super.func_145839_a(compound);
+     public void readFromNBT(NBTTagCompound compound) {
+          super.readFromNBT(compound);
           this.setNBT(compound);
           this.timers.readFromNBT(compound);
      }
@@ -53,10 +53,10 @@ public class TileScriptedDoor extends TileDoor implements ITickable, IScriptBloc
           this.scripts = NBTTags.GetScript(compound.getTagList("Scripts", 10), this);
           this.scriptLanguage = compound.getString("ScriptLanguage");
           this.enabled = compound.getBoolean("ScriptEnabled");
-          this.prevPower = compound.func_74762_e("BlockPrevPower");
+          this.prevPower = compound.getInteger("BlockPrevPower");
           if (compound.hasKey("BlockHardness")) {
-               this.blockHardness = compound.func_74760_g("BlockHardness");
-               this.blockResistance = compound.func_74760_g("BlockResistance");
+               this.blockHardness = compound.getFloat("BlockHardness");
+               this.blockResistance = compound.getFloat("BlockResistance");
           }
 
      }
@@ -70,10 +70,10 @@ public class TileScriptedDoor extends TileDoor implements ITickable, IScriptBloc
      public NBTTagCompound getNBT(NBTTagCompound compound) {
           compound.setTag("Scripts", NBTTags.NBTScript(this.scripts));
           compound.setString("ScriptLanguage", this.scriptLanguage);
-          compound.func_74757_a("ScriptEnabled", this.enabled);
+          compound.setBoolean("ScriptEnabled", this.enabled);
           compound.setInteger("BlockPrevPower", this.prevPower);
-          compound.func_74776_a("BlockHardness", this.blockHardness);
-          compound.func_74776_a("BlockResistance", this.blockResistance);
+          compound.setFloat("BlockHardness", this.blockHardness);
+          compound.setFloat("BlockResistance", this.blockResistance);
           return compound;
      }
 
@@ -97,7 +97,7 @@ public class TileScriptedDoor extends TileDoor implements ITickable, IScriptBloc
      }
 
      private boolean isEnabled() {
-          return this.enabled && ScriptController.HasStart && !this.field_145850_b.field_72995_K;
+          return this.enabled && ScriptController.HasStart && !this.field_145850_b.isRemote;
      }
 
      public void func_73660_a() {
@@ -117,7 +117,7 @@ public class TileScriptedDoor extends TileDoor implements ITickable, IScriptBloc
      }
 
      public boolean isClient() {
-          return this.func_145831_w().field_72995_K;
+          return this.func_145831_w().isRemote;
      }
 
      public boolean getEnabled() {
@@ -142,7 +142,7 @@ public class TileScriptedDoor extends TileDoor implements ITickable, IScriptBloc
 
      public String noticeString() {
           BlockPos pos = this.func_174877_v();
-          return MoreObjects.toStringHelper(this).add("x", pos.func_177958_n()).add("y", pos.func_177956_o()).add("z", pos.func_177952_p()).toString();
+          return MoreObjects.toStringHelper(this).add("x", pos.getX()).add("y", pos.getY()).add("z", pos.getZ()).toString();
      }
 
      public Map getConsoleText() {

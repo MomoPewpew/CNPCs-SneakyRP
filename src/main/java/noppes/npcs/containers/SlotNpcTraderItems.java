@@ -11,9 +11,9 @@ class SlotNpcTraderItems extends Slot {
           super(iinventory, i, j, k);
      }
 
-     public ItemStack func_190901_a(EntityPlayer player, ItemStack itemstack) {
-          if (!NoppesUtilServer.IsItemStackNull(itemstack) && !NoppesUtilServer.IsItemStackNull(this.func_75211_c())) {
-               if (itemstack.func_77973_b() != this.func_75211_c().func_77973_b()) {
+     public ItemStack onTake(EntityPlayer player, ItemStack itemstack) {
+          if (!NoppesUtilServer.IsItemStackNull(itemstack) && !NoppesUtilServer.IsItemStackNull(this.getStack())) {
+               if (itemstack.func_77973_b() != this.getStack().func_77973_b()) {
                     return itemstack;
                } else {
                     itemstack.func_190918_g(1);

@@ -26,7 +26,7 @@ public class TransportCategory {
      }
 
      public void readNBT(NBTTagCompound compound) {
-          this.id = compound.func_74762_e("CategoryId");
+          this.id = compound.getInteger("CategoryId");
           this.title = compound.getString("CategoryTitle");
           NBTTagList locs = compound.getTagList("CategoryLocations", 10);
           if (locs != null && locs.tagCount() != 0) {

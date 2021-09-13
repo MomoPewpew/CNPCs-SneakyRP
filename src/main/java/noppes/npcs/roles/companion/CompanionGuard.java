@@ -12,7 +12,7 @@ public class CompanionGuard extends CompanionJobInterface {
 
      public NBTTagCompound getNBT() {
           NBTTagCompound compound = new NBTTagCompound();
-          compound.func_74757_a("CompanionGuardStanding", this.isStanding);
+          compound.setBoolean("CompanionGuardStanding", this.isStanding);
           return compound;
      }
 

@@ -15,7 +15,7 @@ public class PlayerDialogData {
                if (list != null) {
                     for(int i = 0; i < list.tagCount(); ++i) {
                          NBTTagCompound nbttagcompound = list.getCompoundTagAt(i);
-                         dialogsRead.add(nbttagcompound.func_74762_e("Dialog"));
+                         dialogsRead.add(nbttagcompound.getInteger("Dialog"));
                     }
 
                     this.dialogsRead = dialogsRead;

@@ -30,9 +30,9 @@ public class NBTTags {
                NBTTagCompound nbttagcompound = tagList.getCompoundTagAt(i);
 
                try {
-                    items.set(nbttagcompound.func_74771_c("Slot") & 255, new ItemStack(nbttagcompound));
+                    items.set(nbttagcompound.getByte("Slot") & 255, new ItemStack(nbttagcompound));
                } catch (ClassCastException var5) {
-                    items.set(nbttagcompound.func_74762_e("Slot"), new ItemStack(nbttagcompound));
+                    items.set(nbttagcompound.getInteger("Slot"), new ItemStack(nbttagcompound));
                }
           }
 
@@ -44,11 +44,11 @@ public class NBTTags {
           for(int i = 0; i < tagList.tagCount(); ++i) {
                NBTTagCompound nbttagcompound = tagList.getCompoundTagAt(i);
                ItemStack item = new ItemStack(nbttagcompound);
-               if (!item.func_190926_b()) {
+               if (!item.isEmpty()) {
                     try {
-                         list.put(nbttagcompound.func_74771_c("Slot") & 255, NpcAPI.Instance().getIItemStack(item));
+                         list.put(nbttagcompound.getByte("Slot") & 255, NpcAPI.Instance().getIItemStack(item));
                     } catch (ClassCastException var6) {
-                         list.put(nbttagcompound.func_74762_e("Slot"), NpcAPI.Instance().getIItemStack(item));
+                         list.put(nbttagcompound.getInteger("Slot"), NpcAPI.Instance().getIItemStack(item));
                     }
                }
           }
@@ -61,18 +61,18 @@ public class NBTTags {
 
           for(int i = 0; i < tagList.tagCount(); ++i) {
                NBTTagCompound nbttagcompound = tagList.getCompoundTagAt(i);
-               list[nbttagcompound.func_74771_c("Slot") & 255] = new ItemStack(nbttagcompound);
+               list[nbttagcompound.getByte("Slot") & 255] = new ItemStack(nbttagcompound);
           }
 
           return list;
      }
 
      public static NonNullList getIngredientList(NBTTagList tagList) {
-          NonNullList list = NonNullList.func_191196_a();
+          NonNullList list = NonNullList.create();
 
           for(int i = 0; i < tagList.tagCount(); ++i) {
                NBTTagCompound nbttagcompound = tagList.getCompoundTagAt(i);
-               list.add(nbttagcompound.func_74771_c("Slot") & 255, Ingredient.func_193369_a(new ItemStack[]{new ItemStack(nbttagcompound)}));
+               list.add(nbttagcompound.getByte("Slot") & 255, Ingredient.fromStacks(new ItemStack[]{new ItemStack(nbttagcompound)}));
           }
 
           return list;
@@ -83,7 +83,7 @@ public class NBTTags {
 
           for(int i = 0; i < tagList.tagCount(); ++i) {
                NBTTagCompound compound = tagList.getCompoundTagAt(i);
-               set.add(compound.func_74759_k("Array"));
+               set.add(compound.getIntArray("Array"));
           }
 
           return set;
@@ -94,7 +94,7 @@ public class NBTTags {
 
           for(int i = 0; i < tagList.tagCount(); ++i) {
                NBTTagCompound nbttagcompound = tagList.getCompoundTagAt(i);
-               list.put(nbttagcompound.func_74762_e("Slot"), nbttagcompound.getBoolean("Boolean"));
+               list.put(nbttagcompound.getInteger("Slot"), nbttagcompound.getBoolean("Boolean"));
           }
 
           return list;
@@ -105,7 +105,7 @@ public class NBTTags {
 
           for(int i = 0; i < tagList.tagCount(); ++i) {
                NBTTagCompound nbttagcompound = tagList.getCompoundTagAt(i);
-               list.put(nbttagcompound.func_74762_e("Slot"), nbttagcompound.func_74762_e("Integer"));
+               list.put(nbttagcompound.getInteger("Slot"), nbttagcompound.getInteger("Integer"));
           }
 
           return list;
@@ -116,7 +116,7 @@ public class NBTTags {
 
           for(int i = 0; i < tagList.tagCount(); ++i) {
                NBTTagCompound nbttagcompound = tagList.getCompoundTagAt(i);
-               list.put(nbttagcompound.func_74762_e("Slot"), nbttagcompound.func_74763_f("Long"));
+               list.put(nbttagcompound.getInteger("Slot"), nbttagcompound.getLong("Long"));
           }
 
           return list;
@@ -127,7 +127,7 @@ public class NBTTags {
 
           for(int i = 0; i < tagList.tagCount(); ++i) {
                NBTTagCompound nbttagcompound = tagList.getCompoundTagAt(i);
-               list.add(nbttagcompound.func_74762_e("Integer"));
+               list.add(nbttagcompound.getInteger("Integer"));
           }
 
           return list;
@@ -138,7 +138,7 @@ public class NBTTags {
 
           for(int i = 0; i < tagList.tagCount(); ++i) {
                NBTTagCompound nbttagcompound = tagList.getCompoundTagAt(i);
-               list.add(nbttagcompound.func_74762_e("Integer"));
+               list.add(nbttagcompound.getInteger("Integer"));
           }
 
           return list;
@@ -160,7 +160,7 @@ public class NBTTags {
 
           for(int i = 0; i < tagList.tagCount(); ++i) {
                NBTTagCompound nbttagcompound = tagList.getCompoundTagAt(i);
-               list.put(nbttagcompound.func_74762_e("Slot"), nbttagcompound.getString("Value"));
+               list.put(nbttagcompound.getInteger("Slot"), nbttagcompound.getString("Value"));
           }
 
           return list;
@@ -171,7 +171,7 @@ public class NBTTags {
 
           for(int i = 0; i < tagList.tagCount(); ++i) {
                NBTTagCompound nbttagcompound = tagList.getCompoundTagAt(i);
-               list.put(nbttagcompound.getString("Slot"), nbttagcompound.func_74762_e("Value"));
+               list.put(nbttagcompound.getString("Slot"), nbttagcompound.getInteger("Value"));
           }
 
           return list;
@@ -214,7 +214,7 @@ public class NBTTags {
           for(int i = 0; i < tagList.tagCount(); ++i) {
                NBTTagCompound nbttagcompound = tagList.getCompoundTagAt(i);
                String line = nbttagcompound.getString("Value");
-               int slot = nbttagcompound.func_74762_e("Slot");
+               int slot = nbttagcompound.getInteger("Slot");
                arr[slot] = line;
           }
 
@@ -244,10 +244,10 @@ public class NBTTags {
 
           for(int slot = 0; slot < inventory.size(); ++slot) {
                ItemStack item = (ItemStack)inventory.get(slot);
-               if (!item.func_190926_b()) {
+               if (!item.isEmpty()) {
                     NBTTagCompound nbttagcompound = new NBTTagCompound();
-                    nbttagcompound.func_74774_a("Slot", (byte)slot);
-                    item.func_77955_b(nbttagcompound);
+                    nbttagcompound.setByte("Slot", (byte)slot);
+                    item.writeToNBT(nbttagcompound);
                     nbttaglist.appendTag(nbttagcompound);
                }
           }
@@ -267,8 +267,8 @@ public class NBTTags {
                     IItemStack item = (IItemStack)inventory.get(slot);
                     if (item != null) {
                          NBTTagCompound nbttagcompound = new NBTTagCompound();
-                         nbttagcompound.func_74774_a("Slot", (byte)slot);
-                         item.getMCItemStack().func_77955_b(nbttagcompound);
+                         nbttagcompound.setByte("Slot", (byte)slot);
+                         item.getMCItemStack().writeToNBT(nbttagcompound);
                          nbttaglist.appendTag(nbttagcompound);
                     }
                }
@@ -285,9 +285,9 @@ public class NBTTags {
                for(int slot = 0; slot < inventory.length; ++slot) {
                     ItemStack item = inventory[slot];
                     NBTTagCompound nbttagcompound = new NBTTagCompound();
-                    nbttagcompound.func_74774_a("Slot", (byte)slot);
+                    nbttagcompound.setByte("Slot", (byte)slot);
                     if (item != null) {
-                         item.func_77955_b(nbttagcompound);
+                         item.writeToNBT(nbttagcompound);
                     }
 
                     nbttaglist.appendTag(nbttagcompound);
@@ -305,9 +305,9 @@ public class NBTTags {
                for(int slot = 0; slot < inventory.size(); ++slot) {
                     Ingredient ingredient = (Ingredient)inventory.get(slot);
                     NBTTagCompound nbttagcompound = new NBTTagCompound();
-                    nbttagcompound.func_74774_a("Slot", (byte)slot);
-                    if (ingredient != null && ingredient.func_193365_a().length > 0) {
-                         ingredient.func_193365_a()[0].func_77955_b(nbttagcompound);
+                    nbttagcompound.setByte("Slot", (byte)slot);
+                    if (ingredient != null && ingredient.getMatchingStacks().length > 0) {
+                         ingredient.getMatchingStacks()[0].writeToNBT(nbttagcompound);
                     }
 
                     nbttaglist.appendTag(nbttagcompound);
@@ -329,7 +329,7 @@ public class NBTTags {
                     Integer slot = (Integer)var3.next();
                     NBTTagCompound nbttagcompound = new NBTTagCompound();
                     nbttagcompound.setInteger("Slot", slot);
-                    nbttagcompound.func_74757_a("Boolean", (Boolean)inventory2.get(slot));
+                    nbttagcompound.setBoolean("Boolean", (Boolean)inventory2.get(slot));
                     nbttaglist.appendTag(nbttagcompound);
                }
 
@@ -367,7 +367,7 @@ public class NBTTags {
                     int slot = (Integer)var2.next();
                     NBTTagCompound nbttagcompound = new NBTTagCompound();
                     nbttagcompound.setInteger("Slot", slot);
-                    nbttagcompound.func_74772_a("Long", (Long)lines.get(slot));
+                    nbttagcompound.setLong("Long", (Long)lines.get(slot));
                     nbttaglist.appendTag(nbttagcompound);
                }
 
@@ -525,7 +525,7 @@ public class NBTTags {
      }
 
      public static NBTTagCompound NBTMerge(NBTTagCompound data, NBTTagCompound merge) {
-          NBTTagCompound compound = data.func_74737_b();
+          NBTTagCompound compound = data.copy();
           Set names = merge.getKeySet();
 
           String name;
@@ -533,7 +533,7 @@ public class NBTTags {
           for(Iterator var4 = names.iterator(); var4.hasNext(); compound.setTag(name, (NBTBase)base)) {
                name = (String)var4.next();
                base = merge.getTag(name);
-               if (((NBTBase)base).func_74732_a() == 10) {
+               if (((NBTBase)base).getId() == 10) {
                     base = NBTMerge(compound.getCompoundTag(name), (NBTTagCompound)base);
                }
           }
@@ -573,7 +573,7 @@ public class NBTTags {
 
           for(int i = 0; i < tagList.tagCount(); ++i) {
                NBTTagCompound nbttagcompound = tagList.getCompoundTagAt(i);
-               list.put(nbttagcompound.func_74763_f("Long"), nbttagcompound.getString("String"));
+               list.put(nbttagcompound.getLong("Long"), nbttagcompound.getString("String"));
           }
 
           return list;
@@ -589,7 +589,7 @@ public class NBTTags {
                while(var2.hasNext()) {
                     long slot = (Long)var2.next();
                     NBTTagCompound nbttagcompound = new NBTTagCompound();
-                    nbttagcompound.func_74772_a("Long", slot);
+                    nbttagcompound.setLong("Long", slot);
                     nbttagcompound.setString("String", (String)map.get(slot));
                     nbttaglist.appendTag(nbttagcompound);
                }

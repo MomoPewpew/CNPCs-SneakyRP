@@ -55,13 +55,13 @@ public class QuestLocation extends QuestInterface {
 
      public boolean setFound(QuestData data, String location) {
           if (location.equalsIgnoreCase(this.location) && !data.extraData.getBoolean("LocationFound")) {
-               data.extraData.func_74757_a("LocationFound", true);
+               data.extraData.setBoolean("LocationFound", true);
                return true;
           } else if (location.equalsIgnoreCase(this.location2) && !data.extraData.getBoolean("LocationFound2")) {
-               data.extraData.func_74757_a("Location2Found", true);
+               data.extraData.setBoolean("Location2Found", true);
                return true;
           } else if (location.equalsIgnoreCase(this.location3) && !data.extraData.getBoolean("LocationFound3")) {
-               data.extraData.func_74757_a("Location3Found", true);
+               data.extraData.setBoolean("Location3Found", true);
                return true;
           } else {
                return false;
@@ -106,7 +106,7 @@ public class QuestLocation extends QuestInterface {
                     QuestData questData = (QuestData)data.questData.activeQuests.get(QuestLocation.this.questId);
                     boolean completed = questData.extraData.getBoolean(this.nbtName);
                     if ((!completed || progress != 1) && (completed || progress != 0)) {
-                         questData.extraData.func_74757_a(this.nbtName, progress == 1);
+                         questData.extraData.setBoolean(this.nbtName, progress == 1);
                          data.questData.checkQuestCompletion(this.player, 3);
                          data.updateClient = true;
                     }

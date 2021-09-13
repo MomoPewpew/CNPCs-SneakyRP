@@ -321,7 +321,7 @@ public class GuiDialogInteract extends GuiNPCInterface implements IGuiClose {
           if (dialog.sound != null && !dialog.sound.isEmpty()) {
                MusicController.Instance.stopMusic();
                BlockPos pos = this.npc.func_180425_c();
-               MusicController.Instance.playSound(SoundCategory.VOICE, dialog.sound, pos.func_177958_n(), pos.func_177956_o(), pos.func_177952_p(), 1.0F, 1.0F);
+               MusicController.Instance.playSound(SoundCategory.VOICE, dialog.sound, pos.getX(), pos.getY(), pos.getZ(), 1.0F, 1.0F);
           }
 
           this.lines.add(new TextBlockClient(this.npc, dialog.text, 280, 14737632, new Object[]{this.player, this.npc}));

@@ -22,8 +22,8 @@ public class ItemNpcCloner extends Item implements IPermission {
      }
 
      public EnumActionResult func_180614_a(EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
-          if (!world.field_72995_K) {
-               NoppesUtilServer.sendOpenGui(player, EnumGuiType.MobSpawner, (EntityNPCInterface)null, pos.func_177958_n(), pos.func_177956_o(), pos.func_177952_p());
+          if (!world.isRemote) {
+               NoppesUtilServer.sendOpenGui(player, EnumGuiType.MobSpawner, (EntityNPCInterface)null, pos.getX(), pos.getY(), pos.getZ());
           }
 
           return EnumActionResult.SUCCESS;

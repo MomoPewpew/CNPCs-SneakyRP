@@ -33,7 +33,7 @@ public class GuiNpcFollowerJob extends GuiNPCInterface2 implements ICustomScroll
           this.scroll.guiTop = this.guiTop + 4;
           this.addScroll(this.scroll);
           List names = new ArrayList();
-          List list = this.npc.world.func_72872_a(EntityNPCInterface.class, this.npc.func_174813_aQ().func_72314_b(40.0D, 40.0D, 40.0D));
+          List list = this.npc.world.getEntitiesWithinAABB(EntityNPCInterface.class, this.npc.getEntityBoundingBox().expand(40.0D, 40.0D, 40.0D));
           Iterator var3 = list.iterator();
 
           while(var3.hasNext()) {

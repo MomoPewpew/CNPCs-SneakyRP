@@ -55,7 +55,7 @@ public class EntityNpcDragon extends EntityNPCInterface {
      public void func_70071_h_() {
           this.field_70128_L = true;
           this.func_94061_f(true);
-          if (!this.world.field_72995_K) {
+          if (!this.world.isRemote) {
                NBTTagCompound compound = new NBTTagCompound();
                this.func_189511_e(compound);
                EntityCustomNpc npc = new EntityCustomNpc(this.world);
@@ -71,7 +71,7 @@ public class EntityNpcDragon extends EntityNPCInterface {
      public void func_70636_d() {
           this.field_40173_aw = this.field_40172_ax;
           float f;
-          if (this.world.field_72995_K && this.func_110143_aJ() <= 0.0F) {
+          if (this.world.isRemote && this.func_110143_aJ() <= 0.0F) {
                if (!this.exploded) {
                     this.exploded = true;
                     f = (this.field_70146_Z.nextFloat() - 0.5F) * 8.0F;
@@ -81,9 +81,9 @@ public class EntityNpcDragon extends EntityNPCInterface {
                }
           } else {
                this.exploded = false;
-               f = 0.2F / (MathHelper.func_76133_a(this.field_70159_w * this.field_70159_w + this.field_70179_y * this.field_70179_y) * 10.0F + 1.0F);
+               f = 0.2F / (MathHelper.func_76133_a(this.motionX * this.motionX + this.motionZ * this.motionZ) * 10.0F + 1.0F);
                f = 0.045F;
-               f *= (float)Math.pow(2.0D, this.field_70181_x);
+               f *= (float)Math.pow(2.0D, this.motionY);
                this.field_40172_ax += f * 0.5F;
           }
 

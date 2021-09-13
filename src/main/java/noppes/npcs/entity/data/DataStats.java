@@ -40,14 +40,14 @@ public class DataStats implements INPCStats {
 
      public void readToNBT(NBTTagCompound compound) {
           this.resistances.readToNBT(compound.getCompoundTag("Resistances"));
-          this.setMaxHealth(compound.func_74762_e("MaxHealth"));
+          this.setMaxHealth(compound.getInteger("MaxHealth"));
           this.hideKilledBody = compound.getBoolean("HideBodyWhenKilled");
-          this.aggroRange = compound.func_74762_e("AggroRange");
-          this.respawnTime = compound.func_74762_e("RespawnTime");
-          this.spawnCycle = compound.func_74762_e("SpawnCycle");
-          this.creatureType = EnumCreatureAttribute.values()[compound.func_74762_e("CreatureType")];
-          this.healthRegen = compound.func_74762_e("HealthRegen");
-          this.combatRegen = compound.func_74762_e("CombatRegen");
+          this.aggroRange = compound.getInteger("AggroRange");
+          this.respawnTime = compound.getInteger("RespawnTime");
+          this.spawnCycle = compound.getInteger("SpawnCycle");
+          this.creatureType = EnumCreatureAttribute.values()[compound.getInteger("CreatureType")];
+          this.healthRegen = compound.getInteger("HealthRegen");
+          this.combatRegen = compound.getInteger("CombatRegen");
           this.immuneToFire = compound.getBoolean("ImmuneToFire");
           this.potionImmune = compound.getBoolean("PotionImmune");
           this.canDrown = compound.getBoolean("CanDrown");
@@ -63,18 +63,18 @@ public class DataStats implements INPCStats {
           compound.setTag("Resistances", this.resistances.writeToNBT());
           compound.setInteger("MaxHealth", this.maxHealth);
           compound.setInteger("AggroRange", this.aggroRange);
-          compound.func_74757_a("HideBodyWhenKilled", this.hideKilledBody);
+          compound.setBoolean("HideBodyWhenKilled", this.hideKilledBody);
           compound.setInteger("RespawnTime", this.respawnTime);
           compound.setInteger("SpawnCycle", this.spawnCycle);
           compound.setInteger("CreatureType", this.creatureType.ordinal());
           compound.setInteger("HealthRegen", this.healthRegen);
           compound.setInteger("CombatRegen", this.combatRegen);
-          compound.func_74757_a("ImmuneToFire", this.immuneToFire);
-          compound.func_74757_a("PotionImmune", this.potionImmune);
-          compound.func_74757_a("CanDrown", this.canDrown);
-          compound.func_74757_a("BurnInSun", this.burnInSun);
-          compound.func_74757_a("NoFallDamage", this.noFallDamage);
-          compound.func_74757_a("IgnoreCobweb", this.ignoreCobweb);
+          compound.setBoolean("ImmuneToFire", this.immuneToFire);
+          compound.setBoolean("PotionImmune", this.potionImmune);
+          compound.setBoolean("CanDrown", this.canDrown);
+          compound.setBoolean("BurnInSun", this.burnInSun);
+          compound.setBoolean("NoFallDamage", this.noFallDamage);
+          compound.setBoolean("IgnoreCobweb", this.ignoreCobweb);
           this.melee.writeToNBT(compound);
           this.ranged.writeToNBT(compound);
           return compound;

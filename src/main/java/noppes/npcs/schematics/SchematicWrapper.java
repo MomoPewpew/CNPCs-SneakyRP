@@ -43,9 +43,9 @@ public class SchematicWrapper {
 
           for(int i = 0; i < schematic.getTileEntitySize(); ++i) {
                NBTTagCompound teTag = schematic.getTileEntity(i);
-               int x = teTag.func_74762_e("x");
-               int y = teTag.func_74762_e("y");
-               int z = teTag.func_74762_e("z");
+               int x = teTag.getInteger("x");
+               int y = teTag.getInteger("y");
+               int z = teTag.getInteger("z");
                Map map = this.tileEntities[y];
                if (map == null) {
                     this.tileEntities[y] = (Map)(map = new HashMap());
@@ -101,17 +101,17 @@ public class SchematicWrapper {
 
      public void place(int x, int y, int z, int flag) {
           IBlockState state = this.schema.getBlockState(x, y, z);
-          if (state != null && (flag != 1 || state.func_185913_b() || state.func_177230_c() == Blocks.field_150350_a) && (flag != 2 || !state.func_185913_b() && state.func_177230_c() != Blocks.field_150350_a)) {
+          if (state != null && (flag != 1 || state.func_185913_b() || state.getBlock() == Blocks.field_150350_a) && (flag != 2 || !state.func_185913_b() && state.getBlock() != Blocks.field_150350_a)) {
                int rotation = this.rotation / 90;
                BlockPos pos = this.start.func_177971_a(this.rotatePos(x, y, z, rotation));
                state = this.rotationState(state, rotation);
                this.world.func_180501_a(pos, state, 2);
-               if (state.func_177230_c() instanceof ITileEntityProvider) {
+               if (state.getBlock() instanceof ITileEntityProvider) {
                     TileEntity tile = this.world.func_175625_s(pos);
                     if (tile != null) {
                          NBTTagCompound comp = this.getTileEntity(x, y, z, pos);
                          if (comp != null) {
-                              tile.func_145839_a(comp);
+                              tile.readFromNBT(comp);
                          }
                     }
                }
@@ -150,10 +150,10 @@ public class SchematicWrapper {
                if (compound == null) {
                     return null;
                } else {
-                    compound = compound.func_74737_b();
-                    compound.setInteger("x", pos.func_177958_n());
-                    compound.setInteger("y", pos.func_177956_o());
-                    compound.setInteger("z", pos.func_177952_p());
+                    compound = compound.copy();
+                    compound.setInteger("x", pos.getX());
+                    compound.setInteger("y", pos.getY());
+                    compound.setInteger("z", pos.getZ());
                     return compound;
                }
           } else {
@@ -171,7 +171,7 @@ public class SchematicWrapper {
 
           for(int i = 0; i < this.size && i < 25000; ++i) {
                IBlockState state = this.schema.getBlockState(i);
-               if (state.func_177230_c() != Blocks.field_150350_a && state.func_177230_c() != Blocks.field_189881_dj) {
+               if (state.getBlock() != Blocks.field_150350_a && state.getBlock() != Blocks.field_189881_dj) {
                     list.appendTag(NBTUtil.func_190009_a(new NBTTagCompound(), this.schema.getBlockState(i)));
                } else {
                     list.appendTag(new NBTTagCompound());

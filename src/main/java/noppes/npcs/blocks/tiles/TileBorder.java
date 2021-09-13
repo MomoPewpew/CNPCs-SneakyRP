@@ -25,8 +25,8 @@ public class TileBorder extends TileNpcEntity implements Predicate, ITickable {
      public int height = 10;
      public String message = "availability.areaNotAvailble";
 
-     public void func_145839_a(NBTTagCompound compound) {
-          super.func_145839_a(compound);
+     public void readFromNBT(NBTTagCompound compound) {
+          super.readFromNBT(compound);
           this.readExtraNBT(compound);
           if (this.func_145831_w() != null) {
                this.func_145831_w().func_175656_a(this.func_174877_v(), CustomItems.border.func_176223_P().func_177226_a(BlockBorder.ROTATION, this.rotation));
@@ -36,8 +36,8 @@ public class TileBorder extends TileNpcEntity implements Predicate, ITickable {
 
      public void readExtraNBT(NBTTagCompound compound) {
           this.availability.readFromNBT(compound.getCompoundTag("BorderAvailability"));
-          this.rotation = compound.func_74762_e("BorderRotation");
-          this.height = compound.func_74762_e("BorderHeight");
+          this.rotation = compound.getInteger("BorderRotation");
+          this.height = compound.getInteger("BorderHeight");
           this.message = compound.getString("BorderMessage");
      }
 
@@ -54,8 +54,8 @@ public class TileBorder extends TileNpcEntity implements Predicate, ITickable {
      }
 
      public void func_73660_a() {
-          if (!this.field_145850_b.field_72995_K) {
-               AxisAlignedBB box = new AxisAlignedBB((double)this.field_174879_c.func_177958_n(), (double)this.field_174879_c.func_177956_o(), (double)this.field_174879_c.func_177952_p(), (double)(this.field_174879_c.func_177958_n() + 1), (double)(this.field_174879_c.func_177956_o() + this.height + 1), (double)(this.field_174879_c.func_177952_p() + 1));
+          if (!this.field_145850_b.isRemote) {
+               AxisAlignedBB box = new AxisAlignedBB((double)this.field_174879_c.getX(), (double)this.field_174879_c.getY(), (double)this.field_174879_c.getZ(), (double)(this.field_174879_c.getX() + 1), (double)(this.field_174879_c.getY() + this.height + 1), (double)(this.field_174879_c.getZ() + 1));
                List list = this.field_145850_b.func_175647_a(Entity.class, box, this);
                Iterator var3 = list.iterator();
 
@@ -85,7 +85,7 @@ public class TileBorder extends TileNpcEntity implements Predicate, ITickable {
                                         pos2 = pos2.func_177984_a();
                                    }
 
-                                   player.func_70634_a((double)pos2.func_177958_n() + 0.5D, (double)pos2.func_177956_o(), (double)pos2.func_177952_p() + 0.5D);
+                                   player.func_70634_a((double)pos2.getX() + 0.5D, (double)pos2.getY(), (double)pos2.getZ() + 0.5D);
                                    if (!this.message.isEmpty()) {
                                         player.func_146105_b(new TextComponentTranslation(this.message, new Object[0]), true);
                                    }
@@ -103,7 +103,7 @@ public class TileBorder extends TileNpcEntity implements Predicate, ITickable {
      }
 
      public void handleUpdateTag(NBTTagCompound compound) {
-          this.rotation = compound.func_74762_e("Rotation");
+          this.rotation = compound.getInteger("Rotation");
      }
 
      public SPacketUpdateTileEntity func_189518_D_() {
@@ -112,9 +112,9 @@ public class TileBorder extends TileNpcEntity implements Predicate, ITickable {
 
      public NBTTagCompound func_189517_E_() {
           NBTTagCompound compound = new NBTTagCompound();
-          compound.setInteger("x", this.field_174879_c.func_177958_n());
-          compound.setInteger("y", this.field_174879_c.func_177956_o());
-          compound.setInteger("z", this.field_174879_c.func_177952_p());
+          compound.setInteger("x", this.field_174879_c.getX());
+          compound.setInteger("y", this.field_174879_c.getY());
+          compound.setInteger("z", this.field_174879_c.getZ());
           compound.setInteger("Rotation", this.rotation);
           return compound;
      }

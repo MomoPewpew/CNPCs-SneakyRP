@@ -39,7 +39,7 @@ public class ClientEventHandler {
                     if (schem != null) {
                          GlStateManager.func_179094_E();
                          RenderHelper.func_74519_b();
-                         GlStateManager.func_179137_b((double)TileBuilder.DrawPos.func_177958_n() - TileEntityRendererDispatcher.field_147554_b, (double)TileBuilder.DrawPos.func_177956_o() - TileEntityRendererDispatcher.field_147555_c + 0.01D, (double)TileBuilder.DrawPos.func_177952_p() - TileEntityRendererDispatcher.field_147552_d);
+                         GlStateManager.func_179137_b((double)TileBuilder.DrawPos.getX() - TileEntityRendererDispatcher.field_147554_b, (double)TileBuilder.DrawPos.getY() - TileEntityRendererDispatcher.field_147555_c + 0.01D, (double)TileBuilder.DrawPos.getZ() - TileEntityRendererDispatcher.field_147552_d);
                          GlStateManager.func_179109_b(1.0F, (float)tile.yOffest, 1.0F);
                          if (tile.rotation % 2 == 0) {
                               this.drawSelectionBox(new BlockPos(schem.schema.getWidth(), schem.schema.getHeight(), schem.schema.getLength()));
@@ -69,7 +69,7 @@ public class ClientEventHandler {
                                              GlStateManager.func_179094_E();
                                              GlStateManager.func_179123_a();
                                              GlStateManager.enableRescaleNormal();
-                                             GlStateManager.func_179109_b((float)pos.func_177958_n(), (float)pos.func_177956_o(), (float)pos.func_177952_p());
+                                             GlStateManager.func_179109_b((float)pos.getX(), (float)pos.getY(), (float)pos.getZ());
                                              Minecraft.getMinecraft().func_110434_K().bindTexture(TextureMap.field_110575_b);
                                              GlStateManager.func_179114_b(-90.0F, 0.0F, 1.0F, 0.0F);
                                              state = schem.rotationState(state, tile.rotation);

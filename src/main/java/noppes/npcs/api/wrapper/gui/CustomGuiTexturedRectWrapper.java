@@ -83,7 +83,7 @@ public class CustomGuiTexturedRectWrapper extends CustomGuiComponentWrapper impl
      public NBTTagCompound toNBT(NBTTagCompound nbt) {
           super.toNBT(nbt);
           nbt.setIntArray("size", new int[]{this.width, this.height});
-          nbt.func_74776_a("scale", this.scale);
+          nbt.setFloat("scale", this.scale);
           nbt.setString("texture", this.texture);
           if (this.textureX >= 0 && this.textureY >= 0) {
                nbt.setIntArray("texPos", new int[]{this.textureX, this.textureY});
@@ -94,11 +94,11 @@ public class CustomGuiTexturedRectWrapper extends CustomGuiComponentWrapper impl
 
      public CustomGuiComponentWrapper fromNBT(NBTTagCompound nbt) {
           super.fromNBT(nbt);
-          this.setSize(nbt.func_74759_k("size")[0], nbt.func_74759_k("size")[1]);
-          this.setScale(nbt.func_74760_g("scale"));
+          this.setSize(nbt.getIntArray("size")[0], nbt.getIntArray("size")[1]);
+          this.setScale(nbt.getFloat("scale"));
           this.setTexture(nbt.getString("texture"));
           if (nbt.hasKey("texPos")) {
-               this.setTextureOffset(nbt.func_74759_k("texPos")[0], nbt.func_74759_k("texPos")[1]);
+               this.setTextureOffset(nbt.getIntArray("texPos")[0], nbt.getIntArray("texPos")[1]);
           }
 
           return this;

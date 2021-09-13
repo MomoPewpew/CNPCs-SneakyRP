@@ -22,12 +22,12 @@ public class ContainerWrapper implements IContainer {
      }
 
      public int getSize() {
-          return this.inventory != null ? this.inventory.func_70302_i_() : this.container.field_75151_b.size();
+          return this.inventory != null ? this.inventory.getSizeInventory() : this.container.inventorySlots.size();
      }
 
      public IItemStack getSlot(int slot) {
           if (slot >= 0 && slot < this.getSize()) {
-               return this.inventory != null ? NpcAPI.Instance().getIItemStack(this.inventory.func_70301_a(slot)) : NpcAPI.Instance().getIItemStack(this.container.func_75139_a(slot).func_75211_c());
+               return this.inventory != null ? NpcAPI.Instance().getIItemStack(this.inventory.getStackInSlot(slot)) : NpcAPI.Instance().getIItemStack(this.container.func_75139_a(slot).getStack());
           } else {
                throw new CustomNPCsException("Slot is out of range " + slot, new Object[0]);
           }
@@ -35,9 +35,9 @@ public class ContainerWrapper implements IContainer {
 
      public void setSlot(int slot, IItemStack item) {
           if (slot >= 0 && slot < this.getSize()) {
-               ItemStack itemstack = item == null ? ItemStack.field_190927_a : item.getMCItemStack();
+               ItemStack itemstack = item == null ? ItemStack.EMPTY : item.getMCItemStack();
                if (this.inventory != null) {
-                    this.inventory.func_70299_a(slot, itemstack);
+                    this.inventory.setInventorySlotContents(slot, itemstack);
                } else {
                     this.container.func_75141_a(slot, itemstack);
                     this.container.func_75142_b();

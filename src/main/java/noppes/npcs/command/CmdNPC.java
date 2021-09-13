@@ -204,7 +204,7 @@ public class CmdNPC extends CommandNoppesBase {
           }
 
           BlockPos pos = sender.func_180425_c();
-          npc.func_70080_a((double)pos.func_177958_n(), (double)pos.func_177956_o(), (double)pos.func_177952_p(), 0.0F, 0.0F);
+          npc.func_70080_a((double)pos.getX(), (double)pos.getY(), (double)pos.getZ(), 0.0F, 0.0F);
           npc.ais.setStartPos(pos);
           pw.func_72838_d(npc);
           npc.func_70606_j(npc.func_110138_aP());
@@ -223,6 +223,6 @@ public class CmdNPC extends CommandNoppesBase {
      }
 
      public List getEntities(Class cls, World world, BlockPos pos, int range) {
-          return world.func_72872_a(cls, (new AxisAlignedBB(pos, pos.func_177982_a(1, 1, 1))).func_72314_b((double)range, (double)range, (double)range));
+          return world.getEntitiesWithinAABB(cls, (new AxisAlignedBB(pos, pos.func_177982_a(1, 1, 1))).expand((double)range, (double)range, (double)range));
      }
 }

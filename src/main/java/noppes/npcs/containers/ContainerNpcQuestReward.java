@@ -15,27 +15,27 @@ public class ContainerNpcQuestReward extends Container {
           int l1;
           for(j1 = 0; j1 < 3; ++j1) {
                for(l1 = 0; l1 < 3; ++l1) {
-                    this.func_75146_a(new Slot(quest.rewardItems, l1 + j1 * 3, 105 + l1 * 18, 17 + j1 * 18));
+                    this.addSlotToContainer(new Slot(quest.rewardItems, l1 + j1 * 3, 105 + l1 * 18, 17 + j1 * 18));
                }
           }
 
           for(j1 = 0; j1 < 3; ++j1) {
                for(l1 = 0; l1 < 9; ++l1) {
-                    this.func_75146_a(new Slot(player.inventory, l1 + j1 * 9 + 9, 8 + l1 * 18, 84 + j1 * 18));
+                    this.addSlotToContainer(new Slot(player.inventory, l1 + j1 * 9 + 9, 8 + l1 * 18, 84 + j1 * 18));
                }
           }
 
           for(j1 = 0; j1 < 9; ++j1) {
-               this.func_75146_a(new Slot(player.inventory, j1, 8 + j1 * 18, 142));
+               this.addSlotToContainer(new Slot(player.inventory, j1, 8 + j1 * 18, 142));
           }
 
      }
 
-     public ItemStack func_82846_b(EntityPlayer par1EntityPlayer, int i) {
-          return ItemStack.field_190927_a;
+     public ItemStack transferStackInSlot(EntityPlayer par1EntityPlayer, int i) {
+          return ItemStack.EMPTY;
      }
 
-     public boolean func_75145_c(EntityPlayer entityplayer) {
+     public boolean canInteractWith(EntityPlayer entityplayer) {
           return true;
      }
 }

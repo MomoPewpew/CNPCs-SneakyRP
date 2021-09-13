@@ -52,7 +52,7 @@ public class PlayerScriptData implements IScriptHandler {
      public NBTTagCompound writeToNBT(NBTTagCompound compound) {
           compound.setTag("Scripts", NBTTags.NBTScript(this.scripts));
           compound.setString("ScriptLanguage", this.scriptLanguage);
-          compound.func_74757_a("ScriptEnabled", this.enabled);
+          compound.setBoolean("ScriptEnabled", this.enabled);
           compound.setTag("ScriptConsole", NBTTags.NBTLongStringMap(console));
           return compound;
      }
@@ -106,7 +106,7 @@ public class PlayerScriptData implements IScriptHandler {
      }
 
      public boolean isEnabled() {
-          return ScriptController.Instance.playerScripts.enabled && ScriptController.HasStart && (this.player == null || !this.player.world.field_72995_K);
+          return ScriptController.Instance.playerScripts.enabled && ScriptController.HasStart && (this.player == null || !this.player.world.isRemote);
      }
 
      public boolean isClient() {
@@ -138,7 +138,7 @@ public class PlayerScriptData implements IScriptHandler {
                return "Global script";
           } else {
                BlockPos pos = this.player.func_180425_c();
-               return MoreObjects.toStringHelper(this.player).add("x", pos.func_177958_n()).add("y", pos.func_177956_o()).add("z", pos.func_177952_p()).toString();
+               return MoreObjects.toStringHelper(this.player).add("x", pos.getX()).add("y", pos.getY()).add("z", pos.getZ()).toString();
           }
      }
 

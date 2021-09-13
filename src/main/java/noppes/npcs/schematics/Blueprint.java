@@ -43,7 +43,7 @@ public class Blueprint implements ISchematic {
                for(z = 0; z < this.getSizeZ(); ++z) {
                     for(x = 0; x < this.getSizeX(); ++x) {
                          state = pallete[structure[y][z][x] & '\uffff'];
-                         if (state.func_177230_c() != Blocks.field_189881_dj && state.func_185917_h()) {
+                         if (state.getBlock() != Blocks.field_189881_dj && state.func_185917_h()) {
                               world.func_180501_a(pos.func_177982_a(x, y, z), state, 2);
                          }
                     }
@@ -54,7 +54,7 @@ public class Blueprint implements ISchematic {
                for(z = 0; z < this.getSizeZ(); ++z) {
                     for(x = 0; x < this.getSizeX(); ++x) {
                          state = pallete[structure[y][z][x]];
-                         if (state.func_177230_c() != Blocks.field_189881_dj && !state.func_185917_h()) {
+                         if (state.getBlock() != Blocks.field_189881_dj && !state.func_185917_h()) {
                               world.func_180501_a(pos.func_177982_a(x, y, z), state, 2);
                          }
                     }
@@ -68,9 +68,9 @@ public class Blueprint implements ISchematic {
                for(int var12 = 0; var12 < var11; ++var12) {
                     NBTTagCompound tag = var10[var12];
                     TileEntity te = world.func_175625_s(pos.func_177982_a(tag.func_74765_d("x"), tag.func_74765_d("y"), tag.func_74765_d("z")));
-                    tag.setInteger("x", pos.func_177958_n() + tag.func_74765_d("x"));
-                    tag.setInteger("y", pos.func_177956_o() + tag.func_74765_d("y"));
-                    tag.setInteger("z", pos.func_177952_p() + tag.func_74765_d("z"));
+                    tag.setInteger("x", pos.getX() + tag.func_74765_d("x"));
+                    tag.setInteger("y", pos.getY() + tag.func_74765_d("y"));
+                    tag.setInteger("z", pos.getZ() + tag.func_74765_d("z"));
                     te.deserializeNBT(tag);
                }
           }

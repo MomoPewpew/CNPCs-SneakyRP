@@ -135,8 +135,8 @@ public class WorldWrapper implements IWorld {
      }
 
      public IEntity[] getNearbyEntities(IPos pos, int range, int type) {
-          AxisAlignedBB bb = (new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 1.0D, 1.0D)).func_186670_a(pos.getMCBlockPos()).func_72314_b((double)range, (double)range, (double)range);
-          List entities = this.world.func_72872_a(this.getClassForType(type), bb);
+          AxisAlignedBB bb = (new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 1.0D, 1.0D)).func_186670_a(pos.getMCBlockPos()).expand((double)range, (double)range, (double)range);
+          List entities = this.world.getEntitiesWithinAABB(this.getClassForType(type), bb);
           List list = new ArrayList();
           Iterator var7 = entities.iterator();
 
@@ -166,8 +166,8 @@ public class WorldWrapper implements IWorld {
      }
 
      public IEntity getClosestEntity(IPos pos, int range, int type) {
-          AxisAlignedBB bb = (new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 1.0D, 1.0D)).func_186670_a(pos.getMCBlockPos()).func_72314_b((double)range, (double)range, (double)range);
-          List entities = this.world.func_72872_a(this.getClassForType(type), bb);
+          AxisAlignedBB bb = (new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 1.0D, 1.0D)).func_186670_a(pos.getMCBlockPos()).expand((double)range, (double)range, (double)range);
+          List entities = this.world.getEntitiesWithinAABB(this.getClassForType(type), bb);
           double distance = (double)(range * range * range);
           Entity entity = null;
           Iterator var9 = entities.iterator();
@@ -364,7 +364,7 @@ public class WorldWrapper implements IWorld {
 
      public IItemStack createItemFromNbt(INbt nbt) {
           ItemStack item = new ItemStack(nbt.getMCNBT());
-          if (item.func_190926_b()) {
+          if (item.isEmpty()) {
                throw new CustomNPCsException("Failed to create an item from given NBT", new Object[0]);
           } else {
                return NpcAPI.Instance().getIItemStack(item);
@@ -376,7 +376,7 @@ public class WorldWrapper implements IWorld {
      }
 
      public IPlayer[] getAllPlayers() {
-          List list = this.world.func_73046_m().func_184103_al().func_181057_v();
+          List list = this.world.func_73046_m().getPlayerList().getPlayers();
           IPlayer[] arr = new IPlayer[list.size()];
 
           for(int i = 0; i < list.size(); ++i) {
@@ -413,7 +413,7 @@ public class WorldWrapper implements IWorld {
      }
 
      public void broadcast(String message) {
-          this.world.func_73046_m().func_184103_al().func_148539_a(new TextComponentString(message));
+          this.world.func_73046_m().getPlayerList().func_148539_a(new TextComponentString(message));
      }
 
      public int getRedstonePower(int x, int y, int z) {

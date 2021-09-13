@@ -28,18 +28,18 @@ public class PlayerMail implements IInventory, IPlayerMail {
      public long timePast;
 
      public PlayerMail() {
-          this.items = NonNullList.func_191197_a(4, ItemStack.field_190927_a);
+          this.items = NonNullList.func_191197_a(4, ItemStack.EMPTY);
      }
 
      public void readNBT(NBTTagCompound compound) {
           this.subject = compound.getString("Subject");
           this.sender = compound.getString("Sender");
-          this.time = compound.func_74763_f("Time");
+          this.time = compound.getLong("Time");
           this.beenRead = compound.getBoolean("BeenRead");
           this.message = compound.getCompoundTag("Message");
-          this.timePast = compound.func_74763_f("TimePast");
+          this.timePast = compound.getLong("TimePast");
           if (compound.hasKey("MailQuest")) {
-               this.questId = compound.func_74762_e("MailQuest");
+               this.questId = compound.getInteger("MailQuest");
           }
 
           this.items.clear();
@@ -47,7 +47,7 @@ public class PlayerMail implements IInventory, IPlayerMail {
 
           for(int i = 0; i < nbttaglist.tagCount(); ++i) {
                NBTTagCompound nbttagcompound1 = nbttaglist.getCompoundTagAt(i);
-               int j = nbttagcompound1.func_74771_c("Slot") & 255;
+               int j = nbttagcompound1.getByte("Slot") & 255;
                if (j >= 0 && j < this.items.size()) {
                     this.items.set(j, new ItemStack(nbttagcompound1));
                }
@@ -59,10 +59,10 @@ public class PlayerMail implements IInventory, IPlayerMail {
           NBTTagCompound compound = new NBTTagCompound();
           compound.setString("Subject", this.subject);
           compound.setString("Sender", this.sender);
-          compound.func_74772_a("Time", this.time);
-          compound.func_74757_a("BeenRead", this.beenRead);
+          compound.setLong("Time", this.time);
+          compound.setBoolean("BeenRead", this.beenRead);
           compound.setTag("Message", this.message);
-          compound.func_74772_a("TimePast", System.currentTimeMillis() - this.time);
+          compound.setLong("TimePast", System.currentTimeMillis() - this.time);
           compound.setInteger("MailQuest", this.questId);
           if (this.hasQuest()) {
                compound.setString("MailQuestTitle", this.getQuest().title);
@@ -71,10 +71,10 @@ public class PlayerMail implements IInventory, IPlayerMail {
           NBTTagList nbttaglist = new NBTTagList();
 
           for(int i = 0; i < this.items.size(); ++i) {
-               if (!((ItemStack)this.items.get(i)).func_190926_b()) {
+               if (!((ItemStack)this.items.get(i)).isEmpty()) {
                     NBTTagCompound nbttagcompound1 = new NBTTagCompound();
-                    nbttagcompound1.func_74774_a("Slot", (byte)i);
-                    ((ItemStack)this.items.get(i)).func_77955_b(nbttagcompound1);
+                    nbttagcompound1.setByte("Slot", (byte)i);
+                    ((ItemStack)this.items.get(i)).writeToNBT(nbttagcompound1);
                     nbttaglist.appendTag(nbttagcompound1);
                }
           }
@@ -95,38 +95,38 @@ public class PlayerMail implements IInventory, IPlayerMail {
           return QuestController.instance != null ? (Quest)QuestController.instance.quests.get(this.questId) : null;
      }
 
-     public int func_70302_i_() {
+     public int getSizeInventory() {
           return 4;
      }
 
-     public int func_70297_j_() {
+     public int getInventoryStackLimit() {
           return 64;
      }
 
-     public ItemStack func_70301_a(int i) {
+     public ItemStack getStackInSlot(int i) {
           return (ItemStack)this.items.get(i);
      }
 
-     public ItemStack func_70298_a(int index, int count) {
+     public ItemStack decrStackSize(int index, int count) {
           ItemStack itemstack = ItemStackHelper.func_188382_a(this.items, index, count);
-          if (!itemstack.func_190926_b()) {
-               this.func_70296_d();
+          if (!itemstack.isEmpty()) {
+               this.markDirty();
           }
 
           return itemstack;
      }
 
-     public ItemStack func_70304_b(int var1) {
-          return (ItemStack)this.items.set(var1, ItemStack.field_190927_a);
+     public ItemStack removeStackFromSlot(int var1) {
+          return (ItemStack)this.items.set(var1, ItemStack.EMPTY);
      }
 
-     public void func_70299_a(int index, ItemStack stack) {
+     public void setInventorySlotContents(int index, ItemStack stack) {
           this.items.set(index, stack);
-          if (stack.func_190916_E() > this.func_70297_j_()) {
-               stack.func_190920_e(this.func_70297_j_());
+          if (stack.getCount() > this.getInventoryStackLimit()) {
+               stack.func_190920_e(this.getInventoryStackLimit());
           }
 
-          this.func_70296_d();
+          this.markDirty();
      }
 
      public ITextComponent func_145748_c_() {
@@ -137,10 +137,10 @@ public class PlayerMail implements IInventory, IPlayerMail {
           return false;
      }
 
-     public void func_70296_d() {
+     public void markDirty() {
      }
 
-     public boolean func_70300_a(EntityPlayer var1) {
+     public boolean isUseableByPlayer(EntityPlayer var1) {
           return true;
      }
 
@@ -179,9 +179,9 @@ public class PlayerMail implements IInventory, IPlayerMail {
      }
 
      public boolean func_191420_l() {
-          for(int slot = 0; slot < this.func_70302_i_(); ++slot) {
-               ItemStack item = this.func_70301_a(slot);
-               if (!NoppesUtilServer.IsItemStackNull(item) && !item.func_190926_b()) {
+          for(int slot = 0; slot < this.getSizeInventory(); ++slot) {
+               ItemStack item = this.getStackInSlot(slot);
+               if (!NoppesUtilServer.IsItemStackNull(item) && !item.isEmpty()) {
                     return false;
                }
           }

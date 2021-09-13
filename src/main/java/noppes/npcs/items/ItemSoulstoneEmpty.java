@@ -59,7 +59,7 @@ public class ItemSoulstoneEmpty extends Item {
                     NoppesUtilServer.GivePlayerItem(player, player, stone);
                     if (!player.field_71075_bZ.field_75098_d) {
                          stack.splitStack(1);
-                         if (stack.func_190916_E() <= 0) {
+                         if (stack.getCount() <= 0) {
                               player.inventory.func_184437_d(stack);
                          }
                     }

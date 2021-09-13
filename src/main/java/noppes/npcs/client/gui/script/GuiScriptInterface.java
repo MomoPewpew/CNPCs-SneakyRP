@@ -103,7 +103,7 @@ public class GuiScriptInterface extends GuiNPCInterface implements IGuiData, ITe
                this.getButton(103).enabled = this.languages.size() > 0;
                this.addLabel(new GuiNpcLabel(2, "gui.enabled", left, this.guiTop + 36));
                this.addButton(new GuiNpcButton(104, left + 60, this.guiTop + 31, 50, 20, new String[]{"gui.no", "gui.yes"}, this.handler.getEnabled() ? 1 : 0));
-               if (this.player.func_184102_h() != null) {
+               if (this.player.getServer() != null) {
                     this.addButton(new GuiNpcButton(106, left, this.guiTop + 55, 150, 20, "script.openfolder"));
                }
 

@@ -22,7 +22,7 @@ public class EntityRainbowFX extends Particle {
                f1 = 1.0D;
           }
 
-          int i = world.field_73012_v.nextInt(colorTable.length);
+          int i = world.rand.nextInt(colorTable.length);
           this.field_70552_h = colorTable[i][0];
           this.field_70553_i = colorTable[i][1];
           this.field_70551_j = colorTable[i][2];

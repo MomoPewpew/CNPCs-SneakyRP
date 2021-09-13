@@ -53,7 +53,7 @@ public class GuiNpcWaypoint extends GuiNPCInterface implements IGuiData {
      }
 
      public void setGuiData(NBTTagCompound compound) {
-          this.tile.func_145839_a(compound);
+          this.tile.readFromNBT(compound);
           this.func_73866_w_();
      }
 }

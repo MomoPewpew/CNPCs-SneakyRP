@@ -63,7 +63,7 @@ public class SpawnController {
      public void loadData(DataInputStream stream) throws IOException {
           ArrayList data = new ArrayList();
           NBTTagCompound nbttagcompound1 = CompressedStreamTools.func_74794_a(stream);
-          this.lastUsedID = nbttagcompound1.func_74762_e("lastID");
+          this.lastUsedID = nbttagcompound1.getInteger("lastID");
           NBTTagList nbtlist = nbttagcompound1.getTagList("NPCSpawnData", 10);
           if (nbtlist != null) {
                for(int i = 0; i < nbtlist.tagCount(); ++i) {

@@ -27,7 +27,7 @@ public class PlayerQuestData {
 
                     for(int i = 0; i < list.tagCount(); ++i) {
                          NBTTagCompound nbttagcompound = list.getCompoundTagAt(i);
-                         finishedQuests.put(nbttagcompound.func_74762_e("Quest"), nbttagcompound.func_74763_f("Date"));
+                         finishedQuests.put(nbttagcompound.getInteger("Quest"), nbttagcompound.getLong("Date"));
                     }
 
                     this.finishedQuests = finishedQuests;
@@ -39,7 +39,7 @@ public class PlayerQuestData {
 
                     for(int i = 0; i < list2.tagCount(); ++i) {
                          NBTTagCompound nbttagcompound = list2.getCompoundTagAt(i);
-                         int id = nbttagcompound.func_74762_e("Quest");
+                         int id = nbttagcompound.getInteger("Quest");
                          Quest quest = (Quest)QuestController.instance.quests.get(id);
                          if (quest != null) {
                               QuestData data = new QuestData(quest);
@@ -63,7 +63,7 @@ public class PlayerQuestData {
                int quest = (Integer)var4.next();
                NBTTagCompound nbttagcompound = new NBTTagCompound();
                nbttagcompound.setInteger("Quest", quest);
-               nbttagcompound.func_74772_a("Date", (Long)this.finishedQuests.get(quest));
+               nbttagcompound.setLong("Date", (Long)this.finishedQuests.get(quest));
                list.appendTag(nbttagcompound);
           }
 

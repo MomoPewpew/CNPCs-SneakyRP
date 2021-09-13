@@ -33,7 +33,7 @@ public class RoleTransporter extends RoleInterface implements IRoleTransporter {
      }
 
      public void readFromNBT(NBTTagCompound nbttagcompound) {
-          this.transportId = nbttagcompound.func_74762_e("TransporterId");
+          this.transportId = nbttagcompound.getInteger("TransporterId");
           TransportLocation loc = this.getLocation();
           if (loc != null) {
                this.name = loc.name;
@@ -54,7 +54,7 @@ public class RoleTransporter extends RoleInterface implements IRoleTransporter {
                     if (loc.type != 0) {
                          return false;
                     } else {
-                         List inRange = this.npc.world.func_72872_a(EntityPlayer.class, this.npc.func_174813_aQ().func_72314_b(6.0D, 6.0D, 6.0D));
+                         List inRange = this.npc.world.getEntitiesWithinAABB(EntityPlayer.class, this.npc.getEntityBoundingBox().expand(6.0D, 6.0D, 6.0D));
                          Iterator var3 = inRange.iterator();
 
                          while(var3.hasNext()) {
@@ -88,7 +88,7 @@ public class RoleTransporter extends RoleInterface implements IRoleTransporter {
           if (loc != null && (loc.isDefault() || playerdata.transports.contains(loc.id))) {
                RoleEvent.TransporterUseEvent event = new RoleEvent.TransporterUseEvent(player, this.npc.wrappedNPC, loc);
                if (!EventHooks.onNPCRole(this.npc, event)) {
-                    NoppesUtilPlayer.teleportPlayer(player, (double)loc.pos.func_177958_n(), (double)loc.pos.func_177956_o(), (double)loc.pos.func_177952_p(), loc.dimension);
+                    NoppesUtilPlayer.teleportPlayer(player, (double)loc.pos.getX(), (double)loc.pos.getY(), (double)loc.pos.getZ(), loc.dimension);
                }
           }
      }

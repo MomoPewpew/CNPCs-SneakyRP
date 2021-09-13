@@ -30,10 +30,10 @@ public class MassBlockController {
 
                for(int x = -range; x < range; ++x) {
                     for(int z = -range; z < range; ++z) {
-                         if (world.func_175667_e(new BlockPos(x + pos.func_177958_n(), 64, z + pos.func_177952_p()))) {
+                         if (world.func_175667_e(new BlockPos(x + pos.getX(), 64, z + pos.getZ()))) {
                               for(int y = 0; y < range; ++y) {
                                    BlockPos blockPos = pos.func_177982_a(x, y - range / 2, z);
-                                   list.add(new BlockData(blockPos, world.func_180495_p(blockPos), (NBTTagCompound)null));
+                                   list.add(new BlockData(blockPos, world.getBlockState(blockPos), (NBTTagCompound)null));
                               }
                          }
                     }

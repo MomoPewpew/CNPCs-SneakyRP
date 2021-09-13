@@ -31,12 +31,12 @@ public class FlyingMoveHelper extends EntityMoveHelper {
                     }
 
                     EntityNPCInterface var10000 = this.entity;
-                    var10000.field_70159_w += d0 / d3 * speed;
+                    var10000.motionX += d0 / d3 * speed;
                     var10000 = this.entity;
-                    var10000.field_70181_x += d1 / d3 * speed;
+                    var10000.motionY += d1 / d3 * speed;
                     var10000 = this.entity;
-                    var10000.field_70179_y += d2 / d3 * speed;
-                    this.entity.field_70761_aq = this.entity.field_70177_z = -((float)Math.atan2(this.entity.field_70159_w, this.entity.field_70179_y)) * 180.0F / 3.1415927F;
+                    var10000.motionZ += d2 / d3 * speed;
+                    this.entity.field_70761_aq = this.entity.field_70177_z = -((float)Math.atan2(this.entity.motionX, this.entity.motionZ)) * 180.0F / 3.1415927F;
                } else {
                     this.field_188491_h = Action.WAIT;
                }
@@ -48,7 +48,7 @@ public class FlyingMoveHelper extends EntityMoveHelper {
           double d4 = (p_179926_1_ - this.entity.field_70165_t) / p_179926_7_;
           double d5 = (p_179926_3_ - this.entity.field_70163_u) / p_179926_7_;
           double d6 = (p_179926_5_ - this.entity.field_70161_v) / p_179926_7_;
-          AxisAlignedBB axisalignedbb = this.entity.func_174813_aQ();
+          AxisAlignedBB axisalignedbb = this.entity.getEntityBoundingBox();
 
           for(int i = 1; (double)i < p_179926_7_; ++i) {
                axisalignedbb = axisalignedbb.func_72317_d(d4, d5, d6);

@@ -31,7 +31,7 @@ public class EntityAIWatchClosest extends EntityAIBase {
                if (this.watchedClass == EntityPlayer.class) {
                     this.closestEntity = this.npc.world.func_72890_a(this.npc, (double)this.field_75333_c);
                } else {
-                    this.closestEntity = this.npc.world.func_72857_a(this.watchedClass, this.npc.func_174813_aQ().func_72314_b((double)this.field_75333_c, 3.0D, (double)this.field_75333_c), this.npc);
+                    this.closestEntity = this.npc.world.func_72857_a(this.watchedClass, this.npc.getEntityBoundingBox().expand((double)this.field_75333_c, 3.0D, (double)this.field_75333_c), this.npc);
                     if (this.closestEntity != null) {
                          return this.npc.canSee(this.closestEntity);
                     }

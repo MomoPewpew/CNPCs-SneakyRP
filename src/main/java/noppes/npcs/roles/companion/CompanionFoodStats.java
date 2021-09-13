@@ -60,11 +60,11 @@ public class CompanionFoodStats {
      }
 
      public void readNBT(NBTTagCompound p_75112_1_) {
-          if (p_75112_1_.func_150297_b("foodLevel", 99)) {
-               this.foodLevel = p_75112_1_.func_74762_e("foodLevel");
-               this.foodTimer = p_75112_1_.func_74762_e("foodTickTimer");
-               this.foodSaturationLevel = p_75112_1_.func_74760_g("foodSaturationLevel");
-               this.foodExhaustionLevel = p_75112_1_.func_74760_g("foodExhaustionLevel");
+          if (p_75112_1_.hasKey("foodLevel", 99)) {
+               this.foodLevel = p_75112_1_.getInteger("foodLevel");
+               this.foodTimer = p_75112_1_.getInteger("foodTickTimer");
+               this.foodSaturationLevel = p_75112_1_.getFloat("foodSaturationLevel");
+               this.foodExhaustionLevel = p_75112_1_.getFloat("foodExhaustionLevel");
           }
 
      }
@@ -72,8 +72,8 @@ public class CompanionFoodStats {
      public void writeNBT(NBTTagCompound p_75117_1_) {
           p_75117_1_.setInteger("foodLevel", this.foodLevel);
           p_75117_1_.setInteger("foodTickTimer", this.foodTimer);
-          p_75117_1_.func_74776_a("foodSaturationLevel", this.foodSaturationLevel);
-          p_75117_1_.func_74776_a("foodExhaustionLevel", this.foodExhaustionLevel);
+          p_75117_1_.setFloat("foodSaturationLevel", this.foodSaturationLevel);
+          p_75117_1_.setFloat("foodExhaustionLevel", this.foodExhaustionLevel);
      }
 
      public int getFoodLevel() {

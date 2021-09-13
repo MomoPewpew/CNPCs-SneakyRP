@@ -18,7 +18,7 @@ public class ModelData extends ModelDataShared {
                if (this.entity == null) {
                     try {
                          this.entity = (EntityLivingBase)this.entityClass.getConstructor(World.class).newInstance(npc.world);
-                         if (PixelmonHelper.isPixelmon(this.entity) && npc.world.field_72995_K && !this.extra.hasKey("Name")) {
+                         if (PixelmonHelper.isPixelmon(this.entity) && npc.world.isRemote && !this.extra.hasKey("Name")) {
                               this.extra.setString("Name", "Abra");
                          }
 

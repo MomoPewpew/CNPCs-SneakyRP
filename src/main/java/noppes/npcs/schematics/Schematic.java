@@ -153,11 +153,11 @@ public class Schematic implements ISchematic {
                int x = i % width;
                int z = (i - x) / width % length;
                int y = ((i - x) / width - z) / length;
-               IBlockState state = world.func_180495_p(pos.func_177982_a(x, y, z));
-               if (state.func_177230_c() != Blocks.field_150350_a && state.func_177230_c() != CustomItems.copy) {
-                    schema.blockArray[i] = (short)Block.REGISTRY.func_148757_b(state.func_177230_c());
-                    schema.blockDataArray[i] = (byte)state.func_177230_c().func_176201_c(state);
-                    if (state.func_177230_c() instanceof ITileEntityProvider) {
+               IBlockState state = world.getBlockState(pos.func_177982_a(x, y, z));
+               if (state.getBlock() != Blocks.field_150350_a && state.getBlock() != CustomItems.copy) {
+                    schema.blockArray[i] = (short)Block.REGISTRY.func_148757_b(state.getBlock());
+                    schema.blockDataArray[i] = (byte)state.getBlock().func_176201_c(state);
+                    if (state.getBlock() instanceof ITileEntityProvider) {
                          TileEntity tile = world.func_175625_s(pos.func_177982_a(x, y, z));
                          NBTTagCompound compound = new NBTTagCompound();
                          tile.func_189515_b(compound);

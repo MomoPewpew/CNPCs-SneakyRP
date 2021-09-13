@@ -38,7 +38,7 @@ public class EntityAIOpenAnyDoor extends EntityAIBase {
                     for(int i = 0; i < Math.min(pathentity.func_75873_e() + 2, pathentity.func_75874_d()); ++i) {
                          PathPoint pathpoint = pathentity.func_75877_a(i);
                          this.position = new BlockPos(pathpoint.field_75839_a, pathpoint.field_75837_b + 1, pathpoint.field_75838_c);
-                         if (this.npc.func_70092_e((double)this.position.func_177958_n(), this.npc.field_70163_u, (double)this.position.func_177952_p()) <= 2.25D) {
+                         if (this.npc.getDistanceSq((double)this.position.getX(), this.npc.field_70163_u, (double)this.position.getZ()) <= 2.25D) {
                               this.door = this.getDoor(this.position);
                               if (this.door != null) {
                                    return true;
@@ -61,8 +61,8 @@ public class EntityAIOpenAnyDoor extends EntityAIBase {
 
      public void func_75249_e() {
           this.hasStoppedDoorInteraction = false;
-          this.entityX = (float)((double)((float)this.position.func_177958_n() + 0.5F) - this.npc.field_70165_t);
-          this.entityZ = (float)((double)((float)this.position.func_177952_p() + 0.5F) - this.npc.field_70161_v);
+          this.entityX = (float)((double)((float)this.position.getX() + 0.5F) - this.npc.field_70165_t);
+          this.entityZ = (float)((double)((float)this.position.getZ() + 0.5F) - this.npc.field_70161_v);
           this.closeDoorTemporisation = 20;
           this.setDoorState(this.door, this.position, true);
      }
@@ -73,8 +73,8 @@ public class EntityAIOpenAnyDoor extends EntityAIBase {
 
      public void func_75246_d() {
           --this.closeDoorTemporisation;
-          float f = (float)((double)((float)this.position.func_177958_n() + 0.5F) - this.npc.field_70165_t);
-          float f1 = (float)((double)((float)this.position.func_177952_p() + 0.5F) - this.npc.field_70161_v);
+          float f = (float)((double)((float)this.position.getX() + 0.5F) - this.npc.field_70165_t);
+          float f1 = (float)((double)((float)this.position.getZ() + 0.5F) - this.npc.field_70161_v);
           float f2 = this.entityX * f + this.entityZ * f1;
           if (f2 < 0.0F) {
                this.hasStoppedDoorInteraction = true;
@@ -83,8 +83,8 @@ public class EntityAIOpenAnyDoor extends EntityAIBase {
      }
 
      public Block getDoor(BlockPos pos) {
-          IBlockState state = this.npc.world.func_180495_p(pos);
-          Block block = state.func_177230_c();
+          IBlockState state = this.npc.world.getBlockState(pos);
+          Block block = state.getBlock();
           if (!state.func_185913_b() && block != Blocks.field_150454_av) {
                if (block instanceof BlockDoor) {
                     return block;
@@ -113,8 +113,8 @@ public class EntityAIOpenAnyDoor extends EntityAIBase {
           if (block instanceof BlockDoor) {
                ((BlockDoor)block).func_176512_a(this.npc.world, position, open);
           } else {
-               IBlockState state = this.npc.world.func_180495_p(position);
-               if (state.func_177230_c() != block) {
+               IBlockState state = this.npc.world.getBlockState(position);
+               if (state.getBlock() != block) {
                     return;
                }
 

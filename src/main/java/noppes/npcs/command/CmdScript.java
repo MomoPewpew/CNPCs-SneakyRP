@@ -47,7 +47,7 @@ public class CmdScript extends CommandNoppesBase {
      public Boolean run(MinecraftServer server, ICommandSender sender, String[] args) {
           IWorld world = NpcAPI.Instance().getIWorld((WorldServer)sender.func_130014_f_());
           BlockPos bpos = sender.func_180425_c();
-          IPos pos = NpcAPI.Instance().getIPos((double)bpos.func_177958_n(), (double)bpos.func_177956_o(), (double)bpos.func_177952_p());
+          IPos pos = NpcAPI.Instance().getIPos((double)bpos.getX(), (double)bpos.getY(), (double)bpos.getZ());
           WorldEvent.ScriptCommandEvent event = new WorldEvent.ScriptCommandEvent(world, pos, args);
           EventHooks.onWorldScriptEvent(event);
           return true;

@@ -49,10 +49,10 @@ public class CustomGuiController {
           IItemStack[] slotContents = new IItemStack[0];
           if (player.openContainer instanceof ContainerCustomGui) {
                ContainerCustomGui container = (ContainerCustomGui)player.openContainer;
-               slotContents = new IItemStack[container.guiInventory.func_70302_i_()];
+               slotContents = new IItemStack[container.guiInventory.getSizeInventory()];
 
-               for(int i = 0; i < container.guiInventory.func_70302_i_(); ++i) {
-                    slotContents[i] = NpcAPI.Instance().getIItemStack(container.guiInventory.func_70301_a(i));
+               for(int i = 0; i < container.guiInventory.getSizeInventory(); ++i) {
+                    slotContents[i] = NpcAPI.Instance().getIItemStack(container.guiInventory.getStackInSlot(i));
                }
           }
 

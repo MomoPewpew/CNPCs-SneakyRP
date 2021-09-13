@@ -105,7 +105,7 @@ public class VersionCompatibility {
 
                          for(i = 0; i < list.tagCount(); ++i) {
                               NBTTagCompound scriptOld = list.getCompoundTagAt(i);
-                              EnumScriptType type = EnumScriptType.values()[scriptOld.func_74762_e("Type")];
+                              EnumScriptType type = EnumScriptType.values()[scriptOld.getInteger("Type")];
                               script.script = script.script + "\nfunction " + type.function + "(event) {\n" + scriptOld.getString("Script") + "\n}";
                               Iterator var23 = NBTTags.getStringList(compound.getTagList("ScriptList", 10)).iterator();
 
@@ -122,7 +122,7 @@ public class VersionCompatibility {
                          compound.setInteger("SpawnCycle", 4);
                     }
 
-                    if (compound.func_74762_e("RangeAndMelee") <= 0) {
+                    if (compound.getInteger("RangeAndMelee") <= 0) {
                          compound.setInteger("DistanceToMelee", 0);
                     }
                }

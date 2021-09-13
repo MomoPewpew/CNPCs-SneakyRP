@@ -34,20 +34,20 @@ public class EntityAIPounceTarget extends EntityAIBase {
 
      public void func_75249_e() {
           double varX = this.leapTarget.field_70165_t - this.npc.field_70165_t;
-          double varY = this.leapTarget.func_174813_aQ().field_72338_b - this.npc.func_174813_aQ().field_72338_b;
+          double varY = this.leapTarget.getEntityBoundingBox().field_72338_b - this.npc.getEntityBoundingBox().field_72338_b;
           double varZ = this.leapTarget.field_70161_v - this.npc.field_70161_v;
           float varF = MathHelper.func_76133_a(varX * varX + varZ * varZ);
           float angle = this.getAngleForXYZ(varX, varY, varZ, (double)varF);
           float yaw = (float)(Math.atan2(varX, varZ) * 180.0D / 3.141592653589793D);
-          this.npc.field_70159_w = (double)(MathHelper.func_76126_a(yaw / 180.0F * 3.1415927F) * MathHelper.func_76134_b(angle / 180.0F * 3.1415927F));
-          this.npc.field_70179_y = (double)(MathHelper.func_76134_b(yaw / 180.0F * 3.1415927F) * MathHelper.func_76134_b(angle / 180.0F * 3.1415927F));
-          this.npc.field_70181_x = (double)MathHelper.func_76126_a((angle + 1.0F) / 180.0F * 3.1415927F);
+          this.npc.motionX = (double)(MathHelper.func_76126_a(yaw / 180.0F * 3.1415927F) * MathHelper.func_76134_b(angle / 180.0F * 3.1415927F));
+          this.npc.motionZ = (double)(MathHelper.func_76134_b(yaw / 180.0F * 3.1415927F) * MathHelper.func_76134_b(angle / 180.0F * 3.1415927F));
+          this.npc.motionY = (double)MathHelper.func_76126_a((angle + 1.0F) / 180.0F * 3.1415927F);
           EntityNPCInterface var10000 = this.npc;
-          var10000.field_70159_w *= (double)this.leapSpeed;
+          var10000.motionX *= (double)this.leapSpeed;
           var10000 = this.npc;
-          var10000.field_70179_y *= (double)this.leapSpeed;
+          var10000.motionZ *= (double)this.leapSpeed;
           var10000 = this.npc;
-          var10000.field_70181_x *= (double)this.leapSpeed;
+          var10000.motionY *= (double)this.leapSpeed;
      }
 
      public float getAngleForXYZ(double varX, double varY, double varZ, double horiDist) {

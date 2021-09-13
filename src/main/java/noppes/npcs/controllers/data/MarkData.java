@@ -32,8 +32,8 @@ public class MarkData implements ICapabilityProvider {
           for(int i = 0; i < list.tagCount(); ++i) {
                NBTTagCompound c = list.getCompoundTagAt(i);
                MarkData.Mark m = new MarkData.Mark();
-               m.type = c.func_74762_e("type");
-               m.color = c.func_74762_e("color");
+               m.type = c.getInteger("type");
+               m.color = c.getInteger("color");
                m.availability.readFromNBT(c.getCompoundTag("availability"));
                marks.add(m);
           }
@@ -79,7 +79,7 @@ public class MarkData implements ICapabilityProvider {
           MarkData.Mark m = new MarkData.Mark();
           m.type = type;
           this.marks.add(m);
-          if (!this.entity.world.field_72995_K) {
+          if (!this.entity.world.isRemote) {
                this.syncClients();
           }
 
@@ -91,7 +91,7 @@ public class MarkData implements ICapabilityProvider {
           m.type = type;
           m.color = color;
           this.marks.add(m);
-          if (!this.entity.world.field_72995_K) {
+          if (!this.entity.world.isRemote) {
                this.syncClients();
           }
 
@@ -109,7 +109,7 @@ public class MarkData implements ICapabilityProvider {
      }
 
      public void syncClients() {
-          Server.sendToAll(this.entity.func_184102_h(), EnumPacketClient.MARK_DATA, this.entity.func_145782_y(), this.getNBT());
+          Server.sendToAll(this.entity.getServer(), EnumPacketClient.MARK_DATA, this.entity.func_145782_y(), this.getNBT());
      }
 
      public class Mark implements IMark {

@@ -78,7 +78,7 @@ public class GuiNPCInv extends GuiContainerNPCInterface2 implements ISliderListe
 
           for(int id = 4; id <= 6; ++id) {
                Slot slot = this.container.func_75139_a(id);
-               if (slot.func_75216_d()) {
+               if (slot.getHasStack()) {
                     this.drawTexturedModalRect(this.field_147003_i + slot.field_75223_e - 1, this.field_147009_r + slot.field_75221_f - 1, 0, 0, 18, 18);
                }
           }

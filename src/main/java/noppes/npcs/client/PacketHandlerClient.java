@@ -63,7 +63,7 @@ public class PacketHandlerClient extends PacketHandlerServer {
           EntityPlayer player = Minecraft.getMinecraft().player;
           if (player != null) {
                ByteBuf buffer = event.getPacket().payload();
-               Minecraft.getMinecraft().func_152344_a(() -> {
+               Minecraft.getMinecraft().addScheduledTask(() -> {
                     EnumPacketClient type = null;
 
                     try {
@@ -83,7 +83,7 @@ public class PacketHandlerClient extends PacketHandlerServer {
      private void client(ByteBuf buffer, EntityPlayer player, EnumPacketClient type) throws Exception {
           Entity entity;
           if (type == EnumPacketClient.CHATBUBBLE) {
-               entity = Minecraft.getMinecraft().field_71441_e.func_73045_a(buffer.readInt());
+               entity = Minecraft.getMinecraft().field_71441_e.getEntityByID(buffer.readInt());
                if (entity == null || !(entity instanceof EntityNPCInterface)) {
                     return;
                }
@@ -107,7 +107,7 @@ public class PacketHandlerClient extends PacketHandlerServer {
 
                     player.func_145747_a(new TextComponentTranslation(message, new Object[0]));
                } else if (type == EnumPacketClient.EYE_BLINK) {
-                    entity = Minecraft.getMinecraft().field_71441_e.func_73045_a(buffer.readInt());
+                    entity = Minecraft.getMinecraft().field_71441_e.getEntityByID(buffer.readInt());
                     if (entity == null || !(entity instanceof EntityNPCInterface)) {
                          return;
                     }
@@ -127,8 +127,8 @@ public class PacketHandlerClient extends PacketHandlerServer {
                          if (type == EnumPacketClient.UPDATE_ITEM) {
                               config = buffer.readInt();
                               compound = Server.readNBT(buffer);
-                              ItemStack stack = player.inventory.func_70301_a(config);
-                              if (!stack.func_190926_b()) {
+                              ItemStack stack = player.inventory.getStackInSlot(config);
+                              if (!stack.isEmpty()) {
                                    ((ItemStackWrapper)NpcAPI.Instance().getIItemStack(stack)).setMCNbt(compound);
                               }
                          } else if (type != EnumPacketClient.SYNC_ADD && type != EnumPacketClient.SYNC_END) {
@@ -150,7 +150,7 @@ public class PacketHandlerClient extends PacketHandlerServer {
                                              i = buffer.readInt();
                                              SyncController.clientSyncRemove(config, i);
                                         } else if (type == EnumPacketClient.MARK_DATA) {
-                                             entity = Minecraft.getMinecraft().field_71441_e.func_73045_a(buffer.readInt());
+                                             entity = Minecraft.getMinecraft().field_71441_e.getEntityByID(buffer.readInt());
                                              if (entity == null || !(entity instanceof EntityLivingBase)) {
                                                   return;
                                              }
@@ -160,7 +160,7 @@ public class PacketHandlerClient extends PacketHandlerServer {
                                         } else {
                                              Dialog dialog;
                                              if (type == EnumPacketClient.DIALOG) {
-                                                  entity = Minecraft.getMinecraft().field_71441_e.func_73045_a(buffer.readInt());
+                                                  entity = Minecraft.getMinecraft().field_71441_e.getEntityByID(buffer.readInt());
                                                   if (entity == null || !(entity instanceof EntityNPCInterface)) {
                                                        return;
                                                   }
@@ -183,7 +183,7 @@ public class PacketHandlerClient extends PacketHandlerServer {
                                                        NoppesUtilPlayer.sendData(EnumPlayerPacket.QuestCompletion, config);
                                                   }
                                              } else if (type == EnumPacketClient.EDIT_NPC) {
-                                                  entity = Minecraft.getMinecraft().field_71441_e.func_73045_a(buffer.readInt());
+                                                  entity = Minecraft.getMinecraft().field_71441_e.getEntityByID(buffer.readInt());
                                                   if (entity != null && entity instanceof EntityNPCInterface) {
                                                        NoppesUtil.setLastNpc((EntityNPCInterface)entity);
                                                   } else {
@@ -198,7 +198,7 @@ public class PacketHandlerClient extends PacketHandlerServer {
                                                   NBTTagCompound compound;
                                                   if (type == EnumPacketClient.UPDATE_NPC) {
                                                        compound = Server.readNBT(buffer);
-                                                       entity = Minecraft.getMinecraft().field_71441_e.func_73045_a(compound.func_74762_e("EntityId"));
+                                                       entity = Minecraft.getMinecraft().field_71441_e.getEntityByID(compound.getInteger("EntityId"));
                                                        if (entity == null || !(entity instanceof EntityNPCInterface)) {
                                                             return;
                                                        }
@@ -206,12 +206,12 @@ public class PacketHandlerClient extends PacketHandlerServer {
                                                        ((EntityNPCInterface)entity).readSpawnData(compound);
                                                   } else if (type == EnumPacketClient.ROLE) {
                                                        compound = Server.readNBT(buffer);
-                                                       entity = Minecraft.getMinecraft().field_71441_e.func_73045_a(compound.func_74762_e("EntityId"));
+                                                       entity = Minecraft.getMinecraft().field_71441_e.getEntityByID(compound.getInteger("EntityId"));
                                                        if (entity == null || !(entity instanceof EntityNPCInterface)) {
                                                             return;
                                                        }
 
-                                                       ((EntityNPCInterface)entity).advanced.setRole(compound.func_74762_e("Role"));
+                                                       ((EntityNPCInterface)entity).advanced.setRole(compound.getInteger("Role"));
                                                        ((EntityNPCInterface)entity).roleInterface.readFromNBT(compound);
                                                        NoppesUtil.setLastNpc((EntityNPCInterface)entity);
                                                   } else if (type == EnumPacketClient.GUI) {
@@ -220,7 +220,7 @@ public class PacketHandlerClient extends PacketHandlerServer {
                                                   } else if (type == EnumPacketClient.PARTICLE) {
                                                        NoppesUtil.spawnParticle(buffer);
                                                   } else if (type == EnumPacketClient.DELETE_NPC) {
-                                                       entity = Minecraft.getMinecraft().field_71441_e.func_73045_a(buffer.readInt());
+                                                       entity = Minecraft.getMinecraft().field_71441_e.getEntityByID(buffer.readInt());
                                                        if (entity == null || !(entity instanceof EntityNPCInterface)) {
                                                             return;
                                                        }
@@ -312,7 +312,7 @@ public class PacketHandlerClient extends PacketHandlerServer {
                                                                       }
 
                                                                  };
-                                                                 Minecraft.getMinecraft().func_152344_a(run);
+                                                                 Minecraft.getMinecraft().addScheduledTask(run);
                                                             }
                                                        }
                                                   }
@@ -327,7 +327,7 @@ public class PacketHandlerClient extends PacketHandlerServer {
                               if (config == 8) {
                                    ClientProxy.playerData.setNBT(compound);
                               } else if (config == 9) {
-                                   if (player.func_184102_h() == null) {
+                                   if (player.getServer() == null) {
                                         ItemScripted.Resources = NBTTags.getIntegerStringMap(compound.getTagList("List", 10));
                                    }
 

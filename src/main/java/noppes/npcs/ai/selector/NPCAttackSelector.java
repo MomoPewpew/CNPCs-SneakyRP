@@ -30,10 +30,10 @@ public class NPCAttackSelector implements Predicate {
                               allowedDistance += this.npc.ais.walkingRange;
                          }
 
-                         double distance = entity.func_70092_e((double)this.npc.getStartXPos(), this.npc.getStartYPos(), (double)this.npc.getStartZPos());
+                         double distance = entity.getDistanceSq((double)this.npc.getStartXPos(), this.npc.getStartYPos(), (double)this.npc.getStartZPos());
                          if (this.npc.ais.getMovingType() == 2) {
                               int[] arr = this.npc.ais.getCurrentMovingPath();
-                              distance = entity.func_70092_e((double)arr[0], (double)arr[1], (double)arr[2]);
+                              distance = entity.getDistanceSq((double)arr[0], (double)arr[1], (double)arr[2]);
                          }
 
                          if (distance > (double)(allowedDistance * allowedDistance)) {

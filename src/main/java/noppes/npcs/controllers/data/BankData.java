@@ -34,8 +34,8 @@ public class BankData {
      }
 
      public void readNBT(NBTTagCompound nbttagcompound) {
-          this.bankId = nbttagcompound.func_74762_e("DataBankId");
-          this.unlockedSlots = nbttagcompound.func_74762_e("UnlockedSlots");
+          this.bankId = nbttagcompound.getInteger("DataBankId");
+          this.unlockedSlots = nbttagcompound.getInteger("UnlockedSlots");
           this.itemSlots = this.getItemSlots(nbttagcompound.getTagList("BankInv", 10));
           this.upgradedSlots = NBTTags.getBooleanList(nbttagcompound.getTagList("UpdatedSlots", 10));
      }
@@ -45,7 +45,7 @@ public class BankData {
 
           for(int i = 0; i < tagList.tagCount(); ++i) {
                NBTTagCompound nbttagcompound = tagList.getCompoundTagAt(i);
-               int slot = nbttagcompound.func_74762_e("Slot");
+               int slot = nbttagcompound.getInteger("Slot");
                NpcMiscInventory inv = new NpcMiscInventory(54);
                inv.setFromNBT(nbttagcompound.getCompoundTag("BankItems"));
                list.put(slot, inv);
@@ -91,14 +91,14 @@ public class BankData {
                     this.unlockedSlots = bank.startSlots;
                }
 
-               ItemStack currency = ItemStack.field_190927_a;
+               ItemStack currency = ItemStack.EMPTY;
                if (this.unlockedSlots <= slot) {
-                    currency = bank.currencyInventory.func_70301_a(slot);
+                    currency = bank.currencyInventory.getStackInSlot(slot);
                     NoppesUtilServer.sendOpenGui(player, EnumGuiType.PlayerBankUnlock, npc, slot, bank.id, 0);
                } else if (this.isUpgraded(bank, slot)) {
                     NoppesUtilServer.sendOpenGui(player, EnumGuiType.PlayerBankLarge, npc, slot, bank.id, 0);
                } else if (bank.canBeUpgraded(slot)) {
-                    currency = bank.upgradeInventory.func_70301_a(slot);
+                    currency = bank.upgradeInventory.getStackInSlot(slot);
                     NoppesUtilServer.sendOpenGui(player, EnumGuiType.PlayerBankUprade, npc, slot, bank.id, 0);
                } else {
                     NoppesUtilServer.sendOpenGui(player, EnumGuiType.PlayerBankSmall, npc, slot, bank.id, 0);
@@ -108,8 +108,8 @@ public class BankData {
                     NBTTagCompound compound = new NBTTagCompound();
                     compound.setInteger("MaxSlots", bank.getMaxSlots());
                     compound.setInteger("UnlockedSlots", this.unlockedSlots);
-                    if (currency != null && !currency.func_190926_b()) {
-                         compound.setTag("Currency", currency.func_77955_b(new NBTTagCompound()));
+                    if (currency != null && !currency.isEmpty()) {
+                         compound.setTag("Currency", currency.writeToNBT(new NBTTagCompound()));
                          ContainerNPCBankInterface container = this.getContainer(player);
                          if (container != null) {
                               container.setCurrency(currency);

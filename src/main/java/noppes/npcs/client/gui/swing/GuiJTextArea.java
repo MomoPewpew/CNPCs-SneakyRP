@@ -37,7 +37,7 @@ public class GuiJTextArea extends JDialog implements WindowListener {
 
      public void windowClosed(WindowEvent e) {
           if (this.listener != null) {
-               Minecraft.getMinecraft().func_152344_a(() -> {
+               Minecraft.getMinecraft().addScheduledTask(() -> {
                     this.listener.saveText(this.area.getText());
                });
           }

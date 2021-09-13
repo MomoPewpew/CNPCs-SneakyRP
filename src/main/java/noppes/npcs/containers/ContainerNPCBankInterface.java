@@ -25,11 +25,11 @@ public class ContainerNPCBankInterface extends ContainerNpcInterface {
           this.currencyMatrix = new InventoryNPC("currency", 1, this);
           if (!this.isAvailable() || this.canBeUpgraded()) {
                this.currency = new SlotNpcBankCurrency(this, this.currencyMatrix, 0, 80, 29);
-               this.func_75146_a(this.currency);
+               this.addSlotToContainer(this.currency);
           }
 
           NpcMiscInventory items = new NpcMiscInventory(54);
-          if (!player.world.field_72995_K) {
+          if (!player.world.isRemote) {
                this.data = PlayerDataController.instance.getBankData(player, bankid);
                items = (NpcMiscInventory)this.data.getBankOrDefault(bankid).itemSlots.get(slot);
           }
@@ -41,7 +41,7 @@ public class ContainerNPCBankInterface extends ContainerNpcInterface {
           for(l = 0; l < this.getRowNumber(); ++l) {
                for(j1 = 0; j1 < 9; ++j1) {
                     int id = j1 + l * 9;
-                    this.func_75146_a(new Slot(items, id, 8 + j1 * 18, 17 + xOffset + l * 18));
+                    this.addSlotToContainer(new Slot(items, id, 8 + j1 * 18, 17 + xOffset + l * 18));
                }
           }
 
@@ -51,12 +51,12 @@ public class ContainerNPCBankInterface extends ContainerNpcInterface {
 
           for(l = 0; l < 3; ++l) {
                for(j1 = 0; j1 < 9; ++j1) {
-                    this.func_75146_a(new Slot(player.inventory, j1 + l * 9 + 9, 8 + j1 * 18, 86 + xOffset + l * 18));
+                    this.addSlotToContainer(new Slot(player.inventory, j1 + l * 9 + 9, 8 + j1 * 18, 86 + xOffset + l * 18));
                }
           }
 
           for(l = 0; l < 9; ++l) {
-               this.func_75146_a(new Slot(player.inventory, l, 8 + l * 18, 144 + xOffset));
+               this.addSlotToContainer(new Slot(player.inventory, l, 8 + l * 18, 144 + xOffset));
           }
 
      }
@@ -73,7 +73,7 @@ public class ContainerNPCBankInterface extends ContainerNpcInterface {
           return 0;
      }
 
-     public void func_75130_a(IInventory inv) {
+     public void onCraftMatrixChanged(IInventory inv) {
      }
 
      public boolean isAvailable() {
@@ -88,17 +88,17 @@ public class ContainerNPCBankInterface extends ContainerNpcInterface {
           return false;
      }
 
-     public ItemStack func_82846_b(EntityPlayer par1EntityPlayer, int i) {
-          return ItemStack.field_190927_a;
+     public ItemStack transferStackInSlot(EntityPlayer par1EntityPlayer, int i) {
+          return ItemStack.EMPTY;
      }
 
-     public void func_75134_a(EntityPlayer entityplayer) {
-          super.func_75134_a(entityplayer);
-          if (!entityplayer.world.field_72995_K) {
-               ItemStack var3 = this.currencyMatrix.func_70301_a(0);
-               this.currencyMatrix.func_70299_a(0, ItemStack.field_190927_a);
+     public void onContainerClosed(EntityPlayer entityplayer) {
+          super.onContainerClosed(entityplayer);
+          if (!entityplayer.world.isRemote) {
+               ItemStack var3 = this.currencyMatrix.getStackInSlot(0);
+               this.currencyMatrix.setInventorySlotContents(0, ItemStack.EMPTY);
                if (!NoppesUtilServer.IsItemStackNull(var3)) {
-                    entityplayer.func_71019_a(var3, false);
+                    entityplayer.dropItem(var3, false);
                }
           }
 

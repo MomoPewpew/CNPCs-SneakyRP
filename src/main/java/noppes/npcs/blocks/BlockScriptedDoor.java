@@ -33,17 +33,17 @@ public class BlockScriptedDoor extends BlockNpcDoorInterface implements IPermiss
      }
 
      public boolean func_180639_a(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
-          if (world.field_72995_K) {
+          if (world.isRemote) {
                return true;
           } else {
                BlockPos blockpos1 = state.func_177229_b(field_176523_O) == EnumDoorHalf.LOWER ? pos : pos.func_177977_b();
-               IBlockState iblockstate1 = pos.equals(blockpos1) ? state : world.func_180495_p(blockpos1);
-               if (iblockstate1.func_177230_c() != this) {
+               IBlockState iblockstate1 = pos.equals(blockpos1) ? state : world.getBlockState(blockpos1);
+               if (iblockstate1.getBlock() != this) {
                     return false;
                } else {
                     ItemStack currentItem = player.inventory.func_70448_g();
                     if (currentItem != null && (currentItem.func_77973_b() == CustomItems.wand || currentItem.func_77973_b() == CustomItems.scripter || currentItem.func_77973_b() == CustomItems.scriptedDoorTool)) {
-                         NoppesUtilServer.sendOpenGui(player, EnumGuiType.ScriptDoor, (EntityNPCInterface)null, blockpos1.func_177958_n(), blockpos1.func_177956_o(), blockpos1.func_177952_p());
+                         NoppesUtilServer.sendOpenGui(player, EnumGuiType.ScriptDoor, (EntityNPCInterface)null, blockpos1.getX(), blockpos1.getY(), blockpos1.getZ());
                          return true;
                     } else {
                          TileScriptedDoor tile = (TileScriptedDoor)world.func_175625_s(blockpos1);
@@ -63,20 +63,20 @@ public class BlockScriptedDoor extends BlockNpcDoorInterface implements IPermiss
           IBlockState iblockstate2;
           if (state.func_177229_b(field_176523_O) == EnumDoorHalf.UPPER) {
                blockpos2 = pos.func_177977_b();
-               iblockstate2 = worldIn.func_180495_p(blockpos2);
-               if (iblockstate2.func_177230_c() != this) {
+               iblockstate2 = worldIn.getBlockState(blockpos2);
+               if (iblockstate2.getBlock() != this) {
                     worldIn.func_175698_g(pos);
                } else if (neighborBlock != this) {
                     this.func_189540_a(iblockstate2, worldIn, blockpos2, neighborBlock, blockpos2);
                }
           } else {
                blockpos2 = pos.func_177984_a();
-               iblockstate2 = worldIn.func_180495_p(blockpos2);
-               if (iblockstate2.func_177230_c() != this) {
+               iblockstate2 = worldIn.getBlockState(blockpos2);
+               if (iblockstate2.getBlock() != this) {
                     worldIn.func_175698_g(pos);
                } else {
                     TileScriptedDoor tile = (TileScriptedDoor)worldIn.func_175625_s(pos);
-                    if (!worldIn.field_72995_K) {
+                    if (!worldIn.isRemote) {
                          EventHooks.onScriptBlockNeighborChanged(tile, pos2);
                     }
 
@@ -114,11 +114,11 @@ public class BlockScriptedDoor extends BlockNpcDoorInterface implements IPermiss
      }
 
      public void func_180649_a(World world, BlockPos pos, EntityPlayer playerIn) {
-          if (!world.field_72995_K) {
-               IBlockState state = world.func_180495_p(pos);
+          if (!world.isRemote) {
+               IBlockState state = world.getBlockState(pos);
                BlockPos blockpos1 = state.func_177229_b(field_176523_O) == EnumDoorHalf.LOWER ? pos : pos.func_177977_b();
-               IBlockState iblockstate1 = pos.equals(blockpos1) ? state : world.func_180495_p(blockpos1);
-               if (iblockstate1.func_177230_c() == this) {
+               IBlockState iblockstate1 = pos.equals(blockpos1) ? state : world.getBlockState(blockpos1);
+               if (iblockstate1.getBlock() == this) {
                     TileScriptedDoor tile = (TileScriptedDoor)world.func_175625_s(blockpos1);
                     EventHooks.onScriptBlockClicked(tile, playerIn);
                }
@@ -127,8 +127,8 @@ public class BlockScriptedDoor extends BlockNpcDoorInterface implements IPermiss
 
      public void func_180663_b(World world, BlockPos pos, IBlockState state) {
           BlockPos blockpos1 = state.func_177229_b(field_176523_O) == EnumDoorHalf.LOWER ? pos : pos.func_177977_b();
-          IBlockState iblockstate1 = pos.equals(blockpos1) ? state : world.func_180495_p(blockpos1);
-          if (!world.field_72995_K && iblockstate1.func_177230_c() == this) {
+          IBlockState iblockstate1 = pos.equals(blockpos1) ? state : world.getBlockState(blockpos1);
+          if (!world.isRemote && iblockstate1.getBlock() == this) {
                TileScriptedDoor tile = (TileScriptedDoor)world.func_175625_s(pos);
                EventHooks.onScriptBlockBreak(tile);
           }
@@ -137,7 +137,7 @@ public class BlockScriptedDoor extends BlockNpcDoorInterface implements IPermiss
      }
 
      public boolean removedByPlayer(IBlockState state, World world, BlockPos pos, EntityPlayer player, boolean willHarvest) {
-          if (!world.field_72995_K) {
+          if (!world.isRemote) {
                TileScriptedDoor tile = (TileScriptedDoor)world.func_175625_s(pos);
                if (EventHooks.onScriptBlockHarvest(tile, player)) {
                     return false;
@@ -148,7 +148,7 @@ public class BlockScriptedDoor extends BlockNpcDoorInterface implements IPermiss
      }
 
      public void func_180634_a(World world, BlockPos pos, IBlockState state, Entity entityIn) {
-          if (!world.field_72995_K) {
+          if (!world.isRemote) {
                TileScriptedDoor tile = (TileScriptedDoor)world.func_175625_s(pos);
                EventHooks.onScriptBlockCollide(tile, entityIn);
           }
@@ -156,8 +156,8 @@ public class BlockScriptedDoor extends BlockNpcDoorInterface implements IPermiss
 
      public void func_176208_a(World world, BlockPos pos, IBlockState state, EntityPlayer player) {
           BlockPos blockpos1 = state.func_177229_b(field_176523_O) == EnumDoorHalf.LOWER ? pos : pos.func_177977_b();
-          IBlockState iblockstate1 = pos.equals(blockpos1) ? state : world.func_180495_p(blockpos1);
-          if (player.field_71075_bZ.field_75098_d && iblockstate1.func_177229_b(field_176523_O) == EnumDoorHalf.LOWER && iblockstate1.func_177230_c() == this) {
+          IBlockState iblockstate1 = pos.equals(blockpos1) ? state : world.getBlockState(blockpos1);
+          if (player.field_71075_bZ.field_75098_d && iblockstate1.func_177229_b(field_176523_O) == EnumDoorHalf.LOWER && iblockstate1.getBlock() == this) {
                world.func_175698_g(blockpos1);
           }
 

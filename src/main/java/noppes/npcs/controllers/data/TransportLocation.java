@@ -14,10 +14,10 @@ public class TransportLocation implements IRoleTransporter.ITransportLocation {
 
      public void readNBT(NBTTagCompound compound) {
           if (compound != null) {
-               this.id = compound.func_74762_e("Id");
+               this.id = compound.getInteger("Id");
                this.pos = new BlockPos(compound.func_74769_h("PosX"), compound.func_74769_h("PosY"), compound.func_74769_h("PosZ"));
-               this.type = compound.func_74762_e("Type");
-               this.dimension = compound.func_74762_e("Dimension");
+               this.type = compound.getInteger("Type");
+               this.dimension = compound.getInteger("Dimension");
                this.name = compound.getString("Name");
           }
      }
@@ -25,9 +25,9 @@ public class TransportLocation implements IRoleTransporter.ITransportLocation {
      public NBTTagCompound writeNBT() {
           NBTTagCompound compound = new NBTTagCompound();
           compound.setInteger("Id", this.id);
-          compound.func_74780_a("PosX", (double)this.pos.func_177958_n());
-          compound.func_74780_a("PosY", (double)this.pos.func_177956_o());
-          compound.func_74780_a("PosZ", (double)this.pos.func_177952_p());
+          compound.func_74780_a("PosX", (double)this.pos.getX());
+          compound.func_74780_a("PosY", (double)this.pos.getY());
+          compound.func_74780_a("PosZ", (double)this.pos.getZ());
           compound.setInteger("Type", this.type);
           compound.setInteger("Dimension", this.dimension);
           compound.setString("Name", this.name);
@@ -43,15 +43,15 @@ public class TransportLocation implements IRoleTransporter.ITransportLocation {
      }
 
      public int getX() {
-          return this.pos.func_177958_n();
+          return this.pos.getX();
      }
 
      public int getY() {
-          return this.pos.func_177956_o();
+          return this.pos.getY();
      }
 
      public int getZ() {
-          return this.pos.func_177952_p();
+          return this.pos.getZ();
      }
 
      public String getName() {

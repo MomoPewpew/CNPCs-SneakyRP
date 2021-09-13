@@ -16,9 +16,9 @@ public class DialogOption implements IDialogOption {
      public void readNBT(NBTTagCompound compound) {
           if (compound != null) {
                this.title = compound.getString("Title");
-               this.dialogId = compound.func_74762_e("Dialog");
-               this.optionColor = compound.func_74762_e("DialogColor");
-               this.optionType = compound.func_74762_e("OptionType");
+               this.dialogId = compound.getInteger("Dialog");
+               this.optionColor = compound.getInteger("DialogColor");
+               this.optionType = compound.getInteger("OptionType");
                this.command = compound.getString("DialogCommand");
                if (this.optionColor == 0) {
                     this.optionColor = 14737632;

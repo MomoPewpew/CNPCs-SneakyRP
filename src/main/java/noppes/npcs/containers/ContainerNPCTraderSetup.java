@@ -20,28 +20,28 @@ public class ContainerNPCTraderSetup extends Container {
                l1 = x + j1 % 3 * 94;
                int y = 15;
                int y = y + j1 / 3 * 22;
-               this.func_75146_a(new Slot(this.role.inventoryCurrency, j1 + 18, l1, y));
-               this.func_75146_a(new Slot(this.role.inventoryCurrency, j1, l1 + 18, y));
-               this.func_75146_a(new Slot(this.role.inventorySold, j1, l1 + 43, y));
+               this.addSlotToContainer(new Slot(this.role.inventoryCurrency, j1 + 18, l1, y));
+               this.addSlotToContainer(new Slot(this.role.inventoryCurrency, j1, l1 + 18, y));
+               this.addSlotToContainer(new Slot(this.role.inventorySold, j1, l1 + 43, y));
           }
 
           for(j1 = 0; j1 < 3; ++j1) {
                for(l1 = 0; l1 < 9; ++l1) {
-                    this.func_75146_a(new Slot(player.inventory, l1 + j1 * 9 + 9, 48 + l1 * 18, 147 + j1 * 18));
+                    this.addSlotToContainer(new Slot(player.inventory, l1 + j1 * 9 + 9, 48 + l1 * 18, 147 + j1 * 18));
                }
           }
 
           for(j1 = 0; j1 < 9; ++j1) {
-               this.func_75146_a(new Slot(player.inventory, j1, 48 + j1 * 18, 205));
+               this.addSlotToContainer(new Slot(player.inventory, j1, 48 + j1 * 18, 205));
           }
 
      }
 
-     public ItemStack func_82846_b(EntityPlayer par1EntityPlayer, int i) {
-          return ItemStack.field_190927_a;
+     public ItemStack transferStackInSlot(EntityPlayer par1EntityPlayer, int i) {
+          return ItemStack.EMPTY;
      }
 
-     public boolean func_75145_c(EntityPlayer entityplayer) {
+     public boolean canInteractWith(EntityPlayer entityplayer) {
           return true;
      }
 }

@@ -191,7 +191,7 @@ public class NBTJsonUtil {
           }
 
           NBTJsonUtil.JsonLine line;
-          if (base.func_74732_a() == 9) {
+          if (base.getId() == 9) {
                list.add(new NBTJsonUtil.JsonLine(name + "["));
                NBTTagList tags = (NBTTagList)base;
                line = null;
@@ -207,7 +207,7 @@ public class NBTJsonUtil {
                }
 
                list.add(new NBTJsonUtil.JsonLine("]"));
-          } else if (base.func_74732_a() == 10) {
+          } else if (base.getId() == 10) {
                list.add(new NBTJsonUtil.JsonLine(name + "{"));
                NBTTagCompound compound = (NBTTagCompound)base;
                line = null;
@@ -222,7 +222,7 @@ public class NBTJsonUtil {
                }
 
                list.add(new NBTJsonUtil.JsonLine("}"));
-          } else if (base.func_74732_a() == 11) {
+          } else if (base.getId() == 11) {
                list.add(new NBTJsonUtil.JsonLine(name + base.toString().replaceFirst(",]", "]")));
           } else {
                list.add(new NBTJsonUtil.JsonLine(name + base));

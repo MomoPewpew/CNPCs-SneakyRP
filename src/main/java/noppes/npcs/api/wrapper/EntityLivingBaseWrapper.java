@@ -117,7 +117,7 @@ public class EntityLivingBaseWrapper extends EntityWrapper implements IEntityLiv
      }
 
      public void setMainhandItem(IItemStack item) {
-          ((EntityLivingBase)this.entity).func_184611_a(EnumHand.MAIN_HAND, item == null ? ItemStack.field_190927_a : item.getMCItemStack());
+          ((EntityLivingBase)this.entity).func_184611_a(EnumHand.MAIN_HAND, item == null ? ItemStack.EMPTY : item.getMCItemStack());
      }
 
      public IItemStack getOffhandItem() {
@@ -125,7 +125,7 @@ public class EntityLivingBaseWrapper extends EntityWrapper implements IEntityLiv
      }
 
      public void setOffhandItem(IItemStack item) {
-          ((EntityLivingBase)this.entity).func_184611_a(EnumHand.OFF_HAND, item == null ? ItemStack.field_190927_a : item.getMCItemStack());
+          ((EntityLivingBase)this.entity).func_184611_a(EnumHand.OFF_HAND, item == null ? ItemStack.EMPTY : item.getMCItemStack());
      }
 
      public IItemStack getArmor(int slot) {
@@ -138,7 +138,7 @@ public class EntityLivingBaseWrapper extends EntityWrapper implements IEntityLiv
 
      public void setArmor(int slot, IItemStack item) {
           if (slot >= 0 && slot <= 3) {
-               ((EntityLivingBase)this.entity).func_184201_a(this.getSlot(slot), item == null ? ItemStack.field_190927_a : item.getMCItemStack());
+               ((EntityLivingBase)this.entity).func_184201_a(this.getSlot(slot), item == null ? ItemStack.EMPTY : item.getMCItemStack());
           } else {
                throw new CustomNPCsException("Wrong slot id:" + slot, new Object[0]);
           }

@@ -47,7 +47,7 @@ public class EntityAIRangedAttack extends EntityAIBase {
 
      public void func_75246_d() {
           this.npc.func_70671_ap().func_75651_a(this.attackTarget, 30.0F, 30.0F);
-          double var1 = this.npc.func_70092_e(this.attackTarget.field_70165_t, this.attackTarget.func_174813_aQ().field_72338_b, this.attackTarget.field_70161_v);
+          double var1 = this.npc.getDistanceSq(this.attackTarget.field_70165_t, this.attackTarget.getEntityBoundingBox().field_72338_b, this.attackTarget.field_70161_v);
           float range = (float)(this.npc.stats.ranged.getRange() * this.npc.stats.ranged.getRange());
           if (!this.navOverride && this.npc.ais.directLOS) {
                if (this.npc.func_70635_at().func_75522_a(this.attackTarget)) {

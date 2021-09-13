@@ -50,12 +50,12 @@ public class BlockBuilder extends BlockInterface implements IPermission {
      }
 
      public boolean func_180639_a(World par1World, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
-          if (par1World.field_72995_K) {
+          if (par1World.isRemote) {
                return true;
           } else {
                ItemStack currentItem = player.inventory.func_70448_g();
                if (currentItem.func_77973_b() == CustomItems.wand || currentItem.func_77973_b() == Item.func_150898_a(CustomItems.builder)) {
-                    NoppesUtilServer.sendOpenGui(player, EnumGuiType.BuilderBlock, (EntityNPCInterface)null, pos.func_177958_n(), pos.func_177956_o(), pos.func_177952_p());
+                    NoppesUtilServer.sendOpenGui(player, EnumGuiType.BuilderBlock, (EntityNPCInterface)null, pos.getX(), pos.getY(), pos.getZ());
                }
 
                return true;
@@ -65,8 +65,8 @@ public class BlockBuilder extends BlockInterface implements IPermission {
      public void func_180633_a(World world, BlockPos pos, IBlockState state, EntityLivingBase entity, ItemStack stack) {
           int var6 = MathHelper.func_76128_c((double)(entity.field_70177_z / 90.0F) + 0.5D) & 3;
           world.func_180501_a(pos, state.func_177226_a(ROTATION, var6), 2);
-          if (entity instanceof EntityPlayer && !world.field_72995_K) {
-               NoppesUtilServer.sendOpenGui((EntityPlayer)entity, EnumGuiType.BuilderBlock, (EntityNPCInterface)null, pos.func_177958_n(), pos.func_177956_o(), pos.func_177952_p());
+          if (entity instanceof EntityPlayer && !world.isRemote) {
+               NoppesUtilServer.sendOpenGui((EntityPlayer)entity, EnumGuiType.BuilderBlock, (EntityNPCInterface)null, pos.getX(), pos.getY(), pos.getZ());
           }
 
      }

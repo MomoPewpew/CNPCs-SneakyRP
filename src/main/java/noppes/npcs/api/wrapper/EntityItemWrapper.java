@@ -49,11 +49,11 @@ public class EntityItemWrapper extends EntityWrapper implements IEntityItem {
      }
 
      public IItemStack getItem() {
-          return NpcAPI.Instance().getIItemStack(((EntityItem)this.entity).func_92059_d());
+          return NpcAPI.Instance().getIItemStack(((EntityItem)this.entity).getItem());
      }
 
      public void setItem(IItemStack item) {
-          ItemStack stack = item == null ? ItemStack.field_190927_a : item.getMCItemStack();
+          ItemStack stack = item == null ? ItemStack.EMPTY : item.getMCItemStack();
           ((EntityItem)this.entity).func_92058_a(stack);
      }
 }

@@ -79,8 +79,8 @@ public abstract class CustomGuiComponentWrapper implements ICustomGuiComponent {
      }
 
      public CustomGuiComponentWrapper fromNBT(NBTTagCompound nbt) {
-          this.setID(nbt.func_74762_e("id"));
-          this.setPos(nbt.func_74759_k("pos")[0], nbt.func_74759_k("pos")[1]);
+          this.setID(nbt.getInteger("id"));
+          this.setPos(nbt.getIntArray("pos")[0], nbt.getIntArray("pos")[1]);
           if (nbt.hasKey("hover")) {
                NBTTagList list = nbt.getTagList("hover", 8);
                String[] hoverText = new String[list.tagCount()];
@@ -96,7 +96,7 @@ public abstract class CustomGuiComponentWrapper implements ICustomGuiComponent {
      }
 
      public static CustomGuiComponentWrapper createFromNBT(NBTTagCompound nbt) {
-          switch(nbt.func_74762_e("type")) {
+          switch(nbt.getInteger("type")) {
           case 0:
                return (new CustomGuiButtonWrapper()).fromNBT(nbt);
           case 1:

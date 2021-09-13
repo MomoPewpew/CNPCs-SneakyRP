@@ -41,8 +41,8 @@ public class BlockMailbox extends BlockInterface {
      }
 
      public boolean func_180639_a(World par1World, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
-          if (!par1World.field_72995_K) {
-               Server.sendData((EntityPlayerMP)player, EnumPacketClient.GUI, EnumGuiType.PlayerMailbox, pos.func_177958_n(), pos.func_177956_o(), pos.func_177952_p());
+          if (!par1World.isRemote) {
+               Server.sendData((EntityPlayerMP)player, EnumPacketClient.GUI, EnumGuiType.PlayerMailbox, pos.getX(), pos.getY(), pos.getZ());
           }
 
           return true;

@@ -51,7 +51,7 @@ public class BlockScripted extends BlockInterface implements IPermission {
      }
 
      public boolean func_180639_a(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
-          if (world.field_72995_K) {
+          if (world.isRemote) {
                return true;
           } else {
                ItemStack currentItem = player.inventory.func_70448_g();
@@ -59,35 +59,35 @@ public class BlockScripted extends BlockInterface implements IPermission {
                     TileScripted tile = (TileScripted)world.func_175625_s(pos);
                     return !EventHooks.onScriptBlockInteract(tile, player, side.func_176745_a(), hitX, hitY, hitZ);
                } else {
-                    NoppesUtilServer.sendOpenGui(player, EnumGuiType.ScriptBlock, (EntityNPCInterface)null, pos.func_177958_n(), pos.func_177956_o(), pos.func_177952_p());
+                    NoppesUtilServer.sendOpenGui(player, EnumGuiType.ScriptBlock, (EntityNPCInterface)null, pos.getX(), pos.getY(), pos.getZ());
                     return true;
                }
           }
      }
 
      public void func_180633_a(World world, BlockPos pos, IBlockState state, EntityLivingBase entity, ItemStack stack) {
-          if (entity instanceof EntityPlayer && !world.field_72995_K) {
-               NoppesUtilServer.sendOpenGui((EntityPlayer)entity, EnumGuiType.ScriptBlock, (EntityNPCInterface)null, pos.func_177958_n(), pos.func_177956_o(), pos.func_177952_p());
+          if (entity instanceof EntityPlayer && !world.isRemote) {
+               NoppesUtilServer.sendOpenGui((EntityPlayer)entity, EnumGuiType.ScriptBlock, (EntityNPCInterface)null, pos.getX(), pos.getY(), pos.getZ());
           }
 
      }
 
      public void func_180634_a(World world, BlockPos pos, IBlockState state, Entity entityIn) {
-          if (!world.field_72995_K) {
+          if (!world.isRemote) {
                TileScripted tile = (TileScripted)world.func_175625_s(pos);
                EventHooks.onScriptBlockCollide(tile, entityIn);
           }
      }
 
      public void func_176224_k(World world, BlockPos pos) {
-          if (!world.field_72995_K) {
+          if (!world.isRemote) {
                TileScripted tile = (TileScripted)world.func_175625_s(pos);
                EventHooks.onScriptBlockRainFill(tile);
           }
      }
 
      public void func_180658_a(World world, BlockPos pos, Entity entity, float fallDistance) {
-          if (!world.field_72995_K) {
+          if (!world.isRemote) {
                TileScripted tile = (TileScripted)world.func_175625_s(pos);
                fallDistance = EventHooks.onScriptBlockFallenUpon(tile, entity, fallDistance);
                super.func_180658_a(world, pos, entity, fallDistance);
@@ -103,14 +103,14 @@ public class BlockScripted extends BlockInterface implements IPermission {
      }
 
      public void func_180649_a(World world, BlockPos pos, EntityPlayer player) {
-          if (!world.field_72995_K) {
+          if (!world.isRemote) {
                TileScripted tile = (TileScripted)world.func_175625_s(pos);
                EventHooks.onScriptBlockClicked(tile, player);
           }
      }
 
      public void func_180663_b(World world, BlockPos pos, IBlockState state) {
-          if (!world.field_72995_K) {
+          if (!world.isRemote) {
                TileScripted tile = (TileScripted)world.func_175625_s(pos);
                EventHooks.onScriptBlockBreak(tile);
           }
@@ -119,7 +119,7 @@ public class BlockScripted extends BlockInterface implements IPermission {
      }
 
      public boolean removedByPlayer(IBlockState state, World world, BlockPos pos, EntityPlayer player, boolean willHarvest) {
-          if (!world.field_72995_K) {
+          if (!world.isRemote) {
                TileScripted tile = (TileScripted)world.func_175625_s(pos);
                if (EventHooks.onScriptBlockHarvest(tile, player)) {
                     return false;
@@ -134,7 +134,7 @@ public class BlockScripted extends BlockInterface implements IPermission {
      }
 
      public void onBlockExploded(World world, BlockPos pos, Explosion explosion) {
-          if (!world.field_72995_K) {
+          if (!world.isRemote) {
                TileScripted tile = (TileScripted)world.func_175625_s(pos);
                if (EventHooks.onScriptBlockExploded(tile)) {
                     return;
@@ -145,7 +145,7 @@ public class BlockScripted extends BlockInterface implements IPermission {
      }
 
      public void func_189540_a(IBlockState state, World world, BlockPos pos, Block neighborBlock, BlockPos pos2) {
-          if (!world.field_72995_K) {
+          if (!world.isRemote) {
                TileScripted tile = (TileScripted)world.func_175625_s(pos);
                EventHooks.onScriptBlockNeighborChanged(tile, pos2);
                int power = 0;

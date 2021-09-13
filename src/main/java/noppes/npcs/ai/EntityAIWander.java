@@ -67,7 +67,7 @@ public class EntityAIWander extends EntityAIBase {
      }
 
      private EntityNPCInterface getNearbyNPC() {
-          List list = this.entity.world.func_175674_a(this.entity, this.entity.func_174813_aQ().func_72314_b((double)this.entity.ais.walkingRange, this.entity.ais.walkingRange > 7 ? 7.0D : (double)this.entity.ais.walkingRange, (double)this.entity.ais.walkingRange), this.selector);
+          List list = this.entity.world.func_175674_a(this.entity, this.entity.getEntityBoundingBox().expand((double)this.entity.ais.walkingRange, this.entity.ais.walkingRange > 7 ? 7.0D : (double)this.entity.ais.walkingRange, (double)this.entity.ais.walkingRange), this.selector);
           Iterator ita = list.iterator();
 
           while(true) {
@@ -103,7 +103,7 @@ public class EntityAIWander extends EntityAIBase {
                          range = CustomNpcs.NpcNavRange;
                     }
 
-                    Vec3d pos2 = new Vec3d((this.entity.field_70165_t + (double)start.func_177958_n()) / 2.0D, (this.entity.field_70163_u + (double)start.func_177956_o()) / 2.0D, (this.entity.field_70161_v + (double)start.func_177952_p()) / 2.0D);
+                    Vec3d pos2 = new Vec3d((this.entity.field_70165_t + (double)start.getX()) / 2.0D, (this.entity.field_70163_u + (double)start.getY()) / 2.0D, (this.entity.field_70161_v + (double)start.getZ()) / 2.0D);
                     return RandomPositionGenerator.func_75464_a(this.entity, distance / 2, distance / 2 > 7 ? 7 : distance / 2, pos2);
                } else {
                     return RandomPositionGenerator.func_75463_a(this.entity, range / 2, range / 2 > 7 ? 7 : range / 2);

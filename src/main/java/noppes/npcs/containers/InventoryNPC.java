@@ -20,38 +20,38 @@ public class InventoryNPC implements IInventory {
           this.con = con;
           this.inventoryTitle = s;
           this.slotsCount = i;
-          this.inventoryContents = NonNullList.func_191197_a(i, ItemStack.field_190927_a);
+          this.inventoryContents = NonNullList.func_191197_a(i, ItemStack.EMPTY);
      }
 
-     public ItemStack func_70301_a(int i) {
+     public ItemStack getStackInSlot(int i) {
           return (ItemStack)this.inventoryContents.get(i);
      }
 
-     public ItemStack func_70298_a(int index, int count) {
+     public ItemStack decrStackSize(int index, int count) {
           return ItemStackHelper.func_188382_a(this.inventoryContents, index, count);
      }
 
-     public void func_70299_a(int index, ItemStack stack) {
+     public void setInventorySlotContents(int index, ItemStack stack) {
           this.inventoryContents.set(index, stack);
-          if (!stack.func_190926_b() && stack.func_190916_E() > this.func_70297_j_()) {
-               stack.func_190920_e(this.func_70297_j_());
+          if (!stack.isEmpty() && stack.getCount() > this.getInventoryStackLimit()) {
+               stack.func_190920_e(this.getInventoryStackLimit());
           }
 
      }
 
-     public int func_70302_i_() {
+     public int getSizeInventory() {
           return this.slotsCount;
      }
 
-     public int func_70297_j_() {
+     public int getInventoryStackLimit() {
           return 64;
      }
 
-     public boolean func_70300_a(EntityPlayer entityplayer) {
+     public boolean isUseableByPlayer(EntityPlayer entityplayer) {
           return false;
      }
 
-     public ItemStack func_70304_b(int i) {
+     public ItemStack removeStackFromSlot(int i) {
           return ItemStackHelper.func_188383_a(this.inventoryContents, i);
      }
 
@@ -67,8 +67,8 @@ public class InventoryNPC implements IInventory {
           return true;
      }
 
-     public void func_70296_d() {
-          this.con.func_75130_a(this);
+     public void markDirty() {
+          this.con.onCraftMatrixChanged(this);
      }
 
      public void func_174889_b(EntityPlayer player) {
@@ -96,9 +96,9 @@ public class InventoryNPC implements IInventory {
      }
 
      public boolean func_191420_l() {
-          for(int slot = 0; slot < this.func_70302_i_(); ++slot) {
-               ItemStack item = this.func_70301_a(slot);
-               if (!NoppesUtilServer.IsItemStackNull(item) && !item.func_190926_b()) {
+          for(int slot = 0; slot < this.getSizeInventory(); ++slot) {
+               ItemStack item = this.getStackInSlot(slot);
+               if (!NoppesUtilServer.IsItemStackNull(item) && !item.isEmpty()) {
                     return false;
                }
           }

@@ -92,13 +92,13 @@ public class GuiCreationExtra extends GuiCreationScreenInterface implements ICus
                     NBTBase base = compound.getTag(name);
                     if (name.equals("Age")) {
                          data.put("Child", new GuiCreationExtra.GuiTypeBoolean("Child", entity.func_70631_g_()));
-                    } else if (name.equals("Color") && base.func_74732_a() == 1) {
-                         data.put("Color", new GuiCreationExtra.GuiTypeByte("Color", compound.func_74771_c("Color")));
-                    } else if (base.func_74732_a() == 1) {
+                    } else if (name.equals("Color") && base.getId() == 1) {
+                         data.put("Color", new GuiCreationExtra.GuiTypeByte("Color", compound.getByte("Color")));
+                    } else if (base.getId() == 1) {
                          byte b = ((NBTTagByte)base).func_150290_f();
                          if (b == 0 || b == 1) {
                               if (this.playerdata.extra.hasKey(name)) {
-                                   b = this.playerdata.extra.func_74771_c(name);
+                                   b = this.playerdata.extra.getByte(name);
                               }
 
                               data.put(name, new GuiCreationExtra.GuiTypeBoolean(name, b == 1));
@@ -232,7 +232,7 @@ public class GuiCreationExtra extends GuiCreationScreenInterface implements ICus
 
           public void actionPerformed(GuiButton button) {
                if (button.id == 11) {
-                    GuiCreationExtra.this.playerdata.extra.func_74774_a(this.name, (byte)((GuiNpcButton)button).getValue());
+                    GuiCreationExtra.this.playerdata.extra.setByte(this.name, (byte)((GuiNpcButton)button).getValue());
                     GuiCreationExtra.this.playerdata.clearEntity();
                     GuiCreationExtra.this.updateTexture();
                }
@@ -258,7 +258,7 @@ public class GuiCreationExtra extends GuiCreationScreenInterface implements ICus
                          GuiCreationExtra.this.playerdata.extra.setInteger("Age", this.bo ? -24000 : 0);
                          GuiCreationExtra.this.playerdata.clearEntity();
                     } else {
-                         GuiCreationExtra.this.playerdata.extra.func_74757_a(this.name, this.bo);
+                         GuiCreationExtra.this.playerdata.extra.setBoolean(this.name, this.bo);
                          GuiCreationExtra.this.playerdata.clearEntity();
                          GuiCreationExtra.this.updateTexture();
                     }

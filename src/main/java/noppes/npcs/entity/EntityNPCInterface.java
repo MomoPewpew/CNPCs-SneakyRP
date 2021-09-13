@@ -292,7 +292,7 @@ public abstract class EntityNPCInterface extends EntityCreature implements IEnti
           }
 
           this.timers.update();
-          if (this.world.field_72995_K && this.wasKilled != this.isKilled()) {
+          if (this.world.isRemote && this.wasKilled != this.isKilled()) {
                this.field_70725_aQ = 0;
                this.updateHitbox();
           }
@@ -327,8 +327,8 @@ public abstract class EntityNPCInterface extends EntityCreature implements IEnti
 
                if (this.stats.melee.getKnockback() > 0) {
                     par1Entity.func_70024_g((double)(-MathHelper.func_76126_a(this.field_70177_z * 3.1415927F / 180.0F) * (float)this.stats.melee.getKnockback() * 0.5F), 0.1D, (double)(MathHelper.func_76134_b(this.field_70177_z * 3.1415927F / 180.0F) * (float)this.stats.melee.getKnockback() * 0.5F));
-                    this.field_70159_w *= 0.6D;
-                    this.field_70179_y *= 0.6D;
+                    this.motionX *= 0.6D;
+                    this.motionZ *= 0.6D;
                }
 
                if (this.advanced.role == 6) {
@@ -358,7 +358,7 @@ public abstract class EntityNPCInterface extends EntityCreature implements IEnti
                          this.faction = this.getFaction();
                     }
 
-                    if (!this.world.field_72995_K) {
+                    if (!this.world.isRemote) {
                          if (!this.isKilled() && this.field_70173_aa % 20 == 0) {
                               this.advanced.scenes.update();
                               if (this.func_110143_aJ() < this.func_110138_aP()) {
@@ -372,7 +372,7 @@ public abstract class EntityNPCInterface extends EntityCreature implements IEnti
                               }
 
                               if (this.faction.getsAttacked && !this.isAttacking()) {
-                                   List list = this.world.func_72872_a(EntityMob.class, this.func_174813_aQ().func_72314_b(16.0D, 16.0D, 16.0D));
+                                   List list = this.world.getEntitiesWithinAABB(EntityMob.class, this.getEntityBoundingBox().expand(16.0D, 16.0D, 16.0D));
                                    Iterator var2 = list.iterator();
 
                                    while(var2.hasNext()) {
@@ -418,7 +418,7 @@ public abstract class EntityNPCInterface extends EntityCreature implements IEnti
                          this.reset();
                     }
 
-                    if (this.world.func_72935_r() && !this.world.field_72995_K && this.stats.burnInSun) {
+                    if (this.world.func_72935_r() && !this.world.isRemote && this.stats.burnInSun) {
                          float f = this.func_70013_c();
                          if (f > 0.5F && this.field_70146_Z.nextFloat() * 30.0F < (f - 0.4F) * 2.0F && this.world.func_175710_j(new BlockPos(this))) {
                               this.func_70015_d(8);
@@ -426,7 +426,7 @@ public abstract class EntityNPCInterface extends EntityCreature implements IEnti
                     }
 
                     super.func_70636_d();
-                    if (this.world.field_72995_K) {
+                    if (this.world.isRemote) {
                          if (this.roleInterface != null) {
                               this.roleInterface.clientUpdate();
                          }
@@ -467,7 +467,7 @@ public abstract class EntityNPCInterface extends EntityCreature implements IEnti
      }
 
      public boolean func_184645_a(EntityPlayer player, EnumHand hand) {
-          if (this.world.field_72995_K) {
+          if (this.world.isRemote) {
                return !this.isAttacking();
           } else if (hand != EnumHand.MAIN_HAND) {
                return true;
@@ -552,7 +552,7 @@ public abstract class EntityNPCInterface extends EntityCreature implements IEnti
      }
 
      public boolean func_70097_a(DamageSource damagesource, float i) {
-          if (!this.world.field_72995_K && !CustomNpcs.FreezeNPCs && !damagesource.field_76373_n.equals("inWall")) {
+          if (!this.world.isRemote && !CustomNpcs.FreezeNPCs && !damagesource.field_76373_n.equals("inWall")) {
                if (damagesource.field_76373_n.equals("outOfWorld") && this.isKilled()) {
                     this.reset();
                }
@@ -599,7 +599,7 @@ public abstract class EntityNPCInterface extends EntityCreature implements IEnti
                                    try {
                                         if (!this.isAttacking()) {
                                              if (i > 0.0F) {
-                                                  List inRange = this.world.func_72872_a(EntityNPCInterface.class, this.func_174813_aQ().func_72314_b(32.0D, 16.0D, 32.0D));
+                                                  List inRange = this.world.getEntitiesWithinAABB(EntityNPCInterface.class, this.getEntityBoundingBox().expand(32.0D, 16.0D, 32.0D));
                                                   Iterator var7 = inRange.iterator();
 
                                                   while(true) {
@@ -722,11 +722,11 @@ public abstract class EntityNPCInterface extends EntityCreature implements IEnti
      }
 
      public EntityProjectile shoot(EntityLivingBase entity, int accuracy, ItemStack proj, boolean indirect) {
-          return this.shoot(entity.field_70165_t, entity.func_174813_aQ().field_72338_b + (double)(entity.height / 2.0F), entity.field_70161_v, accuracy, proj, indirect);
+          return this.shoot(entity.field_70165_t, entity.getEntityBoundingBox().field_72338_b + (double)(entity.height / 2.0F), entity.field_70161_v, accuracy, proj, indirect);
      }
 
      public EntityProjectile shoot(double x, double y, double z, int accuracy, ItemStack proj, boolean indirect) {
-          EntityProjectile projectile = new EntityProjectile(this.world, this, proj.func_77946_l(), true);
+          EntityProjectile projectile = new EntityProjectile(this.world, this, proj.copy(), true);
           double varX = x - this.field_70165_t;
           double varY = y - (this.field_70163_u + (double)this.func_70047_e());
           double varZ = z - this.field_70161_v;
@@ -752,7 +752,7 @@ public abstract class EntityNPCInterface extends EntityCreature implements IEnti
      }
 
      private void updateTasks() {
-          if (this.world != null && !this.world.field_72995_K) {
+          if (this.world != null && !this.world.isRemote) {
                this.clearTasks(this.field_70714_bg);
                this.clearTasks(this.field_70715_bh);
                if (!this.isKilled()) {
@@ -916,10 +916,10 @@ public abstract class EntityNPCInterface extends EntityCreature implements IEnti
 
      public float func_180484_a(BlockPos pos) {
           if (this.ais.movementType == 2) {
-               return this.world.func_180495_p(pos).func_185904_a() == Material.field_151586_h ? 10.0F : 0.0F;
+               return this.world.getBlockState(pos).func_185904_a() == Material.field_151586_h ? 10.0F : 0.0F;
           } else {
                float weight = this.world.func_175724_o(pos) - 0.5F;
-               if (this.world.func_180495_p(pos).func_185914_p()) {
+               if (this.world.getBlockState(pos).func_185914_p()) {
                     weight += 10.0F;
                }
 
@@ -967,7 +967,7 @@ public abstract class EntityNPCInterface extends EntityCreature implements IEnti
      }
 
      public EntityPlayerMP getFakeChatPlayer() {
-          if (this.world.field_72995_K) {
+          if (this.world.isRemote) {
                return null;
           } else {
                EntityUtil.Copy(this, ChatEventPlayer);
@@ -990,7 +990,7 @@ public abstract class EntityNPCInterface extends EntityCreature implements IEnti
                     line.setText(event.getComponent().func_150260_c().replace("%%", "%"));
                }
 
-               List inRange = this.world.func_72872_a(EntityPlayer.class, this.func_174813_aQ().func_72314_b(20.0D, 20.0D, 20.0D));
+               List inRange = this.world.getEntitiesWithinAABB(EntityPlayer.class, this.getEntityBoundingBox().expand(20.0D, 20.0D, 20.0D));
                Iterator var3 = inRange.iterator();
 
                while(var3.hasNext()) {
@@ -1005,7 +1005,7 @@ public abstract class EntityNPCInterface extends EntityCreature implements IEnti
           if (line != null && this.canSee(player)) {
                if (!line.getSound().isEmpty()) {
                     BlockPos pos = this.func_180425_c();
-                    Server.sendData((EntityPlayerMP)player, EnumPacketClient.PLAY_SOUND, line.getSound(), pos.func_177958_n(), pos.func_177956_o(), pos.func_177952_p(), this.func_70599_aP(), this.func_70647_i());
+                    Server.sendData((EntityPlayerMP)player, EnumPacketClient.PLAY_SOUND, line.getSound(), pos.getX(), pos.getY(), pos.getZ(), this.func_70599_aP(), this.func_70647_i());
                }
 
                if (!line.getText().isEmpty()) {
@@ -1028,7 +1028,7 @@ public abstract class EntityNPCInterface extends EntityCreature implements IEnti
 
      public void func_70037_a(NBTTagCompound compound) {
           super.func_70037_a(compound);
-          this.npcVersion = compound.func_74762_e("ModRev");
+          this.npcVersion = compound.getInteger("ModRev");
           VersionCompatibility.CheckNpcCompatibility(this, compound);
           this.display.readToNBT(compound);
           this.stats.readToNBT(compound);
@@ -1046,8 +1046,8 @@ public abstract class EntityNPCInterface extends EntityCreature implements IEnti
 
           this.inventory.readEntityFromNBT(compound);
           this.transform.readToNBT(compound);
-          this.killedtime = compound.func_74763_f("KilledTime");
-          this.totalTicksAlive = compound.func_74763_f("TotalTicksAlive");
+          this.killedtime = compound.getLong("KilledTime");
+          this.totalTicksAlive = compound.getLong("TotalTicksAlive");
           this.linkedName = compound.getString("LinkedNpcName");
           if (!this.isRemote()) {
                LinkedNpcController.Instance.loadNpcData(this);
@@ -1075,8 +1075,8 @@ public abstract class EntityNPCInterface extends EntityCreature implements IEnti
 
           this.inventory.writeEntityToNBT(compound);
           this.transform.writeToNBT(compound);
-          compound.func_74772_a("KilledTime", this.killedtime);
-          compound.func_74772_a("TotalTicksAlive", this.totalTicksAlive);
+          compound.setLong("KilledTime", this.killedtime);
+          compound.setLong("TotalTicksAlive", this.totalTicksAlive);
           compound.setInteger("ModRev", this.npcVersion);
           compound.setString("LinkedNpcName", this.linkedName);
      }
@@ -1114,7 +1114,7 @@ public abstract class EntityNPCInterface extends EntityCreature implements IEnti
      public void func_70609_aI() {
           if (this.stats.spawnCycle != 3 && this.stats.spawnCycle != 4) {
                ++this.field_70725_aQ;
-               if (!this.world.field_72995_K) {
+               if (!this.world.isRemote) {
                     if (!this.hasDied) {
                          this.func_70106_y();
                     }
@@ -1171,15 +1171,15 @@ public abstract class EntityNPCInterface extends EntityCreature implements IEnti
      }
 
      public void onCollide() {
-          if (this.func_70089_S() && this.field_70173_aa % 4 == 0 && !this.world.field_72995_K) {
+          if (this.func_70089_S() && this.field_70173_aa % 4 == 0 && !this.world.isRemote) {
                AxisAlignedBB axisalignedbb = null;
                if (this.func_184187_bx() != null && this.func_184187_bx().func_70089_S()) {
-                    axisalignedbb = this.func_174813_aQ().func_111270_a(this.func_184187_bx().func_174813_aQ()).func_72314_b(1.0D, 0.0D, 1.0D);
+                    axisalignedbb = this.getEntityBoundingBox().func_111270_a(this.func_184187_bx().getEntityBoundingBox()).expand(1.0D, 0.0D, 1.0D);
                } else {
-                    axisalignedbb = this.func_174813_aQ().func_72314_b(1.0D, 0.5D, 1.0D);
+                    axisalignedbb = this.getEntityBoundingBox().expand(1.0D, 0.5D, 1.0D);
                }
 
-               List list = this.world.func_72872_a(EntityLivingBase.class, axisalignedbb);
+               List list = this.world.getEntitiesWithinAABB(EntityLivingBase.class, axisalignedbb);
                if (list != null) {
                     for(int i = 0; i < list.size(); ++i) {
                          Entity entity = (Entity)list.get(i);
@@ -1343,7 +1343,7 @@ public abstract class EntityNPCInterface extends EntityCreature implements IEnti
           this.hasDied = true;
           this.func_184226_ay();
           this.func_184210_p();
-          if (!this.world.field_72995_K && this.stats.spawnCycle != 3 && this.stats.spawnCycle != 4) {
+          if (!this.world.isRemote && this.stats.spawnCycle != 3 && this.stats.spawnCycle != 4) {
                this.func_70606_j(-1.0F);
                this.func_70031_b(false);
                this.func_70661_as().func_75499_g();
@@ -1379,11 +1379,11 @@ public abstract class EntityNPCInterface extends EntityCreature implements IEnti
      }
 
      public float getStartXPos() {
-          return (float)this.ais.startPos().func_177958_n() + this.ais.bodyOffsetX / 10.0F;
+          return (float)this.ais.startPos().getX() + this.ais.bodyOffsetX / 10.0F;
      }
 
      public float getStartZPos() {
-          return (float)this.ais.startPos().func_177952_p() + this.ais.bodyOffsetZ / 10.0F;
+          return (float)this.ais.startPos().getZ() + this.ais.bodyOffsetZ / 10.0F;
      }
 
      public boolean isVeryNearAssignedPlace() {
@@ -1404,11 +1404,11 @@ public abstract class EntityNPCInterface extends EntityCreature implements IEnti
           BlockPos startPos = this.ais.startPos();
 
           while(true) {
-               while(pos.func_177956_o() > 0) {
-                    IBlockState state = this.world.func_180495_p(pos);
+               while(pos.getY() > 0) {
+                    IBlockState state = this.world.getBlockState(pos);
                     AxisAlignedBB bb = state.func_185900_c(this.world, pos).func_186670_a(pos);
                     if (bb != null) {
-                         if (this.ais.movementType != 2 || startPos.func_177956_o() > pos.func_177956_o() || state.func_185904_a() != Material.field_151586_h) {
+                         if (this.ais.movementType != 2 || startPos.getY() > pos.getY() || state.func_185904_a() != Material.field_151586_h) {
                               return bb.field_72337_e;
                          }
 
@@ -1423,8 +1423,8 @@ public abstract class EntityNPCInterface extends EntityCreature implements IEnti
      }
 
      private BlockPos calculateTopPos(BlockPos pos) {
-          for(BlockPos check = pos; check.func_177956_o() > 0; check = check.func_177977_b()) {
-               IBlockState state = this.world.func_180495_p(pos);
+          for(BlockPos check = pos; check.getY() > 0; check = check.func_177977_b()) {
+               IBlockState state = this.world.getBlockState(pos);
                AxisAlignedBB bb = state.func_185900_c(this.world, pos).func_186670_a(pos);
                if (bb != null) {
                     return check;
@@ -1450,20 +1450,20 @@ public abstract class EntityNPCInterface extends EntityCreature implements IEnti
      }
 
      public void givePlayerItem(EntityPlayer player, ItemStack item) {
-          if (!this.world.field_72995_K) {
-               item = item.func_77946_l();
+          if (!this.world.isRemote) {
+               item = item.copy();
                float f = 0.7F;
-               double d = (double)(this.world.field_73012_v.nextFloat() * f) + (double)(1.0F - f);
-               double d1 = (double)(this.world.field_73012_v.nextFloat() * f) + (double)(1.0F - f);
-               double d2 = (double)(this.world.field_73012_v.nextFloat() * f) + (double)(1.0F - f);
+               double d = (double)(this.world.rand.nextFloat() * f) + (double)(1.0F - f);
+               double d1 = (double)(this.world.rand.nextFloat() * f) + (double)(1.0F - f);
+               double d2 = (double)(this.world.rand.nextFloat() * f) + (double)(1.0F - f);
                EntityItem entityitem = new EntityItem(this.world, this.field_70165_t + d, this.field_70163_u + d1, this.field_70161_v + d2, item);
                entityitem.func_174867_a(2);
                this.world.func_72838_d(entityitem);
-               int i = item.func_190916_E();
+               int i = item.getCount();
                if (player.inventory.func_70441_a(item)) {
                     this.world.func_184148_a((EntityPlayer)null, this.field_70165_t, this.field_70163_u, this.field_70161_v, SoundEvents.field_187638_cR, SoundCategory.PLAYERS, 0.2F, ((this.field_70146_Z.nextFloat() - this.field_70146_Z.nextFloat()) * 0.7F + 1.0F) * 2.0F);
                     player.func_71001_a(entityitem, i);
-                    if (item.func_190916_E() <= 0) {
+                    if (item.getCount() <= 0) {
                          entityitem.func_70106_y();
                     }
                }
@@ -1493,7 +1493,7 @@ public abstract class EntityNPCInterface extends EntityCreature implements IEnti
      }
 
      public boolean isRemote() {
-          return this.world == null || this.world.field_72995_K;
+          return this.world == null || this.world.isRemote;
      }
 
      public void setFaction(int id) {
@@ -1534,13 +1534,13 @@ public abstract class EntityNPCInterface extends EntityCreature implements IEnti
           compound.setTag("Armor", NBTTags.nbtIItemStackMap(this.inventory.armor));
           compound.setTag("Weapons", NBTTags.nbtIItemStackMap(this.inventory.weapons));
           compound.setInteger("Speed", this.ais.getWalkingSpeed());
-          compound.func_74757_a("DeadBody", this.stats.hideKilledBody);
+          compound.setBoolean("DeadBody", this.stats.hideKilledBody);
           compound.setInteger("StandingState", this.ais.getStandingType());
           compound.setInteger("MovingState", this.ais.getMovingType());
           compound.setInteger("Orientation", this.ais.orientation);
-          compound.func_74776_a("PositionXOffset", this.ais.bodyOffsetX);
-          compound.func_74776_a("PositionYOffset", this.ais.bodyOffsetY);
-          compound.func_74776_a("PositionZOffset", this.ais.bodyOffsetZ);
+          compound.setFloat("PositionXOffset", this.ais.bodyOffsetX);
+          compound.setFloat("PositionYOffset", this.ais.bodyOffsetY);
+          compound.setFloat("PositionZOffset", this.ais.bodyOffsetZ);
           compound.setInteger("Role", this.advanced.role);
           compound.setInteger("Job", this.advanced.job);
           NBTTagCompound bard;
@@ -1578,19 +1578,19 @@ public abstract class EntityNPCInterface extends EntityCreature implements IEnti
      }
 
      public void readSpawnData(NBTTagCompound compound) {
-          this.stats.setMaxHealth(compound.func_74762_e("MaxHealth"));
-          this.ais.setWalkingSpeed(compound.func_74762_e("Speed"));
+          this.stats.setMaxHealth(compound.getInteger("MaxHealth"));
+          this.ais.setWalkingSpeed(compound.getInteger("Speed"));
           this.stats.hideKilledBody = compound.getBoolean("DeadBody");
-          this.ais.setStandingType(compound.func_74762_e("StandingState"));
-          this.ais.setMovingType(compound.func_74762_e("MovingState"));
-          this.ais.orientation = compound.func_74762_e("Orientation");
-          this.ais.bodyOffsetX = compound.func_74760_g("PositionXOffset");
-          this.ais.bodyOffsetY = compound.func_74760_g("PositionYOffset");
-          this.ais.bodyOffsetZ = compound.func_74760_g("PositionZOffset");
+          this.ais.setStandingType(compound.getInteger("StandingState"));
+          this.ais.setMovingType(compound.getInteger("MovingState"));
+          this.ais.orientation = compound.getInteger("Orientation");
+          this.ais.bodyOffsetX = compound.getFloat("PositionXOffset");
+          this.ais.bodyOffsetY = compound.getFloat("PositionYOffset");
+          this.ais.bodyOffsetZ = compound.getFloat("PositionZOffset");
           this.inventory.armor = NBTTags.getIItemStackMap(compound.getTagList("Armor", 10));
           this.inventory.weapons = NBTTags.getIItemStackMap(compound.getTagList("Weapons", 10));
-          this.advanced.setRole(compound.func_74762_e("Role"));
-          this.advanced.setJob(compound.func_74762_e("Job"));
+          this.advanced.setRole(compound.getInteger("Role"));
+          this.advanced.setJob(compound.getInteger("Job"));
           NBTTagCompound puppet;
           if (this.advanced.job == 1) {
                puppet = compound.getCompoundTag("Bard");
@@ -1615,7 +1615,7 @@ public abstract class EntityNPCInterface extends EntityCreature implements IEnti
      }
 
      public Entity func_174793_f() {
-          if (this.world.field_72995_K) {
+          if (this.world.isRemote) {
                return this;
           } else {
                EntityUtil.Copy(this, CommandPlayer);
@@ -1697,7 +1697,7 @@ public abstract class EntityNPCInterface extends EntityCreature implements IEnti
      }
 
      public boolean func_98034_c(EntityPlayer player) {
-          return this.display.getVisible() == 1 && (player.func_184614_ca().func_190926_b() || player.func_184614_ca().func_77973_b() != CustomItems.wand);
+          return this.display.getVisible() == 1 && (player.func_184614_ca().isEmpty() || player.func_184614_ca().func_77973_b() != CustomItems.wand);
      }
 
      public boolean func_82150_aj() {
@@ -1812,9 +1812,9 @@ public abstract class EntityNPCInterface extends EntityCreature implements IEnti
 
      public boolean nearPosition(BlockPos pos) {
           BlockPos npcpos = this.func_180425_c();
-          float x = (float)(npcpos.func_177958_n() - pos.func_177958_n());
-          float z = (float)(npcpos.func_177952_p() - pos.func_177952_p());
-          float y = (float)(npcpos.func_177956_o() - pos.func_177956_o());
+          float x = (float)(npcpos.getX() - pos.getX());
+          float z = (float)(npcpos.getZ() - pos.getZ());
+          float y = (float)(npcpos.getY() - pos.getY());
           float height = (float)(MathHelper.func_76123_f(this.height + 1.0F) * MathHelper.func_76123_f(this.height + 1.0F));
           return (double)(x * x + z * z) < 2.5D && (double)(y * y) < (double)height + 2.5D;
      }
@@ -1822,7 +1822,7 @@ public abstract class EntityNPCInterface extends EntityCreature implements IEnti
      public void tpTo(EntityLivingBase owner) {
           if (owner != null) {
                EnumFacing facing = owner.func_174811_aO().func_176734_d();
-               BlockPos pos = new BlockPos(owner.field_70165_t, owner.func_174813_aQ().field_72338_b, owner.field_70161_v);
+               BlockPos pos = new BlockPos(owner.field_70165_t, owner.getEntityBoundingBox().field_72338_b, owner.field_70161_v);
                pos = pos.func_177982_a(facing.getFrontOffsetX(), 0, facing.getFrontOffsetZ());
                pos = this.calculateTopPos(pos);
 
@@ -1836,8 +1836,8 @@ public abstract class EntityNPCInterface extends EntityCreature implements IEnti
                          }
 
                          check = this.calculateTopPos(check);
-                         if (!this.world.func_180495_p(check).func_185913_b() && !this.world.func_180495_p(check.func_177984_a()).func_185913_b()) {
-                              this.func_70012_b((double)((float)check.func_177958_n() + 0.5F), (double)check.func_177956_o(), (double)((float)check.func_177952_p() + 0.5F), this.field_70177_z, this.field_70125_A);
+                         if (!this.world.getBlockState(check).func_185913_b() && !this.world.getBlockState(check.func_177984_a()).func_185913_b()) {
+                              this.func_70012_b((double)((float)check.getX() + 0.5F), (double)check.getY(), (double)((float)check.getZ() + 0.5F), this.field_70177_z, this.field_70125_A);
                               this.func_70661_as().func_75499_g();
                               break;
                          }
@@ -1855,7 +1855,7 @@ public abstract class EntityNPCInterface extends EntityCreature implements IEnti
      }
 
      public boolean func_70601_bi() {
-          return this.func_180484_a(new BlockPos(this.field_70165_t, this.func_174813_aQ().field_72338_b, this.field_70161_v)) >= 0.0F && this.world.func_180495_p((new BlockPos(this)).func_177977_b()).func_189884_a(this);
+          return this.func_180484_a(new BlockPos(this.field_70165_t, this.getEntityBoundingBox().field_72338_b, this.field_70161_v)) >= 0.0F && this.world.getBlockState((new BlockPos(this)).func_177977_b()).func_189884_a(this);
      }
 
      public boolean shouldDismountInWater(Entity rider) {

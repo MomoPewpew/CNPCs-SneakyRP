@@ -19,7 +19,7 @@ public class ContainerCustomGui extends Container {
           this.guiInventory = inventory;
      }
 
-     public boolean func_75145_c(EntityPlayer playerIn) {
+     public boolean canInteractWith(EntityPlayer playerIn) {
           return true;
      }
 
@@ -30,9 +30,9 @@ public class ContainerCustomGui extends Container {
           while(var3.hasNext()) {
                IItemSlot slot = (IItemSlot)var3.next();
                if (slot.hasStack()) {
-                    this.addSlot(slot.getPosX(), slot.getPosY(), slot.getStack().getMCItemStack(), player.world.field_72995_K);
+                    this.addSlot(slot.getPosX(), slot.getPosY(), slot.getStack().getMCItemStack(), player.world.isRemote);
                } else {
-                    this.addSlot(slot.getPosX(), slot.getPosY(), player.world.field_72995_K);
+                    this.addSlot(slot.getPosX(), slot.getPosY(), player.world.isRemote);
                }
           }
 
@@ -42,24 +42,24 @@ public class ContainerCustomGui extends Container {
 
      }
 
-     public ItemStack func_82846_b(EntityPlayer playerIn, int index) {
-          ItemStack itemstack = ItemStack.field_190927_a;
-          Slot slot = (Slot)this.field_75151_b.get(index);
-          if (slot != null && slot.func_75216_d()) {
-               ItemStack itemstack1 = slot.func_75211_c();
-               itemstack = itemstack1.func_77946_l();
-               if (index < this.guiInventory.func_70302_i_()) {
-                    if (!this.func_75135_a(itemstack1, this.guiInventory.func_70302_i_(), this.field_75151_b.size(), true)) {
-                         return ItemStack.field_190927_a;
+     public ItemStack transferStackInSlot(EntityPlayer playerIn, int index) {
+          ItemStack itemstack = ItemStack.EMPTY;
+          Slot slot = (Slot)this.inventorySlots.get(index);
+          if (slot != null && slot.getHasStack()) {
+               ItemStack itemstack1 = slot.getStack();
+               itemstack = itemstack1.copy();
+               if (index < this.guiInventory.getSizeInventory()) {
+                    if (!this.mergeItemStack(itemstack1, this.guiInventory.getSizeInventory(), this.inventorySlots.size(), true)) {
+                         return ItemStack.EMPTY;
                     }
-               } else if (!this.func_75135_a(itemstack1, 0, this.guiInventory.func_70302_i_(), false)) {
-                    return ItemStack.field_190927_a;
+               } else if (!this.mergeItemStack(itemstack1, 0, this.guiInventory.getSizeInventory(), false)) {
+                    return ItemStack.EMPTY;
                }
 
-               if (itemstack1.func_190926_b()) {
-                    slot.func_75215_d(ItemStack.field_190927_a);
+               if (itemstack1.isEmpty()) {
+                    slot.putStack(ItemStack.EMPTY);
                } else {
-                    slot.func_75218_e();
+                    slot.onSlotChanged();
                }
           }
 
@@ -67,26 +67,26 @@ public class ContainerCustomGui extends Container {
      }
 
      void addSlot(int x, int y, boolean clientSide) {
-          this.func_75146_a(new CustomGuiSlot(this.guiInventory, this.slotCount++, x, y, clientSide));
+          this.addSlotToContainer(new CustomGuiSlot(this.guiInventory, this.slotCount++, x, y, clientSide));
      }
 
      void addSlot(int x, int y, ItemStack itemStack, boolean clientSide) {
           int index = this.slotCount++;
           Slot s = new CustomGuiSlot(this.guiInventory, index, x, y, clientSide);
-          this.func_75146_a(s);
-          this.guiInventory.func_70299_a(index, itemStack);
+          this.addSlotToContainer(s);
+          this.guiInventory.setInventorySlotContents(index, itemStack);
      }
 
      void addPlayerInventory(EntityPlayer player, int x, int y) {
           int row;
           for(row = 0; row < 3; ++row) {
                for(int col = 0; col < 9; ++col) {
-                    this.func_75146_a(new Slot(player.inventory, col + row * 9 + 9, x + col * 18, y + row * 18));
+                    this.addSlotToContainer(new Slot(player.inventory, col + row * 9 + 9, x + col * 18, y + row * 18));
                }
           }
 
           for(row = 0; row < 9; ++row) {
-               this.func_75146_a(new Slot(player.inventory, row, x + row * 18, y + 58));
+               this.addSlotToContainer(new Slot(player.inventory, row, x + row * 18, y + 58));
           }
 
      }

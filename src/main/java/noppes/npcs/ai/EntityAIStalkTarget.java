@@ -123,7 +123,7 @@ public class EntityAIStalkTarget extends EntityAIBase {
           }
 
           for(int y = -2; y <= 2; ++y) {
-               double k = (double)MathHelper.func_76128_c(this.npc.func_174813_aQ().field_72338_b + (double)y);
+               double k = (double)MathHelper.func_76128_c(this.npc.getEntityBoundingBox().field_72338_b + (double)y);
 
                for(int x = -radius; x <= radius; ++x) {
                     double j = (double)MathHelper.func_76128_c(this.npc.field_70165_t + (double)x) + 0.5D;
@@ -136,11 +136,11 @@ public class EntityAIStalkTarget extends EntityAIBase {
                               Vec3d vec2 = new Vec3d(j, k + (double)this.npc.func_70047_e(), l);
                               RayTraceResult movingobjectposition = this.world.func_72933_a(vec1, vec2);
                               if (movingobjectposition != null) {
-                                   boolean weight = nearest ? this.targetEntity.func_70092_e(j, k, l) <= dist : true;
+                                   boolean weight = nearest ? this.targetEntity.getDistanceSq(j, k, l) <= dist : true;
                                    if (weight && (j != u || k != v || l != w)) {
                                         idealPos = new Vec3d(j, k, l);
                                         if (nearest) {
-                                             dist = this.targetEntity.func_70092_e(j, k, l);
+                                             dist = this.targetEntity.getDistanceSq(j, k, l);
                                         }
                                    }
                               }
@@ -153,12 +153,12 @@ public class EntityAIStalkTarget extends EntityAIBase {
      }
 
      private boolean isOpaque(BlockPos pos) {
-          return this.world.func_180495_p(pos).func_185914_p();
+          return this.world.getBlockState(pos).func_185914_p();
      }
 
      private boolean isLookingAway() {
           Vec3d vec3 = this.targetEntity.func_70676_i(1.0F).func_72432_b();
-          Vec3d vec31 = new Vec3d(this.npc.field_70165_t - this.targetEntity.field_70165_t, this.npc.func_174813_aQ().field_72338_b + (double)(this.npc.height / 2.0F) - (this.targetEntity.field_70163_u + (double)this.targetEntity.func_70047_e()), this.npc.field_70161_v - this.targetEntity.field_70161_v);
+          Vec3d vec31 = new Vec3d(this.npc.field_70165_t - this.targetEntity.field_70165_t, this.npc.getEntityBoundingBox().field_72338_b + (double)(this.npc.height / 2.0F) - (this.targetEntity.field_70163_u + (double)this.targetEntity.func_70047_e()), this.npc.field_70161_v - this.targetEntity.field_70161_v);
           double d0 = vec31.func_72433_c();
           vec31 = vec31.func_72432_b();
           double d1 = vec3.func_72430_b(vec31);

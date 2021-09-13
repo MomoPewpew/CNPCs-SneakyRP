@@ -42,11 +42,11 @@ public class Faction implements IFaction {
 
      public void readNBT(NBTTagCompound compound) {
           this.name = compound.getString("Name");
-          this.color = compound.func_74762_e("Color");
-          this.id = compound.func_74762_e("Slot");
-          this.neutralPoints = compound.func_74762_e("NeutralPoints");
-          this.friendlyPoints = compound.func_74762_e("FriendlyPoints");
-          this.defaultPoints = compound.func_74762_e("DefaultPoints");
+          this.color = compound.getInteger("Color");
+          this.id = compound.getInteger("Slot");
+          this.neutralPoints = compound.getInteger("NeutralPoints");
+          this.friendlyPoints = compound.getInteger("FriendlyPoints");
+          this.defaultPoints = compound.getInteger("DefaultPoints");
           this.hideFaction = compound.getBoolean("HideFaction");
           this.getsAttacked = compound.getBoolean("GetsAttacked");
           this.attackFactions = NBTTags.getIntegerSet(compound.getTagList("AttackFactions", 10));
@@ -59,8 +59,8 @@ public class Faction implements IFaction {
           compound.setInteger("NeutralPoints", this.neutralPoints);
           compound.setInteger("FriendlyPoints", this.friendlyPoints);
           compound.setInteger("DefaultPoints", this.defaultPoints);
-          compound.func_74757_a("HideFaction", this.hideFaction);
-          compound.func_74757_a("GetsAttacked", this.getsAttacked);
+          compound.setBoolean("HideFaction", this.hideFaction);
+          compound.setBoolean("GetsAttacked", this.getsAttacked);
           compound.setTag("AttackFactions", NBTTags.nbtIntegerCollection(this.attackFactions));
           return compound;
      }

@@ -173,7 +173,7 @@ public class RoleCompanion extends RoleInterface {
           if (this.eating != null && !this.eating.isEmpty()) {
                ItemStack eating = this.eating.getMCItemStack();
                Random rand;
-               if (this.npc.world.field_72995_K) {
+               if (this.npc.world.isRemote) {
                     rand = this.npc.func_70681_au();
 
                     for(int j = 0; j < 2; ++j) {
@@ -270,10 +270,10 @@ public class RoleCompanion extends RoleInterface {
           compound.setInteger("CompanionID", this.companionID);
           compound.setInteger("CompanionStage", this.stage.ordinal());
           compound.setInteger("CompanionExp", this.currentExp);
-          compound.func_74757_a("CompanionCanAge", this.canAge);
-          compound.func_74772_a("CompanionAge", this.ticksActive);
-          compound.func_74757_a("CompanionHasInv", this.hasInv);
-          compound.func_74757_a("CompanionDefendOwner", this.defendOwner);
+          compound.setBoolean("CompanionCanAge", this.canAge);
+          compound.setLong("CompanionAge", this.ticksActive);
+          compound.setBoolean("CompanionHasInv", this.hasInv);
+          compound.setBoolean("CompanionDefendOwner", this.defendOwner);
           this.foodstats.writeNBT(compound);
           compound.setInteger("CompanionJob", this.job.ordinal());
           if (this.jobInterface != null) {
@@ -299,11 +299,11 @@ public class RoleCompanion extends RoleInterface {
           this.inventory.setFromNBT(compound.getCompoundTag("CompanionInventory"));
           this.uuid = compound.getString("CompanionOwner");
           this.ownerName = compound.getString("CompanionOwnerName");
-          this.companionID = compound.func_74762_e("CompanionID");
-          this.stage = EnumCompanionStage.values()[compound.func_74762_e("CompanionStage")];
-          this.currentExp = compound.func_74762_e("CompanionExp");
+          this.companionID = compound.getInteger("CompanionID");
+          this.stage = EnumCompanionStage.values()[compound.getInteger("CompanionStage")];
+          this.currentExp = compound.getInteger("CompanionExp");
           this.canAge = compound.getBoolean("CompanionCanAge");
-          this.ticksActive = compound.func_74763_f("CompanionAge");
+          this.ticksActive = compound.getLong("CompanionAge");
           this.hasInv = compound.getBoolean("CompanionHasInv");
           this.defendOwner = compound.getBoolean("CompanionDefendOwner");
           this.foodstats.readNBT(compound);
@@ -312,12 +312,12 @@ public class RoleCompanion extends RoleInterface {
 
           for(int i = 0; i < list.tagCount(); ++i) {
                NBTTagCompound c = list.getCompoundTagAt(i);
-               EnumCompanionTalent talent = EnumCompanionTalent.values()[c.func_74762_e("Talent")];
-               talents.put(talent, c.func_74762_e("Exp"));
+               EnumCompanionTalent talent = EnumCompanionTalent.values()[c.getInteger("Talent")];
+               talents.put(talent, c.getInteger("Exp"));
           }
 
           this.talents = talents;
-          this.setJob(compound.func_74762_e("CompanionJob"));
+          this.setJob(compound.getInteger("CompanionJob"));
           if (this.jobInterface != null) {
                this.jobInterface.setNBT(compound.getCompoundTag("CompanionJobData"));
           }
@@ -405,7 +405,7 @@ public class RoleCompanion extends RoleInterface {
                try {
                     UUID id = UUID.fromString(this.uuid);
                     if (id != null) {
-                         return NoppesUtilServer.getPlayer(this.npc.func_184102_h(), id);
+                         return NoppesUtilServer.getPlayer(this.npc.getServer(), id);
                     }
                } catch (IllegalArgumentException var2) {
                }
@@ -706,7 +706,7 @@ public class RoleCompanion extends RoleInterface {
                do {
                     while(ite.hasNext()) {
                          ItemStack is = (ItemStack)ite.next();
-                         if (!is.func_190926_b() && is.func_77973_b() instanceof ItemFood) {
+                         if (!is.isEmpty() && is.func_77973_b() instanceof ItemFood) {
                               amount = ((ItemFood)is.func_77973_b()).getDamage(is);
                               continue label36;
                          }
@@ -753,7 +753,7 @@ public class RoleCompanion extends RoleInterface {
           this.gainExp(weapon == null ? 8 : 4);
           if (weapon != null) {
                weapon.getMCItemStack().func_77972_a(1, this.npc);
-               if (weapon.getMCItemStack().func_190916_E() <= 0) {
+               if (weapon.getMCItemStack().getCount() <= 0) {
                     this.npc.inventory.setRightHand((IItemStack)null);
                }
 

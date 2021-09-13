@@ -72,7 +72,7 @@ public class Server {
      }
 
      public static void sendAssociatedData(Entity entity, EnumPacketClient type, Object... obs) {
-          List list = entity.world.func_72872_a(EntityPlayerMP.class, entity.func_174813_aQ().func_72314_b(160.0D, 160.0D, 160.0D));
+          List list = entity.world.getEntitiesWithinAABB(EntityPlayerMP.class, entity.getEntityBoundingBox().expand(160.0D, 160.0D, 160.0D));
           if (!list.isEmpty()) {
                CustomNPCsScheduler.runTack(() -> {
                     ByteBuf buffer = Unpooled.buffer();
@@ -100,7 +100,7 @@ public class Server {
      }
 
      public static void sendRangedData(Entity entity, int range, EnumPacketClient type, Object... obs) {
-          List list = entity.world.func_72872_a(EntityPlayerMP.class, entity.func_174813_aQ().func_72314_b((double)range, (double)range, (double)range));
+          List list = entity.world.getEntitiesWithinAABB(EntityPlayerMP.class, entity.getEntityBoundingBox().expand((double)range, (double)range, (double)range));
           if (!list.isEmpty()) {
                CustomNPCsScheduler.runTack(() -> {
                     ByteBuf buffer = Unpooled.buffer();
@@ -128,7 +128,7 @@ public class Server {
      }
 
      public static void sendRangedData(World world, BlockPos pos, int range, EnumPacketClient type, Object... obs) {
-          List list = world.func_72872_a(EntityPlayerMP.class, (new AxisAlignedBB(pos)).func_72314_b((double)range, (double)range, (double)range));
+          List list = world.getEntitiesWithinAABB(EntityPlayerMP.class, (new AxisAlignedBB(pos)).expand((double)range, (double)range, (double)range));
           if (!list.isEmpty()) {
                CustomNPCsScheduler.runTack(() -> {
                     ByteBuf buffer = Unpooled.buffer();
@@ -156,7 +156,7 @@ public class Server {
      }
 
      public static void sendToAll(MinecraftServer server, EnumPacketClient type, Object... obs) {
-          List list = new ArrayList(server.func_184103_al().func_181057_v());
+          List list = new ArrayList(server.getPlayerList().getPlayers());
           CustomNPCsScheduler.runTack(() -> {
                ByteBuf buffer = Unpooled.buffer();
 
@@ -203,7 +203,7 @@ public class Server {
                               writeString(buffer, s);
                          }
                     } else if (ob instanceof MerchantRecipeList) {
-                         ((MerchantRecipeList)ob).func_151391_a(new PacketBuffer(buffer));
+                         ((MerchantRecipeList)ob).writeToBuf(new PacketBuffer(buffer));
                     } else if (ob instanceof List) {
                          List list = (List)ob;
                          buffer.writeInt(list.size());
@@ -252,7 +252,7 @@ public class Server {
           DataOutputStream dataoutputstream = new DataOutputStream(new GZIPOutputStream(bytearrayoutputstream));
 
           try {
-               CompressedStreamTools.func_74800_a(compound, dataoutputstream);
+               CompressedStreamTools.write(compound, dataoutputstream);
           } finally {
                dataoutputstream.close();
           }
@@ -269,7 +269,7 @@ public class Server {
 
           NBTTagCompound var3;
           try {
-               var3 = CompressedStreamTools.func_152456_a(datainputstream, NBTSizeTracker.field_152451_a);
+               var3 = CompressedStreamTools.read(datainputstream, new NBTSizeTracker(2097152L));
           } finally {
                datainputstream.close();
           }

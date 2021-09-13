@@ -40,7 +40,7 @@ public class Lines {
                Line line = new Line();
                line.setText(nbttagcompound.getString("Line"));
                line.setSound(nbttagcompound.getString("Song"));
-               map.put(nbttagcompound.func_74762_e("Slot"), line);
+               map.put(nbttagcompound.getInteger("Slot"), line);
           }
 
           this.lines = map;

@@ -16,7 +16,7 @@ public class NpcMiscInventory implements IInventory {
 
      public NpcMiscInventory(int size) {
           this.size = size;
-          this.items = NonNullList.func_191197_a(size, ItemStack.field_190927_a);
+          this.items = NonNullList.func_191197_a(size, ItemStack.EMPTY);
      }
 
      public NBTTagCompound getToNBT() {
@@ -29,25 +29,25 @@ public class NpcMiscInventory implements IInventory {
           NBTTags.getItemStackList(nbttagcompound.getTagList("NpcMiscInv", 10), this.items);
      }
 
-     public int func_70302_i_() {
+     public int getSizeInventory() {
           return this.size;
      }
 
-     public ItemStack func_70301_a(int index) {
+     public ItemStack getStackInSlot(int index) {
           return (ItemStack)this.items.get(index);
      }
 
-     public ItemStack func_70298_a(int index, int count) {
+     public ItemStack decrStackSize(int index, int count) {
           return ItemStackHelper.func_188382_a(this.items, index, count);
      }
 
      public boolean decrStackSize(ItemStack eating, int decrease) {
           for(int slot = 0; slot < this.items.size(); ++slot) {
                ItemStack item = (ItemStack)this.items.get(slot);
-               if (!item.func_190926_b() && eating == item && item.func_190916_E() >= decrease) {
+               if (!item.isEmpty() && eating == item && item.getCount() >= decrease) {
                     item.splitStack(decrease);
-                    if (item.func_190916_E() <= 0) {
-                         this.items.set(slot, ItemStack.field_190927_a);
+                    if (item.getCount() <= 0) {
+                         this.items.set(slot, ItemStack.EMPTY);
                     }
 
                     return true;
@@ -57,21 +57,21 @@ public class NpcMiscInventory implements IInventory {
           return false;
      }
 
-     public ItemStack func_70304_b(int var1) {
-          return (ItemStack)this.items.set(var1, ItemStack.field_190927_a);
+     public ItemStack removeStackFromSlot(int var1) {
+          return (ItemStack)this.items.set(var1, ItemStack.EMPTY);
      }
 
-     public void func_70299_a(int var1, ItemStack var2) {
-          if (var1 < this.func_70302_i_()) {
+     public void setInventorySlotContents(int var1, ItemStack var2) {
+          if (var1 < this.getSizeInventory()) {
                this.items.set(var1, var2);
           }
      }
 
-     public int func_70297_j_() {
+     public int getInventoryStackLimit() {
           return this.stackLimit;
      }
 
-     public boolean func_70300_a(EntityPlayer var1) {
+     public boolean isUseableByPlayer(EntityPlayer var1) {
           return true;
      }
 
@@ -79,7 +79,7 @@ public class NpcMiscInventory implements IInventory {
           return true;
      }
 
-     public void func_70296_d() {
+     public void markDirty() {
      }
 
      public boolean addItemStack(ItemStack item) {
@@ -87,24 +87,24 @@ public class NpcMiscInventory implements IInventory {
 
           ItemStack mergable;
           int slot;
-          while(!(mergable = this.getMergableItem(item)).func_190926_b() && mergable.func_190916_E() > 0) {
-               slot = mergable.func_77976_d() - mergable.func_190916_E();
-               if (slot > item.func_190916_E()) {
+          while(!(mergable = this.getMergableItem(item)).isEmpty() && mergable.getCount() > 0) {
+               slot = mergable.func_77976_d() - mergable.getCount();
+               if (slot > item.getCount()) {
                     mergable.func_190920_e(mergable.func_77976_d());
-                    item.func_190920_e(item.func_190916_E() - slot);
+                    item.func_190920_e(item.getCount() - slot);
                     merged = true;
                } else {
-                    mergable.func_190920_e(mergable.func_190916_E() + item.func_190916_E());
+                    mergable.func_190920_e(mergable.getCount() + item.getCount());
                     item.func_190920_e(0);
                }
           }
 
-          if (item.func_190916_E() <= 0) {
+          if (item.getCount() <= 0) {
                return true;
           } else {
                slot = this.firstFreeSlot();
                if (slot >= 0) {
-                    this.items.set(slot, item.func_77946_l());
+                    this.items.set(slot, item.copy());
                     item.func_190920_e(0);
                     return true;
                } else {
@@ -119,18 +119,18 @@ public class NpcMiscInventory implements IInventory {
           ItemStack is;
           do {
                if (!var2.hasNext()) {
-                    return ItemStack.field_190927_a;
+                    return ItemStack.EMPTY;
                }
 
                is = (ItemStack)var2.next();
-          } while(!NoppesUtilPlayer.compareItems(item, is, false, false) || is.func_190916_E() >= is.func_77976_d());
+          } while(!NoppesUtilPlayer.compareItems(item, is, false, false) || is.getCount() >= is.func_77976_d());
 
           return is;
      }
 
      public int firstFreeSlot() {
-          for(int i = 0; i < this.func_70302_i_(); ++i) {
-               if (((ItemStack)this.items.get(i)).func_190926_b()) {
+          for(int i = 0; i < this.getSizeInventory(); ++i) {
+               if (((ItemStack)this.items.get(i)).isEmpty()) {
                     return i;
                }
           }
@@ -175,9 +175,9 @@ public class NpcMiscInventory implements IInventory {
      }
 
      public boolean func_191420_l() {
-          for(int slot = 0; slot < this.func_70302_i_(); ++slot) {
-               ItemStack item = this.func_70301_a(slot);
-               if (!NoppesUtilServer.IsItemStackNull(item) && !item.func_190926_b()) {
+          for(int slot = 0; slot < this.getSizeInventory(); ++slot) {
+               ItemStack item = this.getStackInSlot(slot);
+               if (!NoppesUtilServer.IsItemStackNull(item) && !item.isEmpty()) {
                     return false;
                }
           }

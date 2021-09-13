@@ -75,7 +75,7 @@ public class PlayerDataController {
      }
 
      public PlayerData getDataFromUsername(MinecraftServer server, String username) {
-          EntityPlayer player = server.func_184103_al().func_152612_a(username);
+          EntityPlayer player = server.getPlayerList().func_152612_a(username);
           PlayerData data = null;
           if (player == null) {
                Iterator var5 = this.nameUUIDs.keySet().iterator();
@@ -106,7 +106,7 @@ public class PlayerDataController {
           ArrayList list = new ArrayList();
           List players = EntitySelector.func_179656_b(sender, username, EntityPlayerMP.class);
           if (players.isEmpty()) {
-               PlayerData data = this.getDataFromUsername(sender.func_184102_h(), username);
+               PlayerData data = this.getDataFromUsername(sender.getServer(), username);
                if (data != null) {
                     list.add(data);
                }

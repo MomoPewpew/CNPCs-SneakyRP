@@ -29,12 +29,12 @@ public class BlockWaypoint extends BlockInterface implements IPermission {
      }
 
      public boolean func_180639_a(World par1World, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
-          if (par1World.field_72995_K) {
+          if (par1World.isRemote) {
                return false;
           } else {
                ItemStack currentItem = player.inventory.func_70448_g();
                if (currentItem != null && currentItem.func_77973_b() == CustomItems.wand && CustomNpcsPermissions.hasPermission(player, CustomNpcsPermissions.EDIT_BLOCKS)) {
-                    NoppesUtilServer.sendOpenGui(player, EnumGuiType.Waypoint, (EntityNPCInterface)null, pos.func_177958_n(), pos.func_177956_o(), pos.func_177952_p());
+                    NoppesUtilServer.sendOpenGui(player, EnumGuiType.Waypoint, (EntityNPCInterface)null, pos.getX(), pos.getY(), pos.getZ());
                     return true;
                } else {
                     return false;
@@ -43,8 +43,8 @@ public class BlockWaypoint extends BlockInterface implements IPermission {
      }
 
      public void func_180633_a(World world, BlockPos pos, IBlockState state, EntityLivingBase entity, ItemStack stack) {
-          if (entity instanceof EntityPlayer && !world.field_72995_K) {
-               NoppesUtilServer.sendOpenGui((EntityPlayer)entity, EnumGuiType.Waypoint, (EntityNPCInterface)null, pos.func_177958_n(), pos.func_177956_o(), pos.func_177952_p());
+          if (entity instanceof EntityPlayer && !world.isRemote) {
+               NoppesUtilServer.sendOpenGui((EntityPlayer)entity, EnumGuiType.Waypoint, (EntityNPCInterface)null, pos.getX(), pos.getY(), pos.getZ());
           }
 
      }

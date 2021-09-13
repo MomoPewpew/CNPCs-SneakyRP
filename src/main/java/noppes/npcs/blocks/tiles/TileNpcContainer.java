@@ -20,13 +20,13 @@ public abstract class TileNpcContainer extends TileColorable implements IInvento
      public int playerUsing = 0;
 
      public TileNpcContainer() {
-          this.inventoryContents = NonNullList.func_191197_a(this.func_70302_i_(), ItemStack.field_190927_a);
+          this.inventoryContents = NonNullList.func_191197_a(this.getSizeInventory(), ItemStack.EMPTY);
      }
 
-     public void func_145839_a(NBTTagCompound compound) {
-          super.func_145839_a(compound);
+     public void readFromNBT(NBTTagCompound compound) {
+          super.readFromNBT(compound);
           NBTTagList nbttaglist = compound.getTagList("Items", 10);
-          if (compound.func_150297_b("CustomName", 8)) {
+          if (compound.hasKey("CustomName", 8)) {
                this.customName = compound.getString("CustomName");
           }
 
@@ -34,7 +34,7 @@ public abstract class TileNpcContainer extends TileColorable implements IInvento
 
           for(int i = 0; i < nbttaglist.tagCount(); ++i) {
                NBTTagCompound nbttagcompound1 = nbttaglist.getCompoundTagAt(i);
-               int j = nbttagcompound1.func_74771_c("Slot") & 255;
+               int j = nbttagcompound1.getByte("Slot") & 255;
                if (j >= 0 && j < this.inventoryContents.size()) {
                     this.inventoryContents.set(j, new ItemStack(nbttagcompound1));
                }
@@ -46,10 +46,10 @@ public abstract class TileNpcContainer extends TileColorable implements IInvento
           NBTTagList nbttaglist = new NBTTagList();
 
           for(int i = 0; i < this.inventoryContents.size(); ++i) {
-               if (!((ItemStack)this.inventoryContents.get(i)).func_190926_b()) {
+               if (!((ItemStack)this.inventoryContents.get(i)).isEmpty()) {
                     NBTTagCompound tagCompound = new NBTTagCompound();
-                    tagCompound.func_74774_a("Slot", (byte)i);
-                    ((ItemStack)this.inventoryContents.get(i)).func_77955_b(tagCompound);
+                    tagCompound.setByte("Slot", (byte)i);
+                    ((ItemStack)this.inventoryContents.get(i)).writeToNBT(tagCompound);
                     nbttaglist.appendTag(tagCompound);
                }
           }
@@ -62,43 +62,44 @@ public abstract class TileNpcContainer extends TileColorable implements IInvento
           return super.func_189515_b(compound);
      }
 
-     public boolean func_145842_c(int id, int type) {
+     @Override
+     public boolean receiveClientEvent(int id, int type) {
           if (id == 1) {
                this.playerUsing = type;
                return true;
           } else {
-               return super.func_145842_c(id, type);
+               return super.receiveClientEvent(id, type);
           }
      }
 
-     public int func_70302_i_() {
+     public int getSizeInventory() {
           return 54;
      }
 
-     public ItemStack func_70301_a(int index) {
+     public ItemStack getStackInSlot(int index) {
           return (ItemStack)this.inventoryContents.get(index);
      }
 
-     public ItemStack func_70298_a(int index, int count) {
+     public ItemStack decrStackSize(int index, int count) {
           ItemStack itemstack = ItemStackHelper.func_188382_a(this.inventoryContents, index, count);
-          if (!itemstack.func_190926_b()) {
-               this.func_70296_d();
+          if (!itemstack.isEmpty()) {
+               this.markDirty();
           }
 
           return itemstack;
      }
 
-     public ItemStack func_70304_b(int index) {
-          return (ItemStack)this.inventoryContents.set(index, ItemStack.field_190927_a);
+     public ItemStack removeStackFromSlot(int index) {
+          return (ItemStack)this.inventoryContents.set(index, ItemStack.EMPTY);
      }
 
-     public void func_70299_a(int index, ItemStack stack) {
+     public void setInventorySlotContents(int index, ItemStack stack) {
           this.inventoryContents.set(index, stack);
-          if (stack.func_190916_E() > this.func_70297_j_()) {
-               stack.func_190920_e(this.func_70297_j_());
+          if (stack.getCount() > this.getInventoryStackLimit()) {
+               stack.func_190920_e(this.getInventoryStackLimit());
           }
 
-          this.func_70296_d();
+          this.markDirty();
      }
 
      public ITextComponent func_145748_c_() {
@@ -111,12 +112,12 @@ public abstract class TileNpcContainer extends TileColorable implements IInvento
           return !this.customName.isEmpty();
      }
 
-     public int func_70297_j_() {
+     public int getInventoryStackLimit() {
           return 64;
      }
 
-     public boolean func_70300_a(EntityPlayer player) {
-          return (player.field_70128_L || this.field_145850_b.func_175625_s(this.field_174879_c) == this) && player.func_70092_e((double)this.field_174879_c.func_177958_n() + 0.5D, (double)this.field_174879_c.func_177956_o() + 0.5D, (double)this.field_174879_c.func_177952_p() + 0.5D) <= 64.0D;
+     public boolean isUseableByPlayer(EntityPlayer player) {
+          return (player.field_70128_L || this.field_145850_b.func_175625_s(this.field_174879_c) == this) && player.getDistanceSq((double)this.field_174879_c.getX() + 0.5D, (double)this.field_174879_c.getY() + 0.5D, (double)this.field_174879_c.getZ() + 0.5D) <= 64.0D;
      }
 
      public void func_174889_b(EntityPlayer player) {
@@ -146,27 +147,27 @@ public abstract class TileNpcContainer extends TileColorable implements IInvento
      }
 
      public void dropItems(World world, BlockPos pos) {
-          for(int i1 = 0; i1 < this.func_70302_i_(); ++i1) {
-               ItemStack itemstack = this.func_70301_a(i1);
+          for(int i1 = 0; i1 < this.getSizeInventory(); ++i1) {
+               ItemStack itemstack = this.getStackInSlot(i1);
                if (!NoppesUtilServer.IsItemStackNull(itemstack)) {
-                    float f = world.field_73012_v.nextFloat() * 0.8F + 0.1F;
-                    float f1 = world.field_73012_v.nextFloat() * 0.8F + 0.1F;
+                    float f = world.rand.nextFloat() * 0.8F + 0.1F;
+                    float f1 = world.rand.nextFloat() * 0.8F + 0.1F;
 
                     EntityItem entityitem;
-                    for(float f2 = world.field_73012_v.nextFloat() * 0.8F + 0.1F; itemstack.func_190916_E() > 0; world.func_72838_d(entityitem)) {
-                         int j1 = world.field_73012_v.nextInt(21) + 10;
-                         if (j1 > itemstack.func_190916_E()) {
-                              j1 = itemstack.func_190916_E();
+                    for(float f2 = world.rand.nextFloat() * 0.8F + 0.1F; itemstack.getCount() > 0; world.func_72838_d(entityitem)) {
+                         int j1 = world.rand.nextInt(21) + 10;
+                         if (j1 > itemstack.getCount()) {
+                              j1 = itemstack.getCount();
                          }
 
-                         itemstack.func_190920_e(itemstack.func_190916_E() - j1);
-                         entityitem = new EntityItem(world, (double)((float)pos.func_177958_n() + f), (double)((float)pos.func_177956_o() + f1), (double)((float)pos.func_177952_p() + f2), new ItemStack(itemstack.func_77973_b(), j1, itemstack.func_77952_i()));
+                         itemstack.func_190920_e(itemstack.getCount() - j1);
+                         entityitem = new EntityItem(world, (double)((float)pos.getX() + f), (double)((float)pos.getY() + f1), (double)((float)pos.getZ() + f2), new ItemStack(itemstack.func_77973_b(), j1, itemstack.func_77952_i()));
                          float f3 = 0.05F;
-                         entityitem.field_70159_w = (double)((float)world.field_73012_v.nextGaussian() * f3);
-                         entityitem.field_70181_x = (double)((float)world.field_73012_v.nextGaussian() * f3 + 0.2F);
-                         entityitem.field_70179_y = (double)((float)world.field_73012_v.nextGaussian() * f3);
-                         if (itemstack.func_77942_o()) {
-                              entityitem.func_92059_d().func_77982_d(itemstack.func_77978_p().func_74737_b());
+                         entityitem.motionX = (double)((float)world.rand.nextGaussian() * f3);
+                         entityitem.motionY = (double)((float)world.rand.nextGaussian() * f3 + 0.2F);
+                         entityitem.motionZ = (double)((float)world.rand.nextGaussian() * f3);
+                         if (itemstack.hasTagCompound()) {
+                              entityitem.getItem().setTagCompound(itemstack.getTagCompound().copy());
                          }
                     }
                }
@@ -175,9 +176,9 @@ public abstract class TileNpcContainer extends TileColorable implements IInvento
      }
 
      public boolean func_191420_l() {
-          for(int slot = 0; slot < this.func_70302_i_(); ++slot) {
-               ItemStack item = this.func_70301_a(slot);
-               if (!NoppesUtilServer.IsItemStackNull(item) && !item.func_190926_b()) {
+          for(int slot = 0; slot < this.getSizeInventory(); ++slot) {
+               ItemStack item = this.getStackInSlot(slot);
+               if (!NoppesUtilServer.IsItemStackNull(item) && !item.isEmpty()) {
                     return false;
                }
           }

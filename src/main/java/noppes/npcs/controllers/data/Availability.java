@@ -91,40 +91,40 @@ public class Availability implements ICompatibilty, IAvailability {
      }
 
      public void readFromNBT(NBTTagCompound compound) {
-          this.version = compound.func_74762_e("ModRev");
+          this.version = compound.getInteger("ModRev");
           VersionCompatibility.CheckAvailabilityCompatibility(this, compound);
-          this.dialogAvailable = EnumAvailabilityDialog.values()[compound.func_74762_e("AvailabilityDialog")];
-          this.dialog2Available = EnumAvailabilityDialog.values()[compound.func_74762_e("AvailabilityDialog2")];
-          this.dialog3Available = EnumAvailabilityDialog.values()[compound.func_74762_e("AvailabilityDialog3")];
-          this.dialog4Available = EnumAvailabilityDialog.values()[compound.func_74762_e("AvailabilityDialog4")];
-          this.dialogId = compound.func_74762_e("AvailabilityDialogId");
-          this.dialog2Id = compound.func_74762_e("AvailabilityDialog2Id");
-          this.dialog3Id = compound.func_74762_e("AvailabilityDialog3Id");
-          this.dialog4Id = compound.func_74762_e("AvailabilityDialog4Id");
-          this.questAvailable = EnumAvailabilityQuest.values()[compound.func_74762_e("AvailabilityQuest")];
-          this.quest2Available = EnumAvailabilityQuest.values()[compound.func_74762_e("AvailabilityQuest2")];
-          this.quest3Available = EnumAvailabilityQuest.values()[compound.func_74762_e("AvailabilityQuest3")];
-          this.quest4Available = EnumAvailabilityQuest.values()[compound.func_74762_e("AvailabilityQuest4")];
-          this.questId = compound.func_74762_e("AvailabilityQuestId");
-          this.quest2Id = compound.func_74762_e("AvailabilityQuest2Id");
-          this.quest3Id = compound.func_74762_e("AvailabilityQuest3Id");
-          this.quest4Id = compound.func_74762_e("AvailabilityQuest4Id");
-          this.setFactionAvailability(compound.func_74762_e("AvailabilityFaction"));
-          this.setFactionAvailabilityStance(compound.func_74762_e("AvailabilityFactionStance"));
-          this.setFaction2Availability(compound.func_74762_e("AvailabilityFaction2"));
-          this.setFaction2AvailabilityStance(compound.func_74762_e("AvailabilityFaction2Stance"));
-          this.factionId = compound.func_74762_e("AvailabilityFactionId");
-          this.faction2Id = compound.func_74762_e("AvailabilityFaction2Id");
+          this.dialogAvailable = EnumAvailabilityDialog.values()[compound.getInteger("AvailabilityDialog")];
+          this.dialog2Available = EnumAvailabilityDialog.values()[compound.getInteger("AvailabilityDialog2")];
+          this.dialog3Available = EnumAvailabilityDialog.values()[compound.getInteger("AvailabilityDialog3")];
+          this.dialog4Available = EnumAvailabilityDialog.values()[compound.getInteger("AvailabilityDialog4")];
+          this.dialogId = compound.getInteger("AvailabilityDialogId");
+          this.dialog2Id = compound.getInteger("AvailabilityDialog2Id");
+          this.dialog3Id = compound.getInteger("AvailabilityDialog3Id");
+          this.dialog4Id = compound.getInteger("AvailabilityDialog4Id");
+          this.questAvailable = EnumAvailabilityQuest.values()[compound.getInteger("AvailabilityQuest")];
+          this.quest2Available = EnumAvailabilityQuest.values()[compound.getInteger("AvailabilityQuest2")];
+          this.quest3Available = EnumAvailabilityQuest.values()[compound.getInteger("AvailabilityQuest3")];
+          this.quest4Available = EnumAvailabilityQuest.values()[compound.getInteger("AvailabilityQuest4")];
+          this.questId = compound.getInteger("AvailabilityQuestId");
+          this.quest2Id = compound.getInteger("AvailabilityQuest2Id");
+          this.quest3Id = compound.getInteger("AvailabilityQuest3Id");
+          this.quest4Id = compound.getInteger("AvailabilityQuest4Id");
+          this.setFactionAvailability(compound.getInteger("AvailabilityFaction"));
+          this.setFactionAvailabilityStance(compound.getInteger("AvailabilityFactionStance"));
+          this.setFaction2Availability(compound.getInteger("AvailabilityFaction2"));
+          this.setFaction2AvailabilityStance(compound.getInteger("AvailabilityFaction2Stance"));
+          this.factionId = compound.getInteger("AvailabilityFactionId");
+          this.faction2Id = compound.getInteger("AvailabilityFaction2Id");
           this.scoreboardObjective = compound.getString("AvailabilityScoreboardObjective");
           this.scoreboard2Objective = compound.getString("AvailabilityScoreboard2Objective");
           this.initScore(this.scoreboardObjective);
           this.initScore(this.scoreboard2Objective);
-          this.scoreboardType = EnumAvailabilityScoreboard.values()[compound.func_74762_e("AvailabilityScoreboardType")];
-          this.scoreboard2Type = EnumAvailabilityScoreboard.values()[compound.func_74762_e("AvailabilityScoreboard2Type")];
-          this.scoreboardValue = compound.func_74762_e("AvailabilityScoreboardValue");
-          this.scoreboard2Value = compound.func_74762_e("AvailabilityScoreboard2Value");
-          this.daytime = EnumDayTime.values()[compound.func_74762_e("AvailabilityDayTime")];
-          this.minPlayerLevel = compound.func_74762_e("AvailabilityMinPlayerLevel");
+          this.scoreboardType = EnumAvailabilityScoreboard.values()[compound.getInteger("AvailabilityScoreboardType")];
+          this.scoreboard2Type = EnumAvailabilityScoreboard.values()[compound.getInteger("AvailabilityScoreboard2Type")];
+          this.scoreboardValue = compound.getInteger("AvailabilityScoreboardValue");
+          this.scoreboard2Value = compound.getInteger("AvailabilityScoreboard2Value");
+          this.daytime = EnumDayTime.values()[compound.getInteger("AvailabilityDayTime")];
+          this.minPlayerLevel = compound.getInteger("AvailabilityMinPlayerLevel");
      }
 
      private void initScore(String objective) {

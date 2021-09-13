@@ -28,8 +28,8 @@ public class ItemNbtBook extends Item implements IPermission {
      }
 
      public void blockEvent(RightClickBlock event) {
-          Server.sendData((EntityPlayerMP)event.getEntityPlayer(), EnumPacketClient.GUI, EnumGuiType.NbtBook, event.getPos().func_177958_n(), event.getPos().func_177956_o(), event.getPos().func_177952_p());
-          IBlockState state = event.getWorld().func_180495_p(event.getPos());
+          Server.sendData((EntityPlayerMP)event.getEntityPlayer(), EnumPacketClient.GUI, EnumGuiType.NbtBook, event.getPos().getX(), event.getPos().getY(), event.getPos().getZ());
+          IBlockState state = event.getWorld().getBlockState(event.getPos());
           NBTTagCompound data = new NBTTagCompound();
           TileEntity tile = event.getWorld().func_175625_s(event.getPos());
           if (tile != null) {

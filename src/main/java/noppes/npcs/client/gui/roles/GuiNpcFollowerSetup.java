@@ -86,9 +86,9 @@ public class GuiNpcFollowerSetup extends GuiContainerNPCInterface2 {
      public void save() {
           HashMap map = new HashMap();
 
-          for(int i = 0; i < this.role.inventory.func_70302_i_(); ++i) {
-               ItemStack item = this.role.inventory.func_70301_a(i);
-               if (item != null && !item.func_190926_b()) {
+          for(int i = 0; i < this.role.inventory.getSizeInventory(); ++i) {
+               ItemStack item = this.role.inventory.getStackInSlot(i);
+               if (item != null && !item.isEmpty()) {
                     int days = 1;
                     if (!this.getTextField(i).isEmpty() && this.getTextField(i).isInteger()) {
                          days = this.getTextField(i).getInteger();

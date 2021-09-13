@@ -131,7 +131,7 @@ public class ItemStackWrapper implements IItemStack, ICapabilityProvider, ICapab
      }
 
      public int getStackSize() {
-          return this.item.func_190916_E();
+          return this.item.getCount();
      }
 
      public void setStackSize(int size) {
@@ -148,9 +148,9 @@ public class ItemStackWrapper implements IItemStack, ICapabilityProvider, ICapab
 
      public void setAttribute(String name, double value, int slot) {
           if (slot >= -1 && slot <= 5) {
-               NBTTagCompound compound = this.item.func_77978_p();
+               NBTTagCompound compound = this.item.getTagCompound();
                if (compound == null) {
-                    this.item.func_77982_d(compound = new NBTTagCompound());
+                    this.item.setTagCompound(compound = new NBTTagCompound());
                }
 
                NBTTagList nbttaglist = compound.getTagList("AttributeModifiers", 10);
@@ -180,7 +180,7 @@ public class ItemStackWrapper implements IItemStack, ICapabilityProvider, ICapab
      }
 
      public double getAttribute(String name) {
-          NBTTagCompound compound = this.item.func_77978_p();
+          NBTTagCompound compound = this.item.getTagCompound();
           if (compound == null) {
                return 0.0D;
           } else {
@@ -202,7 +202,7 @@ public class ItemStackWrapper implements IItemStack, ICapabilityProvider, ICapab
      }
 
      public boolean hasAttribute(String name) {
-          NBTTagCompound compound = this.item.func_77978_p();
+          NBTTagCompound compound = this.item.getTagCompound();
           if (compound == null) {
                return false;
           } else {
@@ -282,7 +282,7 @@ public class ItemStackWrapper implements IItemStack, ICapabilityProvider, ICapab
                if (list.tagCount() == newList.tagCount()) {
                     return false;
                } else {
-                    this.item.func_77978_p().setTag("ench", newList);
+                    this.item.getTagCompound().setTag("ench", newList);
                     return true;
                }
           }
@@ -314,16 +314,16 @@ public class ItemStackWrapper implements IItemStack, ICapabilityProvider, ICapab
      }
 
      public INbt getNbt() {
-          NBTTagCompound compound = this.item.func_77978_p();
+          NBTTagCompound compound = this.item.getTagCompound();
           if (compound == null) {
-               this.item.func_77982_d(compound = new NBTTagCompound());
+               this.item.setTagCompound(compound = new NBTTagCompound());
           }
 
           return NpcAPI.Instance().getINbt(compound);
      }
 
      public boolean hasNbt() {
-          NBTTagCompound compound = this.item.func_77978_p();
+          NBTTagCompound compound = this.item.getTagCompound();
           return compound != null && !compound.func_82582_d();
      }
 
@@ -332,7 +332,7 @@ public class ItemStackWrapper implements IItemStack, ICapabilityProvider, ICapab
      }
 
      public static ItemStack MCItem(IItemStack item) {
-          return item == null ? ItemStack.field_190927_a : item.getMCItemStack();
+          return item == null ? ItemStack.EMPTY : item.getMCItemStack();
      }
 
      public void damageItem(int damage, IEntityLiving living) {
@@ -348,7 +348,7 @@ public class ItemStackWrapper implements IItemStack, ICapabilityProvider, ICapab
      }
 
      public IItemStack copy() {
-          return createNew(this.item.func_77946_l());
+          return createNew(this.item.copy());
      }
 
      public int getMaxStackSize() {
@@ -361,7 +361,7 @@ public class ItemStackWrapper implements IItemStack, ICapabilityProvider, ICapab
 
      public INbt getItemNbt() {
           NBTTagCompound compound = new NBTTagCompound();
-          this.item.func_77955_b(compound);
+          this.item.writeToNBT(compound);
           return NpcAPI.Instance().getINbt(compound);
      }
 
@@ -383,7 +383,7 @@ public class ItemStackWrapper implements IItemStack, ICapabilityProvider, ICapab
      }
 
      public boolean isEmpty() {
-          return this.item.func_190926_b();
+          return this.item.isEmpty();
      }
 
      public int getType() {
@@ -422,7 +422,7 @@ public class ItemStackWrapper implements IItemStack, ICapabilityProvider, ICapab
      }
 
      private static ItemStackWrapper createNew(ItemStack item) {
-          if (item != null && !item.func_190926_b()) {
+          if (item != null && !item.isEmpty()) {
                if (item.func_77973_b() instanceof ItemScripted) {
                     return new ItemScriptedWrapper(item);
                } else if (item.func_77973_b() != Items.field_151164_bB && item.func_77973_b() != Items.field_151099_bA && !(item.func_77973_b() instanceof ItemWritableBook) && !(item.func_77973_b() instanceof ItemWrittenBook)) {
@@ -500,7 +500,7 @@ public class ItemStackWrapper implements IItemStack, ICapabilityProvider, ICapab
      }
 
      public void removeNbt() {
-          this.item.func_77982_d((NBTTagCompound)null);
+          this.item.setTagCompound((NBTTagCompound)null);
      }
 
      public boolean compare(IItemStack item, boolean ignoreNBT) {

@@ -62,11 +62,11 @@ public class JobConversation extends JobInterface {
      public void readFromNBT(NBTTagCompound compound) {
           this.names.clear();
           this.availability.readFromNBT(compound.getCompoundTag("ConversationAvailability"));
-          this.quest = compound.func_74762_e("ConversationQuest");
-          this.generalDelay = compound.func_74762_e("ConversationDelay");
+          this.quest = compound.getInteger("ConversationQuest");
+          this.generalDelay = compound.getInteger("ConversationDelay");
           this.questTitle = compound.getString("ConversationQuestTitle");
-          this.range = compound.func_74762_e("ConversationRange");
-          this.mode = compound.func_74762_e("ConversationMode");
+          this.range = compound.getInteger("ConversationRange");
+          this.mode = compound.getInteger("ConversationMode");
           NBTTagList nbttaglist = compound.getTagList("ConversationLines", 10);
           HashMap map = new HashMap();
 
@@ -78,7 +78,7 @@ public class JobConversation extends JobInterface {
                     this.names.add(line.npc.toLowerCase());
                }
 
-               map.put(nbttagcompound.func_74762_e("Slot"), line);
+               map.put(nbttagcompound.getInteger("Slot"), line);
           }
 
           this.lines = map;
@@ -119,7 +119,7 @@ public class JobConversation extends JobInterface {
                if (this.nextLine != null) {
                     this.ticks = this.nextLine.delay;
                } else if (this.hasQuest()) {
-                    List inRange = this.npc.world.func_72872_a(EntityPlayer.class, this.npc.func_174813_aQ().func_72314_b((double)this.range, (double)this.range, (double)this.range));
+                    List inRange = this.npc.world.getEntitiesWithinAABB(EntityPlayer.class, this.npc.getEntityBoundingBox().expand((double)this.range, (double)this.range, (double)this.range));
                     Iterator var7 = inRange.iterator();
 
                     while(var7.hasNext()) {
@@ -141,7 +141,7 @@ public class JobConversation extends JobInterface {
                     }
 
                     this.startedTicks = 10;
-                    if (this.npc.world.func_72872_a(EntityPlayer.class, this.npc.func_174813_aQ().func_72314_b((double)this.range, (double)this.range, (double)this.range)).isEmpty()) {
+                    if (this.npc.world.getEntitiesWithinAABB(EntityPlayer.class, this.npc.getEntityBoundingBox().expand((double)this.range, (double)this.range, (double)this.range)).isEmpty()) {
                          return false;
                     }
                }
@@ -168,7 +168,7 @@ public class JobConversation extends JobInterface {
                return false;
           } else {
                this.npcs.clear();
-               List list = this.npc.world.func_72872_a(EntityNPCInterface.class, this.npc.func_174813_aQ().func_72314_b(10.0D, 10.0D, 10.0D));
+               List list = this.npc.world.getEntitiesWithinAABB(EntityNPCInterface.class, this.npc.getEntityBoundingBox().expand(10.0D, 10.0D, 10.0D));
                Iterator var2 = list.iterator();
 
                while(var2.hasNext()) {
@@ -214,7 +214,7 @@ public class JobConversation extends JobInterface {
      }
 
      private void say(JobConversation.ConversationLine line) {
-          List inRange = this.npc.world.func_72872_a(EntityPlayer.class, this.npc.func_174813_aQ().func_72314_b((double)this.range, (double)this.range, (double)this.range));
+          List inRange = this.npc.world.getEntitiesWithinAABB(EntityPlayer.class, this.npc.getEntityBoundingBox().expand((double)this.range, (double)this.range, (double)this.range));
           EntityNPCInterface npc = (EntityNPCInterface)this.npcs.get(line.npc.toLowerCase());
           if (npc != null) {
                Iterator var4 = inRange.iterator();
@@ -264,7 +264,7 @@ public class JobConversation extends JobInterface {
                this.text = compound.getString("Line");
                this.npc = compound.getString("Npc");
                this.sound = compound.getString("Sound");
-               this.delay = compound.func_74762_e("Delay");
+               this.delay = compound.getInteger("Delay");
           }
 
           public boolean isEmpty() {

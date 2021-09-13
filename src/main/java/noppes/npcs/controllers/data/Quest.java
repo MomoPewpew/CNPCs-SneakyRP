@@ -70,20 +70,20 @@ public class Quest implements ICompatibilty, IQuest {
      }
 
      public void readNBT(NBTTagCompound compound) {
-          this.id = compound.func_74762_e("Id");
+          this.id = compound.getInteger("Id");
           this.readNBTPartial(compound);
      }
 
      public void readNBTPartial(NBTTagCompound compound) {
-          this.version = compound.func_74762_e("ModRev");
+          this.version = compound.getInteger("ModRev");
           VersionCompatibility.CheckAvailabilityCompatibility(this, compound);
-          this.setType(compound.func_74762_e("Type"));
+          this.setType(compound.getInteger("Type"));
           this.title = compound.getString("Title");
           this.logText = compound.getString("Text");
           this.completeText = compound.getString("CompleteText");
           this.completerNpc = compound.getString("CompleterNpc");
           this.command = compound.getString("QuestCommand");
-          this.nextQuestid = compound.func_74762_e("NextQuestId");
+          this.nextQuestid = compound.getInteger("NextQuestId");
           this.nextQuestTitle = compound.getString("NextQuestTitle");
           if (this.hasNewQuest()) {
                this.nextQuestTitle = this.getNextQuest().title;
@@ -92,10 +92,10 @@ public class Quest implements ICompatibilty, IQuest {
           }
 
           this.randomReward = compound.getBoolean("RandomReward");
-          this.rewardExp = compound.func_74762_e("RewardExp");
+          this.rewardExp = compound.getInteger("RewardExp");
           this.rewardItems.setFromNBT(compound.getCompoundTag("Rewards"));
-          this.completion = EnumQuestCompletion.values()[compound.func_74762_e("QuestCompletion")];
-          this.repeat = EnumQuestRepeat.values()[compound.func_74762_e("QuestRepeat")];
+          this.completion = EnumQuestCompletion.values()[compound.getInteger("QuestCompletion")];
+          this.repeat = EnumQuestRepeat.values()[compound.getInteger("QuestRepeat")];
           this.questInterface.readEntityFromNBT(compound);
           this.factionOptions.readFromNBT(compound.getCompoundTag("QuestFactionPoints"));
           this.mail.readNBT(compound.getCompoundTag("QuestMail"));
@@ -140,7 +140,7 @@ public class Quest implements ICompatibilty, IQuest {
           compound.setInteger("RewardExp", this.rewardExp);
           compound.setTag("Rewards", this.rewardItems.getToNBT());
           compound.setString("QuestCommand", this.command);
-          compound.func_74757_a("RandomReward", this.randomReward);
+          compound.setBoolean("RandomReward", this.randomReward);
           compound.setInteger("QuestCompletion", this.completion.ordinal());
           compound.setInteger("QuestRepeat", this.repeat.ordinal());
           this.questInterface.writeEntityToNBT(compound);

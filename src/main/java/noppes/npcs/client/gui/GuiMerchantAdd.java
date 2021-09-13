@@ -90,19 +90,19 @@ public class GuiMerchantAdd extends GuiContainer {
           }
 
           if (par1GuiButton.id == 5) {
-               ItemStack item1 = this.field_147002_h.func_75139_a(0).func_75211_c();
-               ItemStack item2 = this.field_147002_h.func_75139_a(1).func_75211_c();
-               ItemStack sold = this.field_147002_h.func_75139_a(2).func_75211_c();
+               ItemStack item1 = this.field_147002_h.func_75139_a(0).getStack();
+               ItemStack item2 = this.field_147002_h.func_75139_a(1).getStack();
+               ItemStack sold = this.field_147002_h.func_75139_a(2).getStack();
                if (item1 == null && item2 != null) {
                     item1 = item2;
                     item2 = null;
                }
 
                if (item1 != null && sold != null) {
-                    item1 = item1.func_77946_l();
-                    sold = sold.func_77946_l();
+                    item1 = item1.copy();
+                    sold = sold.copy();
                     if (item2 != null) {
-                         item2 = item2.func_77946_l();
+                         item2 = item2.copy();
                     }
 
                     MerchantRecipe recipe = new MerchantRecipe(item1, item2, sold);

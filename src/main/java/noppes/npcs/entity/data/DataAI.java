@@ -60,63 +60,63 @@ public class DataAI implements INPCAi {
           this.setAvoidsWater(compound.getBoolean("AvoidsWater"));
           this.avoidsSun = compound.getBoolean("AvoidsSun");
           this.returnToStart = compound.getBoolean("ReturnToStart");
-          this.onAttack = compound.func_74762_e("OnAttack");
-          this.doorInteract = compound.func_74762_e("DoorInteract");
-          this.findShelter = compound.func_74762_e("FindShelter");
+          this.onAttack = compound.getInteger("OnAttack");
+          this.doorInteract = compound.getInteger("DoorInteract");
+          this.findShelter = compound.getInteger("FindShelter");
           this.directLOS = compound.getBoolean("DirectLOS");
           this.canLeap = compound.getBoolean("CanLeap");
           this.canSprint = compound.getBoolean("CanSprint");
-          this.tacticalRadius = compound.func_74762_e("TacticalRadius");
+          this.tacticalRadius = compound.getInteger("TacticalRadius");
           this.movingPause = compound.getBoolean("MovingPause");
           this.npcInteracting = compound.getBoolean("npcInteracting");
           this.stopAndInteract = compound.getBoolean("stopAndInteract");
-          this.movementType = compound.func_74762_e("MovementType");
-          this.animationType = compound.func_74762_e("MoveState");
-          this.standingType = compound.func_74762_e("StandingState");
-          this.movingType = compound.func_74762_e("MovingState");
-          this.tacticalVariant = compound.func_74762_e("TacticalVariant");
-          this.orientation = compound.func_74762_e("Orientation");
-          this.bodyOffsetY = compound.func_74760_g("PositionOffsetY");
-          this.bodyOffsetZ = compound.func_74760_g("PositionOffsetZ");
-          this.bodyOffsetX = compound.func_74760_g("PositionOffsetX");
-          this.walkingRange = compound.func_74762_e("WalkingRange");
-          this.setWalkingSpeed(compound.func_74762_e("MoveSpeed"));
+          this.movementType = compound.getInteger("MovementType");
+          this.animationType = compound.getInteger("MoveState");
+          this.standingType = compound.getInteger("StandingState");
+          this.movingType = compound.getInteger("MovingState");
+          this.tacticalVariant = compound.getInteger("TacticalVariant");
+          this.orientation = compound.getInteger("Orientation");
+          this.bodyOffsetY = compound.getFloat("PositionOffsetY");
+          this.bodyOffsetZ = compound.getFloat("PositionOffsetZ");
+          this.bodyOffsetX = compound.getFloat("PositionOffsetX");
+          this.walkingRange = compound.getInteger("WalkingRange");
+          this.setWalkingSpeed(compound.getInteger("MoveSpeed"));
           this.setMovingPath(NBTTags.getIntegerArraySet(compound.getTagList("MovingPathNew", 10)));
-          this.movingPos = compound.func_74762_e("MovingPos");
-          this.movingPattern = compound.func_74762_e("MovingPatern");
+          this.movingPos = compound.getInteger("MovingPos");
+          this.movingPattern = compound.getInteger("MovingPatern");
           this.attackInvisible = compound.getBoolean("AttackInvisible");
           if (compound.hasKey("StartPosNew")) {
-               int[] startPos = compound.func_74759_k("StartPosNew");
+               int[] startPos = compound.getIntArray("StartPosNew");
                this.startPos = new BlockPos(startPos[0], startPos[1], startPos[2]);
           }
 
      }
 
      public NBTTagCompound writeToNBT(NBTTagCompound compound) {
-          compound.func_74757_a("CanSwim", this.canSwim);
-          compound.func_74757_a("ReactsToFire", this.reactsToFire);
-          compound.func_74757_a("AvoidsWater", this.avoidsWater);
-          compound.func_74757_a("AvoidsSun", this.avoidsSun);
-          compound.func_74757_a("ReturnToStart", this.returnToStart);
+          compound.setBoolean("CanSwim", this.canSwim);
+          compound.setBoolean("ReactsToFire", this.reactsToFire);
+          compound.setBoolean("AvoidsWater", this.avoidsWater);
+          compound.setBoolean("AvoidsSun", this.avoidsSun);
+          compound.setBoolean("ReturnToStart", this.returnToStart);
           compound.setInteger("OnAttack", this.onAttack);
           compound.setInteger("DoorInteract", this.doorInteract);
           compound.setInteger("FindShelter", this.findShelter);
-          compound.func_74757_a("DirectLOS", this.directLOS);
-          compound.func_74757_a("CanLeap", this.canLeap);
-          compound.func_74757_a("CanSprint", this.canSprint);
+          compound.setBoolean("DirectLOS", this.directLOS);
+          compound.setBoolean("CanLeap", this.canLeap);
+          compound.setBoolean("CanSprint", this.canSprint);
           compound.setInteger("TacticalRadius", this.tacticalRadius);
-          compound.func_74757_a("MovingPause", this.movingPause);
-          compound.func_74757_a("npcInteracting", this.npcInteracting);
-          compound.func_74757_a("stopAndInteract", this.stopAndInteract);
+          compound.setBoolean("MovingPause", this.movingPause);
+          compound.setBoolean("npcInteracting", this.npcInteracting);
+          compound.setBoolean("stopAndInteract", this.stopAndInteract);
           compound.setInteger("MoveState", this.animationType);
           compound.setInteger("StandingState", this.standingType);
           compound.setInteger("MovingState", this.movingType);
           compound.setInteger("TacticalVariant", this.tacticalVariant);
           compound.setInteger("MovementType", this.movementType);
           compound.setInteger("Orientation", this.orientation);
-          compound.func_74776_a("PositionOffsetX", this.bodyOffsetX);
-          compound.func_74776_a("PositionOffsetY", this.bodyOffsetY);
-          compound.func_74776_a("PositionOffsetZ", this.bodyOffsetZ);
+          compound.setFloat("PositionOffsetX", this.bodyOffsetX);
+          compound.setFloat("PositionOffsetY", this.bodyOffsetY);
+          compound.setFloat("PositionOffsetZ", this.bodyOffsetZ);
           compound.setInteger("WalkingRange", this.walkingRange);
           compound.setInteger("MoveSpeed", this.moveSpeed);
           compound.setTag("MovingPathNew", NBTTags.nbtIntegerArraySet(this.movingPath));
@@ -124,7 +124,7 @@ public class DataAI implements INPCAi {
           compound.setInteger("MovingPatern", this.movingPattern);
           this.setAvoidsWater(this.avoidsWater);
           compound.setIntArray("StartPosNew", this.getStartArray());
-          compound.func_74757_a("AttackInvisible", this.attackInvisible);
+          compound.setBoolean("AttackInvisible", this.attackInvisible);
           return compound;
      }
 
@@ -155,7 +155,7 @@ public class DataAI implements INPCAi {
 
      public int[] getStartArray() {
           BlockPos pos = this.startPos();
-          return new int[]{pos.func_177958_n(), pos.func_177956_o(), pos.func_177952_p()};
+          return new int[]{pos.getX(), pos.getY(), pos.getZ()};
      }
 
      public int[] getCurrentMovingPath() {
@@ -250,7 +250,7 @@ public class DataAI implements INPCAi {
 
      public double getDistanceSqToPathPoint() {
           int[] pos = this.getCurrentMovingPath();
-          return this.npc.func_70092_e((double)pos[0] + 0.5D, (double)pos[1], (double)pos[2] + 0.5D);
+          return this.npc.getDistanceSq((double)pos[0] + 0.5D, (double)pos[1], (double)pos[2] + 0.5D);
      }
 
      public IPos getStartPos() {

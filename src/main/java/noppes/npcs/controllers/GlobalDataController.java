@@ -39,7 +39,7 @@ public class GlobalDataController {
 
      private void loadData(File file) throws Exception {
           NBTTagCompound nbttagcompound1 = CompressedStreamTools.func_74796_a(new FileInputStream(file));
-          this.itemGiverId = nbttagcompound1.func_74762_e("itemGiverId");
+          this.itemGiverId = nbttagcompound1.getInteger("itemGiverId");
      }
 
      public void saveData() {

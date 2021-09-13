@@ -68,16 +68,16 @@ public class Dialog implements ICompatibilty, IDialog {
      }
 
      public void readNBT(NBTTagCompound compound) {
-          this.id = compound.func_74762_e("DialogId");
+          this.id = compound.getInteger("DialogId");
           this.readNBTPartial(compound);
      }
 
      public void readNBTPartial(NBTTagCompound compound) {
-          this.version = compound.func_74762_e("ModRev");
+          this.version = compound.getInteger("ModRev");
           VersionCompatibility.CheckAvailabilityCompatibility(this, compound);
           this.title = compound.getString("DialogTitle");
           this.text = compound.getString("DialogText");
-          this.quest = compound.func_74762_e("DialogQuest");
+          this.quest = compound.getInteger("DialogQuest");
           this.sound = compound.getString("DialogSound");
           this.command = compound.getString("DialogCommand");
           this.mail.readNBT(compound.getCompoundTag("DialogMail"));
@@ -89,7 +89,7 @@ public class Dialog implements ICompatibilty, IDialog {
 
           for(int iii = 0; iii < options.tagCount(); ++iii) {
                NBTTagCompound option = options.getCompoundTagAt(iii);
-               int opslot = option.func_74762_e("OptionSlot");
+               int opslot = option.getInteger("OptionSlot");
                DialogOption dia = new DialogOption();
                dia.readNBT(option.getCompoundTag("Option"));
                newoptions.put(opslot, dia);
@@ -112,9 +112,9 @@ public class Dialog implements ICompatibilty, IDialog {
           compound.setInteger("DialogQuest", this.quest);
           compound.setString("DialogCommand", this.command);
           compound.setTag("DialogMail", this.mail.writeNBT());
-          compound.func_74757_a("DialogHideNPC", this.hideNPC);
-          compound.func_74757_a("DialogShowWheel", this.showWheel);
-          compound.func_74757_a("DialogDisableEsc", this.disableEsc);
+          compound.setBoolean("DialogHideNPC", this.hideNPC);
+          compound.setBoolean("DialogShowWheel", this.showWheel);
+          compound.setBoolean("DialogDisableEsc", this.disableEsc);
           if (this.sound != null && !this.sound.isEmpty()) {
                compound.setString("DialogSound", this.sound);
           }

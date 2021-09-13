@@ -19,13 +19,13 @@ public class BlockScriptedDoorWrapper extends BlockWrapper implements IBlockScri
      }
 
      public boolean getOpen() {
-          IBlockState state = this.world.getMCWorld().func_180495_p(this.pos);
+          IBlockState state = this.world.getMCWorld().getBlockState(this.pos);
           return ((Boolean)state.func_177229_b(BlockDoor.field_176519_b)).equals(true);
      }
 
      public void setOpen(boolean open) {
           if (this.getOpen() != open && !this.isRemoved()) {
-               IBlockState state = this.world.getMCWorld().func_180495_p(this.pos);
+               IBlockState state = this.world.getMCWorld().getBlockState(this.pos);
                ((BlockDoor)this.block).func_176512_a(this.world.getMCWorld(), this.pos, open);
           }
      }

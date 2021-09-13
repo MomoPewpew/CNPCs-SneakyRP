@@ -141,15 +141,15 @@ public class BlockWrapper implements IBlock {
      }
 
      public int getX() {
-          return this.pos.func_177958_n();
+          return this.pos.getX();
      }
 
      public int getY() {
-          return this.pos.func_177956_o();
+          return this.pos.getY();
      }
 
      public int getZ() {
-          return this.pos.func_177952_p();
+          return this.pos.getZ();
      }
 
      public IPos getPos() {
@@ -157,7 +157,7 @@ public class BlockWrapper implements IBlock {
      }
 
      public int getMetadata() {
-          return this.block.func_176201_c(this.world.getMCWorld().func_180495_p(this.pos));
+          return this.block.func_176201_c(this.world.getMCWorld().getBlockState(this.pos));
      }
 
      public void setMetadata(int i) {
@@ -169,16 +169,16 @@ public class BlockWrapper implements IBlock {
      }
 
      public boolean isRemoved() {
-          IBlockState state = this.world.getMCWorld().func_180495_p(this.pos);
+          IBlockState state = this.world.getMCWorld().getBlockState(this.pos);
           if (state == null) {
                return true;
           } else {
-               return state.func_177230_c() != this.block;
+               return state.getBlock() != this.block;
           }
      }
 
      public boolean isAir() {
-          return this.block.isAir(this.world.getMCWorld().func_180495_p(this.pos), this.world.getMCWorld(), this.pos);
+          return this.block.isAir(this.world.getMCWorld().getBlockState(this.pos), this.world.getMCWorld(), this.pos);
      }
 
      public BlockWrapper setBlock(String name) {
@@ -198,7 +198,7 @@ public class BlockWrapper implements IBlock {
 
      public boolean isContainer() {
           if (this.tile != null && this.tile instanceof IInventory) {
-               return ((IInventory)this.tile).func_70302_i_() > 0;
+               return ((IInventory)this.tile).getSizeInventory() > 0;
           } else {
                return false;
           }
@@ -239,7 +239,7 @@ public class BlockWrapper implements IBlock {
      /** @deprecated */
      @Deprecated
      public static IBlock createNew(World world, BlockPos pos, IBlockState state) {
-          Block block = state.func_177230_c();
+          Block block = state.getBlock();
           String key = state.toString() + pos.toString();
           BlockWrapper b = (BlockWrapper)blockCache.get(key);
           if (b != null) {
@@ -285,9 +285,9 @@ public class BlockWrapper implements IBlock {
      }
 
      public void setTileEntityNBT(INbt nbt) {
-          this.tile.func_145839_a(nbt.getMCNBT());
-          this.tile.func_70296_d();
-          IBlockState state = this.world.getMCWorld().func_180495_p(this.pos);
+          this.tile.readFromNBT(nbt.getMCNBT());
+          this.tile.markDirty();
+          IBlockState state = this.world.getMCWorld().getBlockState(this.pos);
           this.world.getMCWorld().func_184138_a(this.pos, state, state, 3);
      }
 
@@ -296,7 +296,7 @@ public class BlockWrapper implements IBlock {
      }
 
      public IBlockState getMCBlockState() {
-          return this.world.getMCWorld().func_180495_p(this.pos);
+          return this.world.getMCWorld().getBlockState(this.pos);
      }
 
      public void blockEvent(int type, int data) {
@@ -307,7 +307,7 @@ public class BlockWrapper implements IBlock {
           EntityPlayer player = EntityNPCInterface.GenericPlayer;
           World w = this.world.getMCWorld();
           player.func_70029_a(w);
-          player.func_70107_b((double)this.pos.func_177958_n(), (double)this.pos.func_177956_o(), (double)this.pos.func_177952_p());
-          this.block.func_180639_a(w, this.pos, w.func_180495_p(this.pos), EntityNPCInterface.CommandPlayer, EnumHand.MAIN_HAND, EnumFacing.func_82600_a(side), 0.0F, 0.0F, 0.0F);
+          player.func_70107_b((double)this.pos.getX(), (double)this.pos.getY(), (double)this.pos.getZ());
+          this.block.func_180639_a(w, this.pos, w.getBlockState(this.pos), EntityNPCInterface.CommandPlayer, EnumHand.MAIN_HAND, EnumFacing.func_82600_a(side), 0.0F, 0.0F, 0.0F);
      }
 }

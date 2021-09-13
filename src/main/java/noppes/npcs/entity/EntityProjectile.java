@@ -109,7 +109,7 @@ public class EntityProjectile extends EntityThrowable {
      }
 
      protected void func_70088_a() {
-          this.field_70180_af.func_187214_a(ItemStackThrown, ItemStack.field_190927_a);
+          this.field_70180_af.func_187214_a(ItemStackThrown, ItemStack.EMPTY);
           this.field_70180_af.func_187214_a(Velocity, 10);
           this.field_70180_af.func_187214_a(Size, 10);
           this.field_70180_af.func_187214_a(Particle, 0);
@@ -123,7 +123,7 @@ public class EntityProjectile extends EntityThrowable {
 
      @SideOnly(Side.CLIENT)
      public boolean func_70112_a(double par1) {
-          double d1 = this.func_174813_aQ().func_72320_b() * 4.0D;
+          double d1 = this.getEntityBoundingBox().func_72320_b() * 4.0D;
           d1 *= 64.0D;
           return par1 < d1 * d1;
      }
@@ -184,15 +184,15 @@ public class EntityProjectile extends EntityThrowable {
           float pitch = this.hasGravity() ? par7 : (float)(Math.atan2(par3, (double)f3) * 180.0D / 3.141592653589793D);
           this.field_70126_B = this.field_70177_z = yaw;
           this.field_70127_C = this.field_70125_A = pitch;
-          this.field_70159_w = (double)(MathHelper.func_76126_a(yaw / 180.0F * 3.1415927F) * MathHelper.func_76134_b(pitch / 180.0F * 3.1415927F));
-          this.field_70179_y = (double)(MathHelper.func_76134_b(yaw / 180.0F * 3.1415927F) * MathHelper.func_76134_b(pitch / 180.0F * 3.1415927F));
-          this.field_70181_x = (double)MathHelper.func_76126_a((pitch + 1.0F) / 180.0F * 3.1415927F);
-          this.field_70159_w += this.field_70146_Z.nextGaussian() * 0.007499999832361937D * (double)par8;
-          this.field_70179_y += this.field_70146_Z.nextGaussian() * 0.007499999832361937D * (double)par8;
-          this.field_70181_x += this.field_70146_Z.nextGaussian() * 0.007499999832361937D * (double)par8;
-          this.field_70159_w *= (double)this.getSpeed();
-          this.field_70179_y *= (double)this.getSpeed();
-          this.field_70181_x *= (double)this.getSpeed();
+          this.motionX = (double)(MathHelper.func_76126_a(yaw / 180.0F * 3.1415927F) * MathHelper.func_76134_b(pitch / 180.0F * 3.1415927F));
+          this.motionZ = (double)(MathHelper.func_76134_b(yaw / 180.0F * 3.1415927F) * MathHelper.func_76134_b(pitch / 180.0F * 3.1415927F));
+          this.motionY = (double)MathHelper.func_76126_a((pitch + 1.0F) / 180.0F * 3.1415927F);
+          this.motionX += this.field_70146_Z.nextGaussian() * 0.007499999832361937D * (double)par8;
+          this.motionZ += this.field_70146_Z.nextGaussian() * 0.007499999832361937D * (double)par8;
+          this.motionY += this.field_70146_Z.nextGaussian() * 0.007499999832361937D * (double)par8;
+          this.motionX *= (double)this.getSpeed();
+          this.motionZ *= (double)this.getSpeed();
+          this.motionY *= (double)this.getSpeed();
           this.accelerationX = par1 / (double)f2 * 0.1D;
           this.accelerationY = par3 / (double)f2 * 0.1D;
           this.accelerationZ = par5 / (double)f2 * 0.1D;
@@ -223,7 +223,7 @@ public class EntityProjectile extends EntityThrowable {
 
      @SideOnly(Side.CLIENT)
      public void func_180426_a(double par1, double par3, double par5, float par7, float par8, int par9, boolean bo) {
-          if (!this.world.field_72995_K || !this.field_174854_a) {
+          if (!this.world.isRemote || !this.field_174854_a) {
                this.func_70107_b(par1, par3, par5);
                this.func_70101_b(par7, par8);
           }
@@ -239,8 +239,8 @@ public class EntityProjectile extends EntityThrowable {
                this.func_70015_d(1);
           }
 
-          IBlockState state = this.world.func_180495_p(this.tilePos);
-          Block block = state.func_177230_c();
+          IBlockState state = this.world.getBlockState(this.tilePos);
+          Block block = state.getBlock();
           if ((this.isArrow() || this.sticksToWalls()) && this.tilePos != BlockPos.field_177992_a) {
                AxisAlignedBB axisalignedbb = state.func_185890_d(this.world, this.tilePos);
                if (axisalignedbb != null && axisalignedbb.func_72318_a(new Vec3d(this.field_70165_t, this.field_70163_u, this.field_70161_v))) {
@@ -261,9 +261,9 @@ public class EntityProjectile extends EntityThrowable {
                     }
                } else {
                     this.field_174854_a = false;
-                    this.field_70159_w *= (double)(this.field_70146_Z.nextFloat() * 0.2F);
-                    this.field_70181_x *= (double)(this.field_70146_Z.nextFloat() * 0.2F);
-                    this.field_70179_y *= (double)(this.field_70146_Z.nextFloat() * 0.2F);
+                    this.motionX *= (double)(this.field_70146_Z.nextFloat() * 0.2F);
+                    this.motionY *= (double)(this.field_70146_Z.nextFloat() * 0.2F);
+                    this.motionZ *= (double)(this.field_70146_Z.nextFloat() * 0.2F);
                     this.ticksInGround = 0;
                     this.field_70195_i = 0;
                }
@@ -274,17 +274,17 @@ public class EntityProjectile extends EntityThrowable {
                }
 
                Vec3d vec3 = new Vec3d(this.field_70165_t, this.field_70163_u, this.field_70161_v);
-               Vec3d vec31 = new Vec3d(this.field_70165_t + this.field_70159_w, this.field_70163_u + this.field_70181_x, this.field_70161_v + this.field_70179_y);
+               Vec3d vec31 = new Vec3d(this.field_70165_t + this.motionX, this.field_70163_u + this.motionY, this.field_70161_v + this.motionZ);
                RayTraceResult movingobjectposition = this.world.func_147447_a(vec3, vec31, false, true, false);
                vec3 = new Vec3d(this.field_70165_t, this.field_70163_u, this.field_70161_v);
-               vec31 = new Vec3d(this.field_70165_t + this.field_70159_w, this.field_70163_u + this.field_70181_x, this.field_70161_v + this.field_70179_y);
+               vec31 = new Vec3d(this.field_70165_t + this.motionX, this.field_70163_u + this.motionY, this.field_70161_v + this.motionZ);
                if (movingobjectposition != null) {
                     vec31 = new Vec3d(movingobjectposition.field_72307_f.field_72450_a, movingobjectposition.field_72307_f.field_72448_b, movingobjectposition.field_72307_f.field_72449_c);
                }
 
-               if (!this.world.field_72995_K) {
+               if (!this.world.isRemote) {
                     Entity entity = null;
-                    List list = this.world.func_72839_b(this, this.func_174813_aQ().func_72314_b(this.field_70159_w, this.field_70181_x, this.field_70179_y).func_72314_b(1.0D, 1.0D, 1.0D));
+                    List list = this.world.func_72839_b(this, this.getEntityBoundingBox().expand(this.motionX, this.motionY, this.motionZ).expand(1.0D, 1.0D, 1.0D));
                     double d0 = 0.0D;
                     EntityLivingBase entityliving = this.func_85052_h();
                     int k = 0;
@@ -318,7 +318,7 @@ public class EntityProjectile extends EntityThrowable {
                          Entity entity1 = (Entity)list.get(k);
                          if (entity1.func_70067_L() && (!entity1.func_70028_i(this.thrower) || this.field_70195_i >= 25)) {
                               float f = 0.3F;
-                              AxisAlignedBB axisalignedbb = entity1.func_174813_aQ().func_72314_b((double)f, (double)f, (double)f);
+                              AxisAlignedBB axisalignedbb = entity1.getEntityBoundingBox().expand((double)f, (double)f, (double)f);
                               RayTraceResult movingobjectposition1 = axisalignedbb.func_72327_a(vec3, vec31);
                               if (movingobjectposition1 != null) {
                                    double d1 = vec3.func_72438_d(movingobjectposition1.field_72307_f);
@@ -334,7 +334,7 @@ public class EntityProjectile extends EntityThrowable {
                }
 
                if (movingobjectposition != null) {
-                    if (movingobjectposition.field_72313_a == Type.BLOCK && this.world.func_180495_p(movingobjectposition.func_178782_a()).func_177230_c() == Blocks.field_150427_aO) {
+                    if (movingobjectposition.field_72313_a == Type.BLOCK && this.world.getBlockState(movingobjectposition.func_178782_a()).getBlock() == Blocks.field_150427_aO) {
                          this.func_181015_d(movingobjectposition.func_178782_a());
                     } else {
                          this.field_70180_af.func_187227_b(Rotating, false);
@@ -342,13 +342,13 @@ public class EntityProjectile extends EntityThrowable {
                     }
                }
 
-               this.field_70165_t += this.field_70159_w;
-               this.field_70163_u += this.field_70181_x;
-               this.field_70161_v += this.field_70179_y;
-               float f1 = MathHelper.func_76133_a(this.field_70159_w * this.field_70159_w + this.field_70179_y * this.field_70179_y);
-               this.field_70177_z = (float)(Math.atan2(this.field_70159_w, this.field_70179_y) * 180.0D / 3.141592653589793D);
+               this.field_70165_t += this.motionX;
+               this.field_70163_u += this.motionY;
+               this.field_70161_v += this.motionZ;
+               float f1 = MathHelper.func_76133_a(this.motionX * this.motionX + this.motionZ * this.motionZ);
+               this.field_70177_z = (float)(Math.atan2(this.motionX, this.motionZ) * 180.0D / 3.141592653589793D);
 
-               for(this.field_70125_A = (float)(Math.atan2(this.field_70181_x, (double)f1) * 180.0D / 3.141592653589793D); this.field_70125_A - this.field_70127_C < -180.0F; this.field_70127_C -= 360.0F) {
+               for(this.field_70125_A = (float)(Math.atan2(this.motionY, (double)f1) * 180.0D / 3.141592653589793D); this.field_70125_A - this.field_70127_C < -180.0F; this.field_70127_C -= 360.0F) {
                }
 
                while(this.field_70125_A - this.field_70127_C >= 180.0F) {
@@ -373,30 +373,30 @@ public class EntityProjectile extends EntityThrowable {
                float f2 = this.getMotionFactor();
                float f3 = this.func_70185_h();
                if (this.func_70090_H()) {
-                    if (this.world.field_72995_K) {
+                    if (this.world.isRemote) {
                          for(int k = 0; k < 4; ++k) {
                               float f4 = 0.25F;
-                              this.world.func_175688_a(EnumParticleTypes.WATER_BUBBLE, this.field_70165_t - this.field_70159_w * (double)f4, this.field_70163_u - this.field_70181_x * (double)f4, this.field_70161_v - this.field_70179_y * (double)f4, this.field_70159_w, this.field_70181_x, this.field_70179_y, new int[0]);
+                              this.world.func_175688_a(EnumParticleTypes.WATER_BUBBLE, this.field_70165_t - this.motionX * (double)f4, this.field_70163_u - this.motionY * (double)f4, this.field_70161_v - this.motionZ * (double)f4, this.motionX, this.motionY, this.motionZ, new int[0]);
                          }
                     }
 
                     f2 = 0.8F;
                }
 
-               this.field_70159_w *= (double)f2;
-               this.field_70181_x *= (double)f2;
-               this.field_70179_y *= (double)f2;
+               this.motionX *= (double)f2;
+               this.motionY *= (double)f2;
+               this.motionZ *= (double)f2;
                if (this.hasGravity()) {
-                    this.field_70181_x -= (double)f3;
+                    this.motionY -= (double)f3;
                }
 
                if (this.accelerate) {
-                    this.field_70159_w += this.accelerationX;
-                    this.field_70181_x += this.accelerationY;
-                    this.field_70179_y += this.accelerationZ;
+                    this.motionX += this.accelerationX;
+                    this.motionY += this.accelerationY;
+                    this.motionZ += this.accelerationZ;
                }
 
-               if (this.world.field_72995_K && (Integer)this.field_70180_af.func_187225_a(Particle) > 0) {
+               if (this.world.isRemote && (Integer)this.field_70180_af.func_187225_a(Particle) > 0) {
                     this.world.func_175688_a(ParticleType.getMCType((Integer)this.field_70180_af.func_187225_a(Particle)), this.field_70165_t, this.field_70163_u, this.field_70161_v, 0.0D, 0.0D, 0.0D, new int[0]);
                }
 
@@ -408,12 +408,12 @@ public class EntityProjectile extends EntityThrowable {
 
      public boolean isBlock() {
           ItemStack item = this.getItemDisplay();
-          return item.func_190926_b() ? false : item.func_77973_b() instanceof ItemBlock;
+          return item.isEmpty() ? false : item.func_77973_b() instanceof ItemBlock;
      }
 
      private Item getItem() {
           ItemStack item = this.getItemDisplay();
-          return item.func_190926_b() ? Items.field_190931_a : item.func_77973_b();
+          return item.isEmpty() ? Items.field_190931_a : item.func_77973_b();
      }
 
      protected float getMotionFactor() {
@@ -421,7 +421,7 @@ public class EntityProjectile extends EntityThrowable {
      }
 
      protected void func_70184_a(RayTraceResult movingobjectposition) {
-          if (!this.world.field_72995_K) {
+          if (!this.world.isRemote) {
                BlockPos pos = null;
                ProjectileEvent.ImpactEvent event;
                if (movingobjectposition.field_72308_g != null) {
@@ -453,7 +453,7 @@ public class EntityProjectile extends EntityThrowable {
                if (movingobjectposition.field_72308_g.func_70097_a(DamageSource.func_76356_a(this, this.func_85052_h()), damage)) {
                     if (movingobjectposition.field_72308_g instanceof EntityLivingBase && (this.isArrow() || this.sticksToWalls())) {
                          EntityLivingBase entityliving = (EntityLivingBase)movingobjectposition.field_72308_g;
-                         if (!this.world.field_72995_K) {
+                         if (!this.world.isRemote) {
                               entityliving.func_85034_r(entityliving.func_85035_bI() + 1);
                          }
 
@@ -476,9 +476,9 @@ public class EntityProjectile extends EntityThrowable {
                     }
 
                     if (this.punch > 0) {
-                         f3 = MathHelper.func_76133_a(this.field_70159_w * this.field_70159_w + this.field_70179_y * this.field_70179_y);
+                         f3 = MathHelper.func_76133_a(this.motionX * this.motionX + this.motionZ * this.motionZ);
                          if (f3 > 0.0F) {
-                              movingobjectposition.field_72308_g.func_70024_g(this.field_70159_w * (double)this.punch * 0.6000000238418579D / (double)f3, 0.1D, this.field_70179_y * (double)this.punch * 0.6000000238418579D / (double)f3);
+                              movingobjectposition.field_72308_g.func_70024_g(this.motionX * (double)this.punch * 0.6000000238418579D / (double)f3, 0.1D, this.motionZ * (double)this.punch * 0.6000000238418579D / (double)f3);
                          }
                     }
 
@@ -491,9 +491,9 @@ public class EntityProjectile extends EntityThrowable {
                          }
                     }
                } else if (this.hasGravity() && (this.isArrow() || this.sticksToWalls())) {
-                    this.field_70159_w *= -0.10000000149011612D;
-                    this.field_70181_x *= -0.10000000149011612D;
-                    this.field_70179_y *= -0.10000000149011612D;
+                    this.motionX *= -0.10000000149011612D;
+                    this.motionY *= -0.10000000149011612D;
+                    this.motionZ *= -0.10000000149011612D;
                     this.field_70177_z += 180.0F;
                     this.field_70126_B += 180.0F;
                     this.field_70195_i = 0;
@@ -513,16 +513,16 @@ public class EntityProjectile extends EntityThrowable {
                }
           } else {
                this.tilePos = movingobjectposition.func_178782_a();
-               IBlockState state = this.world.func_180495_p(this.tilePos);
-               this.inTile = state.func_177230_c();
+               IBlockState state = this.world.getBlockState(this.tilePos);
+               this.inTile = state.getBlock();
                this.inData = this.inTile.func_176201_c(state);
-               this.field_70159_w = (double)((float)(movingobjectposition.field_72307_f.field_72450_a - this.field_70165_t));
-               this.field_70181_x = (double)((float)(movingobjectposition.field_72307_f.field_72448_b - this.field_70163_u));
-               this.field_70179_y = (double)((float)(movingobjectposition.field_72307_f.field_72449_c - this.field_70161_v));
-               f3 = MathHelper.func_76133_a(this.field_70159_w * this.field_70159_w + this.field_70181_x * this.field_70181_x + this.field_70179_y * this.field_70179_y);
-               this.field_70165_t -= this.field_70159_w / (double)f3 * 0.05000000074505806D;
-               this.field_70163_u -= this.field_70181_x / (double)f3 * 0.05000000074505806D;
-               this.field_70161_v -= this.field_70179_y / (double)f3 * 0.05000000074505806D;
+               this.motionX = (double)((float)(movingobjectposition.field_72307_f.field_72450_a - this.field_70165_t));
+               this.motionY = (double)((float)(movingobjectposition.field_72307_f.field_72448_b - this.field_70163_u));
+               this.motionZ = (double)((float)(movingobjectposition.field_72307_f.field_72449_c - this.field_70161_v));
+               f3 = MathHelper.func_76133_a(this.motionX * this.motionX + this.motionY * this.motionY + this.motionZ * this.motionZ);
+               this.field_70165_t -= this.motionX / (double)f3 * 0.05000000074505806D;
+               this.field_70163_u -= this.motionY / (double)f3 * 0.05000000074505806D;
+               this.field_70161_v -= this.motionZ / (double)f3 * 0.05000000074505806D;
                this.field_174854_a = true;
                this.arrowShake = 7;
                if (!this.hasGravity()) {
@@ -538,8 +538,8 @@ public class EntityProjectile extends EntityThrowable {
                boolean terraindamage = this.world.func_82736_K().func_82766_b("mobGriefing") && this.explosiveDamage;
                this.world.func_72885_a((Entity)(this.func_85052_h() == null ? this : this.func_85052_h()), this.field_70165_t, this.field_70163_u, this.field_70161_v, (float)this.explosiveRadius, this.effect == 1, terraindamage);
                if (this.effect != 0) {
-                    AxisAlignedBB axisalignedbb = this.func_174813_aQ().func_72314_b((double)(this.explosiveRadius * 2), (double)(this.explosiveRadius * 2), (double)(this.explosiveRadius * 2));
-                    List list1 = this.world.func_72872_a(EntityLivingBase.class, axisalignedbb);
+                    AxisAlignedBB axisalignedbb = this.getEntityBoundingBox().expand((double)(this.explosiveRadius * 2), (double)(this.explosiveRadius * 2), (double)(this.explosiveRadius * 2));
+                    List list1 = this.world.getEntitiesWithinAABB(EntityLivingBase.class, axisalignedbb);
                     Iterator var5 = list1.iterator();
 
                     while(var5.hasNext()) {
@@ -560,7 +560,7 @@ public class EntityProjectile extends EntityThrowable {
                this.func_70106_y();
           }
 
-          if (!this.world.field_72995_K && !this.isArrow() && !this.sticksToWalls()) {
+          if (!this.world.isRemote && !this.isArrow() && !this.sticksToWalls()) {
                this.func_70106_y();
           }
 
@@ -570,59 +570,59 @@ public class EntityProjectile extends EntityThrowable {
      }
 
      public void func_70014_b(NBTTagCompound par1NBTTagCompound) {
-          par1NBTTagCompound.func_74777_a("xTile", (short)this.tilePos.func_177958_n());
-          par1NBTTagCompound.func_74777_a("yTile", (short)this.tilePos.func_177956_o());
-          par1NBTTagCompound.func_74777_a("zTile", (short)this.tilePos.func_177952_p());
-          par1NBTTagCompound.func_74774_a("inTile", (byte)Block.func_149682_b(this.inTile));
-          par1NBTTagCompound.func_74774_a("inData", (byte)this.inData);
-          par1NBTTagCompound.func_74774_a("shake", (byte)this.field_70191_b);
-          par1NBTTagCompound.func_74757_a("inGround", this.field_174854_a);
-          par1NBTTagCompound.func_74757_a("isArrow", this.isArrow());
-          par1NBTTagCompound.setTag("direction", this.func_70087_a(new double[]{this.field_70159_w, this.field_70181_x, this.field_70179_y}));
-          par1NBTTagCompound.func_74757_a("canBePickedUp", this.canBePickedUp);
+          par1NBTTagCompound.func_74777_a("xTile", (short)this.tilePos.getX());
+          par1NBTTagCompound.func_74777_a("yTile", (short)this.tilePos.getY());
+          par1NBTTagCompound.func_74777_a("zTile", (short)this.tilePos.getZ());
+          par1NBTTagCompound.setByte("inTile", (byte)Block.func_149682_b(this.inTile));
+          par1NBTTagCompound.setByte("inData", (byte)this.inData);
+          par1NBTTagCompound.setByte("shake", (byte)this.field_70191_b);
+          par1NBTTagCompound.setBoolean("inGround", this.field_174854_a);
+          par1NBTTagCompound.setBoolean("isArrow", this.isArrow());
+          par1NBTTagCompound.setTag("direction", this.func_70087_a(new double[]{this.motionX, this.motionY, this.motionZ}));
+          par1NBTTagCompound.setBoolean("canBePickedUp", this.canBePickedUp);
           if ((this.throwerName == null || this.throwerName.length() == 0) && this.thrower != null && this.thrower instanceof EntityPlayer) {
                this.throwerName = this.thrower.func_110124_au().toString();
           }
 
           par1NBTTagCompound.setString("ownerName", this.throwerName == null ? "" : this.throwerName);
-          par1NBTTagCompound.setTag("Item", this.getItemDisplay().func_77955_b(new NBTTagCompound()));
-          par1NBTTagCompound.func_74776_a("damagev2", this.damage);
+          par1NBTTagCompound.setTag("Item", this.getItemDisplay().writeToNBT(new NBTTagCompound()));
+          par1NBTTagCompound.setFloat("damagev2", this.damage);
           par1NBTTagCompound.setInteger("punch", this.punch);
           par1NBTTagCompound.setInteger("size", (Integer)this.field_70180_af.func_187225_a(Size));
           par1NBTTagCompound.setInteger("velocity", (Integer)this.field_70180_af.func_187225_a(Velocity));
           par1NBTTagCompound.setInteger("explosiveRadius", this.explosiveRadius);
           par1NBTTagCompound.setInteger("effectDuration", this.duration);
-          par1NBTTagCompound.func_74757_a("gravity", this.hasGravity());
-          par1NBTTagCompound.func_74757_a("accelerate", this.accelerate);
-          par1NBTTagCompound.func_74757_a("glows", (Boolean)this.field_70180_af.func_187225_a(Glows));
+          par1NBTTagCompound.setBoolean("gravity", this.hasGravity());
+          par1NBTTagCompound.setBoolean("accelerate", this.accelerate);
+          par1NBTTagCompound.setBoolean("glows", (Boolean)this.field_70180_af.func_187225_a(Glows));
           par1NBTTagCompound.setInteger("PotionEffect", this.effect);
           par1NBTTagCompound.setInteger("trailenum", (Integer)this.field_70180_af.func_187225_a(Particle));
-          par1NBTTagCompound.func_74757_a("Render3D", (Boolean)this.field_70180_af.func_187225_a(Is3d));
-          par1NBTTagCompound.func_74757_a("Spins", (Boolean)this.field_70180_af.func_187225_a(Rotating));
-          par1NBTTagCompound.func_74757_a("Sticks", (Boolean)this.field_70180_af.func_187225_a(Sticks));
+          par1NBTTagCompound.setBoolean("Render3D", (Boolean)this.field_70180_af.func_187225_a(Is3d));
+          par1NBTTagCompound.setBoolean("Spins", (Boolean)this.field_70180_af.func_187225_a(Rotating));
+          par1NBTTagCompound.setBoolean("Sticks", (Boolean)this.field_70180_af.func_187225_a(Sticks));
           par1NBTTagCompound.setInteger("accuracy", this.accuracy);
      }
 
      public void func_70037_a(NBTTagCompound compound) {
           this.tilePos = new BlockPos(compound.func_74765_d("xTile"), compound.func_74765_d("yTile"), compound.func_74765_d("zTile"));
-          this.inTile = Block.func_149729_e(compound.func_74771_c("inTile") & 255);
-          this.inData = compound.func_74771_c("inData") & 255;
-          this.field_70191_b = compound.func_74771_c("shake") & 255;
-          this.field_174854_a = compound.func_74771_c("inGround") == 1;
+          this.inTile = Block.func_149729_e(compound.getByte("inTile") & 255);
+          this.inData = compound.getByte("inData") & 255;
+          this.field_70191_b = compound.getByte("shake") & 255;
+          this.field_174854_a = compound.getByte("inGround") == 1;
           this.field_70180_af.func_187227_b(Arrow, compound.getBoolean("isArrow"));
           this.throwerName = compound.getString("ownerName");
           this.canBePickedUp = compound.getBoolean("canBePickedUp");
-          this.damage = compound.func_74760_g("damagev2");
-          this.punch = compound.func_74762_e("punch");
-          this.explosiveRadius = compound.func_74762_e("explosiveRadius");
-          this.duration = compound.func_74762_e("effectDuration");
+          this.damage = compound.getFloat("damagev2");
+          this.punch = compound.getInteger("punch");
+          this.explosiveRadius = compound.getInteger("explosiveRadius");
+          this.duration = compound.getInteger("effectDuration");
           this.accelerate = compound.getBoolean("accelerate");
-          this.effect = compound.func_74762_e("PotionEffect");
-          this.accuracy = compound.func_74762_e("accuracy");
-          this.field_70180_af.func_187227_b(Particle, compound.func_74762_e("trailenum"));
-          this.field_70180_af.func_187227_b(Size, compound.func_74762_e("size"));
+          this.effect = compound.getInteger("PotionEffect");
+          this.accuracy = compound.getInteger("accuracy");
+          this.field_70180_af.func_187227_b(Particle, compound.getInteger("trailenum"));
+          this.field_70180_af.func_187227_b(Size, compound.getInteger("size"));
           this.field_70180_af.func_187227_b(Glows, compound.getBoolean("glows"));
-          this.field_70180_af.func_187227_b(Velocity, compound.func_74762_e("velocity"));
+          this.field_70180_af.func_187227_b(Velocity, compound.getInteger("velocity"));
           this.field_70180_af.func_187227_b(Gravity, compound.getBoolean("gravity"));
           this.field_70180_af.func_187227_b(Is3d, compound.getBoolean("Render3D"));
           this.field_70180_af.func_187227_b(Rotating, compound.getBoolean("Spins"));
@@ -633,14 +633,14 @@ public class EntityProjectile extends EntityThrowable {
 
           if (compound.hasKey("direction")) {
                NBTTagList nbttaglist = compound.getTagList("direction", 6);
-               this.field_70159_w = nbttaglist.func_150309_d(0);
-               this.field_70181_x = nbttaglist.func_150309_d(1);
-               this.field_70179_y = nbttaglist.func_150309_d(2);
+               this.motionX = nbttaglist.func_150309_d(0);
+               this.motionY = nbttaglist.func_150309_d(1);
+               this.motionZ = nbttaglist.func_150309_d(2);
           }
 
           NBTTagCompound var2 = compound.getCompoundTag("Item");
           ItemStack item = new ItemStack(var2);
-          if (item.func_190926_b()) {
+          if (item.isEmpty()) {
                this.func_70106_y();
           } else {
                this.field_70180_af.func_187227_b(ItemStackThrown, item);
@@ -769,7 +769,7 @@ public class EntityProjectile extends EntityThrowable {
      }
 
      public void func_70100_b_(EntityPlayer par1EntityPlayer) {
-          if (!this.world.field_72995_K && this.canBePickedUp && this.field_174854_a && this.arrowShake <= 0) {
+          if (!this.world.isRemote && this.canBePickedUp && this.field_174854_a && this.arrowShake <= 0) {
                if (par1EntityPlayer.inventory.func_70441_a(this.getItemDisplay())) {
                     this.field_174854_a = false;
                     this.func_184185_a(SoundEvents.field_187638_cR, 0.2F, ((this.field_70146_Z.nextFloat() - this.field_70146_Z.nextFloat()) * 0.7F + 1.0F) * 2.0F);
@@ -785,7 +785,7 @@ public class EntityProjectile extends EntityThrowable {
      }
 
      public ITextComponent func_145748_c_() {
-          return (ITextComponent)(!this.getItemDisplay().func_190926_b() ? new TextComponentTranslation(this.getItemDisplay().func_82833_r(), new Object[0]) : super.func_145748_c_());
+          return (ITextComponent)(!this.getItemDisplay().isEmpty() ? new TextComponentTranslation(this.getItemDisplay().func_82833_r(), new Object[0]) : super.func_145748_c_());
      }
 
      static {

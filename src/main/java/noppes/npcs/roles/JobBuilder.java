@@ -34,9 +34,9 @@ public class JobBuilder extends JobInterface implements IJobBuilder {
 
      public NBTTagCompound writeToNBT(NBTTagCompound compound) {
           if (this.build != null) {
-               compound.setInteger("BuildX", this.build.func_174877_v().func_177958_n());
-               compound.setInteger("BuildY", this.build.func_174877_v().func_177956_o());
-               compound.setInteger("BuildZ", this.build.func_174877_v().func_177952_p());
+               compound.setInteger("BuildX", this.build.func_174877_v().getX());
+               compound.setInteger("BuildY", this.build.func_174877_v().getY());
+               compound.setInteger("BuildZ", this.build.func_174877_v().getZ());
                if (this.placingList != null && !this.placingList.isEmpty()) {
                     NBTTagList list = new NBTTagList();
                     Iterator var3 = this.placingList.iterator();
@@ -59,7 +59,7 @@ public class JobBuilder extends JobInterface implements IJobBuilder {
 
      public void readFromNBT(NBTTagCompound compound) {
           if (compound.hasKey("BuildX")) {
-               this.possibleBuildPos = new BlockPos(compound.func_74762_e("BuildX"), compound.func_74762_e("BuildY"), compound.func_74762_e("BuildZ"));
+               this.possibleBuildPos = new BlockPos(compound.getInteger("BuildX"), compound.getInteger("BuildY"), compound.getInteger("BuildZ"));
           }
 
           if (this.possibleBuildPos != null && compound.hasKey("Placing")) {
@@ -82,7 +82,7 @@ public class JobBuilder extends JobInterface implements IJobBuilder {
      public IItemStack getMainhand() {
           String name = this.npc.getJobData();
           ItemStack item = this.stringToItem(name);
-          return item.func_190926_b() ? (IItemStack)this.npc.inventory.weapons.get(0) : NpcAPI.Instance().getIItemStack(item);
+          return item.isEmpty() ? (IItemStack)this.npc.inventory.weapons.get(0) : NpcAPI.Instance().getIItemStack(item);
      }
 
      public boolean aiShouldExecute() {
@@ -110,7 +110,7 @@ public class JobBuilder extends JobInterface implements IJobBuilder {
                     } else {
                          if (this.placing == null) {
                               this.placing = (BlockData)this.placingList.pop();
-                              if (this.placing.state.func_177230_c() == Blocks.field_189881_dj) {
+                              if (this.placing.state.getBlock() == Blocks.field_189881_dj) {
                                    this.placing = null;
                                    return;
                               }
@@ -119,13 +119,13 @@ public class JobBuilder extends JobInterface implements IJobBuilder {
                               this.npc.setJobData(this.blockToString(this.placing));
                          }
 
-                         this.npc.func_70661_as().func_75492_a((double)this.placing.pos.func_177958_n(), (double)(this.placing.pos.func_177956_o() + 1), (double)this.placing.pos.func_177952_p(), 1.0D);
+                         this.npc.func_70661_as().func_75492_a((double)this.placing.pos.getX(), (double)(this.placing.pos.getY() + 1), (double)this.placing.pos.getZ(), 1.0D);
                          if (this.tryTicks++ > 40 || this.npc.nearPosition(this.placing.pos)) {
                               BlockPos blockPos = this.placing.pos;
                               this.placeBlock();
                               if (this.tryTicks > 40) {
                                    blockPos = NoppesUtilServer.GetClosePos(blockPos, this.npc.world);
-                                   this.npc.func_70634_a((double)blockPos.func_177958_n() + 0.5D, (double)blockPos.func_177956_o(), (double)blockPos.func_177952_p() + 0.5D);
+                                   this.npc.func_70634_a((double)blockPos.getX() + 0.5D, (double)blockPos.getY(), (double)blockPos.getZ() + 0.5D);
                               }
                          }
 
@@ -138,7 +138,7 @@ public class JobBuilder extends JobInterface implements IJobBuilder {
      }
 
      private String blockToString(BlockData data) {
-          return data.state.func_177230_c() == Blocks.field_150350_a ? Items.field_151035_b.getRegistryName().toString() : this.itemToString(data.getStack());
+          return data.state.getBlock() == Blocks.field_150350_a ? Items.field_151035_b.getRegistryName().toString() : this.itemToString(data.getStack());
      }
 
      public void resetTask() {
@@ -155,11 +155,11 @@ public class JobBuilder extends JobInterface implements IJobBuilder {
                this.npc.func_70661_as().func_75499_g();
                this.npc.func_184609_a(EnumHand.MAIN_HAND);
                this.npc.world.func_180501_a(this.placing.pos, this.placing.state, 2);
-               if (this.placing.state.func_177230_c() instanceof ITileEntityProvider && this.placing.tile != null) {
+               if (this.placing.state.getBlock() instanceof ITileEntityProvider && this.placing.tile != null) {
                     TileEntity tile = this.npc.world.func_175625_s(this.placing.pos);
                     if (tile != null) {
                          try {
-                              tile.func_145839_a(this.placing.tile);
+                              tile.readFromNBT(this.placing.tile);
                          } catch (Exception var3) {
                          }
                     }

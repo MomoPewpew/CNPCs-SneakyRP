@@ -282,10 +282,10 @@ public class PlayerWrapper extends EntityLivingBaseWrapper implements IPlayer {
      public int inventoryItemCount(IItemStack item) {
           int count = 0;
 
-          for(int i = 0; i < ((EntityPlayerMP)this.entity).inventory.func_70302_i_(); ++i) {
-               ItemStack is = ((EntityPlayerMP)this.entity).inventory.func_70301_a(i);
+          for(int i = 0; i < ((EntityPlayerMP)this.entity).inventory.getSizeInventory(); ++i) {
+               ItemStack is = ((EntityPlayerMP)this.entity).inventory.getStackInSlot(i);
                if (is != null && this.isItemEqual(item.getMCItemStack(), is)) {
-                    count += is.func_190916_E();
+                    count += is.getCount();
                }
           }
 
@@ -293,7 +293,7 @@ public class PlayerWrapper extends EntityLivingBaseWrapper implements IPlayer {
      }
 
      private boolean isItemEqual(ItemStack stack, ItemStack other) {
-          if (other.func_190926_b()) {
+          if (other.isEmpty()) {
                return false;
           } else if (stack.func_77973_b() != other.func_77973_b()) {
                return false;
@@ -329,16 +329,16 @@ public class PlayerWrapper extends EntityLivingBaseWrapper implements IPlayer {
                if (count == amount) {
                     this.removeAllItems(item);
                } else {
-                    for(int i = 0; i < ((EntityPlayerMP)this.entity).inventory.func_70302_i_(); ++i) {
-                         ItemStack is = ((EntityPlayerMP)this.entity).inventory.func_70301_a(i);
+                    for(int i = 0; i < ((EntityPlayerMP)this.entity).inventory.getSizeInventory(); ++i) {
+                         ItemStack is = ((EntityPlayerMP)this.entity).inventory.getStackInSlot(i);
                          if (is != null && this.isItemEqual(item.getMCItemStack(), is)) {
-                              if (amount < is.func_190916_E()) {
+                              if (amount < is.getCount()) {
                                    is.splitStack(amount);
                                    break;
                               }
 
-                              ((EntityPlayerMP)this.entity).inventory.func_70299_a(i, ItemStack.field_190927_a);
-                              amount -= is.func_190916_E();
+                              ((EntityPlayerMP)this.entity).inventory.setInventorySlotContents(i, ItemStack.EMPTY);
+                              amount -= is.getCount();
                          }
                     }
                }
@@ -359,10 +359,10 @@ public class PlayerWrapper extends EntityLivingBaseWrapper implements IPlayer {
 
      public boolean giveItem(IItemStack item) {
           ItemStack mcItem = item.getMCItemStack();
-          if (mcItem.func_190926_b()) {
+          if (mcItem.isEmpty()) {
                return false;
           } else {
-               boolean bo = ((EntityPlayerMP)this.entity).inventory.func_70441_a(mcItem.func_77946_l());
+               boolean bo = ((EntityPlayerMP)this.entity).inventory.func_70441_a(mcItem.copy());
                if (bo) {
                     NoppesUtilServer.playSound((EntityLivingBase)this.entity, SoundEvents.field_187638_cR, 0.2F, ((((EntityPlayerMP)this.entity).func_70681_au().nextFloat() - ((EntityPlayerMP)this.entity).func_70681_au().nextFloat()) * 0.7F + 1.0F) * 2.0F);
                     this.updatePlayerInventory();
@@ -412,10 +412,10 @@ public class PlayerWrapper extends EntityLivingBaseWrapper implements IPlayer {
      }
 
      public void removeAllItems(IItemStack item) {
-          for(int i = 0; i < ((EntityPlayerMP)this.entity).inventory.func_70302_i_(); ++i) {
-               ItemStack is = ((EntityPlayerMP)this.entity).inventory.func_70301_a(i);
+          for(int i = 0; i < ((EntityPlayerMP)this.entity).inventory.getSizeInventory(); ++i) {
+               ItemStack is = ((EntityPlayerMP)this.entity).inventory.getStackInSlot(i);
                if (is != null && is.func_77969_a(item.getMCItemStack())) {
-                    ((EntityPlayerMP)this.entity).inventory.func_70299_a(i, ItemStack.field_190927_a);
+                    ((EntityPlayerMP)this.entity).inventory.setInventorySlotContents(i, ItemStack.EMPTY);
                }
           }
 
@@ -554,7 +554,7 @@ public class PlayerWrapper extends EntityLivingBaseWrapper implements IPlayer {
 
      public void playSound(String sound, float volume, float pitch) {
           BlockPos pos = ((EntityPlayerMP)this.entity).func_180425_c();
-          Server.sendData((EntityPlayerMP)this.entity, EnumPacketClient.PLAY_SOUND, sound, pos.func_177958_n(), pos.func_177956_o(), pos.func_177952_p(), volume, pitch);
+          Server.sendData((EntityPlayerMP)this.entity, EnumPacketClient.PLAY_SOUND, sound, pos.getX(), pos.getY(), pos.getZ(), volume, pitch);
      }
 
      public void sendMail(IPlayerMail mail) {

@@ -38,7 +38,7 @@ public class DataScript implements IScriptHandler {
      public NBTTagCompound writeToNBT(NBTTagCompound compound) {
           compound.setTag("Scripts", NBTTags.NBTScript(this.scripts));
           compound.setString("ScriptLanguage", this.scriptLanguage);
-          compound.func_74757_a("ScriptEnabled", this.enabled);
+          compound.setBoolean("ScriptEnabled", this.enabled);
           return compound;
      }
 
@@ -62,7 +62,7 @@ public class DataScript implements IScriptHandler {
      }
 
      public boolean isEnabled() {
-          return this.enabled && ScriptController.HasStart && !this.npc.world.field_72995_K;
+          return this.enabled && ScriptController.HasStart && !this.npc.world.isRemote;
      }
 
      public boolean isClient() {
@@ -91,7 +91,7 @@ public class DataScript implements IScriptHandler {
 
      public String noticeString() {
           BlockPos pos = this.npc.func_180425_c();
-          return MoreObjects.toStringHelper(this.npc).add("x", pos.func_177958_n()).add("y", pos.func_177956_o()).add("z", pos.func_177952_p()).toString();
+          return MoreObjects.toStringHelper(this.npc).add("x", pos.getX()).add("y", pos.getY()).add("z", pos.getZ()).toString();
      }
 
      public Map getConsoleText() {

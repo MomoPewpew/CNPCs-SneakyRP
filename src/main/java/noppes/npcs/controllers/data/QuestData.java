@@ -12,7 +12,7 @@ public class QuestData {
      }
 
      public void writeEntityToNBT(NBTTagCompound nbttagcompound) {
-          nbttagcompound.func_74757_a("QuestCompleted", this.isCompleted);
+          nbttagcompound.setBoolean("QuestCompleted", this.isCompleted);
           nbttagcompound.setTag("ExtraData", this.extraData);
      }
 

@@ -13,11 +13,11 @@ public class CustomGuiSlot extends Slot {
           this.clientSide = clientSide;
      }
 
-     public void func_75218_e() {
+     public void onSlotChanged() {
           if (this.clientSide) {
                ((GuiCustom)Minecraft.getMinecraft().field_71462_r).slotChange(this);
           }
 
-          super.func_75218_e();
+          super.onSlotChanged();
      }
 }

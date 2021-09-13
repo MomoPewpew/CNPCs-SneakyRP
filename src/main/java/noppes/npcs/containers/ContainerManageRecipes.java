@@ -25,45 +25,45 @@ public class ContainerManageRecipes extends Container {
           this.width = size;
           this.craftingMatrix = new InventoryBasic("crafting", false, this.size + 1);
           this.recipe = new RecipeCarpentry("");
-          this.func_75146_a(new Slot(this.craftingMatrix, 0, 87, 61));
+          this.addSlotToContainer(new Slot(this.craftingMatrix, 0, 87, 61));
 
           int j1;
           int l1;
           for(j1 = 0; j1 < size; ++j1) {
                for(l1 = 0; l1 < size; ++l1) {
-                    this.func_75146_a(new Slot(this.craftingMatrix, j1 * this.width + l1 + 1, l1 * 18 + 8, j1 * 18 + 35));
+                    this.addSlotToContainer(new Slot(this.craftingMatrix, j1 * this.width + l1 + 1, l1 * 18 + 8, j1 * 18 + 35));
                }
           }
 
           for(j1 = 0; j1 < 3; ++j1) {
                for(l1 = 0; l1 < 9; ++l1) {
-                    this.func_75146_a(new Slot(player.inventory, l1 + j1 * 9 + 9, 8 + l1 * 18, 113 + j1 * 18));
+                    this.addSlotToContainer(new Slot(player.inventory, l1 + j1 * 9 + 9, 8 + l1 * 18, 113 + j1 * 18));
                }
           }
 
           for(j1 = 0; j1 < 9; ++j1) {
-               this.func_75146_a(new Slot(player.inventory, j1, 8 + j1 * 18, 171));
+               this.addSlotToContainer(new Slot(player.inventory, j1, 8 + j1 * 18, 171));
           }
 
      }
 
-     public ItemStack func_82846_b(EntityPlayer par1EntityPlayer, int i) {
-          return ItemStack.field_190927_a;
+     public ItemStack transferStackInSlot(EntityPlayer par1EntityPlayer, int i) {
+          return ItemStack.EMPTY;
      }
 
-     public boolean func_75145_c(EntityPlayer entityplayer) {
+     public boolean canInteractWith(EntityPlayer entityplayer) {
           return true;
      }
 
      public void setRecipe(RecipeCarpentry recipe) {
-          this.craftingMatrix.func_70299_a(0, recipe.func_77571_b());
+          this.craftingMatrix.setInventorySlotContents(0, recipe.getResult());
 
           for(int i = 0; i < this.width; ++i) {
                for(int j = 0; j < this.width; ++j) {
                     if (j >= recipe.field_77576_b) {
-                         this.craftingMatrix.func_70299_a(i * this.width + j + 1, ItemStack.field_190927_a);
+                         this.craftingMatrix.setInventorySlotContents(i * this.width + j + 1, ItemStack.EMPTY);
                     } else {
-                         this.craftingMatrix.func_70299_a(i * this.width + j + 1, recipe.getCraftingItem(i * recipe.field_77576_b + j));
+                         this.craftingMatrix.setInventorySlotContents(i * this.width + j + 1, recipe.getCraftingItem(i * recipe.field_77576_b + j));
                     }
                }
           }
@@ -87,7 +87,7 @@ public class ContainerManageRecipes extends Container {
                boolean seenColumn = false;
 
                for(int j = 0; j < this.width; ++j) {
-                    ItemStack item = this.craftingMatrix.func_70301_a(i * this.width + j + 1);
+                    ItemStack item = this.craftingMatrix.getStackInSlot(i * this.width + j + 1);
                     if (!NoppesUtilServer.IsItemStackNull(item)) {
                          if (!seenColumn && j < firstColumn) {
                               firstColumn = j;
@@ -135,7 +135,7 @@ public class ContainerManageRecipes extends Container {
 
                     for(int j = 0; j < this.width; ++j) {
                          if (j >= firstColumn && j <= lastColumn) {
-                              ItemStack item = this.craftingMatrix.func_70301_a(i * this.width + j + 1);
+                              ItemStack item = this.craftingMatrix.getStackInSlot(i * this.width + j + 1);
                               if (NoppesUtilServer.IsItemStackNull(item)) {
                                    row = row + " ";
                               } else {
@@ -169,7 +169,7 @@ public class ContainerManageRecipes extends Container {
                     recipe.add(mapped);
                }
 
-               this.recipe = RecipeCarpentry.createRecipe(this.recipe, this.craftingMatrix.func_70301_a(0), recipe.toArray());
+               this.recipe = RecipeCarpentry.createRecipe(this.recipe, this.craftingMatrix.getStackInSlot(0), recipe.toArray());
           }
      }
 }

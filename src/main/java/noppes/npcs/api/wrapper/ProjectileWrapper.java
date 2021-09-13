@@ -21,7 +21,7 @@ public class ProjectileWrapper extends ThrowableWrapper implements IProjectile {
 
      public void setItem(IItemStack item) {
           if (item == null) {
-               ((EntityProjectile)this.entity).setThrownItem(ItemStack.field_190927_a);
+               ((EntityProjectile)this.entity).setThrownItem(ItemStack.EMPTY);
           } else {
                ((EntityProjectile)this.entity).setThrownItem(item.getMCItemStack());
           }
@@ -45,7 +45,7 @@ public class ProjectileWrapper extends ThrowableWrapper implements IProjectile {
      }
 
      public void setHeading(IEntity entity) {
-          this.setHeading(entity.getX(), entity.getMCEntity().func_174813_aQ().field_72338_b + (double)(entity.getHeight() / 2.0F), entity.getZ());
+          this.setHeading(entity.getX(), entity.getMCEntity().getEntityBoundingBox().field_72338_b + (double)(entity.getHeight() / 2.0F), entity.getZ());
      }
 
      public void setHeading(double x, double y, double z) {

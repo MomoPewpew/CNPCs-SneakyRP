@@ -11,10 +11,10 @@ import noppes.npcs.items.ItemScripted;
 public class ScriptItemEventHandler {
      @SubscribeEvent
      public void invoke(EntityJoinWorldEvent event) {
-          if (!event.getWorld().field_72995_K && event.getEntity() instanceof EntityItem) {
+          if (!event.getWorld().isRemote && event.getEntity() instanceof EntityItem) {
                EntityItem entity = (EntityItem)event.getEntity();
-               ItemStack stack = entity.func_92059_d();
-               if (!stack.func_190926_b() && stack.func_77973_b() == CustomItems.scripted_item && EventHooks.onScriptItemSpawn(ItemScripted.GetWrapper(stack), entity)) {
+               ItemStack stack = entity.getItem();
+               if (!stack.isEmpty() && stack.func_77973_b() == CustomItems.scripted_item && EventHooks.onScriptItemSpawn(ItemScripted.GetWrapper(stack), entity)) {
                     event.setCanceled(true);
                }
 
@@ -23,10 +23,10 @@ public class ScriptItemEventHandler {
 
      @SubscribeEvent
      public void invoke(ItemTossEvent event) {
-          if (!event.getPlayer().world.field_72995_K) {
+          if (!event.getPlayer().world.isRemote) {
                EntityItem entity = event.getEntityItem();
-               ItemStack stack = entity.func_92059_d();
-               if (!stack.func_190926_b() && stack.func_77973_b() == CustomItems.scripted_item && EventHooks.onScriptItemTossed(ItemScripted.GetWrapper(stack), event.getPlayer(), entity)) {
+               ItemStack stack = entity.getItem();
+               if (!stack.isEmpty() && stack.func_77973_b() == CustomItems.scripted_item && EventHooks.onScriptItemTossed(ItemScripted.GetWrapper(stack), event.getPlayer(), entity)) {
                     event.setCanceled(true);
                }
 
@@ -35,10 +35,10 @@ public class ScriptItemEventHandler {
 
      @SubscribeEvent
      public void invoke(EntityItemPickupEvent event) {
-          if (!event.getEntityPlayer().world.field_72995_K) {
+          if (!event.getEntityPlayer().world.isRemote) {
                EntityItem entity = event.getItem();
-               ItemStack stack = entity.func_92059_d();
-               if (!stack.func_190926_b() && stack.func_77973_b() == CustomItems.scripted_item) {
+               ItemStack stack = entity.getItem();
+               if (!stack.isEmpty() && stack.func_77973_b() == CustomItems.scripted_item) {
                     EventHooks.onScriptItemPickedUp(ItemScripted.GetWrapper(stack), event.getEntityPlayer(), entity);
                }
 

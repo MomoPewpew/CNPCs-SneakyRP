@@ -35,7 +35,7 @@ public class EntityAIMovingPath extends EntityAIBase {
           if (!this.npc.isAttacking() && !this.npc.isInteracting()) {
                if (this.npc.func_70661_as().func_75500_f()) {
                     this.npc.func_70661_as().func_75499_g();
-                    if (this.npc.func_70092_e((double)this.pos[0], (double)this.pos[1], (double)this.pos[2]) < 3.0D) {
+                    if (this.npc.getDistanceSq((double)this.pos[0], (double)this.pos[1], (double)this.pos[2]) < 3.0D) {
                          return false;
                     } else if (this.retries++ < 3) {
                          this.func_75249_e();

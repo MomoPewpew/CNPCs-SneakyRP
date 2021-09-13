@@ -49,7 +49,7 @@ public class GuiNbtBook extends GuiNPCInterface implements IGuiData {
           super.func_73866_w_();
           if (this.state != null) {
                this.addLabel(new GuiNpcLabel(11, "x: " + this.x + ", y: " + this.y + ", z: " + this.z, this.guiLeft + 60, this.guiTop + 6));
-               this.addLabel(new GuiNpcLabel(12, "id: " + Block.REGISTRY.func_177774_c(this.state.func_177230_c()), this.guiLeft + 60, this.guiTop + 16));
+               this.addLabel(new GuiNpcLabel(12, "id: " + Block.REGISTRY.func_177774_c(this.state.getBlock()), this.guiLeft + 60, this.guiTop + 16));
           }
 
           if (this.entity != null) {
@@ -101,7 +101,7 @@ public class GuiNbtBook extends GuiNPCInterface implements IGuiData {
                }
 
                Client.sendData(EnumPacketServer.NbtBookSaveBlock, this.x, this.y, this.z, this.compound);
-               this.originalCompound = this.compound.func_74737_b();
+               this.originalCompound = this.compound.copy();
                this.getButton(67).enabled = false;
           }
 
@@ -153,16 +153,16 @@ public class GuiNbtBook extends GuiNPCInterface implements IGuiData {
 
      public void setGuiData(NBTTagCompound compound) {
           if (compound.hasKey("EntityId")) {
-               this.entityId = compound.func_74762_e("EntityId");
-               this.entity = this.player.world.func_73045_a(this.entityId);
+               this.entityId = compound.getInteger("EntityId");
+               this.entity = this.player.world.getEntityByID(this.entityId);
           } else {
                this.tile = this.player.world.func_175625_s(new BlockPos(this.x, this.y, this.z));
-               this.state = this.player.world.func_180495_p(new BlockPos(this.x, this.y, this.z));
-               this.blockStack = this.state.func_177230_c().func_185473_a(this.player.world, new BlockPos(this.x, this.y, this.z), this.state);
+               this.state = this.player.world.getBlockState(new BlockPos(this.x, this.y, this.z));
+               this.blockStack = this.state.getBlock().func_185473_a(this.player.world, new BlockPos(this.x, this.y, this.z), this.state);
           }
 
           this.originalCompound = compound.getCompoundTag("Data");
-          this.compound = this.originalCompound.func_74737_b();
+          this.compound = this.originalCompound.copy();
           this.func_73866_w_();
      }
 }

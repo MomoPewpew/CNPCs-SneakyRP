@@ -11,18 +11,18 @@ public class Resistances {
 
      public NBTTagCompound writeToNBT() {
           NBTTagCompound compound = new NBTTagCompound();
-          compound.func_74776_a("Knockback", this.knockback);
-          compound.func_74776_a("Arrow", this.arrow);
-          compound.func_74776_a("Melee", this.melee);
-          compound.func_74776_a("Explosion", this.explosion);
+          compound.setFloat("Knockback", this.knockback);
+          compound.setFloat("Arrow", this.arrow);
+          compound.setFloat("Melee", this.melee);
+          compound.setFloat("Explosion", this.explosion);
           return compound;
      }
 
      public void readToNBT(NBTTagCompound compound) {
-          this.knockback = compound.func_74760_g("Knockback");
-          this.arrow = compound.func_74760_g("Arrow");
-          this.melee = compound.func_74760_g("Melee");
-          this.explosion = compound.func_74760_g("Explosion");
+          this.knockback = compound.getFloat("Knockback");
+          this.arrow = compound.getFloat("Arrow");
+          this.melee = compound.getFloat("Melee");
+          this.explosion = compound.getFloat("Explosion");
      }
 
      public float applyResistance(DamageSource source, float damage) {

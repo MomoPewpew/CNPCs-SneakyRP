@@ -36,8 +36,8 @@ public class BlockBorder extends BlockInterface implements IPermission {
 
      public boolean func_180639_a(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
           ItemStack currentItem = player.inventory.func_70448_g();
-          if (!world.field_72995_K && currentItem != null && currentItem.func_77973_b() == CustomItems.wand) {
-               NoppesUtilServer.sendOpenGui(player, EnumGuiType.Border, (EntityNPCInterface)null, pos.func_177958_n(), pos.func_177956_o(), pos.func_177952_p());
+          if (!world.isRemote && currentItem != null && currentItem.func_77973_b() == CustomItems.wand) {
+               NoppesUtilServer.sendOpenGui(player, EnumGuiType.Border, (EntityNPCInterface)null, pos.getX(), pos.getY(), pos.getZ());
                return true;
           } else {
                return false;
@@ -69,8 +69,8 @@ public class BlockBorder extends BlockInterface implements IPermission {
           }
 
           tile.rotation = l;
-          if (entity instanceof EntityPlayer && !world.field_72995_K) {
-               NoppesUtilServer.sendOpenGui((EntityPlayer)entity, EnumGuiType.Border, (EntityNPCInterface)null, pos.func_177958_n(), pos.func_177956_o(), pos.func_177952_p());
+          if (entity instanceof EntityPlayer && !world.isRemote) {
+               NoppesUtilServer.sendOpenGui((EntityPlayer)entity, EnumGuiType.Border, (EntityNPCInterface)null, pos.getX(), pos.getY(), pos.getZ());
           }
 
      }

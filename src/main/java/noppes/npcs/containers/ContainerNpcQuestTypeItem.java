@@ -14,26 +14,26 @@ public class ContainerNpcQuestTypeItem extends Container {
 
           int j1;
           for(j1 = 0; j1 < 3; ++j1) {
-               this.func_75146_a(new Slot(((QuestItem)quest.questInterface).items, j1, 44, 39 + j1 * 25));
+               this.addSlotToContainer(new Slot(((QuestItem)quest.questInterface).items, j1, 44, 39 + j1 * 25));
           }
 
           for(j1 = 0; j1 < 3; ++j1) {
                for(int l1 = 0; l1 < 9; ++l1) {
-                    this.func_75146_a(new Slot(player.inventory, l1 + j1 * 9 + 9, 8 + l1 * 18, 113 + j1 * 18));
+                    this.addSlotToContainer(new Slot(player.inventory, l1 + j1 * 9 + 9, 8 + l1 * 18, 113 + j1 * 18));
                }
           }
 
           for(j1 = 0; j1 < 9; ++j1) {
-               this.func_75146_a(new Slot(player.inventory, j1, 8 + j1 * 18, 171));
+               this.addSlotToContainer(new Slot(player.inventory, j1, 8 + j1 * 18, 171));
           }
 
      }
 
-     public ItemStack func_82846_b(EntityPlayer par1EntityPlayer, int i) {
+     public ItemStack transferStackInSlot(EntityPlayer par1EntityPlayer, int i) {
           return null;
      }
 
-     public boolean func_75145_c(EntityPlayer entityplayer) {
+     public boolean canInteractWith(EntityPlayer entityplayer) {
           return true;
      }
 }

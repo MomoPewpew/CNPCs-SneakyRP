@@ -45,9 +45,9 @@ public class RoleEvent extends CustomNPCsEvent {
 
           public TradeFailedEvent(EntityPlayer player, ICustomNpc npc, ItemStack sold, ItemStack currency1, ItemStack currency2) {
                super(player, npc);
-               this.currency1 = currency1.func_190926_b() ? null : NpcAPI.Instance().getIItemStack(currency1.func_77946_l());
-               this.currency2 = currency2.func_190926_b() ? null : NpcAPI.Instance().getIItemStack(currency2.func_77946_l());
-               this.sold = NpcAPI.Instance().getIItemStack(sold.func_77946_l());
+               this.currency1 = currency1.isEmpty() ? null : NpcAPI.Instance().getIItemStack(currency1.copy());
+               this.currency2 = currency2.isEmpty() ? null : NpcAPI.Instance().getIItemStack(currency2.copy());
+               this.sold = NpcAPI.Instance().getIItemStack(sold.copy());
           }
      }
 
@@ -59,9 +59,9 @@ public class RoleEvent extends CustomNPCsEvent {
 
           public TraderEvent(EntityPlayer player, ICustomNpc npc, ItemStack sold, ItemStack currency1, ItemStack currency2) {
                super(player, npc);
-               this.currency1 = currency1.func_190926_b() ? null : NpcAPI.Instance().getIItemStack(currency1.func_77946_l());
-               this.currency2 = currency2.func_190926_b() ? null : NpcAPI.Instance().getIItemStack(currency2.func_77946_l());
-               this.sold = NpcAPI.Instance().getIItemStack(sold.func_77946_l());
+               this.currency1 = currency1.isEmpty() ? null : NpcAPI.Instance().getIItemStack(currency1.copy());
+               this.currency2 = currency2.isEmpty() ? null : NpcAPI.Instance().getIItemStack(currency2.copy());
+               this.sold = NpcAPI.Instance().getIItemStack(sold.copy());
           }
      }
 

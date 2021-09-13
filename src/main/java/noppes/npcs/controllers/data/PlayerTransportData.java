@@ -15,7 +15,7 @@ public class PlayerTransportData {
                if (list != null) {
                     for(int i = 0; i < list.tagCount(); ++i) {
                          NBTTagCompound nbttagcompound = list.getCompoundTagAt(i);
-                         dialogsRead.add(nbttagcompound.func_74762_e("Transport"));
+                         dialogsRead.add(nbttagcompound.getInteger("Transport"));
                     }
 
                     this.transports = dialogsRead;

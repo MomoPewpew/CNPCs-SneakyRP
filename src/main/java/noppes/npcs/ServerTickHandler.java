@@ -75,13 +75,13 @@ public class ServerTickHandler {
 
      @SubscribeEvent
      public void playerLogin(PlayerLoggedInEvent event) {
-          MinecraftServer server = event.player.func_184102_h();
-          if (server.func_70002_Q()) {
+          MinecraftServer server = event.player.getServer();
+          if (server.isSnooperEnabled()) {
                String serverName = null;
                if (server.isDedicatedServer()) {
                     serverName = "server";
                } else {
-                    serverName = ((IntegratedServer)server).func_71344_c() ? "lan" : "local";
+                    serverName = ((IntegratedServer)server).getPublic() ? "lan" : "local";
                }
 
                AnalyticsTracking.sendData(event.player, "join", serverName);

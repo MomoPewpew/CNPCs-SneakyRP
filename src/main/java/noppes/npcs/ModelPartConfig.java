@@ -14,23 +14,23 @@ public class ModelPartConfig {
 
      public NBTTagCompound writeToNBT() {
           NBTTagCompound compound = new NBTTagCompound();
-          compound.func_74776_a("ScaleX", this.scaleX);
-          compound.func_74776_a("ScaleY", this.scaleY);
-          compound.func_74776_a("ScaleZ", this.scaleZ);
-          compound.func_74776_a("TransX", this.transX);
-          compound.func_74776_a("TransY", this.transY);
-          compound.func_74776_a("TransZ", this.transZ);
-          compound.func_74757_a("NotShared", this.notShared);
+          compound.setFloat("ScaleX", this.scaleX);
+          compound.setFloat("ScaleY", this.scaleY);
+          compound.setFloat("ScaleZ", this.scaleZ);
+          compound.setFloat("TransX", this.transX);
+          compound.setFloat("TransY", this.transY);
+          compound.setFloat("TransZ", this.transZ);
+          compound.setBoolean("NotShared", this.notShared);
           return compound;
      }
 
      public void readFromNBT(NBTTagCompound compound) {
-          this.scaleX = this.checkValue(compound.func_74760_g("ScaleX"), 0.5F, 1.5F);
-          this.scaleY = this.checkValue(compound.func_74760_g("ScaleY"), 0.5F, 1.5F);
-          this.scaleZ = this.checkValue(compound.func_74760_g("ScaleZ"), 0.5F, 1.5F);
-          this.transX = this.checkValue(compound.func_74760_g("TransX"), -1.0F, 1.0F);
-          this.transY = this.checkValue(compound.func_74760_g("TransY"), -1.0F, 1.0F);
-          this.transZ = this.checkValue(compound.func_74760_g("TransZ"), -1.0F, 1.0F);
+          this.scaleX = this.checkValue(compound.getFloat("ScaleX"), 0.5F, 1.5F);
+          this.scaleY = this.checkValue(compound.getFloat("ScaleY"), 0.5F, 1.5F);
+          this.scaleZ = this.checkValue(compound.getFloat("ScaleZ"), 0.5F, 1.5F);
+          this.transX = this.checkValue(compound.getFloat("TransX"), -1.0F, 1.0F);
+          this.transY = this.checkValue(compound.getFloat("TransY"), -1.0F, 1.0F);
+          this.transZ = this.checkValue(compound.getFloat("TransZ"), -1.0F, 1.0F);
           this.notShared = compound.getBoolean("NotShared");
      }
 

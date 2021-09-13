@@ -56,9 +56,9 @@ public class ItemBookWrapper extends ItemStackWrapper implements IItemBook {
      }
 
      private NBTTagCompound getTag() {
-          NBTTagCompound comp = this.item.func_77978_p();
+          NBTTagCompound comp = this.item.getTagCompound();
           if (comp == null) {
-               this.item.func_77982_d(comp = new NBTTagCompound());
+               this.item.setTagCompound(comp = new NBTTagCompound());
           }
 
           return comp;

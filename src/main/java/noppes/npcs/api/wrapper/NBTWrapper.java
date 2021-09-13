@@ -34,7 +34,7 @@ public class NBTWrapper implements INbt {
      }
 
      public void setBoolean(String key, boolean value) {
-          this.compound.func_74757_a(key, value);
+          this.compound.setBoolean(key, value);
      }
 
      public short getShort(String key) {
@@ -46,7 +46,7 @@ public class NBTWrapper implements INbt {
      }
 
      public int getInteger(String key) {
-          return this.compound.func_74762_e(key);
+          return this.compound.getInteger(key);
      }
 
      public void setInteger(String key, int value) {
@@ -54,19 +54,19 @@ public class NBTWrapper implements INbt {
      }
 
      public byte getByte(String key) {
-          return this.compound.func_74771_c(key);
+          return this.compound.getByte(key);
      }
 
      public void setByte(String key, byte value) {
-          this.compound.func_74774_a(key, value);
+          this.compound.setByte(key, value);
      }
 
      public long getLong(String key) {
-          return this.compound.func_74763_f(key);
+          return this.compound.getLong(key);
      }
 
      public void setLong(String key, long value) {
-          this.compound.func_74772_a(key, value);
+          this.compound.setLong(key, value);
      }
 
      public double getDouble(String key) {
@@ -78,11 +78,11 @@ public class NBTWrapper implements INbt {
      }
 
      public float getFloat(String key) {
-          return this.compound.func_74760_g(key);
+          return this.compound.getFloat(key);
      }
 
      public void setFloat(String key, float value) {
-          this.compound.func_74776_a(key, value);
+          this.compound.setFloat(key, value);
      }
 
      public String getString(String key) {
@@ -102,7 +102,7 @@ public class NBTWrapper implements INbt {
      }
 
      public int[] getIntegerArray(String key) {
-          return this.compound.func_74759_k(key);
+          return this.compound.getIntArray(key);
      }
 
      public void setIntegerArray(String key, int[] value) {
@@ -136,7 +136,7 @@ public class NBTWrapper implements INbt {
           NBTBase b = this.compound.getTag(key);
           if (b == null) {
                return 0;
-          } else if (b.func_74732_a() != 9) {
+          } else if (b.getId() != 9) {
                throw new CustomNPCsException("NBT tag " + key + " isn't a list", new Object[0]);
           } else {
                return ((NBTTagList)b).func_150303_d();

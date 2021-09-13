@@ -84,7 +84,7 @@ public class RecipeController implements IRecipeHandler {
 
      private void loadCategories(File file) throws Exception {
           NBTTagCompound nbttagcompound1 = CompressedStreamTools.func_74796_a(new FileInputStream(file));
-          this.nextId = nbttagcompound1.func_74762_e("LastId");
+          this.nextId = nbttagcompound1.getInteger("LastId");
           NBTTagList list = nbttagcompound1.getTagList("Data", 10);
           HashMap globalRecipes = new HashMap();
           HashMap anvilRecipes = new HashMap();
@@ -105,7 +105,7 @@ public class RecipeController implements IRecipeHandler {
 
           this.anvilRecipes = anvilRecipes;
           this.globalRecipes = globalRecipes;
-          this.loadDefaultRecipes(nbttagcompound1.func_74762_e("Version"));
+          this.loadDefaultRecipes(nbttagcompound1.getInteger("Version"));
      }
 
      private void saveCategories() {
@@ -282,14 +282,14 @@ public class RecipeController implements IRecipeHandler {
      }
 
      public IRecipe addRecipe(String name, boolean global, ItemStack result, int width, int height, ItemStack... objects) {
-          NonNullList list = NonNullList.func_191196_a();
+          NonNullList list = NonNullList.create();
           ItemStack[] var8 = objects;
           int var9 = objects.length;
 
           for(int var10 = 0; var10 < var9; ++var10) {
                ItemStack item = var8[var10];
-               if (!item.func_190926_b()) {
-                    list.add(Ingredient.func_193369_a(new ItemStack[]{item}));
+               if (!item.isEmpty()) {
+                    list.add(Ingredient.fromStacks(new ItemStack[]{item}));
                }
           }
 

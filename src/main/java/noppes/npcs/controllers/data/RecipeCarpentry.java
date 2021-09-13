@@ -34,14 +34,14 @@ public class RecipeCarpentry extends ShapedRecipes implements IRecipe {
      }
 
      public RecipeCarpentry(String name) {
-          super("customnpcs", 0, 0, NonNullList.func_191196_a(), ItemStack.field_190927_a);
+          super("customnpcs", 0, 0, NonNullList.create(), ItemStack.EMPTY);
           this.name = name;
      }
 
      public static RecipeCarpentry read(NBTTagCompound compound) {
-          RecipeCarpentry recipe = new RecipeCarpentry(compound.func_74762_e("Width"), compound.func_74762_e("Height"), NBTTags.getIngredientList(compound.getTagList("Materials", 10)), new ItemStack(compound.getCompoundTag("Item")));
+          RecipeCarpentry recipe = new RecipeCarpentry(compound.getInteger("Width"), compound.getInteger("Height"), NBTTags.getIngredientList(compound.getTagList("Materials", 10)), new ItemStack(compound.getCompoundTag("Item")));
           recipe.name = compound.getString("Name");
-          recipe.id = compound.func_74762_e("ID");
+          recipe.id = compound.getInteger("ID");
           recipe.availability.readFromNBT(compound.getCompoundTag("Availability"));
           recipe.ignoreDamage = compound.getBoolean("IgnoreDamage");
           recipe.ignoreNBT = compound.getBoolean("IgnoreNBT");
@@ -54,16 +54,16 @@ public class RecipeCarpentry extends ShapedRecipes implements IRecipe {
           compound.setInteger("ID", this.id);
           compound.setInteger("Width", this.field_77576_b);
           compound.setInteger("Height", this.field_77577_c);
-          if (this.func_77571_b() != null) {
-               compound.setTag("Item", this.func_77571_b().func_77955_b(new NBTTagCompound()));
+          if (this.getResult() != null) {
+               compound.setTag("Item", this.getResult().writeToNBT(new NBTTagCompound()));
           }
 
-          compound.setTag("Materials", NBTTags.nbtIngredientList(this.field_77574_d));
+          compound.setTag("Materials", NBTTags.nbtIngredientList(this.recipeItems));
           compound.setTag("Availability", this.availability.writeToNBT(new NBTTagCompound()));
           compound.setString("Name", this.name);
-          compound.func_74757_a("Global", this.isGlobal);
-          compound.func_74757_a("IgnoreDamage", this.ignoreDamage);
-          compound.func_74757_a("IgnoreNBT", this.ignoreNBT);
+          compound.setBoolean("Global", this.isGlobal);
+          compound.setBoolean("IgnoreDamage", this.ignoreDamage);
+          compound.setBoolean("IgnoreNBT", this.ignoreNBT);
           return compound;
      }
 
@@ -96,7 +96,7 @@ public class RecipeCarpentry extends ShapedRecipes implements IRecipe {
           HashMap var14;
           for(var14 = new HashMap(); var4 < par2ArrayOfObj.length; var4 += 2) {
                Character var16 = (Character)par2ArrayOfObj[var4];
-               ItemStack var17 = ItemStack.field_190927_a;
+               ItemStack var17 = ItemStack.EMPTY;
                if (par2ArrayOfObj[var4 + 1] instanceof Item) {
                     var17 = new ItemStack((Item)par2ArrayOfObj[var4 + 1]);
                } else if (par2ArrayOfObj[var4 + 1] instanceof Block) {
@@ -108,12 +108,12 @@ public class RecipeCarpentry extends ShapedRecipes implements IRecipe {
                var14.put(var16, var17);
           }
 
-          NonNullList ingredients = NonNullList.func_191196_a();
+          NonNullList ingredients = NonNullList.create();
 
           for(var9 = 0; var9 < var5 * var6; ++var9) {
                char var18 = var3.charAt(var9);
                if (var14.containsKey(var18)) {
-                    ingredients.add(var9, Ingredient.func_193369_a(new ItemStack[]{((ItemStack)var14.get(var18)).func_77946_l()}));
+                    ingredients.add(var9, Ingredient.fromStacks(new ItemStack[]{((ItemStack)var14.get(var18)).copy()}));
                } else {
                     ingredients.add(var9, Ingredient.field_193370_a);
                }
@@ -145,7 +145,7 @@ public class RecipeCarpentry extends ShapedRecipes implements IRecipe {
      }
 
      public ItemStack func_77572_b(InventoryCrafting var1) {
-          return this.func_77571_b().func_190926_b() ? ItemStack.field_190927_a : this.func_77571_b().func_77946_l();
+          return this.getResult().isEmpty() ? ItemStack.EMPTY : this.getResult().copy();
      }
 
      private boolean checkMatch(InventoryCrafting inventoryCrafting, int par2, int par3, boolean par4) {
@@ -156,19 +156,19 @@ public class RecipeCarpentry extends ShapedRecipes implements IRecipe {
                     Ingredient ingredient = Ingredient.field_193370_a;
                     if (var7 >= 0 && var8 >= 0 && var7 < this.field_77576_b && var8 < this.field_77577_c) {
                          if (par4) {
-                              ingredient = (Ingredient)this.field_77574_d.get(this.field_77576_b - var7 - 1 + var8 * this.field_77576_b);
+                              ingredient = (Ingredient)this.recipeItems.get(this.field_77576_b - var7 - 1 + var8 * this.field_77576_b);
                          } else {
-                              ingredient = (Ingredient)this.field_77574_d.get(var7 + var8 * this.field_77576_b);
+                              ingredient = (Ingredient)this.recipeItems.get(var7 + var8 * this.field_77576_b);
                          }
                     }
 
-                    ItemStack var10 = inventoryCrafting.func_70463_b(i, j);
-                    if (!var10.func_190926_b() || ingredient.func_193365_a().length == 0) {
+                    ItemStack var10 = inventoryCrafting.getStackInRowAndColumn(i, j);
+                    if (!var10.isEmpty() || ingredient.getMatchingStacks().length == 0) {
                          return false;
                     }
 
-                    ItemStack var9 = ingredient.func_193365_a()[0];
-                    if ((!var10.func_190926_b() || !var9.func_190926_b()) && !NoppesUtilPlayer.compareItems(var9, var10, this.ignoreDamage, this.ignoreNBT)) {
+                    ItemStack var9 = ingredient.getMatchingStacks()[0];
+                    if ((!var10.isEmpty() || !var9.isEmpty()) && !NoppesUtilPlayer.compareItems(var9, var10, this.ignoreDamage, this.ignoreNBT)) {
                          return false;
                     }
                }
@@ -178,10 +178,10 @@ public class RecipeCarpentry extends ShapedRecipes implements IRecipe {
      }
 
      public NonNullList func_179532_b(InventoryCrafting inventoryCrafting) {
-          NonNullList list = NonNullList.func_191197_a(inventoryCrafting.func_70302_i_(), ItemStack.field_190927_a);
+          NonNullList list = NonNullList.func_191197_a(inventoryCrafting.getSizeInventory(), ItemStack.EMPTY);
 
           for(int i = 0; i < list.size(); ++i) {
-               ItemStack itemstack = inventoryCrafting.func_70301_a(i);
+               ItemStack itemstack = inventoryCrafting.getStackInSlot(i);
                list.set(i, ForgeHooks.getContainerItem(itemstack));
           }
 
@@ -198,17 +198,17 @@ public class RecipeCarpentry extends ShapedRecipes implements IRecipe {
      }
 
      public ItemStack getCraftingItem(int i) {
-          if (this.field_77574_d != null && i < this.field_77574_d.size()) {
-               Ingredient ingredients = (Ingredient)this.field_77574_d.get(i);
-               return ingredients.func_193365_a().length == 0 ? ItemStack.field_190927_a : ingredients.func_193365_a()[0];
+          if (this.recipeItems != null && i < this.recipeItems.size()) {
+               Ingredient ingredients = (Ingredient)this.recipeItems.get(i);
+               return ingredients.getMatchingStacks().length == 0 ? ItemStack.EMPTY : ingredients.getMatchingStacks()[0];
           } else {
-               return ItemStack.field_190927_a;
+               return ItemStack.EMPTY;
           }
      }
 
      public boolean isValid() {
-          if (this.field_77574_d.size() != 0 && !this.func_77571_b().func_190926_b()) {
-               Iterator var1 = this.field_77574_d.iterator();
+          if (this.recipeItems.size() != 0 && !this.getResult().isEmpty()) {
+               Iterator var1 = this.recipeItems.iterator();
 
                Ingredient ingredient;
                do {
@@ -217,7 +217,7 @@ public class RecipeCarpentry extends ShapedRecipes implements IRecipe {
                     }
 
                     ingredient = (Ingredient)var1.next();
-               } while(ingredient.func_193365_a().length <= 0);
+               } while(ingredient.getMatchingStacks().length <= 0);
 
                return true;
           } else {
@@ -230,7 +230,7 @@ public class RecipeCarpentry extends ShapedRecipes implements IRecipe {
      }
 
      public ItemStack getResult() {
-          return this.func_77571_b();
+          return this.getResult();
      }
 
      public boolean isGlobal() {
@@ -279,12 +279,12 @@ public class RecipeCarpentry extends ShapedRecipes implements IRecipe {
 
      public ItemStack[] getRecipe() {
           List list = new ArrayList();
-          Iterator var2 = this.field_77574_d.iterator();
+          Iterator var2 = this.recipeItems.iterator();
 
           while(var2.hasNext()) {
                Ingredient ingredient = (Ingredient)var2.next();
-               if (ingredient.func_193365_a().length > 0) {
-                    list.add(ingredient.func_193365_a()[0]);
+               if (ingredient.getMatchingStacks().length > 0) {
+                    list.add(ingredient.getMatchingStacks()[0]);
                }
           }
 

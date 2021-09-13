@@ -63,7 +63,7 @@ public class WrapperNpcAPI extends NpcAPI {
      }
 
      public IEntity getIEntity(Entity entity) {
-          if (entity != null && !entity.world.field_72995_K) {
+          if (entity != null && !entity.world.isRemote) {
                return (IEntity)(entity instanceof EntityNPCInterface ? ((EntityNPCInterface)entity).wrappedNPC : WrapperEntityData.get(entity));
           } else {
                return null;
@@ -71,7 +71,7 @@ public class WrapperNpcAPI extends NpcAPI {
      }
 
      public ICustomNpc createNPC(World world) {
-          if (world.field_72995_K) {
+          if (world.isRemote) {
                return null;
           } else {
                EntityCustomNpc npc = new EntityCustomNpc(world);
@@ -97,7 +97,7 @@ public class WrapperNpcAPI extends NpcAPI {
      }
 
      public ICustomNpc spawnNPC(World world, int x, int y, int z) {
-          if (world.field_72995_K) {
+          if (world.isRemote) {
                return null;
           } else {
                EntityCustomNpc npc = new EntityCustomNpc(world);
@@ -122,11 +122,11 @@ public class WrapperNpcAPI extends NpcAPI {
      }
 
      public IBlock getIBlock(World world, BlockPos pos) {
-          return BlockWrapper.createNew(world, pos, world.func_180495_p(pos));
+          return BlockWrapper.createNew(world, pos, world.getBlockState(pos));
      }
 
      public IItemStack getIItemStack(ItemStack itemstack) {
-          return (IItemStack)(itemstack != null && !itemstack.func_190926_b() ? (IItemStack)itemstack.getCapability(ItemStackWrapper.ITEMSCRIPTEDDATA_CAPABILITY, (EnumFacing)null) : ItemStackWrapper.AIR);
+          return (IItemStack)(itemstack != null && !itemstack.isEmpty() ? (IItemStack)itemstack.getCapability(ItemStackWrapper.ITEMSCRIPTEDDATA_CAPABILITY, (EnumFacing)null) : ItemStackWrapper.AIR);
      }
 
      public IWorld getIWorld(WorldServer world) {

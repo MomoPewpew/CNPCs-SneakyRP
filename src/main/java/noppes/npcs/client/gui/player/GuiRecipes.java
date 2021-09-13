@@ -85,10 +85,10 @@ public class GuiRecipes extends GuiNPCInterface {
                }
 
                irecipe = (IRecipe)this.recipes.get(index);
-               if (!irecipe.func_77571_b().func_190926_b()) {
+               if (!irecipe.getResult().isEmpty()) {
                     int x = this.guiLeft + 5 + i / 2 * 126;
                     x = this.guiTop + 15 + i % 2 * 76;
-                    this.drawItem(irecipe.func_77571_b(), x + 98, x + 28, xMouse, yMouse);
+                    this.drawItem(irecipe.getResult(), x + 98, x + 28, xMouse, yMouse);
                     if (irecipe instanceof RecipeCarpentry) {
                          RecipeCarpentry recipe = (RecipeCarpentry)irecipe;
                          x += (72 - recipe.field_77576_b * 18) / 2;
@@ -100,7 +100,7 @@ public class GuiRecipes extends GuiNPCInterface {
                                    GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
                                    this.drawTexturedModalRect(x + j * 18, x + k * 18, 0, 0, 18, 18);
                                    item = recipe.getCraftingItem(j + k * recipe.field_77576_b);
-                                   if (!item.func_190926_b()) {
+                                   if (!item.isEmpty()) {
                                         this.drawItem(item, x + j * 18 + 1, x + k * 18 + 1, xMouse, yMouse);
                                    }
                               }
@@ -118,17 +118,17 @@ public class GuiRecipes extends GuiNPCInterface {
                irecipe = (IRecipe)this.recipes.get(index);
                if (irecipe instanceof RecipeCarpentry) {
                     RecipeCarpentry recipe = (RecipeCarpentry)irecipe;
-                    if (!recipe.func_77571_b().func_190926_b()) {
+                    if (!recipe.getResult().isEmpty()) {
                          x = this.guiLeft + 5 + i / 2 * 126;
                          int y = this.guiTop + 15 + i % 2 * 76;
-                         this.drawOverlay(recipe.func_77571_b(), x + 98, y + 22, xMouse, yMouse);
+                         this.drawOverlay(recipe.getResult(), x + 98, y + 22, xMouse, yMouse);
                          x += (72 - recipe.field_77576_b * 18) / 2;
                          y += (72 - recipe.field_77577_c * 18) / 2;
 
                          for(j = 0; j < recipe.field_77576_b; ++j) {
                               for(k = 0; k < recipe.field_77577_c; ++k) {
                                    item = recipe.getCraftingItem(j + k * recipe.field_77576_b);
-                                   if (!item.func_190926_b()) {
+                                   if (!item.isEmpty()) {
                                         this.drawOverlay(item, x + j * 18 + 1, y + k * 18 + 1, xMouse, yMouse);
                                    }
                               }

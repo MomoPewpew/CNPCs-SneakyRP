@@ -36,7 +36,7 @@ public class RoleDialog extends RoleInterface implements IRoleDialog {
      }
 
      public void readFromNBT(NBTTagCompound compound) {
-          this.questId = compound.func_74762_e("RoleQuestId");
+          this.questId = compound.getInteger("RoleQuestId");
           this.dialog = compound.getString("RoleDialog");
           this.options = NBTTags.getIntegerStringMap(compound.getTagList("RoleOptions", 10));
           this.optionsTexts = NBTTags.getIntegerStringMap(compound.getTagList("RoleOptionTexts", 10));

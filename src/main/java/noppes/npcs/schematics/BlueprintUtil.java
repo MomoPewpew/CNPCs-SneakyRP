@@ -32,9 +32,9 @@ public class BlueprintUtil {
           for(short y = 0; y < sizeY; ++y) {
                for(short z = 0; z < sizeZ; ++z) {
                     for(short x = 0; x < sizeX; ++x) {
-                         IBlockState state = world.func_180495_p(pos.func_177982_a(x, y, z));
+                         IBlockState state = world.getBlockState(pos.func_177982_a(x, y, z));
                          String modName;
-                         if (!requiredMods.contains(modName = state.func_177230_c().getRegistryName().func_110624_b())) {
+                         if (!requiredMods.contains(modName = state.getBlock().getRegistryName().func_110624_b())) {
                               requiredMods.add(modName);
                          }
 
@@ -74,7 +74,7 @@ public class BlueprintUtil {
 
      public static NBTTagCompound writeBlueprintToNBT(Blueprint schem) {
           NBTTagCompound tag = new NBTTagCompound();
-          tag.func_74774_a("version", (byte)1);
+          tag.setByte("version", (byte)1);
           tag.func_74777_a("size_x", schem.getSizeX());
           tag.func_74777_a("size_y", schem.getSizeY());
           tag.func_74777_a("size_z", schem.getSizeZ());
@@ -129,7 +129,7 @@ public class BlueprintUtil {
      }
 
      public static Blueprint readBlueprintFromNBT(NBTTagCompound tag) {
-          byte version = tag.func_74771_c("version");
+          byte version = tag.getByte("version");
           if (version != 1) {
                return null;
           } else {
@@ -156,7 +156,7 @@ public class BlueprintUtil {
                     palette[i] = NBTUtil.func_190008_d(paletteTag.getCompoundTagAt(i));
                }
 
-               short[][][] blocks = convertSaveDataToBlocks(tag.func_74759_k("blocks"), sizeX, sizeY, sizeZ);
+               short[][][] blocks = convertSaveDataToBlocks(tag.getIntArray("blocks"), sizeX, sizeY, sizeZ);
                NBTTagList teTag = (NBTTagList)tag.getTag("tile_entities");
                NBTTagCompound[] tileEntities = new NBTTagCompound[teTag.tagCount()];
 

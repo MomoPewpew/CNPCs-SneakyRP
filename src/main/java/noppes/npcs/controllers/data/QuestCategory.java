@@ -15,7 +15,7 @@ public class QuestCategory implements IQuestCategory {
      public String title = "";
 
      public void readNBT(NBTTagCompound nbttagcompound) {
-          this.id = nbttagcompound.func_74762_e("Slot");
+          this.id = nbttagcompound.getInteger("Slot");
           this.title = nbttagcompound.getString("Title");
           NBTTagList dialogsList = nbttagcompound.getTagList("Dialogs", 10);
           if (dialogsList != null) {

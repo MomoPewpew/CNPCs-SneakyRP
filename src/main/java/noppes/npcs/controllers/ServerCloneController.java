@@ -84,9 +84,9 @@ public class ServerCloneController implements ICloneHandler {
                          compound.setInteger("ClonedTab", 1);
                     }
 
-                    Map tab = (Map)clones.get(compound.func_74762_e("ClonedTab"));
+                    Map tab = (Map)clones.get(compound.getInteger("ClonedTab"));
                     if (tab == null) {
-                         clones.put(compound.func_74762_e("ClonedTab"), tab = new HashMap());
+                         clones.put(compound.getInteger("ClonedTab"), tab = new HashMap());
                     }
 
                     String name = compound.getString("ClonedName");

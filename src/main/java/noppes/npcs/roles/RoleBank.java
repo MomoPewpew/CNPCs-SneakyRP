@@ -21,7 +21,7 @@ public class RoleBank extends RoleInterface {
      }
 
      public void readFromNBT(NBTTagCompound nbttagcompound) {
-          this.bankId = nbttagcompound.func_74762_e("RoleBankID");
+          this.bankId = nbttagcompound.getInteger("RoleBankID");
      }
 
      public void interact(EntityPlayer player) {

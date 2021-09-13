@@ -293,14 +293,14 @@ public class EntityWrapper implements IEntity {
      }
 
      private IEntity[] findEntityOnPath(double distance, Vec3d vec3d, Vec3d vec3d1) {
-          List list = this.entity.world.func_72839_b(this.entity, this.entity.func_174813_aQ().func_186662_g(distance));
+          List list = this.entity.world.func_72839_b(this.entity, this.entity.getEntityBoundingBox().func_186662_g(distance));
           List result = new ArrayList();
           Iterator var7 = list.iterator();
 
           while(var7.hasNext()) {
                Entity entity1 = (Entity)var7.next();
                if (entity1.func_70067_L() && entity1 != this.entity) {
-                    AxisAlignedBB axisalignedbb = entity1.func_174813_aQ().func_186662_g((double)entity1.func_70111_Y());
+                    AxisAlignedBB axisalignedbb = entity1.getEntityBoundingBox().func_186662_g((double)entity1.func_70111_Y());
                     RayTraceResult raytraceresult1 = axisalignedbb.func_72327_a(vec3d, vec3d1);
                     if (raytraceresult1 != null) {
                          result.add(NpcAPI.Instance().getIEntity(entity1));
@@ -375,9 +375,9 @@ public class EntityWrapper implements IEntity {
           float v = direction * 3.1415927F / 180.0F;
           this.entity.func_70024_g((double)(-MathHelper.func_76126_a(v) * (float)power), 0.1D + (double)((float)power * 0.04F), (double)(MathHelper.func_76134_b(v) * (float)power));
           Entity var10000 = this.entity;
-          var10000.field_70159_w *= 0.6D;
+          var10000.motionX *= 0.6D;
           var10000 = this.entity;
-          var10000.field_70179_y *= 0.6D;
+          var10000.motionZ *= 0.6D;
           this.entity.field_70133_I = true;
      }
 
@@ -484,34 +484,34 @@ public class EntityWrapper implements IEntity {
      }
 
      public double getMotionX() {
-          return this.entity.field_70159_w;
+          return this.entity.motionX;
      }
 
      public double getMotionY() {
-          return this.entity.field_70181_x;
+          return this.entity.motionY;
      }
 
      public double getMotionZ() {
-          return this.entity.field_70179_y;
+          return this.entity.motionZ;
      }
 
      public void setMotionX(double motion) {
-          if (this.entity.field_70159_w != motion) {
-               this.entity.field_70159_w = motion;
+          if (this.entity.motionX != motion) {
+               this.entity.motionX = motion;
                this.entity.field_70133_I = true;
           }
      }
 
      public void setMotionY(double motion) {
-          if (this.entity.field_70181_x != motion) {
-               this.entity.field_70181_x = motion;
+          if (this.entity.motionY != motion) {
+               this.entity.motionY = motion;
                this.entity.field_70133_I = true;
           }
      }
 
      public void setMotionZ(double motion) {
-          if (this.entity.field_70179_y != motion) {
-               this.entity.field_70179_y = motion;
+          if (this.entity.motionZ != motion) {
+               this.entity.motionZ = motion;
                this.entity.field_70133_I = true;
           }
      }

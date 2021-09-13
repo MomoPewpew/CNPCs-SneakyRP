@@ -139,12 +139,12 @@ public class GuiNPCBankChest extends GuiContainerNPCInterface implements IGuiDat
      }
 
      public void setGuiData(NBTTagCompound compound) {
-          this.maxSlots = compound.func_74762_e("MaxSlots");
-          this.unlockedSlots = compound.func_74762_e("UnlockedSlots");
+          this.maxSlots = compound.getInteger("MaxSlots");
+          this.unlockedSlots = compound.getInteger("UnlockedSlots");
           if (compound.hasKey("Currency")) {
                this.currency = new ItemStack(compound.getCompoundTag("Currency"));
           } else {
-               this.currency = ItemStack.field_190927_a;
+               this.currency = ItemStack.EMPTY;
           }
 
           if (this.container.currency != null) {

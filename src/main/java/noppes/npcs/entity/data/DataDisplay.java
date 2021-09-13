@@ -67,7 +67,7 @@ public class DataDisplay implements INPCDisplay {
           nbttagcompound.setString("Texture", this.texture);
           nbttagcompound.setString("CloakTexture", this.cloakTexture);
           nbttagcompound.setString("GlowTexture", this.glowTexture);
-          nbttagcompound.func_74774_a("UsingSkinUrl", this.skinType);
+          nbttagcompound.setByte("UsingSkinUrl", this.skinType);
           if (this.playerProfile != null) {
                NBTTagCompound nbttagcompound1 = new NBTTagCompound();
                NBTUtil.func_180708_a(nbttagcompound1, this.playerProfile);
@@ -78,49 +78,49 @@ public class DataDisplay implements INPCDisplay {
           nbttagcompound.setInteger("ShowName", this.showName);
           nbttagcompound.setInteger("SkinColor", this.skinColor);
           nbttagcompound.setInteger("NpcVisible", this.visible);
-          nbttagcompound.func_74757_a("NoLivingAnimation", this.disableLivingAnimation);
-          nbttagcompound.func_74757_a("IsStatue", this.noHitbox);
-          nbttagcompound.func_74774_a("BossBar", this.showBossBar);
+          nbttagcompound.setBoolean("NoLivingAnimation", this.disableLivingAnimation);
+          nbttagcompound.setBoolean("IsStatue", this.noHitbox);
+          nbttagcompound.setByte("BossBar", this.showBossBar);
           nbttagcompound.setInteger("BossColor", this.bossColor.ordinal());
           return nbttagcompound;
      }
 
      public void readToNBT(NBTTagCompound nbttagcompound) {
           this.setName(nbttagcompound.getString("Name"));
-          this.setMarkovGeneratorId(nbttagcompound.func_74762_e("MarkovGeneratorId"));
-          this.setMarkovGender(nbttagcompound.func_74762_e("MarkovGender"));
+          this.setMarkovGeneratorId(nbttagcompound.getInteger("MarkovGeneratorId"));
+          this.setMarkovGender(nbttagcompound.getInteger("MarkovGender"));
           this.title = nbttagcompound.getString("Title");
           int prevSkinType = this.skinType;
           String prevTexture = this.texture;
           String prevUrl = this.url;
           String prevPlayer = this.getSkinPlayer();
           this.url = nbttagcompound.getString("SkinUrl");
-          this.skinType = nbttagcompound.func_74771_c("UsingSkinUrl");
+          this.skinType = nbttagcompound.getByte("UsingSkinUrl");
           this.texture = nbttagcompound.getString("Texture");
           this.cloakTexture = nbttagcompound.getString("CloakTexture");
           this.glowTexture = nbttagcompound.getString("GlowTexture");
           this.playerProfile = null;
           if (this.skinType == 1) {
-               if (nbttagcompound.func_150297_b("SkinUsername", 10)) {
+               if (nbttagcompound.hasKey("SkinUsername", 10)) {
                     this.playerProfile = NBTUtil.func_152459_a(nbttagcompound.getCompoundTag("SkinUsername"));
-               } else if (nbttagcompound.func_150297_b("SkinUsername", 8) && !StringUtils.func_151246_b(nbttagcompound.getString("SkinUsername"))) {
+               } else if (nbttagcompound.hasKey("SkinUsername", 8) && !StringUtils.func_151246_b(nbttagcompound.getString("SkinUsername"))) {
                     this.playerProfile = new GameProfile((UUID)null, nbttagcompound.getString("SkinUsername"));
                }
 
                this.loadProfile();
           }
 
-          this.modelSize = ValueUtil.CorrectInt(nbttagcompound.func_74762_e("Size"), 1, 30);
-          this.showName = nbttagcompound.func_74762_e("ShowName");
+          this.modelSize = ValueUtil.CorrectInt(nbttagcompound.getInteger("Size"), 1, 30);
+          this.showName = nbttagcompound.getInteger("ShowName");
           if (nbttagcompound.hasKey("SkinColor")) {
-               this.skinColor = nbttagcompound.func_74762_e("SkinColor");
+               this.skinColor = nbttagcompound.getInteger("SkinColor");
           }
 
-          this.visible = nbttagcompound.func_74762_e("NpcVisible");
+          this.visible = nbttagcompound.getInteger("NpcVisible");
           this.disableLivingAnimation = nbttagcompound.getBoolean("NoLivingAnimation");
           this.noHitbox = nbttagcompound.getBoolean("IsStatue");
-          this.setBossbar(nbttagcompound.func_74771_c("BossBar"));
-          this.setBossColor(nbttagcompound.func_74762_e("BossColor"));
+          this.setBossbar(nbttagcompound.getByte("BossBar"));
+          this.setBossColor(nbttagcompound.getInteger("BossColor"));
           if (prevSkinType != this.skinType || !this.texture.equals(prevTexture) || !this.url.equals(prevUrl) || !this.getSkinPlayer().equals(prevPlayer)) {
                this.npc.textureLocation = null;
           }
@@ -131,12 +131,12 @@ public class DataDisplay implements INPCDisplay {
      }
 
      public void loadProfile() {
-          if (this.playerProfile != null && !StringUtils.func_151246_b(this.playerProfile.getName()) && this.npc.func_184102_h() != null && (!this.playerProfile.isComplete() || !this.playerProfile.getProperties().containsKey("textures"))) {
-               GameProfile gameprofile = this.npc.func_184102_h().func_152358_ax().func_152655_a(this.playerProfile.getName());
+          if (this.playerProfile != null && !StringUtils.func_151246_b(this.playerProfile.getName()) && this.npc.getServer() != null && (!this.playerProfile.isComplete() || !this.playerProfile.getProperties().containsKey("textures"))) {
+               GameProfile gameprofile = this.npc.getServer().func_152358_ax().func_152655_a(this.playerProfile.getName());
                if (gameprofile != null) {
                     Property property = (Property)Iterables.getFirst(gameprofile.getProperties().get("textures"), (Object)null);
                     if (property == null) {
-                         gameprofile = this.npc.func_184102_h().func_147130_as().fillProfileProperties(gameprofile, true);
+                         gameprofile = this.npc.getServer().func_147130_as().fillProfileProperties(gameprofile, true);
                     }
 
                     this.playerProfile = gameprofile;

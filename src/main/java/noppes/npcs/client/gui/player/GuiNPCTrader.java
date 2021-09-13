@@ -45,13 +45,13 @@ public class GuiNPCTrader extends GuiContainerNPCInterface {
                ItemStack item2 = (ItemStack)this.role.inventoryCurrency.items.get(slot + 18);
                if (NoppesUtilServer.IsItemStackNull(item)) {
                     item = item2;
-                    item2 = ItemStack.field_190927_a;
+                    item2 = ItemStack.EMPTY;
                }
 
                if (NoppesUtilPlayer.compareItems(item, item2, false, false)) {
-                    item = item.func_77946_l();
-                    item.func_190920_e(item.func_190916_E() + item2.func_190916_E());
-                    item2 = ItemStack.field_190927_a;
+                    item = item.copy();
+                    item.func_190920_e(item.getCount() + item2.getCount());
+                    item2 = ItemStack.EMPTY;
                }
 
                ItemStack sold = (ItemStack)this.role.inventorySold.items.get(slot);
@@ -84,13 +84,13 @@ public class GuiNPCTrader extends GuiContainerNPCInterface {
                ItemStack item2 = (ItemStack)this.role.inventoryCurrency.items.get(slot + 18);
                if (NoppesUtilServer.IsItemStackNull(item)) {
                     item = item2;
-                    item2 = ItemStack.field_190927_a;
+                    item2 = ItemStack.EMPTY;
                }
 
                if (NoppesUtilPlayer.compareItems(item, item2, this.role.ignoreDamage, this.role.ignoreNBT)) {
-                    item = item.func_77946_l();
-                    item.func_190920_e(item.func_190916_E() + item2.func_190916_E());
-                    item2 = ItemStack.field_190927_a;
+                    item = item.copy();
+                    item.func_190920_e(item.getCount() + item2.getCount());
+                    item2 = ItemStack.EMPTY;
                }
 
                ItemStack sold = (ItemStack)this.role.inventorySold.items.get(slot);
@@ -99,11 +99,11 @@ public class GuiNPCTrader extends GuiContainerNPCInterface {
                          String title;
                          if (!this.container.canBuy(item, item2, this.player)) {
                               GlStateManager.func_179109_b(0.0F, 0.0F, 300.0F);
-                              if (!item.func_190926_b() && !NoppesUtilPlayer.compareItems((EntityPlayer)this.player, item, this.role.ignoreDamage, this.role.ignoreNBT)) {
+                              if (!item.isEmpty() && !NoppesUtilPlayer.compareItems((EntityPlayer)this.player, item, this.role.ignoreDamage, this.role.ignoreNBT)) {
                                    this.func_73733_a(x + 17, y, x + 35, y + 18, 1886851088, 1886851088);
                               }
 
-                              if (!item2.func_190926_b() && !NoppesUtilPlayer.compareItems((EntityPlayer)this.player, item2, this.role.ignoreDamage, this.role.ignoreNBT)) {
+                              if (!item2.isEmpty() && !NoppesUtilPlayer.compareItems((EntityPlayer)this.player, item2, this.role.ignoreDamage, this.role.ignoreNBT)) {
                                    this.func_73733_a(x - 1, y, x + 17, y + 18, 1886851088, 1886851088);
                               }
 

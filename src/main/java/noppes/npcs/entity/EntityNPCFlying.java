@@ -34,38 +34,38 @@ public abstract class EntityNPCFlying extends EntityNPCInterface {
                super.func_191986_a(par1, par2, par3);
           } else {
                if (!this.func_70090_H() && this.ais.movementType == 2) {
-                    this.field_70181_x = -0.15D;
+                    this.motionY = -0.15D;
                }
 
                if (this.func_70090_H() && this.ais.movementType == 1) {
                     this.func_191958_b(par1, par2, par3, 0.02F);
-                    this.func_70091_d(MoverType.SELF, this.field_70159_w, this.field_70181_x, this.field_70179_y);
-                    this.field_70159_w *= 0.800000011920929D;
-                    this.field_70181_x *= 0.800000011920929D;
-                    this.field_70179_y *= 0.800000011920929D;
+                    this.func_70091_d(MoverType.SELF, this.motionX, this.motionY, this.motionZ);
+                    this.motionX *= 0.800000011920929D;
+                    this.motionY *= 0.800000011920929D;
+                    this.motionZ *= 0.800000011920929D;
                } else if (this.func_180799_ab()) {
                     this.func_191958_b(par1, par2, par3, 0.02F);
-                    this.func_70091_d(MoverType.SELF, this.field_70159_w, this.field_70181_x, this.field_70179_y);
-                    this.field_70159_w *= 0.5D;
-                    this.field_70181_x *= 0.5D;
-                    this.field_70179_y *= 0.5D;
+                    this.func_70091_d(MoverType.SELF, this.motionX, this.motionY, this.motionZ);
+                    this.motionX *= 0.5D;
+                    this.motionY *= 0.5D;
+                    this.motionZ *= 0.5D;
                } else {
                     float f2 = 0.91F;
                     if (this.field_70122_E) {
-                         f2 = this.world.func_180495_p(new BlockPos(this.field_70165_t, this.func_174813_aQ().field_72338_b - 1.0D, this.field_70161_v)).func_177230_c().field_149765_K * 0.91F;
+                         f2 = this.world.getBlockState(new BlockPos(this.field_70165_t, this.getEntityBoundingBox().field_72338_b - 1.0D, this.field_70161_v)).getBlock().field_149765_K * 0.91F;
                     }
 
                     float f3 = 0.16277136F / (f2 * f2 * f2);
                     this.func_191958_b(par1, par2, par3, this.field_70122_E ? 0.1F * f3 : 0.02F);
                     f2 = 0.91F;
                     if (this.field_70122_E) {
-                         f2 = this.world.func_180495_p(new BlockPos(this.field_70165_t, this.func_174813_aQ().field_72338_b - 1.0D, this.field_70161_v)).func_177230_c().field_149765_K * 0.91F;
+                         f2 = this.world.getBlockState(new BlockPos(this.field_70165_t, this.getEntityBoundingBox().field_72338_b - 1.0D, this.field_70161_v)).getBlock().field_149765_K * 0.91F;
                     }
 
-                    this.func_70091_d(MoverType.SELF, this.field_70159_w, this.field_70181_x, this.field_70179_y);
-                    this.field_70159_w *= (double)f2;
-                    this.field_70181_x *= (double)f2;
-                    this.field_70179_y *= (double)f2;
+                    this.func_70091_d(MoverType.SELF, this.motionX, this.motionY, this.motionZ);
+                    this.motionX *= (double)f2;
+                    this.motionY *= (double)f2;
+                    this.motionZ *= (double)f2;
                }
 
                this.field_184618_aE = this.field_70721_aZ;

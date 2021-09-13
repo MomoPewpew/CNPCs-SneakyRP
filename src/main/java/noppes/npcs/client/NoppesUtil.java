@@ -48,7 +48,7 @@ public class NoppesUtil {
           float width = buffer.readFloat();
           String particle = Server.readString(buffer);
           World world = Minecraft.getMinecraft().field_71441_e;
-          Random rand = world.field_73012_v;
+          Random rand = world.rand;
           if (particle.equals("heal")) {
                for(int k = 0; k < 6; ++k) {
                     world.func_175688_a(EnumParticleTypes.SPELL_INSTANT, posX + (rand.nextDouble() - 0.5D) * (double)width, posY + rand.nextDouble() * (double)height, posZ + (rand.nextDouble() - 0.5D) * (double)width, 0.0D, 0.0D, 0.0D, new int[0]);

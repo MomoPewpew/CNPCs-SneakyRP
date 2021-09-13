@@ -67,16 +67,16 @@ public class DataAdvanced implements INPCAdvanced {
           compound.setTag("NpcAttackLines", this.attackLines.writeToNBT());
           compound.setTag("NpcKillLines", this.killLines.writeToNBT());
           compound.setTag("NpcInteractNPCLines", this.npcInteractLines.writeToNBT());
-          compound.func_74757_a("OrderedLines", this.orderedLines);
+          compound.setBoolean("OrderedLines", this.orderedLines);
           compound.setString("NpcIdleSound", this.idleSound);
           compound.setString("NpcAngrySound", this.angrySound);
           compound.setString("NpcHurtSound", this.hurtSound);
           compound.setString("NpcDeathSound", this.deathSound);
           compound.setString("NpcStepSound", this.stepSound);
           compound.setInteger("FactionID", this.npc.getFaction().id);
-          compound.func_74757_a("AttackOtherFactions", this.attackOtherFactions);
-          compound.func_74757_a("DefendFaction", this.defendFaction);
-          compound.func_74757_a("DisablePitch", this.disablePitch);
+          compound.setBoolean("AttackOtherFactions", this.attackOtherFactions);
+          compound.setBoolean("DefendFaction", this.defendFaction);
+          compound.setBoolean("DisablePitch", this.disablePitch);
           compound.setInteger("Role", this.role);
           compound.setInteger("NpcJob", this.job);
           compound.setTag("FactionPoints", this.factions.writeToNBT(new NBTTagCompound()));
@@ -98,13 +98,13 @@ public class DataAdvanced implements INPCAdvanced {
           this.hurtSound = compound.getString("NpcHurtSound");
           this.deathSound = compound.getString("NpcDeathSound");
           this.stepSound = compound.getString("NpcStepSound");
-          this.npc.setFaction(compound.func_74762_e("FactionID"));
+          this.npc.setFaction(compound.getInteger("FactionID"));
           this.npc.faction = this.npc.getFaction();
           this.attackOtherFactions = compound.getBoolean("AttackOtherFactions");
           this.defendFaction = compound.getBoolean("DefendFaction");
           this.disablePitch = compound.getBoolean("DisablePitch");
-          this.setRole(compound.func_74762_e("Role"));
-          this.setJob(compound.func_74762_e("NpcJob"));
+          this.setRole(compound.getInteger("Role"));
+          this.setJob(compound.getInteger("NpcJob"));
           this.factions.readFromNBT(compound.getCompoundTag("FactionPoints"));
           this.npc.dialogs = this.getDialogs(compound.getTagList("NPCDialogOptions", 10));
           this.scenes.readFromNBT(compound.getCompoundTag("NpcScenes"));
@@ -115,7 +115,7 @@ public class DataAdvanced implements INPCAdvanced {
 
           for(int i = 0; i < tagList.tagCount(); ++i) {
                NBTTagCompound nbttagcompound = tagList.getCompoundTagAt(i);
-               int slot = nbttagcompound.func_74762_e("DialogSlot");
+               int slot = nbttagcompound.getInteger("DialogSlot");
                DialogOption option = new DialogOption();
                option.readNBT(nbttagcompound.getCompoundTag("NPCDialog"));
                option.optionType = 1;
@@ -203,7 +203,7 @@ public class DataAdvanced implements INPCAdvanced {
           String sound = this.getSound(type);
           if (sound != null) {
                BlockPos pos = this.npc.func_180425_c();
-               Server.sendRangedData(this.npc, 16, EnumPacketClient.PLAY_SOUND, sound, pos.func_177958_n(), pos.func_177956_o(), pos.func_177952_p(), volume, pitch);
+               Server.sendRangedData(this.npc, 16, EnumPacketClient.PLAY_SOUND, sound, pos.getX(), pos.getY(), pos.getZ(), volume, pitch);
           }
      }
 
@@ -277,7 +277,7 @@ public class DataAdvanced implements INPCAdvanced {
      }
 
      public void setJob(int i) {
-          if (this.npc.jobInterface != null && !this.npc.world.field_72995_K) {
+          if (this.npc.jobInterface != null && !this.npc.world.isRemote) {
                this.npc.jobInterface.reset();
           }
 

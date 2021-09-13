@@ -18,7 +18,7 @@ public class EntityNpcNagaFemale extends EntityNPCInterface {
      public void func_70071_h_() {
           this.field_70128_L = true;
           this.func_94061_f(true);
-          if (!this.world.field_72995_K) {
+          if (!this.world.isRemote) {
                NBTTagCompound compound = new NBTTagCompound();
                this.func_189511_e(compound);
                EntityCustomNpc npc = new EntityCustomNpc(this.world);

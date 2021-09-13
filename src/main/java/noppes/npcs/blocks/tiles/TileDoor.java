@@ -29,11 +29,11 @@ public class TileDoor extends TileNpcEntity implements ITickable {
      }
 
      public boolean shouldRefresh(World world, BlockPos pos, IBlockState oldState, IBlockState newState) {
-          return oldState.func_177230_c() != newState.func_177230_c();
+          return oldState.getBlock() != newState.getBlock();
      }
 
-     public void func_145839_a(NBTTagCompound compound) {
-          super.func_145839_a(compound);
+     public void readFromNBT(NBTTagCompound compound) {
+          super.readFromNBT(compound);
           this.setDoorNBT(compound);
      }
 
@@ -82,8 +82,8 @@ public class TileDoor extends TileNpcEntity implements ITickable {
           if (this.ticksExisted >= 10) {
                this.ticksExisted = 0;
                if (this.needsClientUpdate) {
-                    this.func_70296_d();
-                    IBlockState state = this.field_145850_b.func_180495_p(this.field_174879_c);
+                    this.markDirty();
+                    IBlockState state = this.field_145850_b.getBlockState(this.field_174879_c);
                     this.field_145850_b.func_184138_a(this.field_174879_c, state, state, 3);
                     this.needsClientUpdate = false;
                }
@@ -105,9 +105,9 @@ public class TileDoor extends TileNpcEntity implements ITickable {
 
      public NBTTagCompound func_189517_E_() {
           NBTTagCompound compound = new NBTTagCompound();
-          compound.setInteger("x", this.field_174879_c.func_177958_n());
-          compound.setInteger("y", this.field_174879_c.func_177956_o());
-          compound.setInteger("z", this.field_174879_c.func_177952_p());
+          compound.setInteger("x", this.field_174879_c.getX());
+          compound.setInteger("y", this.field_174879_c.getY());
+          compound.setInteger("z", this.field_174879_c.getZ());
           this.getDoorNBT(compound);
           return compound;
      }

@@ -84,15 +84,15 @@ public class CustomGuiScrollWrapper extends CustomGuiComponentWrapper implements
           }
 
           nbt.setTag("list", list);
-          nbt.func_74757_a("multiSelect", this.multiSelect);
+          nbt.setBoolean("multiSelect", this.multiSelect);
           return nbt;
      }
 
      public CustomGuiComponentWrapper fromNBT(NBTTagCompound nbt) {
           super.fromNBT(nbt);
-          this.setSize(nbt.func_74759_k("size")[0], nbt.func_74759_k("size")[1]);
+          this.setSize(nbt.getIntArray("size")[0], nbt.getIntArray("size")[1]);
           if (nbt.hasKey("default")) {
-               this.setDefaultSelection(nbt.func_74762_e("default"));
+               this.setDefaultSelection(nbt.getInteger("default"));
           }
 
           NBTTagList tagList = nbt.getTagList("list", 8);

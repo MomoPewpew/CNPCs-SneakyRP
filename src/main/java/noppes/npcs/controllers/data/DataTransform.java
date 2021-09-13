@@ -31,7 +31,7 @@ public class DataTransform {
      }
 
      public NBTTagCompound writeToNBT(NBTTagCompound compound) {
-          compound.func_74757_a("TransformIsActive", this.isActive);
+          compound.setBoolean("TransformIsActive", this.isActive);
           this.writeOptions(compound);
           if (this.hasDisplay) {
                compound.setTag("TransformDisplay", this.display);
@@ -65,14 +65,14 @@ public class DataTransform {
      }
 
      public Object writeOptions(NBTTagCompound compound) {
-          compound.func_74757_a("TransformHasDisplay", this.hasDisplay);
-          compound.func_74757_a("TransformHasAI", this.hasAi);
-          compound.func_74757_a("TransformHasAdvanced", this.hasAdvanced);
-          compound.func_74757_a("TransformHasInv", this.hasInv);
-          compound.func_74757_a("TransformHasStats", this.hasStats);
-          compound.func_74757_a("TransformHasRole", this.hasRole);
-          compound.func_74757_a("TransformHasJob", this.hasJob);
-          compound.func_74757_a("TransformEditingModus", this.editingModus);
+          compound.setBoolean("TransformHasDisplay", this.hasDisplay);
+          compound.setBoolean("TransformHasAI", this.hasAi);
+          compound.setBoolean("TransformHasAdvanced", this.hasAdvanced);
+          compound.setBoolean("TransformHasInv", this.hasInv);
+          compound.setBoolean("TransformHasStats", this.hasStats);
+          compound.setBoolean("TransformHasRole", this.hasRole);
+          compound.setBoolean("TransformHasJob", this.hasJob);
+          compound.setBoolean("TransformEditingModus", this.editingModus);
           return compound;
      }
 

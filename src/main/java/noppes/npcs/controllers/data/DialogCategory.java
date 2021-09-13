@@ -15,7 +15,7 @@ public class DialogCategory implements IDialogCategory {
      public HashMap dialogs = new HashMap();
 
      public void readNBT(NBTTagCompound compound) {
-          this.id = compound.func_74762_e("Slot");
+          this.id = compound.getInteger("Slot");
           this.title = compound.getString("Title");
           NBTTagList dialogsList = compound.getTagList("Dialogs", 10);
           if (dialogsList != null) {
@@ -23,7 +23,7 @@ public class DialogCategory implements IDialogCategory {
                     Dialog dialog = new Dialog(this);
                     NBTTagCompound comp = dialogsList.getCompoundTagAt(ii);
                     dialog.readNBT(comp);
-                    dialog.id = comp.func_74762_e("DialogId");
+                    dialog.id = comp.getInteger("DialogId");
                     this.dialogs.put(dialog.id, dialog);
                }
           }

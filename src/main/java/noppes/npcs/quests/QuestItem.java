@@ -31,9 +31,9 @@ public class QuestItem extends QuestInterface {
 
      public void writeEntityToNBT(NBTTagCompound compound) {
           compound.setTag("Items", this.items.getToNBT());
-          compound.func_74757_a("LeaveItems", this.leaveItems);
-          compound.func_74757_a("IgnoreDamage", this.ignoreDamage);
-          compound.func_74757_a("IgnoreNBT", this.ignoreNBT);
+          compound.setBoolean("LeaveItems", this.leaveItems);
+          compound.setBoolean("IgnoreDamage", this.ignoreDamage);
+          compound.setBoolean("IgnoreNBT", this.ignoreNBT);
      }
 
      public boolean isCompleted(EntityPlayer player) {
@@ -65,15 +65,15 @@ public class QuestItem extends QuestInterface {
                }
           }
 
-          for(int i = 0; i < player.inventory.func_70302_i_(); ++i) {
-               item = player.inventory.func_70301_a(i);
+          for(int i = 0; i < player.inventory.getSizeInventory(); ++i) {
+               item = player.inventory.getStackInSlot(i);
                if (!NoppesUtilServer.IsItemStackNull(item)) {
                     Iterator var6 = map.entrySet().iterator();
 
                     while(var6.hasNext()) {
                          Entry questItem = (Entry)var6.next();
                          if (NoppesUtilPlayer.compareItems((ItemStack)questItem.getKey(), item, this.ignoreDamage, this.ignoreNBT)) {
-                              map.put(questItem.getKey(), (Integer)questItem.getValue() + item.func_190916_E());
+                              map.put(questItem.getKey(), (Integer)questItem.getValue() + item.getCount());
                          }
                     }
                }
@@ -94,16 +94,16 @@ public class QuestItem extends QuestInterface {
                          }
 
                          questitem = (ItemStack)var2.next();
-                    } while(questitem.func_190926_b());
+                    } while(questitem.isEmpty());
 
-                    int stacksize = questitem.func_190916_E();
+                    int stacksize = questitem.getCount();
 
-                    for(int i = 0; i < player.inventory.func_70302_i_(); ++i) {
-                         ItemStack item = player.inventory.func_70301_a(i);
+                    for(int i = 0; i < player.inventory.getSizeInventory(); ++i) {
+                         ItemStack item = player.inventory.getStackInSlot(i);
                          if (!NoppesUtilServer.IsItemStackNull(item) && NoppesUtilPlayer.compareItems(item, questitem, this.ignoreDamage, this.ignoreNBT)) {
-                              int size = item.func_190916_E();
+                              int size = item.getCount();
                               if (stacksize - size >= 0) {
-                                   player.inventory.func_70299_a(i, ItemStack.field_190927_a);
+                                   player.inventory.setInventorySlotContents(i, ItemStack.EMPTY);
                                    item.splitStack(size);
                               } else {
                                    item.splitStack(stacksize);
@@ -126,7 +126,7 @@ public class QuestItem extends QuestInterface {
 
           while(var4.hasNext()) {
                ItemStack stack = (ItemStack)var4.next();
-               if (!stack.func_190926_b()) {
+               if (!stack.isEmpty()) {
                     list.add(new QuestItem.QuestItemObjective(player, stack));
                }
           }
@@ -146,14 +146,14 @@ public class QuestItem extends QuestInterface {
           public int getProgress() {
                int count = 0;
 
-               for(int i = 0; i < this.player.inventory.func_70302_i_(); ++i) {
-                    ItemStack item = this.player.inventory.func_70301_a(i);
+               for(int i = 0; i < this.player.inventory.getSizeInventory(); ++i) {
+                    ItemStack item = this.player.inventory.getStackInSlot(i);
                     if (!NoppesUtilServer.IsItemStackNull(item) && NoppesUtilPlayer.compareItems(this.questItem, item, QuestItem.this.ignoreDamage, QuestItem.this.ignoreNBT)) {
-                         count += item.func_190916_E();
+                         count += item.getCount();
                     }
                }
 
-               return ValueUtil.CorrectInt(count, 0, this.questItem.func_190916_E());
+               return ValueUtil.CorrectInt(count, 0, this.questItem.getCount());
           }
 
           public void setProgress(int progress) {
@@ -161,7 +161,7 @@ public class QuestItem extends QuestInterface {
           }
 
           public int getMaxProgress() {
-               return this.questItem.func_190916_E();
+               return this.questItem.getCount();
           }
 
           public boolean isCompleted() {

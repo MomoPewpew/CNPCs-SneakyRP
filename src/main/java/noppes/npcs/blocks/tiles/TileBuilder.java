@@ -38,8 +38,8 @@ public class TileBuilder extends TileEntity implements ITickable {
      public static boolean Compiled = false;
      private int ticks = 20;
 
-     public void func_145839_a(NBTTagCompound compound) {
-          super.func_145839_a(compound);
+     public void readFromNBT(NBTTagCompound compound) {
+          super.readFromNBT(compound);
           if (compound.hasKey("SchematicName")) {
                this.schematic = SchematicController.Instance.load(compound.getString("SchematicName"));
           }
@@ -54,8 +54,8 @@ public class TileBuilder extends TileEntity implements ITickable {
      }
 
      public void readPartNBT(NBTTagCompound compound) {
-          this.rotation = compound.func_74762_e("Rotation");
-          this.yOffest = compound.func_74762_e("YOffset");
+          this.rotation = compound.getInteger("Rotation");
+          this.yOffest = compound.getInteger("YOffset");
           this.enabled = compound.getBoolean("Enabled");
           this.started = compound.getBoolean("Started");
           this.finished = compound.getBoolean("Finished");
@@ -77,9 +77,9 @@ public class TileBuilder extends TileEntity implements ITickable {
      public NBTTagCompound writePartNBT(NBTTagCompound compound) {
           compound.setInteger("Rotation", this.rotation);
           compound.setInteger("YOffset", this.yOffest);
-          compound.func_74757_a("Enabled", this.enabled);
-          compound.func_74757_a("Started", this.started);
-          compound.func_74757_a("Finished", this.finished);
+          compound.setBoolean("Enabled", this.enabled);
+          compound.setBoolean("Started", this.started);
+          compound.setBoolean("Finished", this.finished);
           compound.setTag("Availability", this.availability.writeToNBT(new NBTTagCompound()));
           return compound;
      }
@@ -143,7 +143,7 @@ public class TileBuilder extends TileEntity implements ITickable {
      }
 
      public void func_73660_a() {
-          if (!this.field_145850_b.field_72995_K && this.hasSchematic() && !this.finished) {
+          if (!this.field_145850_b.isRemote && this.hasSchematic() && !this.finished) {
                --this.ticks;
                if (this.ticks <= 0) {
                     this.ticks = 200;
@@ -166,7 +166,7 @@ public class TileBuilder extends TileEntity implements ITickable {
                               }
                          }
 
-                         List list = this.field_145850_b.func_72872_a(EntityNPCInterface.class, (new AxisAlignedBB(this.func_174877_v(), this.func_174877_v())).func_72314_b(32.0D, 32.0D, 32.0D));
+                         List list = this.field_145850_b.getEntitiesWithinAABB(EntityNPCInterface.class, (new AxisAlignedBB(this.func_174877_v(), this.func_174877_v())).expand(32.0D, 32.0D, 32.0D));
                          Iterator var6 = list.iterator();
 
                          while(var6.hasNext()) {
@@ -185,7 +185,7 @@ public class TileBuilder extends TileEntity implements ITickable {
      }
 
      private List getPlayerList() {
-          return this.field_145850_b.func_72872_a(EntityPlayer.class, (new AxisAlignedBB((double)this.field_174879_c.func_177958_n(), (double)this.field_174879_c.func_177956_o(), (double)this.field_174879_c.func_177952_p(), (double)(this.field_174879_c.func_177958_n() + 1), (double)(this.field_174879_c.func_177956_o() + 1), (double)(this.field_174879_c.func_177952_p() + 1))).func_72314_b(10.0D, 10.0D, 10.0D));
+          return this.field_145850_b.getEntitiesWithinAABB(EntityPlayer.class, (new AxisAlignedBB((double)this.field_174879_c.getX(), (double)this.field_174879_c.getY(), (double)this.field_174879_c.getZ(), (double)(this.field_174879_c.getX() + 1), (double)(this.field_174879_c.getY() + 1), (double)(this.field_174879_c.getZ() + 1))).expand(10.0D, 10.0D, 10.0D));
      }
 
      public Stack getBlock() {
@@ -208,15 +208,15 @@ public class TileBuilder extends TileEntity implements ITickable {
                          int z = (pos - x) / this.schematic.schema.getWidth() % this.schematic.schema.getLength();
                          int y = ((pos - x) / this.schematic.schema.getWidth() - z) / this.schematic.schema.getLength();
                          IBlockState state = this.schematic.schema.getBlockState(x, y, z);
-                         if (!state.func_185913_b() && !bo && state.func_177230_c() != Blocks.field_150350_a) {
+                         if (!state.func_185913_b() && !bo && state.getBlock() != Blocks.field_150350_a) {
                               this.positionsSecond.add(0, pos);
                          } else {
                               BlockPos blockPos = this.func_174877_v().func_177982_a(1, this.yOffest, 1).func_177971_a(this.schematic.rotatePos(x, y, z, this.rotation));
-                              IBlockState original = this.field_145850_b.func_180495_p(blockPos);
+                              IBlockState original = this.field_145850_b.getBlockState(blockPos);
                               if (Block.func_176210_f(state) != Block.func_176210_f(original)) {
                                    state = this.schematic.rotationState(state, this.rotation);
                                    NBTTagCompound tile = null;
-                                   if (state.func_177230_c() instanceof ITileEntityProvider) {
+                                   if (state.getBlock() instanceof ITileEntityProvider) {
                                         tile = this.schematic.getTileEntity(x, y, z, blockPos);
                                    }
 

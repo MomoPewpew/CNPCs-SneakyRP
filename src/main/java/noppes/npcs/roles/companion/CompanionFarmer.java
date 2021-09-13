@@ -7,7 +7,7 @@ public class CompanionFarmer extends CompanionJobInterface {
 
      public NBTTagCompound getNBT() {
           NBTTagCompound compound = new NBTTagCompound();
-          compound.func_74757_a("CompanionFarmerStanding", this.isStanding);
+          compound.setBoolean("CompanionFarmerStanding", this.isStanding);
           return compound;
      }
 

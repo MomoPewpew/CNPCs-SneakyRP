@@ -38,9 +38,9 @@ import noppes.npcs.roles.RoleTransporter;
 public class PacketHandlerPlayer {
      @SubscribeEvent
      public void onServerPacket(ServerCustomPacketEvent event) {
-          EntityPlayerMP player = ((NetHandlerPlayServer)event.getHandler()).field_147369_b;
+          EntityPlayerMP player = ((NetHandlerPlayServer)event.getHandler()).player;
           ByteBuf buffer = event.getPacket().payload();
-          player.func_184102_h().func_152344_a(() -> {
+          player.getServer().addScheduledTask(() -> {
                EnumPlayerPacket type = null;
 
                try {
@@ -58,7 +58,7 @@ public class PacketHandlerPlayer {
 
      private void player(ByteBuf buffer, EntityPlayerMP player, EnumPlayerPacket type) throws Exception {
           if (type == EnumPlayerPacket.MarkData) {
-               Entity entity = player.func_184102_h().func_175576_a(Server.readUUID(buffer));
+               Entity entity = player.getServer().func_175576_a(Server.readUUID(buffer));
                if (entity == null || !(entity instanceof EntityLivingBase)) {
                     return;
                }
@@ -242,7 +242,7 @@ public class PacketHandlerPlayer {
                               return;
                          }
 
-                         PlayerDataController.instance.addPlayerMessage(player.func_184102_h(), username, mail);
+                         PlayerDataController.instance.addPlayerMessage(player.getServer(), username, mail);
                     } else if (type == EnumPlayerPacket.MailboxOpenMail) {
                          time = buffer.readLong();
                          username = Server.readString(buffer);

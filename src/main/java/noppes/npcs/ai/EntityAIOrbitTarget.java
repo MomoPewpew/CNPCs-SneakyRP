@@ -85,7 +85,7 @@ public class EntityAIOrbitTarget extends EntityAIBase {
                double d0 = (double)this.targetDistance * (double)MathHelper.func_76134_b(this.angle / 180.0F * 3.1415927F);
                double d1 = (double)this.targetDistance * (double)MathHelper.func_76126_a(this.angle / 180.0F * 3.1415927F);
                this.movePosX = this.targetEntity.field_70165_t + d0;
-               this.movePosY = this.targetEntity.func_174813_aQ().field_72337_e;
+               this.movePosY = this.targetEntity.getEntityBoundingBox().field_72337_e;
                this.movePosZ = this.targetEntity.field_70161_v + d1;
                this.npc.func_70661_as().func_75492_a(this.movePosX, this.movePosY, this.movePosZ, this.speed);
                this.angle += 15.0F * (float)this.direction;

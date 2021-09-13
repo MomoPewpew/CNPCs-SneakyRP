@@ -37,15 +37,15 @@ public class ItemSoulstoneFilled extends Item {
 
      @SideOnly(Side.CLIENT)
      public void func_77624_a(ItemStack stack, World world, List list, ITooltipFlag flag) {
-          NBTTagCompound compound = stack.func_77978_p();
-          if (compound != null && compound.func_150297_b("Entity", 10)) {
+          NBTTagCompound compound = stack.getTagCompound();
+          if (compound != null && compound.hasKey("Entity", 10)) {
                String name = I18n.func_74838_a(compound.getString("Name"));
                if (compound.hasKey("DisplayName")) {
                     name = compound.getString("DisplayName") + " (" + name + ")";
                }
 
                list.add(TextFormatting.BLUE + name);
-               if (stack.func_77978_p().hasKey("ExtraText")) {
+               if (stack.getTagCompound().hasKey("ExtraText")) {
                     String text = "";
                     String[] split = compound.getString("ExtraText").split(",");
                     String[] var9 = split;
@@ -65,7 +65,7 @@ public class ItemSoulstoneFilled extends Item {
      }
 
      public EnumActionResult func_180614_a(EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
-          if (world.field_72995_K) {
+          if (world.isRemote) {
                return EnumActionResult.SUCCESS;
           } else {
                ItemStack stack = player.func_184586_b(hand);
@@ -82,20 +82,20 @@ public class ItemSoulstoneFilled extends Item {
      }
 
      public static Entity Spawn(EntityPlayer player, ItemStack stack, World world, BlockPos pos) {
-          if (world.field_72995_K) {
+          if (world.isRemote) {
                return null;
-          } else if (stack.func_77978_p() != null && stack.func_77978_p().func_150297_b("Entity", 10)) {
-               NBTTagCompound compound = stack.func_77978_p().getCompoundTag("Entity");
+          } else if (stack.getTagCompound() != null && stack.getTagCompound().hasKey("Entity", 10)) {
+               NBTTagCompound compound = stack.getTagCompound().getCompoundTag("Entity");
                Entity entity = EntityList.func_75615_a(compound, world);
                if (entity == null) {
                     return null;
                } else {
-                    entity.func_70107_b((double)pos.func_177958_n() + 0.5D, (double)((float)(pos.func_177956_o() + 1) + 0.2F), (double)pos.func_177952_p() + 0.5D);
+                    entity.func_70107_b((double)pos.getX() + 0.5D, (double)((float)(pos.getY() + 1) + 0.2F), (double)pos.getZ() + 0.5D);
                     if (entity instanceof EntityNPCInterface) {
                          EntityNPCInterface npc = (EntityNPCInterface)entity;
                          npc.ais.setStartPos(pos);
                          npc.func_70606_j(npc.func_110138_aP());
-                         npc.func_70107_b((double)((float)pos.func_177958_n() + 0.5F), npc.getStartYPos(), (double)((float)pos.func_177952_p() + 0.5F));
+                         npc.func_70107_b((double)((float)pos.getX() + 0.5F), npc.getStartYPos(), (double)((float)pos.getZ() + 0.5F));
                          if (npc.advanced.role == 6 && player != null) {
                               PlayerData data = PlayerData.get(player);
                               if (data.hasCompanion()) {

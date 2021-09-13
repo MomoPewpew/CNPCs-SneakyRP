@@ -29,7 +29,7 @@ public class TileRedstoneBlock extends TileNpcEntity implements ITickable {
      private int ticks = 10;
 
      public void func_73660_a() {
-          if (!this.field_145850_b.field_72995_K) {
+          if (!this.field_145850_b.isRemote) {
                --this.ticks;
                if (this.ticks <= 0) {
                     this.ticks = this.onRange > 10 ? 20 : 10;
@@ -89,35 +89,35 @@ public class TileRedstoneBlock extends TileNpcEntity implements ITickable {
      }
 
      public boolean shouldRefresh(World world, BlockPos pos, IBlockState oldState, IBlockState newState) {
-          return oldState.func_177230_c() != newState.func_177230_c();
+          return oldState.getBlock() != newState.getBlock();
      }
 
      private void setActive(Block block, boolean bo) {
           this.isActivated = bo;
           IBlockState state = block.func_176223_P().func_177226_a(BlockNpcRedstone.ACTIVE, this.isActivated);
           this.field_145850_b.func_180501_a(this.field_174879_c, state, 2);
-          this.func_70296_d();
+          this.markDirty();
           this.field_145850_b.func_184138_a(this.field_174879_c, state, state, 3);
           block.func_176213_c(this.field_145850_b, this.field_174879_c, state);
      }
 
      private List getPlayerList(int x, int y, int z) {
-          return this.field_145850_b.func_72872_a(EntityPlayer.class, (new AxisAlignedBB((double)this.field_174879_c.func_177958_n(), (double)this.field_174879_c.func_177956_o(), (double)this.field_174879_c.func_177952_p(), (double)(this.field_174879_c.func_177958_n() + 1), (double)(this.field_174879_c.func_177956_o() + 1), (double)(this.field_174879_c.func_177952_p() + 1))).func_72314_b((double)x, (double)y, (double)z));
+          return this.field_145850_b.getEntitiesWithinAABB(EntityPlayer.class, (new AxisAlignedBB((double)this.field_174879_c.getX(), (double)this.field_174879_c.getY(), (double)this.field_174879_c.getZ(), (double)(this.field_174879_c.getX() + 1), (double)(this.field_174879_c.getY() + 1), (double)(this.field_174879_c.getZ() + 1))).expand((double)x, (double)y, (double)z));
      }
 
-     public void func_145839_a(NBTTagCompound compound) {
-          super.func_145839_a(compound);
-          this.onRange = compound.func_74762_e("BlockOnRange");
-          this.offRange = compound.func_74762_e("BlockOffRange");
+     public void readFromNBT(NBTTagCompound compound) {
+          super.readFromNBT(compound);
+          this.onRange = compound.getInteger("BlockOnRange");
+          this.offRange = compound.getInteger("BlockOffRange");
           this.isDetailed = compound.getBoolean("BlockIsDetailed");
           if (compound.hasKey("BlockOnRangeX")) {
                this.isDetailed = true;
-               this.onRangeX = compound.func_74762_e("BlockOnRangeX");
-               this.onRangeY = compound.func_74762_e("BlockOnRangeY");
-               this.onRangeZ = compound.func_74762_e("BlockOnRangeZ");
-               this.offRangeX = compound.func_74762_e("BlockOffRangeX");
-               this.offRangeY = compound.func_74762_e("BlockOffRangeY");
-               this.offRangeZ = compound.func_74762_e("BlockOffRangeZ");
+               this.onRangeX = compound.getInteger("BlockOnRangeX");
+               this.onRangeY = compound.getInteger("BlockOnRangeY");
+               this.onRangeZ = compound.getInteger("BlockOnRangeZ");
+               this.offRangeX = compound.getInteger("BlockOffRangeX");
+               this.offRangeY = compound.getInteger("BlockOffRangeY");
+               this.offRangeZ = compound.getInteger("BlockOffRangeZ");
           }
 
           if (compound.hasKey("BlockActivated")) {
@@ -130,8 +130,8 @@ public class TileRedstoneBlock extends TileNpcEntity implements ITickable {
      public NBTTagCompound func_189515_b(NBTTagCompound compound) {
           compound.setInteger("BlockOnRange", this.onRange);
           compound.setInteger("BlockOffRange", this.offRange);
-          compound.func_74757_a("BlockActivated", this.isActivated);
-          compound.func_74757_a("BlockIsDetailed", this.isDetailed);
+          compound.setBoolean("BlockActivated", this.isActivated);
+          compound.setBoolean("BlockIsDetailed", this.isDetailed);
           if (this.isDetailed) {
                compound.setInteger("BlockOnRangeX", this.onRangeX);
                compound.setInteger("BlockOnRangeY", this.onRangeY);

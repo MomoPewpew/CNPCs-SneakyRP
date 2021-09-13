@@ -21,7 +21,7 @@ public class PlayerFactionData {
                if (list != null) {
                     for(int i = 0; i < list.tagCount(); ++i) {
                          NBTTagCompound nbttagcompound = list.getCompoundTagAt(i);
-                         factionData.put(nbttagcompound.func_74762_e("Faction"), nbttagcompound.func_74762_e("Points"));
+                         factionData.put(nbttagcompound.getInteger("Faction"), nbttagcompound.getInteger("Points"));
                     }
 
                     this.factionData = factionData;
@@ -50,7 +50,7 @@ public class PlayerFactionData {
                return 0;
           } else {
                if (!this.factionData.containsKey(factionId)) {
-                    if (player.world.field_72995_K) {
+                    if (player.world.isRemote) {
                          return faction.defaultPoints;
                     }
 
@@ -67,7 +67,7 @@ public class PlayerFactionData {
 
      public void increasePoints(EntityPlayer player, int factionId, int points) {
           Faction faction = FactionController.instance.getFaction(factionId);
-          if (faction != null && player != null && !player.world.field_72995_K) {
+          if (faction != null && player != null && !player.world.isRemote) {
                PlayerScriptData handler = PlayerData.get(player).scriptData;
                PlayerWrapper wrapper = (PlayerWrapper)NpcAPI.Instance().getIEntity(player);
                PlayerEvent.FactionUpdateEvent event;

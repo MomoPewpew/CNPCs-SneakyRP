@@ -59,7 +59,7 @@ public class DataTimers implements ITimers {
                NBTTagCompound c = new NBTTagCompound();
                c.setInteger("ID", timer.id);
                c.setInteger("TimerTicks", timer.id);
-               c.func_74757_a("Repeat", timer.repeat);
+               c.setBoolean("Repeat", timer.repeat);
                c.setInteger("Ticks", timer.ticks);
                list.appendTag(c);
           }
@@ -73,8 +73,8 @@ public class DataTimers implements ITimers {
 
           for(int i = 0; i < list.tagCount(); ++i) {
                NBTTagCompound c = list.getCompoundTagAt(i);
-               DataTimers.Timer t = new DataTimers.Timer(c.func_74762_e("ID"), c.func_74762_e("TimerTicks"), c.getBoolean("Repeat"));
-               t.ticks = c.func_74762_e("Ticks");
+               DataTimers.Timer t = new DataTimers.Timer(c.getInteger("ID"), c.getInteger("TimerTicks"), c.getBoolean("Repeat"));
+               t.ticks = c.getInteger("Ticks");
                timers.put(t.id, t);
           }
 

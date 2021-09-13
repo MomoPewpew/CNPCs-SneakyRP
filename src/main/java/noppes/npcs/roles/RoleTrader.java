@@ -45,8 +45,8 @@ public class RoleTrader extends RoleInterface implements IRoleTrader {
      public NBTTagCompound writeNBT(NBTTagCompound nbttagcompound) {
           nbttagcompound.setTag("TraderCurrency", this.inventoryCurrency.getToNBT());
           nbttagcompound.setTag("TraderSold", this.inventorySold.getToNBT());
-          nbttagcompound.func_74757_a("TraderIgnoreDamage", this.ignoreDamage);
-          nbttagcompound.func_74757_a("TraderIgnoreNBT", this.ignoreNBT);
+          nbttagcompound.setBoolean("TraderIgnoreDamage", this.ignoreDamage);
+          nbttagcompound.setBoolean("TraderIgnoreNBT", this.ignoreNBT);
           return nbttagcompound;
      }
 
@@ -87,22 +87,22 @@ public class RoleTrader extends RoleInterface implements IRoleTrader {
                     }
 
                     item = (ItemStack)var2.next();
-               } while(item.func_190926_b() || !NoppesUtilPlayer.compareItems(item, itemstack, this.ignoreDamage, this.ignoreNBT));
+               } while(item.isEmpty() || !NoppesUtilPlayer.compareItems(item, itemstack, this.ignoreDamage, this.ignoreNBT));
 
                return true;
           }
      }
 
      public IItemStack getSold(int slot) {
-          return NpcAPI.Instance().getIItemStack(this.inventorySold.func_70301_a(slot));
+          return NpcAPI.Instance().getIItemStack(this.inventorySold.getStackInSlot(slot));
      }
 
      public IItemStack getCurrency1(int slot) {
-          return NpcAPI.Instance().getIItemStack(this.inventoryCurrency.func_70301_a(slot));
+          return NpcAPI.Instance().getIItemStack(this.inventoryCurrency.getStackInSlot(slot));
      }
 
      public IItemStack getCurrency2(int slot) {
-          return NpcAPI.Instance().getIItemStack(this.inventoryCurrency.func_70301_a(slot + 18));
+          return NpcAPI.Instance().getIItemStack(this.inventoryCurrency.getStackInSlot(slot + 18));
      }
 
      public void set(int slot, IItemStack currency, IItemStack currency2, IItemStack sold) {
@@ -117,13 +117,13 @@ public class RoleTrader extends RoleInterface implements IRoleTrader {
                if (currency != null) {
                     this.inventoryCurrency.items.set(slot, currency.getMCItemStack());
                } else {
-                    this.inventoryCurrency.items.set(slot, ItemStack.field_190927_a);
+                    this.inventoryCurrency.items.set(slot, ItemStack.EMPTY);
                }
 
                if (currency2 != null) {
                     this.inventoryCurrency.items.set(slot + 18, currency2.getMCItemStack());
                } else {
-                    this.inventoryCurrency.items.set(slot + 18, ItemStack.field_190927_a);
+                    this.inventoryCurrency.items.set(slot + 18, ItemStack.EMPTY);
                }
 
                this.inventorySold.items.set(slot, sold.getMCItemStack());
@@ -134,9 +134,9 @@ public class RoleTrader extends RoleInterface implements IRoleTrader {
 
      public void remove(int slot) {
           if (slot < 18 && slot >= 0) {
-               this.inventoryCurrency.items.set(slot, ItemStack.field_190927_a);
-               this.inventoryCurrency.items.set(slot + 18, ItemStack.field_190927_a);
-               this.inventorySold.items.set(slot, ItemStack.field_190927_a);
+               this.inventoryCurrency.items.set(slot, ItemStack.EMPTY);
+               this.inventoryCurrency.items.set(slot + 18, ItemStack.EMPTY);
+               this.inventorySold.items.set(slot, ItemStack.EMPTY);
           } else {
                throw new CustomNPCsException("Invalid slot: " + slot, new Object[0]);
           }
@@ -170,7 +170,7 @@ public class RoleTrader extends RoleInterface implements IRoleTrader {
      }
 
      public static void load(RoleTrader role, String name) {
-          if (!role.npc.world.field_72995_K) {
+          if (!role.npc.world.isRemote) {
                File file = getFile(name);
                if (file.exists()) {
                     try {

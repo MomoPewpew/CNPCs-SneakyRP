@@ -220,9 +220,9 @@ public class CustomGuiWrapper implements ICustomGui {
      }
 
      public ICustomGui fromNBT(NBTTagCompound tag) {
-          this.id = tag.func_74762_e("id");
-          this.width = tag.func_74759_k("size")[0];
-          this.height = tag.func_74759_k("size")[1];
+          this.id = tag.getInteger("id");
+          this.width = tag.getIntArray("size")[0];
+          this.height = tag.getIntArray("size")[1];
           this.pauseGame = tag.getBoolean("pause");
           this.backgroundTexture = tag.getString("bgTexture");
           List components = new ArrayList();
@@ -249,8 +249,8 @@ public class CustomGuiWrapper implements ICustomGui {
           this.slots = slots;
           this.showPlayerInv = tag.getBoolean("showPlayerInv");
           if (this.showPlayerInv) {
-               this.playerInvX = tag.func_74759_k("pInvPos")[0];
-               this.playerInvY = tag.func_74759_k("pInvPos")[1];
+               this.playerInvX = tag.getIntArray("pInvPos")[0];
+               this.playerInvY = tag.getIntArray("pInvPos")[1];
           }
 
           return this;
@@ -260,7 +260,7 @@ public class CustomGuiWrapper implements ICustomGui {
           NBTTagCompound tag = new NBTTagCompound();
           tag.setInteger("id", this.id);
           tag.setIntArray("size", new int[]{this.width, this.height});
-          tag.func_74757_a("pause", this.pauseGame);
+          tag.setBoolean("pause", this.pauseGame);
           tag.setString("bgTexture", this.backgroundTexture);
           NBTTagList list = new NBTTagList();
           Iterator var3 = this.components.iterator();
@@ -281,7 +281,7 @@ public class CustomGuiWrapper implements ICustomGui {
           }
 
           tag.setTag("slots", list);
-          tag.func_74757_a("showPlayerInv", this.showPlayerInv);
+          tag.setBoolean("showPlayerInv", this.showPlayerInv);
           if (this.showPlayerInv) {
                tag.setIntArray("pInvPos", new int[]{this.playerInvX, this.playerInvY});
           }

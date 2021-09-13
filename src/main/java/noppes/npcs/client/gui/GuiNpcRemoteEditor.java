@@ -72,7 +72,7 @@ public class GuiNpcRemoteEditor extends GuiNPCInterface implements IScrollData, 
                while(var3.hasNext()) {
                     int ids = (Integer)var3.next();
                     Client.sendData(EnumPacketServer.RemoteReset, ids);
-                    Entity entity = this.player.world.func_73045_a(ids);
+                    Entity entity = this.player.world.getEntityByID(ids);
                     if (entity != null && entity instanceof EntityNPCInterface) {
                          ((EntityNPCInterface)entity).reset();
                     }
@@ -91,7 +91,7 @@ public class GuiNpcRemoteEditor extends GuiNPCInterface implements IScrollData, 
 
                if (id == 2) {
                     Client.sendData(EnumPacketServer.RemoteReset, this.data.get(this.scroll.getSelected()));
-                    Entity entity = this.player.world.func_73045_a((Integer)this.data.get(this.scroll.getSelected()));
+                    Entity entity = this.player.world.getEntityByID((Integer)this.data.get(this.scroll.getSelected()));
                     if (entity != null && entity instanceof EntityNPCInterface) {
                          ((EntityNPCInterface)entity).reset();
                     }

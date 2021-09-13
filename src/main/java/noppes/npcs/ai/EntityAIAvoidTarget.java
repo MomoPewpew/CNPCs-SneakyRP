@@ -41,7 +41,7 @@ public class EntityAIAvoidTarget extends EntityAIBase {
                          return false;
                     }
                } else {
-                    List var1 = this.npc.world.func_72872_a(this.targetEntityClass, this.npc.func_174813_aQ().func_72314_b((double)this.distanceFromEntity, 3.0D, (double)this.distanceFromEntity));
+                    List var1 = this.npc.world.getEntitiesWithinAABB(this.targetEntityClass, this.npc.getEntityBoundingBox().expand((double)this.distanceFromEntity, 3.0D, (double)this.distanceFromEntity));
                     if (var1.isEmpty()) {
                          return false;
                     }
@@ -57,7 +57,7 @@ public class EntityAIAvoidTarget extends EntityAIBase {
                     boolean var4 = var3 ? this.health == this.npc.func_110143_aJ() : this.npc.getRangedTask() != null && !this.npc.getRangedTask().hasFired();
                     if (var2 == null) {
                          return false;
-                    } else if (this.closestLivingEntity.func_70092_e(var2.field_72450_a, var2.field_72448_b, var2.field_72449_c) < this.closestLivingEntity.func_70068_e(this.npc)) {
+                    } else if (this.closestLivingEntity.getDistanceSq(var2.field_72450_a, var2.field_72448_b, var2.field_72449_c) < this.closestLivingEntity.func_70068_e(this.npc)) {
                          return false;
                     } else if (this.npc.ais.tacticalVariant == 3 && var4) {
                          return false;

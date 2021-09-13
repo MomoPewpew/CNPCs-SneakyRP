@@ -49,10 +49,10 @@ public class JobItemGiver extends JobInterface {
      }
 
      public void readFromNBT(NBTTagCompound nbttagcompound) {
-          this.itemGiverId = nbttagcompound.func_74762_e("ItemGiverId");
-          this.cooldownType = nbttagcompound.func_74762_e("igCooldownType");
-          this.givingMethod = nbttagcompound.func_74762_e("igGivingMethod");
-          this.cooldown = nbttagcompound.func_74762_e("igCooldown");
+          this.itemGiverId = nbttagcompound.getInteger("ItemGiverId");
+          this.cooldownType = nbttagcompound.getInteger("igCooldownType");
+          this.givingMethod = nbttagcompound.getInteger("igGivingMethod");
+          this.cooldown = nbttagcompound.getInteger("igCooldown");
           this.lines = NBTTags.getStringList(nbttagcompound.getTagList("igLines", 10));
           this.inventory.setFromNBT(nbttagcompound.getCompoundTag("igJobInventory"));
           if (this.itemGiverId == 0 && GlobalDataController.instance != null) {
@@ -70,7 +70,7 @@ public class JobItemGiver extends JobInterface {
                String s = (String)var4.next();
                NBTTagCompound nbttagcompound = new NBTTagCompound();
                nbttagcompound.setString("Line", s);
-               nbttagcompound.func_74772_a("Time", (Long)lines.get(s));
+               nbttagcompound.setLong("Time", (Long)lines.get(s));
                nbttaglist.appendTag(nbttagcompound);
           }
 
@@ -83,7 +83,7 @@ public class JobItemGiver extends JobInterface {
           for(int i = 0; i < tagList.tagCount(); ++i) {
                NBTTagCompound nbttagcompound = tagList.getCompoundTagAt(i);
                String line = nbttagcompound.getString("Line");
-               long time = nbttagcompound.func_74763_f("Time");
+               long time = nbttagcompound.getLong("Time");
                map.put(line, time);
           }
 
@@ -102,8 +102,8 @@ public class JobItemGiver extends JobInterface {
                ItemStack is;
                while(var5.hasNext()) {
                     is = (ItemStack)var5.next();
-                    if (!is.func_190926_b()) {
-                         items.add(is.func_77946_l());
+                    if (!is.isEmpty()) {
+                         items.add(is.copy());
                     }
                }
 
@@ -122,7 +122,7 @@ public class JobItemGiver extends JobInterface {
                               }
                          }
                     } else if (this.isRandomGiver()) {
-                         toGive.add(((ItemStack)items.get(this.npc.world.field_73012_v.nextInt(items.size()))).func_77946_l());
+                         toGive.add(((ItemStack)items.get(this.npc.world.rand.nextInt(items.size()))).copy());
                     } else if (this.isGiverWhenNotOwnedAny()) {
                          boolean ownsItems = false;
                          Iterator var10 = items.iterator();
@@ -235,13 +235,13 @@ public class JobItemGiver extends JobInterface {
                          }
 
                          is = (ItemStack)var3.next();
-                    } while(is.func_190926_b() || is.func_77973_b() != item);
+                    } while(is.isEmpty() || is.func_77973_b() != item);
 
                     return true;
                }
 
                is = (ItemStack)var3.next();
-          } while(is.func_190926_b() || is.func_77973_b() != item);
+          } while(is.isEmpty() || is.func_77973_b() != item);
 
           return true;
      }
@@ -301,9 +301,9 @@ public class JobItemGiver extends JobInterface {
                     return false;
                } else {
                     this.ticks = 10;
-                    this.toCheck = this.npc.world.func_72872_a(EntityPlayer.class, this.npc.func_174813_aQ().func_72314_b(3.0D, 3.0D, 3.0D));
+                    this.toCheck = this.npc.world.getEntitiesWithinAABB(EntityPlayer.class, this.npc.getEntityBoundingBox().expand(3.0D, 3.0D, 3.0D));
                     this.toCheck.removeAll(this.recentlyChecked);
-                    List listMax = this.npc.world.func_72872_a(EntityPlayer.class, this.npc.func_174813_aQ().func_72314_b(10.0D, 10.0D, 10.0D));
+                    List listMax = this.npc.world.getEntitiesWithinAABB(EntityPlayer.class, this.npc.getEntityBoundingBox().expand(10.0D, 10.0D, 10.0D));
                     this.recentlyChecked.retainAll(listMax);
                     this.recentlyChecked.addAll(this.toCheck);
                     return this.toCheck.size() > 0;

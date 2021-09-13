@@ -60,14 +60,14 @@ public class ItemScriptedWrapper extends ItemStackWrapper implements IItemScript
      public NBTTagCompound getScriptNBT(NBTTagCompound compound) {
           compound.setTag("Scripts", NBTTags.NBTScript(this.scripts));
           compound.setString("ScriptLanguage", this.scriptLanguage);
-          compound.func_74757_a("ScriptEnabled", this.enabled);
+          compound.setBoolean("ScriptEnabled", this.enabled);
           return compound;
      }
 
      public NBTTagCompound getMCNbt() {
           NBTTagCompound compound = super.getMCNbt();
           this.getScriptNBT(compound);
-          compound.func_74757_a("DurabilityShow", this.durabilityShow);
+          compound.setBoolean("DurabilityShow", this.durabilityShow);
           compound.func_74780_a("DurabilityValue", this.durabilityValue);
           compound.setInteger("DurabilityColor", this.durabilityColor);
           compound.setInteger("ItemColor", this.itemColor);
@@ -89,11 +89,11 @@ public class ItemScriptedWrapper extends ItemStackWrapper implements IItemScript
           this.durabilityShow = compound.getBoolean("DurabilityShow");
           this.durabilityValue = compound.func_74769_h("DurabilityValue");
           if (compound.hasKey("DurabilityColor")) {
-               this.durabilityColor = compound.func_74762_e("DurabilityColor");
+               this.durabilityColor = compound.getInteger("DurabilityColor");
           }
 
-          this.itemColor = compound.func_74762_e("ItemColor");
-          this.stackSize = compound.func_74762_e("MaxStackSize");
+          this.itemColor = compound.getInteger("ItemColor");
+          this.stackSize = compound.getInteger("MaxStackSize");
      }
 
      public int getType() {
@@ -246,16 +246,16 @@ public class ItemScriptedWrapper extends ItemStackWrapper implements IItemScript
      }
 
      public void saveScriptData() {
-          NBTTagCompound c = this.item.func_77978_p();
+          NBTTagCompound c = this.item.getTagCompound();
           if (c == null) {
-               this.item.func_77982_d(c = new NBTTagCompound());
+               this.item.setTagCompound(c = new NBTTagCompound());
           }
 
           c.setTag("ScriptedData", this.getScriptNBT(new NBTTagCompound()));
      }
 
      public void loadScriptData() {
-          NBTTagCompound c = this.item.func_77978_p();
+          NBTTagCompound c = this.item.getTagCompound();
           if (c != null) {
                this.setScriptNBT(c.getCompoundTag("ScriptedData"));
           }

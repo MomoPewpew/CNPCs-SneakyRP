@@ -19,13 +19,13 @@ public class EntityUtil {
           entity.field_191988_bg = copied.field_191988_bg;
           entity.field_70702_br = copied.field_70702_br;
           entity.func_70107_b(copied.field_70165_t, copied.field_70163_u, copied.field_70161_v);
-          entity.func_174826_a(copied.func_174813_aQ());
+          entity.func_174826_a(copied.getEntityBoundingBox());
           entity.field_70169_q = copied.field_70169_q;
           entity.field_70167_r = copied.field_70167_r;
           entity.field_70166_s = copied.field_70166_s;
-          entity.field_70159_w = copied.field_70159_w;
-          entity.field_70181_x = copied.field_70181_x;
-          entity.field_70179_y = copied.field_70179_y;
+          entity.motionX = copied.motionX;
+          entity.motionY = copied.motionY;
+          entity.motionZ = copied.motionZ;
           entity.field_70177_z = copied.field_70177_z;
           entity.field_70126_B = copied.field_70126_B;
           entity.field_70125_A = copied.field_70125_A;

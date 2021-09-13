@@ -43,19 +43,19 @@ public class DataRanged implements INPCRanged {
      }
 
      public void readFromNBT(NBTTagCompound compound) {
-          this.pDamage = compound.func_74762_e("pDamage");
-          this.pSpeed = compound.func_74762_e("pSpeed");
-          this.burstCount = compound.func_74762_e("BurstCount");
-          this.pImpact = compound.func_74762_e("pImpact");
-          this.pSize = compound.func_74762_e("pSize");
-          this.pArea = compound.func_74762_e("pArea");
-          this.pTrail = compound.func_74762_e("pTrail");
-          this.rangedRange = compound.func_74762_e("MaxFiringRange");
-          this.fireRate = compound.func_74762_e("FireRate");
-          this.minDelay = ValueUtil.CorrectInt(compound.func_74762_e("minDelay"), 1, 9999);
-          this.maxDelay = ValueUtil.CorrectInt(compound.func_74762_e("maxDelay"), 1, 9999);
-          this.shotCount = ValueUtil.CorrectInt(compound.func_74762_e("ShotCount"), 1, 10);
-          this.accuracy = compound.func_74762_e("Accuracy");
+          this.pDamage = compound.getInteger("pDamage");
+          this.pSpeed = compound.getInteger("pSpeed");
+          this.burstCount = compound.getInteger("BurstCount");
+          this.pImpact = compound.getInteger("pImpact");
+          this.pSize = compound.getInteger("pSize");
+          this.pArea = compound.getInteger("pArea");
+          this.pTrail = compound.getInteger("pTrail");
+          this.rangedRange = compound.getInteger("MaxFiringRange");
+          this.fireRate = compound.getInteger("FireRate");
+          this.minDelay = ValueUtil.CorrectInt(compound.getInteger("minDelay"), 1, 9999);
+          this.maxDelay = ValueUtil.CorrectInt(compound.getInteger("maxDelay"), 1, 9999);
+          this.shotCount = ValueUtil.CorrectInt(compound.getInteger("ShotCount"), 1, 10);
+          this.accuracy = compound.getInteger("Accuracy");
           this.pRender3D = compound.getBoolean("pRender3D");
           this.pSpin = compound.getBoolean("pSpin");
           this.pStick = compound.getBoolean("pStick");
@@ -63,14 +63,14 @@ public class DataRanged implements INPCRanged {
           this.pXlr8 = compound.getBoolean("pXlr8");
           this.pGlows = compound.getBoolean("pGlows");
           this.aimWhileShooting = compound.getBoolean("AimWhileShooting");
-          this.pEffect = compound.func_74762_e("pEffect");
-          this.pDur = compound.func_74762_e("pDur");
-          this.pEffAmp = compound.func_74762_e("pEffAmp");
+          this.pEffect = compound.getInteger("pEffect");
+          this.pDur = compound.getInteger("pDur");
+          this.pEffAmp = compound.getInteger("pEffAmp");
           this.fireSound = compound.getString("FiringSound");
           this.hitSound = compound.getString("HitSound");
           this.groundSound = compound.getString("GroundSound");
-          this.canFireIndirect = compound.func_74762_e("FireIndirect");
-          this.meleeDistance = compound.func_74762_e("DistanceToMelee");
+          this.canFireIndirect = compound.getInteger("FireIndirect");
+          this.meleeDistance = compound.getInteger("DistanceToMelee");
      }
 
      public NBTTagCompound writeToNBT(NBTTagCompound compound) {
@@ -87,13 +87,13 @@ public class DataRanged implements INPCRanged {
           compound.setInteger("maxDelay", this.maxDelay);
           compound.setInteger("ShotCount", this.shotCount);
           compound.setInteger("Accuracy", this.accuracy);
-          compound.func_74757_a("pRender3D", this.pRender3D);
-          compound.func_74757_a("pSpin", this.pSpin);
-          compound.func_74757_a("pStick", this.pStick);
-          compound.func_74757_a("pPhysics", this.pPhysics);
-          compound.func_74757_a("pXlr8", this.pXlr8);
-          compound.func_74757_a("pGlows", this.pGlows);
-          compound.func_74757_a("AimWhileShooting", this.aimWhileShooting);
+          compound.setBoolean("pRender3D", this.pRender3D);
+          compound.setBoolean("pSpin", this.pSpin);
+          compound.setBoolean("pStick", this.pStick);
+          compound.setBoolean("pPhysics", this.pPhysics);
+          compound.setBoolean("pXlr8", this.pXlr8);
+          compound.setBoolean("pGlows", this.pGlows);
+          compound.setBoolean("AimWhileShooting", this.aimWhileShooting);
           compound.setInteger("pEffect", this.pEffect);
           compound.setInteger("pDur", this.pDur);
           compound.setInteger("pEffAmp", this.pEffAmp);
@@ -246,7 +246,7 @@ public class DataRanged implements INPCRanged {
      public int getDelayRNG() {
           int delay = this.minDelay;
           if (this.maxDelay - this.minDelay > 0) {
-               delay += this.npc.world.field_73012_v.nextInt(this.maxDelay - this.minDelay);
+               delay += this.npc.world.rand.nextInt(this.maxDelay - this.minDelay);
           }
 
           return delay;

@@ -28,9 +28,9 @@ public class ItemScriptedDoor extends ItemDoor implements IPermission {
 
      public EnumActionResult func_180614_a(EntityPlayer playerIn, World worldIn, BlockPos pos, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
           EnumActionResult res = super.func_180614_a(playerIn, worldIn, pos, hand, side, hitX, hitY, hitZ);
-          if (res == EnumActionResult.SUCCESS && !worldIn.field_72995_K) {
+          if (res == EnumActionResult.SUCCESS && !worldIn.isRemote) {
                BlockPos newPos = pos.func_177984_a();
-               NoppesUtilServer.sendOpenGui(playerIn, EnumGuiType.ScriptDoor, (EntityNPCInterface)null, newPos.func_177958_n(), newPos.func_177956_o(), newPos.func_177952_p());
+               NoppesUtilServer.sendOpenGui(playerIn, EnumGuiType.ScriptDoor, (EntityNPCInterface)null, newPos.getX(), newPos.getY(), newPos.getZ());
                return EnumActionResult.SUCCESS;
           } else {
                return res;

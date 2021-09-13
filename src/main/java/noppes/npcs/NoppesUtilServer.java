@@ -100,7 +100,7 @@ public class NoppesUtilServer {
      }
 
      public static void setEditingQuest(EntityPlayer player, Quest quest) {
-          if (player.world.field_72995_K) {
+          if (player.world.isRemote) {
                editingQuestsClient.put(player.func_110124_au(), quest);
           } else {
                editingQuests.put(player.func_110124_au(), quest);
@@ -109,7 +109,7 @@ public class NoppesUtilServer {
      }
 
      public static Quest getEditingQuest(EntityPlayer player) {
-          return player.world.field_72995_K ? (Quest)editingQuestsClient.get(player.func_110124_au()) : (Quest)editingQuests.get(player.func_110124_au());
+          return player.world.isRemote ? (Quest)editingQuestsClient.get(player.func_110124_au()) : (Quest)editingQuests.get(player.func_110124_au());
      }
 
      public static void sendRoleData(EntityPlayer player, EntityNPCInterface npc) {
@@ -170,7 +170,7 @@ public class NoppesUtilServer {
                }
 
                if (dialog.mail.isValid()) {
-                    PlayerDataController.instance.addPlayerMessage(player.func_184102_h(), player.func_70005_c_(), dialog.mail);
+                    PlayerDataController.instance.addPlayerMessage(player.getServer(), player.func_70005_c_(), dialog.mail);
                }
 
                PlayerDialogData data = playerdata.dialogData;
@@ -224,7 +224,7 @@ public class NoppesUtilServer {
                     }
 
                     public Vec3d func_174791_d() {
-                         return new Vec3d((double)pos.func_177958_n() + 0.5D, (double)pos.func_177956_o() + 0.5D, (double)pos.func_177952_p() + 0.5D);
+                         return new Vec3d((double)pos.getX() + 0.5D, (double)pos.getY() + 0.5D, (double)pos.getZ() + 0.5D);
                     }
 
                     public World func_130014_f_() {
@@ -236,7 +236,7 @@ public class NoppesUtilServer {
                     }
 
                     public boolean func_174792_t_() {
-                         return this.func_184102_h().field_71305_c[0].func_82736_K().func_82766_b("commandBlockOutput");
+                         return this.getServer().field_71305_c[0].func_82736_K().func_82766_b("commandBlockOutput");
                     }
                };
                ICommandManager icommandmanager = world.func_73046_m().func_71187_D();
@@ -247,9 +247,9 @@ public class NoppesUtilServer {
 
      public static void consumeItemStack(int i, EntityPlayer player) {
           ItemStack item = player.inventory.func_70448_g();
-          if (!player.field_71075_bZ.field_75098_d && item != null && !item.func_190926_b()) {
+          if (!player.field_71075_bZ.field_75098_d && item != null && !item.isEmpty()) {
                item.func_190918_g(1);
-               if (item.func_190916_E() <= 0) {
+               if (item.getCount() <= 0) {
                     player.func_184611_a(EnumHand.MAIN_HAND, (ItemStack)null);
                }
 
@@ -338,11 +338,11 @@ public class NoppesUtilServer {
                player.world.func_175656_a(pos, Blocks.field_150474_ac.func_176223_P());
                TileEntityMobSpawner tile = (TileEntityMobSpawner)player.world.func_175625_s(pos);
                MobSpawnerBaseLogic logic = tile.func_145881_a();
-               if (!comp.func_150297_b("id", 8)) {
+               if (!comp.hasKey("id", 8)) {
                     comp.setString("id", "Pig");
                }
 
-               comp.setIntArray("StartPosNew", new int[]{pos.func_177958_n(), pos.func_177956_o(), pos.func_177952_p()});
+               comp.setIntArray("StartPosNew", new int[]{pos.getX(), pos.getY(), pos.getZ()});
                logic.func_184993_a(new WeightedSpawnerEntity(1, comp));
           }
      }
@@ -357,7 +357,7 @@ public class NoppesUtilServer {
                     map.put(username, 0);
                }
 
-               String[] var9 = player.func_184102_h().func_184103_al().func_72369_d();
+               String[] var9 = player.getServer().getPlayerList().func_72369_d();
                int var11 = var9.length;
 
                for(int var6 = 0; var6 < var11; ++var6) {
@@ -365,7 +365,7 @@ public class NoppesUtilServer {
                     map.put(username, 0);
                }
           } else {
-               PlayerData playerdata = PlayerDataController.instance.getDataFromUsername(player.func_184102_h(), name);
+               PlayerData playerdata = PlayerDataController.instance.getDataFromUsername(player.getServer(), name);
                Iterator var15;
                int factionId;
                if (type == EnumPlayerData.Dialog) {
@@ -446,10 +446,10 @@ public class NoppesUtilServer {
                String name = Server.readString(buffer);
                if (name != null && !name.isEmpty()) {
                     EnumPlayerData type = EnumPlayerData.values()[id];
-                    EntityPlayer pl = player.func_184102_h().func_184103_al().func_152612_a(name);
+                    EntityPlayer pl = player.getServer().getPlayerList().func_152612_a(name);
                     PlayerData playerdata = null;
                     if (pl == null) {
-                         playerdata = PlayerDataController.instance.getDataFromUsername(player.func_184102_h(), name);
+                         playerdata = PlayerDataController.instance.getDataFromUsername(player.getServer(), name);
                     } else {
                          playerdata = PlayerData.get(pl);
                     }
@@ -616,12 +616,12 @@ public class NoppesUtilServer {
      }
 
      public static TileEntity saveTileEntity(EntityPlayerMP player, NBTTagCompound compound) {
-          int x = compound.func_74762_e("x");
-          int y = compound.func_74762_e("y");
-          int z = compound.func_74762_e("z");
+          int x = compound.getInteger("x");
+          int y = compound.getInteger("y");
+          int z = compound.getInteger("z");
           TileEntity tile = player.world.func_175625_s(new BlockPos(x, y, z));
           if (tile != null) {
-               tile.func_145839_a(compound);
+               tile.readFromNBT(compound);
           }
 
           return tile;
@@ -698,26 +698,26 @@ public class NoppesUtilServer {
      }
 
      public static boolean isOp(EntityPlayer player) {
-          return player.func_184102_h().func_184103_al().func_152596_g(player.func_146103_bH());
+          return player.getServer().getPlayerList().func_152596_g(player.func_146103_bH());
      }
 
      public static void GivePlayerItem(Entity entity, EntityPlayer player, ItemStack item) {
-          if (!entity.world.field_72995_K && item != null && !item.func_190926_b()) {
-               item = item.func_77946_l();
+          if (!entity.world.isRemote && item != null && !item.isEmpty()) {
+               item = item.copy();
                float f = 0.7F;
-               double d = (double)(entity.world.field_73012_v.nextFloat() * f) + (double)(1.0F - f);
-               double d1 = (double)(entity.world.field_73012_v.nextFloat() * f) + (double)(1.0F - f);
-               double d2 = (double)(entity.world.field_73012_v.nextFloat() * f) + (double)(1.0F - f);
+               double d = (double)(entity.world.rand.nextFloat() * f) + (double)(1.0F - f);
+               double d1 = (double)(entity.world.rand.nextFloat() * f) + (double)(1.0F - f);
+               double d2 = (double)(entity.world.rand.nextFloat() * f) + (double)(1.0F - f);
                EntityItem entityitem = new EntityItem(entity.world, entity.field_70165_t + d, entity.field_70163_u + d1, entity.field_70161_v + d2, item);
                entityitem.func_174867_a(2);
                entity.world.func_72838_d(entityitem);
-               int i = item.func_190916_E();
+               int i = item.getCount();
                if (player.inventory.func_70441_a(item)) {
                     entity.world.func_184148_a((EntityPlayer)null, player.field_70165_t, player.field_70163_u, player.field_70161_v, SoundEvents.field_187638_cR, SoundCategory.PLAYERS, 0.2F, ((player.func_70681_au().nextFloat() - player.func_70681_au().nextFloat()) * 0.7F + 1.0F) * 2.0F);
                     player.func_71001_a(entityitem, i);
                     PlayerQuestData playerdata = PlayerData.get(player).questData;
                     playerdata.checkQuestCompletion(player, 0);
-                    if (item.func_190916_E() <= 0) {
+                    if (item.getCount() <= 0) {
                          entityitem.func_70106_y();
                     }
                }
@@ -744,7 +744,7 @@ public class NoppesUtilServer {
           TextComponentTranslation chatcomponenttranslation = new TextComponentTranslation(message, obs);
           chatcomponenttranslation.func_150256_b().func_150238_a(TextFormatting.GRAY);
           chatcomponenttranslation.func_150256_b().func_150217_b(true);
-          Iterator iterator = CustomNpcs.Server.func_184103_al().func_181057_v().iterator();
+          Iterator iterator = CustomNpcs.Server.getPlayerList().getPlayers().iterator();
 
           while(iterator.hasNext()) {
                EntityPlayer entityplayer = (EntityPlayer)iterator.next();
@@ -768,7 +768,7 @@ public class NoppesUtilServer {
      }
 
      public static EntityPlayer getPlayer(MinecraftServer minecraftserver, UUID id) {
-          List list = minecraftserver.func_184103_al().func_181057_v();
+          List list = minecraftserver.getPlayerList().getPlayers();
           Iterator var3 = list.iterator();
 
           EntityPlayer player;
@@ -799,11 +799,11 @@ public class NoppesUtilServer {
      }
 
      public static boolean IsItemStackNull(ItemStack is) {
-          return is == null || is.func_190926_b() || is == ItemStack.field_190927_a || is.func_77973_b() == null;
+          return is == null || is.isEmpty() || is == ItemStack.EMPTY || is.func_77973_b() == null;
      }
 
      public static ItemStack ChangeItemStack(ItemStack is, Item item) {
-          NBTTagCompound comp = is.func_77955_b(new NBTTagCompound());
+          NBTTagCompound comp = is.writeToNBT(new NBTTagCompound());
           ResourceLocation resourcelocation = (ResourceLocation)Item.field_150901_e.func_177774_c(item);
           comp.setString("id", resourcelocation == null ? "minecraft:air" : resourcelocation.toString());
           return new ItemStack(comp);

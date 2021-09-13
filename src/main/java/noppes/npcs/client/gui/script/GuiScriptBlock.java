@@ -22,6 +22,6 @@ public class GuiScriptBlock extends GuiScriptInterface {
      public void save() {
           super.save();
           BlockPos pos = this.script.func_174877_v();
-          Client.sendData(EnumPacketServer.ScriptBlockDataSave, pos.func_177958_n(), pos.func_177956_o(), pos.func_177952_p(), this.script.getNBT(new NBTTagCompound()));
+          Client.sendData(EnumPacketServer.ScriptBlockDataSave, pos.getX(), pos.getY(), pos.getZ(), this.script.getNBT(new NBTTagCompound()));
      }
 }

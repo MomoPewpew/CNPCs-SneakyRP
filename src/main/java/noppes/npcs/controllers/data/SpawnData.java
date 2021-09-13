@@ -19,16 +19,16 @@ public class SpawnData extends Item {
      }
 
      public void readNBT(NBTTagCompound compound) {
-          this.id = compound.func_74762_e("SpawnId");
+          this.id = compound.getInteger("SpawnId");
           this.name = compound.getString("SpawnName");
-          this.field_76292_a = compound.func_74762_e("SpawnWeight");
+          this.field_76292_a = compound.getInteger("SpawnWeight");
           if (this.field_76292_a == 0) {
                this.field_76292_a = 1;
           }
 
           this.biomes = NBTTags.getStringList(compound.getTagList("SpawnBiomes", 10));
           this.compound1 = compound.getCompoundTag("SpawnCompound1");
-          this.type = compound.func_74762_e("SpawnType");
+          this.type = compound.getInteger("SpawnType");
      }
 
      public NBTTagCompound writeNBT(NBTTagCompound compound) {

@@ -56,7 +56,7 @@ public class CustomGuiTextFieldWrapper extends CustomGuiComponentWrapper impleme
 
      public CustomGuiComponentWrapper fromNBT(NBTTagCompound nbt) {
           super.fromNBT(nbt);
-          this.setSize(nbt.func_74759_k("size")[0], nbt.func_74759_k("size")[1]);
+          this.setSize(nbt.getIntArray("size")[0], nbt.getIntArray("size")[1]);
           if (nbt.hasKey("default")) {
                this.setText(nbt.getString("default"));
           }

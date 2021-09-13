@@ -78,7 +78,7 @@ public class GuiNPCDialogNpcOptions extends GuiNPCInterface2 implements GuiSelec
      }
 
      public void setGuiData(NBTTagCompound compound) {
-          int pos = compound.func_74762_e("Position");
+          int pos = compound.getInteger("Position");
           DialogOption dialog = new DialogOption();
           dialog.readNBT(compound);
           this.data.put(pos, dialog);

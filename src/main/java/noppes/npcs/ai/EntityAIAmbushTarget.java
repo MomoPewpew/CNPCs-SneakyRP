@@ -81,7 +81,7 @@ public class EntityAIAmbushTarget extends EntityAIBase {
 
           for(int i = 1; i <= 8; ++i) {
                for(int y = -2; y <= 2; ++y) {
-                    double k = (double)MathHelper.func_76128_c(this.npc.func_174813_aQ().field_72338_b + (double)y);
+                    double k = (double)MathHelper.func_76128_c(this.npc.getEntityBoundingBox().field_72338_b + (double)y);
 
                     for(int x = -i; x <= i; ++x) {
                          double j = (double)MathHelper.func_76128_c(this.npc.field_70165_t + (double)x) + 0.5D;
@@ -110,6 +110,6 @@ public class EntityAIAmbushTarget extends EntityAIBase {
      }
 
      private boolean isOpaque(int x, int y, int z) {
-          return this.world.func_180495_p(new BlockPos(x, y, z)).func_185914_p();
+          return this.world.getBlockState(new BlockPos(x, y, z)).func_185914_p();
      }
 }

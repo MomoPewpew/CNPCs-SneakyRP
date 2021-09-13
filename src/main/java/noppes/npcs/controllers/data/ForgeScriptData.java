@@ -36,7 +36,7 @@ public class ForgeScriptData implements IScriptHandler {
      public NBTTagCompound writeToNBT(NBTTagCompound compound) {
           compound.setTag("Scripts", NBTTags.NBTScript(this.scripts));
           compound.setString("ScriptLanguage", this.scriptLanguage);
-          compound.func_74757_a("ScriptEnabled", this.enabled);
+          compound.setBoolean("ScriptEnabled", this.enabled);
           return compound;
      }
 
@@ -45,7 +45,7 @@ public class ForgeScriptData implements IScriptHandler {
 
      public void runScript(String type, Event event) {
           if (this.isEnabled()) {
-               CustomNpcs.Server.func_152344_a(() -> {
+               CustomNpcs.Server.addScheduledTask(() -> {
                     if (ScriptController.Instance.lastLoaded > this.lastInited) {
                          this.lastInited = ScriptController.Instance.lastLoaded;
                          if (!type.equals("init")) {

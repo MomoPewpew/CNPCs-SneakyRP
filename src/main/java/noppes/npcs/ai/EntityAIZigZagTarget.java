@@ -55,7 +55,7 @@ public class EntityAIZigZagTarget extends EntityAIBase {
                     this.entityPosZ = pathpoint.field_75838_c;
                     Vec3d vec3 = RandomPositionGenerator.func_75464_a(this.npc, this.npc.ais.getTacticalRange(), 3, new Vec3d((double)this.entityPosX, (double)this.entityPosY, (double)this.entityPosZ));
                     if (vec3 != null) {
-                         if (this.targetEntity.func_70092_e(vec3.field_72450_a, vec3.field_72448_b, vec3.field_72449_c) < this.targetEntity.func_70092_e((double)this.entityPosX, (double)this.entityPosY, (double)this.entityPosZ)) {
+                         if (this.targetEntity.getDistanceSq(vec3.field_72450_a, vec3.field_72448_b, vec3.field_72449_c) < this.targetEntity.getDistanceSq((double)this.entityPosX, (double)this.entityPosY, (double)this.entityPosZ)) {
                               this.movePosX = vec3.field_72450_a;
                               this.movePosY = vec3.field_72448_b;
                               this.movePosZ = vec3.field_72449_c;

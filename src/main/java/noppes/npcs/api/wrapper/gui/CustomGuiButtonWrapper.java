@@ -132,7 +132,7 @@ public class CustomGuiButtonWrapper extends CustomGuiComponentWrapper implements
      public CustomGuiComponentWrapper fromNBT(NBTTagCompound nbt) {
           super.fromNBT(nbt);
           if (nbt.hasKey("size")) {
-               this.setSize(nbt.func_74759_k("size")[0], nbt.func_74759_k("size")[1]);
+               this.setSize(nbt.getIntArray("size")[0], nbt.getIntArray("size")[1]);
           }
 
           this.setLabel(nbt.getString("label"));
@@ -141,7 +141,7 @@ public class CustomGuiButtonWrapper extends CustomGuiComponentWrapper implements
           }
 
           if (nbt.hasKey("texPos")) {
-               this.setTextureOffset(nbt.func_74759_k("texPos")[0], nbt.func_74759_k("texPos")[1]);
+               this.setTextureOffset(nbt.getIntArray("texPos")[0], nbt.getIntArray("texPos")[1]);
           }
 
           return this;

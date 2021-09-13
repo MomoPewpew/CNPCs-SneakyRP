@@ -30,7 +30,7 @@ public class EntityAISprintToTarget extends EntityAIBase {
      }
 
      public boolean func_75253_b() {
-          return this.npc.func_70089_S() && this.npc.field_70122_E && this.npc.field_70737_aN <= 0 && this.npc.field_70159_w != 0.0D && this.npc.field_70179_y != 0.0D;
+          return this.npc.func_70089_S() && this.npc.field_70122_E && this.npc.field_70737_aN <= 0 && this.npc.motionX != 0.0D && this.npc.motionZ != 0.0D;
      }
 
      public void func_75249_e() {

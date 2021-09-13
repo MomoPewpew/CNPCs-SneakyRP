@@ -68,7 +68,7 @@ public class ItemNpcInterface extends Item {
                return false;
           } else {
                itemstack.func_190918_g(1);
-               if (itemstack.func_190916_E() == 0) {
+               if (itemstack.getCount() == 0) {
                     player.inventory.func_184437_d(itemstack);
                }
 
@@ -82,8 +82,8 @@ public class ItemNpcInterface extends Item {
           } else if (player.func_184586_b(EnumHand.MAIN_HAND) != null && player.func_184586_b(EnumHand.MAIN_HAND).func_77973_b() == item) {
                return player.func_184586_b(EnumHand.MAIN_HAND);
           } else {
-               for(int i = 0; i < player.inventory.func_70302_i_(); ++i) {
-                    ItemStack itemstack = player.inventory.func_70301_a(i);
+               for(int i = 0; i < player.inventory.getSizeInventory(); ++i) {
+                    ItemStack itemstack = player.inventory.getStackInSlot(i);
                     if (itemstack != null && itemstack.func_77973_b() == item) {
                          return itemstack;
                     }

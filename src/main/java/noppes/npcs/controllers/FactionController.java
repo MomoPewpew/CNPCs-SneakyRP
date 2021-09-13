@@ -86,7 +86,7 @@ public class FactionController implements IFactionHandler {
      public void loadFactions(DataInputStream stream) throws IOException {
           HashMap factions = new HashMap();
           NBTTagCompound nbttagcompound1 = CompressedStreamTools.func_74794_a(stream);
-          this.lastUsedID = nbttagcompound1.func_74762_e("lastID");
+          this.lastUsedID = nbttagcompound1.getInteger("lastID");
           NBTTagList list = nbttagcompound1.getTagList("NPCFactions", 10);
           if (list != null) {
                for(int i = 0; i < list.tagCount(); ++i) {

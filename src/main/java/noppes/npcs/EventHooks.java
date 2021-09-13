@@ -363,7 +363,7 @@ public class EventHooks {
      }
 
      public static boolean onPlayerToss(PlayerScriptData handler, EntityItem entityItem) {
-          PlayerEvent.TossEvent event = new PlayerEvent.TossEvent(handler.getPlayer(), NpcAPI.Instance().getIItemStack(entityItem.func_92059_d()));
+          PlayerEvent.TossEvent event = new PlayerEvent.TossEvent(handler.getPlayer(), NpcAPI.Instance().getIItemStack(entityItem.getItem()));
           handler.runScript(EnumScriptType.TOSS, event);
           return WrapperNpcAPI.EVENT_BUS.post(event);
      }
@@ -375,7 +375,7 @@ public class EventHooks {
      }
 
      public static boolean onPlayerPickUp(PlayerScriptData handler, EntityItem entityItem) {
-          PlayerEvent.PickUpEvent event = new PlayerEvent.PickUpEvent(handler.getPlayer(), NpcAPI.Instance().getIItemStack(entityItem.func_92059_d()));
+          PlayerEvent.PickUpEvent event = new PlayerEvent.PickUpEvent(handler.getPlayer(), NpcAPI.Instance().getIItemStack(entityItem.getItem()));
           handler.runScript(EnumScriptType.PICKUP, event);
           return WrapperNpcAPI.EVENT_BUS.post(event);
      }

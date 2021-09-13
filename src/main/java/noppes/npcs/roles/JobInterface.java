@@ -64,7 +64,7 @@ public abstract class JobInterface implements INPCJob {
 
      public ItemStack stringToItem(String s) {
           if (s.isEmpty()) {
-               return ItemStack.field_190927_a;
+               return ItemStack.EMPTY;
           } else {
                int damage = 0;
                if (s.contains(" - ")) {
@@ -80,12 +80,12 @@ public abstract class JobInterface implements INPCJob {
                }
 
                Item item = Item.func_111206_d(s);
-               return item == null ? ItemStack.field_190927_a : new ItemStack(item, 1, damage);
+               return item == null ? ItemStack.EMPTY : new ItemStack(item, 1, damage);
           }
      }
 
      public String itemToString(ItemStack item) {
-          return item != null && !item.func_190926_b() ? Item.field_150901_e.func_177774_c(item.func_77973_b()) + " - " + item.func_77952_i() : "";
+          return item != null && !item.isEmpty() ? Item.field_150901_e.func_177774_c(item.func_77973_b()) + " - " + item.func_77952_i() : "";
      }
 
      public int getType() {

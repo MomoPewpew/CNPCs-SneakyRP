@@ -77,10 +77,10 @@ public class JobPuppet extends JobInterface implements IJobPuppet {
           compound.setTag("PuppetBody2", this.body2.writeNBT());
           compound.setTag("PuppetLLeg2", this.lleg2.writeNBT());
           compound.setTag("PuppetRLeg2", this.rleg2.writeNBT());
-          compound.func_74757_a("PuppetStanding", this.whileStanding);
-          compound.func_74757_a("PuppetAttacking", this.whileAttacking);
-          compound.func_74757_a("PuppetMoving", this.whileMoving);
-          compound.func_74757_a("PuppetAnimate", this.animate);
+          compound.setBoolean("PuppetStanding", this.whileStanding);
+          compound.setBoolean("PuppetAttacking", this.whileAttacking);
+          compound.setBoolean("PuppetMoving", this.whileMoving);
+          compound.setBoolean("PuppetAnimate", this.animate);
           compound.setInteger("PuppetAnimationSpeed", this.animationSpeed);
           return compound;
      }
@@ -102,7 +102,7 @@ public class JobPuppet extends JobInterface implements IJobPuppet {
           this.whileAttacking = compound.getBoolean("PuppetAttacking");
           this.whileMoving = compound.getBoolean("PuppetMoving");
           this.setIsAnimated(compound.getBoolean("PuppetAnimate"));
-          this.setAnimationSpeed(compound.func_74762_e("PuppetAnimationSpeed"));
+          this.setAnimationSpeed(compound.getInteger("PuppetAnimationSpeed"));
      }
 
      public boolean aiShouldExecute() {
@@ -209,17 +209,17 @@ public class JobPuppet extends JobInterface implements IJobPuppet {
 
           public NBTTagCompound writeNBT() {
                NBTTagCompound compound = new NBTTagCompound();
-               compound.func_74776_a("RotationX", this.rotationX);
-               compound.func_74776_a("RotationY", this.rotationY);
-               compound.func_74776_a("RotationZ", this.rotationZ);
-               compound.func_74757_a("Disabled", this.disabled);
+               compound.setFloat("RotationX", this.rotationX);
+               compound.setFloat("RotationY", this.rotationY);
+               compound.setFloat("RotationZ", this.rotationZ);
+               compound.setBoolean("Disabled", this.disabled);
                return compound;
           }
 
           public void readNBT(NBTTagCompound compound) {
-               this.rotationX = ValueUtil.correctFloat(compound.func_74760_g("RotationX"), -1.0F, 1.0F);
-               this.rotationY = ValueUtil.correctFloat(compound.func_74760_g("RotationY"), -1.0F, 1.0F);
-               this.rotationZ = ValueUtil.correctFloat(compound.func_74760_g("RotationZ"), -1.0F, 1.0F);
+               this.rotationX = ValueUtil.correctFloat(compound.getFloat("RotationX"), -1.0F, 1.0F);
+               this.rotationY = ValueUtil.correctFloat(compound.getFloat("RotationY"), -1.0F, 1.0F);
+               this.rotationZ = ValueUtil.correctFloat(compound.getFloat("RotationZ"), -1.0F, 1.0F);
                this.disabled = compound.getBoolean("Disabled");
           }
 

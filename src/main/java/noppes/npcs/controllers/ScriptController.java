@@ -311,9 +311,9 @@ public class ScriptController {
 
      @SubscribeEvent
      public void saveWorld(Save event) {
-          if (this.shouldSave && !event.getWorld().field_72995_K && event.getWorld() == event.getWorld().func_73046_m().field_71305_c[0]) {
+          if (this.shouldSave && !event.getWorld().isRemote && event.getWorld() == event.getWorld().func_73046_m().field_71305_c[0]) {
                try {
-                    NBTJsonUtil.SaveFile(this.worldDataFile(), this.compound.func_74737_b());
+                    NBTJsonUtil.SaveFile(this.worldDataFile(), this.compound.copy());
                } catch (Exception var3) {
                     LogWriter.except(var3);
                }

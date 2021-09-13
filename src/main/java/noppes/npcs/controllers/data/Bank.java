@@ -32,10 +32,10 @@ public class Bank {
      }
 
      public void readEntityFromNBT(NBTTagCompound nbttagcompound) {
-          this.id = nbttagcompound.func_74762_e("BankID");
+          this.id = nbttagcompound.getInteger("BankID");
           this.name = nbttagcompound.getString("Username");
-          this.startSlots = nbttagcompound.func_74762_e("StartSlots");
-          this.maxSlots = nbttagcompound.func_74762_e("MaxSlots");
+          this.startSlots = nbttagcompound.getInteger("StartSlots");
+          this.maxSlots = nbttagcompound.getInteger("MaxSlots");
           this.slotTypes = NBTTags.getIntegerIntegerMap(nbttagcompound.getTagList("BankTypes", 10));
           this.currencyInventory.setFromNBT(nbttagcompound.getCompoundTag("BankCurrency"));
           this.upgradeInventory.setFromNBT(nbttagcompound.getCompoundTag("BankUpgrade"));
@@ -46,7 +46,7 @@ public class Bank {
      }
 
      public boolean canBeUpgraded(int slot) {
-          if (this.upgradeInventory.func_70301_a(slot) != null && !this.upgradeInventory.func_70301_a(slot).func_190926_b()) {
+          if (this.upgradeInventory.getStackInSlot(slot) != null && !this.upgradeInventory.getStackInSlot(slot).isEmpty()) {
                return this.slotTypes.get(slot) == null || (Integer)this.slotTypes.get(slot) == 0;
           } else {
                return false;
@@ -55,7 +55,7 @@ public class Bank {
 
      public int getMaxSlots() {
           for(int i = 0; i < this.maxSlots; ++i) {
-               if ((this.currencyInventory.func_70301_a(i) == null || this.currencyInventory.func_70301_a(i).func_190926_b()) && i > this.startSlots - 1) {
+               if ((this.currencyInventory.getStackInSlot(i) == null || this.currencyInventory.getStackInSlot(i).isEmpty()) && i > this.startSlots - 1) {
                     return i;
                }
           }

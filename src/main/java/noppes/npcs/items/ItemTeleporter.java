@@ -33,7 +33,7 @@ public class ItemTeleporter extends Item implements IPermission {
 
      public ActionResult func_77659_a(World world, EntityPlayer player, EnumHand hand) {
           ItemStack itemstack = player.func_184586_b(hand);
-          if (!world.field_72995_K) {
+          if (!world.isRemote) {
                return new ActionResult(EnumActionResult.SUCCESS, itemstack);
           } else {
                CustomNpcs.proxy.openGui((EntityNPCInterface)null, EnumGuiType.NpcDimensions);
@@ -42,7 +42,7 @@ public class ItemTeleporter extends Item implements IPermission {
      }
 
      public boolean onEntitySwing(EntityLivingBase par3EntityPlayer, ItemStack stack) {
-          if (par3EntityPlayer.world.field_72995_K) {
+          if (par3EntityPlayer.world.isRemote) {
                return false;
           } else {
                float f = 1.0F;
@@ -67,13 +67,13 @@ public class ItemTeleporter extends Item implements IPermission {
                     Vec3d vec32 = par3EntityPlayer.func_70676_i(f);
                     boolean flag = false;
                     float f9 = 1.0F;
-                    List list = par3EntityPlayer.world.func_72839_b(par3EntityPlayer, par3EntityPlayer.func_174813_aQ().func_72314_b(vec32.field_72450_a * d3, vec32.field_72448_b * d3, vec32.field_72449_c * d3).func_72314_b((double)f9, (double)f9, (double)f9));
+                    List list = par3EntityPlayer.world.func_72839_b(par3EntityPlayer, par3EntityPlayer.getEntityBoundingBox().expand(vec32.field_72450_a * d3, vec32.field_72448_b * d3, vec32.field_72449_c * d3).expand((double)f9, (double)f9, (double)f9));
 
                     for(int i = 0; i < list.size(); ++i) {
                          Entity entity = (Entity)list.get(i);
                          if (entity.func_70067_L()) {
                               float f10 = entity.func_70111_Y();
-                              AxisAlignedBB axisalignedbb = entity.func_174813_aQ().func_72314_b((double)f10, (double)f10, (double)f10);
+                              AxisAlignedBB axisalignedbb = entity.getEntityBoundingBox().expand((double)f10, (double)f10, (double)f10);
                               if (axisalignedbb.func_72318_a(vec3)) {
                                    flag = true;
                               }
@@ -85,10 +85,10 @@ public class ItemTeleporter extends Item implements IPermission {
                     } else {
                          if (movingobjectposition.field_72313_a == Type.BLOCK) {
                               BlockPos pos;
-                              for(pos = movingobjectposition.func_178782_a(); par3EntityPlayer.world.func_180495_p(pos).func_177230_c() != Blocks.field_150350_a; pos = pos.func_177984_a()) {
+                              for(pos = movingobjectposition.func_178782_a(); par3EntityPlayer.world.getBlockState(pos).getBlock() != Blocks.field_150350_a; pos = pos.func_177984_a()) {
                               }
 
-                              par3EntityPlayer.func_70634_a((double)((float)pos.func_177958_n() + 0.5F), (double)((float)pos.func_177956_o() + 1.0F), (double)((float)pos.func_177952_p() + 0.5F));
+                              par3EntityPlayer.func_70634_a((double)((float)pos.getX() + 0.5F), (double)((float)pos.getY() + 1.0F), (double)((float)pos.getZ() + 0.5F));
                          }
 
                          return true;

@@ -22,7 +22,7 @@ public class TileWaypoint extends TileNpcEntity implements ITickable {
      public int range = 10;
 
      public void func_73660_a() {
-          if (!this.field_145850_b.field_72995_K && !this.name.isEmpty()) {
+          if (!this.field_145850_b.isRemote && !this.name.isEmpty()) {
                --this.ticks;
                if (this.ticks <= 0) {
                     this.ticks = 10;
@@ -59,13 +59,13 @@ public class TileWaypoint extends TileNpcEntity implements ITickable {
      }
 
      private List getPlayerList(int x, int y, int z) {
-          return this.field_145850_b.func_72872_a(EntityPlayer.class, (new AxisAlignedBB(this.field_174879_c, this.field_174879_c.func_177982_a(1, 1, 1))).func_72314_b((double)x, (double)y, (double)z));
+          return this.field_145850_b.getEntitiesWithinAABB(EntityPlayer.class, (new AxisAlignedBB(this.field_174879_c, this.field_174879_c.func_177982_a(1, 1, 1))).expand((double)x, (double)y, (double)z));
      }
 
-     public void func_145839_a(NBTTagCompound compound) {
-          super.func_145839_a(compound);
+     public void readFromNBT(NBTTagCompound compound) {
+          super.readFromNBT(compound);
           this.name = compound.getString("LocationName");
-          this.range = compound.func_74762_e("LocationRange");
+          this.range = compound.getInteger("LocationRange");
           if (this.range < 2) {
                this.range = 2;
           }

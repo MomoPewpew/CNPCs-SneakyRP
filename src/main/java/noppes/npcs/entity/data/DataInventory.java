@@ -56,13 +56,13 @@ public class DataInventory implements IInventory, INPCInventory {
      }
 
      public void readEntityFromNBT(NBTTagCompound nbttagcompound) {
-          this.minExp = nbttagcompound.func_74762_e("MinExp");
-          this.maxExp = nbttagcompound.func_74762_e("MaxExp");
+          this.minExp = nbttagcompound.getInteger("MinExp");
+          this.maxExp = nbttagcompound.getInteger("MaxExp");
           this.drops = NBTTags.getIItemStackMap(nbttagcompound.getTagList("NpcInv", 10));
           this.armor = NBTTags.getIItemStackMap(nbttagcompound.getTagList("Armor", 10));
           this.weapons = NBTTags.getIItemStackMap(nbttagcompound.getTagList("Weapons", 10));
           this.dropchance = NBTTags.getIntegerIntegerMap(nbttagcompound.getTagList("DropChance", 10));
-          this.lootMode = nbttagcompound.func_74762_e("LootMode");
+          this.lootMode = nbttagcompound.getInteger("LootMode");
      }
 
      public IItemStack getArmor(int slot) {
@@ -139,7 +139,7 @@ public class DataInventory implements IInventory, INPCInventory {
                          dchance = (Integer)this.dropchance.get(i);
                     }
 
-                    int chance = this.npc.world.field_73012_v.nextInt(100) + dchance;
+                    int chance = this.npc.world.rand.nextInt(100) + dchance;
                     if (chance >= 100) {
                          list.add(item);
                     }
@@ -159,7 +159,7 @@ public class DataInventory implements IInventory, INPCInventory {
 
                for(var2 = 0; var2 < exp; ++var2) {
                     IItemStack item = var5[var2];
-                    EntityItem e = this.getEntityItem(item.getMCItemStack().func_77946_l());
+                    EntityItem e = this.getEntityItem(item.getMCItemStack().copy());
                     if (e != null) {
                          list.add(e);
                     }
@@ -186,12 +186,12 @@ public class DataInventory implements IInventory, INPCInventory {
                               EntityPlayer player = (EntityPlayer)entity;
                               item.func_174867_a(2);
                               this.npc.world.func_72838_d(item);
-                              ItemStack stack = item.func_92059_d();
-                              int i = stack.func_190916_E();
+                              ItemStack stack = item.getItem();
+                              int i = stack.getCount();
                               if (player.inventory.func_70441_a(stack)) {
                                    entity.world.func_184148_a((EntityPlayer)null, player.field_70165_t, player.field_70163_u, player.field_70161_v, SoundEvents.field_187638_cR, SoundCategory.PLAYERS, 0.2F, ((player.func_70681_au().nextFloat() - player.func_70681_au().nextFloat()) * 0.7F + 1.0F) * 2.0F);
                                    player.func_71001_a(item, i);
-                                   if (stack.func_190916_E() <= 0) {
+                                   if (stack.getCount() <= 0) {
                                         item.func_70106_y();
                                    }
                               }
@@ -220,25 +220,25 @@ public class DataInventory implements IInventory, INPCInventory {
      }
 
      public EntityItem getEntityItem(ItemStack itemstack) {
-          if (itemstack != null && !itemstack.func_190926_b()) {
+          if (itemstack != null && !itemstack.isEmpty()) {
                EntityItem entityitem = new EntityItem(this.npc.world, this.npc.field_70165_t, this.npc.field_70163_u - 0.30000001192092896D + (double)this.npc.func_70047_e(), this.npc.field_70161_v, itemstack);
                entityitem.func_174867_a(40);
                float f2 = this.npc.func_70681_au().nextFloat() * 0.5F;
                float f4 = this.npc.func_70681_au().nextFloat() * 3.141593F * 2.0F;
-               entityitem.field_70159_w = (double)(-MathHelper.func_76126_a(f4) * f2);
-               entityitem.field_70179_y = (double)(MathHelper.func_76134_b(f4) * f2);
-               entityitem.field_70181_x = 0.20000000298023224D;
+               entityitem.motionX = (double)(-MathHelper.func_76126_a(f4) * f2);
+               entityitem.motionZ = (double)(MathHelper.func_76134_b(f4) * f2);
+               entityitem.motionY = 0.20000000298023224D;
                return entityitem;
           } else {
                return null;
           }
      }
 
-     public int func_70302_i_() {
+     public int getSizeInventory() {
           return 15;
      }
 
-     public ItemStack func_70301_a(int i) {
+     public ItemStack getStackInSlot(int i) {
           if (i < 4) {
                return ItemStackWrapper.MCItem(this.getArmor(i));
           } else {
@@ -246,7 +246,7 @@ public class DataInventory implements IInventory, INPCInventory {
           }
      }
 
-     public ItemStack func_70298_a(int par1, int par2) {
+     public ItemStack decrStackSize(int par1, int par2) {
           int i = 0;
           Map var3;
           if (par1 >= 7) {
@@ -263,12 +263,12 @@ public class DataInventory implements IInventory, INPCInventory {
 
           ItemStack var4 = null;
           if (var3.get(par1) != null) {
-               if (((IItemStack)var3.get(par1)).getMCItemStack().func_190916_E() <= par2) {
+               if (((IItemStack)var3.get(par1)).getMCItemStack().getCount() <= par2) {
                     var4 = ((IItemStack)var3.get(par1)).getMCItemStack();
                     var3.put(par1, (Object)null);
                } else {
                     var4 = ((IItemStack)var3.get(par1)).getMCItemStack().splitStack(par2);
-                    if (((IItemStack)var3.get(par1)).getMCItemStack().func_190916_E() == 0) {
+                    if (((IItemStack)var3.get(par1)).getMCItemStack().getCount() == 0) {
                          var3.put(par1, (Object)null);
                     }
                }
@@ -282,10 +282,10 @@ public class DataInventory implements IInventory, INPCInventory {
                this.armor = var3;
           }
 
-          return var4 == null ? ItemStack.field_190927_a : var4;
+          return var4 == null ? ItemStack.EMPTY : var4;
      }
 
-     public ItemStack func_70304_b(int par1) {
+     public ItemStack removeStackFromSlot(int par1) {
           int i = 0;
           Map var2;
           if (par1 >= 7) {
@@ -313,11 +313,11 @@ public class DataInventory implements IInventory, INPCInventory {
 
                return var3;
           } else {
-               return ItemStack.field_190927_a;
+               return ItemStack.EMPTY;
           }
      }
 
-     public void func_70299_a(int par1, ItemStack par2ItemStack) {
+     public void setInventorySlotContents(int par1, ItemStack par2ItemStack) {
           int i = 0;
           Map var3;
           if (par1 >= 7) {
@@ -343,11 +343,11 @@ public class DataInventory implements IInventory, INPCInventory {
 
      }
 
-     public int func_70297_j_() {
+     public int getInventoryStackLimit() {
           return 64;
      }
 
-     public boolean func_70300_a(EntityPlayer var1) {
+     public boolean isUseableByPlayer(EntityPlayer var1) {
           return true;
      }
 
@@ -359,7 +359,7 @@ public class DataInventory implements IInventory, INPCInventory {
           return "NPC Inventory";
      }
 
-     public void func_70296_d() {
+     public void markDirty() {
      }
 
      public boolean func_145818_k_() {
@@ -401,7 +401,7 @@ public class DataInventory implements IInventory, INPCInventory {
      public int getExpRNG() {
           int exp = this.minExp;
           if (this.maxExp - this.minExp > 0) {
-               exp += this.npc.world.field_73012_v.nextInt(this.maxExp - this.minExp);
+               exp += this.npc.world.rand.nextInt(this.maxExp - this.minExp);
           }
 
           return exp;
@@ -414,9 +414,9 @@ public class DataInventory implements IInventory, INPCInventory {
      }
 
      public boolean func_191420_l() {
-          for(int slot = 0; slot < this.func_70302_i_(); ++slot) {
-               ItemStack item = this.func_70301_a(slot);
-               if (!NoppesUtilServer.IsItemStackNull(item) && !item.func_190926_b()) {
+          for(int slot = 0; slot < this.getSizeInventory(); ++slot) {
+               ItemStack item = this.getStackInSlot(slot);
+               if (!NoppesUtilServer.IsItemStackNull(item) && !item.isEmpty()) {
                     return false;
                }
           }

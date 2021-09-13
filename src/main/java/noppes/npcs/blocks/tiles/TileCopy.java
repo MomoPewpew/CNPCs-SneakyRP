@@ -12,8 +12,8 @@ public class TileCopy extends TileEntity {
      public short height = 10;
      public String name = "";
 
-     public void func_145839_a(NBTTagCompound compound) {
-          super.func_145839_a(compound);
+     public void readFromNBT(NBTTagCompound compound) {
+          super.readFromNBT(compound);
           this.length = compound.func_74765_d("Length");
           this.width = compound.func_74765_d("Width");
           this.height = compound.func_74765_d("Height");
@@ -44,9 +44,9 @@ public class TileCopy extends TileEntity {
 
      public NBTTagCompound func_189517_E_() {
           NBTTagCompound compound = new NBTTagCompound();
-          compound.setInteger("x", this.field_174879_c.func_177958_n());
-          compound.setInteger("y", this.field_174879_c.func_177956_o());
-          compound.setInteger("z", this.field_174879_c.func_177952_p());
+          compound.setInteger("x", this.field_174879_c.getX());
+          compound.setInteger("y", this.field_174879_c.getY());
+          compound.setInteger("z", this.field_174879_c.getZ());
           compound.func_74777_a("Length", this.length);
           compound.func_74777_a("Width", this.width);
           compound.func_74777_a("Height", this.height);
@@ -54,6 +54,6 @@ public class TileCopy extends TileEntity {
      }
 
      public AxisAlignedBB getRenderBoundingBox() {
-          return new AxisAlignedBB((double)this.field_174879_c.func_177958_n(), (double)this.field_174879_c.func_177956_o(), (double)this.field_174879_c.func_177952_p(), (double)(this.field_174879_c.func_177958_n() + this.width + 1), (double)(this.field_174879_c.func_177956_o() + this.height + 1), (double)(this.field_174879_c.func_177952_p() + this.length + 1));
+          return new AxisAlignedBB((double)this.field_174879_c.getX(), (double)this.field_174879_c.getY(), (double)this.field_174879_c.getZ(), (double)(this.field_174879_c.getX() + this.width + 1), (double)(this.field_174879_c.getY() + this.height + 1), (double)(this.field_174879_c.getZ() + this.length + 1));
      }
 }

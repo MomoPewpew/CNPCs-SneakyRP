@@ -12,15 +12,15 @@ public class BlockPosWrapper implements IPos {
      }
 
      public int getX() {
-          return this.blockPos.func_177958_n();
+          return this.blockPos.getX();
      }
 
      public int getY() {
-          return this.blockPos.func_177956_o();
+          return this.blockPos.getY();
      }
 
      public int getZ() {
-          return this.blockPos.func_177952_p();
+          return this.blockPos.getZ();
      }
 
      public IPos up() {
@@ -100,7 +100,7 @@ public class BlockPosWrapper implements IPos {
      }
 
      public double[] normalize() {
-          double d = Math.sqrt((double)(this.blockPos.func_177958_n() * this.blockPos.func_177958_n() + this.blockPos.func_177956_o() * this.blockPos.func_177956_o() + this.blockPos.func_177952_p() * this.blockPos.func_177952_p()));
+          double d = Math.sqrt((double)(this.blockPos.getX() * this.blockPos.getX() + this.blockPos.getY() * this.blockPos.getY() + this.blockPos.getZ() * this.blockPos.getZ()));
           return new double[]{(double)this.getX() / d, (double)this.getY() / d, (double)this.getZ() / d};
      }
 

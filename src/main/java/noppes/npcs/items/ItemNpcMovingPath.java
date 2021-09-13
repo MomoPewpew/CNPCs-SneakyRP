@@ -31,7 +31,7 @@ public class ItemNpcMovingPath extends Item implements IPermission {
 
      public ActionResult func_77659_a(World world, EntityPlayer player, EnumHand hand) {
           ItemStack itemstack = player.func_184586_b(hand);
-          if (!world.field_72995_K) {
+          if (!world.isRemote) {
                CustomNpcsPermissions var10000 = CustomNpcsPermissions.Instance;
                if (CustomNpcsPermissions.hasPermission(player, CustomNpcsPermissions.TOOL_MOUNTER)) {
                     EntityNPCInterface npc = this.getNpc(itemstack, world);
@@ -47,7 +47,7 @@ public class ItemNpcMovingPath extends Item implements IPermission {
      }
 
      public EnumActionResult func_180614_a(EntityPlayer player, World world, BlockPos bpos, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
-          if (!world.field_72995_K) {
+          if (!world.isRemote) {
                CustomNpcsPermissions var10000 = CustomNpcsPermissions.Instance;
                if (CustomNpcsPermissions.hasPermission(player, CustomNpcsPermissions.TOOL_MOUNTER)) {
                     ItemStack stack = player.func_184586_b(hand);
@@ -58,9 +58,9 @@ public class ItemNpcMovingPath extends Item implements IPermission {
 
                     List list = npc.ais.getMovingPath();
                     int[] pos = (int[])list.get(list.size() - 1);
-                    int x = bpos.func_177958_n();
-                    int y = bpos.func_177956_o();
-                    int z = bpos.func_177952_p();
+                    int x = bpos.getX();
+                    int y = bpos.getY();
+                    int z = bpos.getZ();
                     list.add(new int[]{x, y, z});
                     double d3 = (double)(x - pos[0]);
                     double d4 = (double)(y - pos[1]);
@@ -79,8 +79,8 @@ public class ItemNpcMovingPath extends Item implements IPermission {
      }
 
      private EntityNPCInterface getNpc(ItemStack item, World world) {
-          if (!world.field_72995_K && item.func_77978_p() != null) {
-               Entity entity = world.func_73045_a(item.func_77978_p().func_74762_e("NPCID"));
+          if (!world.isRemote && item.getTagCompound() != null) {
+               Entity entity = world.getEntityByID(item.getTagCompound().getInteger("NPCID"));
                return entity != null && entity instanceof EntityNPCInterface ? (EntityNPCInterface)entity : null;
           } else {
                return null;

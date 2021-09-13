@@ -38,7 +38,7 @@ public class RoleFollower extends RoleInterface implements IRoleFollower {
 
      public NBTTagCompound writeToNBT(NBTTagCompound nbttagcompound) {
           nbttagcompound.setInteger("MercenaryDaysHired", this.daysHired);
-          nbttagcompound.func_74772_a("MercenaryHiredTime", this.hiredTime);
+          nbttagcompound.setLong("MercenaryHiredTime", this.hiredTime);
           nbttagcompound.setString("MercenaryDialogHired", this.dialogHire);
           nbttagcompound.setString("MercenaryDialogFarewell", this.dialogFarewell);
           if (this.hasOwner()) {
@@ -47,17 +47,17 @@ public class RoleFollower extends RoleInterface implements IRoleFollower {
 
           nbttagcompound.setTag("MercenaryDayRates", NBTTags.nbtIntegerIntegerMap(this.rates));
           nbttagcompound.setTag("MercenaryInv", this.inventory.getToNBT());
-          nbttagcompound.func_74757_a("MercenaryIsFollowing", this.isFollowing);
-          nbttagcompound.func_74757_a("MercenaryDisableGui", this.disableGui);
-          nbttagcompound.func_74757_a("MercenaryInfiniteDays", this.infiniteDays);
-          nbttagcompound.func_74757_a("MercenaryRefuseSoulstone", this.refuseSoulStone);
+          nbttagcompound.setBoolean("MercenaryIsFollowing", this.isFollowing);
+          nbttagcompound.setBoolean("MercenaryDisableGui", this.disableGui);
+          nbttagcompound.setBoolean("MercenaryInfiniteDays", this.infiniteDays);
+          nbttagcompound.setBoolean("MercenaryRefuseSoulstone", this.refuseSoulStone);
           return nbttagcompound;
      }
 
      public void readFromNBT(NBTTagCompound nbttagcompound) {
           this.ownerUUID = nbttagcompound.getString("MercenaryOwner");
-          this.daysHired = nbttagcompound.func_74762_e("MercenaryDaysHired");
-          this.hiredTime = nbttagcompound.func_74763_f("MercenaryHiredTime");
+          this.daysHired = nbttagcompound.getInteger("MercenaryDaysHired");
+          this.hiredTime = nbttagcompound.getLong("MercenaryHiredTime");
           this.dialogHire = nbttagcompound.getString("MercenaryDialogHired");
           this.dialogFarewell = nbttagcompound.getString("MercenaryDialogFarewell");
           this.rates = NBTTags.getIntegerIntegerMap(nbttagcompound.getTagList("MercenaryDayRates", 10));

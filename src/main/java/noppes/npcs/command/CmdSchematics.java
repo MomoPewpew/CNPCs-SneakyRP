@@ -71,7 +71,7 @@ public class CmdSchematics extends CommandNoppesBase {
                     }
                }
 
-               if (pos.func_177958_n() == 0 && pos.func_177956_o() == 0 && pos.func_177952_p() == 0) {
+               if (pos.getX() == 0 && pos.getY() == 0 && pos.getZ() == 0) {
                     throw new CommandException("Location needed", new Object[0]);
                } else {
                     schem.init(pos, world, rotation);

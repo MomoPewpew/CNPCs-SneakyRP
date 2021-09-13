@@ -171,11 +171,11 @@ public class CmdClone extends CommandNoppesBase {
                     }
                }
 
-               if (pos.func_177958_n() == 0 && pos.func_177956_o() == 0 && pos.func_177952_p() == 0) {
+               if (pos.getX() == 0 && pos.getY() == 0 && pos.getZ() == 0) {
                     throw new CommandException("Location needed", new Object[0]);
                } else {
                     Entity entity = EntityList.func_75615_a(compound, world);
-                    entity.func_70107_b((double)pos.func_177958_n() + 0.5D, (double)(pos.func_177956_o() + 1), (double)pos.func_177952_p() + 0.5D);
+                    entity.func_70107_b((double)pos.getX() + 0.5D, (double)(pos.getY() + 1), (double)pos.getZ() + 0.5D);
                     if (entity instanceof EntityNPCInterface) {
                          EntityNPCInterface npc = (EntityNPCInterface)entity;
                          npc.ais.setStartPos(pos);
@@ -251,7 +251,7 @@ public class CmdClone extends CommandNoppesBase {
                     }
                }
 
-               if (curpos.func_177958_n() == 0 && curpos.func_177956_o() == 0 && curpos.func_177952_p() == 0) {
+               if (curpos.getX() == 0 && curpos.getY() == 0 && curpos.getZ() == 0) {
                     throw new CommandException("Location needed", new Object[0]);
                } else {
                     for(int x = 0; x < width; ++x) {
@@ -261,8 +261,8 @@ public class CmdClone extends CommandNoppesBase {
                               for(int y = 0; y < 10; ++y) {
                                    BlockPos pos = npcpos.func_177981_b(y);
                                    BlockPos pos2 = pos.func_177984_a();
-                                   IBlockState b = world.func_180495_p(pos);
-                                   IBlockState b2 = world.func_180495_p(pos2);
+                                   IBlockState b = world.getBlockState(pos);
+                                   IBlockState b2 = world.getBlockState(pos2);
                                    if (b.func_191058_s() && !b2.func_191058_s()) {
                                         npcpos = pos;
                                         break;
@@ -270,7 +270,7 @@ public class CmdClone extends CommandNoppesBase {
                               }
 
                               Entity entity = EntityList.func_75615_a(compound, world);
-                              entity.func_70107_b((double)npcpos.func_177958_n() + 0.5D, (double)(npcpos.func_177956_o() + 1), (double)npcpos.func_177952_p() + 0.5D);
+                              entity.func_70107_b((double)npcpos.getX() + 0.5D, (double)(npcpos.getY() + 1), (double)npcpos.getZ() + 0.5D);
                               if (entity instanceof EntityNPCInterface) {
                                    EntityNPCInterface npc = (EntityNPCInterface)entity;
                                    npc.ais.setStartPos(npcpos);
@@ -304,6 +304,6 @@ public class CmdClone extends CommandNoppesBase {
      }
 
      public List getEntities(Class cls, World world, BlockPos pos, int range) {
-          return world.func_72872_a(cls, (new AxisAlignedBB(pos, pos.func_177982_a(1, 1, 1))).func_72314_b((double)range, (double)range, (double)range));
+          return world.getEntitiesWithinAABB(cls, (new AxisAlignedBB(pos, pos.func_177982_a(1, 1, 1))).expand((double)range, (double)range, (double)range));
      }
 }

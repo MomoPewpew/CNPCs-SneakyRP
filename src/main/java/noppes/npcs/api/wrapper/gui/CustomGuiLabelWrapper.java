@@ -79,16 +79,16 @@ public class CustomGuiLabelWrapper extends CustomGuiComponentWrapper implements 
           nbt.setString("label", this.label);
           nbt.setIntArray("size", new int[]{this.width, this.height});
           nbt.setInteger("color", this.color);
-          nbt.func_74776_a("scale", this.scale);
+          nbt.setFloat("scale", this.scale);
           return nbt;
      }
 
      public CustomGuiComponentWrapper fromNBT(NBTTagCompound nbt) {
           super.fromNBT(nbt);
           this.setText(nbt.getString("label"));
-          this.setSize(nbt.func_74759_k("size")[0], nbt.func_74759_k("size")[1]);
-          this.setColor(nbt.func_74762_e("color"));
-          this.setScale(nbt.func_74760_g("scale"));
+          this.setSize(nbt.getIntArray("size")[0], nbt.getIntArray("size")[1]);
+          this.setColor(nbt.getInteger("color"));
+          this.setScale(nbt.getFloat("scale"));
           return this;
      }
 }

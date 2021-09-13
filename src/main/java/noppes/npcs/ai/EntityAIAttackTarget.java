@@ -81,11 +81,11 @@ public class EntityAIAttackTarget extends EntityAIBase {
 
           this.attackTick = Math.max(this.attackTick - 1, 0);
           double y = this.entityTarget.field_70163_u;
-          if (this.entityTarget.func_174813_aQ() != null) {
-               y = this.entityTarget.func_174813_aQ().field_72338_b;
+          if (this.entityTarget.getEntityBoundingBox() != null) {
+               y = this.entityTarget.getEntityBoundingBox().field_72338_b;
           }
 
-          double distance = this.npc.func_70092_e(this.entityTarget.field_70165_t, y, this.entityTarget.field_70161_v);
+          double distance = this.npc.getDistanceSq(this.entityTarget.field_70165_t, y, this.entityTarget.field_70161_v);
           double range = (double)((float)(this.npc.stats.melee.getRange() * this.npc.stats.melee.getRange()) + this.entityTarget.field_70130_N);
           double minRange = (double)(this.npc.field_70130_N * 2.0F * this.npc.field_70130_N * 2.0F + this.entityTarget.field_70130_N);
           if (minRange > range) {

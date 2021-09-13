@@ -21,10 +21,10 @@ public class ModelPartData {
 
      public NBTTagCompound writeToNBT() {
           NBTTagCompound compound = new NBTTagCompound();
-          compound.func_74774_a("Type", this.type);
+          compound.setByte("Type", this.type);
           compound.setInteger("Color", this.color);
-          compound.func_74757_a("PlayerTexture", this.playerTexture);
-          compound.func_74774_a("Pattern", this.pattern);
+          compound.setBoolean("PlayerTexture", this.playerTexture);
+          compound.setByte("Pattern", this.pattern);
           return compound;
      }
 
@@ -32,10 +32,10 @@ public class ModelPartData {
           if (!compound.hasKey("Type")) {
                this.type = -1;
           } else {
-               this.type = compound.func_74771_c("Type");
-               this.color = compound.func_74762_e("Color");
+               this.type = compound.getByte("Type");
+               this.color = compound.getInteger("Color");
                this.playerTexture = compound.getBoolean("PlayerTexture");
-               this.pattern = compound.func_74771_c("Pattern");
+               this.pattern = compound.getByte("Pattern");
                this.location = null;
           }
      }

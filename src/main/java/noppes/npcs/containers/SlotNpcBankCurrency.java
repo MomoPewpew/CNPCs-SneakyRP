@@ -10,7 +10,7 @@ public class SlotNpcBankCurrency extends Slot {
 
      public SlotNpcBankCurrency(ContainerNPCBankInterface containerplayer, IInventory iinventory, int i, int j, int k) {
           super(iinventory, i, j, k);
-          this.item = ItemStack.field_190927_a;
+          this.item = ItemStack.EMPTY;
      }
 
      public int func_75219_a() {

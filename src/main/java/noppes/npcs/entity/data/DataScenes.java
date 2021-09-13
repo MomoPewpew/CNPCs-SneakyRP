@@ -225,7 +225,7 @@ public class DataScenes {
           private List events = new ArrayList();
 
           public NBTTagCompound writeToNBT(NBTTagCompound compound) {
-               compound.func_74757_a("Enabled", this.enabled);
+               compound.setBoolean("Enabled", this.enabled);
                compound.setString("Name", this.name);
                compound.setString("Lines", this.lines);
                compound.setInteger("Button", this.btn);
@@ -262,8 +262,8 @@ public class DataScenes {
                this.enabled = compound.getBoolean("Enabled");
                this.name = compound.getString("Name");
                this.lines = compound.getString("Lines");
-               this.btn = compound.func_74762_e("Button");
-               this.ticks = compound.func_74762_e("Ticks");
+               this.btn = compound.getInteger("Button");
+               this.ticks = compound.getInteger("Ticks");
                ArrayList events = new ArrayList();
                String[] var3 = this.lines.split("\r\n|\r|\n");
                int var4 = var3.length;
@@ -317,7 +317,7 @@ public class DataScenes {
 
                          BlockPos pos = null;
                          if (args[0].startsWith("@")) {
-                              EntityLivingBase entitylivingbase = (EntityLivingBase)CommandBase.func_184884_a(DataScenes.this.npc.func_184102_h(), DataScenes.this.npc, args[0], EntityLivingBase.class);
+                              EntityLivingBase entitylivingbase = (EntityLivingBase)CommandBase.func_184884_a(DataScenes.this.npc.getServer(), DataScenes.this.npc, args[0], EntityLivingBase.class);
                               if (entitylivingbase != null) {
                                    pos = entitylivingbase.func_180425_c();
                               }
@@ -338,8 +338,8 @@ public class DataScenes {
                               if (move) {
                                    Path pathentity = DataScenes.this.npc.func_70661_as().func_179680_a(pos);
                                    DataScenes.this.npc.func_70661_as().func_75484_a(pathentity, 1.0D);
-                              } else if (!DataScenes.this.npc.isInRange((double)pos.func_177958_n() + 0.5D, (double)pos.func_177956_o(), (double)pos.func_177952_p() + 0.5D, 2.0D)) {
-                                   DataScenes.this.npc.func_70107_b((double)pos.func_177958_n() + 0.5D, (double)pos.func_177956_o(), (double)pos.func_177952_p() + 0.5D);
+                              } else if (!DataScenes.this.npc.isInRange((double)pos.getX() + 0.5D, (double)pos.getY(), (double)pos.getZ() + 0.5D, 2.0D)) {
+                                   DataScenes.this.npc.func_70107_b((double)pos.getX() + 0.5D, (double)pos.getY(), (double)pos.getZ() + 0.5D);
                               }
                          }
                     }
@@ -350,7 +350,7 @@ public class DataScenes {
                     if (event.type == DataScenes.SceneType.ROTATE) {
                          DataScenes.this.npc.lookAi.func_75251_c();
                          if (event.param.startsWith("@")) {
-                              entity = (EntityLivingBase)CommandBase.func_184884_a(DataScenes.this.npc.func_184102_h(), DataScenes.this.npc, event.param, EntityLivingBase.class);
+                              entity = (EntityLivingBase)CommandBase.func_184884_a(DataScenes.this.npc.getServer(), DataScenes.this.npc, event.param, EntityLivingBase.class);
                               DataScenes.this.npc.lookAi.rotate(DataScenes.this.npc.world.func_72890_a(entity, 30.0D));
                          } else {
                               DataScenes.this.npc.lookAi.rotate(Integer.parseInt(event.param));
@@ -388,14 +388,14 @@ public class DataScenes {
                          if (event.param.equals("none")) {
                               DataScenes.this.npc.func_70624_b((EntityLivingBase)null);
                          } else {
-                              entity = (EntityLivingBase)CommandBase.func_184884_a(DataScenes.this.npc.func_184102_h(), DataScenes.this.npc, event.param, EntityLivingBase.class);
+                              entity = (EntityLivingBase)CommandBase.func_184884_a(DataScenes.this.npc.getServer(), DataScenes.this.npc, event.param, EntityLivingBase.class);
                               if (entity != null) {
                                    DataScenes.this.npc.func_70624_b(entity);
                               }
                          }
                     } else if (event.type == DataScenes.SceneType.THROW) {
                          args = event.param.split(" ");
-                         EntityLivingBase entityx = (EntityLivingBase)CommandBase.func_184884_a(DataScenes.this.npc.func_184102_h(), DataScenes.this.npc, args[0], EntityLivingBase.class);
+                         EntityLivingBase entityx = (EntityLivingBase)CommandBase.func_184884_a(DataScenes.this.npc.getServer(), DataScenes.this.npc, args[0], EntityLivingBase.class);
                          if (entityx == null) {
                               return;
                          }
@@ -461,7 +461,7 @@ public class DataScenes {
                               DataScenes.this.owner = null;
                               DataScenes.this.ownerScene = null;
                          } else {
-                              entity = (EntityLivingBase)CommandBase.func_184884_a(DataScenes.this.npc.func_184102_h(), DataScenes.this.npc, event.param, EntityLivingBase.class);
+                              entity = (EntityLivingBase)CommandBase.func_184884_a(DataScenes.this.npc.getServer(), DataScenes.this.npc, event.param, EntityLivingBase.class);
                               if (entity == null) {
                                    return;
                               }

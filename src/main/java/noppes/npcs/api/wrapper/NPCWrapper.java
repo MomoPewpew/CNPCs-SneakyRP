@@ -87,15 +87,15 @@ public class NPCWrapper extends EntityLivingWrapper implements ICustomNpc {
      }
 
      public int getHomeX() {
-          return ((EntityNPCInterface)this.entity).ais.startPos().func_177958_n();
+          return ((EntityNPCInterface)this.entity).ais.startPos().getX();
      }
 
      public int getHomeY() {
-          return ((EntityNPCInterface)this.entity).ais.startPos().func_177956_o();
+          return ((EntityNPCInterface)this.entity).ais.startPos().getY();
      }
 
      public int getHomeZ() {
-          return ((EntityNPCInterface)this.entity).ais.startPos().func_177952_p();
+          return ((EntityNPCInterface)this.entity).ais.startPos().getZ();
      }
 
      public void setHome(int x, int y, int z) {
@@ -162,7 +162,7 @@ public class NPCWrapper extends EntityLivingWrapper implements ICustomNpc {
      }
 
      public String executeCommand(String command) {
-          if (!((EntityNPCInterface)this.entity).func_184102_h().func_82356_Z()) {
+          if (!((EntityNPCInterface)this.entity).getServer().func_82356_Z()) {
                throw new CustomNPCsException("Command blocks need to be enabled to executeCommands", new Object[0]);
           } else {
                return NoppesUtilServer.runCommand(this.entity, ((EntityNPCInterface)this.entity).func_70005_c_(), command, (EntityPlayer)null);

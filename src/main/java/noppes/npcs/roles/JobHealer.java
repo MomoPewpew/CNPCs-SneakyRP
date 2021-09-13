@@ -28,17 +28,17 @@ public class JobHealer extends JobInterface {
 
      public NBTTagCompound writeToNBT(NBTTagCompound nbttagcompound) {
           nbttagcompound.setInteger("HealerRange", this.range);
-          nbttagcompound.func_74774_a("HealerType", this.type);
+          nbttagcompound.setByte("HealerType", this.type);
           nbttagcompound.setTag("BeaconEffects", NBTTags.nbtIntegerIntegerMap(this.effects));
           nbttagcompound.setInteger("HealerSpeed", this.speed);
           return nbttagcompound;
      }
 
      public void readFromNBT(NBTTagCompound nbttagcompound) {
-          this.range = nbttagcompound.func_74762_e("HealerRange");
-          this.type = nbttagcompound.func_74771_c("HealerType");
+          this.range = nbttagcompound.getInteger("HealerRange");
+          this.type = nbttagcompound.getByte("HealerType");
           this.effects = NBTTags.getIntegerIntegerMap(nbttagcompound.getTagList("BeaconEffects", 10));
-          this.speed = ValueUtil.CorrectInt(nbttagcompound.func_74762_e("HealerSpeed"), 10, Integer.MAX_VALUE);
+          this.speed = ValueUtil.CorrectInt(nbttagcompound.getInteger("HealerSpeed"), 10, Integer.MAX_VALUE);
      }
 
      public boolean aiShouldExecute() {
@@ -47,7 +47,7 @@ public class JobHealer extends JobInterface {
                return false;
           } else {
                this.healTicks = 0;
-               this.affected = this.npc.world.func_72872_a(EntityLivingBase.class, this.npc.func_174813_aQ().func_72314_b((double)this.range, (double)this.range / 2.0D, (double)this.range));
+               this.affected = this.npc.world.getEntitiesWithinAABB(EntityLivingBase.class, this.npc.getEntityBoundingBox().expand((double)this.range, (double)this.range / 2.0D, (double)this.range));
                return !this.affected.isEmpty();
           }
      }

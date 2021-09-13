@@ -14,12 +14,12 @@ public class FactionOptions {
      public int faction2Points = 100;
 
      public void readFromNBT(NBTTagCompound compound) {
-          this.factionId = compound.func_74762_e("OptionFactions1");
-          this.faction2Id = compound.func_74762_e("OptionFactions2");
+          this.factionId = compound.getInteger("OptionFactions1");
+          this.faction2Id = compound.getInteger("OptionFactions2");
           this.decreaseFactionPoints = compound.getBoolean("DecreaseFaction1Points");
           this.decreaseFaction2Points = compound.getBoolean("DecreaseFaction2Points");
-          this.factionPoints = compound.func_74762_e("OptionFaction1Points");
-          this.faction2Points = compound.func_74762_e("OptionFaction2Points");
+          this.factionPoints = compound.getInteger("OptionFaction1Points");
+          this.faction2Points = compound.getInteger("OptionFaction2Points");
      }
 
      public NBTTagCompound writeToNBT(NBTTagCompound par1NBTTagCompound) {
@@ -27,8 +27,8 @@ public class FactionOptions {
           par1NBTTagCompound.setInteger("OptionFactions2", this.faction2Id);
           par1NBTTagCompound.setInteger("OptionFaction1Points", this.factionPoints);
           par1NBTTagCompound.setInteger("OptionFaction2Points", this.faction2Points);
-          par1NBTTagCompound.func_74757_a("DecreaseFaction1Points", this.decreaseFactionPoints);
-          par1NBTTagCompound.func_74757_a("DecreaseFaction2Points", this.decreaseFaction2Points);
+          par1NBTTagCompound.setBoolean("DecreaseFaction1Points", this.decreaseFactionPoints);
+          par1NBTTagCompound.setBoolean("DecreaseFaction2Points", this.decreaseFaction2Points);
           return par1NBTTagCompound;
      }
 

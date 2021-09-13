@@ -17,11 +17,11 @@ public class ContainerNpcInterface extends Container {
           this.player = player;
           this.posX = MathHelper.func_76128_c(player.field_70165_t);
           this.posZ = MathHelper.func_76128_c(player.field_70161_v);
-          player.field_70159_w = 0.0D;
-          player.field_70179_y = 0.0D;
+          player.motionX = 0.0D;
+          player.motionZ = 0.0D;
      }
 
-     public boolean func_75145_c(EntityPlayer player) {
+     public boolean canInteractWith(EntityPlayer player) {
           return !player.field_70128_L && this.posX == MathHelper.func_76128_c(player.field_70165_t) && this.posZ == MathHelper.func_76128_c(player.field_70161_v);
      }
 

@@ -128,7 +128,7 @@ public class SyncController {
      public static void syncScriptItemsEverybody() {
           NBTTagCompound comp = new NBTTagCompound();
           comp.setTag("List", NBTTags.nbtIntegerStringMap(ItemScripted.Resources));
-          Iterator var1 = CustomNpcs.Server.func_184103_al().func_181057_v().iterator();
+          Iterator var1 = CustomNpcs.Server.getPlayerList().getPlayers().iterator();
 
           while(var1.hasNext()) {
                EntityPlayerMP player = (EntityPlayerMP)var1.next();

@@ -37,7 +37,7 @@ public class JobFollower extends JobInterface implements IJobFollower {
                } else {
                     this.ticks = 10;
                     this.following = null;
-                    List list = this.npc.world.func_72872_a(EntityNPCInterface.class, this.npc.func_174813_aQ().func_72314_b((double)this.getRange(), (double)this.getRange(), (double)this.getRange()));
+                    List list = this.npc.world.getEntitiesWithinAABB(EntityNPCInterface.class, this.npc.getEntityBoundingBox().expand((double)this.getRange(), (double)this.getRange(), (double)this.getRange()));
                     Iterator var2 = list.iterator();
 
                     while(var2.hasNext()) {

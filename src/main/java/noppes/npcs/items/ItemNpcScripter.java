@@ -27,7 +27,7 @@ public class ItemNpcScripter extends Item implements IPermission {
 
      public ActionResult func_77659_a(World world, EntityPlayer player, EnumHand hand) {
           ItemStack itemstack = player.func_184586_b(hand);
-          if (world.field_72995_K && hand == EnumHand.MAIN_HAND) {
+          if (world.isRemote && hand == EnumHand.MAIN_HAND) {
                CustomNpcs.proxy.openGui(0, 0, 0, EnumGuiType.ScriptPlayers, player);
                return new ActionResult(EnumActionResult.SUCCESS, itemstack);
           } else {

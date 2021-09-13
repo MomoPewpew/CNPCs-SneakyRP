@@ -63,7 +63,7 @@ public class PlayerData implements ICapabilityProvider {
                this.uuid = data.getString("UUID");
           }
 
-          this.companionID = data.func_74762_e("PlayerCompanionId");
+          this.companionID = data.getInteger("PlayerCompanionId");
           if (data.hasKey("PlayerCompanion") && !this.hasCompanion()) {
                EntityCustomNpc npc = new EntityCustomNpc(this.player.world);
                npc.func_70037_a(data.getCompoundTag("PlayerCompanion"));
@@ -250,7 +250,7 @@ public class PlayerData implements ICapabilityProvider {
      }
 
      public static PlayerData get(EntityPlayer player) {
-          if (player.world.field_72995_K) {
+          if (player.world.isRemote) {
                return CustomNpcs.proxy.getPlayerData(player);
           } else {
                PlayerData data = (PlayerData)player.getCapability(PLAYERDATA_CAPABILITY, (EnumFacing)null);
