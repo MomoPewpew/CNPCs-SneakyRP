@@ -76,18 +76,18 @@ public class EntityAIAmbushTarget extends EntityAIBase {
      }
 
      private Vec3d findHidingSpot() {
-          Random random = this.npc.func_70681_au();
+          Random random = this.npc.getRNG();
           Vec3d idealPos = null;
 
           for(int i = 1; i <= 8; ++i) {
                for(int y = -2; y <= 2; ++y) {
-                    double k = (double)MathHelper.func_76128_c(this.npc.getEntityBoundingBox().field_72338_b + (double)y);
+                    double k = (double)MathHelper.floor(this.npc.getEntityBoundingBox().field_72338_b + (double)y);
 
                     for(int x = -i; x <= i; ++x) {
-                         double j = (double)MathHelper.func_76128_c(this.npc.field_70165_t + (double)x) + 0.5D;
+                         double j = (double)MathHelper.floor(this.npc.field_70165_t + (double)x) + 0.5D;
 
                          for(int z = -i; z <= i; ++z) {
-                              double l = (double)MathHelper.func_76128_c(this.npc.field_70161_v + (double)z) + 0.5D;
+                              double l = (double)MathHelper.floor(this.npc.field_70161_v + (double)z) + 0.5D;
                               if (this.isOpaque((int)j, (int)k, (int)l) && !this.isOpaque((int)j, (int)k + 1, (int)l) && this.isOpaque((int)j, (int)k + 2, (int)l)) {
                                    Vec3d vec1 = new Vec3d(this.targetEntity.field_70165_t, this.targetEntity.field_70163_u + (double)this.targetEntity.func_70047_e(), this.targetEntity.field_70161_v);
                                    Vec3d vec2 = new Vec3d(j, k + (double)this.npc.func_70047_e(), l);

@@ -98,8 +98,8 @@ public class CmdSlay extends CommandNoppesBase {
           } catch (NumberFormatException var12) {
           }
 
-          AxisAlignedBB box = (new AxisAlignedBB(sender.func_180425_c(), sender.func_180425_c().func_177982_a(1, 1, 1))).expand((double)range, (double)range, (double)range);
-          List list = sender.func_130014_f_().getEntitiesWithinAABB(EntityLivingBase.class, box);
+          AxisAlignedBB box = (new AxisAlignedBB(sender.getPosition(), sender.getPosition().add(1, 1, 1))).expand((double)range, (double)range, (double)range);
+          List list = sender.getEntityWorld().getEntitiesWithinAABB(EntityLivingBase.class, box);
           Iterator var16 = list.iterator();
 
           while(true) {
@@ -109,7 +109,7 @@ public class CmdSlay extends CommandNoppesBase {
                          do {
                               if (!var16.hasNext()) {
                                    if (toDelete.contains(EntityXPOrb.class)) {
-                                        list = sender.func_130014_f_().getEntitiesWithinAABB(EntityXPOrb.class, box);
+                                        list = sender.getEntityWorld().getEntitiesWithinAABB(EntityXPOrb.class, box);
 
                                         for(var16 = list.iterator(); var16.hasNext(); ++count) {
                                              entity = (Entity)var16.next();
@@ -118,7 +118,7 @@ public class CmdSlay extends CommandNoppesBase {
                                    }
 
                                    if (toDelete.contains(EntityItem.class)) {
-                                        list = sender.func_130014_f_().getEntitiesWithinAABB(EntityItem.class, box);
+                                        list = sender.getEntityWorld().getEntitiesWithinAABB(EntityItem.class, box);
 
                                         for(var16 = list.iterator(); var16.hasNext(); ++count) {
                                              entity = (Entity)var16.next();
@@ -126,7 +126,7 @@ public class CmdSlay extends CommandNoppesBase {
                                         }
                                    }
 
-                                   sender.func_145747_a(new TextComponentTranslation(count + " entities deleted", new Object[0]));
+                                   sender.sendMessage(new TextComponentTranslation(count + " entities deleted", new Object[0]));
                                    return;
                               }
 

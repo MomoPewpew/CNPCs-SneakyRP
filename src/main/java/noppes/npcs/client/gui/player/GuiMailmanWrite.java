@@ -170,7 +170,7 @@ public class GuiMailmanWrite extends GuiContainerNPCInterface implements ITextfi
                }
 
                if (id == 4) {
-                    GuiYesNo guiyesno = new GuiYesNo(this, "", I18n.func_74838_a("gui.deleteMessage"), 0);
+                    GuiYesNo guiyesno = new GuiYesNo(this, "", I18n.translateToLocal("gui.deleteMessage"), 0);
                     this.displayGuiScreen(guiyesno);
                } else if (id == 1) {
                     if (this.currPage < this.bookTotalPages - 1) {
@@ -281,10 +281,10 @@ public class GuiMailmanWrite extends GuiContainerNPCInterface implements ITextfi
                }
           }
 
-          int l = this.mc.fontRenderer.func_78256_a(s);
+          int l = this.mc.fontRenderer.getStringWidth(s);
           this.mc.fontRenderer.func_78276_b(s, this.field_147003_i - l + this.bookImageWidth - 44, this.field_147009_r + 18, 0);
           this.mc.fontRenderer.func_78279_b(s1, this.field_147003_i + 36, this.field_147009_r + 18 + 16, 116, 0);
-          this.func_73733_a(this.field_147003_i + 175, this.field_147009_r + 136, this.field_147003_i + 269, this.field_147009_r + 154, -1072689136, -804253680);
+          this.drawGradientRect(this.field_147003_i + 175, this.field_147009_r + 136, this.field_147003_i + 269, this.field_147009_r + 154, -1072689136, -804253680);
           GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
           this.mc.func_110434_K().bindTexture(bookWidgets);
 
@@ -318,18 +318,18 @@ public class GuiMailmanWrite extends GuiContainerNPCInterface implements ITextfi
 
      public void setError(int i, NBTTagCompound data) {
           if (i == 0) {
-               this.error.label = I18n.func_74838_a("mailbox.errorUsername");
+               this.error.label = I18n.translateToLocal("mailbox.errorUsername");
           }
 
           if (i == 1) {
-               this.error.label = I18n.func_74838_a("mailbox.errorSubject");
+               this.error.label = I18n.translateToLocal("mailbox.errorSubject");
           }
 
           this.hasSend = false;
      }
 
      public void setClose(int i, NBTTagCompound data) {
-          this.player.func_145747_a(new TextComponentTranslation("mailbox.succes", new Object[]{data.getString("username")}));
+          this.player.sendMessage(new TextComponentTranslation("mailbox.succes", new Object[]{data.getString("username")}));
      }
 
      public void save() {

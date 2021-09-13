@@ -21,7 +21,7 @@ public class BlockCarpentryBenchRenderer extends TileEntitySpecialRenderer {
           GlStateManager.func_179094_E();
           GlStateManager.func_179084_k();
           GlStateManager.enableLighting();
-          GlStateManager.func_179109_b((float)x + 0.5F, (float)y + 1.4F, (float)z + 0.5F);
+          GlStateManager.translate((float)x + 0.5F, (float)y + 1.4F, (float)z + 0.5F);
           GlStateManager.func_179152_a(0.95F, 0.95F, 0.95F);
           GlStateManager.func_179114_b(180.0F, 0.0F, 0.0F, 1.0F);
           GlStateManager.func_179114_b((float)(90 * rotation), 0.0F, 1.0F, 0.0F);

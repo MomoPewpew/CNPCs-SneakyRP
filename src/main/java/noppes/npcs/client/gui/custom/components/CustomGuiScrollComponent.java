@@ -43,7 +43,7 @@ public class CustomGuiScrollComponent extends GuiCustomScroll implements IDataHo
 
      public void onRender(Minecraft mc, int mouseX, int mouseY, int mouseWheel, float partialTicks) {
           GlStateManager.func_179094_E();
-          GlStateManager.func_179109_b(0.0F, 0.0F, (float)this.id);
+          GlStateManager.translate(0.0F, 0.0F, (float)this.id);
           boolean hovered = mouseX >= this.guiLeft && mouseY >= this.guiTop && mouseX < this.guiLeft + this.getXSize() && mouseY < this.guiTop + this.getYSize();
           super.drawScreen(mouseX, mouseY, partialTicks, mouseWheel);
           if (hovered && this.hoverText != null && this.hoverText.length > 0) {

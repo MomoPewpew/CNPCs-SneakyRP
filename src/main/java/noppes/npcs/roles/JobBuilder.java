@@ -87,7 +87,7 @@ public class JobBuilder extends JobInterface implements IJobBuilder {
 
      public boolean aiShouldExecute() {
           if (this.possibleBuildPos != null) {
-               TileEntity tile = this.npc.world.func_175625_s(this.possibleBuildPos);
+               TileEntity tile = this.npc.world.getTileEntity(this.possibleBuildPos);
                if (tile instanceof TileBuilder) {
                     this.build = (TileBuilder)tile;
                } else {
@@ -156,7 +156,7 @@ public class JobBuilder extends JobInterface implements IJobBuilder {
                this.npc.func_184609_a(EnumHand.MAIN_HAND);
                this.npc.world.func_180501_a(this.placing.pos, this.placing.state, 2);
                if (this.placing.state.getBlock() instanceof ITileEntityProvider && this.placing.tile != null) {
-                    TileEntity tile = this.npc.world.func_175625_s(this.placing.pos);
+                    TileEntity tile = this.npc.world.getTileEntity(this.placing.pos);
                     if (tile != null) {
                          try {
                               tile.readFromNBT(this.placing.tile);

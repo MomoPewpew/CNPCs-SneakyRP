@@ -27,7 +27,7 @@ public class EntityNPCOrcFemale extends EntityNPCInterface {
                data.getPartConfig(EnumParts.LEG_LEFT).setScale(1.1F, 1.0F);
                data.getPartConfig(EnumParts.ARM_LEFT).setScale(1.1F, 1.0F);
                data.getPartConfig(EnumParts.BODY).setScale(1.1F, 1.0F, 1.25F);
-               this.world.func_72838_d(npc);
+               this.world.spawnEntity(npc);
           }
 
           super.func_70071_h_();

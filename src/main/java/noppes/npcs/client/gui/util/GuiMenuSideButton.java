@@ -34,10 +34,10 @@ public class GuiMenuSideButton extends GuiNpcButton {
                this.func_146119_b(minecraft, i, j);
                String text = "";
                float maxWidth = (float)width * 0.75F;
-               if ((float)fontrenderer.func_78256_a(this.field_146126_j) > maxWidth) {
+               if ((float)fontrenderer.getStringWidth(this.field_146126_j) > maxWidth) {
                     for(int h = 0; h < this.field_146126_j.length(); ++h) {
                          char c = this.field_146126_j.charAt(h);
-                         if ((float)fontrenderer.func_78256_a(text + c) > maxWidth) {
+                         if ((float)fontrenderer.getStringWidth(text + c) > maxWidth) {
                               break;
                          }
 

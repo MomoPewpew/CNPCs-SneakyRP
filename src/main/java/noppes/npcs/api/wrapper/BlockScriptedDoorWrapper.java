@@ -20,7 +20,7 @@ public class BlockScriptedDoorWrapper extends BlockWrapper implements IBlockScri
 
      public boolean getOpen() {
           IBlockState state = this.world.getMCWorld().getBlockState(this.pos);
-          return ((Boolean)state.func_177229_b(BlockDoor.field_176519_b)).equals(true);
+          return ((Boolean)state.getValue(BlockDoor.field_176519_b)).equals(true);
      }
 
      public void setOpen(boolean open) {
@@ -40,7 +40,7 @@ public class BlockScriptedDoorWrapper extends BlockWrapper implements IBlockScri
      }
 
      public String getBlockModel() {
-          return Block.REGISTRY.func_177774_c(this.tile.blockModel) + "";
+          return Block.REGISTRY.getNameForObject(this.tile.blockModel) + "";
      }
 
      public ITimers getTimers() {

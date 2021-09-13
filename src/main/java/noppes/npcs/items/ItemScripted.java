@@ -20,7 +20,7 @@ public class ItemScripted extends Item implements IPermission {
      public ItemScripted() {
           this.field_77777_bU = 1;
           this.setCreativeTab(CustomItems.tab);
-          this.func_77627_a(true);
+          this.setHasSubtypes(true);
      }
 
      public Item setUnlocalizedName(String name) {

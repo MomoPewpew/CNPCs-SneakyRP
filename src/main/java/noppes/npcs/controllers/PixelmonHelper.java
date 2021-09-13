@@ -85,7 +85,7 @@ public class PixelmonHelper {
           if (!Enabled) {
                return false;
           } else {
-               String s = EntityList.func_75621_b(entity);
+               String s = EntityList.getEntityString(entity);
                return s == null ? false : s.contains("Pixelmon");
           }
      }

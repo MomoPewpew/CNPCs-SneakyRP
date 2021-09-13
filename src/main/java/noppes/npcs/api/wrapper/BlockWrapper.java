@@ -118,7 +118,7 @@ public class BlockWrapper implements IBlock {
                     return null;
                } else {
                     NBTTagCompound compound = BlockWrapper.this.tile.getTileData().getCompoundTag("CustomNPCsData");
-                    if (compound.func_82582_d() && !BlockWrapper.this.tile.getTileData().hasKey("CustomNPCsData")) {
+                    if (compound.hasNoTags() && !BlockWrapper.this.tile.getTileData().hasKey("CustomNPCsData")) {
                          BlockWrapper.this.tile.getTileData().setTag("CustomNPCsData", compound);
                     }
 
@@ -137,7 +137,7 @@ public class BlockWrapper implements IBlock {
           this.block = block;
           this.pos = pos;
           this.bPos = new BlockPosWrapper(pos);
-          this.setTile(world.func_175625_s(pos));
+          this.setTile(world.getTileEntity(pos));
      }
 
      public int getX() {
@@ -186,13 +186,13 @@ public class BlockWrapper implements IBlock {
           if (block == null) {
                return this;
           } else {
-               this.world.getMCWorld().func_175656_a(this.pos, block.func_176223_P());
+               this.world.getMCWorld().setBlockState(this.pos, block.getDefaultState());
                return new BlockWrapper(this.world.getMCWorld(), block, this.pos);
           }
      }
 
      public BlockWrapper setBlock(IBlock block) {
-          this.world.getMCWorld().func_175656_a(this.pos, block.getMCBlock().func_176223_P());
+          this.world.getMCWorld().setBlockState(this.pos, block.getMCBlock().getDefaultState());
           return new BlockWrapper(this.world.getMCWorld(), block.getMCBlock(), this.pos);
      }
 
@@ -221,11 +221,11 @@ public class BlockWrapper implements IBlock {
      }
 
      public String getName() {
-          return Block.REGISTRY.func_177774_c(this.block) + "";
+          return Block.REGISTRY.getNameForObject(this.block) + "";
      }
 
      public String getDisplayName() {
-          return this.tile == null ? this.getName() : this.tile.func_145748_c_().func_150260_c();
+          return this.tile == null ? this.getName() : this.tile.getDisplayName().getUnformattedText();
      }
 
      public IWorld getWorld() {
@@ -243,7 +243,7 @@ public class BlockWrapper implements IBlock {
           String key = state.toString() + pos.toString();
           BlockWrapper b = (BlockWrapper)blockCache.get(key);
           if (b != null) {
-               b.setTile(world.func_175625_s(pos));
+               b.setTile(world.getTileEntity(pos));
                return b;
           } else {
                Object b;
@@ -306,7 +306,7 @@ public class BlockWrapper implements IBlock {
      public void interact(int side) {
           EntityPlayer player = EntityNPCInterface.GenericPlayer;
           World w = this.world.getMCWorld();
-          player.func_70029_a(w);
+          player.setWorld(w);
           player.func_70107_b((double)this.pos.getX(), (double)this.pos.getY(), (double)this.pos.getZ());
           this.block.func_180639_a(w, this.pos, w.getBlockState(this.pos), EntityNPCInterface.CommandPlayer, EnumHand.MAIN_HAND, EnumFacing.func_82600_a(side), 0.0F, 0.0F, 0.0F);
      }

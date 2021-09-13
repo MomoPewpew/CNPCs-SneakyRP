@@ -29,7 +29,7 @@ public class CustomGuiLabel extends GuiLabel implements IGuiComponent {
           this.fullLabel = label;
           this.colour = colour;
           FontRenderer fontRenderer = Minecraft.getMinecraft().fontRenderer;
-          fontRenderer.func_78256_a(label);
+          fontRenderer.getStringWidth(label);
           Iterator var10 = fontRenderer.func_78271_c(label, width).iterator();
 
           while(var10.hasNext()) {
@@ -45,7 +45,7 @@ public class CustomGuiLabel extends GuiLabel implements IGuiComponent {
 
      public void onRender(Minecraft mc, int mouseX, int mouseY, int mouseWheel, float partialTicks) {
           GlStateManager.func_179094_E();
-          GlStateManager.func_179109_b(0.0F, 0.0F, (float)this.field_175204_i);
+          GlStateManager.translate(0.0F, 0.0F, (float)this.field_175204_i);
           boolean hovered = mouseX >= this.field_146162_g && mouseY >= this.field_146174_h && mouseX < this.field_146162_g + this.field_146167_a && mouseY < this.field_146174_h + this.field_146161_f;
           this.func_146159_a(mc, mouseX, mouseY);
           if (hovered && this.hoverText != null && this.hoverText.length > 0) {

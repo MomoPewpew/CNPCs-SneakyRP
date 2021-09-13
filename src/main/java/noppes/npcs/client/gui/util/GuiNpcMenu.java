@@ -56,7 +56,7 @@ public class GuiNpcMenu implements GuiYesNoCallback {
                if (id == 0) {
                     this.close();
                } else if (id == 66) {
-                    GuiYesNo guiyesno = new GuiYesNo(this, "", I18n.func_74838_a("gui.deleteMessage"), 0);
+                    GuiYesNo guiyesno = new GuiYesNo(this, "", I18n.translateToLocal("gui.deleteMessage"), 0);
                     mc.displayGuiScreen(guiyesno);
                } else {
                     this.save();

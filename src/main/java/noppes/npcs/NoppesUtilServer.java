@@ -89,7 +89,7 @@ public class NoppesUtilServer {
           PlayerData data = PlayerData.get(player);
           data.editingNpc = npc;
           if (npc != null) {
-               Server.sendDataChecked((EntityPlayerMP)player, EnumPacketClient.EDIT_NPC, npc.func_145782_y());
+               Server.sendDataChecked((EntityPlayerMP)player, EnumPacketClient.EDIT_NPC, npc.getEntityId());
           }
 
      }
@@ -101,22 +101,22 @@ public class NoppesUtilServer {
 
      public static void setEditingQuest(EntityPlayer player, Quest quest) {
           if (player.world.isRemote) {
-               editingQuestsClient.put(player.func_110124_au(), quest);
+               editingQuestsClient.put(player.getUniqueID(), quest);
           } else {
-               editingQuests.put(player.func_110124_au(), quest);
+               editingQuests.put(player.getUniqueID(), quest);
           }
 
      }
 
      public static Quest getEditingQuest(EntityPlayer player) {
-          return player.world.isRemote ? (Quest)editingQuestsClient.get(player.func_110124_au()) : (Quest)editingQuests.get(player.func_110124_au());
+          return player.world.isRemote ? (Quest)editingQuestsClient.get(player.getUniqueID()) : (Quest)editingQuests.get(player.getUniqueID());
      }
 
      public static void sendRoleData(EntityPlayer player, EntityNPCInterface npc) {
           if (npc.advanced.role != 0) {
                NBTTagCompound comp = new NBTTagCompound();
                npc.roleInterface.writeToNBT(comp);
-               comp.setInteger("EntityId", npc.func_145782_y());
+               comp.setInteger("EntityId", npc.getEntityId());
                comp.setInteger("Role", npc.advanced.role);
                Server.sendData((EntityPlayerMP)player, EnumPacketClient.ROLE, comp);
           }
@@ -154,10 +154,10 @@ public class NoppesUtilServer {
           } else {
                playerdata.dialogId = dialog.id;
                if (!(npc instanceof EntityDialogNpc) && dia.id >= 0) {
-                    Server.sendData((EntityPlayerMP)player, EnumPacketClient.DIALOG, npc.func_145782_y(), dialog.id);
+                    Server.sendData((EntityPlayerMP)player, EnumPacketClient.DIALOG, npc.getEntityId(), dialog.id);
                } else {
                     dialog.hideNPC = true;
-                    Server.sendData((EntityPlayerMP)player, EnumPacketClient.DIALOG_DUMMY, npc.func_70005_c_(), dialog.writeToNBT(new NBTTagCompound()));
+                    Server.sendData((EntityPlayerMP)player, EnumPacketClient.DIALOG_DUMMY, npc.getName(), dialog.writeToNBT(new NBTTagCompound()));
                }
 
                dia.factionOptions.addPoints(player);
@@ -166,11 +166,11 @@ public class NoppesUtilServer {
                }
 
                if (!dialog.command.isEmpty()) {
-                    runCommand(npc, npc.func_70005_c_(), dialog.command, player);
+                    runCommand(npc, npc.getName(), dialog.command, player);
                }
 
                if (dialog.mail.isValid()) {
-                    PlayerDataController.instance.addPlayerMessage(player.getServer(), player.func_70005_c_(), dialog.mail);
+                    PlayerDataController.instance.addPlayerMessage(player.getServer(), player.getName(), dialog.mail);
                }
 
                PlayerDialogData data = playerdata.dialogData;
@@ -184,34 +184,34 @@ public class NoppesUtilServer {
      }
 
      public static String runCommand(ICommandSender executer, String name, String command, EntityPlayer player) {
-          return runCommand(executer.func_130014_f_(), executer.func_180425_c(), name, command, player, executer);
+          return runCommand(executer.getEntityWorld(), executer.getPosition(), name, command, player, executer);
      }
 
      public static String runCommand(final World world, final BlockPos pos, final String name, String command, EntityPlayer player, final ICommandSender executer) {
-          if (!world.func_73046_m().func_82356_Z()) {
+          if (!world.getMinecraftServer().isCommandBlockEnabled()) {
                LogWriter.warn("Cant run commands if CommandBlocks are disabled");
                return "Cant run commands if CommandBlocks are disabled";
           } else {
                if (player != null) {
-                    command = command.replace("@dp", player.func_70005_c_());
+                    command = command.replace("@dp", player.getName());
                }
 
                command = command.replace("@npc", name);
                final TextComponentString output = new TextComponentString("");
-               ICommandSender icommandsender = new RConConsoleSource(world.func_73046_m()) {
-                    public String func_70005_c_() {
+               ICommandSender icommandsender = new RConConsoleSource(world.getMinecraftServer()) {
+                    public String getName() {
                          return "@CustomNPCs-" + name;
                     }
 
-                    public ITextComponent func_145748_c_() {
-                         return new TextComponentString(this.func_70005_c_());
+                    public ITextComponent getDisplayName() {
+                         return new TextComponentString(this.getName());
                     }
 
-                    public void func_145747_a(ITextComponent component) {
-                         output.func_150257_a(component);
+                    public void sendMessage(ITextComponent component) {
+                         output.appendSibling(component);
                     }
 
-                    public boolean func_70003_b(int permLevel, String commandName) {
+                    public boolean canUseCommand(int permLevel, String commandName) {
                          if (CustomNpcs.NpcUseOpCommands) {
                               return true;
                          } else {
@@ -219,38 +219,38 @@ public class NoppesUtilServer {
                          }
                     }
 
-                    public BlockPos func_180425_c() {
+                    public BlockPos getPosition() {
                          return pos;
                     }
 
-                    public Vec3d func_174791_d() {
+                    public Vec3d getPositionVector() {
                          return new Vec3d((double)pos.getX() + 0.5D, (double)pos.getY() + 0.5D, (double)pos.getZ() + 0.5D);
                     }
 
-                    public World func_130014_f_() {
+                    public World getEntityWorld() {
                          return world;
                     }
 
-                    public Entity func_174793_f() {
-                         return executer == null ? null : executer.func_174793_f();
+                    public Entity getCommandSenderEntity() {
+                         return executer == null ? null : executer.getCommandSenderEntity();
                     }
 
-                    public boolean func_174792_t_() {
-                         return this.getServer().field_71305_c[0].func_82736_K().func_82766_b("commandBlockOutput");
+                    public boolean sendCommandFeedback() {
+                         return this.getServer().worlds[0].getGameRules().getBoolean("commandBlockOutput");
                     }
                };
-               ICommandManager icommandmanager = world.func_73046_m().func_71187_D();
-               icommandmanager.func_71556_a(icommandsender, command);
-               return output.func_150260_c().isEmpty() ? null : output.func_150260_c();
+               ICommandManager icommandmanager = world.getMinecraftServer().getCommandManager();
+               icommandmanager.executeCommand(icommandsender, command);
+               return output.getUnformattedText().isEmpty() ? null : output.getUnformattedText();
           }
      }
 
      public static void consumeItemStack(int i, EntityPlayer player) {
-          ItemStack item = player.inventory.func_70448_g();
+          ItemStack item = player.inventory.getCurrentItem();
           if (!player.field_71075_bZ.field_75098_d && item != null && !item.isEmpty()) {
-               item.func_190918_g(1);
+               item.shrink(1);
                if (item.getCount() <= 0) {
-                    player.func_184611_a(EnumHand.MAIN_HAND, (ItemStack)null);
+                    player.setHeldItem(EnumHand.MAIN_HAND, (ItemStack)null);
                }
 
           }
@@ -327,23 +327,23 @@ public class NoppesUtilServer {
      }
 
      public static void deleteNpc(EntityNPCInterface npc, EntityPlayer player) {
-          Server.sendAssociatedData(npc, EnumPacketClient.DELETE_NPC, npc.func_145782_y());
+          Server.sendAssociatedData(npc, EnumPacketClient.DELETE_NPC, npc.getEntityId());
      }
 
      public static void createMobSpawner(BlockPos pos, NBTTagCompound comp, EntityPlayer player) {
           ServerCloneController.Instance.cleanTags(comp);
           if (comp.getString("id").equalsIgnoreCase("entityhorse")) {
-               player.func_145747_a(new TextComponentTranslation("Currently you cant create horse spawner, its a minecraft bug", new Object[0]));
+               player.sendMessage(new TextComponentTranslation("Currently you cant create horse spawner, its a minecraft bug", new Object[0]));
           } else {
-               player.world.func_175656_a(pos, Blocks.field_150474_ac.func_176223_P());
-               TileEntityMobSpawner tile = (TileEntityMobSpawner)player.world.func_175625_s(pos);
-               MobSpawnerBaseLogic logic = tile.func_145881_a();
+               player.world.setBlockState(pos, Blocks.field_150474_ac.getDefaultState());
+               TileEntityMobSpawner tile = (TileEntityMobSpawner)player.world.getTileEntity(pos);
+               MobSpawnerBaseLogic logic = tile.getSpawnerBaseLogic();
                if (!comp.hasKey("id", 8)) {
                     comp.setString("id", "Pig");
                }
 
                comp.setIntArray("StartPosNew", new int[]{pos.getX(), pos.getY(), pos.getZ()});
-               logic.func_184993_a(new WeightedSpawnerEntity(1, comp));
+               logic.setNextSpawnData(new WeightedSpawnerEntity(1, comp));
           }
      }
 
@@ -357,7 +357,7 @@ public class NoppesUtilServer {
                     map.put(username, 0);
                }
 
-               String[] var9 = player.getServer().getPlayerList().func_72369_d();
+               String[] var9 = player.getServer().getPlayerList().getOnlinePlayerNames();
                int var11 = var9.length;
 
                for(int var6 = 0; var6 < var11; ++var6) {
@@ -446,7 +446,7 @@ public class NoppesUtilServer {
                String name = Server.readString(buffer);
                if (name != null && !name.isEmpty()) {
                     EnumPlayerData type = EnumPlayerData.values()[id];
-                    EntityPlayer pl = player.getServer().getPlayerList().func_152612_a(name);
+                    EntityPlayer pl = player.getServer().getPlayerList().getPlayerByUsername(name);
                     PlayerData playerdata = null;
                     if (pl == null) {
                          playerdata = PlayerDataController.instance.getDataFromUsername(player.getServer(), name);
@@ -619,7 +619,7 @@ public class NoppesUtilServer {
           int x = compound.getInteger("x");
           int y = compound.getInteger("y");
           int z = compound.getInteger("z");
-          TileEntity tile = player.world.func_175625_s(new BlockPos(x, y, z));
+          TileEntity tile = player.world.getTileEntity(new BlockPos(x, y, z));
           if (tile != null) {
                tile.readFromNBT(compound);
           }
@@ -645,7 +645,7 @@ public class NoppesUtilServer {
                ((ContainerManageBanks)player.openContainer).setBank(bank);
           }
 
-          player.func_71110_a(player.openContainer, player.openContainer.func_75138_a());
+          player.sendAllContents(player.openContainer, player.openContainer.getInventory());
      }
 
      public static void sendNearbyNpcs(EntityPlayerMP player) {
@@ -657,14 +657,14 @@ public class NoppesUtilServer {
                if (entity instanceof EntityNPCInterface) {
                     EntityNPCInterface npc = (EntityNPCInterface)entity;
                     if (!npc.field_70128_L) {
-                         float distance = player.func_70032_d(npc);
+                         float distance = player.getDistance(npc);
                          DecimalFormat df = new DecimalFormat("#.#");
                          String s = df.format((double)distance);
                          if (distance < 10.0F) {
                               s = "0" + s;
                          }
 
-                         map.put(s + " : " + npc.display.getName(), npc.func_145782_y());
+                         map.put(s + " : " + npc.display.getName(), npc.getEntityId());
                     }
                }
           }
@@ -683,7 +683,7 @@ public class NoppesUtilServer {
      public static Entity spawnClone(NBTTagCompound compound, double x, double y, double z, World world) {
           ServerCloneController.Instance.cleanTags(compound);
           compound.setTag("Pos", NBTTags.nbtDoubleList(x, y, z));
-          Entity entity = EntityList.func_75615_a(compound, world);
+          Entity entity = EntityList.createEntityFromNBT(compound, world);
           if (entity == null) {
                return null;
           } else {
@@ -692,13 +692,13 @@ public class NoppesUtilServer {
                     npc.ais.setStartPos(new BlockPos(npc));
                }
 
-               world.func_72838_d(entity);
+               world.spawnEntity(entity);
                return entity;
           }
      }
 
      public static boolean isOp(EntityPlayer player) {
-          return player.getServer().getPlayerList().func_152596_g(player.func_146103_bH());
+          return player.getServer().getPlayerList().canSendCommands(player.getGameProfile());
      }
 
      public static void GivePlayerItem(Entity entity, EntityPlayer player, ItemStack item) {
@@ -709,16 +709,16 @@ public class NoppesUtilServer {
                double d1 = (double)(entity.world.rand.nextFloat() * f) + (double)(1.0F - f);
                double d2 = (double)(entity.world.rand.nextFloat() * f) + (double)(1.0F - f);
                EntityItem entityitem = new EntityItem(entity.world, entity.field_70165_t + d, entity.field_70163_u + d1, entity.field_70161_v + d2, item);
-               entityitem.func_174867_a(2);
-               entity.world.func_72838_d(entityitem);
+               entityitem.setPickupDelay(2);
+               entity.world.spawnEntity(entityitem);
                int i = item.getCount();
-               if (player.inventory.func_70441_a(item)) {
-                    entity.world.func_184148_a((EntityPlayer)null, player.field_70165_t, player.field_70163_u, player.field_70161_v, SoundEvents.field_187638_cR, SoundCategory.PLAYERS, 0.2F, ((player.func_70681_au().nextFloat() - player.func_70681_au().nextFloat()) * 0.7F + 1.0F) * 2.0F);
-                    player.func_71001_a(entityitem, i);
+               if (player.inventory.addItemStackToInventory(item)) {
+                    entity.world.playSound((EntityPlayer)null, player.field_70165_t, player.field_70163_u, player.field_70161_v, SoundEvents.field_187638_cR, SoundCategory.PLAYERS, 0.2F, ((player.getRNG().nextFloat() - player.getRNG().nextFloat()) * 0.7F + 1.0F) * 2.0F);
+                    player.onItemPickup(entityitem, i);
                     PlayerQuestData playerdata = PlayerData.get(player).questData;
                     playerdata.checkQuestCompletion(player, 0);
                     if (item.getCount() <= 0) {
-                         entityitem.func_70106_y();
+                         entityitem.setDead();
                     }
                }
 
@@ -729,42 +729,42 @@ public class NoppesUtilServer {
           for(int x = -1; x < 2; ++x) {
                for(int z = -1; z < 2; ++z) {
                     for(int y = 2; y >= -2; --y) {
-                         BlockPos pos = origin.func_177982_a(x, y, z);
-                         if (world.isSideSolid(pos, EnumFacing.UP) && world.func_175623_d(pos.func_177984_a()) && world.func_175623_d(pos.func_177981_b(2))) {
-                              return pos.func_177984_a();
+                         BlockPos pos = origin.add(x, y, z);
+                         if (world.isSideSolid(pos, EnumFacing.UP) && world.isAirBlock(pos.up()) && world.isAirBlock(pos.up(2))) {
+                              return pos.up();
                          }
                     }
                }
           }
 
-          return world.func_175672_r(origin);
+          return world.getTopSolidOrLiquidBlock(origin);
      }
 
      public static void NotifyOPs(String message, Object... obs) {
           TextComponentTranslation chatcomponenttranslation = new TextComponentTranslation(message, obs);
-          chatcomponenttranslation.func_150256_b().func_150238_a(TextFormatting.GRAY);
-          chatcomponenttranslation.func_150256_b().func_150217_b(true);
+          chatcomponenttranslation.getStyle().setColor(TextFormatting.GRAY);
+          chatcomponenttranslation.getStyle().setItalic(true);
           Iterator iterator = CustomNpcs.Server.getPlayerList().getPlayers().iterator();
 
           while(iterator.hasNext()) {
                EntityPlayer entityplayer = (EntityPlayer)iterator.next();
-               if (entityplayer.func_174792_t_() && isOp(entityplayer)) {
-                    entityplayer.func_145747_a(chatcomponenttranslation);
+               if (entityplayer.sendCommandFeedback() && isOp(entityplayer)) {
+                    entityplayer.sendMessage(chatcomponenttranslation);
                }
           }
 
-          if (CustomNpcs.Server.field_71305_c[0].func_82736_K().func_82766_b("logAdminCommands")) {
-               LogWriter.info(chatcomponenttranslation.func_150260_c());
+          if (CustomNpcs.Server.worlds[0].getGameRules().getBoolean("logAdminCommands")) {
+               LogWriter.info(chatcomponenttranslation.getUnformattedText());
           }
 
      }
 
      public static void playSound(EntityLivingBase entity, SoundEvent sound, float volume, float pitch) {
-          entity.world.func_184148_a((EntityPlayer)null, entity.field_70165_t, entity.field_70163_u, entity.field_70161_v, sound, SoundCategory.NEUTRAL, volume, pitch);
+          entity.world.playSound((EntityPlayer)null, entity.field_70165_t, entity.field_70163_u, entity.field_70161_v, sound, SoundCategory.NEUTRAL, volume, pitch);
      }
 
      public static void playSound(World world, BlockPos pos, SoundEvent sound, SoundCategory cat, float volume, float pitch) {
-          world.func_184133_a((EntityPlayer)null, pos, sound, cat, volume, pitch);
+          world.playSound((EntityPlayer)null, pos, sound, cat, volume, pitch);
      }
 
      public static EntityPlayer getPlayer(MinecraftServer minecraftserver, UUID id) {
@@ -778,33 +778,33 @@ public class NoppesUtilServer {
                }
 
                player = (EntityPlayer)var3.next();
-          } while(!id.equals(player.func_110124_au()));
+          } while(!id.equals(player.getUniqueID()));
 
           return player;
      }
 
      public static Entity GetDamageSourcee(DamageSource damagesource) {
-          Entity entity = damagesource.func_76346_g();
+          Entity entity = damagesource.getTrueSource();
           if (entity == null) {
-               entity = damagesource.func_76364_f();
+               entity = damagesource.getImmediateSource();
           }
 
           if (entity instanceof EntityArrow && ((EntityArrow)entity).field_70250_c instanceof EntityLivingBase) {
                entity = ((EntityArrow)entity).field_70250_c;
           } else if (entity instanceof EntityThrowable) {
-               entity = ((EntityThrowable)entity).func_85052_h();
+               entity = ((EntityThrowable)entity).getThrower();
           }
 
           return (Entity)entity;
      }
 
      public static boolean IsItemStackNull(ItemStack is) {
-          return is == null || is.isEmpty() || is == ItemStack.EMPTY || is.func_77973_b() == null;
+          return is == null || is.isEmpty() || is == ItemStack.EMPTY || is.getItem() == null;
      }
 
      public static ItemStack ChangeItemStack(ItemStack is, Item item) {
           NBTTagCompound comp = is.writeToNBT(new NBTTagCompound());
-          ResourceLocation resourcelocation = (ResourceLocation)Item.field_150901_e.func_177774_c(item);
+          ResourceLocation resourcelocation = (ResourceLocation)Item.field_150901_e.getNameForObject(item);
           comp.setString("id", resourcelocation == null ? "minecraft:air" : resourcelocation.toString());
           return new ItemStack(comp);
      }

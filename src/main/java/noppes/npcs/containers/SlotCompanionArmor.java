@@ -30,9 +30,9 @@ class SlotCompanionArmor extends Slot {
      }
 
      public boolean func_75214_a(ItemStack itemstack) {
-          if (itemstack.func_77973_b() instanceof ItemArmor && this.role.canWearArmor(itemstack)) {
-               return ((ItemArmor)itemstack.func_77973_b()).field_77881_a == this.armorType;
-          } else if (itemstack.func_77973_b() instanceof ItemBlock) {
+          if (itemstack.getItem() instanceof ItemArmor && this.role.canWearArmor(itemstack)) {
+               return ((ItemArmor)itemstack.getItem()).field_77881_a == this.armorType;
+          } else if (itemstack.getItem() instanceof ItemBlock) {
                return this.armorType == EntityEquipmentSlot.HEAD;
           } else {
                return false;

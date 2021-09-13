@@ -123,7 +123,7 @@ public class QuestKill extends QuestInterface {
 
           public String getText() {
                String name = "entity." + this.entity + ".name";
-               String transName = I18n.func_74838_a(name);
+               String transName = I18n.translateToLocal(name);
                if (name.equals(transName)) {
                     transName = this.entity;
                }

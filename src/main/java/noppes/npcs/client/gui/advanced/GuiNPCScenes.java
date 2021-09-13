@@ -37,7 +37,7 @@ public class GuiNPCScenes extends GuiNPCInterface2 {
                this.addButton(new GuiNpcButton(2 + i * 10, this.guiLeft + 181, y, 50, 20, "selectServer.edit"));
                this.addButton(new GuiNpcButton(3 + i * 10, this.guiLeft + 293, y, 50, 20, "X"));
                if (CustomNpcs.SceneButtonsEnabled) {
-                    this.addButton(new GuiNpcButton(4 + i * 10, this.guiLeft + 232, y, 60, 20, new String[]{"gui.none", GameSettings.func_74298_c(ClientProxy.Scene1.func_151463_i()), GameSettings.func_74298_c(ClientProxy.Scene2.func_151463_i()), GameSettings.func_74298_c(ClientProxy.Scene3.func_151463_i())}, scene.btn));
+                    this.addButton(new GuiNpcButton(4 + i * 10, this.guiLeft + 232, y, 60, 20, new String[]{"gui.none", GameSettings.func_74298_c(ClientProxy.Scene1.getKeyCode()), GameSettings.func_74298_c(ClientProxy.Scene2.getKeyCode()), GameSettings.func_74298_c(ClientProxy.Scene3.getKeyCode())}, scene.btn));
                }
 
                y += 22;

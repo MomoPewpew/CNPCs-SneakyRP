@@ -30,8 +30,8 @@ public class GuiCreationParts extends GuiCreationScreenInterface implements ITex
           this.active = 2;
           this.closeOnEsc = false;
           Arrays.sort(this.parts, (o1, o2) -> {
-               String s1 = I18n.func_74838_a("part." + o1.part.name);
-               String s2 = I18n.func_74838_a("part." + o2.part.name);
+               String s1 = I18n.translateToLocal("part." + o1.part.name);
+               String s2 = I18n.translateToLocal("part." + o2.part.name);
                return s1.compareToIgnoreCase(s2);
           });
      }
@@ -48,7 +48,7 @@ public class GuiCreationParts extends GuiCreationScreenInterface implements ITex
 
                     for(int var4 = 0; var4 < var3; ++var4) {
                          GuiCreationParts.GuiPart part = var2[var4];
-                         list.add(I18n.func_74838_a("part." + part.part.name));
+                         list.add(I18n.translateToLocal("part." + part.part.name));
                     }
 
                     this.scroll = new GuiCustomScroll(this, 0);
@@ -60,7 +60,7 @@ public class GuiCreationParts extends GuiCreationScreenInterface implements ITex
                this.scroll.setSize(100, this.ySize - 74);
                this.addScroll(this.scroll);
                if (this.parts[selected] != null) {
-                    this.scroll.setSelected(I18n.func_74838_a("part." + this.parts[selected].part.name));
+                    this.scroll.setSelected(I18n.translateToLocal("part." + this.parts[selected].part.name));
                     this.parts[selected].initGui();
                }
 
@@ -181,7 +181,7 @@ public class GuiCreationParts extends GuiCreationScreenInterface implements ITex
                     GuiCreationParts.this.addLabel(new GuiNpcLabel(22, "gui.draw", GuiCreationParts.this.guiLeft + 102, y + 5, 16777215));
                     int var10004 = GuiCreationParts.this.guiLeft + 145;
                     y += 25;
-                    GuiCreationParts.this.addButton(new GuiButtonBiDirectional(37, var10004, y, 100, 20, new String[]{I18n.func_74838_a("gui.down") + "x2", "gui.down", "gui.normal", "gui.up"}, this.eyes.eyePos + 1));
+                    GuiCreationParts.this.addButton(new GuiButtonBiDirectional(37, var10004, y, 100, 20, new String[]{I18n.translateToLocal("gui.down") + "x2", "gui.down", "gui.normal", "gui.up"}, this.eyes.eyePos + 1));
                     GuiCreationParts.this.addLabel(new GuiNpcLabel(37, "gui.position", GuiCreationParts.this.guiLeft + 102, y + 5, 16777215));
                     var10004 = GuiCreationParts.this.guiLeft + 145;
                     y += 25;

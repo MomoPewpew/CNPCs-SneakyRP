@@ -25,7 +25,7 @@ public class GuiNpcMobSpawnerAdd extends GuiNPCInterface implements GuiYesNoCall
      private static int tab = 1;
 
      public GuiNpcMobSpawnerAdd(NBTTagCompound compound) {
-          this.toClone = EntityList.func_75615_a(compound, Minecraft.getMinecraft().field_71441_e);
+          this.toClone = EntityList.createEntityFromNBT(compound, Minecraft.getMinecraft().field_71441_e);
           this.compound = compound;
           this.setBackground("menubg.png");
           this.xSize = 256;
@@ -34,7 +34,7 @@ public class GuiNpcMobSpawnerAdd extends GuiNPCInterface implements GuiYesNoCall
 
      public void func_73866_w_() {
           super.func_73866_w_();
-          String name = this.toClone.func_70005_c_();
+          String name = this.toClone.getName();
           this.addLabel(new GuiNpcLabel(0, "Save as", this.guiLeft + 4, this.guiTop + 6));
           this.addTextField(new GuiNpcTextField(0, this, this.field_146289_q, this.guiLeft + 4, this.guiTop + 18, 200, 20, name));
           this.addLabel(new GuiNpcLabel(1, "Tab", this.guiLeft + 10, this.guiTop + 50));
@@ -55,7 +55,7 @@ public class GuiNpcMobSpawnerAdd extends GuiNPCInterface implements GuiYesNoCall
                int tab = ((GuiNpcButton)guibutton).getValue() + 1;
                if (!serverSide) {
                     if (ClientCloneController.Instance.getCloneData((ICommandSender)null, name, tab) != null) {
-                         this.displayGuiScreen(new GuiYesNo(this, "", I18n.func_74838_a("clone.overwrite"), 1));
+                         this.displayGuiScreen(new GuiYesNo(this, "", I18n.translateToLocal("clone.overwrite"), 1));
                     } else {
                          this.func_73878_a(true, 0);
                     }
@@ -100,7 +100,7 @@ public class GuiNpcMobSpawnerAdd extends GuiNPCInterface implements GuiYesNoCall
      public void setGuiData(NBTTagCompound compound) {
           if (compound.hasKey("NameExists")) {
                if (compound.getBoolean("NameExists")) {
-                    this.displayGuiScreen(new GuiYesNo(this, "", I18n.func_74838_a("clone.overwrite"), 1));
+                    this.displayGuiScreen(new GuiYesNo(this, "", I18n.translateToLocal("clone.overwrite"), 1));
                } else {
                     this.func_73878_a(true, 0);
                }

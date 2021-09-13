@@ -22,7 +22,7 @@ public class LayerEyes extends LayerInterface {
                GlStateManager.func_179094_E();
                this.model.field_78116_c.func_78794_c(0.0625F);
                GlStateManager.func_179152_a(par7, par7, -par7);
-               GlStateManager.func_179109_b(0.0F, (float)((this.playerdata.eyes.type == 1 ? 1 : 2) - this.playerdata.eyes.eyePos), 0.0F);
+               GlStateManager.translate(0.0F, (float)((this.playerdata.eyes.type == 1 ? 1 : 2) - this.playerdata.eyes.eyePos), 0.0F);
                GlStateManager.enableRescaleNormal();
                GlStateManager.func_179103_j(7425);
                GlStateManager.func_179090_x();
@@ -48,7 +48,7 @@ public class LayerEyes extends LayerInterface {
                GlStateManager.func_179103_j(7424);
                GlStateManager.func_179141_d();
                GlStateManager.func_179129_p();
-               GlStateManager.func_179101_C();
+               GlStateManager.disableRescaleNormal();
                GlStateManager.func_179121_F();
                GlStateManager.func_179098_w();
           }

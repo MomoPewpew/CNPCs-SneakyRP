@@ -56,7 +56,7 @@ public class PlayerData implements ICapabilityProvider {
           this.mailData.loadNBTData(data);
           this.timers.readFromNBT(data);
           if (this.player != null) {
-               this.playername = this.player.func_70005_c_();
+               this.playername = this.player.getName();
                this.uuid = this.player.getPersistentID().toString();
           } else {
                this.playername = data.getString("PlayerName");
@@ -66,12 +66,12 @@ public class PlayerData implements ICapabilityProvider {
           this.companionID = data.getInteger("PlayerCompanionId");
           if (data.hasKey("PlayerCompanion") && !this.hasCompanion()) {
                EntityCustomNpc npc = new EntityCustomNpc(this.player.world);
-               npc.func_70037_a(data.getCompoundTag("PlayerCompanion"));
+               npc.readEntityFromNBT(data.getCompoundTag("PlayerCompanion"));
                npc.func_70107_b(this.player.field_70165_t, this.player.field_70163_u, this.player.field_70161_v);
                if (npc.advanced.role == 6) {
                     this.setCompanion(npc);
                     ((RoleCompanion)npc.roleInterface).setSitting(false);
-                    this.player.world.func_72838_d(npc);
+                    this.player.world.spawnEntity(npc);
                }
           }
 
@@ -88,7 +88,7 @@ public class PlayerData implements ICapabilityProvider {
 
      public NBTTagCompound getNBT() {
           if (this.player != null) {
-               this.playername = this.player.func_70005_c_();
+               this.playername = this.player.getName();
                this.uuid = this.player.getPersistentID().toString();
           }
 
@@ -140,11 +140,11 @@ public class PlayerData implements ICapabilityProvider {
                     this.activeCompanion.func_184198_c(nbt);
                     this.activeCompanion.field_70128_L = true;
                     EntityCustomNpc npc = new EntityCustomNpc(world);
-                    npc.func_70037_a(nbt);
+                    npc.readEntityFromNBT(nbt);
                     npc.func_70107_b(this.player.field_70165_t, this.player.field_70163_u, this.player.field_70161_v);
                     this.setCompanion(npc);
                     ((RoleCompanion)npc.roleInterface).setSitting(false);
-                    world.func_72838_d(npc);
+                    world.spawnEntity(npc);
                }
           }
      }
@@ -259,8 +259,8 @@ public class PlayerData implements ICapabilityProvider {
                     data.playerLevel = player.field_71068_ca;
                     data.scriptData = new PlayerScriptData(player);
                     NBTTagCompound compound = loadPlayerData(player.getPersistentID().toString());
-                    if (compound.func_82582_d()) {
-                         compound = loadPlayerDataOld(player.func_70005_c_());
+                    if (compound.hasNoTags()) {
+                         compound = loadPlayerDataOld(player.getName());
                     }
 
                     data.setNBT(compound);

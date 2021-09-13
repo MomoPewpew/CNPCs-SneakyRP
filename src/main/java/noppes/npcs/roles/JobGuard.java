@@ -24,7 +24,7 @@ public class JobGuard extends JobInterface {
 
      public boolean isEntityApplicable(Entity entity) {
           if (!(entity instanceof EntityPlayer) && !(entity instanceof EntityNPCInterface)) {
-               return this.targets.contains("entity." + EntityList.func_75621_b(entity) + ".name");
+               return this.targets.contains("entity." + EntityList.getEntityString(entity) + ".name");
           } else {
                return false;
           }

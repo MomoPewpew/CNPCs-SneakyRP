@@ -27,7 +27,7 @@ public class TextBlockClient extends TextBlock {
      }
 
      public String getName() {
-          return this.sender != null ? this.sender.func_70005_c_() : this.name;
+          return this.sender != null ? this.sender.getName() : this.name;
      }
 
      public TextBlockClient(String text, int lineWidth, boolean mcFont, Object... obs) {
@@ -61,7 +61,7 @@ public class TextBlockClient extends TextBlock {
                          newLine = line + " " + word;
                     }
 
-                    if ((mcFont ? font.func_78256_a(newLine) : ClientProxy.Font.width(newLine)) > lineWidth) {
+                    if ((mcFont ? font.getStringWidth(newLine) : ClientProxy.Font.width(newLine)) > lineWidth) {
                          this.addLine(line);
                          line = word.trim();
                     } else {

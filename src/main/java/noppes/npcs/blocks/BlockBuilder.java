@@ -34,11 +34,11 @@ public class BlockBuilder extends BlockInterface implements IPermission {
      }
 
      public int func_176201_c(IBlockState state) {
-          return (Integer)state.func_177229_b(ROTATION);
+          return (Integer)state.getValue(ROTATION);
      }
 
      public IBlockState func_176203_a(int meta) {
-          return this.func_176223_P().func_177226_a(ROTATION, meta);
+          return this.getDefaultState().func_177226_a(ROTATION, meta);
      }
 
      protected BlockStateContainer func_180661_e() {
@@ -53,8 +53,8 @@ public class BlockBuilder extends BlockInterface implements IPermission {
           if (par1World.isRemote) {
                return true;
           } else {
-               ItemStack currentItem = player.inventory.func_70448_g();
-               if (currentItem.func_77973_b() == CustomItems.wand || currentItem.func_77973_b() == Item.func_150898_a(CustomItems.builder)) {
+               ItemStack currentItem = player.inventory.getCurrentItem();
+               if (currentItem.getItem() == CustomItems.wand || currentItem.getItem() == Item.getItemFromBlock(CustomItems.builder)) {
                     NoppesUtilServer.sendOpenGui(player, EnumGuiType.BuilderBlock, (EntityNPCInterface)null, pos.getX(), pos.getY(), pos.getZ());
                }
 
@@ -63,7 +63,7 @@ public class BlockBuilder extends BlockInterface implements IPermission {
      }
 
      public void func_180633_a(World world, BlockPos pos, IBlockState state, EntityLivingBase entity, ItemStack stack) {
-          int var6 = MathHelper.func_76128_c((double)(entity.field_70177_z / 90.0F) + 0.5D) & 3;
+          int var6 = MathHelper.floor((double)(entity.field_70177_z / 90.0F) + 0.5D) & 3;
           world.func_180501_a(pos, state.func_177226_a(ROTATION, var6), 2);
           if (entity instanceof EntityPlayer && !world.isRemote) {
                NoppesUtilServer.sendOpenGui((EntityPlayer)entity, EnumGuiType.BuilderBlock, (EntityNPCInterface)null, pos.getX(), pos.getY(), pos.getZ());

@@ -98,7 +98,7 @@ public class GuiNPCManageFactions extends GuiNPCInterface2 implements IScrollDat
                this.save();
 
                String name;
-               for(name = I18n.func_74838_a("gui.new"); this.data.containsKey(name); name = name + "_") {
+               for(name = I18n.translateToLocal("gui.new"); this.data.containsKey(name); name = name + "_") {
                }
 
                Faction faction = new Faction(-1, name, 65280, 1000);

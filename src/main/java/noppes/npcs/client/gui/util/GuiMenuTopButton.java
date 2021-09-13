@@ -16,11 +16,11 @@ public class GuiMenuTopButton extends GuiNpcButton {
      public IButtonListener listener;
 
      public GuiMenuTopButton(int i, int j, int k, String s) {
-          super(i, j, k, I18n.func_74838_a(s));
+          super(i, j, k, I18n.translateToLocal(s));
           this.hover = false;
           this.rotated = false;
           this.active = false;
-          this.width = Minecraft.getMinecraft().fontRenderer.func_78256_a(this.field_146126_j) + 12;
+          this.width = Minecraft.getMinecraft().fontRenderer.getStringWidth(this.field_146126_j) + 12;
           this.height = 20;
      }
 

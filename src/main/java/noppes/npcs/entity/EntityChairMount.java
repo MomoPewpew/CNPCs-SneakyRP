@@ -40,10 +40,10 @@ public class EntityChairMount extends Entity {
      public void func_70091_d(MoverType type, double x, double y, double z) {
      }
 
-     protected void func_70037_a(NBTTagCompound tagCompound) {
+     protected void readEntityFromNBT(NBTTagCompound tagCompound) {
      }
 
-     protected void func_70014_b(NBTTagCompound tagCompound) {
+     protected void writeEntityToNBT(NBTTagCompound tagCompound) {
      }
 
      public boolean func_70067_L() {

@@ -29,7 +29,7 @@ public class EntityNpcEnderchibi extends EntityNPCInterface {
                part.type = 1;
                part.color = 16711680;
                part.playerTexture = true;
-               this.world.func_72838_d(npc);
+               this.world.spawnEntity(npc);
           }
 
           super.func_70071_h_();

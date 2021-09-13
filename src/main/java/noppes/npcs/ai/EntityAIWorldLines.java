@@ -18,7 +18,7 @@ public class EntityAIWorldLines extends EntityAIBase {
                --this.cooldown;
           }
 
-          return !this.npc.isAttacking() && !this.npc.isKilled() && this.npc.advanced.hasWorldLines() && this.npc.func_70681_au().nextInt(1800) == 1;
+          return !this.npc.isAttacking() && !this.npc.isKilled() && this.npc.advanced.hasWorldLines() && this.npc.getRNG().nextInt(1800) == 1;
      }
 
      public void func_75249_e() {

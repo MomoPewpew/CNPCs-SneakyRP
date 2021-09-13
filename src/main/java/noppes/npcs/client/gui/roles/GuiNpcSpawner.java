@@ -63,7 +63,7 @@ public class GuiNpcSpawner extends GuiNPCInterface2 implements ITextfieldListene
           this.addLabel(new GuiNpcLabel(11, "spawner.despawn", this.guiLeft + 170, y + 5));
           this.addButton(new GuiNpcButton(11, this.guiLeft + 335, y, 40, 20, new String[]{"gui.no", "gui.yes"}, this.job.despawnOnTargetLost ? 1 : 0));
           y += 23;
-          this.addLabel(new GuiNpcLabel(7, I18n.func_74838_a("spawner.posoffset") + " X:", this.guiLeft + 4, y + 5));
+          this.addLabel(new GuiNpcLabel(7, I18n.translateToLocal("spawner.posoffset") + " X:", this.guiLeft + 4, y + 5));
           this.addTextField(new GuiNpcTextField(7, this, this.field_146289_q, this.guiLeft + 99, y, 24, 20, this.job.xOffset + ""));
           this.getTextField(7).numbersOnly = true;
           this.getTextField(7).setMinMaxDefault(-9, 9, 0);

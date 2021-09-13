@@ -35,8 +35,8 @@ public class BlockNpcRedstone extends BlockInterface implements IPermission {
           if (par1World.isRemote) {
                return false;
           } else {
-               ItemStack currentItem = player.inventory.func_70448_g();
-               if (currentItem != null && currentItem.func_77973_b() == CustomItems.wand && CustomNpcsPermissions.hasPermission(player, CustomNpcsPermissions.EDIT_BLOCKS)) {
+               ItemStack currentItem = player.inventory.getCurrentItem();
+               if (currentItem != null && currentItem.getItem() == CustomItems.wand && CustomNpcsPermissions.hasPermission(player, CustomNpcsPermissions.EDIT_BLOCKS)) {
                     NoppesUtilServer.sendOpenGui(player, EnumGuiType.RedstoneBlock, (EntityNPCInterface)null, pos.getX(), pos.getY(), pos.getZ());
                     return true;
                } else {
@@ -47,8 +47,8 @@ public class BlockNpcRedstone extends BlockInterface implements IPermission {
 
      public void func_176213_c(World par1World, BlockPos pos, IBlockState state) {
           par1World.func_175685_c(pos, this, false);
-          par1World.func_175685_c(pos.func_177977_b(), this, false);
-          par1World.func_175685_c(pos.func_177984_a(), this, false);
+          par1World.func_175685_c(pos.down(), this, false);
+          par1World.func_175685_c(pos.up(), this, false);
           par1World.func_175685_c(pos.func_177976_e(), this, false);
           par1World.func_175685_c(pos.func_177974_f(), this, false);
           par1World.func_175685_c(pos.func_177968_d(), this, false);
@@ -79,11 +79,11 @@ public class BlockNpcRedstone extends BlockInterface implements IPermission {
      }
 
      public int func_176201_c(IBlockState state) {
-          return (Boolean)state.func_177229_b(ACTIVE) ? 1 : 0;
+          return (Boolean)state.getValue(ACTIVE) ? 1 : 0;
      }
 
      public IBlockState func_176203_a(int meta) {
-          return this.func_176223_P().func_177226_a(ACTIVE, false);
+          return this.getDefaultState().func_177226_a(ACTIVE, false);
      }
 
      protected BlockStateContainer func_180661_e() {
@@ -91,7 +91,7 @@ public class BlockNpcRedstone extends BlockInterface implements IPermission {
      }
 
      public int isActivated(IBlockState state) {
-          return (Boolean)state.func_177229_b(ACTIVE) ? 15 : 0;
+          return (Boolean)state.getValue(ACTIVE) ? 15 : 0;
      }
 
      public TileEntity func_149915_a(World var1, int var2) {

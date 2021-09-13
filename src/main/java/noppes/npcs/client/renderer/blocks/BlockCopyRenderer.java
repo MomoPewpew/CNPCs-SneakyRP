@@ -22,11 +22,11 @@ public class BlockCopyRenderer extends BlockRendererInterface {
           TileCopy tile = (TileCopy)var1;
           GlStateManager.func_179094_E();
           GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-          RenderHelper.func_74519_b();
+          RenderHelper.enableStandardItemLighting();
           GlStateManager.func_179084_k();
           GlStateManager.func_179137_b(x, y, z);
           this.drawSelectionBox(new BlockPos(tile.width, tile.height, tile.length));
-          GlStateManager.func_179109_b(0.5F, 0.5F, 0.5F);
+          GlStateManager.translate(0.5F, 0.5F, 0.5F);
           GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
           GlStateManager.func_179114_b(180.0F, 0.0F, 1.0F, 0.0F);
           Minecraft.getMinecraft().getRenderItem().func_181564_a(item, TransformType.NONE);
@@ -39,7 +39,7 @@ public class BlockCopyRenderer extends BlockRendererInterface {
           GlStateManager.func_179129_p();
           GlStateManager.func_179084_k();
           AxisAlignedBB bb = new AxisAlignedBB(BlockPos.field_177992_a, pos);
-          GlStateManager.func_179109_b(0.001F, 0.001F, 0.001F);
+          GlStateManager.translate(0.001F, 0.001F, 0.001F);
           RenderGlobal.func_189697_a(bb, 1.0F, 0.0F, 0.0F, 1.0F);
           GlStateManager.func_179098_w();
           GlStateManager.enableLighting();

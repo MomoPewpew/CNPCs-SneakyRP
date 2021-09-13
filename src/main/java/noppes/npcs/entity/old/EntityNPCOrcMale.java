@@ -28,7 +28,7 @@ public class EntityNPCOrcMale extends EntityNPCInterface {
                data.getPartConfig(EnumParts.ARM_LEFT).setScale(1.2F, 1.05F);
                data.getPartConfig(EnumParts.BODY).setScale(1.4F, 1.1F, 1.5F);
                data.getPartConfig(EnumParts.HEAD).setScale(1.2F, 1.1F);
-               this.world.func_72838_d(npc);
+               this.world.spawnEntity(npc);
           }
 
           super.func_70071_h_();

@@ -54,7 +54,7 @@ public class TileDoor extends TileNpcEntity implements ITickable {
      }
 
      public NBTTagCompound getDoorNBT(NBTTagCompound compound) {
-          compound.setString("ScriptDoorBlockModel", Block.REGISTRY.func_177774_c(this.blockModel) + "");
+          compound.setString("ScriptDoorBlockModel", Block.REGISTRY.getNameForObject(this.blockModel) + "");
           return compound;
      }
 

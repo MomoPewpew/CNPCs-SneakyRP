@@ -55,7 +55,7 @@ public abstract class CommandNoppesBase extends CommandBase {
      }
 
      protected void sendMessage(ICommandSender sender, String message, Object... obs) {
-          sender.func_145747_a(new TextComponentTranslation(message, obs));
+          sender.sendMessage(new TextComponentTranslation(message, obs));
      }
 
      public void executeSub(MinecraftServer server, ICommandSender sender, String command, String[] args) throws CommandException {
@@ -64,7 +64,7 @@ public abstract class CommandNoppesBase extends CommandBase {
                throw new CommandException("Unknown subcommand " + command, new Object[0]);
           } else {
                CommandNoppesBase.SubCommand sc = (CommandNoppesBase.SubCommand)m.getAnnotation(CommandNoppesBase.SubCommand.class);
-               if (!sender.func_70003_b(sc.permission(), "commands.noppes." + this.func_71517_b().toLowerCase() + "." + command.toLowerCase())) {
+               if (!sender.canUseCommand(sc.permission(), "commands.noppes." + this.func_71517_b().toLowerCase() + "." + command.toLowerCase())) {
                     throw new CommandException("You are not allowed to use this command", new Object[0]);
                } else {
                     this.canRun(server, sender, sc.usage(), args);

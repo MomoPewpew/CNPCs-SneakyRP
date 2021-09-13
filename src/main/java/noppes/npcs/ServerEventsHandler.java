@@ -56,13 +56,13 @@ public class ServerEventsHandler {
           if (item != null) {
                boolean isRemote = event.getEntityPlayer().world.isRemote;
                boolean npcInteracted = event.getTarget() instanceof EntityNPCInterface;
-               if (isRemote || !CustomNpcs.OpsOnly || event.getEntityPlayer().getServer().getPlayerList().func_152596_g(event.getEntityPlayer().func_146103_bH())) {
-                    if (!isRemote && item.func_77973_b() == CustomItems.soulstoneEmpty && event.getTarget() instanceof EntityLivingBase) {
-                         ((ItemSoulstoneEmpty)item.func_77973_b()).store((EntityLivingBase)event.getTarget(), item, event.getEntityPlayer());
+               if (isRemote || !CustomNpcs.OpsOnly || event.getEntityPlayer().getServer().getPlayerList().canSendCommands(event.getEntityPlayer().getGameProfile())) {
+                    if (!isRemote && item.getItem() == CustomItems.soulstoneEmpty && event.getTarget() instanceof EntityLivingBase) {
+                         ((ItemSoulstoneEmpty)item.getItem()).store((EntityLivingBase)event.getTarget(), item, event.getEntityPlayer());
                     }
 
                     CustomNpcsPermissions var10000;
-                    if (item.func_77973_b() == CustomItems.wand && npcInteracted && !isRemote) {
+                    if (item.getItem() == CustomItems.wand && npcInteracted && !isRemote) {
                          var10000 = CustomNpcsPermissions.Instance;
                          if (!CustomNpcsPermissions.hasPermission(event.getEntityPlayer(), CustomNpcsPermissions.NPC_GUI)) {
                               return;
@@ -70,7 +70,7 @@ public class ServerEventsHandler {
 
                          event.setCanceled(true);
                          NoppesUtilServer.sendOpenGui(event.getEntityPlayer(), EnumGuiType.MainMenuDisplay, (EntityNPCInterface)event.getTarget());
-                    } else if (item.func_77973_b() == CustomItems.cloner && !isRemote && !(event.getTarget() instanceof EntityPlayer)) {
+                    } else if (item.getItem() == CustomItems.cloner && !isRemote && !(event.getTarget() instanceof EntityPlayer)) {
                          NBTTagCompound compound = new NBTTagCompound();
                          if (!event.getTarget().func_184198_c(compound)) {
                               return;
@@ -79,12 +79,12 @@ public class ServerEventsHandler {
                          PlayerData data = PlayerData.get(event.getEntityPlayer());
                          ServerCloneController.Instance.cleanTags(compound);
                          if (!Server.sendDataChecked((EntityPlayerMP)event.getEntityPlayer(), EnumPacketClient.CLONE, compound)) {
-                              event.getEntityPlayer().func_145747_a(new TextComponentString("Entity too big to clone"));
+                              event.getEntityPlayer().sendMessage(new TextComponentString("Entity too big to clone"));
                          }
 
                          data.cloned = compound;
                          event.setCanceled(true);
-                    } else if (item.func_77973_b() == CustomItems.scripter && !isRemote && npcInteracted) {
+                    } else if (item.getItem() == CustomItems.scripter && !isRemote && npcInteracted) {
                          var10000 = CustomNpcsPermissions.Instance;
                          if (!CustomNpcsPermissions.hasPermission(event.getEntityPlayer(), CustomNpcsPermissions.NPC_GUI)) {
                               return;
@@ -93,7 +93,7 @@ public class ServerEventsHandler {
                          NoppesUtilServer.setEditingNpc(event.getEntityPlayer(), (EntityNPCInterface)event.getTarget());
                          event.setCanceled(true);
                          Server.sendData((EntityPlayerMP)event.getEntityPlayer(), EnumPacketClient.GUI, EnumGuiType.Script.ordinal(), 0, 0, 0);
-                    } else if (item.func_77973_b() == CustomItems.mount) {
+                    } else if (item.getItem() == CustomItems.mount) {
                          var10000 = CustomNpcsPermissions.Instance;
                          if (!CustomNpcsPermissions.hasPermission(event.getEntityPlayer(), CustomNpcsPermissions.TOOL_MOUNTER)) {
                               return;
@@ -102,9 +102,9 @@ public class ServerEventsHandler {
                          event.setCanceled(true);
                          mounted = event.getTarget();
                          if (isRemote) {
-                              CustomNpcs.proxy.openGui(MathHelper.func_76128_c(mounted.field_70165_t), MathHelper.func_76128_c(mounted.field_70163_u), MathHelper.func_76128_c(mounted.field_70161_v), EnumGuiType.MobSpawnerMounter, event.getEntityPlayer());
+                              CustomNpcs.proxy.openGui(MathHelper.floor(mounted.field_70165_t), MathHelper.floor(mounted.field_70163_u), MathHelper.floor(mounted.field_70161_v), EnumGuiType.MobSpawnerMounter, event.getEntityPlayer());
                          }
-                    } else if (item.func_77973_b() == CustomItems.wand && event.getTarget() instanceof EntityVillager) {
+                    } else if (item.getItem() == CustomItems.wand && event.getTarget() instanceof EntityVillager) {
                          var10000 = CustomNpcsPermissions.Instance;
                          if (!CustomNpcsPermissions.hasPermission(event.getEntityPlayer(), CustomNpcsPermissions.EDIT_VILLAGER)) {
                               return;
@@ -171,7 +171,7 @@ public class ServerEventsHandler {
      private void doQuest(EntityPlayer player, EntityLivingBase entity, boolean all) {
           PlayerData pdata = PlayerData.get(player);
           PlayerQuestData playerdata = pdata.questData;
-          String entityName = EntityList.func_75621_b(entity);
+          String entityName = EntityList.getEntityString(entity);
           if (entity instanceof EntityPlayer) {
                entityName = "Player";
           }
@@ -209,8 +209,8 @@ public class ServerEventsHandler {
 
                          name = entityName;
                          quest = (QuestKill)data.quest.questInterface;
-                         if (quest.targets.containsKey(entity.func_70005_c_())) {
-                              name = entity.func_70005_c_();
+                         if (quest.targets.containsKey(entity.getName())) {
+                              name = entity.getName();
                               break;
                          }
                     } while(!quest.targets.containsKey(entityName));
@@ -239,7 +239,7 @@ public class ServerEventsHandler {
 
      @SubscribeEvent
      public void commandGive(CommandEvent event) {
-          if (event.getSender().func_130014_f_() instanceof WorldServer && event.getCommand() instanceof CommandGive) {
+          if (event.getSender().getEntityWorld() instanceof WorldServer && event.getCommand() instanceof CommandGive) {
                try {
                     EntityPlayer player = CommandBase.func_184888_a(event.getSender().getServer(), event.getSender(), event.getParameters()[0]);
                     player.getServer().field_175589_i.add(ListenableFutureTask.create(Executors.callable(() -> {
@@ -317,7 +317,7 @@ public class ServerEventsHandler {
           if (event.getTarget() instanceof EntityLivingBase && !event.getTarget().world.isRemote) {
                MarkData data = MarkData.get((EntityLivingBase)event.getTarget());
                if (!data.marks.isEmpty()) {
-                    Server.sendData((EntityPlayerMP)event.getEntityPlayer(), EnumPacketClient.MARK_DATA, event.getTarget().func_145782_y(), data.getNBT());
+                    Server.sendData((EntityPlayerMP)event.getEntityPlayer(), EnumPacketClient.MARK_DATA, event.getTarget().getEntityId(), data.getNBT());
                }
           }
      }

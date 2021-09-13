@@ -27,11 +27,11 @@ public class LayerNpcCloak extends LayerInterface {
           GlStateManager.func_179094_E();
           ModelPartConfig config = this.playerdata.getPartConfig(EnumParts.BODY);
           if (this.npc.func_70093_af()) {
-               GlStateManager.func_179109_b(0.0F, 0.2F, 0.0F);
+               GlStateManager.translate(0.0F, 0.2F, 0.0F);
           }
 
-          GlStateManager.func_179109_b(config.transX, config.transY, config.transZ);
-          GlStateManager.func_179109_b(0.0F, 0.0F, 0.125F);
+          GlStateManager.translate(config.transX, config.transY, config.transZ);
+          GlStateManager.translate(0.0F, 0.0F, 0.125F);
           double d = this.npc.field_20066_r + (this.npc.field_20063_u - this.npc.field_20066_r) * (double)par7 - (this.npc.field_70169_q + (this.npc.field_70165_t - this.npc.field_70169_q) * (double)par7);
           double d1 = this.npc.field_20065_s + (this.npc.field_20062_v - this.npc.field_20065_s) * (double)par7 - (this.npc.field_70167_r + (this.npc.field_70163_u - this.npc.field_70167_r) * (double)par7);
           double d2 = this.npc.field_20064_t + (this.npc.field_20061_w - this.npc.field_20064_t) * (double)par7 - (this.npc.field_70166_s + (this.npc.field_70161_v - this.npc.field_70166_s) * (double)par7);

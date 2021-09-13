@@ -28,9 +28,9 @@ public abstract class AbstractAbility implements IAbility {
           if (this.onCooldown()) {
                return false;
           } else {
-               float f = this.npc.func_110143_aJ() / this.npc.func_110138_aP();
+               float f = this.npc.func_110143_aJ() / this.npc.getMaxHealth();
                if (f >= this.minHP && f <= this.maxHP) {
-                    return this.getRNG() > 1 && this.npc.func_70681_au().nextInt(this.getRNG()) != 0 ? false : this.npc.func_70685_l(target);
+                    return this.getRNG() > 1 && this.npc.getRNG().nextInt(this.getRNG()) != 0 ? false : this.npc.func_70685_l(target);
                } else {
                     return false;
                }

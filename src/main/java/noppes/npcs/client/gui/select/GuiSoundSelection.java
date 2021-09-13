@@ -40,18 +40,18 @@ public class GuiSoundSelection extends SubGuiInterface implements ICustomScrollL
 
           while(var5.hasNext()) {
                ResourceLocation location = (ResourceLocation)var5.next();
-               List list = (List)this.domains.get(location.func_110624_b());
+               List list = (List)this.domains.get(location.getResourceDomain());
                if (list == null) {
-                    this.domains.put(location.func_110624_b(), list = new ArrayList());
+                    this.domains.put(location.getResourceDomain(), list = new ArrayList());
                }
 
-               ((List)list).add(location.func_110623_a());
-               this.domains.put(location.func_110624_b(), list);
+               ((List)list).add(location.getResourcePath());
+               this.domains.put(location.getResourceDomain(), list);
           }
 
           if (sound != null && !sound.isEmpty()) {
                this.selectedResource = new ResourceLocation(sound);
-               this.selectedDomain = this.selectedResource.func_110624_b();
+               this.selectedDomain = this.selectedResource.getResourceDomain();
                if (!this.domains.containsKey(this.selectedDomain)) {
                     this.selectedDomain = null;
                }
@@ -86,7 +86,7 @@ public class GuiSoundSelection extends SubGuiInterface implements ICustomScrollL
           }
 
           if (this.selectedResource != null) {
-               this.scrollQuests.setSelected(this.selectedResource.func_110623_a());
+               this.scrollQuests.setSelected(this.selectedResource.getResourcePath());
           }
 
           this.scrollQuests.guiLeft = this.guiLeft + 95;
@@ -98,7 +98,7 @@ public class GuiSoundSelection extends SubGuiInterface implements ICustomScrollL
           super.func_146284_a(guibutton);
           if (guibutton.id == 1) {
                MusicController.Instance.stopMusic();
-               BlockPos pos = this.player.func_180425_c();
+               BlockPos pos = this.player.getPosition();
                MusicController.Instance.playSound(SoundCategory.NEUTRAL, this.selectedResource.toString(), pos.getX(), pos.getY(), pos.getZ(), 1.0F, 1.0F);
           }
 

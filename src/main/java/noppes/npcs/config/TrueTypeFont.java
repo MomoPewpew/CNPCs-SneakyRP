@@ -69,7 +69,7 @@ public class TrueTypeFont {
           GlStateManager.color(r, g, b, 1.0F);
           GlStateManager.func_179147_l();
           GlStateManager.func_179094_E();
-          GlStateManager.func_179109_b(x, y, 0.0F);
+          GlStateManager.translate(x, y, 0.0F);
           GlStateManager.func_179152_a(this.scale, this.scale, 1.0F);
           float i = 0.0F;
           Iterator var10 = cache.glyphs.iterator();

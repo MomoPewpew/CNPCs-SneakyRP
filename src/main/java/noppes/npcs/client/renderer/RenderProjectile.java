@@ -32,7 +32,7 @@ public class RenderProjectile extends Render {
      public void doRenderProjectile(EntityProjectile projectile, double x, double y, double z, float entityYaw, float partialTicks) {
           Minecraft mc = Minecraft.getMinecraft();
           GlStateManager.func_179094_E();
-          GlStateManager.func_179109_b((float)x, (float)y, (float)z);
+          GlStateManager.translate((float)x, (float)y, (float)z);
           GlStateManager.enableRescaleNormal();
           float scale = (float)projectile.getSize() / 10.0F;
           ItemStack item = projectile.getItemDisplay();
@@ -62,7 +62,7 @@ public class RenderProjectile extends Render {
 
                GlStateManager.func_179114_b(45.0F, 1.0F, 0.0F, 0.0F);
                GlStateManager.func_179152_a(f8, f8, f8);
-               GlStateManager.func_179109_b(-4.0F, 0.0F, 0.0F);
+               GlStateManager.translate(-4.0F, 0.0F, 0.0F);
                if (this.field_188301_f) {
                     GlStateManager.func_179142_g();
                     GlStateManager.func_187431_e(this.func_188298_c(projectile));
@@ -102,8 +102,8 @@ public class RenderProjectile extends Render {
                GlStateManager.func_179114_b(projectile.field_70126_B + (projectile.field_70177_z - projectile.field_70126_B) * partialTicks - 180.0F, 0.0F, 1.0F, 0.0F);
                GlStateManager.func_179114_b(projectile.field_70127_C + (projectile.field_70125_A - projectile.field_70127_C) * partialTicks, 1.0F, 0.0F, 0.0F);
                GlStateManager.func_179137_b(0.0D, -0.125D, 0.25D);
-               if (item.func_77973_b() instanceof ItemBlock && Block.func_149634_a(item.func_77973_b()).func_176223_P().func_185901_i() == EnumBlockRenderType.ENTITYBLOCK_ANIMATED) {
-                    GlStateManager.func_179109_b(0.0F, 0.1875F, -0.3125F);
+               if (item.getItem() instanceof ItemBlock && Block.func_149634_a(item.getItem()).getDefaultState().func_185901_i() == EnumBlockRenderType.ENTITYBLOCK_ANIMATED) {
+                    GlStateManager.translate(0.0F, 0.1875F, -0.3125F);
                     GlStateManager.func_179114_b(20.0F, 1.0F, 0.0F, 0.0F);
                     GlStateManager.func_179114_b(45.0F, 0.0F, 1.0F, 0.0F);
                     float f8 = 0.375F;
@@ -118,14 +118,14 @@ public class RenderProjectile extends Render {
                GlStateManager.func_179114_b(this.field_76990_c.field_78732_j, 1.0F, 0.0F, 0.0F);
                this.func_110776_a(TextureMap.field_110575_b);
                mc.getRenderItem().func_181564_a(item, TransformType.NONE);
-               GlStateManager.func_179101_C();
+               GlStateManager.disableRescaleNormal();
           }
 
           if (projectile.is3D() && projectile.glows()) {
                GlStateManager.disableLighting();
           }
 
-          GlStateManager.func_179101_C();
+          GlStateManager.disableRescaleNormal();
           GlStateManager.func_179121_F();
           GlStateManager.enableLighting();
      }
@@ -138,7 +138,7 @@ public class RenderProjectile extends Render {
           return projectile.isArrow() ? field_110780_a : TextureMap.field_110575_b;
      }
 
-     protected ResourceLocation func_110775_a(Entity par1Entity) {
+     protected ResourceLocation getEntityTexture(Entity par1Entity) {
           return this.func_110779_a((EntityProjectile)par1Entity);
      }
 }

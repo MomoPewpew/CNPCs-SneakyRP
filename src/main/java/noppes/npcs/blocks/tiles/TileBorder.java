@@ -29,7 +29,7 @@ public class TileBorder extends TileNpcEntity implements Predicate, ITickable {
           super.readFromNBT(compound);
           this.readExtraNBT(compound);
           if (this.func_145831_w() != null) {
-               this.func_145831_w().func_175656_a(this.func_174877_v(), CustomItems.border.func_176223_P().func_177226_a(BlockBorder.ROTATION, this.rotation));
+               this.func_145831_w().setBlockState(this.func_174877_v(), CustomItems.border.getDefaultState().func_177226_a(BlockBorder.ROTATION, this.rotation));
           }
 
      }
@@ -64,7 +64,7 @@ public class TileBorder extends TileNpcEntity implements Predicate, ITickable {
                          Entity entity = (Entity)var3.next();
                          if (entity instanceof EntityEnderPearl) {
                               EntityEnderPearl pearl = (EntityEnderPearl)entity;
-                              if (pearl.func_85052_h() instanceof EntityPlayer && !this.availability.isAvailable((EntityPlayer)pearl.func_85052_h())) {
+                              if (pearl.getThrower() instanceof EntityPlayer && !this.availability.isAvailable((EntityPlayer)pearl.getThrower())) {
                                    entity.field_70128_L = true;
                               }
                          } else {
@@ -81,8 +81,8 @@ public class TileBorder extends TileNpcEntity implements Predicate, ITickable {
                                         pos2 = pos2.func_177976_e();
                                    }
 
-                                   while(!this.field_145850_b.func_175623_d(pos2)) {
-                                        pos2 = pos2.func_177984_a();
+                                   while(!this.field_145850_b.isAirBlock(pos2)) {
+                                        pos2 = pos2.up();
                                    }
 
                                    player.func_70634_a((double)pos2.getX() + 0.5D, (double)pos2.getY(), (double)pos2.getZ() + 0.5D);

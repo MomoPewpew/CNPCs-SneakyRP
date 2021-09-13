@@ -30,7 +30,7 @@ public class EntityAIReturn extends EntityAIBase {
                BlockPos pos;
                if (this.npc.ais.findShelter == 0 && (!this.npc.world.func_72935_r() || this.npc.world.func_72896_J()) && !this.npc.world.field_73011_w.func_191066_m()) {
                     pos = new BlockPos((double)this.npc.getStartXPos(), this.npc.getStartYPos(), (double)this.npc.getStartZPos());
-                    if (this.npc.world.func_175678_i(pos) || this.npc.world.func_175699_k(pos) <= 8) {
+                    if (this.npc.world.func_175678_i(pos) || this.npc.world.getLight(pos) <= 8) {
                          return false;
                     }
                } else if (this.npc.ais.findShelter == 1 && this.npc.world.func_72935_r()) {

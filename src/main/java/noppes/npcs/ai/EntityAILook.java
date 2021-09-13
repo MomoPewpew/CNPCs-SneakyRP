@@ -71,15 +71,15 @@ public class EntityAILook extends EntityAIBase {
                this.npc.func_70671_ap().func_75651_a((Entity)lookat, 10.0F, (float)this.npc.func_70646_bf());
           } else {
                if (this.rotatebody) {
-                    if (this.idle == 0 && this.npc.func_70681_au().nextFloat() < 0.004F) {
-                         double var1 = 6.283185307179586D * this.npc.func_70681_au().nextDouble();
+                    if (this.idle == 0 && this.npc.getRNG().nextFloat() < 0.004F) {
+                         double var1 = 6.283185307179586D * this.npc.getRNG().nextDouble();
                          if (this.npc.ais.getStandingType() == 3) {
-                              var1 = 0.017453292519943295D * (double)this.npc.ais.orientation + 0.6283185307179586D + 1.8849555921538759D * this.npc.func_70681_au().nextDouble();
+                              var1 = 0.017453292519943295D * (double)this.npc.ais.orientation + 0.6283185307179586D + 1.8849555921538759D * this.npc.getRNG().nextDouble();
                          }
 
                          this.lookX = Math.cos(var1);
                          this.lookZ = Math.sin(var1);
-                         this.idle = 20 + this.npc.func_70681_au().nextInt(20);
+                         this.idle = 20 + this.npc.getRNG().nextInt(20);
                     }
 
                     if (this.idle > 0) {

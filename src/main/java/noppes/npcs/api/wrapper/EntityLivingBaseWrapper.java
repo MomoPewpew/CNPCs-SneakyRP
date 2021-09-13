@@ -29,12 +29,12 @@ public class EntityLivingBaseWrapper extends EntityWrapper implements IEntityLiv
      }
 
      public float getMaxHealth() {
-          return ((EntityLivingBase)this.entity).func_110138_aP();
+          return ((EntityLivingBase)this.entity).getMaxHealth();
      }
 
      public void setMaxHealth(float health) {
           if (health >= 0.0F) {
-               ((EntityLivingBase)this.entity).func_110148_a(SharedMonsterAttributes.field_111267_a).func_111128_a((double)health);
+               ((EntityLivingBase)this.entity).getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue((double)health);
           }
      }
 
@@ -117,7 +117,7 @@ public class EntityLivingBaseWrapper extends EntityWrapper implements IEntityLiv
      }
 
      public void setMainhandItem(IItemStack item) {
-          ((EntityLivingBase)this.entity).func_184611_a(EnumHand.MAIN_HAND, item == null ? ItemStack.EMPTY : item.getMCItemStack());
+          ((EntityLivingBase)this.entity).setHeldItem(EnumHand.MAIN_HAND, item == null ? ItemStack.EMPTY : item.getMCItemStack());
      }
 
      public IItemStack getOffhandItem() {
@@ -125,7 +125,7 @@ public class EntityLivingBaseWrapper extends EntityWrapper implements IEntityLiv
      }
 
      public void setOffhandItem(IItemStack item) {
-          ((EntityLivingBase)this.entity).func_184611_a(EnumHand.OFF_HAND, item == null ? ItemStack.EMPTY : item.getMCItemStack());
+          ((EntityLivingBase)this.entity).setHeldItem(EnumHand.OFF_HAND, item == null ? ItemStack.EMPTY : item.getMCItemStack());
      }
 
      public IItemStack getArmor(int slot) {
@@ -138,7 +138,7 @@ public class EntityLivingBaseWrapper extends EntityWrapper implements IEntityLiv
 
      public void setArmor(int slot, IItemStack item) {
           if (slot >= 0 && slot <= 3) {
-               ((EntityLivingBase)this.entity).func_184201_a(this.getSlot(slot), item == null ? ItemStack.EMPTY : item.getMCItemStack());
+               ((EntityLivingBase)this.entity).setItemStackToSlot(this.getSlot(slot), item == null ? ItemStack.EMPTY : item.getMCItemStack());
           } else {
                throw new CustomNPCsException("Wrong slot id:" + slot, new Object[0]);
           }

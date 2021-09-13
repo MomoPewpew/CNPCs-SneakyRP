@@ -39,7 +39,7 @@ import noppes.npcs.client.gui.util.SubGuiInterface;
 import noppes.npcs.entity.EntityNPCInterface;
 
 public class GuiTextureSelection extends SubGuiInterface implements ICustomScrollListener {
-     private String up = "..<" + I18n.func_74838_a("gui.up") + ">..";
+     private String up = "..<" + I18n.translateToLocal("gui.up") + ">..";
      private GuiCustomScroll scrollCategories;
      private GuiCustomScroll scrollQuests;
      private String location = "";
@@ -149,13 +149,13 @@ public class GuiTextureSelection extends SubGuiInterface implements ICustomScrol
 
           if (texture != null && !texture.isEmpty()) {
                this.selectedResource = new ResourceLocation(texture);
-               this.selectedDomain = this.selectedResource.func_110624_b();
+               this.selectedDomain = this.selectedResource.getResourceDomain();
                if (!this.domains.containsKey(this.selectedDomain)) {
                     this.selectedDomain = null;
                }
 
-               int i = this.selectedResource.func_110623_a().lastIndexOf(47);
-               this.location = this.selectedResource.func_110623_a().substring(0, i + 1);
+               int i = this.selectedResource.getResourcePath().lastIndexOf(47);
+               this.location = this.selectedResource.getResourcePath().substring(0, i + 1);
                if (this.location.startsWith("textures/")) {
                     this.location = this.location.substring(9);
                }
@@ -262,7 +262,7 @@ public class GuiTextureSelection extends SubGuiInterface implements ICustomScrol
           }
 
           if (this.selectedResource != null) {
-               this.scrollQuests.setSelected(this.selectedResource.func_110623_a());
+               this.scrollQuests.setSelected(this.selectedResource.getResourcePath());
           }
 
           this.scrollQuests.guiLeft = this.guiLeft + 125;

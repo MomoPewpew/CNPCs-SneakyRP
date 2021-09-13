@@ -46,19 +46,19 @@ public class ItemNpcWand extends Item implements IPermission {
           if (world.isRemote) {
                return EnumActionResult.SUCCESS;
           } else {
-               if (CustomNpcs.OpsOnly && !player.getServer().getPlayerList().func_152596_g(player.func_146103_bH())) {
-                    player.func_145747_a(new TextComponentTranslation("availability.permission", new Object[0]));
+               if (CustomNpcs.OpsOnly && !player.getServer().getPlayerList().canSendCommands(player.getGameProfile())) {
+                    player.sendMessage(new TextComponentTranslation("availability.permission", new Object[0]));
                } else if (CustomNpcsPermissions.hasPermission(player, CustomNpcsPermissions.NPC_CREATE)) {
                     EntityCustomNpc npc = new EntityCustomNpc(world);
-                    npc.ais.setStartPos(bpos.func_177984_a());
-                    npc.func_70012_b((double)((float)bpos.getX() + 0.5F), npc.getStartYPos(), (double)((float)bpos.getZ() + 0.5F), player.field_70177_z, player.field_70125_A);
-                    world.func_72838_d(npc);
-                    npc.func_70606_j(npc.func_110138_aP());
+                    npc.ais.setStartPos(bpos.up());
+                    npc.setLocationAndAngles((double)((float)bpos.getX() + 0.5F), npc.getStartYPos(), (double)((float)bpos.getZ() + 0.5F), player.field_70177_z, player.field_70125_A);
+                    world.spawnEntity(npc);
+                    npc.func_70606_j(npc.getMaxHealth());
                     CustomNPCsScheduler.runTack(() -> {
                          NoppesUtilServer.sendOpenGui(player, EnumGuiType.MainMenuDisplay, npc);
                     }, 100);
                } else {
-                    player.func_145747_a(new TextComponentTranslation("availability.permission", new Object[0]));
+                    player.sendMessage(new TextComponentTranslation("availability.permission", new Object[0]));
                }
 
                return EnumActionResult.SUCCESS;

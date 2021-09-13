@@ -105,7 +105,7 @@ public class GuiNPCInv extends GuiContainerNPCInterface2 implements ISliderListe
      }
 
      public void mouseDragged(GuiNpcSlider guiNpcSlider) {
-          guiNpcSlider.field_146126_j = I18n.func_74838_a("inv.dropChance") + ": " + (int)(guiNpcSlider.sliderValue * 100.0F) + "%";
+          guiNpcSlider.field_146126_j = I18n.translateToLocal("inv.dropChance") + ": " + (int)(guiNpcSlider.sliderValue * 100.0F) + "%";
      }
 
      public void mousePressed(GuiNpcSlider guiNpcSlider) {

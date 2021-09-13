@@ -75,7 +75,7 @@ public class EntityAIAttackTarget extends EntityAIBase {
      public void func_75246_d() {
           this.npc.func_70671_ap().func_75651_a(this.entityTarget, 30.0F, 30.0F);
           if (!this.navOverride && --this.field_75445_i <= 0) {
-               this.field_75445_i = 4 + this.npc.func_70681_au().nextInt(7);
+               this.field_75445_i = 4 + this.npc.getRNG().nextInt(7);
                this.npc.func_70661_as().func_75497_a(this.entityTarget, 1.2999999523162842D);
           }
 

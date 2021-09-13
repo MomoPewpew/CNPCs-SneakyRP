@@ -29,7 +29,7 @@ public class EntityNpcMonsterFemale extends EntityNPCInterface {
                data.getPartConfig(EnumParts.ARM_LEFT).setScale(0.8F, 0.92F);
                data.getPartConfig(EnumParts.BODY).setScale(0.92F, 0.92F);
                npc.ais.animationType = 3;
-               this.world.func_72838_d(npc);
+               this.world.spawnEntity(npc);
           }
 
           super.func_70071_h_();

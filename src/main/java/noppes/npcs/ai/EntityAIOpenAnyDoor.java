@@ -46,7 +46,7 @@ public class EntityAIOpenAnyDoor extends EntityAIBase {
                          }
                     }
 
-                    this.position = (new BlockPos(this.npc)).func_177984_a();
+                    this.position = (new BlockPos(this.npc)).up();
                     this.door = this.getDoor(this.position);
                     return this.door != null;
                } else {
@@ -118,7 +118,7 @@ public class EntityAIOpenAnyDoor extends EntityAIBase {
                     return;
                }
 
-               this.npc.world.func_175656_a(position, state.func_177226_a(this.property, open));
+               this.npc.world.setBlockState(position, state.func_177226_a(this.property, open));
                this.npc.world.func_180498_a((EntityPlayer)null, open ? 1003 : 1006, position, 0);
           }
 

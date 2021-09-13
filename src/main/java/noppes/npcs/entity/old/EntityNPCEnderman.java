@@ -40,7 +40,7 @@ public class EntityNPCEnderman extends EntityNpcEnderchibi {
                npc.func_70020_e(compound);
                ModelData data = npc.modelData;
                data.setEntityClass(EntityEnderman.class);
-               this.world.func_72838_d(npc);
+               this.world.spawnEntity(npc);
           }
 
           super.func_70071_h_();

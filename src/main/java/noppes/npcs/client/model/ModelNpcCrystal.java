@@ -28,7 +28,7 @@ public class ModelNpcCrystal extends ModelBase {
      public void func_78088_a(Entity par1Entity, float par2, float par3, float par4, float par5, float par6, float par7) {
           GlStateManager.func_179094_E();
           GlStateManager.func_179152_a(2.0F, 2.0F, 2.0F);
-          GlStateManager.func_179109_b(0.0F, -0.5F, 0.0F);
+          GlStateManager.translate(0.0F, -0.5F, 0.0F);
           this.field_41059_i.func_78785_a(par7);
           float f = (float)par1Entity.field_70173_aa + this.ticks;
           float f1 = MathHelper.func_76126_a(f * 0.2F) / 2.0F + 0.5F;
@@ -36,7 +36,7 @@ public class ModelNpcCrystal extends ModelBase {
           par3 = f * 3.0F;
           par4 = f1 * 0.2F;
           GlStateManager.func_179114_b(par3, 0.0F, 1.0F, 0.0F);
-          GlStateManager.func_179109_b(0.0F, 0.1F + par4, 0.0F);
+          GlStateManager.translate(0.0F, 0.1F + par4, 0.0F);
           GlStateManager.func_179114_b(60.0F, 0.7071F, 0.0F, 0.7071F);
           this.field_41058_h.func_78785_a(par7);
           float sca = 0.875F;

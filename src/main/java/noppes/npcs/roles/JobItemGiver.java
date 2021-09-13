@@ -117,7 +117,7 @@ public class JobItemGiver extends JobInterface {
 
                          while(var5.hasNext()) {
                               is = (ItemStack)var5.next();
-                              if (!this.playerHasItem(player, is.func_77973_b())) {
+                              if (!this.playerHasItem(player, is.getItem())) {
                                    toGive.add(is);
                               }
                          }
@@ -129,7 +129,7 @@ public class JobItemGiver extends JobInterface {
 
                          while(var10.hasNext()) {
                               ItemStack is = (ItemStack)var10.next();
-                              if (this.playerHasItem(player, is.func_77973_b())) {
+                              if (this.playerHasItem(player, is.getItem())) {
                                    ownsItems = true;
                                    break;
                               }
@@ -157,7 +157,7 @@ public class JobItemGiver extends JobInterface {
                          return false;
                     } else if (this.givePlayerItems(player, toGive)) {
                          if (!this.lines.isEmpty()) {
-                              this.npc.say(player, new Line((String)this.lines.get(this.npc.func_70681_au().nextInt(this.lines.size()))));
+                              this.npc.say(player, new Line((String)this.lines.get(this.npc.getRNG().nextInt(this.lines.size()))));
                          }
 
                          if (this.isDaily()) {
@@ -235,13 +235,13 @@ public class JobItemGiver extends JobInterface {
                          }
 
                          is = (ItemStack)var3.next();
-                    } while(is.isEmpty() || is.func_77973_b() != item);
+                    } while(is.isEmpty() || is.getItem() != item);
 
                     return true;
                }
 
                is = (ItemStack)var3.next();
-          } while(is.isEmpty() || is.func_77973_b() != item);
+          } while(is.isEmpty() || is.getItem() != item);
 
           return true;
      }

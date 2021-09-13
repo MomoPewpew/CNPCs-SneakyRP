@@ -32,7 +32,7 @@ public class BlockMailboxRenderer extends TileEntitySpecialRenderer {
           GlStateManager.func_179094_E();
           GlStateManager.enableLighting();
           GlStateManager.func_179084_k();
-          GlStateManager.func_179109_b((float)x + 0.5F, (float)y + 1.5F, (float)z + 0.5F);
+          GlStateManager.translate((float)x + 0.5F, (float)y + 1.5F, (float)z + 0.5F);
           GlStateManager.func_179114_b(180.0F, 0.0F, 0.0F, 1.0F);
           GlStateManager.func_179114_b((float)(90 * meta), 0.0F, 1.0F, 0.0F);
           if (type == 0) {

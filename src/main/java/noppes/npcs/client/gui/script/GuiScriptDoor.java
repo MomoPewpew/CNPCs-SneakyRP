@@ -10,7 +10,7 @@ public class GuiScriptDoor extends GuiScriptInterface {
      private TileScriptedDoor script;
 
      public GuiScriptDoor(int x, int y, int z) {
-          this.handler = this.script = (TileScriptedDoor)this.player.world.func_175625_s(new BlockPos(x, y, z));
+          this.handler = this.script = (TileScriptedDoor)this.player.world.getTileEntity(new BlockPos(x, y, z));
           Client.sendData(EnumPacketServer.ScriptDoorDataGet, x, y, z);
      }
 

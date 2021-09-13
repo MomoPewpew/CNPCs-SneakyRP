@@ -35,8 +35,8 @@ public class BlockBorder extends BlockInterface implements IPermission {
      }
 
      public boolean func_180639_a(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
-          ItemStack currentItem = player.inventory.func_70448_g();
-          if (!world.isRemote && currentItem != null && currentItem.func_77973_b() == CustomItems.wand) {
+          ItemStack currentItem = player.inventory.getCurrentItem();
+          if (!world.isRemote && currentItem != null && currentItem.getItem() == CustomItems.wand) {
                NoppesUtilServer.sendOpenGui(player, EnumGuiType.Border, (EntityNPCInterface)null, pos.getX(), pos.getY(), pos.getZ());
                return true;
           } else {
@@ -45,10 +45,10 @@ public class BlockBorder extends BlockInterface implements IPermission {
      }
 
      public void func_180633_a(World world, BlockPos pos, IBlockState state, EntityLivingBase entity, ItemStack stack) {
-          int l = MathHelper.func_76128_c((double)(entity.field_70177_z * 4.0F / 360.0F) + 0.5D) & 3;
+          int l = MathHelper.floor((double)(entity.field_70177_z * 4.0F / 360.0F) + 0.5D) & 3;
           l %= 4;
-          world.func_175656_a(pos, state.func_177226_a(ROTATION, l));
-          TileBorder tile = (TileBorder)world.func_175625_s(pos);
+          world.setBlockState(pos, state.func_177226_a(ROTATION, l));
+          TileBorder tile = (TileBorder)world.getTileEntity(pos);
           TileBorder adjacent = this.getTile(world, pos.func_177976_e());
           if (adjacent == null) {
                adjacent = this.getTile(world, pos.func_177968_d());
@@ -76,7 +76,7 @@ public class BlockBorder extends BlockInterface implements IPermission {
      }
 
      private TileBorder getTile(World world, BlockPos pos) {
-          TileEntity tile = world.func_175625_s(pos);
+          TileEntity tile = world.getTileEntity(pos);
           return tile != null && tile instanceof TileBorder ? (TileBorder)tile : null;
      }
 
@@ -101,11 +101,11 @@ public class BlockBorder extends BlockInterface implements IPermission {
      }
 
      public int func_176201_c(IBlockState state) {
-          return (Integer)state.func_177229_b(ROTATION);
+          return (Integer)state.getValue(ROTATION);
      }
 
      public IBlockState func_176203_a(int meta) {
-          return this.func_176223_P().func_177226_a(ROTATION, meta);
+          return this.getDefaultState().func_177226_a(ROTATION, meta);
      }
 
      public boolean isAllowed(EnumPacketServer e) {

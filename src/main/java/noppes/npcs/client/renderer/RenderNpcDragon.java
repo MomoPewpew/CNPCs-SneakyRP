@@ -10,7 +10,7 @@ public class RenderNpcDragon extends RenderNPCInterface {
      }
 
      protected void preRenderCallback(EntityNPCInterface npc, float f) {
-          GlStateManager.func_179109_b(0.0F, 0.0F, 0.120000005F * (float)npc.display.getSize());
+          GlStateManager.translate(0.0F, 0.0F, 0.120000005F * (float)npc.display.getSize());
           super.preRenderCallback(npc, f);
      }
 }

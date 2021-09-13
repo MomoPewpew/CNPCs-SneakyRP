@@ -117,7 +117,7 @@ public class DataScenes {
                StartedScenes = new HashMap();
                NoppesUtilServer.NotifyOPs("Reset all scene");
           } else if (StartedScenes.remove(id.toLowerCase()) == null) {
-               sender.func_145747_a(new TextComponentTranslation("Unknown scene %s ", new Object[]{id}));
+               sender.sendMessage(new TextComponentTranslation("Unknown scene %s ", new Object[]{id}));
           } else {
                NoppesUtilServer.NotifyOPs("Reset scene %s", id);
           }
@@ -319,7 +319,7 @@ public class DataScenes {
                          if (args[0].startsWith("@")) {
                               EntityLivingBase entitylivingbase = (EntityLivingBase)CommandBase.func_184884_a(DataScenes.this.npc.getServer(), DataScenes.this.npc, args[0], EntityLivingBase.class);
                               if (entitylivingbase != null) {
-                                   pos = entitylivingbase.func_180425_c();
+                                   pos = entitylivingbase.getPosition();
                               }
 
                               args = (String[])Arrays.copyOfRange(args, 2, args.length);
@@ -433,7 +433,7 @@ public class DataScenes {
                               DataScenes.this.npc.animateAi.temp = 12;
                          }
                     } else if (event.type == DataScenes.SceneType.COMMAND) {
-                         NoppesUtilServer.runCommand(DataScenes.this.npc, DataScenes.this.npc.func_70005_c_(), event.param, (EntityPlayer)null);
+                         NoppesUtilServer.runCommand(DataScenes.this.npc, DataScenes.this.npc.getName(), event.param, (EntityPlayer)null);
                     } else if (event.type == DataScenes.SceneType.STATS) {
                          int ix = event.param.indexOf(" ");
                          if (ix <= 0) {

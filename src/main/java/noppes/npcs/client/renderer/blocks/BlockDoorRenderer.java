@@ -25,13 +25,13 @@ public class BlockDoorRenderer extends BlockRendererInterface {
           TileDoor tile = (TileDoor)te;
           IBlockState original = CustomItems.scriptedDoor.func_176203_a(tile.func_145832_p());
           BlockPos lowerPos = tile.func_174877_v();
-          if (original.func_177229_b(BlockDoor.field_176523_O) == EnumDoorHalf.UPPER) {
-               lowerPos = tile.func_174877_v().func_177977_b();
+          if (original.getValue(BlockDoor.field_176523_O) == EnumDoorHalf.UPPER) {
+               lowerPos = tile.func_174877_v().down();
           }
 
-          BlockPos upperPos = lowerPos.func_177984_a();
-          TileDoor lowerTile = (TileDoor)this.func_178459_a().func_175625_s(lowerPos);
-          TileDoor upperTile = (TileDoor)this.func_178459_a().func_175625_s(upperPos);
+          BlockPos upperPos = lowerPos.up();
+          TileDoor lowerTile = (TileDoor)this.func_178459_a().getTileEntity(lowerPos);
+          TileDoor upperTile = (TileDoor)this.func_178459_a().getTileEntity(upperPos);
           if (lowerTile != null && upperTile != null) {
                IBlockState lowerState = CustomItems.scriptedDoor.func_176203_a(lowerTile.func_145832_p());
                IBlockState upperState = CustomItems.scriptedDoor.func_176203_a(upperTile.func_145832_p());
@@ -42,13 +42,13 @@ public class BlockDoorRenderer extends BlockRendererInterface {
                }
 
                IBlockState state = b.func_176203_a(meta);
-               state = state.func_177226_a(BlockDoor.field_176523_O, original.func_177229_b(BlockDoor.field_176523_O));
-               state = state.func_177226_a(BlockDoor.field_176520_a, lowerState.func_177229_b(BlockDoor.field_176520_a));
-               state = state.func_177226_a(BlockDoor.field_176519_b, lowerState.func_177229_b(BlockDoor.field_176519_b));
-               state = state.func_177226_a(BlockDoor.field_176521_M, upperState.func_177229_b(BlockDoor.field_176521_M));
-               state = state.func_177226_a(BlockDoor.field_176522_N, upperState.func_177229_b(BlockDoor.field_176522_N));
+               state = state.func_177226_a(BlockDoor.field_176523_O, original.getValue(BlockDoor.field_176523_O));
+               state = state.func_177226_a(BlockDoor.field_176520_a, lowerState.getValue(BlockDoor.field_176520_a));
+               state = state.func_177226_a(BlockDoor.field_176519_b, lowerState.getValue(BlockDoor.field_176519_b));
+               state = state.func_177226_a(BlockDoor.field_176521_M, upperState.getValue(BlockDoor.field_176521_M));
+               state = state.func_177226_a(BlockDoor.field_176522_N, upperState.getValue(BlockDoor.field_176522_N));
                GlStateManager.func_179094_E();
-               RenderHelper.func_74519_b();
+               RenderHelper.enableStandardItemLighting();
                GlStateManager.func_179141_d();
                GlStateManager.func_179084_k();
                GlStateManager.func_179137_b(x + 0.5D, y, z + 0.5D);
@@ -61,7 +61,7 @@ public class BlockDoorRenderer extends BlockRendererInterface {
 
      private void renderBlock(TileDoor tile, Block b, IBlockState state) {
           this.func_147499_a(TextureMap.field_110575_b);
-          GlStateManager.func_179109_b(-0.5F, 0.0F, 0.5F);
+          GlStateManager.translate(-0.5F, 0.0F, 0.5F);
           BlockRendererDispatcher dispatcher = Minecraft.getMinecraft().func_175602_ab();
           IBakedModel ibakedmodel = dispatcher.func_175023_a().func_178125_b(state);
           if (ibakedmodel == null) {
@@ -77,7 +77,7 @@ public class BlockDoorRenderer extends BlockRendererInterface {
           if (held == null) {
                return false;
           } else {
-               return held.func_77973_b() == CustomItems.wand || held.func_77973_b() == CustomItems.scripter || held.func_77973_b() == CustomItems.scriptedDoorTool;
+               return held.getItem() == CustomItems.wand || held.getItem() == CustomItems.scripter || held.getItem() == CustomItems.scriptedDoorTool;
           }
      }
 }

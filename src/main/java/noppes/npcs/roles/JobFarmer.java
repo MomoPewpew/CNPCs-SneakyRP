@@ -110,7 +110,7 @@ public class JobFarmer extends JobInterface implements MassBlockController.IMass
      private void dropItem(ItemStack item) {
           EntityItem entityitem = new EntityItem(this.npc.world, this.npc.field_70165_t, this.npc.field_70163_u, this.npc.field_70161_v, item);
           entityitem.func_174869_p();
-          this.npc.world.func_72838_d(entityitem);
+          this.npc.world.spawnEntity(entityitem);
      }
 
      private void chest() {
@@ -129,7 +129,7 @@ public class JobFarmer extends JobInterface implements MassBlockController.IMass
                if (!(state.getBlock() instanceof BlockChest)) {
                     this.chest = null;
                } else {
-                    TileEntityChest tile = (TileEntityChest)this.npc.world.func_175625_s(pos);
+                    TileEntityChest tile = (TileEntityChest)this.npc.world.getTileEntity(pos);
 
                     int i;
                     for(i = 0; !this.holding.isEmpty() && i < tile.getSizeInventory(); ++i) {
@@ -160,13 +160,13 @@ public class JobFarmer extends JobInterface implements MassBlockController.IMass
           if (!NoppesUtilPlayer.compareItems(item, item2, false, false)) {
                return item;
           } else {
-               int size = item2.func_77976_d() - item2.getCount();
+               int size = item2.getMaxStackSize() - item2.getCount();
                if (size >= item.getCount()) {
-                    item2.func_190920_e(item2.getCount() + item.getCount());
+                    item2.setCount(item2.getCount() + item.getCount());
                     return ItemStack.EMPTY;
                } else {
-                    item2.func_190920_e(item2.func_77976_d());
-                    item.func_190920_e(item.getCount() - size);
+                    item2.setCount(item2.getMaxStackSize());
+                    item.setCount(item.getCount() - size);
                     return item.isEmpty() ? ItemStack.EMPTY : item;
                }
           }
@@ -191,13 +191,13 @@ public class JobFarmer extends JobInterface implements MassBlockController.IMass
                Block b = state.getBlock();
                if (b instanceof BlockCrops && ((BlockCrops)b).func_185525_y(state)) {
                     BlockCrops crop = (BlockCrops)b;
-                    this.npc.world.func_175656_a(pos, crop.func_185528_e(0));
+                    this.npc.world.setBlockState(pos, crop.func_185528_e(0));
                     this.holding = new ItemStack(NpcBlockHelper.getCrop((BlockCrops)b));
                }
 
                if (b instanceof BlockStem) {
                     state = b.func_176221_a(state, this.npc.world, pos);
-                    EnumFacing facing = (EnumFacing)state.func_177229_b(BlockStem.field_176483_b);
+                    EnumFacing facing = (EnumFacing)state.getValue(BlockStem.field_176483_b);
                     if (facing == EnumFacing.UP || facing == EnumFacing.DOWN) {
                          return;
                     }
@@ -232,7 +232,7 @@ public class JobFarmer extends JobInterface implements MassBlockController.IMass
                     }
                } else if (b instanceof BlockStem) {
                     state = b.func_176221_a(state, this.npc.world, pos);
-                    EnumFacing facing = (EnumFacing)state.func_177229_b(BlockStem.field_176483_b);
+                    EnumFacing facing = (EnumFacing)state.getValue(BlockStem.field_176483_b);
                     if (facing != EnumFacing.UP) {
                          this.ripe = pos;
                     }

@@ -51,7 +51,7 @@ public class GuiMerchantAdd extends GuiContainer {
      }
 
      protected void func_146979_b(int par1, int par2) {
-          this.field_146289_q.func_78276_b(this.field_94082_v, this.field_146999_f / 2 - this.field_146289_q.func_78256_a(this.field_94082_v) / 2, 6, CustomNpcResourceListener.DefaultTextColor);
+          this.field_146289_q.func_78276_b(this.field_94082_v, this.field_146999_f / 2 - this.field_146289_q.getStringWidth(this.field_94082_v) / 2, 6, CustomNpcResourceListener.DefaultTextColor);
           this.field_146289_q.func_78276_b(I18n.func_135052_a("container.inventory", new Object[0]), 8, this.field_147000_g - 96 + 2, CustomNpcResourceListener.DefaultTextColor);
      }
 
@@ -85,7 +85,7 @@ public class GuiMerchantAdd extends GuiContainer {
                          --this.currentRecipeIndex;
                     }
 
-                    Client.sendData(EnumPacketServer.MerchantUpdate, ServerEventsHandler.Merchant.func_145782_y(), merchantrecipelist);
+                    Client.sendData(EnumPacketServer.MerchantUpdate, ServerEventsHandler.Merchant.getEntityId(), merchantrecipelist);
                }
           }
 
@@ -109,7 +109,7 @@ public class GuiMerchantAdd extends GuiContainer {
                     recipe.func_82783_a(2147483639);
                     MerchantRecipeList merchantrecipelist = this.theIMerchant.func_70934_b(mc.player);
                     merchantrecipelist.add(recipe);
-                    Client.sendData(EnumPacketServer.MerchantUpdate, ServerEventsHandler.Merchant.func_145782_y(), merchantrecipelist);
+                    Client.sendData(EnumPacketServer.MerchantUpdate, ServerEventsHandler.Merchant.getEntityId(), merchantrecipelist);
                }
           }
 
@@ -183,8 +183,8 @@ public class GuiMerchantAdd extends GuiContainer {
 
                GlStateManager.func_179121_F();
                GlStateManager.enableLighting();
-               GlStateManager.func_179126_j();
-               RenderHelper.func_74519_b();
+               GlStateManager.enableDepth();
+               RenderHelper.enableStandardItemLighting();
           }
 
      }

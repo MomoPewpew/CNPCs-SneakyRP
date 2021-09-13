@@ -54,7 +54,7 @@ public class NoppesUtilPlayer {
           if (npc.advanced.role == 2) {
                RoleFollower role = (RoleFollower)npc.roleInterface;
                EntityPlayer owner = role.owner;
-               if (owner != null && owner.func_70005_c_().equals(player.func_70005_c_())) {
+               if (owner != null && owner.getName().equals(player.getName())) {
                     role.isFollowing = !role.isFollowing;
                }
           }
@@ -88,21 +88,21 @@ public class NoppesUtilPlayer {
                MinecraftServer server = player.getServer();
                WorldServer wor = server.getWorld(dimension);
                if (wor == null) {
-                    player.func_145747_a(new TextComponentString("Broken transporter. Dimenion does not exist"));
+                    player.sendMessage(new TextComponentString("Broken transporter. Dimenion does not exist"));
                     return;
                }
 
-               player.func_70012_b(x, y, z, player.field_70177_z, player.field_70125_A);
+               player.setLocationAndAngles(x, y, z, player.field_70177_z, player.field_70125_A);
                server.getPlayerList().transferPlayerToDimension(player, dimension, new CustomTeleporter(wor));
                player.field_71135_a.func_147364_a(x, y, z, player.field_70177_z, player.field_70125_A);
                if (!wor.field_73010_i.contains(player)) {
-                    wor.func_72838_d(player);
+                    wor.spawnEntity(player);
                }
           } else {
                player.field_71135_a.func_147364_a(x, y, z, player.field_70177_z, player.field_70125_A);
           }
 
-          player.world.func_72866_a(player, false);
+          player.world.updateEntityWithOptionalForce(player, false);
      }
 
      private static void followerBuy(RoleFollower role, IInventory currencyInv, EntityPlayerMP player, EntityNPCInterface npc) {
@@ -114,7 +114,7 @@ public class NoppesUtilPlayer {
                int possibleDays;
                for(stackSize = 0; stackSize < role.inventory.items.size(); ++stackSize) {
                     ItemStack is = (ItemStack)role.inventory.items.get(stackSize);
-                    if (!is.isEmpty() && is.func_77973_b() == currency.func_77973_b() && (!is.func_77981_g() || is.func_77952_i() == currency.func_77952_i())) {
+                    if (!is.isEmpty() && is.getItem() == currency.getItem() && (!is.getHasSubtypes() || is.getItemDamage() == currency.getItemDamage())) {
                          possibleDays = 1;
                          if (role.rates.containsKey(stackSize)) {
                               possibleDays = (Integer)role.rates.get(stackSize);
@@ -196,7 +196,7 @@ public class NoppesUtilPlayer {
                                    currency.splitStack(price);
                               }
 
-                              player.func_71128_l();
+                              player.closeContainer();
                               PlayerBankData data = PlayerDataController.instance.getBankData(player, bank.id);
                               BankData bankData = data.getBank(bank.id);
                               bankData.upgradedSlots.put(container.slot, true);
@@ -226,7 +226,7 @@ public class NoppesUtilPlayer {
                                    currency.splitStack(price);
                               }
 
-                              player.func_71128_l();
+                              player.closeContainer();
                               PlayerBankData data = PlayerDataController.instance.getBankData(player, bank.id);
                               BankData bankData = data.getBank(bank.id);
                               if (bankData.unlockedSlots + 1 <= bank.maxSlots) {
@@ -290,7 +290,7 @@ public class NoppesUtilPlayer {
                                         NoppesUtilServer.openDialog(player, npc, option.getDialog());
                                    } else if (option.optionType == 4) {
                                         closeDialog(player, npc, true);
-                                        NoppesUtilServer.runCommand(npc, npc.func_70005_c_(), option.command, player);
+                                        NoppesUtilServer.runCommand(npc, npc.getName(), option.command, player);
                                    } else {
                                         closeDialog(player, npc, true);
                                    }
@@ -337,7 +337,7 @@ public class NoppesUtilPlayer {
                     if (!quest.randomReward) {
                          event.itemRewards = (IItemStack[])list.toArray(new IItemStack[list.size()]);
                     } else if (!list.isEmpty()) {
-                         event.itemRewards = new IItemStack[]{(IItemStack)list.get(player.func_70681_au().nextInt(list.size()))};
+                         event.itemRewards = new IItemStack[]{(IItemStack)list.get(player.getRNG().nextInt(list.size()))};
                     }
 
                     EventHooks.onQuestTurnedIn(data.scriptData, event);
@@ -354,17 +354,17 @@ public class NoppesUtilPlayer {
                     quest.questInterface.handleComplete(player);
                     if (event.expReward > 0) {
                          NoppesUtilServer.playSound(player, SoundEvents.field_187604_bf, 0.1F, 0.5F * ((player.world.rand.nextFloat() - player.world.rand.nextFloat()) * 0.7F + 1.8F));
-                         player.func_71023_q(event.expReward);
+                         player.addExperience(event.expReward);
                     }
 
                     quest.factionOptions.addPoints(player);
                     if (quest.mail.isValid()) {
-                         PlayerDataController.instance.addPlayerMessage(player.getServer(), player.func_70005_c_(), quest.mail);
+                         PlayerDataController.instance.addPlayerMessage(player.getServer(), player.getName(), quest.mail);
                     }
 
                     if (!quest.command.isEmpty()) {
                          FakePlayer cplayer = EntityNPCInterface.CommandPlayer;
-                         cplayer.func_70029_a(player.world);
+                         cplayer.setWorld(player.world);
                          cplayer.func_70107_b(player.field_70165_t, player.field_70163_u, player.field_70161_v);
                          NoppesUtilServer.runCommand(cplayer, "QuestCompletion", quest.command, player);
                     }
@@ -417,9 +417,9 @@ public class NoppesUtilPlayer {
      }
 
      private static boolean compareItemDetails(ItemStack item, ItemStack item2, boolean ignoreDamage, boolean ignoreNBT) {
-          if (item.func_77973_b() != item2.func_77973_b()) {
+          if (item.getItem() != item2.getItem()) {
                return false;
-          } else if (!ignoreDamage && item.func_77952_i() != -1 && item.func_77952_i() != item2.func_77952_i()) {
+          } else if (!ignoreDamage && item.getItemDamage() != -1 && item.getItemDamage() != item2.getItemDamage()) {
                return false;
           } else if (!ignoreNBT && item.getTagCompound() != null && (item2.getTagCompound() == null || !item.getTagCompound().equals(item2.getTagCompound()))) {
                return false;
@@ -473,7 +473,7 @@ public class NoppesUtilPlayer {
                     while(var7.hasNext()) {
                          ItemStack is = (ItemStack)var7.next();
                          if (compareItems(item, is, ignoreDamage, ignoreNBT)) {
-                              is.func_190920_e(is.getCount() + item.getCount());
+                              is.setCount(is.getCount() + item.getCount());
                               found = true;
                               break;
                          }

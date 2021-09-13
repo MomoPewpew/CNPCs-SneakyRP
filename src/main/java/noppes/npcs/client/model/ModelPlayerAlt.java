@@ -228,7 +228,7 @@ public class ModelPlayerAlt extends ModelPlayer {
           try {
                GlStateManager.func_179094_E();
                if (entityIn.func_70093_af()) {
-                    GlStateManager.func_179109_b(0.0F, 0.2F, 0.0F);
+                    GlStateManager.translate(0.0F, 0.2F, 0.0F);
                }
 
                this.field_78116_c.func_78785_a(scale);

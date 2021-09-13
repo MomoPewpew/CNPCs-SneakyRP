@@ -103,8 +103,8 @@ public class WrapperNpcAPI extends NpcAPI {
                EntityCustomNpc npc = new EntityCustomNpc(world);
                npc.func_70080_a((double)x + 0.5D, (double)y, (double)z + 0.5D, 0.0F, 0.0F);
                npc.ais.setStartPos((double)x, (double)y, (double)z);
-               npc.func_70606_j(npc.func_110138_aP());
-               world.func_72838_d(npc);
+               npc.func_70606_j(npc.getMaxHealth());
+               world.spawnEntity(npc);
                return npc.wrappedNPC;
           }
      }
@@ -141,7 +141,7 @@ public class WrapperNpcAPI extends NpcAPI {
      }
 
      public IWorld getIWorld(int dimensionId) {
-          WorldServer[] var2 = CustomNpcs.Server.field_71305_c;
+          WorldServer[] var2 = CustomNpcs.Server.worlds;
           int var3 = var2.length;
 
           for(int var4 = 0; var4 < var3; ++var4) {
@@ -185,10 +185,10 @@ public class WrapperNpcAPI extends NpcAPI {
 
      public IWorld[] getIWorlds() {
           this.checkWorld();
-          IWorld[] worlds = new IWorld[CustomNpcs.Server.field_71305_c.length];
+          IWorld[] worlds = new IWorld[CustomNpcs.Server.worlds.length];
 
-          for(int i = 0; i < CustomNpcs.Server.field_71305_c.length; ++i) {
-               worlds[i] = this.getIWorld(CustomNpcs.Server.field_71305_c[i]);
+          for(int i = 0; i < CustomNpcs.Server.worlds.length; ++i) {
+               worlds[i] = this.getIWorld(CustomNpcs.Server.worlds[i]);
           }
 
           return worlds;
@@ -240,7 +240,7 @@ public class WrapperNpcAPI extends NpcAPI {
 
      public String executeCommand(IWorld world, String command) {
           FakePlayer player = EntityNPCInterface.CommandPlayer;
-          player.func_70029_a(world.getMCWorld());
+          player.setWorld(world.getMCWorld());
           player.func_70107_b(0.0D, 0.0D, 0.0D);
           return NoppesUtilServer.runCommand(world.getMCWorld(), BlockPos.field_177992_a, "API", command, (EntityPlayer)null, player);
      }

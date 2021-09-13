@@ -202,7 +202,7 @@ public class CmdQuest extends CommandNoppesBase {
 
                          for(int var19 = 0; var19 < var18; ++var19) {
                               IQuestObjective ob = var17[var19];
-                              sender.func_145747_a(new TextComponentString(ob.getText()));
+                              sender.sendMessage(new TextComponentString(ob.getText()));
                          }
 
                     } else {
@@ -215,7 +215,7 @@ public class CmdQuest extends CommandNoppesBase {
 
                          if (objective >= 0 && objective < objectives.length) {
                               if (args.length <= 3) {
-                                   sender.func_145747_a(new TextComponentString(objectives[objective].getText()));
+                                   sender.sendMessage(new TextComponentString(objectives[objective].getText()));
                               } else {
                                    IQuestObjective object = objectives[objective];
                                    String s = args[3];

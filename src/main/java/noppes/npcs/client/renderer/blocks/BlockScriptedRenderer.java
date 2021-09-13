@@ -30,7 +30,7 @@ public class BlockScriptedRenderer extends BlockRendererInterface {
           TileScripted tile = (TileScripted)te;
           GlStateManager.func_179094_E();
           GlStateManager.func_179084_k();
-          RenderHelper.func_74519_b();
+          RenderHelper.enableStandardItemLighting();
           GlStateManager.func_179137_b(x + 0.5D, y, z + 0.5D);
           if (this.overrideModel()) {
                GlStateManager.func_179137_b(0.0D, 0.5D, 0.0D);
@@ -46,7 +46,7 @@ public class BlockScriptedRenderer extends BlockRendererInterface {
                          GlStateManager.func_179137_b(0.0D, 0.5D, 0.0D);
                          this.renderItem(tile.itemModel);
                     } else {
-                         IBlockState state = b.func_176203_a(tile.itemModel.func_77952_i());
+                         IBlockState state = b.func_176203_a(tile.itemModel.getItemDamage());
                          this.renderBlock(tile, b, state);
                          if (b.hasTileEntity(state) && !tile.renderTileErrored) {
                               try {
@@ -54,7 +54,7 @@ public class BlockScriptedRenderer extends BlockRendererInterface {
                                         TileEntity entity = b.createTileEntity(this.func_178459_a(), state);
                                         entity.func_174878_a(tile.func_174877_v());
                                         entity.func_145834_a(this.func_178459_a());
-                                        ObfuscationReflectionHelper.setPrivateValue(TileEntity.class, entity, tile.itemModel.func_77952_i(), 5);
+                                        ObfuscationReflectionHelper.setPrivateValue(TileEntity.class, entity, tile.itemModel.getItemDamage(), 5);
                                         ObfuscationReflectionHelper.setPrivateValue(TileEntity.class, entity, b, 6);
                                         tile.renderTile = entity;
                                         if (entity instanceof ITickable) {
@@ -121,10 +121,10 @@ public class BlockScriptedRenderer extends BlockRendererInterface {
           GlStateManager.func_179114_b((float)text1.rotationX, 1.0F, 0.0F, 0.0F);
           GlStateManager.func_179114_b((float)text1.rotationZ, 0.0F, 0.0F, 1.0F);
           GlStateManager.func_179152_a(text1.scale, text1.scale, 1.0F);
-          GlStateManager.func_179109_b(text1.offsetX, text1.offsetY, text1.offsetZ);
+          GlStateManager.translate(text1.offsetX, text1.offsetY, text1.offsetZ);
           float f1 = 0.6666667F;
           float f3 = 0.0133F * f1;
-          GlStateManager.func_179109_b(0.0F, 0.5F, 0.01F);
+          GlStateManager.translate(0.0F, 0.5F, 0.01F);
           GlStateManager.func_179152_a(f3, -f3, f3);
           GlStateManager.func_187432_a(0.0F, 0.0F, -1.0F * f3);
           GlStateManager.func_179132_a(false);
@@ -136,7 +136,7 @@ public class BlockScriptedRenderer extends BlockRendererInterface {
 
           for(int i = 0; i < text1.textBlock.lines.size(); ++i) {
                String text = ((ITextComponent)text1.textBlock.lines.get(i)).func_150254_d();
-               fontrenderer.func_78276_b(text, -fontrenderer.func_78256_a(text) / 2, (int)((double)(lineOffset + (float)i) * ((double)fontrenderer.field_78288_b - 0.3D)), 0);
+               fontrenderer.func_78276_b(text, -fontrenderer.getStringWidth(text) / 2, (int)((double)(lineOffset + (float)i) * ((double)fontrenderer.field_78288_b - 0.3D)), 0);
           }
 
           GlStateManager.func_179132_a(true);
@@ -154,7 +154,7 @@ public class BlockScriptedRenderer extends BlockRendererInterface {
           GlStateManager.func_187401_a(SourceFactor.SRC_ALPHA, DestFactor.ONE_MINUS_SRC_ALPHA);
           GlStateManager.func_179147_l();
           GlStateManager.func_179129_p();
-          GlStateManager.func_179109_b(-0.5F, 0.0F, 0.5F);
+          GlStateManager.translate(-0.5F, 0.0F, 0.5F);
           Minecraft.getMinecraft().func_175602_ab().func_175016_a(state, 1.0F);
           if (b.func_149653_t() && random.nextInt(12) == 1) {
                b.func_180655_c(state, tile.func_145831_w(), tile.func_174877_v(), random);
@@ -168,7 +168,7 @@ public class BlockScriptedRenderer extends BlockRendererInterface {
           if (held == null) {
                return false;
           } else {
-               return held.func_77973_b() == CustomItems.wand || held.func_77973_b() == CustomItems.scripter;
+               return held.getItem() == CustomItems.wand || held.getItem() == CustomItems.scripter;
           }
      }
 }

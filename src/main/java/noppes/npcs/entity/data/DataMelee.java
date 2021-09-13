@@ -46,7 +46,7 @@ public class DataMelee implements INPCMelee {
 
      public void setStrength(int strength) {
           this.attackStrength = strength;
-          this.npc.func_110148_a(SharedMonsterAttributes.field_111264_e).func_111128_a((double)this.attackStrength);
+          this.npc.getEntityAttribute(SharedMonsterAttributes.field_111264_e).setBaseValue((double)this.attackStrength);
      }
 
      public int getDelay() {

@@ -30,7 +30,7 @@ public class ModelEyeData extends ModelPartData {
      }
 
      public void readFromNBT(NBTTagCompound compound) {
-          if (!compound.func_82582_d()) {
+          if (!compound.hasNoTags()) {
                super.readFromNBT(compound);
                this.glint = compound.getBoolean("Glint");
                this.skinColor = compound.getInteger("SkinColor");
@@ -45,14 +45,14 @@ public class ModelEyeData extends ModelPartData {
      }
 
      public void update(EntityNPCInterface npc) {
-          if (this.isEnabled() && npc.func_70089_S() && npc.func_70613_aW()) {
+          if (this.isEnabled() && npc.func_70089_S() && npc.isServerWorld()) {
                if (this.blinkStart < 0L) {
                     ++this.blinkStart;
                } else if (this.blinkStart == 0L) {
                     if (this.r.nextInt(140) == 1) {
                          this.blinkStart = System.currentTimeMillis();
                          if (npc != null) {
-                              Server.sendAssociatedData(npc, EnumPacketClient.EYE_BLINK, npc.func_145782_y());
+                              Server.sendAssociatedData(npc, EnumPacketClient.EYE_BLINK, npc.getEntityId());
                          }
                     }
                } else if (System.currentTimeMillis() - this.blinkStart > 300L) {

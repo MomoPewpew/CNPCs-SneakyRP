@@ -110,7 +110,7 @@ public class ServerCloneController implements ICloneHandler {
           File file = new File(new File(this.getDir(), tab + ""), name + ".json");
           if (!file.exists()) {
                if (player != null) {
-                    player.func_145747_a(new TextComponentString("Could not find clone file"));
+                    player.sendMessage(new TextComponentString("Could not find clone file"));
                }
 
                return null;
@@ -120,7 +120,7 @@ public class ServerCloneController implements ICloneHandler {
                } catch (Exception var6) {
                     LogWriter.error("Error loading: " + file.getAbsolutePath(), var6);
                     if (player != null) {
-                         player.func_145747_a(new TextComponentString(var6.getMessage()));
+                         player.sendMessage(new TextComponentString(var6.getMessage()));
                     }
 
                     return null;
@@ -252,7 +252,7 @@ public class ServerCloneController implements ICloneHandler {
                throw new CustomNPCsException("Unknown clone tab:" + tab + " name:" + name, new Object[0]);
           } else {
                Instance.cleanTags(compound);
-               Entity entity = EntityList.func_75615_a(compound, world.getMCWorld());
+               Entity entity = EntityList.createEntityFromNBT(compound, world.getMCWorld());
                return entity == null ? null : NpcAPI.Instance().getIEntity(entity);
           }
      }

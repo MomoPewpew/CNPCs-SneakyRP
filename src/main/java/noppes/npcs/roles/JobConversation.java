@@ -173,8 +173,8 @@ public class JobConversation extends JobInterface {
 
                while(var2.hasNext()) {
                     EntityNPCInterface npc = (EntityNPCInterface)var2.next();
-                    if (!npc.isKilled() && !npc.isAttacking() && this.names.contains(npc.func_70005_c_().toLowerCase())) {
-                         this.npcs.put(npc.func_70005_c_().toLowerCase(), npc);
+                    if (!npc.isKilled() && !npc.isAttacking() && this.names.contains(npc.getName().toLowerCase())) {
+                         this.npcs.put(npc.getName().toLowerCase(), npc);
                     }
                }
 

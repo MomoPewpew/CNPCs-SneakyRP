@@ -99,7 +99,7 @@ public class RoleTransporter extends RoleInterface implements IRoleTransporter {
                RoleEvent.TransporterUnlockedEvent event = new RoleEvent.TransporterUnlockedEvent(player, this.npc.wrappedNPC);
                if (!EventHooks.onNPCRole(this.npc, event)) {
                     data.transports.add(this.transportId);
-                    player.func_145747_a(new TextComponentTranslation("transporter.unlock", new Object[]{loc.name}));
+                    player.sendMessage(new TextComponentTranslation("transporter.unlock", new Object[]{loc.name}));
                }
           }
      }

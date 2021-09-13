@@ -139,7 +139,7 @@ public class ContainerNPCTrader extends ContainerNpcInterface {
           } else {
                if (NoppesUtilPlayer.compareItems(itemstack3, item, false, false)) {
                     int k1 = item.getCount();
-                    if (k1 > 0 && k1 + itemstack3.getCount() <= itemstack3.func_77976_d()) {
+                    if (k1 > 0 && k1 + itemstack3.getCount() <= itemstack3.getMaxStackSize()) {
                          return true;
                     }
                }
@@ -154,7 +154,7 @@ public class ContainerNPCTrader extends ContainerNpcInterface {
                entityplayer.inventory.func_70437_b(item);
           } else if (NoppesUtilPlayer.compareItems(itemstack3, item, false, false)) {
                int k1 = item.getCount();
-               if (k1 > 0 && k1 + itemstack3.getCount() <= itemstack3.func_77976_d()) {
+               if (k1 > 0 && k1 + itemstack3.getCount() <= itemstack3.getMaxStackSize()) {
                     itemstack3.func_190917_f(k1);
                }
           }

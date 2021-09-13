@@ -76,7 +76,7 @@ public class GuiNpcNaturalSpawns extends GuiNPCInterface2 implements IGuiData, I
                this.save();
 
                String name;
-               for(name = I18n.func_74838_a("gui.new"); this.data.containsKey(name); name = name + "_") {
+               for(name = I18n.translateToLocal("gui.new"); this.data.containsKey(name); name = name + "_") {
                }
 
                SpawnData spawn = new SpawnData();
@@ -176,7 +176,7 @@ public class GuiNpcNaturalSpawns extends GuiNPCInterface2 implements IGuiData, I
      }
 
      public void mouseDragged(GuiNpcSlider guiNpcSlider) {
-          guiNpcSlider.field_146126_j = I18n.func_74838_a("spawning.weightedChance") + ": " + (int)(guiNpcSlider.sliderValue * 100.0F);
+          guiNpcSlider.field_146126_j = I18n.translateToLocal("spawning.weightedChance") + ": " + (int)(guiNpcSlider.sliderValue * 100.0F);
      }
 
      public void mousePressed(GuiNpcSlider guiNpcSlider) {

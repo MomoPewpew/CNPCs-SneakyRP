@@ -32,7 +32,7 @@ public class GuiNpcFollowerHire extends GuiContainerNPCInterface {
 
      public void func_73866_w_() {
           super.func_73866_w_();
-          this.addButton(new GuiNpcButton(5, this.field_147003_i + 26, this.field_147009_r + 60, 50, 20, I18n.func_74838_a("follower.hire")));
+          this.addButton(new GuiNpcButton(5, this.field_147003_i + 26, this.field_147009_r + 60, 50, 20, I18n.translateToLocal("follower.hire")));
      }
 
      public void func_146284_a(GuiButton guibutton) {
@@ -71,8 +71,8 @@ public class GuiNpcFollowerHire extends GuiContainerNPCInterface {
                     this.field_146296_j.renderItemAndEffectIntoGUI(itemstack, x + 11, y);
                     this.field_146296_j.func_175030_a(this.field_146289_q, itemstack, x + 11, y);
                     RenderHelper.disableStandardItemLighting();
-                    GlStateManager.func_179101_C();
-                    String daysS = days + " " + (days == 1 ? I18n.func_74838_a("follower.day") : I18n.func_74838_a("follower.days"));
+                    GlStateManager.disableRescaleNormal();
+                    String daysS = days + " " + (days == 1 ? I18n.translateToLocal("follower.day") : I18n.translateToLocal("follower.days"));
                     this.field_146289_q.func_78276_b(" = " + daysS, x + 27, y + 4, CustomNpcResourceListener.DefaultTextColor);
                     if (this.func_146978_c(x - this.field_147003_i + 11, y - this.field_147009_r, 16, 16, this.mouseX, this.mouseY)) {
                          this.func_146285_a(itemstack, this.mouseX, this.mouseY);

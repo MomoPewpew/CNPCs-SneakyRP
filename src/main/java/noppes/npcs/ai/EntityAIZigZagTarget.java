@@ -49,7 +49,7 @@ public class EntityAIZigZagTarget extends EntityAIBase {
           if (this.ticks-- <= 0) {
                Path pathentity = this.npc.func_70661_as().func_75494_a(this.targetEntity);
                if (pathentity != null && pathentity.func_75874_d() >= this.npc.ais.getTacticalRange()) {
-                    PathPoint pathpoint = pathentity.func_75877_a(MathHelper.func_76128_c((double)this.npc.ais.getTacticalRange() / 2.0D));
+                    PathPoint pathpoint = pathentity.func_75877_a(MathHelper.floor((double)this.npc.ais.getTacticalRange() / 2.0D));
                     this.entityPosX = pathpoint.field_75839_a;
                     this.entityPosY = pathpoint.field_75837_b;
                     this.entityPosZ = pathpoint.field_75838_c;

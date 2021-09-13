@@ -28,7 +28,7 @@ public class CustomGuiTextField extends GuiTextField implements IDataHolder, ICl
 
      public void onRender(Minecraft mc, int mouseX, int mouseY, int mouseWheel, float partialTicks) {
           GlStateManager.func_179094_E();
-          GlStateManager.func_179109_b(0.0F, 0.0F, (float)this.field_175208_g);
+          GlStateManager.translate(0.0F, 0.0F, (float)this.field_175208_g);
           boolean hovered = mouseX >= this.field_146209_f && mouseY >= this.field_146210_g && mouseX < this.field_146209_f + this.field_146218_h && mouseY < this.field_146210_g + this.field_146219_i;
           this.func_146194_f();
           if (hovered && this.hoverText != null && this.hoverText.length > 0) {

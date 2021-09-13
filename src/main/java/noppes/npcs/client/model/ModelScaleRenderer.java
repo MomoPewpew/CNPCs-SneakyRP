@@ -54,7 +54,7 @@ public class ModelScaleRenderer extends ModelRenderer {
 
      public void func_78794_c(float par1) {
           if (this.config != null) {
-               GlStateManager.func_179109_b(this.config.transX, this.config.transY, this.config.transZ);
+               GlStateManager.translate(this.config.transX, this.config.transY, this.config.transZ);
           }
 
           super.func_78794_c(par1);
@@ -65,7 +65,7 @@ public class ModelScaleRenderer extends ModelRenderer {
      }
 
      public void postRenderNoScale(float par1) {
-          GlStateManager.func_179109_b(this.config.transX, this.config.transY, this.config.transZ);
+          GlStateManager.translate(this.config.transX, this.config.transY, this.config.transZ);
           super.func_78794_c(par1);
      }
 

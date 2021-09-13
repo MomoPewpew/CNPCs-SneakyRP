@@ -28,7 +28,7 @@ public class EntityNPCDwarfMale extends EntityNPCInterface {
                data.getPartConfig(EnumParts.ARM_LEFT).setScale(0.9F, 0.7F);
                data.getPartConfig(EnumParts.BODY).setScale(1.2F, 0.7F, 1.5F);
                data.getPartConfig(EnumParts.HEAD).setScale(0.85F, 0.85F);
-               this.world.func_72838_d(npc);
+               this.world.spawnEntity(npc);
           }
 
           super.func_70071_h_();

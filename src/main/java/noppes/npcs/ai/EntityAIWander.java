@@ -28,17 +28,17 @@ public class EntityAIWander extends EntityAIBase {
      }
 
      public boolean func_75250_a() {
-          if (this.entity.func_70654_ax() >= 100 || !this.entity.func_70661_as().func_75500_f() || this.entity.isInteracting() || this.entity.func_184218_aH() || this.entity.ais.movingPause && this.entity.func_70681_au().nextInt(80) != 0) {
+          if (this.entity.func_70654_ax() >= 100 || !this.entity.func_70661_as().func_75500_f() || this.entity.isInteracting() || this.entity.func_184218_aH() || this.entity.ais.movingPause && this.entity.getRNG().nextInt(80) != 0) {
                return false;
           } else {
-               if (this.entity.ais.npcInteracting && this.entity.func_70681_au().nextInt(this.entity.ais.movingPause ? 6 : 16) == 1) {
+               if (this.entity.ais.npcInteracting && this.entity.getRNG().nextInt(this.entity.ais.movingPause ? 6 : 16) == 1) {
                     this.nearbyNPC = this.getNearbyNPC();
                }
 
                if (this.nearbyNPC != null) {
-                    this.x = (double)MathHelper.func_76128_c(this.nearbyNPC.field_70165_t);
-                    this.y = (double)MathHelper.func_76128_c(this.nearbyNPC.field_70163_u);
-                    this.zPosition = (double)MathHelper.func_76128_c(this.nearbyNPC.field_70161_v);
+                    this.x = (double)MathHelper.floor(this.nearbyNPC.field_70165_t);
+                    this.y = (double)MathHelper.floor(this.nearbyNPC.field_70163_u);
+                    this.zPosition = (double)MathHelper.floor(this.nearbyNPC.field_70161_v);
                     this.nearbyNPC.addInteract(this.entity);
                } else {
                     Vec3d vec = this.getVec();
@@ -49,7 +49,7 @@ public class EntityAIWander extends EntityAIBase {
                     this.x = vec.field_72450_a;
                     this.y = vec.field_72448_b;
                     if (this.entity.ais.movementType == 1) {
-                         this.y = this.entity.getStartYPos() + (double)this.entity.func_70681_au().nextFloat() * 0.75D * (double)this.entity.ais.walkingRange;
+                         this.y = this.entity.getStartYPos() + (double)this.entity.getRNG().nextFloat() * 0.75D * (double)this.entity.ais.walkingRange;
                     }
 
                     this.zPosition = vec.field_72449_c;
@@ -78,7 +78,7 @@ public class EntityAIWander extends EntityAIBase {
                               return null;
                          }
 
-                         return (EntityNPCInterface)list.get(this.entity.func_70681_au().nextInt(list.size()));
+                         return (EntityNPCInterface)list.get(this.entity.getRNG().nextInt(list.size()));
                     }
 
                     npc = (EntityNPCInterface)ita.next();
@@ -128,7 +128,7 @@ public class EntityAIWander extends EntityAIBase {
      public void func_75251_c() {
           if (this.nearbyNPC != null && this.entity.isInRange(this.nearbyNPC, 3.5D)) {
                EntityNPCInterface talk = this.entity;
-               if (this.entity.func_70681_au().nextBoolean()) {
+               if (this.entity.getRNG().nextBoolean()) {
                     talk = this.nearbyNPC;
                }
 

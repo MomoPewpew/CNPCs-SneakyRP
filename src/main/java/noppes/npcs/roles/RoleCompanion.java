@@ -174,7 +174,7 @@ public class RoleCompanion extends RoleInterface {
                ItemStack eating = this.eating.getMCItemStack();
                Random rand;
                if (this.npc.world.isRemote) {
-                    rand = this.npc.func_70681_au();
+                    rand = this.npc.getRNG();
 
                     for(int j = 0; j < 2; ++j) {
                          Vec3d vec3 = new Vec3d(((double)rand.nextFloat() - 0.5D) * 0.1D, Math.random() * 0.1D + 0.1D, 0.0D);
@@ -184,27 +184,27 @@ public class RoleCompanion extends RoleInterface {
                          vec31.func_178785_b(-this.npc.field_70125_A * 3.1415927F / 180.0F);
                          vec31.func_178789_a(-this.npc.field_70761_aq * 3.1415927F / 180.0F);
                          vec31 = vec31.func_72441_c(this.npc.field_70165_t, this.npc.field_70163_u + (double)this.npc.height + 0.1D, this.npc.field_70161_v);
-                         (new StringBuilder()).append("iconcrack_").append(Item.func_150891_b(eating.func_77973_b())).toString();
-                         if (eating.func_77981_g()) {
-                              this.npc.world.func_175688_a(EnumParticleTypes.ITEM_CRACK, vec31.field_72450_a, vec31.field_72448_b, vec31.field_72449_c, vec3.field_72450_a, vec3.field_72448_b + 0.05D, vec3.field_72449_c, new int[]{Item.func_150891_b(eating.func_77973_b()), eating.func_77960_j()});
+                         (new StringBuilder()).append("iconcrack_").append(Item.func_150891_b(eating.getItem())).toString();
+                         if (eating.getHasSubtypes()) {
+                              this.npc.world.func_175688_a(EnumParticleTypes.ITEM_CRACK, vec31.field_72450_a, vec31.field_72448_b, vec31.field_72449_c, vec3.field_72450_a, vec3.field_72448_b + 0.05D, vec3.field_72449_c, new int[]{Item.func_150891_b(eating.getItem()), eating.func_77960_j()});
                          } else {
-                              this.npc.world.func_175688_a(EnumParticleTypes.ITEM_CRACK, vec31.field_72450_a, vec31.field_72448_b, vec31.field_72449_c, vec3.field_72450_a, vec3.field_72448_b + 0.05D, vec3.field_72449_c, new int[]{Item.func_150891_b(eating.func_77973_b())});
+                              this.npc.world.func_175688_a(EnumParticleTypes.ITEM_CRACK, vec31.field_72450_a, vec31.field_72448_b, vec31.field_72449_c, vec3.field_72450_a, vec3.field_72448_b + 0.05D, vec3.field_72449_c, new int[]{Item.func_150891_b(eating.getItem())});
                          }
                     }
                } else {
                     --this.eatingTicks;
                     if (this.eatingTicks <= 0) {
                          if (this.inventory.decrStackSize(eating, 1)) {
-                              ItemFood food = (ItemFood)eating.func_77973_b();
+                              ItemFood food = (ItemFood)eating.getItem();
                               this.foodstats.onFoodEaten(food, eating);
-                              this.npc.func_184185_a(SoundEvents.field_187739_dZ, 0.5F, this.npc.func_70681_au().nextFloat() * 0.1F + 0.9F);
+                              this.npc.func_184185_a(SoundEvents.field_187739_dZ, 0.5F, this.npc.getRNG().nextFloat() * 0.1F + 0.9F);
                          }
 
                          this.eatingDelay = 20;
                          this.npc.setRoleData("");
                          eating = null;
                     } else if (this.eatingTicks > 3 && this.eatingTicks % 2 == 0) {
-                         rand = this.npc.func_70681_au();
+                         rand = this.npc.getRNG();
                          this.npc.func_184185_a(SoundEvents.field_187537_bA, 0.5F + 0.5F * (float)rand.nextInt(2), (rand.nextFloat() - rand.nextFloat()) * 0.2F + 1.0F);
                     }
                }
@@ -390,7 +390,7 @@ public class RoleCompanion extends RoleInterface {
      }
 
      public void gainExp(int chance) {
-          if (this.npc.func_70681_au().nextInt(chance) == 0) {
+          if (this.npc.getRNG().nextInt(chance) == 0) {
                this.addExp(1);
           }
 
@@ -417,7 +417,7 @@ public class RoleCompanion extends RoleInterface {
      }
 
      public void setOwner(EntityPlayer player) {
-          this.uuid = player.func_110124_au().toString();
+          this.uuid = player.getUniqueID().toString();
      }
 
      public boolean hasTalent(EnumCompanionTalent talent) {
@@ -481,21 +481,21 @@ public class RoleCompanion extends RoleInterface {
      }
 
      private boolean isWeapon(ItemStack item) {
-          if (item != null && item.func_77973_b() != null) {
-               return item.func_77973_b() instanceof ItemSword || item.func_77973_b() instanceof ItemBow || item.func_77973_b() == Item.func_150898_a(Blocks.field_150347_e);
+          if (item != null && item.getItem() != null) {
+               return item.getItem() instanceof ItemSword || item.getItem() instanceof ItemBow || item.getItem() == Item.getItemFromBlock(Blocks.field_150347_e);
           } else {
                return false;
           }
      }
 
      public boolean canWearWeapon(IItemStack stack) {
-          if (stack != null && stack.getMCItemStack().func_77973_b() != null) {
-               Item item = stack.getMCItemStack().func_77973_b();
+          if (stack != null && stack.getMCItemStack().getItem() != null) {
+               Item item = stack.getMCItemStack().getItem();
                if (item instanceof ItemSword) {
                     return this.canWearSword(stack);
                } else if (item instanceof ItemBow) {
                     return this.getTalentLevel(EnumCompanionTalent.RANGED) > 2;
-               } else if (item == Item.func_150898_a(Blocks.field_150347_e)) {
+               } else if (item == Item.getItemFromBlock(Blocks.field_150347_e)) {
                     return this.getTalentLevel(EnumCompanionTalent.RANGED) > 1;
                } else {
                     return false;
@@ -507,11 +507,11 @@ public class RoleCompanion extends RoleInterface {
 
      public boolean canWearArmor(ItemStack item) {
           int level = this.getTalentLevel(EnumCompanionTalent.ARMOR);
-          if (item != null && item.func_77973_b() instanceof ItemArmor && level > 0) {
+          if (item != null && item.getItem() instanceof ItemArmor && level > 0) {
                if (level >= 5) {
                     return true;
                } else {
-                    ItemArmor armor = (ItemArmor)item.func_77973_b();
+                    ItemArmor armor = (ItemArmor)item.getItem();
                     int reduction = (Integer)ObfuscationReflectionHelper.getPrivateValue(ArmorMaterial.class, armor.func_82812_d(), 6);
                     if (reduction <= 5 && level >= 1) {
                          return true;
@@ -530,7 +530,7 @@ public class RoleCompanion extends RoleInterface {
 
      public boolean canWearSword(IItemStack item) {
           int level = this.getTalentLevel(EnumCompanionTalent.SWORD);
-          if (item != null && item.getMCItemStack().func_77973_b() instanceof ItemSword && level > 0) {
+          if (item != null && item.getMCItemStack().getItem() instanceof ItemSword && level > 0) {
                if (level >= 5) {
                     return true;
                } else {
@@ -542,7 +542,7 @@ public class RoleCompanion extends RoleInterface {
      }
 
      private double getSwordDamage(IItemStack item) {
-          if (item != null && item.getMCItemStack().func_77973_b() instanceof ItemSword) {
+          if (item != null && item.getMCItemStack().getItem() instanceof ItemSword) {
                HashMultimap map = (HashMultimap)item.getMCItemStack().func_111283_C(EntityEquipmentSlot.MAINHAND);
                Iterator iterator = map.entries().iterator();
 
@@ -569,8 +569,8 @@ public class RoleCompanion extends RoleInterface {
           this.npc.stats.combatRegen = 0;
           int ranged = this.getTalentLevel(EnumCompanionTalent.RANGED);
           if (ranged > 0 && weapon != null) {
-               Item item = weapon.getMCItemStack().func_77973_b();
-               if (ranged > 0 && item == Item.func_150898_a(Blocks.field_150347_e)) {
+               Item item = weapon.getMCItemStack().getItem();
+               if (ranged > 0 && item == Item.getItemFromBlock(Blocks.field_150347_e)) {
                     this.npc.inventory.setProjectile(weapon);
                }
 
@@ -643,7 +643,7 @@ public class RoleCompanion extends RoleInterface {
           while(ita.hasNext()) {
                Entry entry = (Entry)ita.next();
                IItemStack item = (IItemStack)entry.getValue();
-               if (item != null && item.getMCItemStack().func_77973_b() instanceof ItemArmor) {
+               if (item != null && item.getMCItemStack().getItem() instanceof ItemArmor) {
                     hasArmor = true;
                     item.getMCItemStack().func_77972_a((int)damage, this.npc);
                     if (item.getStackSize() <= 0) {
@@ -661,8 +661,8 @@ public class RoleCompanion extends RoleInterface {
 
           while(var2.hasNext()) {
                IItemStack armor = (IItemStack)var2.next();
-               if (armor != null && armor.getMCItemStack().func_77973_b() instanceof ItemArmor) {
-                    armorValue += ((ItemArmor)armor.getMCItemStack().func_77973_b()).field_77879_b;
+               if (armor != null && armor.getMCItemStack().getItem() instanceof ItemArmor) {
+                    armorValue += ((ItemArmor)armor.getMCItemStack().getItem()).field_77879_b;
                }
           }
 
@@ -706,8 +706,8 @@ public class RoleCompanion extends RoleInterface {
                do {
                     while(ite.hasNext()) {
                          ItemStack is = (ItemStack)ite.next();
-                         if (!is.isEmpty() && is.func_77973_b() instanceof ItemFood) {
-                              amount = ((ItemFood)is.func_77973_b()).getDamage(is);
+                         if (!is.isEmpty() && is.getItem() instanceof ItemFood) {
+                              amount = ((ItemFood)is.getItem()).getDamage(is);
                               continue label36;
                          }
 
@@ -723,7 +723,7 @@ public class RoleCompanion extends RoleInterface {
                          }
 
                          is = (ItemStack)var6.next();
-                    } while(((ItemFood)is.func_77973_b()).getDamage(is) != i);
+                    } while(((ItemFood)is.getItem()).getDamage(is) != i);
 
                     return NpcAPI.Instance().getIItemStack(is);
                } while(i != -1 && amount >= i);

@@ -20,7 +20,7 @@ public abstract class TileNpcContainer extends TileColorable implements IInvento
      public int playerUsing = 0;
 
      public TileNpcContainer() {
-          this.inventoryContents = NonNullList.func_191197_a(this.getSizeInventory(), ItemStack.EMPTY);
+          this.inventoryContents = NonNullList.withSize(this.getSizeInventory(), ItemStack.EMPTY);
      }
 
      public void readFromNBT(NBTTagCompound compound) {
@@ -55,7 +55,7 @@ public abstract class TileNpcContainer extends TileColorable implements IInvento
           }
 
           compound.setTag("Items", nbttaglist);
-          if (this.func_145818_k_()) {
+          if (this.hasCustomName()) {
                compound.setString("CustomName", this.customName);
           }
 
@@ -81,7 +81,7 @@ public abstract class TileNpcContainer extends TileColorable implements IInvento
      }
 
      public ItemStack decrStackSize(int index, int count) {
-          ItemStack itemstack = ItemStackHelper.func_188382_a(this.inventoryContents, index, count);
+          ItemStack itemstack = ItemStackHelper.getAndSplit(this.inventoryContents, index, count);
           if (!itemstack.isEmpty()) {
                this.markDirty();
           }
@@ -96,19 +96,19 @@ public abstract class TileNpcContainer extends TileColorable implements IInvento
      public void setInventorySlotContents(int index, ItemStack stack) {
           this.inventoryContents.set(index, stack);
           if (stack.getCount() > this.getInventoryStackLimit()) {
-               stack.func_190920_e(this.getInventoryStackLimit());
+               stack.setCount(this.getInventoryStackLimit());
           }
 
           this.markDirty();
      }
 
-     public ITextComponent func_145748_c_() {
-          return new TextComponentString(this.func_145818_k_() ? this.customName : this.func_70005_c_());
+     public ITextComponent getDisplayName() {
+          return new TextComponentString(this.hasCustomName() ? this.customName : this.getName());
      }
 
-     public abstract String func_70005_c_();
+     public abstract String getName();
 
-     public boolean func_145818_k_() {
+     public boolean hasCustomName() {
           return !this.customName.isEmpty();
      }
 
@@ -116,33 +116,33 @@ public abstract class TileNpcContainer extends TileColorable implements IInvento
           return 64;
      }
 
-     public boolean isUseableByPlayer(EntityPlayer player) {
-          return (player.field_70128_L || this.field_145850_b.func_175625_s(this.field_174879_c) == this) && player.getDistanceSq((double)this.field_174879_c.getX() + 0.5D, (double)this.field_174879_c.getY() + 0.5D, (double)this.field_174879_c.getZ() + 0.5D) <= 64.0D;
+     public boolean isUsableByPlayer(EntityPlayer player) {
+          return (player.field_70128_L || this.field_145850_b.getTileEntity(this.field_174879_c) == this) && player.getDistanceSq((double)this.field_174879_c.getX() + 0.5D, (double)this.field_174879_c.getY() + 0.5D, (double)this.field_174879_c.getZ() + 0.5D) <= 64.0D;
      }
 
-     public void func_174889_b(EntityPlayer player) {
+     public void openInventory(EntityPlayer player) {
           ++this.playerUsing;
      }
 
-     public void func_174886_c(EntityPlayer player) {
+     public void closeInventory(EntityPlayer player) {
           --this.playerUsing;
      }
 
-     public int func_174887_a_(int id) {
+     public int getField(int id) {
           return 0;
      }
 
-     public void func_174885_b(int id, int value) {
+     public void setField(int id, int value) {
      }
 
-     public int func_174890_g() {
+     public int getFieldCount() {
           return 0;
      }
 
-     public void func_174888_l() {
+     public void clear() {
      }
 
-     public boolean func_94041_b(int var1, ItemStack var2) {
+     public boolean isItemValidForSlot(int var1, ItemStack var2) {
           return true;
      }
 
@@ -154,14 +154,14 @@ public abstract class TileNpcContainer extends TileColorable implements IInvento
                     float f1 = world.rand.nextFloat() * 0.8F + 0.1F;
 
                     EntityItem entityitem;
-                    for(float f2 = world.rand.nextFloat() * 0.8F + 0.1F; itemstack.getCount() > 0; world.func_72838_d(entityitem)) {
+                    for(float f2 = world.rand.nextFloat() * 0.8F + 0.1F; itemstack.getCount() > 0; world.spawnEntity(entityitem)) {
                          int j1 = world.rand.nextInt(21) + 10;
                          if (j1 > itemstack.getCount()) {
                               j1 = itemstack.getCount();
                          }
 
-                         itemstack.func_190920_e(itemstack.getCount() - j1);
-                         entityitem = new EntityItem(world, (double)((float)pos.getX() + f), (double)((float)pos.getY() + f1), (double)((float)pos.getZ() + f2), new ItemStack(itemstack.func_77973_b(), j1, itemstack.func_77952_i()));
+                         itemstack.setCount(itemstack.getCount() - j1);
+                         entityitem = new EntityItem(world, (double)((float)pos.getX() + f), (double)((float)pos.getY() + f1), (double)((float)pos.getZ() + f2), new ItemStack(itemstack.getItem(), j1, itemstack.getItemDamage()));
                          float f3 = 0.05F;
                          entityitem.motionX = (double)((float)world.rand.nextGaussian() * f3);
                          entityitem.motionY = (double)((float)world.rand.nextGaussian() * f3 + 0.2F);
@@ -175,7 +175,7 @@ public abstract class TileNpcContainer extends TileColorable implements IInvento
 
      }
 
-     public boolean func_191420_l() {
+     public boolean isEmpty() {
           for(int slot = 0; slot < this.getSizeInventory(); ++slot) {
                ItemStack item = this.getStackInSlot(slot);
                if (!NoppesUtilServer.IsItemStackNull(item) && !item.isEmpty()) {

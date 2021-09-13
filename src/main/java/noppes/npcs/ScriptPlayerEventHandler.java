@@ -81,7 +81,7 @@ public class ScriptPlayerEventHandler {
 
                     for(int i = 0; i < player.inventory.getSizeInventory(); ++i) {
                          ItemStack item = player.inventory.getStackInSlot(i);
-                         if (!item.isEmpty() && item.func_77973_b() == CustomItems.scripted_item) {
+                         if (!item.isEmpty() && item.getItem() == CustomItems.scripted_item) {
                               ItemScriptedWrapper isw = (ItemScriptedWrapper)NpcAPI.Instance().getIItemStack(item);
                               EventHooks.onScriptItemUpdate(isw, player);
                               if (isw.updateClient) {
@@ -107,7 +107,7 @@ public class ScriptPlayerEventHandler {
                PlayerScriptData handler = PlayerData.get(event.getEntityPlayer()).scriptData;
                PlayerEvent.AttackEvent ev = new PlayerEvent.AttackEvent(handler.getPlayer(), 2, NpcAPI.Instance().getIBlock(event.getWorld(), event.getPos()));
                event.setCanceled(EventHooks.onPlayerAttack(handler, ev));
-               if (event.getItemStack().func_77973_b() == CustomItems.scripted_item && !event.isCanceled()) {
+               if (event.getItemStack().getItem() == CustomItems.scripted_item && !event.isCanceled()) {
                     ItemScriptedWrapper isw = ItemScripted.GetWrapper(event.getItemStack());
                     ItemEvent.AttackEvent eve = new ItemEvent.AttackEvent(isw, handler.getPlayer(), 2, NpcAPI.Instance().getIBlock(event.getWorld(), event.getPos()));
                     eve.setCanceled(event.isCanceled());
@@ -120,15 +120,15 @@ public class ScriptPlayerEventHandler {
      @SubscribeEvent
      public void invoke(RightClickBlock event) {
           if (!event.getEntityPlayer().world.isRemote && event.getHand() == EnumHand.MAIN_HAND && event.getWorld() instanceof WorldServer) {
-               if (event.getItemStack().func_77973_b() == CustomItems.nbt_book) {
-                    ((ItemNbtBook)event.getItemStack().func_77973_b()).blockEvent(event);
+               if (event.getItemStack().getItem() == CustomItems.nbt_book) {
+                    ((ItemNbtBook)event.getItemStack().getItem()).blockEvent(event);
                     event.setCanceled(true);
                } else {
                     PlayerScriptData handler = PlayerData.get(event.getEntityPlayer()).scriptData;
                     handler.hadInteract = true;
                     PlayerEvent.InteractEvent ev = new PlayerEvent.InteractEvent(handler.getPlayer(), 2, NpcAPI.Instance().getIBlock(event.getWorld(), event.getPos()));
                     event.setCanceled(EventHooks.onPlayerInteract(handler, ev));
-                    if (event.getItemStack().func_77973_b() == CustomItems.scripted_item && !event.isCanceled()) {
+                    if (event.getItemStack().getItem() == CustomItems.scripted_item && !event.isCanceled()) {
                          ItemScriptedWrapper isw = ItemScripted.GetWrapper(event.getItemStack());
                          ItemEvent.InteractEvent eve = new ItemEvent.InteractEvent(isw, handler.getPlayer(), 2, NpcAPI.Instance().getIBlock(event.getWorld(), event.getPos()));
                          event.setCanceled(EventHooks.onScriptItemInteract(isw, eve));
@@ -141,14 +141,14 @@ public class ScriptPlayerEventHandler {
      @SubscribeEvent
      public void invoke(EntityInteract event) {
           if (!event.getEntityPlayer().world.isRemote && event.getHand() == EnumHand.MAIN_HAND && event.getWorld() instanceof WorldServer) {
-               if (event.getItemStack().func_77973_b() == CustomItems.nbt_book) {
-                    ((ItemNbtBook)event.getItemStack().func_77973_b()).entityEvent(event);
+               if (event.getItemStack().getItem() == CustomItems.nbt_book) {
+                    ((ItemNbtBook)event.getItemStack().getItem()).entityEvent(event);
                     event.setCanceled(true);
                } else {
                     PlayerScriptData handler = PlayerData.get(event.getEntityPlayer()).scriptData;
                     PlayerEvent.InteractEvent ev = new PlayerEvent.InteractEvent(handler.getPlayer(), 1, NpcAPI.Instance().getIEntity(event.getTarget()));
                     event.setCanceled(EventHooks.onPlayerInteract(handler, ev));
-                    if (event.getItemStack().func_77973_b() == CustomItems.scripted_item && !event.isCanceled()) {
+                    if (event.getItemStack().getItem() == CustomItems.scripted_item && !event.isCanceled()) {
                          ItemScriptedWrapper isw = ItemScripted.GetWrapper(event.getItemStack());
                          ItemEvent.InteractEvent eve = new ItemEvent.InteractEvent(isw, handler.getPlayer(), 1, NpcAPI.Instance().getIEntity(event.getTarget()));
                          event.setCanceled(EventHooks.onScriptItemInteract(isw, eve));
@@ -161,7 +161,7 @@ public class ScriptPlayerEventHandler {
      @SubscribeEvent
      public void invoke(RightClickItem event) {
           if (!event.getEntityPlayer().world.isRemote && event.getHand() == EnumHand.MAIN_HAND && event.getWorld() instanceof WorldServer) {
-               if (event.getEntityPlayer().func_184812_l_() && event.getEntityPlayer().func_70093_af() && event.getItemStack().func_77973_b() == CustomItems.scripted_item) {
+               if (event.getEntityPlayer().func_184812_l_() && event.getEntityPlayer().func_70093_af() && event.getItemStack().getItem() == CustomItems.scripted_item) {
                     NoppesUtilServer.sendOpenGui(event.getEntityPlayer(), EnumGuiType.ScriptItem, (EntityNPCInterface)null);
                } else {
                     PlayerScriptData handler = PlayerData.get(event.getEntityPlayer()).scriptData;
@@ -170,7 +170,7 @@ public class ScriptPlayerEventHandler {
                     } else {
                          PlayerEvent.InteractEvent ev = new PlayerEvent.InteractEvent(handler.getPlayer(), 0, (Object)null);
                          event.setCanceled(EventHooks.onPlayerInteract(handler, ev));
-                         if (event.getItemStack().func_77973_b() == CustomItems.scripted_item && !event.isCanceled()) {
+                         if (event.getItemStack().getItem() == CustomItems.scripted_item && !event.isCanceled()) {
                               ItemScriptedWrapper isw = ItemScripted.GetWrapper(event.getItemStack());
                               ItemEvent.InteractEvent eve = new ItemEvent.InteractEvent(isw, handler.getPlayer(), 0, (Object)null);
                               event.setCanceled(EventHooks.onScriptItemInteract(isw, eve));
@@ -282,7 +282,7 @@ public class ScriptPlayerEventHandler {
                     IEntity target = NpcAPI.Instance().getIEntity(event.getEntityLiving());
                     PlayerEvent.AttackEvent ev = new PlayerEvent.AttackEvent(handler.getPlayer(), 1, target);
                     event.setCanceled(EventHooks.onPlayerAttack(handler, ev));
-                    if (item.func_77973_b() == CustomItems.scripted_item && !event.isCanceled()) {
+                    if (item.getItem() == CustomItems.scripted_item && !event.isCanceled()) {
                          ItemScriptedWrapper isw = ItemScripted.GetWrapper(item);
                          ItemEvent.AttackEvent eve = new ItemEvent.AttackEvent(isw, handler.getPlayer(), 1, target);
                          eve.setCanceled(event.isCanceled());
@@ -321,7 +321,7 @@ public class ScriptPlayerEventHandler {
                event.setCanceled(ev.isCanceled());
                if (!message.equals(ev.message)) {
                     TextComponentTranslation chat = new TextComponentTranslation("", new Object[0]);
-                    chat.func_150257_a(ForgeHooks.newChatWithLinks(ev.message));
+                    chat.appendSibling(ForgeHooks.newChatWithLinks(ev.message));
                     event.setComponent(chat);
                }
 

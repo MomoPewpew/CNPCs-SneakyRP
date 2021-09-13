@@ -121,7 +121,7 @@ public class QuestManual extends QuestInterface {
           }
 
           public String getText() {
-               return I18n.func_74838_a(this.entity) + ": " + this.getProgress() + "/" + this.getMaxProgress();
+               return I18n.translateToLocal(this.entity) + ": " + this.getProgress() + "/" + this.getMaxProgress();
           }
      }
 }

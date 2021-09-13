@@ -24,7 +24,7 @@ public class BlockData {
           compound.setInteger("BuildX", this.pos.getX());
           compound.setInteger("BuildY", this.pos.getY());
           compound.setInteger("BuildZ", this.pos.getZ());
-          compound.setString("Block", ((ResourceLocation)Block.REGISTRY.func_177774_c(this.state.getBlock())).toString());
+          compound.setString("Block", ((ResourceLocation)Block.REGISTRY.getNameForObject(this.state.getBlock())).toString());
           compound.setInteger("Meta", this.state.getBlock().func_176201_c(this.state));
           if (this.tile != null) {
                compound.setTag("Tile", this.tile);

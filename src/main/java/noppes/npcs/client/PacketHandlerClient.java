@@ -96,16 +96,16 @@ public class PacketHandlerClient extends PacketHandlerServer {
                String text = NoppesStringUtils.formatText(Server.readString(buffer), player, npc);
                npc.messages.addMessage(text, npc);
                if (buffer.readBoolean()) {
-                    player.func_145747_a(new TextComponentTranslation(npc.func_70005_c_() + ": " + text, new Object[0]));
+                    player.sendMessage(new TextComponentTranslation(npc.getName() + ": " + text, new Object[0]));
                }
           } else {
                String font;
                if (type == EnumPacketClient.CHAT) {
                     String message;
-                    for(message = ""; (font = Server.readString(buffer)) != null && !font.isEmpty(); message = message + I18n.func_74838_a(font)) {
+                    for(message = ""; (font = Server.readString(buffer)) != null && !font.isEmpty(); message = message + I18n.translateToLocal(font)) {
                     }
 
-                    player.func_145747_a(new TextComponentTranslation(message, new Object[0]));
+                    player.sendMessage(new TextComponentTranslation(message, new Object[0]));
                } else if (type == EnumPacketClient.EYE_BLINK) {
                     entity = Minecraft.getMinecraft().field_71441_e.getEntityByID(buffer.readInt());
                     if (entity == null || !(entity instanceof EntityNPCInterface)) {
@@ -141,7 +141,7 @@ public class PacketHandlerClient extends PacketHandlerServer {
                                    if (type == EnumPacketClient.CHEST_NAME) {
                                         gui = Minecraft.getMinecraft().field_71462_r;
                                         if (gui instanceof GuiCustomChest) {
-                                             ((GuiCustomChest)gui).title = I18n.func_74838_a(Server.readString(buffer));
+                                             ((GuiCustomChest)gui).title = I18n.translateToLocal(Server.readString(buffer));
                                         }
                                    } else {
                                         int i;
@@ -306,9 +306,9 @@ public class PacketHandlerClient extends PacketHandlerServer {
                                                                            ClientProxy.Font.clear();
                                                                            ClientProxy.Font = new ClientProxy.FontContainer(CustomNpcs.FontType, CustomNpcs.FontSize);
                                                                            CustomNpcs.Config.updateConfig();
-                                                                           player.func_145747_a(new TextComponentTranslation("Font set to %s", new Object[]{ClientProxy.Font.getName()}));
+                                                                           player.sendMessage(new TextComponentTranslation("Font set to %s", new Object[]{ClientProxy.Font.getName()}));
                                                                       } else {
-                                                                           player.func_145747_a(new TextComponentTranslation("Current font is %s", new Object[]{ClientProxy.Font.getName()}));
+                                                                           player.sendMessage(new TextComponentTranslation("Current font is %s", new Object[]{ClientProxy.Font.getName()}));
                                                                       }
 
                                                                  };

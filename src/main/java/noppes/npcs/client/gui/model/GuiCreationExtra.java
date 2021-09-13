@@ -79,7 +79,7 @@ public class GuiCreationExtra extends GuiCreationScreenInterface implements ICus
                                    data.put("Model", new GuiCreationExtra.GuiTypePixelmon("Model"));
                               }
 
-                              if (EntityList.func_75621_b(entity).equals("tgvstyle.Dog")) {
+                              if (EntityList.getEntityString(entity).equals("tgvstyle.Dog")) {
                                    data.put("Breed", new GuiCreationExtra.GuiTypeDoggyStyle("Breed"));
                               }
 
@@ -130,11 +130,11 @@ public class GuiCreationExtra extends GuiCreationScreenInterface implements ICus
 
      private NBTTagCompound getExtras(EntityLivingBase entity) {
           NBTTagCompound fake = new NBTTagCompound();
-          (new EntityFakeLiving(entity.world)).func_70014_b(fake);
+          (new EntityFakeLiving(entity.world)).writeEntityToNBT(fake);
           NBTTagCompound compound = new NBTTagCompound();
 
           try {
-               entity.func_70014_b(compound);
+               entity.writeEntityToNBT(compound);
           } catch (Throwable var7) {
           }
 

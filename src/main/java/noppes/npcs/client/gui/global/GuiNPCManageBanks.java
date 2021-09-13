@@ -95,10 +95,10 @@ public class GuiNPCManageBanks extends GuiContainerNPCInterface2 implements IScr
      }
 
      protected void func_146979_b(int par1, int par2) {
-          this.field_146289_q.func_78276_b(I18n.func_74838_a("bank.tabCost"), 23, 28, CustomNpcResourceListener.DefaultTextColor);
-          this.field_146289_q.func_78276_b(I18n.func_74838_a("bank.upgCost"), 123, 28, CustomNpcResourceListener.DefaultTextColor);
-          this.field_146289_q.func_78276_b(I18n.func_74838_a("gui.start"), 6, 70, CustomNpcResourceListener.DefaultTextColor);
-          this.field_146289_q.func_78276_b(I18n.func_74838_a("gui.max"), 9, 100, CustomNpcResourceListener.DefaultTextColor);
+          this.field_146289_q.func_78276_b(I18n.translateToLocal("bank.tabCost"), 23, 28, CustomNpcResourceListener.DefaultTextColor);
+          this.field_146289_q.func_78276_b(I18n.translateToLocal("bank.upgCost"), 123, 28, CustomNpcResourceListener.DefaultTextColor);
+          this.field_146289_q.func_78276_b(I18n.translateToLocal("gui.start"), 6, 70, CustomNpcResourceListener.DefaultTextColor);
+          this.field_146289_q.func_78276_b(I18n.translateToLocal("gui.max"), 9, 100, CustomNpcResourceListener.DefaultTextColor);
      }
 
      public void setGuiData(NBTTagCompound compound) {

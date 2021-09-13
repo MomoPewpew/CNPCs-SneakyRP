@@ -35,8 +35,8 @@ public class CmdSchematics extends CommandNoppesBase {
                throw new CommandException("Unknown schematic: " + name, new Object[0]);
           } else {
                this.sendMessage(sender, "width: " + schem.schema.getWidth() + ", length: " + schem.schema.getLength() + ", height: " + schem.schema.getHeight(), new Object[0]);
-               BlockPos pos = sender.func_180425_c();
-               World world = sender.func_130014_f_();
+               BlockPos pos = sender.getPosition();
+               World world = sender.getEntityWorld();
                int rotation = 0;
                if (args.length > 1) {
                     try {
@@ -126,7 +126,7 @@ public class CmdSchematics extends CommandNoppesBase {
      }
 
      public World getWorld(MinecraftServer server, String t) {
-          WorldServer[] ws = server.field_71305_c;
+          WorldServer[] ws = server.worlds;
           WorldServer[] var4 = ws;
           int var5 = ws.length;
 

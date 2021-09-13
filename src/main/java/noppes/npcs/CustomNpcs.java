@@ -237,7 +237,7 @@ public class CustomNpcs {
           NpcAPI.Instance().events().register(new AbilityEventHandler());
           ForgeChunkManager.setForcedChunkLoadingCallback(this, new ChunkController());
           proxy.load();
-          ObfuscationReflectionHelper.setPrivateValue(RangedAttribute.class, (RangedAttribute)SharedMonsterAttributes.field_111267_a, Double.MAX_VALUE, 1);
+          ObfuscationReflectionHelper.setPrivateValue(RangedAttribute.class, (RangedAttribute)SharedMonsterAttributes.MAX_HEALTH, Double.MAX_VALUE, 1);
      }
 
      @EventHandler

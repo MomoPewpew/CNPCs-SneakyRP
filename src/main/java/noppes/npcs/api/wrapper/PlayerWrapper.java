@@ -122,7 +122,7 @@ public class PlayerWrapper extends EntityLivingBaseWrapper implements IPlayer {
      }
 
      public String getName() {
-          return ((EntityPlayerMP)this.entity).func_70005_c_();
+          return ((EntityPlayerMP)this.entity).getName();
      }
 
      public String getDisplayName() {
@@ -268,7 +268,7 @@ public class PlayerWrapper extends EntityLivingBaseWrapper implements IPlayer {
      }
 
      public void message(String message) {
-          ((EntityPlayerMP)this.entity).func_145747_a(new TextComponentTranslation(NoppesStringUtils.formatText(message, this.entity), new Object[0]));
+          ((EntityPlayerMP)this.entity).sendMessage(new TextComponentTranslation(NoppesStringUtils.formatText(message, this.entity), new Object[0]));
      }
 
      public int getGamemode() {
@@ -295,12 +295,12 @@ public class PlayerWrapper extends EntityLivingBaseWrapper implements IPlayer {
      private boolean isItemEqual(ItemStack stack, ItemStack other) {
           if (other.isEmpty()) {
                return false;
-          } else if (stack.func_77973_b() != other.func_77973_b()) {
+          } else if (stack.getItem() != other.getItem()) {
                return false;
-          } else if (stack.func_77952_i() < 0) {
+          } else if (stack.getItemDamage() < 0) {
                return true;
           } else {
-               return stack.func_77952_i() == other.func_77952_i();
+               return stack.getItemDamage() == other.getItemDamage();
           }
      }
 
@@ -362,9 +362,9 @@ public class PlayerWrapper extends EntityLivingBaseWrapper implements IPlayer {
           if (mcItem.isEmpty()) {
                return false;
           } else {
-               boolean bo = ((EntityPlayerMP)this.entity).inventory.func_70441_a(mcItem.copy());
+               boolean bo = ((EntityPlayerMP)this.entity).inventory.addItemStackToInventory(mcItem.copy());
                if (bo) {
-                    NoppesUtilServer.playSound((EntityLivingBase)this.entity, SoundEvents.field_187638_cR, 0.2F, ((((EntityPlayerMP)this.entity).func_70681_au().nextFloat() - ((EntityPlayerMP)this.entity).func_70681_au().nextFloat()) * 0.7F + 1.0F) * 2.0F);
+                    NoppesUtilServer.playSound((EntityLivingBase)this.entity, SoundEvents.field_187638_cR, 0.2F, ((((EntityPlayerMP)this.entity).getRNG().nextFloat() - ((EntityPlayerMP)this.entity).getRNG().nextFloat()) * 0.7F + 1.0F) * 2.0F);
                     this.updatePlayerInventory();
                }
 
@@ -504,7 +504,7 @@ public class PlayerWrapper extends EntityLivingBaseWrapper implements IPlayer {
      }
 
      public void closeGui() {
-          ((EntityPlayerMP)this.entity).func_71128_l();
+          ((EntityPlayerMP)this.entity).closeContainer();
           Server.sendData((EntityPlayerMP)this.entity, EnumPacketClient.GUI_CLOSE, -1, new NBTTagCompound());
      }
 
@@ -553,7 +553,7 @@ public class PlayerWrapper extends EntityLivingBaseWrapper implements IPlayer {
      }
 
      public void playSound(String sound, float volume, float pitch) {
-          BlockPos pos = ((EntityPlayerMP)this.entity).func_180425_c();
+          BlockPos pos = ((EntityPlayerMP)this.entity).getPosition();
           Server.sendData((EntityPlayerMP)this.entity, EnumPacketClient.PLAY_SOUND, sound, pos.getX(), pos.getY(), pos.getZ(), volume, pitch);
      }
 

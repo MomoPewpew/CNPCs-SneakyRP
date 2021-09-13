@@ -31,7 +31,7 @@ public class BlockScriptedWrapper extends BlockWrapper implements IBlockScripted
           if (item == null) {
                this.tile.setItemModel((ItemStack)null, (Block)null);
           } else {
-               this.tile.setItemModel(item.getMCItemStack(), Block.func_149634_a(item.getMCItemStack().func_77973_b()));
+               this.tile.setItemModel(item.getMCItemStack(), Block.func_149634_a(item.getMCItemStack().getItem()));
           }
 
      }
@@ -134,11 +134,11 @@ public class BlockScriptedWrapper extends BlockWrapper implements IBlockScripted
      }
 
      public String executeCommand(String command) {
-          if (!this.tile.func_145831_w().func_73046_m().func_82356_Z()) {
+          if (!this.tile.func_145831_w().getMinecraftServer().isCommandBlockEnabled()) {
                throw new CustomNPCsException("Command blocks need to be enabled to executeCommands", new Object[0]);
           } else {
                FakePlayer player = EntityNPCInterface.CommandPlayer;
-               player.func_70029_a(this.tile.func_145831_w());
+               player.setWorld(this.tile.func_145831_w());
                player.func_70107_b((double)this.getX(), (double)this.getY(), (double)this.getZ());
                return NoppesUtilServer.runCommand(this.tile.func_145831_w(), this.tile.func_174877_v(), "ScriptBlock: " + this.tile.func_174877_v(), command, (EntityPlayer)null, player);
           }

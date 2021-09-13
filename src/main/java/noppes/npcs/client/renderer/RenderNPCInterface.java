@@ -42,7 +42,7 @@ public class RenderNPCInterface extends RenderLiving {
 
                     scale = npc.baseHeight / 5.0F * (float)npc.display.getSize();
                     if (npc.display.showName()) {
-                         this.renderLivingLabel(npc, (float)d, (float)d1 + npc.height - 0.06F * scale, (float)d2, 64, npc.func_70005_c_(), npc.display.getTitle());
+                         this.renderLivingLabel(npc, (float)d, (float)d1 + npc.height - 0.06F * scale, (float)d2, 64, npc.getName(), npc.display.getTitle());
                     }
 
                }
@@ -63,7 +63,7 @@ public class RenderNPCInterface extends RenderLiving {
           float f1 = npc.baseHeight / 5.0F * (float)npc.display.getSize();
           float f2 = 0.01666667F * f1;
           GlStateManager.func_179094_E();
-          GlStateManager.func_179109_b(d, d1, d2);
+          GlStateManager.translate(d, d1, d2);
           GL11.glNormal3f(0.0F, 1.0F, 0.0F);
           GlStateManager.func_179114_b(-this.field_76990_c.field_78735_i, 0.0F, 1.0F, 0.0F);
           GlStateManager.func_179114_b(this.field_76990_c.field_78732_j, 1.0F, 0.0F, 0.0F);
@@ -71,29 +71,29 @@ public class RenderNPCInterface extends RenderLiving {
           int color = npc.getFaction().color;
           GlStateManager.disableLighting();
           GlStateManager.func_179132_a(false);
-          GlStateManager.func_179109_b(0.0F, height, 0.0F);
+          GlStateManager.translate(0.0F, height, 0.0F);
           GlStateManager.func_179147_l();
           GlStateManager.func_187428_a(SourceFactor.SRC_ALPHA, DestFactor.ONE_MINUS_SRC_ALPHA, SourceFactor.ONE, DestFactor.ZERO);
           if (!title.isEmpty()) {
                title = "<" + title + ">";
                float f3 = 0.01666667F * f1 * 0.6F;
-               GlStateManager.func_179109_b(0.0F, -f1 / 6.5F * 0.4F, 0.0F);
+               GlStateManager.translate(0.0F, -f1 / 6.5F * 0.4F, 0.0F);
                GlStateManager.func_179152_a(-f3, -f3, f3);
-               fontrenderer.func_78276_b(title, -fontrenderer.func_78256_a(title) / 2, 0, color);
+               fontrenderer.func_78276_b(title, -fontrenderer.getStringWidth(title) / 2, 0, color);
                GlStateManager.func_179152_a(1.0F / -f3, 1.0F / -f3, 1.0F / f3);
-               GlStateManager.func_179109_b(0.0F, f1 / 6.5F * 0.85F, 0.0F);
+               GlStateManager.translate(0.0F, f1 / 6.5F * 0.85F, 0.0F);
           }
 
           GlStateManager.func_179152_a(-f2, -f2, f2);
           if (npc.isInRange(this.field_76990_c.field_78734_h, 4.0D)) {
-               GlStateManager.func_179097_i();
-               fontrenderer.func_78276_b(name, -fontrenderer.func_78256_a(name) / 2, 0, color + 1426063360);
-               GlStateManager.func_179126_j();
+               GlStateManager.disableDepth();
+               fontrenderer.func_78276_b(name, -fontrenderer.getStringWidth(name) / 2, 0, color + 1426063360);
+               GlStateManager.enableDepth();
           }
 
           GlStateManager.func_179132_a(true);
           GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-          fontrenderer.func_78276_b(name, -fontrenderer.func_78256_a(name) / 2, 0, color);
+          fontrenderer.func_78276_b(name, -fontrenderer.getStringWidth(name) / 2, 0, color);
           GlStateManager.enableLighting();
           GlStateManager.func_179084_k();
           GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
@@ -121,7 +121,7 @@ public class RenderNPCInterface extends RenderLiving {
           } else if (npc.func_70089_S() && npc.currentAnimation == 7) {
                GlStateManager.func_179114_b(270.0F - f1, 0.0F, 1.0F, 0.0F);
                float scale = (float)((EntityCustomNpc)npc).display.getSize() / 5.0F;
-               GlStateManager.func_179109_b(-scale + ((EntityCustomNpc)npc).modelData.getLegsY() * scale, 0.14F, 0.0F);
+               GlStateManager.translate(-scale + ((EntityCustomNpc)npc).modelData.getLegsY() * scale, 0.14F, 0.0F);
                GlStateManager.func_179114_b(270.0F, 0.0F, 0.0F, 1.0F);
                GlStateManager.func_179114_b(270.0F, 0.0F, 1.0F, 0.0F);
           } else {
@@ -150,7 +150,7 @@ public class RenderNPCInterface extends RenderLiving {
      }
 
      protected void renderModel(EntityNPCInterface npc, float par2, float par3, float par4, float par5, float par6, float par7) {
-          super.func_77036_a(npc, par2, par3, par4, par5, par6, par7);
+          super.renderModel(npc, par2, par3, par4, par5, par6, par7);
           if (!npc.display.getOverlayTexture().isEmpty()) {
                GlStateManager.func_179143_c(515);
                if (npc.textureGlowLocation == null) {
@@ -182,7 +182,7 @@ public class RenderNPCInterface extends RenderLiving {
      }
 
      protected float handleRotationFloat(EntityNPCInterface npc, float par2) {
-          return !npc.isKilled() && npc.display.getHasLivingAnimation() ? super.func_77044_a(npc, par2) : 0.0F;
+          return !npc.isKilled() && npc.display.getHasLivingAnimation() ? super.handleRotationFloat(npc, par2) : 0.0F;
      }
 
      protected void renderLivingAt(EntityNPCInterface npc, double d, double d1, double d2) {

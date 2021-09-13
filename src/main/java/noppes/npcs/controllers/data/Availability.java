@@ -130,7 +130,7 @@ public class Availability implements ICompatibilty, IAvailability {
      private void initScore(String objective) {
           if (!objective.isEmpty()) {
                if (CustomNpcs.Server != null) {
-                    WorldServer[] var2 = CustomNpcs.Server.field_71305_c;
+                    WorldServer[] var2 = CustomNpcs.Server.worlds;
                     int var3 = var2.length;
 
                     for(int var4 = 0; var4 < var3; ++var4) {
@@ -252,10 +252,10 @@ public class Availability implements ICompatibilty, IAvailability {
                ScoreObjective sbObjective = player.func_96123_co().func_96518_b(objective);
                if (sbObjective == null) {
                     return false;
-               } else if (!player.func_96123_co().func_178819_b(player.func_70005_c_(), sbObjective)) {
+               } else if (!player.func_96123_co().func_178819_b(player.getName(), sbObjective)) {
                     return false;
                } else {
-                    int i = player.func_96123_co().func_96529_a(player.func_70005_c_(), sbObjective).func_96652_c();
+                    int i = player.func_96123_co().func_96529_a(player.getName(), sbObjective).func_96652_c();
                     if (type == EnumAvailabilityScoreboard.EQUAL) {
                          return i == value;
                     } else if (type == EnumAvailabilityScoreboard.BIGGER) {

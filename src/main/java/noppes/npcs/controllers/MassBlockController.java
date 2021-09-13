@@ -24,7 +24,7 @@ public class MassBlockController {
           if (!queue.isEmpty()) {
                MassBlockController.IMassBlock imb = (MassBlockController.IMassBlock)queue.remove();
                World world = imb.getNpc().world;
-               BlockPos pos = imb.getNpc().func_180425_c();
+               BlockPos pos = imb.getNpc().getPosition();
                int range = imb.getRange();
                List list = new ArrayList();
 
@@ -32,7 +32,7 @@ public class MassBlockController {
                     for(int z = -range; z < range; ++z) {
                          if (world.func_175667_e(new BlockPos(x + pos.getX(), 64, z + pos.getZ()))) {
                               for(int y = 0; y < range; ++y) {
-                                   BlockPos blockPos = pos.func_177982_a(x, y - range / 2, z);
+                                   BlockPos blockPos = pos.add(x, y - range / 2, z);
                                    list.add(new BlockData(blockPos, world.getBlockState(blockPos), (NBTTagCompound)null));
                               }
                          }

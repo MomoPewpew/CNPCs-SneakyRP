@@ -83,7 +83,7 @@ public class DataStats implements INPCStats {
      public void setMaxHealth(int maxHealth) {
           if (maxHealth != this.maxHealth) {
                this.maxHealth = maxHealth;
-               this.npc.func_110148_a(SharedMonsterAttributes.field_111267_a).func_111128_a((double)maxHealth);
+               this.npc.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue((double)maxHealth);
                this.npc.updateClient = true;
           }
      }

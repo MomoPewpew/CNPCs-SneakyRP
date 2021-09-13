@@ -29,7 +29,7 @@ public class EntityAIClosestTarget extends EntityAITarget {
      }
 
      public boolean func_75250_a() {
-          if (this.targetChance > 0 && this.field_75299_d.func_70681_au().nextInt(this.targetChance) != 0) {
+          if (this.targetChance > 0 && this.field_75299_d.getRNG().nextInt(this.targetChance) != 0) {
                return false;
           } else {
                double d0 = this.func_111175_f();

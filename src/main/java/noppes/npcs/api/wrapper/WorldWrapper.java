@@ -174,7 +174,7 @@ public class WorldWrapper implements IWorld {
 
           while(var9.hasNext()) {
                Entity e = (Entity)var9.next();
-               double r = pos.getMCBlockPos().func_177951_i(e.func_180425_c());
+               double r = pos.getMCBlockPos().func_177951_i(e.getPosition());
                if (entity == null) {
                     distance = r;
                     entity = e;
@@ -202,7 +202,7 @@ public class WorldWrapper implements IWorld {
      }
 
      public IEntity createEntityFromNBT(INbt nbt) {
-          Entity entity = EntityList.func_75615_a(nbt.getMCNBT(), this.world);
+          Entity entity = EntityList.createEntityFromNBT(nbt.getMCNBT(), this.world);
           if (entity == null) {
                throw new CustomNPCsException("Failed to create an entity from given NBT", new Object[0]);
           } else {
@@ -280,7 +280,7 @@ public class WorldWrapper implements IWorld {
           if (block == null) {
                throw new CustomNPCsException("There is no such block: %s", new Object[0]);
           } else {
-               this.world.func_175656_a(new BlockPos(x, y, z), block.func_176203_a(meta));
+               this.world.setBlockState(new BlockPos(x, y, z), block.func_176203_a(meta));
           }
      }
 
@@ -289,7 +289,7 @@ public class WorldWrapper implements IWorld {
      }
 
      public float getLightValue(int x, int y, int z) {
-          return (float)this.world.func_175699_k(new BlockPos(x, y, z)) / 16.0F;
+          return (float)this.world.getLight(new BlockPos(x, y, z)) / 16.0F;
      }
 
      public IBlock getSpawnPoint() {
@@ -310,11 +310,11 @@ public class WorldWrapper implements IWorld {
      }
 
      public boolean isRaining() {
-          return this.world.func_72912_H().func_76059_o();
+          return this.world.getWorldInfo().func_76059_o();
      }
 
      public void setRaining(boolean bo) {
-          this.world.func_72912_H().func_76084_b(bo);
+          this.world.getWorldInfo().func_76084_b(bo);
      }
 
      public void thunderStrike(double x, double y, double z) {
@@ -376,7 +376,7 @@ public class WorldWrapper implements IWorld {
      }
 
      public IPlayer[] getAllPlayers() {
-          List list = this.world.func_73046_m().getPlayerList().getPlayers();
+          List list = this.world.getMinecraftServer().getPlayerList().getPlayers();
           IPlayer[] arr = new IPlayer[list.size()];
 
           for(int i = 0; i < list.size(); ++i) {
@@ -396,11 +396,11 @@ public class WorldWrapper implements IWorld {
 
      public void spawnEntity(IEntity entity) {
           Entity e = entity.getMCEntity();
-          if (this.world.func_175733_a(e.func_110124_au()) != null) {
+          if (this.world.func_175733_a(e.getUniqueID()) != null) {
                throw new CustomNPCsException("Entity with this UUID already exists", new Object[0]);
           } else {
                e.func_70107_b(e.field_70165_t, e.field_70163_u, e.field_70161_v);
-               this.world.func_72838_d(e);
+               this.world.spawnEntity(e);
           }
      }
 
@@ -409,11 +409,11 @@ public class WorldWrapper implements IWorld {
      }
 
      public IScoreboard getScoreboard() {
-          return new ScoreboardWrapper(this.world.func_73046_m());
+          return new ScoreboardWrapper(this.world.getMinecraftServer());
      }
 
      public void broadcast(String message) {
-          this.world.func_73046_m().getPlayerList().func_148539_a(new TextComponentString(message));
+          this.world.getMinecraftServer().getPlayerList().func_148539_a(new TextComponentString(message));
      }
 
      public int getRedstonePower(int x, int y, int z) {
@@ -431,7 +431,7 @@ public class WorldWrapper implements IWorld {
      }
 
      public String getName() {
-          return this.world.func_72912_H().func_76065_j();
+          return this.world.getWorldInfo().func_76065_j();
      }
 
      public BlockPos getMCBlockPos(int x, int y, int z) {

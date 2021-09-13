@@ -32,11 +32,11 @@ public class GuiButtonBiDirectional extends GuiNpcButton {
 
                String text = "";
                float maxWidth = (float)(this.width - 36);
-               if ((float)mc.fontRenderer.func_78256_a(this.field_146126_j) > maxWidth) {
+               if ((float)mc.fontRenderer.getStringWidth(this.field_146126_j) > maxWidth) {
                     for(int h = 0; h < this.field_146126_j.length(); ++h) {
                          char c = this.field_146126_j.charAt(h);
                          text = text + c;
-                         if ((float)mc.fontRenderer.func_78256_a(text) > maxWidth) {
+                         if ((float)mc.fontRenderer.getStringWidth(text) > maxWidth) {
                               break;
                          }
                     }

@@ -39,7 +39,7 @@ public class CmdHelp extends CommandNoppesBase {
                if (command == null) {
                     throw new CommandException("Unknown command " + args[0], new Object[0]);
                } else if (command.subcommands.isEmpty()) {
-                    sender.func_145747_a(new TextComponentTranslation(command.func_71518_a(sender), new Object[0]));
+                    sender.sendMessage(new TextComponentTranslation(command.func_71518_a(sender), new Object[0]));
                } else {
                     Method m = null;
                     if (args.length > 1) {
@@ -52,14 +52,14 @@ public class CmdHelp extends CommandNoppesBase {
 
                          while(var6.hasNext()) {
                               Entry entry = (Entry)var6.next();
-                              sender.func_145747_a(new TextComponentTranslation((String)entry.getKey() + ": " + ((CommandNoppesBase.SubCommand)((Method)entry.getValue()).getAnnotation(CommandNoppesBase.SubCommand.class)).desc(), new Object[0]));
+                              sender.sendMessage(new TextComponentTranslation((String)entry.getKey() + ": " + ((CommandNoppesBase.SubCommand)((Method)entry.getValue()).getAnnotation(CommandNoppesBase.SubCommand.class)).desc(), new Object[0]));
                          }
                     } else {
                          this.sendMessage(sender, "------" + command.func_71517_b() + "." + args[1].toLowerCase() + " Command------", new Object[0]);
                          CommandNoppesBase.SubCommand sc = (CommandNoppesBase.SubCommand)m.getAnnotation(CommandNoppesBase.SubCommand.class);
-                         sender.func_145747_a(new TextComponentTranslation(sc.desc(), new Object[0]));
+                         sender.sendMessage(new TextComponentTranslation(sc.desc(), new Object[0]));
                          if (!sc.usage().isEmpty()) {
-                              sender.func_145747_a(new TextComponentTranslation("Usage: " + sc.usage(), new Object[0]));
+                              sender.sendMessage(new TextComponentTranslation("Usage: " + sc.usage(), new Object[0]));
                          }
                     }
 

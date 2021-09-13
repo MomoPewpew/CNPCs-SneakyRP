@@ -20,7 +20,7 @@ class SlotNpcMercenaryCurrency extends Slot {
      }
 
      public boolean func_75214_a(ItemStack itemstack) {
-          Item item = itemstack.func_77973_b();
+          Item item = itemstack.getItem();
           Iterator var3 = this.role.inventory.items.iterator();
 
           ItemStack is;
@@ -31,8 +31,8 @@ class SlotNpcMercenaryCurrency extends Slot {
                     }
 
                     is = (ItemStack)var3.next();
-               } while(item != is.func_77973_b());
-          } while(itemstack.func_77981_g() && itemstack.func_77952_i() != is.func_77952_i());
+               } while(item != is.getItem());
+          } while(itemstack.getHasSubtypes() && itemstack.getItemDamage() != is.getItemDamage());
 
           return true;
      }

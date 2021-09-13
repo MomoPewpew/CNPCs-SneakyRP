@@ -139,12 +139,12 @@ public class JobSpawner extends JobInterface implements IJobSpawner {
      public void aiUpdateTask() {
           if (this.spawned.isEmpty()) {
                if (this.spawnType == 0 && this.spawnEntity(this.number + 1) == null && !this.doesntDie) {
-                    this.npc.func_70106_y();
+                    this.npc.setDead();
                }
 
                if (this.spawnType == 1) {
                     if (this.number >= 6 && !this.doesntDie) {
-                         this.npc.func_70106_y();
+                         this.npc.setDead();
                     } else {
                          this.spawnEntity(this.compound1);
                          this.spawnEntity(this.compound2);
@@ -183,10 +183,10 @@ public class JobSpawner extends JobInterface implements IJobSpawner {
                     }
 
                     if (!list.isEmpty()) {
-                         NBTTagCompound compound = (NBTTagCompound)list.get(this.npc.func_70681_au().nextInt(list.size()));
+                         NBTTagCompound compound = (NBTTagCompound)list.get(this.npc.getRNG().nextInt(list.size()));
                          this.spawnEntity(compound);
                     } else if (!this.doesntDie) {
-                         this.npc.func_70106_y();
+                         this.npc.setDead();
                     }
                }
           } else {
@@ -213,10 +213,10 @@ public class JobSpawner extends JobInterface implements IJobSpawner {
      public void checkTarget(EntityLivingBase entity) {
           if (entity instanceof EntityLiving) {
                EntityLiving liv = (EntityLiving)entity;
-               if (liv.func_70638_az() == null || this.npc.func_70681_au().nextInt(100) == 1) {
+               if (liv.func_70638_az() == null || this.npc.getRNG().nextInt(100) == 1) {
                     liv.func_70624_b(this.target);
                }
-          } else if (entity.func_70643_av() == null || this.npc.func_70681_au().nextInt(100) == 1) {
+          } else if (entity.func_70643_av() == null || this.npc.getRNG().nextInt(100) == 1) {
                entity.func_70604_c(this.target);
           }
 
@@ -286,7 +286,7 @@ public class JobSpawner extends JobInterface implements IJobSpawner {
      public boolean aiShouldExecute() {
           if (!this.isEmpty() && !this.npc.isKilled()) {
                this.target = this.getTarget();
-               if (this.npc.func_70681_au().nextInt(30) == 1 && this.spawned.isEmpty()) {
+               if (this.npc.getRNG().nextInt(30) == 1 && this.spawned.isEmpty()) {
                     this.spawned = this.getNearbySpawned();
                }
 
@@ -338,9 +338,9 @@ public class JobSpawner extends JobInterface implements IJobSpawner {
 
      private EntityLivingBase spawnEntity(NBTTagCompound compound) {
           if (compound != null && compound.hasKey("id")) {
-               double x = this.npc.field_70165_t + (double)this.xOffset - 0.5D + (double)this.npc.func_70681_au().nextFloat();
+               double x = this.npc.field_70165_t + (double)this.xOffset - 0.5D + (double)this.npc.getRNG().nextFloat();
                double y = this.npc.field_70163_u + (double)this.yOffset;
-               double z = this.npc.field_70161_v + (double)this.zOffset - 0.5D + (double)this.npc.func_70681_au().nextFloat();
+               double z = this.npc.field_70161_v + (double)this.zOffset - 0.5D + (double)this.npc.getRNG().nextFloat();
                Entity entity = NoppesUtilServer.spawnClone(compound, x, y, z, this.npc.world);
                if (entity != null && entity instanceof EntityLivingBase) {
                     EntityLivingBase living = (EntityLivingBase)entity;

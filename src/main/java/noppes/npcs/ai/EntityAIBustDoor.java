@@ -31,12 +31,12 @@ public class EntityAIBustDoor extends EntityAIDoorInteract {
 
      public void func_75251_c() {
           super.func_75251_c();
-          this.field_75356_a.world.func_175715_c(this.field_75356_a.func_145782_y(), this.field_179507_b, -1);
+          this.field_75356_a.world.func_175715_c(this.field_75356_a.getEntityId(), this.field_179507_b, -1);
      }
 
      public void func_75246_d() {
           super.func_75246_d();
-          if (this.field_75356_a.func_70681_au().nextInt(20) == 0) {
+          if (this.field_75356_a.getRNG().nextInt(20) == 0) {
                this.field_75356_a.world.func_180498_a((EntityPlayer)null, 1010, this.field_179507_b, 0);
                this.field_75356_a.func_184609_a(EnumHand.MAIN_HAND);
           }
@@ -44,7 +44,7 @@ public class EntityAIBustDoor extends EntityAIDoorInteract {
           ++this.breakingTime;
           int var1 = (int)((float)this.breakingTime / 240.0F * 10.0F);
           if (var1 != this.field_75358_j) {
-               this.field_75356_a.world.func_175715_c(this.field_75356_a.func_145782_y(), this.field_179507_b, var1);
+               this.field_75356_a.world.func_175715_c(this.field_75356_a.getEntityId(), this.field_179507_b, var1);
                this.field_75358_j = var1;
           }
 

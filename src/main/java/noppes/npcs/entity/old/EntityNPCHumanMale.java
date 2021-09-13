@@ -18,7 +18,7 @@ public class EntityNPCHumanMale extends EntityNPCInterface {
                this.func_189511_e(compound);
                EntityCustomNpc npc = new EntityCustomNpc(this.world);
                npc.func_70020_e(compound);
-               this.world.func_72838_d(npc);
+               this.world.spawnEntity(npc);
           }
 
           super.func_70071_h_();

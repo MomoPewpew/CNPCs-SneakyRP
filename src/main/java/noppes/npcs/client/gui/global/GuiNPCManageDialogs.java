@@ -95,12 +95,12 @@ public class GuiNPCManageDialogs extends GuiNPCInterface2 implements ISubGuiList
      public void buttonEvent(GuiButton guibutton) {
           GuiNpcButton button = (GuiNpcButton)guibutton;
           if (button.id == 1) {
-               this.setSubGui(new SubGuiEditText(1, I18n.func_74838_a("gui.new")));
+               this.setSubGui(new SubGuiEditText(1, I18n.translateToLocal("gui.new")));
           }
 
           GuiYesNo guiyesno;
           if (button.id == 2) {
-               guiyesno = new GuiYesNo(this, this.selectedCategory.title, I18n.func_74838_a("gui.deleteMessage"), 2);
+               guiyesno = new GuiYesNo(this, this.selectedCategory.title, I18n.translateToLocal("gui.deleteMessage"), 2);
                this.displayGuiScreen(guiyesno);
           }
 
@@ -109,11 +109,11 @@ public class GuiNPCManageDialogs extends GuiNPCInterface2 implements ISubGuiList
           }
 
           if (button.id == 11) {
-               this.setSubGui(new SubGuiEditText(11, I18n.func_74838_a("gui.new")));
+               this.setSubGui(new SubGuiEditText(11, I18n.translateToLocal("gui.new")));
           }
 
           if (button.id == 12) {
-               guiyesno = new GuiYesNo(this, this.selectedDialog.title, I18n.func_74838_a("gui.deleteMessage"), 12);
+               guiyesno = new GuiYesNo(this, this.selectedDialog.title, I18n.translateToLocal("gui.deleteMessage"), 12);
                this.displayGuiScreen(guiyesno);
           }
 

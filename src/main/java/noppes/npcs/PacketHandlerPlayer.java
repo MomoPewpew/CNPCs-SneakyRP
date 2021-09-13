@@ -79,13 +79,13 @@ public class PacketHandlerPlayer {
                PlayerScriptData handler = PlayerData.get(player).scriptData;
                PlayerEvent.AttackEvent ev = new PlayerEvent.AttackEvent(handler.getPlayer(), 0, (Object)null);
                EventHooks.onPlayerAttack(handler, ev);
-               if (item.func_77973_b() == CustomItems.scripted_item) {
+               if (item.getItem() == CustomItems.scripted_item) {
                     ItemScriptedWrapper isw = ItemScripted.GetWrapper(item);
                     ItemEvent.AttackEvent eve = new ItemEvent.AttackEvent(isw, handler.getPlayer(), 0, (Object)null);
                     EventHooks.onScriptItemAttack(isw, eve);
                }
           } else if (type == EnumPlayerPacket.CloseGui) {
-               player.func_71128_l();
+               player.closeContainer();
           } else {
                EntityNPCInterface npc;
                int slot;
@@ -222,8 +222,8 @@ public class PacketHandlerPlayer {
 
                          PlayerMail mail = new PlayerMail();
                          username = player.getDisplayNameString();
-                         if (!username.equals(player.func_70005_c_())) {
-                              username = username + "(" + player.func_70005_c_() + ")";
+                         if (!username.equals(player.getName())) {
+                              username = username + "(" + player.getName() + ")";
                          }
 
                          mail.readNBT(Server.readNBT(buffer));
@@ -246,7 +246,7 @@ public class PacketHandlerPlayer {
                     } else if (type == EnumPlayerPacket.MailboxOpenMail) {
                          time = buffer.readLong();
                          username = Server.readString(buffer);
-                         player.func_71128_l();
+                         player.closeContainer();
                          data = PlayerData.get(player).mailData;
                          it = data.playermail.iterator();
 

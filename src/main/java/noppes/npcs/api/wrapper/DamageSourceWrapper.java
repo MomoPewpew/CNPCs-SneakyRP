@@ -29,10 +29,10 @@ public class DamageSourceWrapper implements IDamageSource {
      }
 
      public IEntity getTrueSource() {
-          return NpcAPI.Instance().getIEntity(this.source.func_76346_g());
+          return NpcAPI.Instance().getIEntity(this.source.getTrueSource());
      }
 
      public IEntity getImmediateSource() {
-          return NpcAPI.Instance().getIEntity(this.source.func_76364_f());
+          return NpcAPI.Instance().getIEntity(this.source.getImmediateSource());
      }
 }

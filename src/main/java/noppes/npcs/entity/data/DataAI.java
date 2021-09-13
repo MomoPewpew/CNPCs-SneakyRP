@@ -379,8 +379,8 @@ public class DataAI implements INPCAi {
      public void setWalkingSpeed(int speed) {
           if (speed >= 0 && speed <= 10) {
                this.moveSpeed = speed;
-               this.npc.func_110148_a(SharedMonsterAttributes.field_111263_d).func_111128_a((double)this.npc.getSpeed());
-               this.npc.func_110148_a(SharedMonsterAttributes.field_193334_e).func_111128_a((double)(this.npc.getSpeed() * 2.0F));
+               this.npc.getEntityAttribute(SharedMonsterAttributes.field_111263_d).setBaseValue((double)this.npc.getSpeed());
+               this.npc.getEntityAttribute(SharedMonsterAttributes.field_193334_e).setBaseValue((double)(this.npc.getSpeed() * 2.0F));
           } else {
                throw new CustomNPCsException("Wrong speed: " + speed, new Object[0]);
           }

@@ -143,7 +143,7 @@ public class GuiQuestLog extends GuiNPCInterface implements ITopButtonListener, 
           this.drawTexturedModalRect(this.guiLeft + 252, this.guiTop, 188, 0, 67, 195);
           super.func_73863_a(i, j, f);
           if (this.noQuests) {
-               this.mc.fontRenderer.func_78276_b(I18n.func_74838_a("quest.noquests"), this.guiLeft + 84, this.guiTop + 80, CustomNpcResourceListener.DefaultTextColor);
+               this.mc.fontRenderer.func_78276_b(I18n.translateToLocal("quest.noquests"), this.guiLeft + 84, this.guiTop + 80, CustomNpcResourceListener.DefaultTextColor);
           } else {
                GuiMenuSideButton[] var4 = (GuiMenuSideButton[])this.sideButtons.values().toArray(new GuiMenuSideButton[this.sideButtons.size()]);
                int var5 = var4.length;
@@ -158,10 +158,10 @@ public class GuiQuestLog extends GuiNPCInterface implements ITopButtonListener, 
                     this.drawProgress();
                     this.drawQuestText();
                     GlStateManager.func_179094_E();
-                    GlStateManager.func_179109_b((float)(this.guiLeft + 148), (float)this.guiTop, 0.0F);
+                    GlStateManager.translate((float)(this.guiLeft + 148), (float)this.guiTop, 0.0F);
                     GlStateManager.func_179152_a(1.24F, 1.24F, 1.24F);
-                    String title = I18n.func_74838_a(this.selectedQuest.title);
-                    this.field_146289_q.func_78276_b(title, (130 - this.field_146289_q.func_78256_a(title)) / 2, 4, CustomNpcResourceListener.DefaultTextColor);
+                    String title = I18n.translateToLocal(this.selectedQuest.title);
+                    this.field_146289_q.func_78276_b(title, (130 - this.field_146289_q.getStringWidth(title)) / 2, 4, CustomNpcResourceListener.DefaultTextColor);
                     GlStateManager.func_179121_F();
                     this.func_73730_a(this.guiLeft + 142, this.guiLeft + 312, this.guiTop + 17, -16777216 + CustomNpcResourceListener.DefaultTextColor);
                }
@@ -184,7 +184,7 @@ public class GuiQuestLog extends GuiNPCInterface implements ITopButtonListener, 
      }
 
      private void drawProgress() {
-          String title = I18n.func_74838_a("quest.objectives") + ":";
+          String title = I18n.translateToLocal("quest.objectives") + ":";
           this.mc.fontRenderer.func_78276_b(title, this.guiLeft + 142, this.guiTop + 130, CustomNpcResourceListener.DefaultTextColor);
           this.func_73730_a(this.guiLeft + 142, this.guiLeft + 312, this.guiTop + 140, -16777216 + CustomNpcResourceListener.DefaultTextColor);
           int yoffset = this.guiTop + 144;
@@ -247,7 +247,7 @@ public class GuiQuestLog extends GuiNPCInterface implements ITopButtonListener, 
      }
 
      public void func_73869_a(char c, int i) {
-          if (i == 1 || i == this.mc.field_71474_y.field_151445_Q.func_151463_i()) {
+          if (i == 1 || i == this.mc.field_71474_y.field_151445_Q.getKeyCode()) {
                this.mc.displayGuiScreen((GuiScreen)null);
                this.mc.func_71381_h();
           }

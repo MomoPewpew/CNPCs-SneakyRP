@@ -32,7 +32,7 @@ public class EntityNpcNagaFemale extends EntityNPCInterface {
                ModelPartData legs = data.getOrCreatePart(EnumParts.LEGS);
                legs.playerTexture = true;
                legs.type = 1;
-               this.world.func_72838_d(npc);
+               this.world.spawnEntity(npc);
           }
 
           super.func_70071_h_();

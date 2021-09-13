@@ -18,8 +18,8 @@ public class GuiAchievement implements IToast {
      private boolean newDisplay;
 
      public GuiAchievement(ITextComponent titleComponent, ITextComponent subtitleComponent, int type) {
-          this.title = titleComponent.func_150260_c();
-          this.subtitle = subtitleComponent == null ? null : subtitleComponent.func_150260_c();
+          this.title = titleComponent.getUnformattedText();
+          this.subtitle = subtitleComponent == null ? null : subtitleComponent.getUnformattedText();
           this.type = type;
      }
 
@@ -45,8 +45,8 @@ public class GuiAchievement implements IToast {
      }
 
      public void setDisplayedText(ITextComponent titleComponent, @Nullable ITextComponent subtitleComponent) {
-          this.title = titleComponent.func_150260_c();
-          this.subtitle = subtitleComponent == null ? null : subtitleComponent.func_150260_c();
+          this.title = titleComponent.getUnformattedText();
+          this.subtitle = subtitleComponent == null ? null : subtitleComponent.getUnformattedText();
           this.newDisplay = true;
      }
 }

@@ -50,7 +50,7 @@ public class GuiNPCTrader extends GuiContainerNPCInterface {
 
                if (NoppesUtilPlayer.compareItems(item, item2, false, false)) {
                     item = item.copy();
-                    item.func_190920_e(item.getCount() + item2.getCount());
+                    item.setCount(item.getCount() + item2.getCount());
                     item2 = ItemStack.EMPTY;
                }
 
@@ -72,7 +72,7 @@ public class GuiNPCTrader extends GuiContainerNPCInterface {
                }
           }
 
-          GlStateManager.func_179101_C();
+          GlStateManager.disableRescaleNormal();
           super.func_146976_a(f, i, j);
      }
 
@@ -89,7 +89,7 @@ public class GuiNPCTrader extends GuiContainerNPCInterface {
 
                if (NoppesUtilPlayer.compareItems(item, item2, this.role.ignoreDamage, this.role.ignoreNBT)) {
                     item = item.copy();
-                    item.func_190920_e(item.getCount() + item2.getCount());
+                    item.setCount(item.getCount() + item2.getCount());
                     item2 = ItemStack.EMPTY;
                }
 
@@ -98,21 +98,21 @@ public class GuiNPCTrader extends GuiContainerNPCInterface {
                     if (this.func_146978_c(x + 43, y + 1, 16, 16, par1, par2)) {
                          String title;
                          if (!this.container.canBuy(item, item2, this.player)) {
-                              GlStateManager.func_179109_b(0.0F, 0.0F, 300.0F);
+                              GlStateManager.translate(0.0F, 0.0F, 300.0F);
                               if (!item.isEmpty() && !NoppesUtilPlayer.compareItems((EntityPlayer)this.player, item, this.role.ignoreDamage, this.role.ignoreNBT)) {
-                                   this.func_73733_a(x + 17, y, x + 35, y + 18, 1886851088, 1886851088);
+                                   this.drawGradientRect(x + 17, y, x + 35, y + 18, 1886851088, 1886851088);
                               }
 
                               if (!item2.isEmpty() && !NoppesUtilPlayer.compareItems((EntityPlayer)this.player, item2, this.role.ignoreDamage, this.role.ignoreNBT)) {
-                                   this.func_73733_a(x - 1, y, x + 17, y + 18, 1886851088, 1886851088);
+                                   this.drawGradientRect(x - 1, y, x + 17, y + 18, 1886851088, 1886851088);
                               }
 
-                              title = I18n.func_74838_a("trader.insufficient");
-                              this.field_146289_q.func_78276_b(title, (this.field_146999_f - this.field_146289_q.func_78256_a(title)) / 2, 131, 14483456);
-                              GlStateManager.func_179109_b(0.0F, 0.0F, -300.0F);
+                              title = I18n.translateToLocal("trader.insufficient");
+                              this.field_146289_q.func_78276_b(title, (this.field_146999_f - this.field_146289_q.getStringWidth(title)) / 2, 131, 14483456);
+                              GlStateManager.translate(0.0F, 0.0F, -300.0F);
                          } else {
-                              title = I18n.func_74838_a("trader.sufficient");
-                              this.field_146289_q.func_78276_b(title, (this.field_146999_f - this.field_146289_q.func_78256_a(title)) / 2, 131, 56576);
+                              title = I18n.translateToLocal("trader.sufficient");
+                              this.field_146289_q.func_78276_b(title, (this.field_146999_f - this.field_146289_q.getStringWidth(title)) / 2, 131, 56576);
                          }
                     }
 

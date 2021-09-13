@@ -11,7 +11,7 @@ public class AnalyticsTracking {
      public static void sendData(EntityPlayer player, String event, String data) {
           (new Thread(() -> {
                try {
-                    UUID uuid = player.func_110124_au();
+                    UUID uuid = player.getUniqueID();
                     String analyticsPostData = "v=1&tid=UA-29079943-5&cid=" + uuid.toString() + "&t=event&ec=customnpcs_1.12&ea=" + event + "&el=" + data + "&ev=300";
                     URL url = new URL("https://www.google-analytics.com/collect");
                     HttpURLConnection connection = (HttpURLConnection)url.openConnection();

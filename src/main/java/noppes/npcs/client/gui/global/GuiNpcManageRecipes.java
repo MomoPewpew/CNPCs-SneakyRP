@@ -85,7 +85,7 @@ public class GuiNpcManageRecipes extends GuiContainerNPCInterface2 implements IS
                this.scroll.clear();
 
                String name;
-               for(name = I18n.func_74838_a("gui.new"); this.data.containsKey(name); name = name + "_") {
+               for(name = I18n.translateToLocal("gui.new"); this.data.containsKey(name); name = name + "_") {
                }
 
                RecipeCarpentry recipe = new RecipeCarpentry(name);

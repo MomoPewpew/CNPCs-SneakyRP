@@ -110,7 +110,7 @@ public class PlayerScriptData implements IScriptHandler {
      }
 
      public boolean isClient() {
-          return !this.player.func_70613_aW();
+          return !this.player.isServerWorld();
      }
 
      public boolean getEnabled() {
@@ -137,7 +137,7 @@ public class PlayerScriptData implements IScriptHandler {
           if (this.player == null) {
                return "Global script";
           } else {
-               BlockPos pos = this.player.func_180425_c();
+               BlockPos pos = this.player.getPosition();
                return MoreObjects.toStringHelper(this.player).add("x", pos.getX()).add("y", pos.getY()).add("z", pos.getZ()).toString();
           }
      }

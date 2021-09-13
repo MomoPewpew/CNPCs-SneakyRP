@@ -228,7 +228,7 @@ public class GuiScriptInterface extends GuiNPCInterface implements IGuiData, ITe
           }
 
           if (guibutton.id == 105) {
-               GuiYesNo guiyesno = new GuiYesNo(this, "", I18n.func_74838_a("gui.deleteMessage"), 10);
+               GuiYesNo guiyesno = new GuiYesNo(this, "", I18n.translateToLocal("gui.deleteMessage"), 10);
                this.displayGuiScreen(guiyesno);
           }
 

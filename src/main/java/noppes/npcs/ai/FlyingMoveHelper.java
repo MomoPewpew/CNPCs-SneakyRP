@@ -25,7 +25,7 @@ public class FlyingMoveHelper extends EntityMoveHelper {
                double d3 = d0 * d0 + d1 * d1 + d2 * d2;
                d3 = (double)MathHelper.func_76133_a(d3);
                if (d3 > 0.5D && this.isNotColliding(this.field_75646_b, this.field_75647_c, this.field_75644_d, d3)) {
-                    double speed = this.entity.func_110148_a(SharedMonsterAttributes.field_111263_d).func_111126_e() / 2.5D;
+                    double speed = this.entity.getEntityAttribute(SharedMonsterAttributes.field_111263_d).func_111126_e() / 2.5D;
                     if (d3 < 3.0D && speed > 0.10000000149011612D) {
                          speed = 0.10000000149011612D;
                     }

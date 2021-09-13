@@ -45,7 +45,7 @@ public class GuiBlockBuilder extends GuiNPCInterface implements IGuiData, ICusto
           this.xSize = 256;
           this.ySize = 216;
           this.closeOnEsc = true;
-          this.tile = (TileBuilder)this.player.world.func_175625_s(new BlockPos(x, y, z));
+          this.tile = (TileBuilder)this.player.world.getTileEntity(new BlockPos(x, y, z));
      }
 
      public void initPacket() {
@@ -67,40 +67,40 @@ public class GuiBlockBuilder extends GuiNPCInterface implements IGuiData, ICusto
                int size = this.selected.getWidth() * this.selected.getHeight() * this.selected.getLength();
                this.addButton(new GuiNpcButtonYesNo(3, this.guiLeft + 200, y, TileBuilder.DrawPos != null && this.tile.func_174877_v().equals(TileBuilder.DrawPos)));
                this.addLabel(new GuiNpcLabel(3, "schematic.preview", this.guiLeft + 130, y + 5));
-               String var10004 = I18n.func_74838_a("schematic.width") + ": " + this.selected.getWidth();
+               String var10004 = I18n.translateToLocal("schematic.width") + ": " + this.selected.getWidth();
                int var10005 = this.guiLeft + 130;
                y += 21;
                this.addLabel(new GuiNpcLabel(0, var10004, var10005, y));
-               var10004 = I18n.func_74838_a("schematic.length") + ": " + this.selected.getLength();
+               var10004 = I18n.translateToLocal("schematic.length") + ": " + this.selected.getLength();
                var10005 = this.guiLeft + 130;
                y += 11;
                this.addLabel(new GuiNpcLabel(1, var10004, var10005, y));
-               var10004 = I18n.func_74838_a("schematic.height") + ": " + this.selected.getHeight();
+               var10004 = I18n.translateToLocal("schematic.height") + ": " + this.selected.getHeight();
                var10005 = this.guiLeft + 130;
                y += 11;
                this.addLabel(new GuiNpcLabel(2, var10004, var10005, y));
                int var3 = this.guiLeft + 200;
                y += 14;
                this.addButton(new GuiNpcButtonYesNo(4, var3, y, this.tile.enabled));
-               this.addLabel(new GuiNpcLabel(4, I18n.func_74838_a("gui.enabled"), this.guiLeft + 130, y + 5));
+               this.addLabel(new GuiNpcLabel(4, I18n.translateToLocal("gui.enabled"), this.guiLeft + 130, y + 5));
                var3 = this.guiLeft + 200;
                y += 22;
                this.addButton(new GuiNpcButtonYesNo(7, var3, y, this.tile.finished));
-               this.addLabel(new GuiNpcLabel(7, I18n.func_74838_a("gui.finished"), this.guiLeft + 130, y + 5));
+               this.addLabel(new GuiNpcLabel(7, I18n.translateToLocal("gui.finished"), this.guiLeft + 130, y + 5));
                var3 = this.guiLeft + 200;
                y += 22;
                this.addButton(new GuiNpcButtonYesNo(8, var3, y, this.tile.started));
-               this.addLabel(new GuiNpcLabel(8, I18n.func_74838_a("gui.started"), this.guiLeft + 130, y + 5));
+               this.addLabel(new GuiNpcLabel(8, I18n.translateToLocal("gui.started"), this.guiLeft + 130, y + 5));
                var10005 = this.guiLeft + 200;
                y += 22;
                this.addTextField(new GuiNpcTextField(9, this, var10005, y, 50, 20, this.tile.yOffest + ""));
-               this.addLabel(new GuiNpcLabel(9, I18n.func_74838_a("gui.yoffset"), this.guiLeft + 130, y + 5));
+               this.addLabel(new GuiNpcLabel(9, I18n.translateToLocal("gui.yoffset"), this.guiLeft + 130, y + 5));
                this.getTextField(9).numbersOnly = true;
                this.getTextField(9).setMinMaxDefault(-10, 10, 0);
                var3 = this.guiLeft + 200;
                y += 22;
                this.addButton(new GuiNpcButton(5, var3, y, 50, 20, new String[]{"0", "90", "180", "270"}, this.tile.rotation));
-               this.addLabel(new GuiNpcLabel(5, I18n.func_74838_a("movement.rotation"), this.guiLeft + 130, y + 5));
+               this.addLabel(new GuiNpcLabel(5, I18n.translateToLocal("movement.rotation"), this.guiLeft + 130, y + 5));
                var3 = this.guiLeft + 130;
                y += 22;
                this.addButton(new GuiNpcButton(6, var3, y, 120, 20, "availability.options"));
@@ -147,7 +147,7 @@ public class GuiBlockBuilder extends GuiNPCInterface implements IGuiData, ICusto
 
           if (guibutton.id == 10) {
                this.save();
-               GuiYesNo guiyesno = new GuiYesNo(this, "", I18n.func_74838_a("schematic.instantBuildText"), 0);
+               GuiYesNo guiyesno = new GuiYesNo(this, "", I18n.translateToLocal("schematic.instantBuildText"), 0);
                this.displayGuiScreen(guiyesno);
           }
 

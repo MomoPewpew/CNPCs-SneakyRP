@@ -149,11 +149,11 @@ public class CustomItems {
           Item scripted_item = (new ItemScripted()).setUnlocalizedName("scripted_item");
           Item nbt_book = (new ItemNbtBook()).setUnlocalizedName("nbt_book");
           event.getRegistry().registerAll(new Item[]{wand, cloner, scripter, moving, mount, teleporter, scriptedDoorTool, soulstoneEmpty, soulstoneFull, scripted_item, nbt_book});
-          event.getRegistry().registerAll(new Item[]{new ItemNpcBlock(redstoneBlock), new ItemNpcBlock(carpentyBench), (new ItemNpcBlock(mailbox)).func_77627_a(true), new ItemNpcBlock(waypoint), new ItemNpcBlock(border), new ItemNpcBlock(scripted), new ItemNpcBlock(scriptedDoor), new ItemNpcBlock(builder), new ItemNpcBlock(copy)});
+          event.getRegistry().registerAll(new Item[]{new ItemNpcBlock(redstoneBlock), new ItemNpcBlock(carpentyBench), (new ItemNpcBlock(mailbox)).setHasSubtypes(true), new ItemNpcBlock(waypoint), new ItemNpcBlock(border), new ItemNpcBlock(scripted), new ItemNpcBlock(scriptedDoor), new ItemNpcBlock(builder), new ItemNpcBlock(copy)});
           tab.item = wand;
           BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(soulstoneFull, new BehaviorDefaultDispenseItem() {
                public ItemStack func_82487_b(IBlockSource source, ItemStack item) {
-                    EnumFacing enumfacing = (EnumFacing)source.func_189992_e().func_177229_b(BlockDispenser.FACING);
+                    EnumFacing enumfacing = (EnumFacing)source.getBlockState().getValue(BlockDispenser.FACING);
                     double x = source.getX() + (double)enumfacing.getFrontOffsetX();
                     double z = source.getZ() + (double)enumfacing.getFrontOffsetZ();
                     ItemSoulstoneFilled.Spawn((EntityPlayer)null, item, source.getWorld(), new BlockPos(x, source.getY(), z));
@@ -171,10 +171,10 @@ public class CustomItems {
      @SideOnly(Side.CLIENT)
      @SubscribeEvent
      public void registerModels(ModelRegistryEvent event) {
-          ModelLoader.setCustomStateMapper(mailbox, (new Builder()).func_178442_a(new IProperty[]{BlockMailbox.ROTATION, BlockMailbox.TYPE}).func_178441_a());
-          ModelLoader.setCustomStateMapper(scriptedDoor, (new Builder()).func_178442_a(new IProperty[]{BlockDoor.field_176522_N}).func_178441_a());
-          ModelLoader.setCustomStateMapper(builder, (new Builder()).func_178442_a(new IProperty[]{BlockBuilder.ROTATION}).func_178441_a());
-          ModelLoader.setCustomStateMapper(carpentyBench, (new Builder()).func_178442_a(new IProperty[]{BlockCarpentryBench.ROTATION}).func_178441_a());
+          ModelLoader.setCustomStateMapper(mailbox, (new Builder()).ignore(new IProperty[]{BlockMailbox.ROTATION, BlockMailbox.TYPE}).build());
+          ModelLoader.setCustomStateMapper(scriptedDoor, (new Builder()).ignore(new IProperty[]{BlockDoor.field_176522_N}).build());
+          ModelLoader.setCustomStateMapper(builder, (new Builder()).ignore(new IProperty[]{BlockBuilder.ROTATION}).build());
+          ModelLoader.setCustomStateMapper(carpentyBench, (new Builder()).ignore(new IProperty[]{BlockCarpentryBench.ROTATION}).build());
           ModelLoader.setCustomModelResourceLocation(wand, 0, new ModelResourceLocation("customnpcs:npcwand", "inventory"));
           ModelLoader.setCustomModelResourceLocation(cloner, 0, new ModelResourceLocation("customnpcs:npcmobcloner", "inventory"));
           ModelLoader.setCustomModelResourceLocation(scripter, 0, new ModelResourceLocation("customnpcs:npcscripter", "inventory"));
@@ -186,17 +186,17 @@ public class CustomItems {
           ModelLoader.setCustomModelResourceLocation(soulstoneFull, 0, new ModelResourceLocation("customnpcs:npcsoulstonefilled", "inventory"));
           ModelLoader.setCustomModelResourceLocation(scripted_item, 0, new ModelResourceLocation("customnpcs:scripted_item", "inventory"));
           ModelLoader.setCustomModelResourceLocation(nbt_book, 0, new ModelResourceLocation("customnpcs:nbt_book", "inventory"));
-          ModelLoader.setCustomModelResourceLocation(Item.func_150898_a(redstoneBlock), 0, new ModelResourceLocation(redstoneBlock.getRegistryName(), "inventory"));
-          ModelLoader.setCustomModelResourceLocation(Item.func_150898_a(mailbox), 0, new ModelResourceLocation(mailbox.getRegistryName(), "inventory"));
-          ModelLoader.setCustomModelResourceLocation(Item.func_150898_a(mailbox), 1, new ModelResourceLocation(mailbox.getRegistryName(), "inventory"));
-          ModelLoader.setCustomModelResourceLocation(Item.func_150898_a(mailbox), 2, new ModelResourceLocation(mailbox.getRegistryName(), "inventory"));
-          ModelLoader.setCustomModelResourceLocation(Item.func_150898_a(waypoint), 0, new ModelResourceLocation(waypoint.getRegistryName(), "inventory"));
-          ModelLoader.setCustomModelResourceLocation(Item.func_150898_a(border), 0, new ModelResourceLocation(border.getRegistryName(), "inventory"));
-          ModelLoader.setCustomModelResourceLocation(Item.func_150898_a(scripted), 0, new ModelResourceLocation(scripted.getRegistryName(), "inventory"));
-          ModelLoader.setCustomModelResourceLocation(Item.func_150898_a(scriptedDoor), 0, new ModelResourceLocation(scriptedDoor.getRegistryName(), "inventory"));
-          ModelLoader.setCustomModelResourceLocation(Item.func_150898_a(builder), 0, new ModelResourceLocation(builder.getRegistryName(), "inventory"));
-          ModelLoader.setCustomModelResourceLocation(Item.func_150898_a(copy), 0, new ModelResourceLocation(copy.getRegistryName(), "inventory"));
-          ModelLoader.setCustomModelResourceLocation(Item.func_150898_a(carpentyBench), 0, new ModelResourceLocation(carpentyBench.getRegistryName(), "inventory"));
+          ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(redstoneBlock), 0, new ModelResourceLocation(redstoneBlock.getRegistryName(), "inventory"));
+          ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(mailbox), 0, new ModelResourceLocation(mailbox.getRegistryName(), "inventory"));
+          ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(mailbox), 1, new ModelResourceLocation(mailbox.getRegistryName(), "inventory"));
+          ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(mailbox), 2, new ModelResourceLocation(mailbox.getRegistryName(), "inventory"));
+          ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(waypoint), 0, new ModelResourceLocation(waypoint.getRegistryName(), "inventory"));
+          ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(border), 0, new ModelResourceLocation(border.getRegistryName(), "inventory"));
+          ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(scripted), 0, new ModelResourceLocation(scripted.getRegistryName(), "inventory"));
+          ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(scriptedDoor), 0, new ModelResourceLocation(scriptedDoor.getRegistryName(), "inventory"));
+          ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(builder), 0, new ModelResourceLocation(builder.getRegistryName(), "inventory"));
+          ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(copy), 0, new ModelResourceLocation(copy.getRegistryName(), "inventory"));
+          ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(carpentyBench), 0, new ModelResourceLocation(carpentyBench.getRegistryName(), "inventory"));
           ClientRegistry.bindTileEntitySpecialRenderer(TileBlockAnvil.class, new BlockCarpentryBenchRenderer());
           ClientRegistry.bindTileEntitySpecialRenderer(TileMailbox.class, new BlockMailboxRenderer(0));
           ClientRegistry.bindTileEntitySpecialRenderer(TileMailbox2.class, new BlockMailboxRenderer(1));
@@ -204,9 +204,9 @@ public class CustomItems {
           ClientRegistry.bindTileEntitySpecialRenderer(TileScripted.class, new BlockScriptedRenderer());
           ClientRegistry.bindTileEntitySpecialRenderer(TileDoor.class, new BlockDoorRenderer());
           ClientRegistry.bindTileEntitySpecialRenderer(TileCopy.class, new BlockCopyRenderer());
-          ForgeHooksClient.registerTESRItemStack(Item.func_150898_a(carpentyBench), 0, TileBlockAnvil.class);
-          ForgeHooksClient.registerTESRItemStack(Item.func_150898_a(mailbox), 0, TileMailbox.class);
-          ForgeHooksClient.registerTESRItemStack(Item.func_150898_a(mailbox), 1, TileMailbox2.class);
-          ForgeHooksClient.registerTESRItemStack(Item.func_150898_a(mailbox), 2, TileMailbox3.class);
+          ForgeHooksClient.registerTESRItemStack(Item.getItemFromBlock(carpentyBench), 0, TileBlockAnvil.class);
+          ForgeHooksClient.registerTESRItemStack(Item.getItemFromBlock(mailbox), 0, TileMailbox.class);
+          ForgeHooksClient.registerTESRItemStack(Item.getItemFromBlock(mailbox), 1, TileMailbox2.class);
+          ForgeHooksClient.registerTESRItemStack(Item.getItemFromBlock(mailbox), 2, TileMailbox3.class);
      }
 }

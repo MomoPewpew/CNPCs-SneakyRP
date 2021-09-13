@@ -372,7 +372,7 @@ public abstract class GuiNPCInterface extends GuiScreen {
           if (this.background != null && this.field_146297_k.renderEngine != null) {
                GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
                GlStateManager.func_179094_E();
-               GlStateManager.func_179109_b((float)this.guiLeft, (float)this.guiTop, 0.0F);
+               GlStateManager.translate((float)this.guiLeft, (float)this.guiTop, 0.0F);
                GlStateManager.func_179152_a(this.bgScale, this.bgScale, this.bgScale);
                this.field_146297_k.renderEngine.bindTexture(this.background);
                if (this.xSize > 256) {
@@ -447,7 +447,7 @@ public abstract class GuiNPCInterface extends GuiScreen {
      }
 
      public boolean isInventoryKey(int i) {
-          return i == this.field_146297_k.field_71474_y.field_151445_Q.func_151463_i();
+          return i == this.field_146297_k.field_71474_y.field_151445_Q.getKeyCode();
      }
 
      public void func_146276_q_() {
@@ -491,7 +491,7 @@ public abstract class GuiNPCInterface extends GuiScreen {
           GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
           GlStateManager.func_179142_g();
           GlStateManager.func_179094_E();
-          GlStateManager.func_179109_b((float)(this.guiLeft + x), (float)(this.guiTop + y), 50.0F);
+          GlStateManager.translate((float)(this.guiLeft + x), (float)(this.guiTop + y), 50.0F);
           float scale = 1.0F;
           if ((double)entity.height > 2.4D) {
                scale = 2.0F / entity.height;
@@ -499,7 +499,7 @@ public abstract class GuiNPCInterface extends GuiScreen {
 
           GlStateManager.func_179152_a(-30.0F * scale * zoomed, 30.0F * scale * zoomed, 30.0F * scale * zoomed);
           GlStateManager.func_179114_b(180.0F, 0.0F, 0.0F, 1.0F);
-          RenderHelper.func_74519_b();
+          RenderHelper.enableStandardItemLighting();
           float f2 = entity.field_70761_aq;
           float f3 = entity.field_70177_z;
           float f4 = entity.field_70125_A;
@@ -531,7 +531,7 @@ public abstract class GuiNPCInterface extends GuiScreen {
 
           GlStateManager.func_179121_F();
           RenderHelper.disableStandardItemLighting();
-          GlStateManager.func_179101_C();
+          GlStateManager.disableRescaleNormal();
           GlStateManager.func_179138_g(OpenGlHelper.field_77476_b);
           GlStateManager.func_179090_x();
           GlStateManager.func_179138_g(OpenGlHelper.field_77478_a);

@@ -148,28 +148,28 @@ public class EntityWrapper implements IEntity {
      }
 
      public int getBlockX() {
-          return MathHelper.func_76128_c(this.entity.field_70165_t);
+          return MathHelper.floor(this.entity.field_70165_t);
      }
 
      public int getBlockY() {
-          return MathHelper.func_76128_c(this.entity.field_70163_u);
+          return MathHelper.floor(this.entity.field_70163_u);
      }
 
      public int getBlockZ() {
-          return MathHelper.func_76128_c(this.entity.field_70161_v);
+          return MathHelper.floor(this.entity.field_70161_v);
      }
 
      public String getEntityName() {
-          String s = EntityList.func_75621_b(this.entity);
+          String s = EntityList.getEntityString(this.entity);
           if (s == null) {
                s = "generic";
           }
 
-          return I18n.func_74838_a("entity." + s + ".name");
+          return I18n.translateToLocal("entity." + s + ".name");
      }
 
      public String getName() {
-          return this.entity.func_70005_c_();
+          return this.entity.getName();
      }
 
      public void setName(String name) {
@@ -177,7 +177,7 @@ public class EntityWrapper implements IEntity {
      }
 
      public boolean hasCustomName() {
-          return this.entity.func_145818_k_();
+          return this.entity.hasCustomName();
      }
 
      public void setPosition(double x, double y, double z) {
@@ -217,16 +217,16 @@ public class EntityWrapper implements IEntity {
      }
 
      public void spawn() {
-          if (this.worldWrapper.getMCWorld().func_175733_a(this.entity.func_110124_au()) != null) {
+          if (this.worldWrapper.getMCWorld().func_175733_a(this.entity.getUniqueID()) != null) {
                throw new CustomNPCsException("Entity is already spawned", new Object[0]);
           } else {
                this.entity.field_70128_L = false;
-               this.worldWrapper.getMCWorld().func_72838_d(this.entity);
+               this.worldWrapper.getMCWorld().spawnEntity(this.entity);
           }
      }
 
      public void kill() {
-          this.entity.func_70106_y();
+          this.entity.setDead();
      }
 
      public boolean inWater() {
@@ -254,7 +254,7 @@ public class EntityWrapper implements IEntity {
      }
 
      public String getTypeName() {
-          return EntityList.func_75621_b(this.entity);
+          return EntityList.getEntityString(this.entity);
      }
 
      public IEntityItem dropItem(IItemStack item) {
@@ -402,7 +402,7 @@ public class EntityWrapper implements IEntity {
      }
 
      public String getUUID() {
-          return this.entity.func_110124_au().toString();
+          return this.entity.getUniqueID().toString();
      }
 
      public String generateNewUUID() {
@@ -460,7 +460,7 @@ public class EntityWrapper implements IEntity {
      }
 
      public IPos getPos() {
-          return new BlockPosWrapper(this.entity.func_180425_c());
+          return new BlockPosWrapper(this.entity.getPosition());
      }
 
      public void setPos(IPos pos) {

@@ -72,7 +72,7 @@ public class GuiDialogInteract extends GuiNPCInterface implements IGuiClose {
 
      public void func_73863_a(int i, int j, float f) {
           GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-          this.func_73733_a(0, 0, this.width, this.height, -587202560, -587202560);
+          this.drawGradientRect(0, 0, this.width, this.height, -587202560, -587202560);
           if (!this.dialog.hideNPC) {
                int l = -70;
                int i1 = this.ySize;
@@ -84,7 +84,7 @@ public class GuiDialogInteract extends GuiNPCInterface implements IGuiClose {
           GlStateManager.func_179120_a(770, 771, 1, 0);
           GlStateManager.func_179141_d();
           GlStateManager.func_179094_E();
-          GlStateManager.func_179109_b(0.0F, 0.5F, 100.065F);
+          GlStateManager.translate(0.0F, 0.5F, 100.065F);
           int count = 0;
 
           for(Iterator var11 = (new ArrayList(this.lines)).iterator(); var11.hasNext(); ++count) {
@@ -250,11 +250,11 @@ public class GuiDialogInteract extends GuiNPCInterface implements IGuiClose {
      }
 
      public void func_73869_a(char c, int i) {
-          if (i == this.field_146297_k.field_71474_y.field_74351_w.func_151463_i() || i == 200) {
+          if (i == this.field_146297_k.field_71474_y.field_74351_w.getKeyCode() || i == 200) {
                --this.selected;
           }
 
-          if (i == this.field_146297_k.field_71474_y.field_74368_y.func_151463_i() || i == 208) {
+          if (i == this.field_146297_k.field_71474_y.field_74368_y.getKeyCode() || i == 208) {
                ++this.selected;
           }
 
@@ -320,7 +320,7 @@ public class GuiDialogInteract extends GuiNPCInterface implements IGuiClose {
           this.options = new ArrayList();
           if (dialog.sound != null && !dialog.sound.isEmpty()) {
                MusicController.Instance.stopMusic();
-               BlockPos pos = this.npc.func_180425_c();
+               BlockPos pos = this.npc.getPosition();
                MusicController.Instance.playSound(SoundCategory.VOICE, dialog.sound, pos.getX(), pos.getY(), pos.getZ(), 1.0F, 1.0F);
           }
 

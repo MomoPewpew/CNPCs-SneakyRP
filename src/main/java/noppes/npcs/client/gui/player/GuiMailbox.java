@@ -42,11 +42,11 @@ public class GuiMailbox extends GuiNPCInterface implements IGuiData, ICustomScro
           this.scroll.guiLeft = this.guiLeft + 4;
           this.scroll.guiTop = this.guiTop + 4;
           this.addScroll(this.scroll);
-          String title = I18n.func_74838_a("mailbox.name");
-          int x = (this.xSize - this.field_146289_q.func_78256_a(title)) / 2;
+          String title = I18n.translateToLocal("mailbox.name");
+          int x = (this.xSize - this.field_146289_q.getStringWidth(title)) / 2;
           this.addLabel(new GuiNpcLabel(0, title, this.guiLeft + x, this.guiTop - 8));
           if (this.selected != null) {
-               this.addLabel(new GuiNpcLabel(3, I18n.func_74838_a("mailbox.sender") + ":", this.guiLeft + 170, this.guiTop + 6));
+               this.addLabel(new GuiNpcLabel(3, I18n.translateToLocal("mailbox.sender") + ":", this.guiLeft + 170, this.guiTop + 6));
                this.addLabel(new GuiNpcLabel(1, this.selected.sender, this.guiLeft + 174, this.guiTop + 18));
                this.addLabel(new GuiNpcLabel(2, I18n.func_74837_a("mailbox.timesend", new Object[]{this.getTimePast()}), this.guiLeft + 174, this.guiTop + 30));
           }
@@ -60,13 +60,13 @@ public class GuiMailbox extends GuiNPCInterface implements IGuiData, ICustomScro
           int minutes;
           if (this.selected.timePast > 86400000L) {
                minutes = (int)(this.selected.timePast / 86400000L);
-               return minutes == 1 ? minutes + " " + I18n.func_74838_a("mailbox.day") : minutes + " " + I18n.func_74838_a("mailbox.days");
+               return minutes == 1 ? minutes + " " + I18n.translateToLocal("mailbox.day") : minutes + " " + I18n.translateToLocal("mailbox.days");
           } else if (this.selected.timePast > 3600000L) {
                minutes = (int)(this.selected.timePast / 3600000L);
-               return minutes == 1 ? minutes + " " + I18n.func_74838_a("mailbox.hour") : minutes + " " + I18n.func_74838_a("mailbox.hours");
+               return minutes == 1 ? minutes + " " + I18n.translateToLocal("mailbox.hour") : minutes + " " + I18n.translateToLocal("mailbox.hours");
           } else {
                minutes = (int)(this.selected.timePast / 60000L);
-               return minutes == 1 ? minutes + " " + I18n.func_74838_a("mailbox.minutes") : minutes + " " + I18n.func_74838_a("mailbox.minutes");
+               return minutes == 1 ? minutes + " " + I18n.translateToLocal("mailbox.minutes") : minutes + " " + I18n.translateToLocal("mailbox.minutes");
           }
      }
 
@@ -91,7 +91,7 @@ public class GuiMailbox extends GuiNPCInterface implements IGuiData, ICustomScro
                }
 
                if (id == 1) {
-                    GuiYesNo guiyesno = new GuiYesNo(this, "", I18n.func_74838_a("gui.deleteMessage"), 0);
+                    GuiYesNo guiyesno = new GuiYesNo(this, "", I18n.translateToLocal("gui.deleteMessage"), 0);
                     this.displayGuiScreen(guiyesno);
                }
 

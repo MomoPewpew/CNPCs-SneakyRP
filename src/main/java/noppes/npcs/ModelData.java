@@ -23,18 +23,18 @@ public class ModelData extends ModelDataShared {
                          }
 
                          try {
-                              this.entity.func_70037_a(this.extra);
+                              this.entity.readEntityFromNBT(this.extra);
                          } catch (Exception var6) {
                          }
 
-                         this.entity.func_184224_h(true);
-                         this.entity.func_110148_a(SharedMonsterAttributes.field_111267_a).func_111128_a((double)npc.func_110138_aP());
+                         this.entity.setEntityInvulnerable(true);
+                         this.entity.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue((double)npc.getMaxHealth());
                          EntityEquipmentSlot[] var2 = EntityEquipmentSlot.values();
                          int var3 = var2.length;
 
                          for(int var4 = 0; var4 < var3; ++var4) {
                               EntityEquipmentSlot slot = var2[var4];
-                              this.entity.func_184201_a(slot, npc.func_184582_a(slot));
+                              this.entity.setItemStackToSlot(slot, npc.func_184582_a(slot));
                          }
                     } catch (Exception var7) {
                     }
@@ -52,14 +52,14 @@ public class ModelData extends ModelDataShared {
 
      public void setExtra(EntityLivingBase entity, String key, String value) {
           key = key.toLowerCase();
-          if (key.equals("breed") && EntityList.func_75621_b(entity).equals("tgvstyle.Dog")) {
+          if (key.equals("breed") && EntityList.getEntityString(entity).equals("tgvstyle.Dog")) {
                try {
                     Method method = entity.getClass().getMethod("getBreedID");
                     Enum breed = (Enum)method.invoke(entity);
                     method = entity.getClass().getMethod("setBreedID", breed.getClass());
                     method.invoke(entity, ((Enum[])breed.getClass().getEnumConstants())[Integer.parseInt(value)]);
                     NBTTagCompound comp = new NBTTagCompound();
-                    entity.func_70014_b(comp);
+                    entity.writeEntityToNBT(comp);
                     this.extra.setString("EntityData21", comp.getString("EntityData21"));
                } catch (Exception var7) {
                     var7.printStackTrace();

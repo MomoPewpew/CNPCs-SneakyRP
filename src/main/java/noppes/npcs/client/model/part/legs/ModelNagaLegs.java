@@ -185,11 +185,11 @@ public class ModelNagaLegs extends ModelRenderer {
 
                GlStateManager.func_179094_E();
                GlStateManager.func_179152_a(0.74F, 0.7F, 0.85F);
-               GlStateManager.func_179109_b(this.nagaPart3.field_78796_g, 0.66F, 0.06F);
+               GlStateManager.translate(this.nagaPart3.field_78796_g, 0.66F, 0.06F);
                this.nagaPart4.func_78785_a(par7);
                GlStateManager.func_179121_F();
                GlStateManager.func_179094_E();
-               GlStateManager.func_179109_b(this.nagaPart3.field_78796_g + this.nagaPart4.field_78796_g, 0.0F, 0.0F);
+               GlStateManager.translate(this.nagaPart3.field_78796_g + this.nagaPart4.field_78796_g, 0.0F, 0.0F);
                this.nagaPart5.func_78785_a(par7);
                GlStateManager.func_179121_F();
           }

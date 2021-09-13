@@ -24,7 +24,7 @@ public class GuiCustomChest extends GuiContainer {
           this.func_146276_q_();
           super.func_73863_a(mouseX, mouseY, partialTicks);
           if (this.title != null && !this.title.isEmpty()) {
-               this.field_146289_q.func_78276_b(this.title, (this.width - this.field_146289_q.func_78256_a(this.title)) / 2, (this.height - this.field_147000_g) / 2 + 5, CustomNpcResourceListener.DefaultTextColor);
+               this.field_146289_q.func_78276_b(this.title, (this.width - this.field_146289_q.getStringWidth(this.title)) / 2, (this.height - this.field_147000_g) / 2 + 5, CustomNpcResourceListener.DefaultTextColor);
           }
 
           this.func_191948_b(mouseX, mouseY);

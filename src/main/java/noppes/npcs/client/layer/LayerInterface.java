@@ -89,12 +89,12 @@ public abstract class LayerInterface implements LayerRenderer {
                }
 
                if (this.npc.func_70093_af()) {
-                    GlStateManager.func_179109_b(0.0F, 0.2F, 0.0F);
+                    GlStateManager.translate(0.0F, 0.2F, 0.0F);
                }
 
                GlStateManager.enableRescaleNormal();
                this.render(par2, par3, par4, par5, par6, par7);
-               GlStateManager.func_179101_C();
+               GlStateManager.disableRescaleNormal();
                if (entity.func_82150_aj()) {
                     GlStateManager.func_179084_k();
                     GlStateManager.func_179092_a(516, 0.1F);

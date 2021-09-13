@@ -48,11 +48,11 @@ public class EntityAIFindShade extends EntityAIBase {
      }
 
      private Vec3d findPossibleShelter() {
-          Random random = this.theCreature.func_70681_au();
+          Random random = this.theCreature.getRNG();
           BlockPos blockpos = new BlockPos(this.theCreature.field_70165_t, this.theCreature.getEntityBoundingBox().field_72338_b, this.theCreature.field_70161_v);
 
           for(int i = 0; i < 10; ++i) {
-               BlockPos blockpos1 = blockpos.func_177982_a(random.nextInt(20) - 10, random.nextInt(6) - 3, random.nextInt(20) - 10);
+               BlockPos blockpos1 = blockpos.add(random.nextInt(20) - 10, random.nextInt(6) - 3, random.nextInt(20) - 10);
                if (!this.world.func_175678_i(blockpos1) && this.theCreature.func_180484_a(blockpos1) < 0.0F) {
                     return new Vec3d((double)blockpos1.getX(), (double)blockpos1.getY(), (double)blockpos1.getZ());
                }

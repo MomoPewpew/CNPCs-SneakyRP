@@ -57,7 +57,7 @@ public class FactionOptions {
           if (faction != null) {
                if (!faction.hideFaction) {
                     String message = decrease ? "faction.decreasepoints" : "faction.increasepoints";
-                    player.func_145747_a(new TextComponentTranslation(message, new Object[]{faction.name, points}));
+                    player.sendMessage(new TextComponentTranslation(message, new Object[]{faction.name, points}));
                }
 
                data.increasePoints(player, factionId, decrease ? -points : points);

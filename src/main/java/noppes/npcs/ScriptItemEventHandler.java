@@ -14,7 +14,7 @@ public class ScriptItemEventHandler {
           if (!event.getWorld().isRemote && event.getEntity() instanceof EntityItem) {
                EntityItem entity = (EntityItem)event.getEntity();
                ItemStack stack = entity.getItem();
-               if (!stack.isEmpty() && stack.func_77973_b() == CustomItems.scripted_item && EventHooks.onScriptItemSpawn(ItemScripted.GetWrapper(stack), entity)) {
+               if (!stack.isEmpty() && stack.getItem() == CustomItems.scripted_item && EventHooks.onScriptItemSpawn(ItemScripted.GetWrapper(stack), entity)) {
                     event.setCanceled(true);
                }
 
@@ -26,7 +26,7 @@ public class ScriptItemEventHandler {
           if (!event.getPlayer().world.isRemote) {
                EntityItem entity = event.getEntityItem();
                ItemStack stack = entity.getItem();
-               if (!stack.isEmpty() && stack.func_77973_b() == CustomItems.scripted_item && EventHooks.onScriptItemTossed(ItemScripted.GetWrapper(stack), event.getPlayer(), entity)) {
+               if (!stack.isEmpty() && stack.getItem() == CustomItems.scripted_item && EventHooks.onScriptItemTossed(ItemScripted.GetWrapper(stack), event.getPlayer(), entity)) {
                     event.setCanceled(true);
                }
 
@@ -38,7 +38,7 @@ public class ScriptItemEventHandler {
           if (!event.getEntityPlayer().world.isRemote) {
                EntityItem entity = event.getItem();
                ItemStack stack = entity.getItem();
-               if (!stack.isEmpty() && stack.func_77973_b() == CustomItems.scripted_item) {
+               if (!stack.isEmpty() && stack.getItem() == CustomItems.scripted_item) {
                     EventHooks.onScriptItemPickedUp(ItemScripted.GetWrapper(stack), event.getEntityPlayer(), entity);
                }
 

@@ -20,7 +20,7 @@ public class AbilityBlock extends AbstractAbility implements IAbilityDamaged {
      }
 
      public void handleEvent(NpcEvent.DamagedEvent event) {
-          WorldServer world = (WorldServer)this.npc.func_130014_f_();
+          WorldServer world = (WorldServer)this.npc.getEntityWorld();
           world.func_72960_a(this.npc, (byte)29);
           event.setCanceled(true);
           this.endAbility();

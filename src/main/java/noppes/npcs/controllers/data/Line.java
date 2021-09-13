@@ -31,7 +31,7 @@ public class Line implements ILine {
                if (entity instanceof EntityPlayer) {
                     line2.text = line2.text.replace("@target", ((EntityPlayer)entity).getDisplayNameString());
                } else {
-                    line2.text = line2.text.replace("@target", entity.func_70005_c_());
+                    line2.text = line2.text.replace("@target", entity.getName());
                }
 
                return line;

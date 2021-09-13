@@ -60,7 +60,7 @@ public class NoppesStringUtils {
                          text = text.replace("{player}", username);
                          text = text.replace("@p", username);
                     } else if (ob instanceof EntityNPCInterface) {
-                         text = text.replace("@npc", ((EntityNPCInterface)ob).func_70005_c_());
+                         text = text.replace("@npc", ((EntityNPCInterface)ob).getName());
                     }
                }
 
@@ -101,7 +101,7 @@ public class NoppesStringUtils {
 
           for(int var4 = 0; var4 < var3; ++var4) {
                Object str = var2[var4];
-               s = s + I18n.func_74838_a(str.toString());
+               s = s + I18n.translateToLocal(str.toString());
           }
 
           return s;

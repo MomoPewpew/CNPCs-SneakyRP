@@ -55,11 +55,11 @@ public class GuiCreationScale extends GuiCreationScreenInterface implements ISli
                }
 
                this.data.add(part);
-               list.add(I18n.func_74838_a("part." + part.name));
+               list.add(I18n.translateToLocal("part." + part.name));
           }
 
           this.scroll.setUnsortedList(list);
-          this.scroll.setSelected(I18n.func_74838_a("part." + selected.name));
+          this.scroll.setSelected(I18n.translateToLocal("part." + selected.name));
           this.scroll.guiLeft = this.guiLeft;
           this.scroll.guiTop = this.guiTop + 46;
           this.scroll.setSize(100, this.ySize - 74);

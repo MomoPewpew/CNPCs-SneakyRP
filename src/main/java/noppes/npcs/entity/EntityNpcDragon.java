@@ -62,7 +62,7 @@ public class EntityNpcDragon extends EntityNPCInterface {
                npc.func_70020_e(compound);
                ModelData data = npc.modelData;
                data.setEntityClass(EntityNpcDragon.class);
-               this.world.func_72838_d(npc);
+               this.world.spawnEntity(npc);
           }
 
           super.func_70071_h_();

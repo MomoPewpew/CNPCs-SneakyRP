@@ -196,7 +196,7 @@ public class TileScripted extends TileNpcEntity implements ITickable, IScriptBlo
           NBTTagCompound itemcompound = new NBTTagCompound();
           this.itemModel.writeToNBT(itemcompound);
           if (this.blockModel != null) {
-               ResourceLocation resourcelocation = (ResourceLocation)Block.REGISTRY.func_177774_c(this.blockModel);
+               ResourceLocation resourcelocation = (ResourceLocation)Block.REGISTRY.getNameForObject(this.blockModel);
                compound.setString("ScriptBlockModelBlock", resourcelocation == null ? "" : resourcelocation.toString());
           }
 

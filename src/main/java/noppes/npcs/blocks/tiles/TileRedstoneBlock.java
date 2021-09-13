@@ -94,7 +94,7 @@ public class TileRedstoneBlock extends TileNpcEntity implements ITickable {
 
      private void setActive(Block block, boolean bo) {
           this.isActivated = bo;
-          IBlockState state = block.func_176223_P().func_177226_a(BlockNpcRedstone.ACTIVE, this.isActivated);
+          IBlockState state = block.getDefaultState().func_177226_a(BlockNpcRedstone.ACTIVE, this.isActivated);
           this.field_145850_b.func_180501_a(this.field_174879_c, state, 2);
           this.markDirty();
           this.field_145850_b.func_184138_a(this.field_174879_c, state, state, 3);

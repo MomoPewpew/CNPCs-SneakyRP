@@ -29,8 +29,8 @@ public class BlockCopy extends BlockInterface implements IPermission {
           if (par1World.isRemote) {
                return true;
           } else {
-               ItemStack currentItem = player.inventory.func_70448_g();
-               if (currentItem != null && currentItem.func_77973_b() == CustomItems.wand) {
+               ItemStack currentItem = player.inventory.getCurrentItem();
+               if (currentItem != null && currentItem.getItem() == CustomItems.wand) {
                     NoppesUtilServer.sendOpenGui(player, EnumGuiType.CopyBlock, (EntityNPCInterface)null, pos.getX(), pos.getY(), pos.getZ());
                }
 

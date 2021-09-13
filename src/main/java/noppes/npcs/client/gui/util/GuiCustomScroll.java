@@ -91,7 +91,7 @@ public class GuiCustomScroll extends GuiScreen {
 
      public void drawScreen(int i, int j, float f, int mouseScrolled) {
           if (this.visible) {
-               this.func_73733_a(this.guiLeft, this.guiTop, this.xSize + this.guiLeft, this.ySize + this.guiTop, -1072689136, -804253680);
+               this.drawGradientRect(this.guiLeft, this.guiTop, this.xSize + this.guiLeft, this.ySize + this.guiTop, -1072689136, -804253680);
                GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
                this.field_146297_k.renderEngine.bindTexture(resource);
                if (this.scrollHeight < this.ySize - 8) {
@@ -102,7 +102,7 @@ public class GuiCustomScroll extends GuiScreen {
                GlStateManager.func_179114_b(180.0F, 1.0F, 0.0F, 0.0F);
                GlStateManager.func_179121_F();
                GlStateManager.func_179094_E();
-               GlStateManager.func_179109_b((float)this.guiLeft, (float)this.guiTop, 0.0F);
+               GlStateManager.translate((float)this.guiLeft, (float)this.guiTop, 0.0F);
                GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
                if (this.selectable) {
                     this.hover = this.getMouseOver(i, j);
@@ -159,14 +159,14 @@ public class GuiCustomScroll extends GuiScreen {
                int k = 14 * i + 4 - this.scrollY;
                if (k >= 4 && k + 12 < this.ySize) {
                     int xOffset = this.scrollHeight < this.ySize - 8 ? 0 : 10;
-                    String displayString = I18n.func_74838_a((String)this.list.get(i));
+                    String displayString = I18n.translateToLocal((String)this.list.get(i));
                     String text = "";
                     float maxWidth = (float)(this.xSize + xOffset - 8) * 0.8F;
-                    if ((float)this.field_146289_q.func_78256_a(displayString) > maxWidth) {
+                    if ((float)this.field_146289_q.getStringWidth(displayString) > maxWidth) {
                          for(int h = 0; h < displayString.length(); ++h) {
                               char c = displayString.charAt(h);
                               text = text + c;
-                              if ((float)this.field_146289_q.func_78256_a(text) > maxWidth) {
+                              if ((float)this.field_146289_q.getStringWidth(text) > maxWidth) {
                                    break;
                               }
                          }

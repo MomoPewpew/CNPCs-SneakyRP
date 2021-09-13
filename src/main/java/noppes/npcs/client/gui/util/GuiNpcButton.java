@@ -10,7 +10,7 @@ public class GuiNpcButton extends GuiButton {
      public int id;
 
      public GuiNpcButton(int i, int j, int k, String s) {
-          super(i, j, k, I18n.func_74838_a(s));
+          super(i, j, k, I18n.translateToLocal(s));
           this.displayValue = 0;
           this.id = i;
      }
@@ -22,7 +22,7 @@ public class GuiNpcButton extends GuiButton {
      }
 
      public GuiNpcButton(int i, int j, int k, int l, int m, String string) {
-          super(i, j, k, l, m, I18n.func_74838_a(string));
+          super(i, j, k, l, m, I18n.translateToLocal(string));
           this.displayValue = 0;
           this.id = i;
      }
@@ -45,7 +45,7 @@ public class GuiNpcButton extends GuiButton {
      }
 
      public void setDisplayText(String text) {
-          this.field_146126_j = I18n.func_74838_a(text);
+          this.field_146126_j = I18n.translateToLocal(text);
      }
 
      public int getValue() {

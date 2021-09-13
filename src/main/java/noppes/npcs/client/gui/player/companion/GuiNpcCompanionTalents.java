@@ -141,7 +141,7 @@ public class GuiNpcCompanionTalents extends GuiNPCInterface {
           }
 
           String s = this.role.currentExp + "\\" + this.role.getMaxExp();
-          this.field_146297_k.fontRenderer.func_78276_b(s, this.guiLeft + this.xSize / 2 - this.field_146297_k.fontRenderer.func_78256_a(s) / 2, this.guiTop + 10, CustomNpcResourceListener.DefaultTextColor);
+          this.field_146297_k.fontRenderer.func_78276_b(s, this.guiLeft + this.xSize / 2 - this.field_146297_k.fontRenderer.getStringWidth(s) / 2, this.guiTop + 10, CustomNpcResourceListener.DefaultTextColor);
           Iterator var5 = this.talents.values().iterator();
 
           while(var5.hasNext()) {
@@ -172,7 +172,7 @@ public class GuiNpcCompanionTalents extends GuiNPCInterface {
                Minecraft mc = Minecraft.getMinecraft();
                mc.func_110434_K().bindTexture(resource);
                ItemStack item = this.talent.item;
-               if (item.func_77973_b() == null) {
+               if (item.getItem() == null) {
                     item = new ItemStack(Blocks.field_150346_d);
                }
 
@@ -190,7 +190,7 @@ public class GuiNpcCompanionTalents extends GuiNPCInterface {
                this.field_146296_j.func_175030_a(mc.fontRenderer, item, this.x + 4, this.y + 4);
                RenderHelper.disableStandardItemLighting();
                GlStateManager.disableLighting();
-               GlStateManager.func_179109_b(0.0F, 0.0F, 200.0F);
+               GlStateManager.translate(0.0F, 0.0F, 200.0F);
                this.func_73732_a(mc.fontRenderer, this.role.getTalentLevel(this.talent) + "", this.x + 20, this.y + 16, 16777215);
                this.field_146296_j.zLevel = 0.0F;
                this.zLevel = 0.0F;

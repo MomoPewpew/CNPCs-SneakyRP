@@ -89,8 +89,8 @@ public class LayerLegs extends LayerInterface implements LayerPreRender {
           if (data != null) {
                GlStateManager.func_179094_E();
                ModelPartConfig config = this.playerdata.getPartConfig(EnumParts.LEG_LEFT);
-               GlStateManager.func_179109_b(config.transX * par7, config.transY + this.rotationPointY * par7, config.transZ * par7 + this.rotationPointZ * par7);
-               GlStateManager.func_179109_b(0.0F, 0.0F, (config.scaleZ - 1.0F) * 5.0F * par7);
+               GlStateManager.translate(config.transX * par7, config.transY + this.rotationPointY * par7, config.transZ * par7 + this.rotationPointZ * par7);
+               GlStateManager.translate(0.0F, 0.0F, (config.scaleZ - 1.0F) * 5.0F * par7);
                GlStateManager.func_179152_a(config.scaleX, config.scaleY, config.scaleZ);
                this.preRender(data);
                if (data.type == 0) {
@@ -134,7 +134,7 @@ public class LayerLegs extends LayerInterface implements LayerPreRender {
                ModelPartConfig config = this.playerdata.getPartConfig(EnumParts.LEG_LEFT);
                this.preRender(data);
                if (data.type == 1) {
-                    GlStateManager.func_179109_b(0.0F, config.transY * 2.0F, config.transZ * par7 + 0.04F);
+                    GlStateManager.translate(0.0F, config.transY * 2.0F, config.transZ * par7 + 0.04F);
                     GlStateManager.func_179152_a(config.scaleX, config.scaleY, config.scaleZ);
                     this.naga.func_78785_a(par7);
                } else if (data.type == 2) {
@@ -144,20 +144,20 @@ public class LayerLegs extends LayerInterface implements LayerPreRender {
                     this.spiderLegs.func_78785_a(par7);
                } else if (data.type == 3) {
                     if (config.scaleY >= 1.0F) {
-                         GlStateManager.func_179109_b(0.0F, config.transY * 1.76F, config.transZ * par7);
+                         GlStateManager.translate(0.0F, config.transY * 1.76F, config.transZ * par7);
                     } else {
-                         GlStateManager.func_179109_b(0.0F, config.transY * 1.86F, config.transZ * par7);
+                         GlStateManager.translate(0.0F, config.transY * 1.86F, config.transZ * par7);
                     }
 
                     GlStateManager.func_179152_a(0.79F, 0.9F - config.scaleY / 10.0F, 0.79F);
                     GlStateManager.func_179152_a(config.scaleX, config.scaleY, config.scaleZ);
                     this.horseLegs.func_78785_a(par7);
                } else if (data.type == 4) {
-                    GlStateManager.func_179109_b(0.0F, config.transY * 1.86F, config.transZ * par7);
+                    GlStateManager.translate(0.0F, config.transY * 1.86F, config.transZ * par7);
                     GlStateManager.func_179152_a(config.scaleX, config.scaleY, config.scaleZ);
                     this.mermaid.func_78785_a(par7);
                } else if (data.type == 5) {
-                    GlStateManager.func_179109_b(0.0F, config.transY * 1.86F, config.transZ * par7);
+                    GlStateManager.translate(0.0F, config.transY * 1.86F, config.transZ * par7);
                     GlStateManager.func_179152_a(config.scaleX, config.scaleY, config.scaleZ);
                     this.digitigrade.func_78785_a(par7);
                }

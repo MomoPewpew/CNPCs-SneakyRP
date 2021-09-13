@@ -39,7 +39,7 @@ public class ItemSoulstoneEmpty extends Item {
                } else {
                     ServerCloneController.Instance.cleanTags(compound);
                     stone.func_77983_a("Entity", compound);
-                    String name = EntityList.func_75621_b(entity);
+                    String name = EntityList.getEntityString(entity);
                     if (name == null) {
                          name = "generic";
                     }
@@ -47,12 +47,12 @@ public class ItemSoulstoneEmpty extends Item {
                     stone.func_77983_a("Name", new NBTTagString("entity." + name + ".name"));
                     if (entity instanceof EntityNPCInterface) {
                          EntityNPCInterface npc = (EntityNPCInterface)entity;
-                         stone.func_77983_a("DisplayName", new NBTTagString(entity.func_70005_c_()));
+                         stone.func_77983_a("DisplayName", new NBTTagString(entity.getName()));
                          if (npc.advanced.role == 6) {
                               RoleCompanion role = (RoleCompanion)npc.roleInterface;
                               stone.func_77983_a("ExtraText", new NBTTagString("companion.stage,: ," + role.stage.name));
                          }
-                    } else if (entity instanceof EntityLiving && ((EntityLiving)entity).func_145818_k_()) {
+                    } else if (entity instanceof EntityLiving && ((EntityLiving)entity).hasCustomName()) {
                          stone.func_77983_a("DisplayName", new NBTTagString(((EntityLiving)entity).func_95999_t()));
                     }
 

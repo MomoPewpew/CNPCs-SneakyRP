@@ -95,7 +95,7 @@ public class PlayerQuestData {
 
                data = (QuestData)var3.next();
                quest = data.quest;
-          } while(quest == null || quest.completion != EnumQuestCompletion.Npc || !quest.completerNpc.equals(npc.func_70005_c_()) || !quest.questInterface.isCompleted(player));
+          } while(quest == null || quest.completion != EnumQuestCompletion.Npc || !quest.completerNpc.equals(npc.getName()) || !quest.questInterface.isCompleted(player));
 
           return data;
      }

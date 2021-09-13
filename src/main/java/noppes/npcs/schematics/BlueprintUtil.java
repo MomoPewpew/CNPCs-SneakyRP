@@ -32,13 +32,13 @@ public class BlueprintUtil {
           for(short y = 0; y < sizeY; ++y) {
                for(short z = 0; z < sizeZ; ++z) {
                     for(short x = 0; x < sizeX; ++x) {
-                         IBlockState state = world.getBlockState(pos.func_177982_a(x, y, z));
+                         IBlockState state = world.getBlockState(pos.add(x, y, z));
                          String modName;
-                         if (!requiredMods.contains(modName = state.getBlock().getRegistryName().func_110624_b())) {
+                         if (!requiredMods.contains(modName = state.getBlock().getRegistryName().getResourceDomain())) {
                               requiredMods.add(modName);
                          }
 
-                         TileEntity te = world.func_175625_s(pos.func_177982_a(x, y, z));
+                         TileEntity te = world.getTileEntity(pos.add(x, y, z));
                          if (te != null) {
                               NBTTagCompound teTag = te.serializeNBT();
                               teTag.func_74777_a("x", x);

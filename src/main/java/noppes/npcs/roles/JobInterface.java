@@ -85,7 +85,7 @@ public abstract class JobInterface implements INPCJob {
      }
 
      public String itemToString(ItemStack item) {
-          return item != null && !item.isEmpty() ? Item.field_150901_e.func_177774_c(item.func_77973_b()) + " - " + item.func_77952_i() : "";
+          return item != null && !item.isEmpty() ? Item.field_150901_e.getNameForObject(item.getItem()) + " - " + item.getItemDamage() : "";
      }
 
      public int getType() {

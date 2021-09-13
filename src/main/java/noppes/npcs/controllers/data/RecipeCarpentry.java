@@ -178,7 +178,7 @@ public class RecipeCarpentry extends ShapedRecipes implements IRecipe {
      }
 
      public NonNullList func_179532_b(InventoryCrafting inventoryCrafting) {
-          NonNullList list = NonNullList.func_191197_a(inventoryCrafting.getSizeInventory(), ItemStack.EMPTY);
+          NonNullList list = NonNullList.withSize(inventoryCrafting.getSizeInventory(), ItemStack.EMPTY);
 
           for(int i = 0; i < list.size(); ++i) {
                ItemStack itemstack = inventoryCrafting.getStackInSlot(i);

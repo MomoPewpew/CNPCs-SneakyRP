@@ -24,7 +24,7 @@ public class EntityItemWrapper extends EntityWrapper implements IEntityItem {
      }
 
      public void setPickupDelay(int delay) {
-          ((EntityItem)this.entity).func_174867_a(delay);
+          ((EntityItem)this.entity).setPickupDelay(delay);
      }
 
      public int getType() {

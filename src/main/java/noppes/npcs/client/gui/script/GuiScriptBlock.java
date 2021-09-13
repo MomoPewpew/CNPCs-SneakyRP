@@ -10,7 +10,7 @@ public class GuiScriptBlock extends GuiScriptInterface {
      private TileScripted script;
 
      public GuiScriptBlock(int x, int y, int z) {
-          this.handler = this.script = (TileScripted)this.player.world.func_175625_s(new BlockPos(x, y, z));
+          this.handler = this.script = (TileScripted)this.player.world.getTileEntity(new BlockPos(x, y, z));
           Client.sendData(EnumPacketServer.ScriptBlockDataGet, x, y, z);
      }
 

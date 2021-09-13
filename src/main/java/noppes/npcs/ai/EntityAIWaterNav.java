@@ -21,7 +21,7 @@ public class EntityAIWaterNav extends EntityAIBase {
      }
 
      public void func_75246_d() {
-          if (this.entity.func_70681_au().nextFloat() < 0.8F) {
+          if (this.entity.getRNG().nextFloat() < 0.8F) {
                this.entity.func_70683_ar().func_75660_a();
           }
 

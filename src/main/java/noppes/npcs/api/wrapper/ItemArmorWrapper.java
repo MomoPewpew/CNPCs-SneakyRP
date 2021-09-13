@@ -9,7 +9,7 @@ public class ItemArmorWrapper extends ItemStackWrapper implements IItemArmor {
 
      protected ItemArmorWrapper(ItemStack item) {
           super(item);
-          this.armor = (ItemArmor)item.func_77973_b();
+          this.armor = (ItemArmor)item.getItem();
      }
 
      public int getType() {

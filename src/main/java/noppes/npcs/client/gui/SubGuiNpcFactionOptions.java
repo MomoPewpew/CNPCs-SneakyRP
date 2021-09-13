@@ -50,12 +50,12 @@ public class SubGuiNpcFactionOptions extends SubGuiInterface implements IScrollD
                this.addLabel(new GuiNpcLabel(1, this.getFactionName(this.options.factionId), this.guiLeft + 12, this.guiTop + 8));
                label = "";
                if (this.options.decreaseFactionPoints) {
-                    label = label + I18n.func_74838_a("gui.decrease");
+                    label = label + I18n.translateToLocal("gui.decrease");
                } else {
-                    label = label + I18n.func_74838_a("gui.increase");
+                    label = label + I18n.translateToLocal("gui.increase");
                }
 
-               label = label + " " + this.options.factionPoints + " " + I18n.func_74838_a("faction.points");
+               label = label + " " + this.options.factionPoints + " " + I18n.translateToLocal("faction.points");
                this.addLabel(new GuiNpcLabel(3, label, this.guiLeft + 12, this.guiTop + 16));
                this.addButton(new GuiNpcButton(0, this.guiLeft + 110, this.guiTop + 7, 20, 20, "X"));
           }
@@ -65,12 +65,12 @@ public class SubGuiNpcFactionOptions extends SubGuiInterface implements IScrollD
                this.addLabel(new GuiNpcLabel(5, this.getFactionName(this.options.faction2Id), this.guiLeft + 12, this.guiTop + 36));
                label = "";
                if (this.options.decreaseFaction2Points) {
-                    label = label + I18n.func_74838_a("gui.decrease");
+                    label = label + I18n.translateToLocal("gui.decrease");
                } else {
-                    label = label + I18n.func_74838_a("gui.increase");
+                    label = label + I18n.translateToLocal("gui.increase");
                }
 
-               label = label + " " + this.options.faction2Points + " " + I18n.func_74838_a("faction.points");
+               label = label + " " + this.options.faction2Points + " " + I18n.translateToLocal("faction.points");
                this.addLabel(new GuiNpcLabel(6, label, this.guiLeft + 12, this.guiTop + 44));
                this.addButton(new GuiNpcButton(1, this.guiLeft + 110, this.guiTop + 35, 20, 20, "X"));
           }

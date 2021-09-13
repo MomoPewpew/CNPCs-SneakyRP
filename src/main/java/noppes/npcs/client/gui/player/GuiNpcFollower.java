@@ -34,9 +34,9 @@ public class GuiNpcFollower extends GuiContainerNPCInterface implements IGuiData
      public void func_73866_w_() {
           super.func_73866_w_();
           this.field_146292_n.clear();
-          this.addButton(new GuiNpcButton(4, this.field_147003_i + 100, this.field_147009_r + 110, 50, 20, new String[]{I18n.func_74838_a("follower.waiting"), I18n.func_74838_a("follower.following")}, this.role.isFollowing ? 1 : 0));
+          this.addButton(new GuiNpcButton(4, this.field_147003_i + 100, this.field_147009_r + 110, 50, 20, new String[]{I18n.translateToLocal("follower.waiting"), I18n.translateToLocal("follower.following")}, this.role.isFollowing ? 1 : 0));
           if (!this.role.infiniteDays) {
-               this.addButton(new GuiNpcButton(5, this.field_147003_i + 8, this.field_147009_r + 30, 50, 20, I18n.func_74838_a("follower.hire")));
+               this.addButton(new GuiNpcButton(5, this.field_147003_i + 8, this.field_147009_r + 30, 50, 20, I18n.translateToLocal("follower.hire")));
           }
 
      }
@@ -55,12 +55,12 @@ public class GuiNpcFollower extends GuiContainerNPCInterface implements IGuiData
      }
 
      protected void func_146979_b(int par1, int par2) {
-          this.field_146289_q.func_78276_b(I18n.func_74838_a("follower.health") + ": " + this.npc.func_110143_aJ() + "/" + this.npc.func_110138_aP(), 62, 70, CustomNpcResourceListener.DefaultTextColor);
+          this.field_146289_q.func_78276_b(I18n.translateToLocal("follower.health") + ": " + this.npc.func_110143_aJ() + "/" + this.npc.getMaxHealth(), 62, 70, CustomNpcResourceListener.DefaultTextColor);
           if (!this.role.infiniteDays) {
                if (this.role.getDays() <= 1) {
-                    this.field_146289_q.func_78276_b(I18n.func_74838_a("follower.daysleft") + ": " + I18n.func_74838_a("follower.lastday"), 62, 94, CustomNpcResourceListener.DefaultTextColor);
+                    this.field_146289_q.func_78276_b(I18n.translateToLocal("follower.daysleft") + ": " + I18n.translateToLocal("follower.lastday"), 62, 94, CustomNpcResourceListener.DefaultTextColor);
                } else {
-                    this.field_146289_q.func_78276_b(I18n.func_74838_a("follower.daysleft") + ": " + (this.role.getDays() - 1), 62, 94, CustomNpcResourceListener.DefaultTextColor);
+                    this.field_146289_q.func_78276_b(I18n.translateToLocal("follower.daysleft") + ": " + (this.role.getDays() - 1), 62, 94, CustomNpcResourceListener.DefaultTextColor);
                }
           }
 
@@ -90,8 +90,8 @@ public class GuiNpcFollower extends GuiContainerNPCInterface implements IGuiData
                          this.field_146296_j.renderItemAndEffectIntoGUI(itemstack, x + 11, y);
                          this.field_146296_j.func_175030_a(this.field_146289_q, itemstack, x + 11, y);
                          RenderHelper.disableStandardItemLighting();
-                         GlStateManager.func_179101_C();
-                         String daysS = days + " " + (days == 1 ? I18n.func_74838_a("follower.day") : I18n.func_74838_a("follower.days"));
+                         GlStateManager.disableRescaleNormal();
+                         String daysS = days + " " + (days == 1 ? I18n.translateToLocal("follower.day") : I18n.translateToLocal("follower.days"));
                          this.field_146289_q.func_78276_b(" = " + daysS, x + 27, y + 4, CustomNpcResourceListener.DefaultTextColor);
                          if (this.func_146978_c(x - this.field_147003_i + 11, y - this.field_147009_r, 16, 16, this.mouseX, this.mouseY)) {
                               this.func_146285_a(itemstack, this.mouseX, this.mouseY);

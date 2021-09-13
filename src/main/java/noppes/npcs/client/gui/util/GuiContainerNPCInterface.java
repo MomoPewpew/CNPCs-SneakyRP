@@ -137,7 +137,7 @@ public abstract class GuiContainerNPCInterface extends GuiContainer {
                     tf.func_146201_a(c, i);
                }
 
-               if (this.closeOnEsc && (i == 1 || i == this.field_146297_k.field_71474_y.field_151445_Q.func_151463_i() && !GuiNpcTextField.isActive())) {
+               if (this.closeOnEsc && (i == 1 || i == this.field_146297_k.field_71474_y.field_151445_Q.getKeyCode() && !GuiNpcTextField.isActive())) {
                     this.close();
                }
           }
@@ -220,7 +220,7 @@ public abstract class GuiContainerNPCInterface extends GuiContainer {
      }
 
      protected void func_146976_a(float f, int i, int j) {
-          this.func_73732_a(this.field_146289_q, I18n.func_74838_a(this.title), this.width / 2, this.field_147009_r - 8, 16777215);
+          this.func_73732_a(this.field_146289_q, I18n.translateToLocal(this.title), this.width / 2, this.field_147009_r - 8, 16777215);
           Iterator var4 = (new ArrayList(this.labels.values())).iterator();
 
           while(var4.hasNext()) {
@@ -305,7 +305,7 @@ public abstract class GuiContainerNPCInterface extends GuiContainer {
           GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
           GlStateManager.func_179142_g();
           GlStateManager.func_179094_E();
-          GlStateManager.func_179109_b((float)(this.field_147003_i + x), (float)(this.field_147009_r + y), 50.0F);
+          GlStateManager.translate((float)(this.field_147003_i + x), (float)(this.field_147009_r + y), 50.0F);
           float scale = 1.0F;
           if ((double)this.npc.height > 2.4D) {
                scale = 2.0F / this.npc.height;
@@ -326,7 +326,7 @@ public abstract class GuiContainerNPCInterface extends GuiContainer {
           }
 
           GlStateManager.func_179114_b(135.0F, 0.0F, 1.0F, 0.0F);
-          RenderHelper.func_74519_b();
+          RenderHelper.enableStandardItemLighting();
           GlStateManager.func_179114_b(-135.0F, 0.0F, 1.0F, 0.0F);
           GlStateManager.func_179114_b(-((float)Math.atan((double)(f6 / 40.0F))) * 20.0F, 1.0F, 0.0F, 0.0F);
           this.npc.field_70761_aq = (float)Math.atan((double)(f5 / 40.0F)) * 20.0F;
@@ -345,7 +345,7 @@ public abstract class GuiContainerNPCInterface extends GuiContainer {
 
           GlStateManager.func_179121_F();
           RenderHelper.disableStandardItemLighting();
-          GlStateManager.func_179101_C();
+          GlStateManager.disableRescaleNormal();
           GlStateManager.func_179138_g(OpenGlHelper.field_77476_b);
           GlStateManager.func_179090_x();
           GlStateManager.func_179138_g(OpenGlHelper.field_77478_a);

@@ -29,7 +29,7 @@ public class ItemNpcInterface extends Item {
      }
 
      public void playSound(EntityLivingBase entity, SoundEvent sound, float volume, float pitch) {
-          entity.world.func_184148_a((EntityPlayer)null, entity.field_70165_t, entity.field_70163_u, entity.field_70161_v, sound, SoundCategory.NEUTRAL, volume, pitch);
+          entity.world.playSound((EntityPlayer)null, entity.field_70165_t, entity.field_70163_u, entity.field_70161_v, sound, SoundCategory.NEUTRAL, volume, pitch);
      }
 
      public void func_150895_a(CreativeTabs tab, NonNullList subItems) {
@@ -67,7 +67,7 @@ public class ItemNpcInterface extends Item {
           if (itemstack == null) {
                return false;
           } else {
-               itemstack.func_190918_g(1);
+               itemstack.shrink(1);
                if (itemstack.getCount() == 0) {
                     player.inventory.func_184437_d(itemstack);
                }
@@ -77,14 +77,14 @@ public class ItemNpcInterface extends Item {
      }
 
      private ItemStack getItemStack(EntityPlayer player, Item item) {
-          if (player.func_184586_b(EnumHand.OFF_HAND) != null && player.func_184586_b(EnumHand.OFF_HAND).func_77973_b() == item) {
+          if (player.func_184586_b(EnumHand.OFF_HAND) != null && player.func_184586_b(EnumHand.OFF_HAND).getItem() == item) {
                return player.func_184586_b(EnumHand.OFF_HAND);
-          } else if (player.func_184586_b(EnumHand.MAIN_HAND) != null && player.func_184586_b(EnumHand.MAIN_HAND).func_77973_b() == item) {
+          } else if (player.func_184586_b(EnumHand.MAIN_HAND) != null && player.func_184586_b(EnumHand.MAIN_HAND).getItem() == item) {
                return player.func_184586_b(EnumHand.MAIN_HAND);
           } else {
                for(int i = 0; i < player.inventory.getSizeInventory(); ++i) {
                     ItemStack itemstack = player.inventory.getStackInSlot(i);
-                    if (itemstack != null && itemstack.func_77973_b() == item) {
+                    if (itemstack != null && itemstack.getItem() == item) {
                          return itemstack;
                     }
                }

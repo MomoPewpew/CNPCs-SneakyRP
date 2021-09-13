@@ -20,7 +20,7 @@ public class ContainerMail extends ContainerNpcInterface {
           staticmail = new PlayerMail();
           this.canEdit = canEdit;
           this.canSend = canSend;
-          player.inventory.func_174889_b(player);
+          player.inventory.openInventory(player);
 
           int k;
           for(k = 0; k < 4; ++k) {

@@ -36,8 +36,8 @@ public class GuiNpcDimension extends GuiNPCInterface implements IScrollData {
           this.scroll.guiLeft = this.guiLeft + 4;
           this.scroll.guiTop = this.guiTop + 4;
           this.addScroll(this.scroll);
-          String title = I18n.func_74838_a("Dimensions");
-          int x = (this.xSize - this.field_146289_q.func_78256_a(title)) / 2;
+          String title = I18n.translateToLocal("Dimensions");
+          int x = (this.xSize - this.field_146289_q.getStringWidth(title)) / 2;
           this.addLabel(new GuiNpcLabel(0, title, this.guiLeft + x, this.guiTop - 8));
           this.addButton(new GuiNpcButton(4, this.guiLeft + 170, this.guiTop + 72, 82, 20, "remote.tp"));
      }

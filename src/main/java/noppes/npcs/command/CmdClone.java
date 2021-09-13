@@ -41,7 +41,7 @@ public class CmdClone extends CommandNoppesBase {
           } catch (NumberFormatException var10) {
           }
 
-          List list = this.getEntities(EntityNPCInterface.class, sender.func_130014_f_(), sender.func_180425_c(), 80);
+          List list = this.getEntities(EntityNPCInterface.class, sender.getEntityWorld(), sender.getPosition(), 80);
           Iterator var6 = list.iterator();
 
           while(var6.hasNext()) {
@@ -137,8 +137,8 @@ public class CmdClone extends CommandNoppesBase {
           if (compound == null) {
                throw new CommandException("Unknown npc", new Object[0]);
           } else {
-               World world = sender.func_130014_f_();
-               BlockPos pos = sender.func_180425_c();
+               World world = sender.getEntityWorld();
+               BlockPos pos = sender.getPosition();
                if (args.length > 2) {
                     String location = args[2];
                     String[] par;
@@ -174,7 +174,7 @@ public class CmdClone extends CommandNoppesBase {
                if (pos.getX() == 0 && pos.getY() == 0 && pos.getZ() == 0) {
                     throw new CommandException("Location needed", new Object[0]);
                } else {
-                    Entity entity = EntityList.func_75615_a(compound, world);
+                    Entity entity = EntityList.createEntityFromNBT(compound, world);
                     entity.func_70107_b((double)pos.getX() + 0.5D, (double)(pos.getY() + 1), (double)pos.getZ() + 0.5D);
                     if (entity instanceof EntityNPCInterface) {
                          EntityNPCInterface npc = (EntityNPCInterface)entity;
@@ -184,7 +184,7 @@ public class CmdClone extends CommandNoppesBase {
                          }
                     }
 
-                    world.func_72838_d(entity);
+                    world.spawnEntity(entity);
                }
           }
      }
@@ -217,8 +217,8 @@ public class CmdClone extends CommandNoppesBase {
           if (compound == null) {
                throw new CommandException("Unknown npc", new Object[0]);
           } else {
-               World world = sender.func_130014_f_();
-               BlockPos curpos = sender.func_180425_c();
+               World world = sender.getEntityWorld();
+               BlockPos curpos = sender.getPosition();
                if (args.length > 4) {
                     String location = args[4];
                     String[] par;
@@ -256,11 +256,11 @@ public class CmdClone extends CommandNoppesBase {
                } else {
                     for(int x = 0; x < width; ++x) {
                          for(int z = 0; z < height; ++z) {
-                              BlockPos npcpos = curpos.func_177982_a(x, -2, z);
+                              BlockPos npcpos = curpos.add(x, -2, z);
 
                               for(int y = 0; y < 10; ++y) {
-                                   BlockPos pos = npcpos.func_177981_b(y);
-                                   BlockPos pos2 = pos.func_177984_a();
+                                   BlockPos pos = npcpos.up(y);
+                                   BlockPos pos2 = pos.up();
                                    IBlockState b = world.getBlockState(pos);
                                    IBlockState b2 = world.getBlockState(pos2);
                                    if (b.func_191058_s() && !b2.func_191058_s()) {
@@ -269,7 +269,7 @@ public class CmdClone extends CommandNoppesBase {
                                    }
                               }
 
-                              Entity entity = EntityList.func_75615_a(compound, world);
+                              Entity entity = EntityList.createEntityFromNBT(compound, world);
                               entity.func_70107_b((double)npcpos.getX() + 0.5D, (double)(npcpos.getY() + 1), (double)npcpos.getZ() + 0.5D);
                               if (entity instanceof EntityNPCInterface) {
                                    EntityNPCInterface npc = (EntityNPCInterface)entity;
@@ -279,7 +279,7 @@ public class CmdClone extends CommandNoppesBase {
                                    }
                               }
 
-                              world.func_72838_d(entity);
+                              world.spawnEntity(entity);
                          }
                     }
 
@@ -289,7 +289,7 @@ public class CmdClone extends CommandNoppesBase {
      }
 
      public World getWorld(MinecraftServer server, String t) {
-          WorldServer[] ws = server.field_71305_c;
+          WorldServer[] ws = server.worlds;
           WorldServer[] var4 = ws;
           int var5 = ws.length;
 
@@ -304,6 +304,6 @@ public class CmdClone extends CommandNoppesBase {
      }
 
      public List getEntities(Class cls, World world, BlockPos pos, int range) {
-          return world.getEntitiesWithinAABB(cls, (new AxisAlignedBB(pos, pos.func_177982_a(1, 1, 1))).expand((double)range, (double)range, (double)range));
+          return world.getEntitiesWithinAABB(cls, (new AxisAlignedBB(pos, pos.add(1, 1, 1))).expand((double)range, (double)range, (double)range));
      }
 }

@@ -34,8 +34,8 @@ public class GuiTransportSelection extends GuiNPCInterface implements ITopButton
           this.guiLeft = (this.width - this.xSize) / 2;
           this.guiTop = (this.height - 222) / 2;
           String name = "";
-          this.addLabel(new GuiNpcLabel(0, name, this.guiLeft + (this.xSize - this.field_146289_q.func_78256_a(name)) / 2, this.guiTop + 10));
-          this.addButton(new GuiNpcButton(0, this.guiLeft + 10, this.guiTop + 192, 156, 20, I18n.func_74838_a("transporter.travel")));
+          this.addLabel(new GuiNpcLabel(0, name, this.guiLeft + (this.xSize - this.field_146289_q.getStringWidth(name)) / 2, this.guiTop + 10));
+          this.addButton(new GuiNpcButton(0, this.guiLeft + 10, this.guiTop + 192, 156, 20, I18n.translateToLocal("transporter.travel")));
           if (this.scroll == null) {
                this.scroll = new GuiCustomScroll(this, 0);
           }

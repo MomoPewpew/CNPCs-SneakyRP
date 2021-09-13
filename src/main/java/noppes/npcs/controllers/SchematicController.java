@@ -66,7 +66,7 @@ public class SchematicController {
           } else {
                this.sendMessage(sender, "Already building: " + this.building.schema.getName() + " - " + this.building.getPercentage() + "%");
                if (this.buildStarter != null) {
-                    this.sendMessage(sender, "Build started by: " + this.buildStarter.func_70005_c_());
+                    this.sendMessage(sender, "Build started by: " + this.buildStarter.getName());
                }
           }
 
@@ -74,7 +74,7 @@ public class SchematicController {
 
      private void sendMessage(ICommandSender sender, String message) {
           if (sender != null) {
-               sender.func_145747_a(new TextComponentString(message));
+               sender.sendMessage(new TextComponentString(message));
           }
      }
 
@@ -158,7 +158,7 @@ public class SchematicController {
      public void save(ICommandSender sender, String name, int type, BlockPos pos, short height, short width, short length) {
           name = name.replace(" ", "_");
           if (!this.included.contains(name)) {
-               World world = sender.func_130014_f_();
+               World world = sender.getEntityWorld();
                File file = null;
                ISchematic schema = null;
                if (type == 0) {

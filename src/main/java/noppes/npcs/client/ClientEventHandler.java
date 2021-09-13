@@ -31,16 +31,16 @@ public class ClientEventHandler {
      @SubscribeEvent
      public void onRenderTick(RenderWorldLastEvent event) {
           EntityPlayer player = Minecraft.getMinecraft().player;
-          if (TileBuilder.DrawPos != null && TileBuilder.DrawPos.func_177951_i(player.func_180425_c()) <= 1000000.0D) {
-               TileEntity te = player.world.func_175625_s(TileBuilder.DrawPos);
+          if (TileBuilder.DrawPos != null && TileBuilder.DrawPos.func_177951_i(player.getPosition()) <= 1000000.0D) {
+               TileEntity te = player.world.getTileEntity(TileBuilder.DrawPos);
                if (te != null && te instanceof TileBuilder) {
                     TileBuilder tile = (TileBuilder)te;
                     SchematicWrapper schem = tile.getSchematic();
                     if (schem != null) {
                          GlStateManager.func_179094_E();
-                         RenderHelper.func_74519_b();
+                         RenderHelper.enableStandardItemLighting();
                          GlStateManager.func_179137_b((double)TileBuilder.DrawPos.getX() - TileEntityRendererDispatcher.field_147554_b, (double)TileBuilder.DrawPos.getY() - TileEntityRendererDispatcher.field_147555_c + 0.01D, (double)TileBuilder.DrawPos.getZ() - TileEntityRendererDispatcher.field_147552_d);
-                         GlStateManager.func_179109_b(1.0F, (float)tile.yOffest, 1.0F);
+                         GlStateManager.translate(1.0F, (float)tile.yOffest, 1.0F);
                          if (tile.rotation % 2 == 0) {
                               this.drawSelectionBox(new BlockPos(schem.schema.getWidth(), schem.schema.getHeight(), schem.schema.getLength()));
                          } else {
@@ -69,7 +69,7 @@ public class ClientEventHandler {
                                              GlStateManager.func_179094_E();
                                              GlStateManager.func_179123_a();
                                              GlStateManager.enableRescaleNormal();
-                                             GlStateManager.func_179109_b((float)pos.getX(), (float)pos.getY(), (float)pos.getZ());
+                                             GlStateManager.translate((float)pos.getX(), (float)pos.getY(), (float)pos.getZ());
                                              Minecraft.getMinecraft().func_110434_K().bindTexture(TextureMap.field_110575_b);
                                              GlStateManager.func_179114_b(-90.0F, 0.0F, 1.0F, 0.0F);
                                              state = schem.rotationState(state, tile.rotation);
@@ -82,7 +82,7 @@ public class ClientEventHandler {
                                              } catch (Exception var24) {
                                              } finally {
                                                   GlStateManager.func_179099_b();
-                                                  GlStateManager.func_179101_C();
+                                                  GlStateManager.disableRescaleNormal();
                                                   GlStateManager.func_179121_F();
                                              }
                                         }
@@ -99,7 +99,7 @@ public class ClientEventHandler {
                          }
 
                          RenderHelper.disableStandardItemLighting();
-                         GlStateManager.func_179109_b(-1.0F, 0.0F, -1.0F);
+                         GlStateManager.translate(-1.0F, 0.0F, -1.0F);
                          GlStateManager.func_179121_F();
                     }
                }

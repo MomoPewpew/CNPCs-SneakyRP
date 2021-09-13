@@ -90,7 +90,7 @@ public class DataScript implements IScriptHandler {
      }
 
      public String noticeString() {
-          BlockPos pos = this.npc.func_180425_c();
+          BlockPos pos = this.npc.getPosition();
           return MoreObjects.toStringHelper(this.npc).add("x", pos.getX()).add("y", pos.getY()).add("z", pos.getZ()).toString();
      }
 

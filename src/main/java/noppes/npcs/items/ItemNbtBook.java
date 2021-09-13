@@ -31,7 +31,7 @@ public class ItemNbtBook extends Item implements IPermission {
           Server.sendData((EntityPlayerMP)event.getEntityPlayer(), EnumPacketClient.GUI, EnumGuiType.NbtBook, event.getPos().getX(), event.getPos().getY(), event.getPos().getZ());
           IBlockState state = event.getWorld().getBlockState(event.getPos());
           NBTTagCompound data = new NBTTagCompound();
-          TileEntity tile = event.getWorld().func_175625_s(event.getPos());
+          TileEntity tile = event.getWorld().getTileEntity(event.getPos());
           if (tile != null) {
                tile.func_189515_b(data);
           }
@@ -46,7 +46,7 @@ public class ItemNbtBook extends Item implements IPermission {
           NBTTagCompound data = new NBTTagCompound();
           event.getTarget().func_184198_c(data);
           NBTTagCompound compound = new NBTTagCompound();
-          compound.setInteger("EntityId", event.getTarget().func_145782_y());
+          compound.setInteger("EntityId", event.getTarget().getEntityId());
           compound.setTag("Data", data);
           Server.sendData((EntityPlayerMP)event.getEntityPlayer(), EnumPacketClient.GUI_DATA, compound);
      }

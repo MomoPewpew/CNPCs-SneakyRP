@@ -126,8 +126,8 @@ public class QuestLocation extends QuestInterface {
           }
 
           public String getText() {
-               String found = I18n.func_74838_a("quest.found");
-               String notfound = I18n.func_74838_a("quest.notfound");
+               String found = I18n.translateToLocal("quest.found");
+               String notfound = I18n.translateToLocal("quest.notfound");
                return this.location + ": " + (this.isCompleted() ? found : notfound);
           }
      }

@@ -64,7 +64,7 @@ public class CommandNoppes extends CommandBase {
                          } else {
                               command.executeSub(server, sender, args[0], (String[])Arrays.copyOfRange(args, 1, args.length));
                          }
-                    } else if (!sender.func_70003_b(command.func_82362_a(), "commands.noppes." + command.func_71517_b().toLowerCase())) {
+                    } else if (!sender.canUseCommand(command.func_82362_a(), "commands.noppes." + command.func_71517_b().toLowerCase())) {
                          throw new CommandException("You are not allowed to use this command", new Object[0]);
                     } else {
                          command.canRun(server, sender, command.getUsage(), args);

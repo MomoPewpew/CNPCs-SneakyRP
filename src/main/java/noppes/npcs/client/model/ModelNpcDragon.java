@@ -113,7 +113,7 @@ public class ModelNpcDragon extends ModelBase {
           this.jaw.field_78795_f = (float)(Math.sin((double)(f6 * 3.1415927F * 2.0F)) + 1.0D) * 0.2F;
           float f7 = (float)(Math.sin((double)(f6 * 3.1415927F * 2.0F - 1.0F)) + 1.0D);
           f7 = (f7 * f7 * 1.0F + f7 * 2.0F) * 0.05F;
-          GlStateManager.func_179109_b(0.0F, f7 - 2.0F, -3.0F);
+          GlStateManager.translate(0.0F, f7 - 2.0F, -3.0F);
           GlStateManager.func_179114_b(f7 * 2.0F, 1.0F, 0.0F, 0.0F);
           float f8 = -30.0F;
           float f9 = 22.0F;
@@ -151,14 +151,14 @@ public class ModelNpcDragon extends ModelBase {
           this.head.field_78808_h = -this.func_40307_a(ad1[0] - (double)f13) * 3.1415927F / 180.0F * 1.0F;
           this.head.func_78785_a(f5);
           GlStateManager.func_179094_E();
-          GlStateManager.func_179109_b(0.0F, 1.0F, 0.0F);
+          GlStateManager.translate(0.0F, 1.0F, 0.0F);
           if (entitydragon.field_70122_E) {
                GlStateManager.func_179114_b(-f12 * f11 * 0.3F, 0.0F, 0.0F, 1.0F);
           } else {
                GlStateManager.func_179114_b(-f12 * f11 * 1.0F, 0.0F, 0.0F, 1.0F);
           }
 
-          GlStateManager.func_179109_b(0.0F, -1.18F, 0.0F);
+          GlStateManager.translate(0.0F, -1.18F, 0.0F);
           this.body.field_78808_h = 0.0F;
           this.body.func_78785_a(f5);
           int k;

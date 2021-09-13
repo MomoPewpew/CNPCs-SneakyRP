@@ -13,10 +13,10 @@ class SlotNpcTraderItems extends Slot {
 
      public ItemStack onTake(EntityPlayer player, ItemStack itemstack) {
           if (!NoppesUtilServer.IsItemStackNull(itemstack) && !NoppesUtilServer.IsItemStackNull(this.getStack())) {
-               if (itemstack.func_77973_b() != this.getStack().func_77973_b()) {
+               if (itemstack.getItem() != this.getStack().getItem()) {
                     return itemstack;
                } else {
-                    itemstack.func_190918_g(1);
+                    itemstack.shrink(1);
                     return itemstack;
                }
           } else {

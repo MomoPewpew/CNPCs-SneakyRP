@@ -32,7 +32,7 @@ public class EntityNPCFurryMale extends EntityNPCInterface {
                ModelPartData tail = data.getOrCreatePart(EnumParts.TAIL);
                tail.type = 0;
                tail.color = 6182997;
-               this.world.func_72838_d(npc);
+               this.world.spawnEntity(npc);
           }
 
           super.func_70071_h_();

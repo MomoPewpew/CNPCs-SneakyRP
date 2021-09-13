@@ -32,8 +32,8 @@ public class BlockWaypoint extends BlockInterface implements IPermission {
           if (par1World.isRemote) {
                return false;
           } else {
-               ItemStack currentItem = player.inventory.func_70448_g();
-               if (currentItem != null && currentItem.func_77973_b() == CustomItems.wand && CustomNpcsPermissions.hasPermission(player, CustomNpcsPermissions.EDIT_BLOCKS)) {
+               ItemStack currentItem = player.inventory.getCurrentItem();
+               if (currentItem != null && currentItem.getItem() == CustomItems.wand && CustomNpcsPermissions.hasPermission(player, CustomNpcsPermissions.EDIT_BLOCKS)) {
                     NoppesUtilServer.sendOpenGui(player, EnumGuiType.Waypoint, (EntityNPCInterface)null, pos.getX(), pos.getY(), pos.getZ());
                     return true;
                } else {

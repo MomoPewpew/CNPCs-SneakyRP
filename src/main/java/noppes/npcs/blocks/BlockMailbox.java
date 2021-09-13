@@ -50,21 +50,21 @@ public class BlockMailbox extends BlockInterface {
 
      public ArrayList getDrops(IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
           ArrayList ret = new ArrayList();
-          int damage = (Integer)state.func_177229_b(TYPE);
+          int damage = (Integer)state.getValue(TYPE);
           ret.add(new ItemStack(this, 1, damage));
           return ret;
      }
 
      public int func_180651_a(IBlockState state) {
-          return (Integer)state.func_177229_b(TYPE);
+          return (Integer)state.getValue(TYPE);
      }
 
      public int func_176201_c(IBlockState state) {
-          return (Integer)state.func_177229_b(ROTATION) | (Integer)state.func_177229_b(TYPE) << 2;
+          return (Integer)state.getValue(ROTATION) | (Integer)state.getValue(TYPE) << 2;
      }
 
      public IBlockState func_176203_a(int meta) {
-          return this.func_176223_P().func_177226_a(TYPE, (Integer.valueOf(meta) >> 2) % 3).func_177226_a(ROTATION, (meta | 4) % 4);
+          return this.getDefaultState().func_177226_a(TYPE, (Integer.valueOf(meta) >> 2) % 3).func_177226_a(ROTATION, (meta | 4) % 4);
      }
 
      protected BlockStateContainer func_180661_e() {
@@ -72,8 +72,8 @@ public class BlockMailbox extends BlockInterface {
      }
 
      public void func_180633_a(World world, BlockPos pos, IBlockState state, EntityLivingBase entity, ItemStack stack) {
-          int l = MathHelper.func_76128_c((double)(entity.field_70177_z * 4.0F / 360.0F) + 0.5D) & 3;
-          world.func_180501_a(pos, state.func_177226_a(TYPE, stack.func_77952_i()).func_177226_a(ROTATION, l % 4), 2);
+          int l = MathHelper.floor((double)(entity.field_70177_z * 4.0F / 360.0F) + 0.5D) & 3;
+          world.func_180501_a(pos, state.func_177226_a(TYPE, stack.getItemDamage()).func_177226_a(ROTATION, l % 4), 2);
      }
 
      public boolean func_149662_c(IBlockState state) {

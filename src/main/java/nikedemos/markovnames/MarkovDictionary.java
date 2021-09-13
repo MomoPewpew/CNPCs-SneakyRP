@@ -48,7 +48,7 @@ public class MarkovDictionary {
      private InputStream getResource(ResourceLocation resourceLocation) {
           ModContainer container = Loader.instance().activeModContainer();
           if (container != null) {
-               String resourcePath = String.format("/%s/%s/%s", "assets", resourceLocation.func_110624_b(), resourceLocation.func_110623_a());
+               String resourcePath = String.format("/%s/%s/%s", "assets", resourceLocation.getResourceDomain(), resourceLocation.getResourcePath());
                InputStream resourceAsStream = null;
 
                try {

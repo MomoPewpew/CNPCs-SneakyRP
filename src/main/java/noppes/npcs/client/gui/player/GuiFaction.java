@@ -56,8 +56,8 @@ public class GuiFaction extends GuiNPCInterface implements IGuiData {
           this.drawTexturedModalRect(this.guiLeft, this.guiTop + 8, 0, 0, this.xSize, this.ySize);
           this.drawTexturedModalRect(this.guiLeft + 4, this.guiTop + 8, 56, 0, 200, this.ySize);
           if (this.playerFactions.isEmpty()) {
-               String noFaction = I18n.func_74838_a("faction.nostanding");
-               this.field_146289_q.func_78276_b(noFaction, this.guiLeft + (this.xSize - this.field_146289_q.func_78256_a(noFaction)) / 2, this.guiTop + 80, CustomNpcResourceListener.DefaultTextColor);
+               String noFaction = I18n.translateToLocal("faction.nostanding");
+               this.field_146289_q.func_78276_b(noFaction, this.guiLeft + (this.xSize - this.field_146289_q.getStringWidth(noFaction)) / 2, this.guiTop + 80, CustomNpcResourceListener.DefaultTextColor);
           } else {
                this.renderScreen();
           }
@@ -76,29 +76,29 @@ public class GuiFaction extends GuiNPCInterface implements IGuiData {
                Faction faction = (Faction)this.playerFactions.get((this.page - 1) * 5 + id);
                String name = faction.name;
                String points = " : " + faction.defaultPoints;
-               String standing = I18n.func_74838_a("faction.friendly");
+               String standing = I18n.translateToLocal("faction.friendly");
                int color = 65280;
                if (faction.defaultPoints < faction.neutralPoints) {
-                    standing = I18n.func_74838_a("faction.unfriendly");
+                    standing = I18n.translateToLocal("faction.unfriendly");
                     color = 16711680;
                     points = points + "/" + faction.neutralPoints;
                } else if (faction.defaultPoints < faction.friendlyPoints) {
-                    standing = I18n.func_74838_a("faction.neutral");
+                    standing = I18n.translateToLocal("faction.neutral");
                     color = 15924992;
                     points = points + "/" + faction.friendlyPoints;
                } else {
                     points = points + "/-";
                }
 
-               this.field_146289_q.func_78276_b(name, this.guiLeft + (this.xSize - this.field_146289_q.func_78256_a(name)) / 2, this.guiTop + 19 + id * 30, faction.color);
-               this.field_146289_q.func_78276_b(standing, this.width / 2 - this.field_146289_q.func_78256_a(standing) - 1, this.guiTop + 33 + id * 30, color);
+               this.field_146289_q.func_78276_b(name, this.guiLeft + (this.xSize - this.field_146289_q.getStringWidth(name)) / 2, this.guiTop + 19 + id * 30, faction.color);
+               this.field_146289_q.func_78276_b(standing, this.width / 2 - this.field_146289_q.getStringWidth(standing) - 1, this.guiTop + 33 + id * 30, color);
                this.field_146289_q.func_78276_b(points, this.width / 2, this.guiTop + 33 + id * 30, CustomNpcResourceListener.DefaultTextColor);
           }
 
           this.func_73730_a(this.guiLeft + 2, this.guiLeft + this.xSize, this.guiTop + 14 + size * 30, -16777216 + CustomNpcResourceListener.DefaultTextColor);
           if (this.pages > 1) {
                String s = this.page + "/" + this.pages;
-               this.field_146289_q.func_78276_b(s, this.guiLeft + (this.xSize - this.field_146289_q.func_78256_a(s)) / 2, this.guiTop + 203, CustomNpcResourceListener.DefaultTextColor);
+               this.field_146289_q.func_78276_b(s, this.guiLeft + (this.xSize - this.field_146289_q.getStringWidth(s)) / 2, this.guiTop + 203, CustomNpcResourceListener.DefaultTextColor);
           }
 
      }

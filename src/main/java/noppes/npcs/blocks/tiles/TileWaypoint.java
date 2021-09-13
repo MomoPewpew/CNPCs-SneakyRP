@@ -45,7 +45,7 @@ public class TileWaypoint extends TileNpcEntity implements ITickable {
                                    if (data.quest.type == 3) {
                                         QuestLocation quest = (QuestLocation)data.quest.questInterface;
                                         if (quest.setFound(data, this.name)) {
-                                             player.func_145747_a(new TextComponentTranslation(this.name + " " + I18n.func_74838_a("quest.found"), new Object[0]));
+                                             player.sendMessage(new TextComponentTranslation(this.name + " " + I18n.translateToLocal("quest.found"), new Object[0]));
                                              playerdata.checkQuestCompletion(player, 3);
                                              pdata.updateClient = true;
                                         }
@@ -59,7 +59,7 @@ public class TileWaypoint extends TileNpcEntity implements ITickable {
      }
 
      private List getPlayerList(int x, int y, int z) {
-          return this.field_145850_b.getEntitiesWithinAABB(EntityPlayer.class, (new AxisAlignedBB(this.field_174879_c, this.field_174879_c.func_177982_a(1, 1, 1))).expand((double)x, (double)y, (double)z));
+          return this.field_145850_b.getEntitiesWithinAABB(EntityPlayer.class, (new AxisAlignedBB(this.field_174879_c, this.field_174879_c.add(1, 1, 1))).expand((double)x, (double)y, (double)z));
      }
 
      public void readFromNBT(NBTTagCompound compound) {

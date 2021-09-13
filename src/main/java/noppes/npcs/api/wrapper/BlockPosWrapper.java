@@ -24,15 +24,15 @@ public class BlockPosWrapper implements IPos {
      }
 
      public IPos up() {
-          return new BlockPosWrapper(this.blockPos.func_177984_a());
+          return new BlockPosWrapper(this.blockPos.up());
      }
 
      public IPos up(int n) {
-          return new BlockPosWrapper(this.blockPos.func_177981_b(n));
+          return new BlockPosWrapper(this.blockPos.up(n));
      }
 
      public IPos down() {
-          return new BlockPosWrapper(this.blockPos.func_177977_b());
+          return new BlockPosWrapper(this.blockPos.down());
      }
 
      public IPos down(int n) {
@@ -72,7 +72,7 @@ public class BlockPosWrapper implements IPos {
      }
 
      public IPos add(int x, int y, int z) {
-          return new BlockPosWrapper(this.blockPos.func_177982_a(x, y, z));
+          return new BlockPosWrapper(this.blockPos.add(x, y, z));
      }
 
      public IPos add(IPos pos) {
@@ -80,11 +80,11 @@ public class BlockPosWrapper implements IPos {
      }
 
      public IPos subtract(int x, int y, int z) {
-          return new BlockPosWrapper(this.blockPos.func_177982_a(-x, -y, -z));
+          return new BlockPosWrapper(this.blockPos.add(-x, -y, -z));
      }
 
      public IPos subtract(IPos pos) {
-          return new BlockPosWrapper(this.blockPos.func_177982_a(-pos.getX(), -pos.getY(), -pos.getZ()));
+          return new BlockPosWrapper(this.blockPos.add(-pos.getX(), -pos.getY(), -pos.getZ()));
      }
 
      public IPos offset(int direction) {

@@ -144,7 +144,7 @@ public class GuiNpcCompanionStats extends GuiNPCInterface implements IGuiData {
                y += 10;
           }
 
-          max = MathHelper.func_76123_f(this.npc.func_110138_aP());
+          max = MathHelper.func_76123_f(this.npc.getMaxHealth());
           k = (int)this.npc.func_110143_aJ();
           float scale = 1.0F;
           if (max > 40) {

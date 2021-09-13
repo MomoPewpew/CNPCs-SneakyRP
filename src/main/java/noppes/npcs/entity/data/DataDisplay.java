@@ -160,7 +160,7 @@ public class DataDisplay implements INPCDisplay {
      public void setName(String name) {
           if (!this.name.equals(name)) {
                this.name = name;
-               this.npc.bossInfo.func_186739_a(this.npc.func_145748_c_());
+               this.npc.bossInfo.func_186739_a(this.npc.getDisplayName());
                this.npc.updateClient = true;
           }
      }

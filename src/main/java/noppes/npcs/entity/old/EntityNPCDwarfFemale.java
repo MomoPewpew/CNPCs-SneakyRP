@@ -29,7 +29,7 @@ public class EntityNPCDwarfFemale extends EntityNPCInterface {
                data.getPartConfig(EnumParts.ARM_LEFT).setScale(0.9F, 0.65F);
                data.getPartConfig(EnumParts.BODY).setScale(1.0F, 0.65F, 1.1F);
                data.getPartConfig(EnumParts.HEAD).setScale(0.85F, 0.85F);
-               this.world.func_72838_d(npc);
+               this.world.spawnEntity(npc);
           }
 
           super.func_70071_h_();

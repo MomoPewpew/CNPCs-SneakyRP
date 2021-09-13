@@ -50,7 +50,7 @@ public class ModelDuckBeak extends ModelRenderer {
 
      public void func_78785_a(float f) {
           GlStateManager.func_179094_E();
-          GlStateManager.func_179109_b(0.0F, 0.0F, -1.0F * f);
+          GlStateManager.translate(0.0F, 0.0F, -1.0F * f);
           GlStateManager.func_179152_a(0.82F, 0.82F, 0.7F);
           super.func_78785_a(f);
           GlStateManager.func_179121_F();

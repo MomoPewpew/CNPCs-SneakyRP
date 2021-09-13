@@ -162,10 +162,10 @@ public class NPCWrapper extends EntityLivingWrapper implements ICustomNpc {
      }
 
      public String executeCommand(String command) {
-          if (!((EntityNPCInterface)this.entity).getServer().func_82356_Z()) {
+          if (!((EntityNPCInterface)this.entity).getServer().isCommandBlockEnabled()) {
                throw new CustomNPCsException("Command blocks need to be enabled to executeCommands", new Object[0]);
           } else {
-               return NoppesUtilServer.runCommand(this.entity, ((EntityNPCInterface)this.entity).func_70005_c_(), command, (EntityPlayer)null);
+               return NoppesUtilServer.runCommand(this.entity, ((EntityNPCInterface)this.entity).getName(), command, (EntityPlayer)null);
           }
      }
 

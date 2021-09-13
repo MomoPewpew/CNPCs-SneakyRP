@@ -21,16 +21,16 @@ public class EntityCustomNpc extends EntityNPCFlying {
 
      }
 
-     public void func_70037_a(NBTTagCompound compound) {
+     public void readEntityFromNBT(NBTTagCompound compound) {
           if (compound.hasKey("NpcModelData")) {
                this.modelData.readFromNBT(compound.getCompoundTag("NpcModelData"));
           }
 
-          super.func_70037_a(compound);
+          super.readEntityFromNBT(compound);
      }
 
-     public void func_70014_b(NBTTagCompound compound) {
-          super.func_70014_b(compound);
+     public void writeEntityToNBT(NBTTagCompound compound) {
+          super.writeEntityToNBT(compound);
           compound.setTag("NpcModelData", this.modelData.writeToNBT());
      }
 

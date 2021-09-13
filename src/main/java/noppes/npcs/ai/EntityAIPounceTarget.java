@@ -21,7 +21,7 @@ public class EntityAIPounceTarget extends EntityAIBase {
           } else {
                this.leapTarget = this.npc.func_70638_az();
                if (this.leapTarget != null && this.npc.func_70635_at().func_75522_a(this.leapTarget)) {
-                    return !this.npc.isInRange(this.leapTarget, 4.0D) && this.npc.isInRange(this.leapTarget, 8.0D) ? this.npc.func_70681_au().nextInt(5) == 0 : false;
+                    return !this.npc.isInRange(this.leapTarget, 4.0D) && this.npc.isInRange(this.leapTarget, 8.0D) ? this.npc.getRNG().nextInt(5) == 0 : false;
                } else {
                     return false;
                }

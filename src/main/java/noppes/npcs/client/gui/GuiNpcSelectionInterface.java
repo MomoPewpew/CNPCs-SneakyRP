@@ -21,7 +21,7 @@ import noppes.npcs.util.NaturalOrderComparator;
 public abstract class GuiNpcSelectionInterface extends GuiNPCInterface {
      public GuiNPCStringSlot slot;
      public GuiScreen parent;
-     private String up = "..<" + I18n.func_74838_a("gui.up") + ">..";
+     private String up = "..<" + I18n.translateToLocal("gui.up") + ">..";
      private String root = "";
      public AssetsBrowser assets;
      private HashSet dataFolder = new HashSet();
@@ -40,7 +40,7 @@ public abstract class GuiNpcSelectionInterface extends GuiNPCInterface {
           super.func_73866_w_();
           this.dataFolder.clear();
           String ss = "Current Folder: /assets" + this.root;
-          this.addLabel(new GuiNpcLabel(0, ss, this.width / 2 - this.field_146289_q.func_78256_a(ss) / 2, 20, 16777215));
+          this.addLabel(new GuiNpcLabel(0, ss, this.width / 2 - this.field_146289_q.getStringWidth(ss) / 2, 20, 16777215));
           Vector list = new Vector();
           if (!this.assets.isRoot) {
                list.add(this.up);

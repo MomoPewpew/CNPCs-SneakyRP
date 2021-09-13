@@ -23,7 +23,7 @@ public class EntityAIWatchClosest extends EntityAIBase {
      }
 
      public boolean func_75250_a() {
-          if (this.npc.func_70681_au().nextFloat() < this.field_75331_e && !this.npc.isInteracting()) {
+          if (this.npc.getRNG().nextFloat() < this.field_75331_e && !this.npc.isInteracting()) {
                if (this.npc.func_70638_az() != null) {
                     this.closestEntity = this.npc.func_70638_az();
                }
@@ -52,7 +52,7 @@ public class EntityAIWatchClosest extends EntityAIBase {
      }
 
      public void func_75249_e() {
-          this.lookTime = 60 + this.npc.func_70681_au().nextInt(60);
+          this.lookTime = 60 + this.npc.getRNG().nextInt(60);
      }
 
      public void func_75251_c() {

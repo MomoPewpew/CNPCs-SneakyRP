@@ -117,7 +117,7 @@ public class CmdDialog extends CommandNoppesBase {
                if (dialog == null) {
                     throw new CommandException("Unknown dialog id: " + args[1], new Object[0]);
                } else {
-                    EntityDialogNpc npc = new EntityDialogNpc(sender.func_130014_f_());
+                    EntityDialogNpc npc = new EntityDialogNpc(sender.getEntityWorld());
                     DialogOption option = new DialogOption();
                     option.dialogId = diagid;
                     option.title = dialog.title;

@@ -109,7 +109,7 @@ public class MarkData implements ICapabilityProvider {
      }
 
      public void syncClients() {
-          Server.sendToAll(this.entity.getServer(), EnumPacketClient.MARK_DATA, this.entity.func_145782_y(), this.getNBT());
+          Server.sendToAll(this.entity.getServer(), EnumPacketClient.MARK_DATA, this.entity.getEntityId(), this.getNBT());
      }
 
      public class Mark implements IMark {

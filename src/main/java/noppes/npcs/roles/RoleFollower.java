@@ -23,8 +23,8 @@ public class RoleFollower extends RoleInterface implements IRoleFollower {
      public boolean isFollowing = true;
      public HashMap rates = new HashMap();
      public NpcMiscInventory inventory = new NpcMiscInventory(3);
-     public String dialogHire = I18n.func_74838_a("follower.hireText") + " {days} " + I18n.func_74838_a("follower.days");
-     public String dialogFarewell = I18n.func_74838_a("follower.farewellText") + " {player}";
+     public String dialogHire = I18n.translateToLocal("follower.hireText") + " {days} " + I18n.translateToLocal("follower.days");
+     public String dialogFarewell = I18n.translateToLocal("follower.farewellText") + " {player}";
      public int daysHired;
      public long hiredTime;
      public boolean disableGui = false;
@@ -73,7 +73,7 @@ public class RoleFollower extends RoleInterface implements IRoleFollower {
           if (!this.infiniteDays && this.owner != null && this.getDays() <= 0) {
                RoleEvent.FollowerFinishedEvent event = new RoleEvent.FollowerFinishedEvent(this.owner, this.npc.wrappedNPC);
                EventHooks.onNPCRole(this.npc, event);
-               this.owner.func_145747_a(new TextComponentTranslation(NoppesStringUtils.formatText(this.dialogFarewell, this.owner, this.npc), new Object[0]));
+               this.owner.sendMessage(new TextComponentTranslation(NoppesStringUtils.formatText(this.dialogFarewell, this.owner, this.npc), new Object[0]));
                this.killed();
           }
 
@@ -139,7 +139,7 @@ public class RoleFollower extends RoleInterface implements IRoleFollower {
      }
 
      public void setOwner(EntityPlayer player) {
-          UUID id = player.func_110124_au();
+          UUID id = player.getUniqueID();
           if (this.ownerUUID == null || id == null || !this.ownerUUID.equals(id.toString())) {
                this.killed();
           }

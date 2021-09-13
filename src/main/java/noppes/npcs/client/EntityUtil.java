@@ -46,7 +46,7 @@ public class EntityUtil {
           entity.field_70732_aI = copied.field_70732_aI;
           entity.field_82175_bq = copied.field_82175_bq;
           entity.field_110158_av = copied.field_110158_av;
-          entity.func_70606_j(Math.min(copied.func_110143_aJ(), entity.func_110138_aP()));
+          entity.func_70606_j(Math.min(copied.func_110143_aJ(), entity.getMaxHealth()));
           entity.field_70128_L = copied.field_70128_L;
           entity.field_70725_aQ = copied.field_70725_aQ;
           entity.field_70173_aa = copied.field_70173_aa;
@@ -77,7 +77,7 @@ public class EntityUtil {
 
           for(int var4 = 0; var4 < var9; ++var4) {
                EntityEquipmentSlot slot = var6[var4];
-               entity.func_184201_a(slot, copied.func_184582_a(slot));
+               entity.setItemStackToSlot(slot, copied.func_184582_a(slot));
           }
 
           if (copied instanceof EntityNPCInterface && entity instanceof EntityNPCInterface) {

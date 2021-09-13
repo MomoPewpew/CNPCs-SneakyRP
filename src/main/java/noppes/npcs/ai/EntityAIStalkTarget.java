@@ -123,15 +123,15 @@ public class EntityAIStalkTarget extends EntityAIBase {
           }
 
           for(int y = -2; y <= 2; ++y) {
-               double k = (double)MathHelper.func_76128_c(this.npc.getEntityBoundingBox().field_72338_b + (double)y);
+               double k = (double)MathHelper.floor(this.npc.getEntityBoundingBox().field_72338_b + (double)y);
 
                for(int x = -radius; x <= radius; ++x) {
-                    double j = (double)MathHelper.func_76128_c(this.npc.field_70165_t + (double)x) + 0.5D;
+                    double j = (double)MathHelper.floor(this.npc.field_70165_t + (double)x) + 0.5D;
 
                     for(int z = -radius; z <= radius; ++z) {
-                         double l = (double)MathHelper.func_76128_c(this.npc.field_70161_v + (double)z) + 0.5D;
+                         double l = (double)MathHelper.floor(this.npc.field_70161_v + (double)z) + 0.5D;
                          BlockPos pos = new BlockPos(j, k, l);
-                         if (this.isOpaque(pos) && !this.isOpaque(pos.func_177984_a()) && !this.isOpaque(pos.func_177981_b(2))) {
+                         if (this.isOpaque(pos) && !this.isOpaque(pos.up()) && !this.isOpaque(pos.up(2))) {
                               Vec3d vec1 = new Vec3d(this.targetEntity.field_70165_t, this.targetEntity.field_70163_u + (double)this.targetEntity.func_70047_e(), this.targetEntity.field_70161_v);
                               Vec3d vec2 = new Vec3d(j, k + (double)this.npc.func_70047_e(), l);
                               RayTraceResult movingobjectposition = this.world.func_72933_a(vec1, vec2);

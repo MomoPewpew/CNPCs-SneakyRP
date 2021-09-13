@@ -49,7 +49,7 @@ public class GuiNbtBook extends GuiNPCInterface implements IGuiData {
           super.func_73866_w_();
           if (this.state != null) {
                this.addLabel(new GuiNpcLabel(11, "x: " + this.x + ", y: " + this.y + ", z: " + this.z, this.guiLeft + 60, this.guiTop + 6));
-               this.addLabel(new GuiNpcLabel(12, "id: " + Block.REGISTRY.func_177774_c(this.state.getBlock()), this.guiLeft + 60, this.guiTop + 16));
+               this.addLabel(new GuiNpcLabel(12, "id: " + Block.REGISTRY.getNameForObject(this.state.getBlock()), this.guiLeft + 60, this.guiTop + 16));
           }
 
           if (this.entity != null) {
@@ -57,7 +57,7 @@ public class GuiNbtBook extends GuiNPCInterface implements IGuiData {
           }
 
           this.addButton(new GuiNpcButton(0, this.guiLeft + 38, this.guiTop + 144, 180, 20, "nbt.edit"));
-          this.getButton(0).enabled = this.compound != null && !this.compound.func_82582_d();
+          this.getButton(0).enabled = this.compound != null && !this.compound.hasNoTags();
           this.addLabel(new GuiNpcLabel(0, "", this.guiLeft + 4, this.guiTop + 167));
           this.addLabel(new GuiNpcLabel(1, "", this.guiLeft + 4, this.guiTop + 177));
           this.addButton(new GuiNpcButton(66, this.guiLeft + 128, this.guiTop + 190, 120, 20, "gui.close"));
@@ -116,7 +116,7 @@ public class GuiNbtBook extends GuiNPCInterface implements IGuiData {
           if (!this.hasSubGui()) {
                if (this.state != null) {
                     GlStateManager.func_179094_E();
-                    GlStateManager.func_179109_b((float)(this.guiLeft + 4), (float)(this.guiTop + 4), 0.0F);
+                    GlStateManager.translate((float)(this.guiLeft + 4), (float)(this.guiTop + 4), 0.0F);
                     GlStateManager.func_179152_a(3.0F, 3.0F, 3.0F);
                     RenderHelper.enableGUIStandardItemLighting();
                     this.field_146296_j.renderItemAndEffectIntoGUI(this.blockStack, 0, 0);
@@ -156,7 +156,7 @@ public class GuiNbtBook extends GuiNPCInterface implements IGuiData {
                this.entityId = compound.getInteger("EntityId");
                this.entity = this.player.world.getEntityByID(this.entityId);
           } else {
-               this.tile = this.player.world.func_175625_s(new BlockPos(this.x, this.y, this.z));
+               this.tile = this.player.world.getTileEntity(new BlockPos(this.x, this.y, this.z));
                this.state = this.player.world.getBlockState(new BlockPos(this.x, this.y, this.z));
                this.blockStack = this.state.getBlock().func_185473_a(this.player.world, new BlockPos(this.x, this.y, this.z), this.state);
           }

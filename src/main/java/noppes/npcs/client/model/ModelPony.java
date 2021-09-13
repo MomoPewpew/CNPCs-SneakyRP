@@ -776,7 +776,7 @@ public class ModelPony extends ModelBase {
           GlStateManager.func_179094_E();
           if (this.isSleeping) {
                GlStateManager.func_179114_b(90.0F, 1.0F, 0.0F, 0.0F);
-               GlStateManager.func_179109_b(0.0F, -0.5F, -0.9F);
+               GlStateManager.translate(0.0F, -0.5F, -0.9F);
           }
 
           float scale = f5;

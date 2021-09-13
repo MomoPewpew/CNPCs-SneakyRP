@@ -77,7 +77,7 @@ public class CustomGuiButton extends GuiButton implements IClickListener {
 
      public void onRender(Minecraft mc, int mouseX, int mouseY, int mouseWheel, float partialTicks) {
           GlStateManager.func_179094_E();
-          GlStateManager.func_179109_b(0.0F, 0.0F, (float)this.id);
+          GlStateManager.translate(0.0F, 0.0F, (float)this.id);
           FontRenderer fontRenderer = mc.fontRenderer;
           int i;
           if (this.texture == null) {

@@ -28,7 +28,7 @@ public class PlayerMail implements IInventory, IPlayerMail {
      public long timePast;
 
      public PlayerMail() {
-          this.items = NonNullList.func_191197_a(4, ItemStack.EMPTY);
+          this.items = NonNullList.withSize(4, ItemStack.EMPTY);
      }
 
      public void readNBT(NBTTagCompound compound) {
@@ -84,7 +84,7 @@ public class PlayerMail implements IInventory, IPlayerMail {
      }
 
      public boolean isValid() {
-          return !this.subject.isEmpty() && !this.message.func_82582_d() && !this.sender.isEmpty();
+          return !this.subject.isEmpty() && !this.message.hasNoTags() && !this.sender.isEmpty();
      }
 
      public boolean hasQuest() {
@@ -108,7 +108,7 @@ public class PlayerMail implements IInventory, IPlayerMail {
      }
 
      public ItemStack decrStackSize(int index, int count) {
-          ItemStack itemstack = ItemStackHelper.func_188382_a(this.items, index, count);
+          ItemStack itemstack = ItemStackHelper.getAndSplit(this.items, index, count);
           if (!itemstack.isEmpty()) {
                this.markDirty();
           }
@@ -123,34 +123,34 @@ public class PlayerMail implements IInventory, IPlayerMail {
      public void setInventorySlotContents(int index, ItemStack stack) {
           this.items.set(index, stack);
           if (stack.getCount() > this.getInventoryStackLimit()) {
-               stack.func_190920_e(this.getInventoryStackLimit());
+               stack.setCount(this.getInventoryStackLimit());
           }
 
           this.markDirty();
      }
 
-     public ITextComponent func_145748_c_() {
+     public ITextComponent getDisplayName() {
           return null;
      }
 
-     public boolean func_145818_k_() {
+     public boolean hasCustomName() {
           return false;
      }
 
      public void markDirty() {
      }
 
-     public boolean isUseableByPlayer(EntityPlayer var1) {
+     public boolean isUsableByPlayer(EntityPlayer var1) {
           return true;
      }
 
-     public void func_174889_b(EntityPlayer player) {
+     public void openInventory(EntityPlayer player) {
      }
 
-     public void func_174886_c(EntityPlayer player) {
+     public void closeInventory(EntityPlayer player) {
      }
 
-     public boolean func_94041_b(int var1, ItemStack var2) {
+     public boolean isItemValidForSlot(int var1, ItemStack var2) {
           return true;
      }
 
@@ -160,25 +160,25 @@ public class PlayerMail implements IInventory, IPlayerMail {
           return mail;
      }
 
-     public String func_70005_c_() {
+     public String getName() {
           return null;
      }
 
-     public int func_174887_a_(int id) {
+     public int getField(int id) {
           return 0;
      }
 
-     public void func_174885_b(int id, int value) {
+     public void setField(int id, int value) {
      }
 
-     public int func_174890_g() {
+     public int getFieldCount() {
           return 0;
      }
 
-     public void func_174888_l() {
+     public void clear() {
      }
 
-     public boolean func_191420_l() {
+     public boolean isEmpty() {
           for(int slot = 0; slot < this.getSizeInventory(); ++slot) {
                ItemStack item = this.getStackInSlot(slot);
                if (!NoppesUtilServer.IsItemStackNull(item) && !item.isEmpty()) {

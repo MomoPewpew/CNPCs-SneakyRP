@@ -67,7 +67,7 @@ public class RenderChatMessages implements IChatMessages {
 
           Minecraft mc = Minecraft.getMinecraft();
           int textYSize = (int)((float)(size * font.field_78288_b) * this.scale);
-          GlStateManager.func_179109_b((float)par3 + 0.0F, (float)par5 + (float)textYSize * textscale * var14, (float)par7);
+          GlStateManager.translate((float)par3 + 0.0F, (float)par5 + (float)textYSize * textscale * var14, (float)par7);
           GlStateManager.func_179152_a(textscale, textscale, textscale);
           GL11.glNormal3f(0.0F, 1.0F, 0.0F);
           GlStateManager.func_179114_b(-mc.func_175598_ae().field_78735_i, 0.0F, 1.0F, 0.0F);
@@ -78,9 +78,9 @@ public class RenderChatMessages implements IChatMessages {
           GlStateManager.disableLighting();
           GlStateManager.func_179147_l();
           if (depth) {
-               GlStateManager.func_179126_j();
+               GlStateManager.enableDepth();
           } else {
-               GlStateManager.func_179097_i();
+               GlStateManager.disableDepth();
           }
 
           int black = depth ? -16777216 : 1426063360;
@@ -118,14 +118,14 @@ public class RenderChatMessages implements IChatMessages {
                for(Iterator var20 = block.lines.iterator(); var20.hasNext(); ++index) {
                     ITextComponent chat = (ITextComponent)var20.next();
                     String message = chat.func_150254_d();
-                    font.func_78276_b(message, -font.func_78256_a(message) / 2, index * font.field_78288_b, black);
+                    font.func_78276_b(message, -font.getStringWidth(message) / 2, index * font.field_78288_b, black);
                }
           }
 
           GlStateManager.func_179129_p();
           GlStateManager.enableLighting();
           GlStateManager.func_179084_k();
-          GlStateManager.func_179126_j();
+          GlStateManager.enableDepth();
           GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
           GlStateManager.func_179121_F();
      }

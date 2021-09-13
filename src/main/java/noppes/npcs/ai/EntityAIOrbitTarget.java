@@ -66,10 +66,10 @@ public class EntityAIOrbitTarget extends EntityAIBase {
 
      public void func_75249_e() {
           this.canNavigate = true;
-          Random random = this.npc.func_70681_au();
+          Random random = this.npc.getRNG();
           this.direction = random.nextInt(10) > 5 ? 1 : -1;
           this.decayRate = random.nextFloat() + this.distance / 16.0F;
-          this.targetDistance = this.npc.func_70032_d(this.targetEntity);
+          this.targetDistance = this.npc.getDistance(this.targetEntity);
           double d0 = this.npc.field_70165_t - this.targetEntity.field_70165_t;
           double d1 = this.npc.field_70161_v - this.targetEntity.field_70161_v;
           this.angle = (float)(Math.atan2(d1, d0) * 180.0D / 3.141592653589793D);

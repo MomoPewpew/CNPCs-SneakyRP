@@ -44,11 +44,11 @@ public class BlockCarpentryBench extends BlockInterface {
      }
 
      public int func_176201_c(IBlockState state) {
-          return (Integer)state.func_177229_b(ROTATION);
+          return (Integer)state.getValue(ROTATION);
      }
 
      public IBlockState func_176203_a(int meta) {
-          return this.func_176223_P().func_177226_a(ROTATION, meta % 4);
+          return this.getDefaultState().func_177226_a(ROTATION, meta % 4);
      }
 
      protected BlockStateContainer func_180661_e() {
@@ -56,7 +56,7 @@ public class BlockCarpentryBench extends BlockInterface {
      }
 
      public void func_180633_a(World world, BlockPos pos, IBlockState state, EntityLivingBase entity, ItemStack stack) {
-          int var6 = MathHelper.func_76128_c((double)(entity.field_70177_z / 90.0F) + 0.5D) & 3;
+          int var6 = MathHelper.floor((double)(entity.field_70177_z / 90.0F) + 0.5D) & 3;
           world.func_180501_a(pos, state.func_177226_a(ROTATION, var6), 2);
      }
 

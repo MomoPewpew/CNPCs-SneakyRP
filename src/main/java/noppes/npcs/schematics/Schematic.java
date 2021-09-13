@@ -106,12 +106,12 @@ public class Schematic implements ISchematic {
      public IBlockState getBlockState(int x, int y, int z) {
           int i = this.xyzToIndex(x, y, z);
           Block b = Block.func_149729_e(this.blockArray[i]);
-          return b == null ? Blocks.field_150350_a.func_176223_P() : b.func_176203_a(this.blockDataArray[i]);
+          return b == null ? Blocks.field_150350_a.getDefaultState() : b.func_176203_a(this.blockDataArray[i]);
      }
 
      public IBlockState getBlockState(int i) {
           Block b = Block.func_149729_e(this.blockArray[i]);
-          return b == null ? Blocks.field_150350_a.func_176223_P() : b.func_176203_a(this.blockDataArray[i]);
+          return b == null ? Blocks.field_150350_a.getDefaultState() : b.func_176203_a(this.blockDataArray[i]);
      }
 
      public short getWidth() {
@@ -153,12 +153,12 @@ public class Schematic implements ISchematic {
                int x = i % width;
                int z = (i - x) / width % length;
                int y = ((i - x) / width - z) / length;
-               IBlockState state = world.getBlockState(pos.func_177982_a(x, y, z));
+               IBlockState state = world.getBlockState(pos.add(x, y, z));
                if (state.getBlock() != Blocks.field_150350_a && state.getBlock() != CustomItems.copy) {
                     schema.blockArray[i] = (short)Block.REGISTRY.func_148757_b(state.getBlock());
                     schema.blockDataArray[i] = (byte)state.getBlock().func_176201_c(state);
                     if (state.getBlock() instanceof ITileEntityProvider) {
-                         TileEntity tile = world.func_175625_s(pos.func_177982_a(x, y, z));
+                         TileEntity tile = world.getTileEntity(pos.add(x, y, z));
                          NBTTagCompound compound = new NBTTagCompound();
                          tile.func_189515_b(compound);
                          compound.setInteger("x", x);

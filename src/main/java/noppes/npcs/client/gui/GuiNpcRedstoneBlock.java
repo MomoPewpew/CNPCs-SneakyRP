@@ -17,7 +17,7 @@ public class GuiNpcRedstoneBlock extends GuiNPCInterface implements IGuiData {
      private TileRedstoneBlock tile;
 
      public GuiNpcRedstoneBlock(int x, int y, int z) {
-          this.tile = (TileRedstoneBlock)this.player.world.func_175625_s(new BlockPos(x, y, z));
+          this.tile = (TileRedstoneBlock)this.player.world.getTileEntity(new BlockPos(x, y, z));
           Client.sendData(EnumPacketServer.GetTileEntity, x, y, z);
      }
 
@@ -27,7 +27,7 @@ public class GuiNpcRedstoneBlock extends GuiNPCInterface implements IGuiData {
           this.addLabel(new GuiNpcLabel(11, "gui.detailed", this.guiLeft + 40, this.guiTop + 47, 16777215));
           this.addButton(new GuiNpcButton(1, this.guiLeft + 110, this.guiTop + 42, 50, 20, new String[]{"gui.no", "gui.yes"}, this.tile.isDetailed ? 1 : 0));
           if (this.tile.isDetailed) {
-               this.addLabel(new GuiNpcLabel(0, I18n.func_74838_a("bard.ondistance") + " X:", this.guiLeft + 1, this.guiTop + 76, 16777215));
+               this.addLabel(new GuiNpcLabel(0, I18n.translateToLocal("bard.ondistance") + " X:", this.guiLeft + 1, this.guiTop + 76, 16777215));
                this.addTextField(new GuiNpcTextField(0, this, this.field_146289_q, this.guiLeft + 80, this.guiTop + 71, 30, 20, this.tile.onRangeX + ""));
                this.getTextField(0).numbersOnly = true;
                this.getTextField(0).setMinMaxDefault(0, 50, 6);
@@ -39,7 +39,7 @@ public class GuiNpcRedstoneBlock extends GuiNPCInterface implements IGuiData {
                this.addTextField(new GuiNpcTextField(2, this, this.field_146289_q, this.guiLeft + 164, this.guiTop + 71, 30, 20, this.tile.onRangeZ + ""));
                this.getTextField(2).numbersOnly = true;
                this.getTextField(2).setMinMaxDefault(0, 50, 6);
-               this.addLabel(new GuiNpcLabel(3, I18n.func_74838_a("bard.offdistance") + " X:", this.guiLeft - 3, this.guiTop + 99, 16777215));
+               this.addLabel(new GuiNpcLabel(3, I18n.translateToLocal("bard.offdistance") + " X:", this.guiLeft - 3, this.guiTop + 99, 16777215));
                this.addTextField(new GuiNpcTextField(3, this, this.field_146289_q, this.guiLeft + 80, this.guiTop + 94, 30, 20, this.tile.offRangeX + ""));
                this.getTextField(3).numbersOnly = true;
                this.getTextField(3).setMinMaxDefault(0, 50, 10);

@@ -22,7 +22,7 @@ public class CustomNpcResourceListener implements IResourceManagerReloadListener
                simplemanager.func_110545_a(pack);
 
                try {
-                    DefaultTextColor = Integer.parseInt(I18n.func_74838_a("customnpcs.defaultTextColor"), 16);
+                    DefaultTextColor = Integer.parseInt(I18n.translateToLocal("customnpcs.defaultTextColor"), 16);
                } catch (NumberFormatException var5) {
                     DefaultTextColor = 4210752;
                }

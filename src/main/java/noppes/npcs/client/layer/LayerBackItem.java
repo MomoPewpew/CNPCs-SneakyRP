@@ -23,7 +23,7 @@ public class LayerBackItem extends LayerInterface {
           Minecraft minecraft = Minecraft.getMinecraft();
           ItemStack itemstack = ItemStackWrapper.MCItem(this.npc.inventory.getRightHand());
           if (!NoppesUtilServer.IsItemStackNull(itemstack) && !this.npc.isAttacking()) {
-               Item item = itemstack.func_77973_b();
+               Item item = itemstack.getItem();
                if (!(item instanceof ItemBlock)) {
                     this.model.field_78115_e.func_78794_c(par7);
                     GlStateManager.func_179137_b(0.0D, 0.36D, 0.14D);

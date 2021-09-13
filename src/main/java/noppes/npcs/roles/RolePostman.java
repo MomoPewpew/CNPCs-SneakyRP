@@ -35,7 +35,7 @@ public class RolePostman extends RoleInterface {
                while(var2.hasNext()) {
                     EntityPlayer player = (EntityPlayer)var2.next();
                     if (PlayerData.get(player).mailData.hasMail()) {
-                         player.func_145747_a(new TextComponentTranslation("You've got mail", new Object[0]));
+                         player.sendMessage(new TextComponentTranslation("You've got mail", new Object[0]));
                     }
                }
 

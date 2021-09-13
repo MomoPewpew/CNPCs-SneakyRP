@@ -16,7 +16,7 @@ public class EntityAIMovingPath extends EntityAIBase {
      }
 
      public boolean func_75250_a() {
-          if (!this.npc.isAttacking() && !this.npc.isInteracting() && (this.npc.func_70681_au().nextInt(40) == 0 || !this.npc.ais.movingPause) && this.npc.func_70661_as().func_75500_f()) {
+          if (!this.npc.isAttacking() && !this.npc.isInteracting() && (this.npc.getRNG().nextInt(40) == 0 || !this.npc.ais.movingPause) && this.npc.func_70661_as().func_75500_f()) {
                List list = this.npc.ais.getMovingPath();
                if (list.size() < 2) {
                     return false;

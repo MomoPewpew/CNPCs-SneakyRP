@@ -75,7 +75,7 @@ public class PlayerDataController {
      }
 
      public PlayerData getDataFromUsername(MinecraftServer server, String username) {
-          EntityPlayer player = server.getPlayerList().func_152612_a(username);
+          EntityPlayer player = server.getPlayerList().getPlayerByUsername(username);
           PlayerData data = null;
           if (player == null) {
                Iterator var5 = this.nameUUIDs.keySet().iterator();

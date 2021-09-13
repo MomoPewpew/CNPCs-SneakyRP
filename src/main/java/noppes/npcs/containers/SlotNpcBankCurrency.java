@@ -21,7 +21,7 @@ public class SlotNpcBankCurrency extends Slot {
           if (NoppesUtilServer.IsItemStackNull(itemstack)) {
                return false;
           } else {
-               return this.item.func_77973_b() == itemstack.func_77973_b() && (!this.item.func_77981_g() || this.item.func_77952_i() == itemstack.func_77952_i());
+               return this.item.getItem() == itemstack.getItem() && (!this.item.getHasSubtypes() || this.item.getItemDamage() == itemstack.getItemDamage());
           }
      }
 }

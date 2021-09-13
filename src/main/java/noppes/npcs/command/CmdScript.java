@@ -20,21 +20,21 @@ public class CmdScript extends CommandNoppesBase {
      public Boolean reload(MinecraftServer server, ICommandSender sender, String[] args) {
           ScriptController.Instance.loadCategories();
           if (ScriptController.Instance.loadPlayerScripts()) {
-               sender.func_145747_a(new TextComponentString("Reload player scripts succesfully"));
+               sender.sendMessage(new TextComponentString("Reload player scripts succesfully"));
           } else {
-               sender.func_145747_a(new TextComponentString("Failed reloading player scripts"));
+               sender.sendMessage(new TextComponentString("Failed reloading player scripts"));
           }
 
           if (ScriptController.Instance.loadForgeScripts()) {
-               sender.func_145747_a(new TextComponentString("Reload forge scripts succesfully"));
+               sender.sendMessage(new TextComponentString("Reload forge scripts succesfully"));
           } else {
-               sender.func_145747_a(new TextComponentString("Failed reloading forge scripts"));
+               sender.sendMessage(new TextComponentString("Failed reloading forge scripts"));
           }
 
           if (ScriptController.Instance.loadStoredData()) {
-               sender.func_145747_a(new TextComponentString("Reload stored data succesfully"));
+               sender.sendMessage(new TextComponentString("Reload stored data succesfully"));
           } else {
-               sender.func_145747_a(new TextComponentString("Failed reloading stored data"));
+               sender.sendMessage(new TextComponentString("Failed reloading stored data"));
           }
 
           return true;
@@ -45,8 +45,8 @@ public class CmdScript extends CommandNoppesBase {
           usage = "[args]"
      )
      public Boolean run(MinecraftServer server, ICommandSender sender, String[] args) {
-          IWorld world = NpcAPI.Instance().getIWorld((WorldServer)sender.func_130014_f_());
-          BlockPos bpos = sender.func_180425_c();
+          IWorld world = NpcAPI.Instance().getIWorld((WorldServer)sender.getEntityWorld());
+          BlockPos bpos = sender.getPosition();
           IPos pos = NpcAPI.Instance().getIPos((double)bpos.getX(), (double)bpos.getY(), (double)bpos.getZ());
           WorldEvent.ScriptCommandEvent event = new WorldEvent.ScriptCommandEvent(world, pos, args);
           EventHooks.onWorldScriptEvent(event);

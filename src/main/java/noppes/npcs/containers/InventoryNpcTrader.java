@@ -18,7 +18,7 @@ public class InventoryNpcTrader implements IInventory {
           this.con = con;
           this.inventoryTitle = s;
           this.slotsCount = i;
-          this.inventoryContents = NonNullList.func_191197_a(i, ItemStack.EMPTY);
+          this.inventoryContents = NonNullList.withSize(i, ItemStack.EMPTY);
      }
 
      public ItemStack getStackInSlot(int i) {
@@ -47,7 +47,7 @@ public class InventoryNpcTrader implements IInventory {
           return 64;
      }
 
-     public boolean isUseableByPlayer(EntityPlayer entityplayer) {
+     public boolean isUsableByPlayer(EntityPlayer entityplayer) {
           return true;
      }
 
@@ -55,15 +55,15 @@ public class InventoryNpcTrader implements IInventory {
           return (ItemStack)this.inventoryContents.set(i, ItemStack.EMPTY);
      }
 
-     public boolean func_94041_b(int i, ItemStack itemstack) {
+     public boolean isItemValidForSlot(int i, ItemStack itemstack) {
           return true;
      }
 
-     public ITextComponent func_145748_c_() {
+     public ITextComponent getDisplayName() {
           return new TextComponentString(this.inventoryTitle);
      }
 
-     public boolean func_145818_k_() {
+     public boolean hasCustomName() {
           return true;
      }
 
@@ -71,31 +71,31 @@ public class InventoryNpcTrader implements IInventory {
           this.con.onCraftMatrixChanged(this);
      }
 
-     public void func_174889_b(EntityPlayer player) {
+     public void openInventory(EntityPlayer player) {
      }
 
-     public void func_174886_c(EntityPlayer player) {
+     public void closeInventory(EntityPlayer player) {
      }
 
-     public String func_70005_c_() {
+     public String getName() {
           return null;
      }
 
-     public int func_174887_a_(int id) {
+     public int getField(int id) {
           return 0;
      }
 
-     public void func_174885_b(int id, int value) {
+     public void setField(int id, int value) {
      }
 
-     public int func_174890_g() {
+     public int getFieldCount() {
           return 0;
      }
 
-     public void func_174888_l() {
+     public void clear() {
      }
 
-     public boolean func_191420_l() {
+     public boolean isEmpty() {
           for(int slot = 0; slot < this.getSizeInventory(); ++slot) {
                ItemStack item = this.getStackInSlot(slot);
                if (!NoppesUtilServer.IsItemStackNull(item) && !item.isEmpty()) {

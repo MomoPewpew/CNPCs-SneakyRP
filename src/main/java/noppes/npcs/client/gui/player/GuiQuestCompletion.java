@@ -29,10 +29,10 @@ public class GuiQuestCompletion extends GuiNPCInterface implements ITopButtonLis
 
      public void func_73866_w_() {
           super.func_73866_w_();
-          String questTitle = I18n.func_74838_a(this.quest.getName());
-          int left = (this.xSize - this.field_146289_q.func_78256_a(questTitle)) / 2;
+          String questTitle = I18n.translateToLocal(this.quest.getName());
+          int left = (this.xSize - this.field_146289_q.getStringWidth(questTitle)) / 2;
           this.addLabel(new GuiNpcLabel(0, questTitle, this.guiLeft + left, this.guiTop + 4));
-          this.addButton(new GuiNpcButton(0, this.guiLeft + 38, this.guiTop + this.ySize - 24, 100, 20, I18n.func_74838_a("quest.complete")));
+          this.addButton(new GuiNpcButton(0, this.guiLeft + 38, this.guiTop + this.ySize - 24, 100, 20, I18n.translateToLocal("quest.complete")));
      }
 
      public void func_73863_a(int i, int j, float f) {

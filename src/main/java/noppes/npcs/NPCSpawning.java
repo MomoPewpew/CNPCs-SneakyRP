@@ -36,24 +36,24 @@ public class NPCSpawning {
      private static Set eligibleChunksForSpawning = Sets.newHashSet();
 
      public static void findChunksForSpawning(WorldServer world) {
-          if (!SpawnController.instance.data.isEmpty() && world.func_72912_H().func_82573_f() % 400L == 0L) {
+          if (!SpawnController.instance.data.isEmpty() && world.getWorldInfo().getWorldTotalTime() % 400L == 0L) {
                eligibleChunksForSpawning.clear();
 
                int k1;
                int l1;
                for(int i = 0; i < world.field_73010_i.size(); ++i) {
                     EntityPlayer entityplayer = (EntityPlayer)world.field_73010_i.get(i);
-                    if (!entityplayer.func_175149_v()) {
-                         int j = MathHelper.func_76128_c(entityplayer.field_70165_t / 16.0D);
-                         int k = MathHelper.func_76128_c(entityplayer.field_70161_v / 16.0D);
+                    if (!entityplayer.isSpectator()) {
+                         int j = MathHelper.floor(entityplayer.field_70165_t / 16.0D);
+                         int k = MathHelper.floor(entityplayer.field_70161_v / 16.0D);
                          byte size = 7;
 
                          for(k1 = -size; k1 <= size; ++k1) {
                               for(l1 = -size; l1 <= size; ++l1) {
                                    ChunkPos chunkcoordintpair = new ChunkPos(k1 + j, l1 + k);
-                                   if (!eligibleChunksForSpawning.contains(chunkcoordintpair) && world.func_175723_af().func_177730_a(chunkcoordintpair)) {
-                                        PlayerChunkMapEntry playerinstance = world.func_184164_w().func_187301_b(chunkcoordintpair.field_77276_a, chunkcoordintpair.field_77275_b);
-                                        if (playerinstance != null && playerinstance.func_187274_e()) {
+                                   if (!eligibleChunksForSpawning.contains(chunkcoordintpair) && world.getWorldBorder().contains(chunkcoordintpair)) {
+                                        PlayerChunkMapEntry playerinstance = world.getPlayerChunkMap().getEntry(chunkcoordintpair.field_77276_a, chunkcoordintpair.field_77275_b);
+                                        if (playerinstance != null && playerinstance.isSentToPlayers()) {
                                              eligibleChunksForSpawning.add(chunkcoordintpair);
                                         }
                                    }
@@ -82,8 +82,8 @@ public class NPCSpawning {
                               BlockPos pos = new BlockPos(x, y, z);
                               IBlockState state = world.getBlockState(pos);
                               String name = world.getBiomeForCoordsBody(pos).field_76791_y;
-                              SpawnData data = SpawnController.instance.getRandomSpawnData(name, state.func_185904_a() == Material.field_151579_a);
-                              if (data != null && canCreatureTypeSpawnAtLocation(data, world, pos) && world.func_184137_a((double)x, (double)y, (double)z, 24.0D, false) == null) {
+                              SpawnData data = SpawnController.instance.getRandomSpawnData(name, state.getMaterial() == Material.field_151579_a);
+                              if (data != null && canCreatureTypeSpawnAtLocation(data, world, pos) && world.getClosestPlayer((double)x, (double)y, (double)z, 24.0D, false) == null) {
                                    spawnData(data, world, pos);
                               }
                          }
@@ -109,11 +109,11 @@ public class NPCSpawning {
      }
 
      protected static BlockPos getChunk(World world, int x, int z) {
-          Chunk chunk = world.func_72964_e(x, z);
+          Chunk chunk = world.getChunkFromChunkCoords(x, z);
           int k = x * 16 + world.rand.nextInt(16);
           int l = z * 16 + world.rand.nextInt(16);
-          int i1 = MathHelper.func_154354_b(chunk.func_177433_f(new BlockPos(k, 0, l)) + 1, 16);
-          int j1 = world.rand.nextInt(i1 > 0 ? i1 : chunk.func_76625_h() + 16 - 1);
+          int i1 = MathHelper.roundUp(chunk.getHeight(new BlockPos(k, 0, l)) + 1, 16);
+          int j1 = world.rand.nextInt(i1 > 0 ? i1 : chunk.getTopFilledSegment() + 16 - 1);
           return new BlockPos(k, j1, l);
      }
 
@@ -123,7 +123,7 @@ public class NPCSpawning {
           while(true) {
                SpawnData data;
                do {
-                    if (rand.nextFloat() >= biome.func_76741_f()) {
+                    if (rand.nextFloat() >= biome.getSpawningChance()) {
                          return;
                     }
 
@@ -137,7 +137,7 @@ public class NPCSpawning {
                int i2 = k1;
 
                for(int k2 = 0; k2 < 4; ++k2) {
-                    BlockPos pos = world.func_175672_r(new BlockPos(j1, 0, k1));
+                    BlockPos pos = world.getTopSolidOrLiquidBlock(new BlockPos(j1, 0, k1));
                     if (canCreatureTypeSpawnAtLocation(data, world, pos)) {
                          if (spawnData(data, world, pos)) {
                               break;
@@ -156,7 +156,7 @@ public class NPCSpawning {
      private static boolean spawnData(SpawnData data, World world, BlockPos pos) {
           EntityLiving entityliving;
           try {
-               Entity entity = EntityList.func_75615_a(data.compound1, world);
+               Entity entity = EntityList.createEntityFromNBT(data.compound1, world);
                if (entity == null || !(entity instanceof EntityLiving)) {
                     return false;
                }
@@ -170,15 +170,15 @@ public class NPCSpawning {
                     npc.ais.setStartPos(pos);
                }
 
-               entity.func_70012_b((double)pos.getX() + 0.5D, (double)pos.getY(), (double)pos.getZ() + 0.5D, world.rand.nextFloat() * 360.0F, 0.0F);
+               entity.setLocationAndAngles((double)pos.getX() + 0.5D, (double)pos.getY(), (double)pos.getZ() + 0.5D, world.rand.nextFloat() * 360.0F, 0.0F);
           } catch (Exception var6) {
                var6.printStackTrace();
                return false;
           }
 
           Result canSpawn = ForgeEventFactory.canEntitySpawn(entityliving, world, (float)pos.getX() + 0.5F, (float)pos.getY(), (float)pos.getZ() + 0.5F);
-          if (canSpawn != Result.DENY && (canSpawn != Result.DEFAULT || entityliving.func_70601_bi())) {
-               world.func_72838_d(entityliving);
+          if (canSpawn != Result.DENY && (canSpawn != Result.DEFAULT || entityliving.getCanSpawnHere())) {
+               world.spawnEntity(entityliving);
                return true;
           } else {
                return false;
@@ -186,26 +186,26 @@ public class NPCSpawning {
      }
 
      public static boolean canCreatureTypeSpawnAtLocation(SpawnData data, World world, BlockPos pos) {
-          if (!world.func_175723_af().func_177746_a(pos)) {
+          if (!world.getWorldBorder().contains(pos)) {
                return false;
-          } else if (data.type == 1 && world.func_175699_k(pos) > 8 || data.type == 2 && world.func_175699_k(pos) <= 8) {
+          } else if (data.type == 1 && world.getLight(pos) > 8 || data.type == 2 && world.getLight(pos) <= 8) {
                return false;
           } else {
                IBlockState state = world.getBlockState(pos);
                Block block = state.getBlock();
                if (data.liquid) {
-                    return state.func_185904_a().func_76224_d() && world.getBlockState(pos.func_177977_b()).func_185904_a().func_76224_d() && !world.getBlockState(pos.func_177984_a()).func_185915_l();
+                    return state.getMaterial().isLiquid() && world.getBlockState(pos.down()).getMaterial().isLiquid() && !world.getBlockState(pos.up()).isNormalCube();
                } else {
-                    BlockPos blockpos1 = pos.func_177977_b();
+                    BlockPos blockpos1 = pos.down();
                     IBlockState state1 = world.getBlockState(blockpos1);
                     Block block1 = state1.getBlock();
                     if (!state1.isSideSolid(world, blockpos1, EnumFacing.UP)) {
                          return false;
                     } else {
                          boolean flag = block1 != Blocks.field_150357_h && block1 != Blocks.field_180401_cv;
-                         BlockPos down = blockpos1.func_177977_b();
+                         BlockPos down = blockpos1.down();
                          flag |= world.getBlockState(down).getBlock().canCreatureSpawn(world.getBlockState(down), world, down, SpawnPlacementType.ON_GROUND);
-                         return flag && !state.func_185915_l() && !state.func_185904_a().func_76224_d() && !world.getBlockState(pos.func_177984_a()).func_185915_l();
+                         return flag && !state.isNormalCube() && !state.getMaterial().isLiquid() && !world.getBlockState(pos.up()).isNormalCube();
                     }
                }
           }

@@ -39,7 +39,7 @@ public class ItemSoulstoneFilled extends Item {
      public void func_77624_a(ItemStack stack, World world, List list, ITooltipFlag flag) {
           NBTTagCompound compound = stack.getTagCompound();
           if (compound != null && compound.hasKey("Entity", 10)) {
-               String name = I18n.func_74838_a(compound.getString("Name"));
+               String name = I18n.translateToLocal(compound.getString("Name"));
                if (compound.hasKey("DisplayName")) {
                     name = compound.getString("DisplayName") + " (" + name + ")";
                }
@@ -53,7 +53,7 @@ public class ItemSoulstoneFilled extends Item {
 
                     for(int var11 = 0; var11 < var10; ++var11) {
                          String s = var9[var11];
-                         text = text + I18n.func_74838_a(s);
+                         text = text + I18n.translateToLocal(s);
                     }
 
                     list.add(text);
@@ -86,7 +86,7 @@ public class ItemSoulstoneFilled extends Item {
                return null;
           } else if (stack.getTagCompound() != null && stack.getTagCompound().hasKey("Entity", 10)) {
                NBTTagCompound compound = stack.getTagCompound().getCompoundTag("Entity");
-               Entity entity = EntityList.func_75615_a(compound, world);
+               Entity entity = EntityList.createEntityFromNBT(compound, world);
                if (entity == null) {
                     return null;
                } else {
@@ -94,7 +94,7 @@ public class ItemSoulstoneFilled extends Item {
                     if (entity instanceof EntityNPCInterface) {
                          EntityNPCInterface npc = (EntityNPCInterface)entity;
                          npc.ais.setStartPos(pos);
-                         npc.func_70606_j(npc.func_110138_aP());
+                         npc.func_70606_j(npc.getMaxHealth());
                          npc.func_70107_b((double)((float)pos.getX() + 0.5F), npc.getStartYPos(), (double)((float)pos.getZ() + 0.5F));
                          if (npc.advanced.role == 6 && player != null) {
                               PlayerData data = PlayerData.get(player);
@@ -111,8 +111,8 @@ public class ItemSoulstoneFilled extends Item {
                          }
                     }
 
-                    if (!world.func_72838_d(entity)) {
-                         player.func_145747_a(new TextComponentTranslation("error.failedToSpawn", new Object[0]));
+                    if (!world.spawnEntity(entity)) {
+                         player.sendMessage(new TextComponentTranslation("error.failedToSpawn", new Object[0]));
                          return null;
                     } else {
                          return entity;

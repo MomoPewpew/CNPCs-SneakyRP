@@ -107,7 +107,7 @@ public class SchematicWrapper {
                state = this.rotationState(state, rotation);
                this.world.func_180501_a(pos, state, 2);
                if (state.getBlock() instanceof ITileEntityProvider) {
-                    TileEntity tile = this.world.func_175625_s(pos);
+                    TileEntity tile = this.world.getTileEntity(pos);
                     if (tile != null) {
                          NBTTagCompound comp = this.getTileEntity(x, y, z, pos);
                          if (comp != null) {
@@ -129,7 +129,7 @@ public class SchematicWrapper {
                while(var4.hasNext()) {
                     IProperty prop = (IProperty)var4.next();
                     if (prop instanceof PropertyDirection) {
-                         EnumFacing direction = (EnumFacing)state.func_177229_b(prop);
+                         EnumFacing direction = (EnumFacing)state.getValue(prop);
                          if (direction != EnumFacing.UP && direction != EnumFacing.DOWN) {
                               for(int i = 0; i < rotation; ++i) {
                                    direction = direction.func_176746_e();

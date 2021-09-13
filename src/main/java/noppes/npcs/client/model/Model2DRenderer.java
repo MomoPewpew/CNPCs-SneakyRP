@@ -83,11 +83,11 @@ public class Model2DRenderer extends ModelRenderer {
      private void compile(float scale) {
           this.displayList = GLAllocation.func_74526_a(1);
           GlStateManager.func_187423_f(this.displayList, 4864);
-          GlStateManager.func_179109_b(this.rotationOffsetX * scale, this.rotationOffsetY * scale, this.rotationOffsetZ * scale);
+          GlStateManager.translate(this.rotationOffsetX * scale, this.rotationOffsetY * scale, this.rotationOffsetZ * scale);
           GlStateManager.func_179152_a(this.scaleX * (float)this.width / (float)this.height, this.scaleY, this.thickness);
           GlStateManager.func_179114_b(180.0F, 1.0F, 0.0F, 0.0F);
           if (this.field_78809_i) {
-               GlStateManager.func_179109_b(0.0F, 0.0F, -1.0F * scale);
+               GlStateManager.translate(0.0F, 0.0F, -1.0F * scale);
                GlStateManager.func_179114_b(180.0F, 0.0F, 1.0F, 0.0F);
           }
 

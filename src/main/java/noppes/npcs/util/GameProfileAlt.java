@@ -13,7 +13,7 @@ public class GameProfileAlt extends GameProfile {
      }
 
      public String getName() {
-          return this.npc == null ? super.getName() : this.npc.func_70005_c_();
+          return this.npc == null ? super.getName() : this.npc.getName();
      }
 
      public UUID getId() {

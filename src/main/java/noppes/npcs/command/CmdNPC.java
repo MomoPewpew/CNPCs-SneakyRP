@@ -48,7 +48,7 @@ public class CmdNPC extends CommandNoppesBase {
                args = (String[])ArrayUtils.add(args, 0, npcname);
                this.executeSub(server, sender, command, args);
           } else {
-               List list = this.getEntities(EntityNPCInterface.class, sender.func_130014_f_(), sender.func_180425_c(), 80);
+               List list = this.getEntities(EntityNPCInterface.class, sender.getEntityWorld(), sender.getPosition(), 80);
                Iterator var7 = list.iterator();
 
                while(true) {
@@ -69,7 +69,7 @@ public class CmdNPC extends CommandNoppesBase {
                               npc = (EntityNPCInterface)var7.next();
                               name = npc.display.getName().replace(" ", "_");
                          } while(!name.equalsIgnoreCase(npcname));
-                    } while(this.selectedNpc != null && this.selectedNpc.func_174818_b(sender.func_180425_c()) <= npc.func_174818_b(sender.func_180425_c()));
+                    } while(this.selectedNpc != null && this.selectedNpc.func_174818_b(sender.getPosition()) <= npc.func_174818_b(sender.getPosition()));
 
                     this.selectedNpc = npc;
                }
@@ -82,7 +82,7 @@ public class CmdNPC extends CommandNoppesBase {
           permission = 2
      )
      public void home(MinecraftServer server, ICommandSender sender, String[] args) {
-          BlockPos pos = sender.func_180425_c();
+          BlockPos pos = sender.getPosition();
           if (args.length == 3) {
                try {
                     pos = CommandBase.func_175757_a(sender, args, 0, false);
@@ -140,7 +140,7 @@ public class CmdNPC extends CommandNoppesBase {
                if (player == null) {
                     this.sendMessage(sender, "No owner", new Object[0]);
                } else {
-                    this.sendMessage(sender, "Owner is: " + player.func_70005_c_(), new Object[0]);
+                    this.sendMessage(sender, "Owner is: " + player.getName(), new Object[0]);
                }
           } else {
                EntityPlayerMP player = null;
@@ -197,17 +197,17 @@ public class CmdNPC extends CommandNoppesBase {
           usage = "[name]"
      )
      public void create(MinecraftServer server, ICommandSender sender, String[] args) {
-          World pw = sender.func_130014_f_();
+          World pw = sender.getEntityWorld();
           EntityCustomNpc npc = new EntityCustomNpc(pw);
           if (args.length > 0) {
                npc.display.setName(args[0]);
           }
 
-          BlockPos pos = sender.func_180425_c();
+          BlockPos pos = sender.getPosition();
           npc.func_70080_a((double)pos.getX(), (double)pos.getY(), (double)pos.getZ(), 0.0F, 0.0F);
           npc.ais.setStartPos(pos);
-          pw.func_72838_d(npc);
-          npc.func_70606_j(npc.func_110138_aP());
+          pw.spawnEntity(npc);
+          npc.func_70606_j(npc.getMaxHealth());
      }
 
      public List func_184883_a(MinecraftServer server, ICommandSender par1, String[] args, BlockPos pos) {
@@ -223,6 +223,6 @@ public class CmdNPC extends CommandNoppesBase {
      }
 
      public List getEntities(Class cls, World world, BlockPos pos, int range) {
-          return world.getEntitiesWithinAABB(cls, (new AxisAlignedBB(pos, pos.func_177982_a(1, 1, 1))).expand((double)range, (double)range, (double)range));
+          return world.getEntitiesWithinAABB(cls, (new AxisAlignedBB(pos, pos.add(1, 1, 1))).expand((double)range, (double)range, (double)range));
      }
 }
