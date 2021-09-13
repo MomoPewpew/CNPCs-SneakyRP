@@ -20,31 +20,31 @@ public class GuiMenuTopIconButton extends GuiMenuTopButton {
 
      public GuiMenuTopIconButton(int i, int x, int y, String s, ItemStack item) {
           super(i, x, y, s);
-          this.field_146120_f = 28;
-          this.field_146121_g = 28;
+          this.width = 28;
+          this.height = 28;
           this.item = item;
-          itemRender = Minecraft.func_71410_x().func_175599_af();
+          itemRender = Minecraft.func_71410_x().getRenderItem();
      }
 
      public GuiMenuTopIconButton(int i, GuiButton parent, String s, ItemStack item) {
           super(i, parent, s);
-          this.field_146120_f = 28;
-          this.field_146121_g = 28;
+          this.width = 28;
+          this.height = 28;
           this.item = item;
      }
 
      public GuiMenuTopIconButton(int i, int x, int y, String s, IButtonListener listener, ItemStack item) {
           super(i, x, y, s);
-          this.field_146120_f = 28;
-          this.field_146121_g = 28;
+          this.width = 28;
+          this.height = 28;
           this.item = item;
           this.listener = listener;
      }
 
      public GuiMenuTopIconButton(int i, GuiButton parent, String s, IButtonListener listener, ItemStack item) {
           super(i, parent, s, listener);
-          this.field_146120_f = 28;
-          this.field_146121_g = 28;
+          this.width = 28;
+          this.height = 28;
           this.item = item;
      }
 
@@ -54,32 +54,32 @@ public class GuiMenuTopIconButton extends GuiMenuTopButton {
                     this.item = new ItemStack(Blocks.field_150346_d);
                }
 
-               this.hover = i >= this.field_146128_h && j >= this.field_146129_i && i < this.field_146128_h + this.getWidth() && j < this.field_146129_i + this.field_146121_g;
+               this.hover = i >= this.x && j >= this.y && i < this.x + this.getWidth() && j < this.y + this.height;
                Minecraft mc = Minecraft.func_71410_x();
                if (this.hover && !this.active) {
-                    int x = i + mc.field_71466_p.func_78256_a(this.field_146126_j);
-                    GlStateManager.func_179109_b((float)x, (float)(this.field_146129_i + 2), 0.0F);
-                    this.drawHoveringText(Arrays.asList(this.field_146126_j), 0, 0, mc.field_71466_p);
-                    GlStateManager.func_179109_b((float)(-x), (float)(-(this.field_146129_i + 2)), 0.0F);
+                    int x = i + mc.fontRenderer.func_78256_a(this.field_146126_j);
+                    GlStateManager.func_179109_b((float)x, (float)(this.y + 2), 0.0F);
+                    this.drawHoveringText(Arrays.asList(this.field_146126_j), 0, 0, mc.fontRenderer);
+                    GlStateManager.func_179109_b((float)(-x), (float)(-(this.y + 2)), 0.0F);
                }
 
-               mc.func_110434_K().func_110577_a(resource);
+               mc.func_110434_K().bindTexture(resource);
                GlStateManager.func_179094_E();
-               GlStateManager.func_179131_c(1.0F, 1.0F, 1.0F, 1.0F);
+               GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
                GlStateManager.func_179147_l();
-               GlStateManager.func_179140_f();
-               this.func_73729_b(this.field_146128_h, this.field_146129_i + (this.active ? 2 : 0), 0, this.active ? 32 : 0, 28, 28);
-               this.field_73735_i = 100.0F;
-               itemRender.field_77023_b = 100.0F;
-               GlStateManager.func_179145_e();
-               GlStateManager.func_179091_B();
-               RenderHelper.func_74520_c();
-               itemRender.func_180450_b(this.item, this.field_146128_h + 6, this.field_146129_i + 10);
-               itemRender.func_175030_a(mc.field_71466_p, this.item, this.field_146128_h + 6, this.field_146129_i + 10);
-               RenderHelper.func_74518_a();
-               GlStateManager.func_179140_f();
-               itemRender.field_77023_b = 0.0F;
-               this.field_73735_i = 0.0F;
+               GlStateManager.disableLighting();
+               this.drawTexturedModalRect(this.x, this.y + (this.active ? 2 : 0), 0, this.active ? 32 : 0, 28, 28);
+               this.zLevel = 100.0F;
+               itemRender.zLevel = 100.0F;
+               GlStateManager.enableLighting();
+               GlStateManager.enableRescaleNormal();
+               RenderHelper.enableGUIStandardItemLighting();
+               itemRender.renderItemAndEffectIntoGUI(this.item, this.x + 6, this.y + 10);
+               itemRender.func_175030_a(mc.fontRenderer, this.item, this.x + 6, this.y + 10);
+               RenderHelper.disableStandardItemLighting();
+               GlStateManager.disableLighting();
+               itemRender.zLevel = 0.0F;
+               this.zLevel = 0.0F;
                GlStateManager.func_179121_F();
           }
      }
@@ -87,8 +87,8 @@ public class GuiMenuTopIconButton extends GuiMenuTopButton {
      protected void drawHoveringText(List p_146283_1_, int p_146283_2_, int p_146283_3_, FontRenderer font) {
           if (!p_146283_1_.isEmpty()) {
                GlStateManager.func_179101_C();
-               RenderHelper.func_74518_a();
-               GlStateManager.func_179140_f();
+               RenderHelper.disableStandardItemLighting();
+               GlStateManager.disableLighting();
                GlStateManager.func_179097_i();
                int k = 0;
                Iterator iterator = p_146283_1_.iterator();
@@ -109,16 +109,16 @@ public class GuiMenuTopIconButton extends GuiMenuTopButton {
                     i1 += 2 + (p_146283_1_.size() - 1) * 10;
                }
 
-               if (j2 + k > this.field_146120_f) {
+               if (j2 + k > this.width) {
                     j2 -= 28 + k;
                }
 
-               if (k2 + i1 + 6 > this.field_146121_g) {
-                    k2 = this.field_146121_g - i1 - 6;
+               if (k2 + i1 + 6 > this.height) {
+                    k2 = this.height - i1 - 6;
                }
 
-               this.field_73735_i = 300.0F;
-               itemRender.field_77023_b = 300.0F;
+               this.zLevel = 300.0F;
+               itemRender.zLevel = 300.0F;
                int j1 = -267386864;
                this.func_73733_a(j2 - 3, k2 - 4, j2 + k + 3, k2 - 3, j1, j1);
                this.func_73733_a(j2 - 3, k2 + i1 + 3, j2 + k + 3, k2 + i1 + 4, j1, j1);
@@ -142,12 +142,12 @@ public class GuiMenuTopIconButton extends GuiMenuTopButton {
                     k2 += 10;
                }
 
-               this.field_73735_i = 0.0F;
-               itemRender.field_77023_b = 0.0F;
-               GlStateManager.func_179145_e();
+               this.zLevel = 0.0F;
+               itemRender.zLevel = 0.0F;
+               GlStateManager.enableLighting();
                GlStateManager.func_179126_j();
                RenderHelper.func_74519_b();
-               GlStateManager.func_179091_B();
+               GlStateManager.enableRescaleNormal();
           }
 
      }

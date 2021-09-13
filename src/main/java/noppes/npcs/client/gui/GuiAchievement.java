@@ -29,9 +29,9 @@ public class GuiAchievement implements IToast {
                this.newDisplay = false;
           }
 
-          toastGui.func_192989_b().func_110434_K().func_110577_a(field_193654_a);
+          toastGui.func_192989_b().func_110434_K().bindTexture(field_193654_a);
           GlStateManager.func_179124_c(1.0F, 1.0F, 1.0F);
-          toastGui.func_73729_b(0, 0, 0, 32 * this.type, 160, 32);
+          toastGui.drawTexturedModalRect(0, 0, 0, 32 * this.type, 160, 32);
           int color1 = -256;
           int color2 = -1;
           if (this.type == 1 || this.type == 3) {
@@ -39,8 +39,8 @@ public class GuiAchievement implements IToast {
                color2 = -16777216;
           }
 
-          toastGui.func_192989_b().field_71466_p.func_78276_b(this.title, 18, 7, color1);
-          toastGui.func_192989_b().field_71466_p.func_78276_b(this.subtitle, 18, 18, color2);
+          toastGui.func_192989_b().fontRenderer.func_78276_b(this.title, 18, 7, color1);
+          toastGui.func_192989_b().fontRenderer.func_78276_b(this.subtitle, 18, 18, color2);
           return delta - this.firstDrawTime < 5000L ? Visibility.SHOW : Visibility.HIDE;
      }
 

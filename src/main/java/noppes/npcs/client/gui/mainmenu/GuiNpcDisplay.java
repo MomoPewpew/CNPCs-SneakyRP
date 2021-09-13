@@ -132,40 +132,40 @@ public class GuiNpcDisplay extends GuiNPCInterface2 implements ITextfieldListene
 
      protected void func_146284_a(GuiButton guibutton) {
           GuiNpcButton button = (GuiNpcButton)guibutton;
-          if (button.field_146127_k == 0) {
+          if (button.id == 0) {
                this.display.setShowName(button.getValue());
           }
 
-          if (button.field_146127_k == 1) {
+          if (button.id == 1) {
                NoppesUtil.openGUI(this.player, new GuiCreationParts((EntityCustomNpc)this.npc));
           }
 
-          if (button.field_146127_k == 2) {
+          if (button.id == 2) {
                this.display.setSkinUrl("");
                this.display.setSkinPlayer((String)null);
                this.display.skinType = (byte)button.getValue();
                this.func_73866_w_();
-          } else if (button.field_146127_k == 3) {
+          } else if (button.id == 3) {
                this.setSubGui(new GuiTextureSelection(this.npc, this.npc.display.getSkinTexture()));
-          } else if (button.field_146127_k == 5) {
+          } else if (button.id == 5) {
                this.display.setHasLivingAnimation(button.getValue() == 0);
-          } else if (button.field_146127_k == 7) {
+          } else if (button.id == 7) {
                this.display.setVisible(button.getValue());
-          } else if (button.field_146127_k == 8) {
+          } else if (button.id == 8) {
                NoppesUtil.openGUI(this.player, new GuiNpcTextureCloaks(this.npc, this));
-          } else if (button.field_146127_k == 9) {
+          } else if (button.id == 9) {
                NoppesUtil.openGUI(this.player, new GuiNpcTextureOverlays(this.npc, this));
-          } else if (button.field_146127_k == 10) {
+          } else if (button.id == 10) {
                this.display.setBossbar(button.getValue());
-          } else if (button.field_146127_k == 12) {
+          } else if (button.id == 12) {
                this.display.setBossColor(button.getValue());
-          } else if (button.field_146127_k == 13) {
+          } else if (button.id == 13) {
                this.display.setHasHitbox(((GuiNpcButtonYesNo)button).getBoolean());
-          } else if (button.field_146127_k == 14) {
+          } else if (button.id == 14) {
                String name = this.display.getRandomName();
                this.display.setName(name);
                this.getTextField(0).func_146180_a(name);
-          } else if (button.field_146127_k == 15) {
+          } else if (button.id == 15) {
                this.setSubGui(new SubGuiNpcName(this.display));
           }
 

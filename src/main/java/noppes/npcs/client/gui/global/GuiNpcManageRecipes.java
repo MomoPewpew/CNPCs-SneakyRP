@@ -70,17 +70,17 @@ public class GuiNpcManageRecipes extends GuiContainerNPCInterface2 implements IS
 
      protected void func_146284_a(GuiButton guibutton) {
           GuiNpcButton button = (GuiNpcButton)guibutton;
-          if (button.field_146127_k == 0) {
+          if (button.id == 0) {
                this.save();
                NoppesUtil.requestOpenGUI(EnumGuiType.ManageRecipes, 3, 0, 0);
           }
 
-          if (button.field_146127_k == 1) {
+          if (button.id == 1) {
                this.save();
                NoppesUtil.requestOpenGUI(EnumGuiType.ManageRecipes, 4, 0, 0);
           }
 
-          if (button.field_146127_k == 3) {
+          if (button.id == 3) {
                this.save();
                this.scroll.clear();
 
@@ -93,16 +93,16 @@ public class GuiNpcManageRecipes extends GuiContainerNPCInterface2 implements IS
                Client.sendData(EnumPacketServer.RecipeSave, recipe.writeNBT());
           }
 
-          if (button.field_146127_k == 4 && this.data.containsKey(this.scroll.getSelected())) {
+          if (button.id == 4 && this.data.containsKey(this.scroll.getSelected())) {
                Client.sendData(EnumPacketServer.RecipeRemove, this.data.get(this.scroll.getSelected()));
                this.scroll.clear();
           }
 
-          if (button.field_146127_k == 5) {
+          if (button.id == 5) {
                this.container.recipe.ignoreDamage = button.getValue() == 1;
           }
 
-          if (button.field_146127_k == 6) {
+          if (button.id == 6) {
                this.container.recipe.ignoreNBT = button.getValue() == 1;
           }
 
@@ -122,16 +122,16 @@ public class GuiNpcManageRecipes extends GuiContainerNPCInterface2 implements IS
 
      protected void func_146976_a(float f, int x, int y) {
           super.func_146976_a(f, x, y);
-          GlStateManager.func_179131_c(1.0F, 1.0F, 1.0F, 1.0F);
-          this.field_146297_k.field_71446_o.func_110577_a(this.slot);
+          GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+          this.field_146297_k.renderEngine.bindTexture(this.slot);
 
           for(int i = 0; i < this.container.width; ++i) {
                for(int j = 0; j < this.container.width; ++j) {
-                    this.func_73729_b(this.field_147003_i + i * 18 + 7, this.field_147009_r + j * 18 + 34, 0, 0, 18, 18);
+                    this.drawTexturedModalRect(this.field_147003_i + i * 18 + 7, this.field_147009_r + j * 18 + 34, 0, 0, 18, 18);
                }
           }
 
-          this.func_73729_b(this.field_147003_i + 86, this.field_147009_r + 60, 0, 0, 18, 18);
+          this.drawTexturedModalRect(this.field_147003_i + 86, this.field_147009_r + 60, 0, 0, 18, 18);
      }
 
      public void setData(Vector list, HashMap data) {

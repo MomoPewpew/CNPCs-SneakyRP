@@ -61,20 +61,20 @@ public class GuiScriptList extends SubGuiInterface {
 
      protected void func_146284_a(GuiButton guibutton) {
           GuiNpcButton button = (GuiNpcButton)guibutton;
-          if (button.field_146127_k == 1 && this.scroll1.hasSelected()) {
+          if (button.id == 1 && this.scroll1.hasSelected()) {
                this.container.scripts.add(this.scroll1.getSelected());
                this.scroll1.selected = -1;
                this.scroll1.selected = -1;
                this.func_73866_w_();
           }
 
-          if (button.field_146127_k == 2 && this.scroll2.hasSelected()) {
+          if (button.id == 2 && this.scroll2.hasSelected()) {
                this.container.scripts.remove(this.scroll2.getSelected());
                this.scroll2.selected = -1;
                this.func_73866_w_();
           }
 
-          if (button.field_146127_k == 3) {
+          if (button.id == 3) {
                this.container.scripts.clear();
                Iterator var3 = this.scripts.iterator();
 
@@ -88,14 +88,14 @@ public class GuiScriptList extends SubGuiInterface {
                this.func_73866_w_();
           }
 
-          if (button.field_146127_k == 4) {
+          if (button.id == 4) {
                this.container.scripts.clear();
                this.scroll1.selected = -1;
                this.scroll1.selected = -1;
                this.func_73866_w_();
           }
 
-          if (button.field_146127_k == 66) {
+          if (button.id == 66) {
                this.close();
           }
 

@@ -99,7 +99,7 @@ public class GuiNpcCompanionStats extends GuiNPCInterface implements IGuiData {
 
      public void func_146284_a(GuiButton guibutton) {
           super.func_146284_a(guibutton);
-          int id = guibutton.field_146127_k;
+          int id = guibutton.id;
           if (id == 2) {
                CustomNpcs.proxy.openGui(this.npc, EnumGuiType.CompanionTalent);
           }
@@ -122,22 +122,22 @@ public class GuiNpcCompanionStats extends GuiNPCInterface implements IGuiData {
      }
 
      private int drawHealth(int y) {
-          this.field_146297_k.func_110434_K().func_110577_a(field_110324_m);
+          this.field_146297_k.func_110434_K().bindTexture(field_110324_m);
           int max = this.role.getTotalArmorValue();
           int k;
           if (this.role.talents.containsKey(EnumCompanionTalent.ARMOR) || max > 0) {
                for(k = 0; k < 10; ++k) {
                     int x = this.guiLeft + 66 + k * 10;
                     if (k * 2 + 1 < max) {
-                         this.func_73729_b(x, y, 34, 9, 9, 9);
+                         this.drawTexturedModalRect(x, y, 34, 9, 9, 9);
                     }
 
                     if (k * 2 + 1 == max) {
-                         this.func_73729_b(x, y, 25, 9, 9, 9);
+                         this.drawTexturedModalRect(x, y, 25, 9, 9, 9);
                     }
 
                     if (k * 2 + 1 > max) {
-                         this.func_73729_b(x, y, 16, 9, 9, 9);
+                         this.drawTexturedModalRect(x, y, 16, 9, 9, 9);
                     }
                }
 
@@ -158,9 +158,9 @@ public class GuiNpcCompanionStats extends GuiNPCInterface implements IGuiData {
           for(i = 0; i < max; ++i) {
                x = this.guiLeft + 66 + i % 20 * 5;
                int offset = i / 20 * 10;
-               this.func_73729_b(x, y + offset, 52 + i % 2 * 5, 9, i % 2 == 1 ? 4 : 5, 9);
+               this.drawTexturedModalRect(x, y + offset, 52 + i % 2 * 5, 9, i % 2 == 1 ? 4 : 5, 9);
                if (k > i) {
-                    this.func_73729_b(x, y + offset, 52 + i % 2 * 5, 0, i % 2 == 1 ? 4 : 5, 9);
+                    this.drawTexturedModalRect(x, y + offset, 52 + i % 2 * 5, 0, i % 2 == 1 ? 4 : 5, 9);
                }
           }
 
@@ -172,9 +172,9 @@ public class GuiNpcCompanionStats extends GuiNPCInterface implements IGuiData {
 
           for(i = 0; i < 20; ++i) {
                x = this.guiLeft + 66 + i % 20 * 5;
-               this.func_73729_b(x, y, 16 + i % 2 * 5, 27, i % 2 == 1 ? 4 : 5, 9);
+               this.drawTexturedModalRect(x, y, 16 + i % 2 * 5, 27, i % 2 == 1 ? 4 : 5, 9);
                if (k > i) {
-                    this.func_73729_b(x, y, 52 + i % 2 * 5, 27, i % 2 == 1 ? 4 : 5, 9);
+                    this.drawTexturedModalRect(x, y, 52 + i % 2 * 5, 27, i % 2 == 1 ? 4 : 5, 9);
                }
           }
 

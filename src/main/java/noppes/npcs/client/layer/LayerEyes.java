@@ -23,7 +23,7 @@ public class LayerEyes extends LayerInterface {
                this.model.field_78116_c.func_78794_c(0.0625F);
                GlStateManager.func_179152_a(par7, par7, -par7);
                GlStateManager.func_179109_b(0.0F, (float)((this.playerdata.eyes.type == 1 ? 1 : 2) - this.playerdata.eyes.eyePos), 0.0F);
-               GlStateManager.func_179091_B();
+               GlStateManager.enableRescaleNormal();
                GlStateManager.func_179103_j(7425);
                GlStateManager.func_179090_x();
                GlStateManager.func_179147_l();
@@ -130,7 +130,7 @@ public class LayerEyes extends LayerInterface {
           float f1 = (float)(color >> 16 & 255) / 255.0F;
           float f2 = (float)(color >> 8 & 255) / 255.0F;
           float f3 = (float)(color & 255) / 255.0F;
-          GlStateManager.func_179131_c(1.0F, 1.0F, 1.0F, 1.0F);
+          GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
           this.tessellator.func_181662_b(x, y, z).func_181666_a(f1, f2, f3, 1.0F).func_181675_d();
           this.tessellator.func_181662_b(x, y2, z).func_181666_a(f1, f2, f3, 1.0F).func_181675_d();
           this.tessellator.func_181662_b(x2, y2, z).func_181666_a(f1, f2, f3, 1.0F).func_181675_d();

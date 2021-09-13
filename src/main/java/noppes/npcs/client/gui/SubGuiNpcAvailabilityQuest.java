@@ -90,7 +90,7 @@ public class SubGuiNpcAvailabilityQuest extends SubGuiInterface implements GuiSe
 
      protected void func_146284_a(GuiButton guibutton) {
           GuiNpcButton button = (GuiNpcButton)guibutton;
-          if (button.field_146127_k == 0) {
+          if (button.id == 0) {
                this.availabitily.questAvailable = EnumAvailabilityQuest.values()[button.getValue()];
                if (this.availabitily.questAvailable == EnumAvailabilityQuest.Always) {
                     this.availabitily.questId = -1;
@@ -99,7 +99,7 @@ public class SubGuiNpcAvailabilityQuest extends SubGuiInterface implements GuiSe
                this.func_73866_w_();
           }
 
-          if (button.field_146127_k == 1) {
+          if (button.id == 1) {
                this.availabitily.quest2Available = EnumAvailabilityQuest.values()[button.getValue()];
                if (this.availabitily.quest2Available == EnumAvailabilityQuest.Always) {
                     this.availabitily.quest2Id = -1;
@@ -108,7 +108,7 @@ public class SubGuiNpcAvailabilityQuest extends SubGuiInterface implements GuiSe
                this.func_73866_w_();
           }
 
-          if (button.field_146127_k == 2) {
+          if (button.id == 2) {
                this.availabitily.quest3Available = EnumAvailabilityQuest.values()[button.getValue()];
                if (this.availabitily.quest3Available == EnumAvailabilityQuest.Always) {
                     this.availabitily.quest3Id = -1;
@@ -117,7 +117,7 @@ public class SubGuiNpcAvailabilityQuest extends SubGuiInterface implements GuiSe
                this.func_73866_w_();
           }
 
-          if (button.field_146127_k == 3) {
+          if (button.id == 3) {
                this.availabitily.quest4Available = EnumAvailabilityQuest.values()[button.getValue()];
                if (this.availabitily.quest4Available == EnumAvailabilityQuest.Always) {
                     this.availabitily.quest4Id = -1;
@@ -126,47 +126,47 @@ public class SubGuiNpcAvailabilityQuest extends SubGuiInterface implements GuiSe
                this.func_73866_w_();
           }
 
-          if (button.field_146127_k == 10) {
+          if (button.id == 10) {
                this.slot = 1;
                this.setSubGui(new GuiQuestSelection(this.availabitily.questId));
           }
 
-          if (button.field_146127_k == 11) {
+          if (button.id == 11) {
                this.slot = 2;
                this.setSubGui(new GuiQuestSelection(this.availabitily.quest2Id));
           }
 
-          if (button.field_146127_k == 12) {
+          if (button.id == 12) {
                this.slot = 3;
                this.setSubGui(new GuiQuestSelection(this.availabitily.quest3Id));
           }
 
-          if (button.field_146127_k == 13) {
+          if (button.id == 13) {
                this.slot = 4;
                this.setSubGui(new GuiQuestSelection(this.availabitily.quest4Id));
           }
 
-          if (button.field_146127_k == 20) {
+          if (button.id == 20) {
                this.availabitily.questId = -1;
                this.getButton(10).setDisplayText("availability.selectquest");
           }
 
-          if (button.field_146127_k == 21) {
+          if (button.id == 21) {
                this.availabitily.quest2Id = -1;
                this.getButton(11).setDisplayText("availability.selectquest");
           }
 
-          if (button.field_146127_k == 22) {
+          if (button.id == 22) {
                this.availabitily.quest3Id = -1;
                this.getButton(12).setDisplayText("availability.selectquest");
           }
 
-          if (button.field_146127_k == 23) {
+          if (button.id == 23) {
                this.availabitily.quest4Id = -1;
                this.getButton(13).setDisplayText("availability.selectquest");
           }
 
-          if (button.field_146127_k == 66) {
+          if (button.id == 66) {
                this.close();
           }
 

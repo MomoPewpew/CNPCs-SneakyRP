@@ -40,10 +40,10 @@ public abstract class GuiNPCInterface2 extends GuiNPCInterface {
                this.func_146276_q_();
           }
 
-          GlStateManager.func_179131_c(1.0F, 1.0F, 1.0F, 1.0F);
-          this.field_146297_k.field_71446_o.func_110577_a(this.background);
-          this.func_73729_b(this.guiLeft, this.guiTop, 0, 0, 200, 220);
-          this.func_73729_b(this.guiLeft + this.xSize - 230, this.guiTop, 26, 0, 230, 220);
+          GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+          this.field_146297_k.renderEngine.bindTexture(this.background);
+          this.drawTexturedModalRect(this.guiLeft, this.guiTop, 0, 0, 200, 220);
+          this.drawTexturedModalRect(this.guiLeft + this.xSize - 230, this.guiTop, 26, 0, 230, 220);
           int x = i;
           int y = j;
           if (this.hasSubGui()) {

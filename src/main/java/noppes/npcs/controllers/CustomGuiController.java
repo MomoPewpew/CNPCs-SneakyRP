@@ -23,12 +23,12 @@ import noppes.npcs.containers.ContainerCustomGui;
 public class CustomGuiController {
      public static void openGui(PlayerWrapper player, CustomGuiWrapper gui) {
           ((EntityPlayerMP)player.getMCEntity()).openGui(CustomNpcs.instance, EnumGuiType.CustomGui.ordinal(), player.getWorld().getMCWorld(), gui.getSlots().size(), 0, 0);
-          ((ContainerCustomGui)((EntityPlayerMP)player.getMCEntity()).field_71070_bA).setGui(gui, (EntityPlayer)player.getMCEntity());
+          ((ContainerCustomGui)((EntityPlayerMP)player.getMCEntity()).openContainer).setGui(gui, (EntityPlayer)player.getMCEntity());
           Server.sendDataDelayed((EntityPlayerMP)player.getMCEntity(), EnumPacketClient.GUI_DATA, 100, gui.toNBT());
      }
 
      public static boolean updateGui(PlayerWrapper player, CustomGuiWrapper gui) {
-          if (((EntityPlayerMP)player.getMCEntity()).field_71070_bA instanceof ContainerCustomGui) {
+          if (((EntityPlayerMP)player.getMCEntity()).openContainer instanceof ContainerCustomGui) {
                Server.sendData((EntityPlayerMP)player.getMCEntity(), EnumPacketClient.GUI_DATA, gui.toNBT());
                return true;
           } else {
@@ -38,17 +38,17 @@ public class CustomGuiController {
 
      static boolean checkGui(CustomGuiEvent event) {
           EntityPlayer player = event.player.getMCEntity();
-          if (!(player.field_71070_bA instanceof ContainerCustomGui)) {
+          if (!(player.openContainer instanceof ContainerCustomGui)) {
                return false;
           } else {
-               return ((ContainerCustomGui)player.field_71070_bA).customGui.getID() == event.gui.getID();
+               return ((ContainerCustomGui)player.openContainer).customGui.getID() == event.gui.getID();
           }
      }
 
      public static IItemStack[] getSlotContents(EntityPlayer player) {
           IItemStack[] slotContents = new IItemStack[0];
-          if (player.field_71070_bA instanceof ContainerCustomGui) {
-               ContainerCustomGui container = (ContainerCustomGui)player.field_71070_bA;
+          if (player.openContainer instanceof ContainerCustomGui) {
+               ContainerCustomGui container = (ContainerCustomGui)player.openContainer;
                slotContents = new IItemStack[container.guiInventory.func_70302_i_()];
 
                for(int i = 0; i < container.guiInventory.func_70302_i_(); ++i) {
@@ -96,7 +96,7 @@ public class CustomGuiController {
      }
 
      public static CustomGuiWrapper getOpenGui(EntityPlayer player) {
-          return player.field_71070_bA instanceof ContainerCustomGui ? ((ContainerCustomGui)player.field_71070_bA).customGui : null;
+          return player.openContainer instanceof ContainerCustomGui ? ((ContainerCustomGui)player.openContainer).customGui : null;
      }
 
      public static String[] readScrollSelection(ByteBuf buffer) {

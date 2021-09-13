@@ -42,7 +42,7 @@ public abstract class GuiCreationScreenInterface extends GuiNPCInterface impleme
           this.xSize = 400;
           this.ySize = 240;
           this.xOffset = 140;
-          this.player = Minecraft.func_71410_x().field_71439_g;
+          this.player = Minecraft.func_71410_x().player;
           this.closeOnEsc = true;
      }
 
@@ -59,7 +59,7 @@ public abstract class GuiCreationScreenInterface extends GuiNPCInterface impleme
                if (!gui.getData(this.entity).isEmpty()) {
                     this.addButton(new GuiNpcButton(2, this.guiLeft, this.guiTop + 23, 60, 20, "gui.extra"));
                } else if (this.active == 2) {
-                    this.field_146297_k.func_147108_a(new GuiCreationEntities(this.npc));
+                    this.field_146297_k.displayGuiScreen(new GuiCreationEntities(this.npc));
                     return;
                }
           }
@@ -76,7 +76,7 @@ public abstract class GuiCreationScreenInterface extends GuiNPCInterface impleme
           if (this.getButton(this.active) == null) {
                this.openGui(new GuiCreationEntities(this.npc));
           } else {
-               this.getButton(this.active).field_146124_l = false;
+               this.getButton(this.active).enabled = false;
                this.addButton(new GuiNpcButton(66, this.guiLeft + this.xSize - 20, this.guiTop, 20, 20, "X"));
                this.addLabel(new GuiNpcLabel(0, Message, this.guiLeft + 120, this.guiTop + this.ySize - 10, 16711680));
                this.getLabel(0).center(this.xSize - 120);
@@ -86,11 +86,11 @@ public abstract class GuiCreationScreenInterface extends GuiNPCInterface impleme
 
      protected void func_146284_a(GuiButton btn) {
           super.func_146284_a(btn);
-          if (btn.field_146127_k == 1) {
+          if (btn.id == 1) {
                this.openGui(new GuiCreationEntities(this.npc));
           }
 
-          if (btn.field_146127_k == 2) {
+          if (btn.id == 2) {
                if (this.entity == null) {
                     this.openGui(new GuiCreationParts(this.npc));
                } else {
@@ -98,19 +98,19 @@ public abstract class GuiCreationScreenInterface extends GuiNPCInterface impleme
                }
           }
 
-          if (btn.field_146127_k == 3) {
+          if (btn.id == 3) {
                this.openGui(new GuiCreationScale(this.npc));
           }
 
-          if (btn.field_146127_k == 4) {
+          if (btn.id == 4) {
                this.setSubGui(new GuiPresetSave(this, this.playerdata));
           }
 
-          if (btn.field_146127_k == 5) {
+          if (btn.id == 5) {
                this.openGui(new GuiCreationLoad(this.npc));
           }
 
-          if (btn.field_146127_k == 66) {
+          if (btn.id == 66) {
                this.save();
                NoppesUtil.openGUI(this.player, new GuiNpcDisplay(this.npc));
           }
@@ -148,7 +148,7 @@ public abstract class GuiCreationScreenInterface extends GuiNPCInterface impleme
      }
 
      public void openGui(GuiScreen gui) {
-          this.field_146297_k.func_147108_a(gui);
+          this.field_146297_k.displayGuiScreen(gui);
      }
 
      public void subGuiClosed(SubGuiInterface subgui) {
@@ -156,7 +156,7 @@ public abstract class GuiCreationScreenInterface extends GuiNPCInterface impleme
      }
 
      public void mouseDragged(GuiNpcSlider slider) {
-          if (slider.field_146127_k == 500) {
+          if (slider.id == 500) {
                rotation = slider.sliderValue;
                slider.setString("" + (int)(rotation * 360.0F));
           }

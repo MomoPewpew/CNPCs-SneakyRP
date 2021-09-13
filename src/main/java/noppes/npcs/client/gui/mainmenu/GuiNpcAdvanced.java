@@ -72,64 +72,64 @@ public class GuiNpcAdvanced extends GuiNPCInterface2 implements IGuiData {
 
      protected void func_146284_a(GuiButton guibutton) {
           GuiNpcButton button = (GuiNpcButton)guibutton;
-          if (button.field_146127_k == 3) {
+          if (button.id == 3) {
                this.save();
                Client.sendData(EnumPacketServer.RoleGet);
           }
 
-          if (button.field_146127_k == 8) {
+          if (button.id == 8) {
                this.hasChanges = true;
                this.npc.advanced.setRole(button.getValue());
                this.getButton(3).setEnabled(this.npc.advanced.role != 0 && this.npc.advanced.role != 5);
           }
 
-          if (button.field_146127_k == 4) {
+          if (button.id == 4) {
                this.save();
                Client.sendData(EnumPacketServer.JobGet);
           }
 
-          if (button.field_146127_k == 5) {
+          if (button.id == 5) {
                this.hasChanges = true;
                this.npc.advanced.setJob(button.getValue());
                this.getButton(4).setEnabled(this.npc.advanced.job != 0 && this.npc.advanced.job != 8 && this.npc.advanced.job != 10);
           }
 
-          if (button.field_146127_k == 9) {
+          if (button.id == 9) {
                this.save();
                NoppesUtil.openGUI(this.player, new GuiNPCFactionSetup(this.npc));
           }
 
-          if (button.field_146127_k == 10) {
+          if (button.id == 10) {
                this.save();
                NoppesUtil.openGUI(this.player, new GuiNPCDialogNpcOptions(this.npc, this));
           }
 
-          if (button.field_146127_k == 11) {
+          if (button.id == 11) {
                this.save();
                NoppesUtil.openGUI(this.player, new GuiNPCSoundsMenu(this.npc));
           }
 
-          if (button.field_146127_k == 7) {
+          if (button.id == 7) {
                this.save();
                NoppesUtil.openGUI(this.player, new GuiNPCLinesMenu(this.npc));
           }
 
-          if (button.field_146127_k == 12) {
+          if (button.id == 12) {
                this.save();
                NoppesUtil.openGUI(this.player, new GuiNPCNightSetup(this.npc));
           }
 
-          if (button.field_146127_k == 13) {
+          if (button.id == 13) {
                this.save();
                NoppesUtil.openGUI(this.player, new GuiNPCAdvancedLinkedNpc(this.npc));
           }
 
-          if (button.field_146127_k == 14) {
+          if (button.id == 14) {
                this.save();
                NoppesUtil.openGUI(this.player, new GuiNPCScenes(this.npc));
           }
 
-          if (button.field_146127_k == 15) {
+          if (button.id == 15) {
                this.save();
                NoppesUtil.openGUI(this.player, new GuiNPCMarks(this.npc));
           }

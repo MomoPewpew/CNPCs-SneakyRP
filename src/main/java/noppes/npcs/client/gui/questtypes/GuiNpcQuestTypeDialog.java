@@ -51,13 +51,13 @@ public class GuiNpcQuestTypeDialog extends SubGuiInterface implements GuiSelecti
 
      protected void func_146284_a(GuiButton guibutton) {
           GuiNpcButton button = (GuiNpcButton)guibutton;
-          if (button.field_146127_k == 0) {
+          if (button.id == 0) {
                this.close();
           }
 
           int slot;
-          if (button.field_146127_k >= 3 && button.field_146127_k < 9) {
-               this.selectedSlot = button.field_146127_k - 3;
+          if (button.id >= 3 && button.id < 9) {
+               this.selectedSlot = button.id - 3;
                slot = -1;
                if (this.quest.dialogs.containsKey(this.selectedSlot)) {
                     slot = (Integer)this.quest.dialogs.get(this.selectedSlot);
@@ -66,8 +66,8 @@ public class GuiNpcQuestTypeDialog extends SubGuiInterface implements GuiSelecti
                this.setSubGui(new GuiDialogSelection(slot));
           }
 
-          if (button.field_146127_k >= 9 && button.field_146127_k < 15) {
-               slot = button.field_146127_k - 9;
+          if (button.id >= 9 && button.id < 15) {
+               slot = button.id - 9;
                this.quest.dialogs.remove(slot);
                this.data.remove(slot);
                this.save();

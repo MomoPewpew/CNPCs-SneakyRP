@@ -71,7 +71,7 @@ public class GuiNpcNaturalSpawns extends GuiNPCInterface2 implements IGuiData, I
      }
 
      public void buttonEvent(GuiButton guibutton) {
-          int id = guibutton.field_146127_k;
+          int id = guibutton.id;
           if (id == 1) {
                this.save();
 

@@ -121,7 +121,7 @@ public class SubGuiNpcMovement extends SubGuiInterface implements ITextfieldList
 
      protected void func_146284_a(GuiButton guibutton) {
           GuiNpcButton button = (GuiNpcButton)guibutton;
-          if (button.field_146127_k == 0) {
+          if (button.id == 0) {
                this.ai.setMovingType(button.getValue());
                if (this.ai.getMovingType() != 0) {
                     this.ai.animationType = 0;
@@ -130,19 +130,19 @@ public class SubGuiNpcMovement extends SubGuiInterface implements ITextfieldList
                }
 
                this.func_73866_w_();
-          } else if (button.field_146127_k == 3) {
+          } else if (button.id == 3) {
                this.ai.animationType = button.getValue();
                this.func_73866_w_();
-          } else if (button.field_146127_k == 4) {
+          } else if (button.id == 4) {
                this.ai.setStandingType(button.getValue());
                this.func_73866_w_();
-          } else if (button.field_146127_k == 5) {
+          } else if (button.id == 5) {
                this.ai.npcInteracting = button.getValue() == 1;
-          } else if (button.field_146127_k == 8) {
+          } else if (button.id == 8) {
                this.ai.movingPattern = button.getValue();
-          } else if (button.field_146127_k == 9) {
+          } else if (button.id == 9) {
                this.ai.movingPause = button.getValue() == 1;
-          } else if (button.field_146127_k == 12) {
+          } else if (button.id == 12) {
                if (button.getValue() == 0) {
                     this.ai.animationType = 0;
                }
@@ -166,11 +166,11 @@ public class SubGuiNpcMovement extends SubGuiInterface implements ITextfieldList
                if (button.getValue() == 5) {
                     this.ai.animationType = 3;
                }
-          } else if (button.field_146127_k == 13) {
+          } else if (button.id == 13) {
                this.ai.stopAndInteract = button.getValue() == 1;
-          } else if (button.field_146127_k == 15) {
+          } else if (button.id == 15) {
                this.ai.movementType = button.getValue();
-          } else if (button.field_146127_k == 66) {
+          } else if (button.id == 66) {
                this.close();
           }
 

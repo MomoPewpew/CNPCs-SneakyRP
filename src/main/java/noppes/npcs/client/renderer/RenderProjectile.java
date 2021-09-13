@@ -33,7 +33,7 @@ public class RenderProjectile extends Render {
           Minecraft mc = Minecraft.func_71410_x();
           GlStateManager.func_179094_E();
           GlStateManager.func_179109_b((float)x, (float)y, (float)z);
-          GlStateManager.func_179091_B();
+          GlStateManager.enableRescaleNormal();
           float scale = (float)projectile.getSize() / 10.0F;
           ItemStack item = projectile.getItemDisplay();
           GlStateManager.func_179152_a(scale, scale, scale);
@@ -53,7 +53,7 @@ public class RenderProjectile extends Render {
                float f6 = (float)(5 + i * 10) / 32.0F;
                float f7 = (float)(10 + i * 10) / 32.0F;
                float f8 = 0.05625F;
-               GlStateManager.func_179091_B();
+               GlStateManager.enableRescaleNormal();
                float f9 = (float)projectile.arrowShake - partialTicks;
                if (f9 > 0.0F) {
                     float f10 = -MathHelper.func_76126_a(f9 * 3.0F) * f9;
@@ -110,24 +110,24 @@ public class RenderProjectile extends Render {
                     GlStateManager.func_179152_a(-f8, -f8, f8);
                }
 
-               mc.func_175599_af().func_181564_a(item, TransformType.THIRD_PERSON_RIGHT_HAND);
+               mc.getRenderItem().func_181564_a(item, TransformType.THIRD_PERSON_RIGHT_HAND);
           } else {
-               GlStateManager.func_179091_B();
+               GlStateManager.enableRescaleNormal();
                GlStateManager.func_179152_a(0.5F, 0.5F, 0.5F);
                GlStateManager.func_179114_b(-this.field_76990_c.field_78735_i, 0.0F, 1.0F, 0.0F);
                GlStateManager.func_179114_b(this.field_76990_c.field_78732_j, 1.0F, 0.0F, 0.0F);
                this.func_110776_a(TextureMap.field_110575_b);
-               mc.func_175599_af().func_181564_a(item, TransformType.NONE);
+               mc.getRenderItem().func_181564_a(item, TransformType.NONE);
                GlStateManager.func_179101_C();
           }
 
           if (projectile.is3D() && projectile.glows()) {
-               GlStateManager.func_179140_f();
+               GlStateManager.disableLighting();
           }
 
           GlStateManager.func_179101_C();
           GlStateManager.func_179121_F();
-          GlStateManager.func_179145_e();
+          GlStateManager.enableLighting();
      }
 
      public void func_76986_a(Entity par1Entity, double par2, double par4, double par6, float par8, float par9) {

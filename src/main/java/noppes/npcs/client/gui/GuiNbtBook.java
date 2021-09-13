@@ -57,13 +57,13 @@ public class GuiNbtBook extends GuiNPCInterface implements IGuiData {
           }
 
           this.addButton(new GuiNpcButton(0, this.guiLeft + 38, this.guiTop + 144, 180, 20, "nbt.edit"));
-          this.getButton(0).field_146124_l = this.compound != null && !this.compound.func_82582_d();
+          this.getButton(0).enabled = this.compound != null && !this.compound.func_82582_d();
           this.addLabel(new GuiNpcLabel(0, "", this.guiLeft + 4, this.guiTop + 167));
           this.addLabel(new GuiNpcLabel(1, "", this.guiLeft + 4, this.guiTop + 177));
           this.addButton(new GuiNpcButton(66, this.guiLeft + 128, this.guiTop + 190, 120, 20, "gui.close"));
           this.addButton(new GuiNpcButton(67, this.guiLeft + 4, this.guiTop + 190, 120, 20, "gui.save"));
           if (this.errorMessage != null) {
-               this.getButton(67).field_146124_l = false;
+               this.getButton(67).enabled = false;
                int i = this.errorMessage.indexOf(" at: ");
                if (i > 0) {
                     this.getLabel(0).label = this.errorMessage.substring(0, i);
@@ -73,14 +73,14 @@ public class GuiNbtBook extends GuiNPCInterface implements IGuiData {
                }
           }
 
-          if (this.getButton(67).field_146124_l && this.originalCompound != null) {
-               this.getButton(67).field_146124_l = !this.originalCompound.equals(this.compound);
+          if (this.getButton(67).enabled && this.originalCompound != null) {
+               this.getButton(67).enabled = !this.originalCompound.equals(this.compound);
           }
 
      }
 
      protected void func_146284_a(GuiButton guibutton) {
-          int id = guibutton.field_146127_k;
+          int id = guibutton.id;
           if (id == 0) {
                if (this.faultyText != null) {
                     this.setSubGui((new SubGuiNpcTextArea(this.compound.toString(), this.faultyText)).enableHighlighting());
@@ -102,7 +102,7 @@ public class GuiNbtBook extends GuiNPCInterface implements IGuiData {
 
                Client.sendData(EnumPacketServer.NbtBookSaveBlock, this.x, this.y, this.z, this.compound);
                this.originalCompound = this.compound.func_74737_b();
-               this.getButton(67).field_146124_l = false;
+               this.getButton(67).enabled = false;
           }
 
           if (id == 66) {
@@ -118,10 +118,10 @@ public class GuiNbtBook extends GuiNPCInterface implements IGuiData {
                     GlStateManager.func_179094_E();
                     GlStateManager.func_179109_b((float)(this.guiLeft + 4), (float)(this.guiTop + 4), 0.0F);
                     GlStateManager.func_179152_a(3.0F, 3.0F, 3.0F);
-                    RenderHelper.func_74520_c();
-                    this.field_146296_j.func_180450_b(this.blockStack, 0, 0);
+                    RenderHelper.enableGUIStandardItemLighting();
+                    this.field_146296_j.renderItemAndEffectIntoGUI(this.blockStack, 0, 0);
                     this.field_146296_j.func_175030_a(this.field_146289_q, this.blockStack, 0, 0);
-                    RenderHelper.func_74518_a();
+                    RenderHelper.disableStandardItemLighting();
                     GlStateManager.func_179121_F();
                }
 

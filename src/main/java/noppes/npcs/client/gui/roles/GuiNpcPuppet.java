@@ -96,8 +96,8 @@ public class GuiNpcPuppet extends GuiNPCInterface implements ISliderListener, IC
           if (this.job.animate) {
                this.addButton(new GuiNpcButton(67, this.guiLeft + 10, y + 110, 70, 20, "gui.start"));
                this.addButton(new GuiNpcButton(68, this.guiLeft + 90, y + 110, 70, 20, "gui.end"));
-               this.getButton(67).field_146124_l = !this.isStart;
-               this.getButton(68).field_146124_l = this.isStart;
+               this.getButton(67).enabled = !this.isStart;
+               this.getButton(68).enabled = this.isStart;
           }
 
      }
@@ -124,42 +124,42 @@ public class GuiNpcPuppet extends GuiNPCInterface implements ISliderListener, IC
           super.func_146284_a(btn);
           if (btn instanceof GuiNpcButton) {
                GuiNpcButton button = (GuiNpcButton)btn;
-               if (btn.field_146127_k == 29) {
+               if (btn.id == 29) {
                     ((JobPuppet.PartConfig)this.data.get(this.selectedName)).disabled = button.getValue() == 1;
                }
 
-               if (btn.field_146127_k == 30) {
+               if (btn.id == 30) {
                     this.job.whileStanding = button.getValue() == 0;
                }
 
-               if (btn.field_146127_k == 31) {
+               if (btn.id == 31) {
                     this.job.whileMoving = button.getValue() == 0;
                }
 
-               if (btn.field_146127_k == 32) {
+               if (btn.id == 32) {
                     this.job.whileAttacking = button.getValue() == 0;
                }
 
-               if (btn.field_146127_k == 33) {
+               if (btn.id == 33) {
                     this.job.animate = button.getValue() == 0;
                     this.isStart = true;
                     this.func_73866_w_();
                }
 
-               if (btn.field_146127_k == 34) {
+               if (btn.id == 34) {
                     this.job.animationSpeed = button.getValue();
                }
 
-               if (btn.field_146127_k == 66) {
+               if (btn.id == 66) {
                     this.close();
                }
 
-               if (btn.field_146127_k == 67) {
+               if (btn.id == 67) {
                     this.isStart = true;
                     this.func_73866_w_();
                }
 
-               if (btn.field_146127_k == 68) {
+               if (btn.id == 68) {
                     this.isStart = false;
                     this.func_73866_w_();
                }
@@ -168,7 +168,7 @@ public class GuiNpcPuppet extends GuiNPCInterface implements ISliderListener, IC
      }
 
      public void close() {
-          this.field_146297_k.func_147108_a(this.parent);
+          this.field_146297_k.displayGuiScreen(this.parent);
           Client.sendData(EnumPacketServer.JobSave, this.job.writeToNBT(new NBTTagCompound()));
      }
 
@@ -176,15 +176,15 @@ public class GuiNpcPuppet extends GuiNPCInterface implements ISliderListener, IC
           int percent = (int)(slider.sliderValue * 360.0F);
           slider.setString(percent + "%");
           JobPuppet.PartConfig part = (JobPuppet.PartConfig)this.data.get(this.selectedName);
-          if (slider.field_146127_k == 10) {
+          if (slider.id == 10) {
                part.rotationX = (slider.sliderValue - 0.5F) * 2.0F;
           }
 
-          if (slider.field_146127_k == 11) {
+          if (slider.id == 11) {
                part.rotationY = (slider.sliderValue - 0.5F) * 2.0F;
           }
 
-          if (slider.field_146127_k == 12) {
+          if (slider.id == 12) {
                part.rotationZ = (slider.sliderValue - 0.5F) * 2.0F;
           }
 

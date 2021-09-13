@@ -44,15 +44,15 @@ public class GuiNPCFactionSetup extends GuiNPCInterface2 implements IScrollData,
 
      public void buttonEvent(GuiButton guibutton) {
           GuiNpcButton button = (GuiNpcButton)guibutton;
-          if (button.field_146127_k == 0) {
+          if (button.id == 0) {
                this.npc.advanced.attackOtherFactions = button.getValue() == 1;
           }
 
-          if (button.field_146127_k == 1) {
+          if (button.id == 1) {
                this.npc.advanced.defendFaction = button.getValue() == 1;
           }
 
-          if (button.field_146127_k == 12) {
+          if (button.id == 12) {
                this.setSubGui(new SubGuiNpcFactionOptions(this.npc.advanced.factions));
           }
 

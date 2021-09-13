@@ -51,7 +51,7 @@ public class GuiNpcDimension extends GuiNPCInterface implements IScrollData {
      }
 
      protected void func_146284_a(GuiButton guibutton) {
-          int id = guibutton.field_146127_k;
+          int id = guibutton.id;
           if (this.data.containsKey(this.scroll.getSelected())) {
                if (id == 4) {
                     Client.sendData(EnumPacketServer.DimensionTeleport, this.data.get(this.scroll.getSelected()));

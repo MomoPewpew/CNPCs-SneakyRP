@@ -32,7 +32,7 @@ public class ClientTickHandler {
      public void onClientTick(ClientTickEvent event) {
           if (event.phase != Phase.END) {
                Minecraft mc = Minecraft.func_71410_x();
-               if (mc.field_71439_g != null && mc.field_71439_g.field_71070_bA instanceof ContainerPlayer) {
+               if (mc.player != null && mc.player.openContainer instanceof ContainerPlayer) {
                     if (this.otherContainer) {
                          NoppesUtilPlayer.sendData(EnumPlayerPacket.CheckQuestCompletion);
                          this.otherContainer = false;
@@ -74,7 +74,7 @@ public class ClientTickHandler {
           Minecraft mc = Minecraft.func_71410_x();
           if (ClientProxy.QuestLog.func_151468_f()) {
                if (mc.field_71462_r == null) {
-                    NoppesUtil.openGUI(mc.field_71439_g, new GuiQuestLog(mc.field_71439_g));
+                    NoppesUtil.openGUI(mc.player, new GuiQuestLog(mc.player));
                } else if (mc.field_71462_r instanceof GuiQuestLog) {
                     mc.func_71381_h();
                }

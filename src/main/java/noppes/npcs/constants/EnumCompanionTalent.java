@@ -6,7 +6,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
 public enum EnumCompanionTalent {
-     INVENTORY(Item.func_150898_a(Blocks.field_150462_ai)),
+     INVENTORY(Item.func_150898_a(Blocks.CRAFTING_TABLE)),
      ARMOR(Items.field_151030_Z),
      SWORD(Items.field_151048_u),
      RANGED(Items.field_151031_f),

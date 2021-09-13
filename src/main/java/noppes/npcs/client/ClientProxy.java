@@ -188,7 +188,7 @@ public class ClientProxy extends CommonProxy {
      }
 
      public PlayerData getPlayerData(EntityPlayer player) {
-          if (player.func_110124_au() == Minecraft.func_71410_x().field_71439_g.func_110124_au()) {
+          if (player.func_110124_au() == Minecraft.func_71410_x().player.func_110124_au()) {
                if (playerData.player != player) {
                     playerData.player = player;
                }
@@ -279,7 +279,7 @@ public class ClientProxy extends CommonProxy {
                          return new GuiNpcDisplay(npc);
                     }
 
-                    Minecraft.func_71410_x().field_71439_g.func_145747_a(new TextComponentString("Unable to find npc"));
+                    Minecraft.func_71410_x().player.func_145747_a(new TextComponentString("Unable to find npc"));
                } else {
                     if (gui == EnumGuiType.MainMenuStats) {
                          return new GuiNpcStats(npc);
@@ -378,7 +378,7 @@ public class ClientProxy extends CommonProxy {
                     }
 
                     if (gui == EnumGuiType.ScriptItem) {
-                         return new GuiScriptItem(Minecraft.func_71410_x().field_71439_g);
+                         return new GuiScriptItem(Minecraft.func_71410_x().player);
                     }
 
                     if (gui == EnumGuiType.ScriptDoor) {
@@ -480,10 +480,10 @@ public class ClientProxy extends CommonProxy {
 
      public void openGui(int i, int j, int k, EnumGuiType gui, EntityPlayer player) {
           Minecraft minecraft = Minecraft.func_71410_x();
-          if (minecraft.field_71439_g == player) {
+          if (minecraft.player == player) {
                GuiScreen guiscreen = this.getGui((EntityNPCInterface)null, gui, (Container)null, i, j, k);
                if (guiscreen != null) {
-                    minecraft.func_147108_a(guiscreen);
+                    minecraft.displayGuiScreen(guiscreen);
                }
 
           }
@@ -495,10 +495,10 @@ public class ClientProxy extends CommonProxy {
 
      public void openGui(EntityNPCInterface npc, EnumGuiType gui, int x, int y, int z) {
           Minecraft minecraft = Minecraft.func_71410_x();
-          Container container = this.getContainer(gui, minecraft.field_71439_g, x, y, z, npc);
+          Container container = this.getContainer(gui, minecraft.player, x, y, z, npc);
           GuiScreen guiscreen = this.getGui(npc, gui, container, x, y, z);
           if (guiscreen != null) {
-               minecraft.func_147108_a(guiscreen);
+               minecraft.displayGuiScreen(guiscreen);
           }
 
      }
@@ -507,7 +507,7 @@ public class ClientProxy extends CommonProxy {
           Minecraft minecraft = Minecraft.func_71410_x();
           if (player.field_70170_p.field_72995_K && guiscreen instanceof GuiScreen) {
                if (guiscreen != null) {
-                    minecraft.func_147108_a((GuiScreen)guiscreen);
+                    minecraft.displayGuiScreen((GuiScreen)guiscreen);
                }
 
           }
@@ -540,7 +540,7 @@ public class ClientProxy extends CommonProxy {
      }
 
      public EntityPlayer getPlayer() {
-          return Minecraft.func_71410_x().field_71439_g;
+          return Minecraft.func_71410_x().player;
      }
 
      public static void bindTexture(ResourceLocation location) {
@@ -603,11 +603,11 @@ public class ClientProxy extends CommonProxy {
           }
 
           public int height(String text) {
-               return this.useCustomFont ? this.textFont.height(text) : Minecraft.func_71410_x().field_71466_p.field_78288_b;
+               return this.useCustomFont ? this.textFont.height(text) : Minecraft.func_71410_x().fontRenderer.field_78288_b;
           }
 
           public int width(String text) {
-               return this.useCustomFont ? this.textFont.width(text) : Minecraft.func_71410_x().field_71466_p.func_78256_a(text);
+               return this.useCustomFont ? this.textFont.width(text) : Minecraft.func_71410_x().fontRenderer.func_78256_a(text);
           }
 
           public ClientProxy.FontContainer copy() {
@@ -621,7 +621,7 @@ public class ClientProxy extends CommonProxy {
                if (this.useCustomFont) {
                     this.textFont.draw(text, (float)x, (float)y, color);
                } else {
-                    Minecraft.func_71410_x().field_71466_p.func_175063_a(text, (float)x, (float)y, color);
+                    Minecraft.func_71410_x().fontRenderer.func_175063_a(text, (float)x, (float)y, color);
                }
 
           }

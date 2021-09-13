@@ -56,7 +56,7 @@ public class GuiNpcPather extends GuiNPCInterface implements IGuiData {
 
      protected void func_146284_a(GuiButton guibutton) {
           if (this.scroll.selected >= 0) {
-               int id = guibutton.field_146127_k;
+               int id = guibutton.id;
                List list;
                int selected;
                int[] a;

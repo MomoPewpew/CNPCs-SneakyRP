@@ -21,7 +21,7 @@ public class LayerSlimeNpc implements LayerRenderer {
 
      public void func_177141_a(EntityLivingBase living, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
           if (!living.func_82150_aj()) {
-               GlStateManager.func_179131_c(1.0F, 1.0F, 1.0F, 1.0F);
+               GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
                GlStateManager.func_179108_z();
                GlStateManager.func_179147_l();
                GlStateManager.func_179112_b(770, 771);

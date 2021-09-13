@@ -100,25 +100,25 @@ public class GuiNpcHealer extends GuiNPCInterface2 {
 
      protected void func_146284_a(GuiButton guibutton) {
           GuiNpcButton button = (GuiNpcButton)guibutton;
-          if (button.field_146127_k == 3) {
+          if (button.id == 3) {
                this.job.type = (byte)button.getValue();
           }
 
-          if (button.field_146127_k == 11 && this.scroll1.hasSelected()) {
+          if (button.id == 11 && this.scroll1.hasSelected()) {
                this.job.effects.put(this.potions.get(this.scroll1.getSelected()), this.getTextField(2).getInteger());
                this.scroll1.selected = -1;
                this.scroll2.selected = -1;
                this.func_73866_w_();
           }
 
-          if (button.field_146127_k == 12 && this.scroll2.hasSelected()) {
+          if (button.id == 12 && this.scroll2.hasSelected()) {
                this.job.effects.remove(this.potions.get(this.displays.remove(this.scroll2.getSelected())));
                this.scroll1.selected = -1;
                this.scroll2.selected = -1;
                this.func_73866_w_();
           }
 
-          if (button.field_146127_k == 13) {
+          if (button.id == 13) {
                this.job.effects.clear();
                new ArrayList();
                Iterator ita = Potion.field_188414_b.iterator();
@@ -133,7 +133,7 @@ public class GuiNpcHealer extends GuiNPCInterface2 {
                this.func_73866_w_();
           }
 
-          if (button.field_146127_k == 14) {
+          if (button.id == 14) {
                this.job.effects.clear();
                this.displays.clear();
                this.scroll1.selected = -1;

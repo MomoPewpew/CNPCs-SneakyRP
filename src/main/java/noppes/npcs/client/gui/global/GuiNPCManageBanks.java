@@ -71,7 +71,7 @@ public class GuiNPCManageBanks extends GuiContainerNPCInterface2 implements IScr
 
      protected void func_146284_a(GuiButton guibutton) {
           GuiNpcButton button = (GuiNpcButton)guibutton;
-          if (button.field_146127_k == 6) {
+          if (button.id == 6) {
                this.save();
                this.scroll.clear();
 
@@ -84,12 +84,12 @@ public class GuiNPCManageBanks extends GuiContainerNPCInterface2 implements IScr
                NBTTagCompound compound = new NBTTagCompound();
                bank.writeEntityToNBT(compound);
                Client.sendData(EnumPacketServer.BankSave, compound);
-          } else if (button.field_146127_k == 7) {
+          } else if (button.id == 7) {
                if (this.data.containsKey(this.scroll.getSelected())) {
                     Client.sendData(EnumPacketServer.BankRemove, this.data.get(this.selected));
                }
-          } else if (button.field_146127_k >= 0 && button.field_146127_k < 6) {
-               this.bank.slotTypes.put(button.field_146127_k, button.getValue());
+          } else if (button.id >= 0 && button.id < 6) {
+               this.bank.slotTypes.put(button.id, button.getValue());
           }
 
      }

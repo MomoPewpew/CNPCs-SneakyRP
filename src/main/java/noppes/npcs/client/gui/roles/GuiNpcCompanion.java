@@ -62,14 +62,14 @@ public class GuiNpcCompanion extends GuiNPCInterface2 implements ITextfieldListe
 
           while(var2.hasNext()) {
                GuiNpcCompanionTalents.GuiTalent gui = (GuiNpcCompanionTalents.GuiTalent)var2.next();
-               gui.func_146280_a(this.field_146297_k, this.field_146294_l, this.field_146295_m);
+               gui.func_146280_a(this.field_146297_k, this.width, this.height);
           }
 
      }
 
      public void buttonEvent(GuiButton guibutton) {
           GuiNpcButton button;
-          if (guibutton.field_146127_k == 0) {
+          if (guibutton.id == 0) {
                button = (GuiNpcButton)guibutton;
                this.role.matureTo(EnumCompanionStage.values()[button.getValue()]);
                if (this.role.canAge) {
@@ -79,11 +79,11 @@ public class GuiNpcCompanion extends GuiNPCInterface2 implements ITextfieldListe
                this.func_73866_w_();
           }
 
-          if (guibutton.field_146127_k == 1) {
+          if (guibutton.id == 1) {
                Client.sendData(EnumPacketServer.RoleCompanionUpdate, this.role.stage.ordinal());
           }
 
-          if (guibutton.field_146127_k == 2) {
+          if (guibutton.id == 2) {
                button = (GuiNpcButton)guibutton;
                this.role.canAge = button.getValue() == 1;
                this.func_73866_w_();
@@ -119,10 +119,10 @@ public class GuiNpcCompanion extends GuiNPCInterface2 implements ITextfieldListe
      public void mouseDragged(GuiNpcSlider slider) {
           if (slider.sliderValue <= 0.0F) {
                slider.setString("gui.disabled");
-               this.role.talents.remove(EnumCompanionTalent.values()[slider.field_146127_k - 10]);
+               this.role.talents.remove(EnumCompanionTalent.values()[slider.id - 10]);
           } else {
                slider.field_146126_j = (int)(slider.sliderValue * 50.0F) * 100 + " exp";
-               this.role.setExp(EnumCompanionTalent.values()[slider.field_146127_k - 10], (int)(slider.sliderValue * 50.0F) * 100);
+               this.role.setExp(EnumCompanionTalent.values()[slider.id - 10], (int)(slider.sliderValue * 50.0F) * 100);
           }
 
      }

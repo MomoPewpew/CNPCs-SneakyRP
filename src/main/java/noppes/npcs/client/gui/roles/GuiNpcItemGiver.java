@@ -55,17 +55,17 @@ public class GuiNpcItemGiver extends GuiContainerNPCInterface2 {
 
      public void func_146284_a(GuiButton guibutton) {
           GuiNpcButton button = (GuiNpcButton)guibutton;
-          if (button.field_146127_k == 0) {
+          if (button.id == 0) {
                this.role.givingMethod = button.getValue();
           }
 
-          if (button.field_146127_k == 1) {
+          if (button.id == 1) {
                this.role.cooldownType = button.getValue();
                this.getTextField(0).enabled = this.role.isOnTimer();
                this.getLabel(0).enabled = this.role.isOnTimer();
           }
 
-          if (button.field_146127_k == 4) {
+          if (button.id == 4) {
                this.setSubGui(new SubGuiNpcAvailability(this.role.availability));
           }
 

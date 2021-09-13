@@ -228,7 +228,7 @@ public class PacketHandlerPlayer {
 
                          mail.readNBT(Server.readNBT(buffer));
                          mail.sender = username;
-                         mail.items = ((ContainerMail)player.field_71070_bA).mail.items;
+                         mail.items = ((ContainerMail)player.openContainer).mail.items;
                          if (mail.subject.isEmpty()) {
                               NoppesUtilServer.sendGuiError(player, 1);
                               return;

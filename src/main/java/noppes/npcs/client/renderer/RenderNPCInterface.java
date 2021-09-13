@@ -69,7 +69,7 @@ public class RenderNPCInterface extends RenderLiving {
           GlStateManager.func_179114_b(this.field_76990_c.field_78732_j, 1.0F, 0.0F, 0.0F);
           float height = f1 / 6.5F * 2.0F;
           int color = npc.getFaction().color;
-          GlStateManager.func_179140_f();
+          GlStateManager.disableLighting();
           GlStateManager.func_179132_a(false);
           GlStateManager.func_179109_b(0.0F, height, 0.0F);
           GlStateManager.func_179147_l();
@@ -92,11 +92,11 @@ public class RenderNPCInterface extends RenderLiving {
           }
 
           GlStateManager.func_179132_a(true);
-          GlStateManager.func_179131_c(1.0F, 1.0F, 1.0F, 1.0F);
+          GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
           fontrenderer.func_78276_b(name, -fontrenderer.func_78256_a(name) / 2, 0, color);
-          GlStateManager.func_179145_e();
+          GlStateManager.enableLighting();
           GlStateManager.func_179084_k();
-          GlStateManager.func_179131_c(1.0F, 1.0F, 1.0F, 1.0F);
+          GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
           GlStateManager.func_179121_F();
      }
 
@@ -105,7 +105,7 @@ public class RenderNPCInterface extends RenderLiving {
                float red = (float)(npc.display.getTint() >> 16 & 255) / 255.0F;
                float green = (float)(npc.display.getTint() >> 8 & 255) / 255.0F;
                float blue = (float)(npc.display.getTint() & 255) / 255.0F;
-               GlStateManager.func_179131_c(red, green, blue, 1.0F);
+               GlStateManager.color(red, green, blue, 1.0F);
           }
 
      }
@@ -138,7 +138,7 @@ public class RenderNPCInterface extends RenderLiving {
 
      public void doRender(EntityNPCInterface npc, double d, double d1, double d2, float f, float f1) {
           if (!npc.isKilled() || !npc.stats.hideKilledBody || npc.field_70725_aQ <= 20) {
-               if ((npc.display.getBossbar() == 1 || npc.display.getBossbar() == 2 && npc.isAttacking()) && !npc.isKilled() && npc.field_70725_aQ <= 20 && npc.canSee(Minecraft.func_71410_x().field_71439_g)) {
+               if ((npc.display.getBossbar() == 1 || npc.display.getBossbar() == 2 && npc.isAttacking()) && !npc.isKilled() && npc.field_70725_aQ <= 20 && npc.canSee(Minecraft.func_71410_x().player)) {
                }
 
                if (npc.ais.getStandingType() == 3 && !npc.isWalking() && !npc.isInteracting()) {
@@ -161,20 +161,20 @@ public class RenderNPCInterface extends RenderLiving {
                float f1 = 1.0F;
                GlStateManager.func_179147_l();
                GlStateManager.func_179112_b(1, 1);
-               GlStateManager.func_179140_f();
+               GlStateManager.disableLighting();
                if (npc.func_82150_aj()) {
                     GlStateManager.func_179132_a(false);
                } else {
                     GlStateManager.func_179132_a(true);
                }
 
-               GlStateManager.func_179131_c(1.0F, 1.0F, 1.0F, 1.0F);
+               GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
                GlStateManager.func_179094_E();
                GlStateManager.func_179152_a(1.001F, 1.001F, 1.001F);
                this.field_77045_g.func_78088_a(npc, par2, par3, par4, par5, par6, par7);
                GlStateManager.func_179121_F();
-               GlStateManager.func_179145_e();
-               GlStateManager.func_179131_c(1.0F, 1.0F, 1.0F, f1);
+               GlStateManager.enableLighting();
+               GlStateManager.color(1.0F, 1.0F, 1.0F, f1);
                GlStateManager.func_179143_c(515);
                GlStateManager.func_179084_k();
           }

@@ -33,7 +33,7 @@ public class SubGuiNpcResistanceProperties extends SubGuiInterface implements IS
      }
 
      protected void func_146284_a(GuiButton guibutton) {
-          int id = guibutton.field_146127_k;
+          int id = guibutton.id;
           if (id == 66) {
                this.close();
           }
@@ -48,19 +48,19 @@ public class SubGuiNpcResistanceProperties extends SubGuiInterface implements IS
      }
 
      public void mouseReleased(GuiNpcSlider slider) {
-          if (slider.field_146127_k == 0) {
+          if (slider.id == 0) {
                this.resistances.knockback = slider.sliderValue * 2.0F;
           }
 
-          if (slider.field_146127_k == 1) {
+          if (slider.id == 1) {
                this.resistances.arrow = slider.sliderValue * 2.0F;
           }
 
-          if (slider.field_146127_k == 2) {
+          if (slider.id == 2) {
                this.resistances.melee = slider.sliderValue * 2.0F;
           }
 
-          if (slider.field_146127_k == 3) {
+          if (slider.id == 3) {
                this.resistances.explosion = slider.sliderValue * 2.0F;
           }
 

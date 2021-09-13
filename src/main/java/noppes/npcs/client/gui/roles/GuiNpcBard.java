@@ -45,23 +45,23 @@ public class GuiNpcBard extends GuiNPCInterface2 implements ISubGuiListener {
 
      protected void func_146284_a(GuiButton guibutton) {
           GuiNpcButton button = (GuiNpcButton)guibutton;
-          if (button.field_146127_k == 0) {
+          if (button.id == 0) {
                this.setSubGui(new GuiSoundSelection(this.job.song));
                MusicController.Instance.stopMusic();
           }
 
-          if (button.field_146127_k == 1) {
+          if (button.id == 1) {
                this.job.song = "";
                this.getLabel(0).label = "";
                MusicController.Instance.stopMusic();
           }
 
-          if (button.field_146127_k == 3) {
+          if (button.id == 3) {
                this.job.isStreamer = button.getValue() == 0;
                this.func_73866_w_();
           }
 
-          if (button.field_146127_k == 4) {
+          if (button.id == 4) {
                this.job.hasOffRange = button.getValue() == 1;
                this.func_73866_w_();
           }

@@ -48,7 +48,7 @@ public class GuiNPCLinesEdit extends GuiNPCInterface2 implements IGuiData, ISubG
 
      protected void func_146284_a(GuiButton guibutton) {
           GuiNpcButton button = (GuiNpcButton)guibutton;
-          this.selectedId = button.field_146127_k + 8;
+          this.selectedId = button.id + 8;
           this.setSubGui(new GuiSoundSelection(this.getTextField(this.selectedId).func_146179_b()));
      }
 

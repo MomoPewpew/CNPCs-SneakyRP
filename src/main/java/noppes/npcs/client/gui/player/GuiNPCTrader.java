@@ -32,11 +32,11 @@ public class GuiNPCTrader extends GuiContainerNPCInterface {
 
      protected void func_146976_a(float f, int i, int j) {
           this.func_146270_b(0);
-          GlStateManager.func_179131_c(1.0F, 1.0F, 1.0F, 1.0F);
-          this.field_146297_k.field_71446_o.func_110577_a(this.resource);
-          this.func_73729_b(this.field_147003_i, this.field_147009_r, 0, 0, this.field_146999_f, this.field_147000_g);
-          GlStateManager.func_179091_B();
-          this.field_146297_k.field_71446_o.func_110577_a(this.slot);
+          GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+          this.field_146297_k.renderEngine.bindTexture(this.resource);
+          this.drawTexturedModalRect(this.field_147003_i, this.field_147009_r, 0, 0, this.field_146999_f, this.field_147000_g);
+          GlStateManager.enableRescaleNormal();
+          this.field_146297_k.renderEngine.bindTexture(this.slot);
 
           for(int slot = 0; slot < 18; ++slot) {
                int x = this.field_147003_i + slot % 3 * 72 + 10;
@@ -55,19 +55,19 @@ public class GuiNPCTrader extends GuiContainerNPCInterface {
                }
 
                ItemStack sold = (ItemStack)this.role.inventorySold.items.get(slot);
-               GlStateManager.func_179131_c(1.0F, 1.0F, 1.0F, 1.0F);
-               this.field_146297_k.field_71446_o.func_110577_a(this.slot);
-               this.func_73729_b(x + 42, y, 0, 0, 18, 18);
+               GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+               this.field_146297_k.renderEngine.bindTexture(this.slot);
+               this.drawTexturedModalRect(x + 42, y, 0, 0, 18, 18);
                if (!NoppesUtilServer.IsItemStackNull(item) && !NoppesUtilServer.IsItemStackNull(sold)) {
-                    RenderHelper.func_74520_c();
+                    RenderHelper.enableGUIStandardItemLighting();
                     if (!NoppesUtilServer.IsItemStackNull(item2)) {
-                         this.field_146296_j.func_180450_b(item2, x, y + 1);
+                         this.field_146296_j.renderItemAndEffectIntoGUI(item2, x, y + 1);
                          this.field_146296_j.func_175030_a(this.field_146289_q, item2, x, y + 1);
                     }
 
-                    this.field_146296_j.func_180450_b(item, x + 18, y + 1);
+                    this.field_146296_j.renderItemAndEffectIntoGUI(item, x + 18, y + 1);
                     this.field_146296_j.func_175030_a(this.field_146289_q, item, x + 18, y + 1);
-                    RenderHelper.func_74518_a();
+                    RenderHelper.disableStandardItemLighting();
                     this.field_146289_q.func_78276_b("=", x + 36, y + 5, CustomNpcResourceListener.DefaultTextColor);
                }
           }

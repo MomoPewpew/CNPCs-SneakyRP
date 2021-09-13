@@ -68,27 +68,27 @@ public class GuiNpcConversation extends GuiNPCInterface2 implements ITextfieldLi
 
      protected void func_146284_a(GuiButton guibutton) {
           GuiNpcButton button = (GuiNpcButton)guibutton;
-          if (button.field_146127_k >= 0 && button.field_146127_k < 14) {
-               this.slot = button.field_146127_k;
+          if (button.id >= 0 && button.id < 14) {
+               this.slot = button.id;
                JobConversation.ConversationLine line = this.job.getLine(this.slot);
                this.setSubGui(new SubGuiNpcConversationLine(line.getText(), line.getSound()));
           }
 
-          if (button.field_146127_k == 51) {
+          if (button.id == 51) {
                this.setSubGui(new GuiQuestSelection(this.job.quest));
           }
 
-          if (button.field_146127_k == 52) {
+          if (button.id == 52) {
                this.job.quest = -1;
                this.job.questTitle = "";
                this.func_73866_w_();
           }
 
-          if (button.field_146127_k == 53) {
+          if (button.id == 53) {
                this.setSubGui(new SubGuiNpcAvailability(this.job.availability));
           }
 
-          if (button.field_146127_k == 55) {
+          if (button.id == 55) {
                this.job.mode = button.getValue();
           }
 

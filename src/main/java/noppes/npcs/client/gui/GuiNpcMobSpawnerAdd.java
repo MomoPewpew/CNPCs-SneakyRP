@@ -45,7 +45,7 @@ public class GuiNpcMobSpawnerAdd extends GuiNPCInterface implements GuiYesNoCall
      }
 
      public void buttonEvent(GuiButton guibutton) {
-          int id = guibutton.field_146127_k;
+          int id = guibutton.id;
           if (id == 0) {
                String name = this.getTextField(0).func_146179_b();
                if (name.isEmpty()) {

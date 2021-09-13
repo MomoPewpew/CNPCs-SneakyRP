@@ -187,7 +187,7 @@ public class GuiCreationExtra extends GuiCreationScreenInterface implements ICus
           }
 
           public void actionPerformed(GuiButton button) {
-               if (button.field_146127_k == 11) {
+               if (button.id == 11) {
                     int breed = ((GuiNpcButton)button).getValue();
                     EntityLivingBase entity = GuiCreationExtra.this.playerdata.getEntity(GuiCreationExtra.this.npc);
                     GuiCreationExtra.this.playerdata.setExtra(entity, "breed", ((GuiNpcButton)button).getValue() + "");
@@ -231,7 +231,7 @@ public class GuiCreationExtra extends GuiCreationScreenInterface implements ICus
           }
 
           public void actionPerformed(GuiButton button) {
-               if (button.field_146127_k == 11) {
+               if (button.id == 11) {
                     GuiCreationExtra.this.playerdata.extra.func_74774_a(this.name, (byte)((GuiNpcButton)button).getValue());
                     GuiCreationExtra.this.playerdata.clearEntity();
                     GuiCreationExtra.this.updateTexture();
@@ -252,7 +252,7 @@ public class GuiCreationExtra extends GuiCreationScreenInterface implements ICus
           }
 
           public void actionPerformed(GuiButton button) {
-               if (button.field_146127_k == 11) {
+               if (button.id == 11) {
                     this.bo = ((GuiNpcButtonYesNo)button).getBoolean();
                     if (this.name.equals("Child")) {
                          GuiCreationExtra.this.playerdata.extra.func_74768_a("Age", this.bo ? -24000 : 0);

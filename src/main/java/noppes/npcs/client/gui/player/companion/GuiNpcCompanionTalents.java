@@ -62,7 +62,7 @@ public class GuiNpcCompanionTalents extends GuiNPCInterface {
           int y = this.guiTop + 28 + i / 2 * 26;
           int x = this.guiLeft + 4 + i % 2 * 84;
           GuiNpcCompanionTalents.GuiTalent gui = new GuiNpcCompanionTalents.GuiTalent(this.role, talent, x, y);
-          gui.func_146280_a(this.field_146297_k, this.field_146294_l, this.field_146295_m);
+          gui.func_146280_a(this.field_146297_k, this.width, this.height);
           this.talents.put(i, gui);
           if (this.role.getTalentLevel(talent) < 5) {
                this.addButton(new GuiNpcButton(i + 10, x + 26, y, 14, 14, "+"));
@@ -74,7 +74,7 @@ public class GuiNpcCompanionTalents extends GuiNPCInterface {
 
      public void func_146284_a(GuiButton guibutton) {
           super.func_146284_a(guibutton);
-          int id = guibutton.field_146127_k;
+          int id = guibutton.id;
           if (id == 1) {
                CustomNpcs.proxy.openGui(this.npc, EnumGuiType.Companion);
           }
@@ -92,7 +92,7 @@ public class GuiNpcCompanionTalents extends GuiNPCInterface {
      }
 
      private void addExperience(int exp) {
-          EnumCompanionTalent talent = ((GuiNpcCompanionTalents.GuiTalent)this.talents.get(this.selected.field_146127_k - 10)).talent;
+          EnumCompanionTalent talent = ((GuiNpcCompanionTalents.GuiTalent)this.talents.get(this.selected.id - 10)).talent;
           if (this.role.canAddExp(-exp) || this.role.currentExp > 0) {
                if (exp > this.role.currentExp) {
                     exp = this.role.currentExp;
@@ -101,7 +101,7 @@ public class GuiNpcCompanionTalents extends GuiNPCInterface {
                NoppesUtilPlayer.sendData(EnumPlayerPacket.CompanionTalentExp, talent.ordinal(), exp);
                this.role.talents.put(talent, (Integer)this.role.talents.get(talent) + exp);
                this.role.addExp(-exp);
-               this.getLabel(this.selected.field_146127_k - 10).label = this.role.talents.get(talent) + "/" + this.role.getNextLevel(talent);
+               this.getLabel(this.selected.id - 10).label = this.role.talents.get(talent) + "/" + this.role.getNextLevel(talent);
           }
      }
 
@@ -129,19 +129,19 @@ public class GuiNpcCompanionTalents extends GuiNPCInterface {
                }
           }
 
-          this.field_146297_k.func_110434_K().func_110577_a(Gui.field_110324_m);
-          this.func_73729_b(this.guiLeft + 4, this.guiTop + 20, 10, 64, 162, 5);
+          this.field_146297_k.func_110434_K().bindTexture(Gui.field_110324_m);
+          this.drawTexturedModalRect(this.guiLeft + 4, this.guiTop + 20, 10, 64, 162, 5);
           if (this.role.currentExp > 0) {
                float v = 1.0F * (float)this.role.currentExp / (float)this.role.getMaxExp();
                if (v > 1.0F) {
                     v = 1.0F;
                }
 
-               this.func_73729_b(this.guiLeft + 4, this.guiTop + 20, 10, 69, (int)(v * 162.0F), 5);
+               this.drawTexturedModalRect(this.guiLeft + 4, this.guiTop + 20, 10, 69, (int)(v * 162.0F), 5);
           }
 
           String s = this.role.currentExp + "\\" + this.role.getMaxExp();
-          this.field_146297_k.field_71466_p.func_78276_b(s, this.guiLeft + this.xSize / 2 - this.field_146297_k.field_71466_p.func_78256_a(s) / 2, this.guiTop + 10, CustomNpcResourceListener.DefaultTextColor);
+          this.field_146297_k.fontRenderer.func_78276_b(s, this.guiLeft + this.xSize / 2 - this.field_146297_k.fontRenderer.func_78256_a(s) / 2, this.guiTop + 10, CustomNpcResourceListener.DefaultTextColor);
           Iterator var5 = this.talents.values().iterator();
 
           while(var5.hasNext()) {
@@ -170,7 +170,7 @@ public class GuiNpcCompanionTalents extends GuiNPCInterface {
 
           public void func_73863_a(int i, int j, float f) {
                Minecraft mc = Minecraft.func_71410_x();
-               mc.func_110434_K().func_110577_a(resource);
+               mc.func_110434_K().bindTexture(resource);
                ItemStack item = this.talent.item;
                if (item.func_77973_b() == null) {
                     item = new ItemStack(Blocks.field_150346_d);
@@ -180,20 +180,20 @@ public class GuiNpcCompanionTalents extends GuiNPCInterface {
                GlStateManager.func_179124_c(1.0F, 1.0F, 1.0F);
                GlStateManager.func_179147_l();
                boolean hover = this.x < i && this.x + 24 > i && this.y < j && this.y + 24 > j;
-               this.func_73729_b(this.x, this.y, 0, hover ? 24 : 0, 24, 24);
-               this.field_73735_i = 100.0F;
-               this.field_146296_j.field_77023_b = 100.0F;
-               GlStateManager.func_179145_e();
-               GlStateManager.func_179091_B();
-               RenderHelper.func_74520_c();
-               this.field_146296_j.func_180450_b(item, this.x + 4, this.y + 4);
-               this.field_146296_j.func_175030_a(mc.field_71466_p, item, this.x + 4, this.y + 4);
-               RenderHelper.func_74518_a();
-               GlStateManager.func_179140_f();
+               this.drawTexturedModalRect(this.x, this.y, 0, hover ? 24 : 0, 24, 24);
+               this.zLevel = 100.0F;
+               this.field_146296_j.zLevel = 100.0F;
+               GlStateManager.enableLighting();
+               GlStateManager.enableRescaleNormal();
+               RenderHelper.enableGUIStandardItemLighting();
+               this.field_146296_j.renderItemAndEffectIntoGUI(item, this.x + 4, this.y + 4);
+               this.field_146296_j.func_175030_a(mc.fontRenderer, item, this.x + 4, this.y + 4);
+               RenderHelper.disableStandardItemLighting();
+               GlStateManager.disableLighting();
                GlStateManager.func_179109_b(0.0F, 0.0F, 200.0F);
-               this.func_73732_a(mc.field_71466_p, this.role.getTalentLevel(this.talent) + "", this.x + 20, this.y + 16, 16777215);
-               this.field_146296_j.field_77023_b = 0.0F;
-               this.field_73735_i = 0.0F;
+               this.func_73732_a(mc.fontRenderer, this.role.getTalentLevel(this.talent) + "", this.x + 20, this.y + 16, 16777215);
+               this.field_146296_j.zLevel = 0.0F;
+               this.zLevel = 0.0F;
                GlStateManager.func_179121_F();
           }
      }

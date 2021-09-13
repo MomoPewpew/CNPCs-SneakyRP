@@ -71,19 +71,19 @@ public class SubGuiNpcAvailability extends SubGuiInterface implements ITextfield
 
      protected void func_146284_a(GuiButton guibutton) {
           GuiNpcButton button = (GuiNpcButton)guibutton;
-          if (button.field_146127_k == 0) {
+          if (button.id == 0) {
                this.setSubGui(new SubGuiNpcAvailabilityDialog(this.availabitily));
           }
 
-          if (button.field_146127_k == 1) {
+          if (button.id == 1) {
                this.setSubGui(new SubGuiNpcAvailabilityQuest(this.availabitily));
           }
 
-          if (button.field_146127_k == 2) {
+          if (button.id == 2) {
                this.setSubGui(new SubGuiNpcAvailabilityScoreboard(this.availabitily));
           }
 
-          if (button.field_146127_k == 20) {
+          if (button.id == 20) {
                this.availabitily.setFactionAvailability(button.getValue());
                if (this.availabitily.factionAvailable == EnumAvailabilityFactionType.Always) {
                     this.availabitily.factionId = -1;
@@ -92,7 +92,7 @@ public class SubGuiNpcAvailability extends SubGuiInterface implements ITextfield
                this.func_73866_w_();
           }
 
-          if (button.field_146127_k == 24) {
+          if (button.id == 24) {
                this.availabitily.setFaction2Availability(button.getValue());
                if (this.availabitily.faction2Available == EnumAvailabilityFactionType.Always) {
                     this.availabitily.faction2Id = -1;
@@ -102,43 +102,43 @@ public class SubGuiNpcAvailability extends SubGuiInterface implements ITextfield
           }
 
           GuiNPCFactionSelection gui;
-          if (button.field_146127_k == 21) {
+          if (button.id == 21) {
                this.slot = 1;
                gui = new GuiNPCFactionSelection(this.npc, this.getParent(), this.availabitily.factionId);
                gui.listener = this;
                NoppesUtil.openGUI(this.player, gui);
           }
 
-          if (button.field_146127_k == 25) {
+          if (button.id == 25) {
                this.slot = 2;
                gui = new GuiNPCFactionSelection(this.npc, this.getParent(), this.availabitily.faction2Id);
                gui.listener = this;
                NoppesUtil.openGUI(this.player, gui);
           }
 
-          if (button.field_146127_k == 22) {
+          if (button.id == 22) {
                this.availabitily.setFactionAvailabilityStance(button.getValue());
           }
 
-          if (button.field_146127_k == 27) {
+          if (button.id == 27) {
                this.availabitily.setFaction2AvailabilityStance(button.getValue());
           }
 
-          if (button.field_146127_k == 23) {
+          if (button.id == 23) {
                this.availabitily.factionId = -1;
                this.getButton(21).setDisplayText("availability.selectfaction");
           }
 
-          if (button.field_146127_k == 26) {
+          if (button.id == 26) {
                this.availabitily.faction2Id = -1;
                this.getButton(25).setDisplayText("availability.selectfaction");
           }
 
-          if (button.field_146127_k == 50) {
+          if (button.id == 50) {
                this.availabitily.daytime = EnumDayTime.values()[button.getValue()];
           }
 
-          if (button.field_146127_k == 66) {
+          if (button.id == 66) {
                this.close();
           }
 

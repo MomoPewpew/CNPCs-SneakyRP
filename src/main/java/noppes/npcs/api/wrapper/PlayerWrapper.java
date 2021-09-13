@@ -530,7 +530,7 @@ public class PlayerWrapper extends EntityLivingBaseWrapper implements IPlayer {
      }
 
      public ICustomGui getCustomGui() {
-          return ((EntityPlayerMP)this.entity).field_71070_bA instanceof ContainerCustomGui ? ((ContainerCustomGui)((EntityPlayerMP)this.entity).field_71070_bA).customGui : null;
+          return ((EntityPlayerMP)this.entity).openContainer instanceof ContainerCustomGui ? ((ContainerCustomGui)((EntityPlayerMP)this.entity).openContainer).customGui : null;
      }
 
      public void clearData() {
@@ -543,13 +543,13 @@ public class PlayerWrapper extends EntityLivingBaseWrapper implements IPlayer {
           ScriptContainer current = ScriptContainer.Current;
           ((EntityPlayerMP)this.entity).func_71053_j();
           ((EntityPlayerMP)this.entity).openGui(CustomNpcs.instance, EnumGuiType.CustomChest.ordinal(), ((EntityPlayerMP)this.entity).field_70170_p, rows, 0, 0);
-          ContainerCustomChestWrapper container = (ContainerCustomChestWrapper)NpcAPI.Instance().getIContainer(((EntityPlayerMP)this.entity).field_71070_bA);
+          ContainerCustomChestWrapper container = (ContainerCustomChestWrapper)NpcAPI.Instance().getIContainer(((EntityPlayerMP)this.entity).openContainer);
           container.script = current;
           return container;
      }
 
      public IContainer getOpenContainer() {
-          return NpcAPI.Instance().getIContainer(((EntityPlayerMP)this.entity).field_71070_bA);
+          return NpcAPI.Instance().getIContainer(((EntityPlayerMP)this.entity).openContainer);
      }
 
      public void playSound(String sound, float volume, float pitch) {

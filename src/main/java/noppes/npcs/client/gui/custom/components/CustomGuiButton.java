@@ -72,46 +72,46 @@ public class CustomGuiButton extends GuiButton implements IClickListener {
      }
 
      public int getID() {
-          return this.field_146127_k;
+          return this.id;
      }
 
      public void onRender(Minecraft mc, int mouseX, int mouseY, int mouseWheel, float partialTicks) {
           GlStateManager.func_179094_E();
-          GlStateManager.func_179109_b(0.0F, 0.0F, (float)this.field_146127_k);
-          FontRenderer fontRenderer = mc.field_71466_p;
+          GlStateManager.func_179109_b(0.0F, 0.0F, (float)this.id);
+          FontRenderer fontRenderer = mc.fontRenderer;
           int i;
           if (this.texture == null) {
-               mc.func_110434_K().func_110577_a(field_146122_a);
-               GlStateManager.func_179131_c(1.0F, 1.0F, 1.0F, 1.0F);
-               this.field_146123_n = mouseX >= this.field_146128_h && mouseY >= this.field_146129_i && mouseX < this.field_146128_h + this.field_146120_f && mouseY < this.field_146129_i + this.field_146121_g;
+               mc.func_110434_K().bindTexture(field_146122_a);
+               GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+               this.field_146123_n = mouseX >= this.x && mouseY >= this.y && mouseX < this.x + this.width && mouseY < this.y + this.height;
                i = this.func_146114_a(this.field_146123_n);
                GlStateManager.func_179147_l();
                GlStateManager.func_187428_a(SourceFactor.SRC_ALPHA, DestFactor.ONE_MINUS_SRC_ALPHA, SourceFactor.ONE, DestFactor.ZERO);
                GlStateManager.func_187401_a(SourceFactor.SRC_ALPHA, DestFactor.ONE_MINUS_SRC_ALPHA);
-               this.func_73729_b(this.field_146128_h, this.field_146129_i, 0, 46 + i * 20, this.field_146120_f / 2, this.field_146121_g);
-               this.func_73729_b(this.field_146128_h + this.field_146120_f / 2, this.field_146129_i, 200 - this.field_146120_f / 2, 46 + i * 20, this.field_146120_f / 2, this.field_146121_g);
+               this.drawTexturedModalRect(this.x, this.y, 0, 46 + i * 20, this.width / 2, this.height);
+               this.drawTexturedModalRect(this.x + this.width / 2, this.y, 200 - this.width / 2, 46 + i * 20, this.width / 2, this.height);
                this.func_146119_b(mc, mouseX, mouseY);
                int j = 14737632;
                if (this.packedFGColour != 0) {
                     j = this.packedFGColour;
-               } else if (!this.field_146124_l) {
+               } else if (!this.enabled) {
                     j = 10526880;
                } else if (this.field_146123_n) {
                     j = 16777120;
                }
 
                GlStateManager.func_179137_b(0.0D, 0.0D, 0.1D);
-               this.func_73732_a(fontRenderer, this.field_146126_j, this.field_146128_h + this.field_146120_f / 2, this.field_146129_i + (this.field_146121_g - 8) / 2, j);
+               this.func_73732_a(fontRenderer, this.field_146126_j, this.x + this.width / 2, this.y + (this.height - 8) / 2, j);
           } else {
-               mc.func_110434_K().func_110577_a(this.texture);
-               GlStateManager.func_179131_c(1.0F, 1.0F, 1.0F, 1.0F);
-               this.field_146123_n = mouseX >= this.field_146128_h && mouseY >= this.field_146129_i && mouseX < this.field_146128_h + this.field_146120_f && mouseY < this.field_146129_i + this.field_146121_g;
+               mc.func_110434_K().bindTexture(this.texture);
+               GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+               this.field_146123_n = mouseX >= this.x && mouseY >= this.y && mouseX < this.x + this.width && mouseY < this.y + this.height;
                i = this.hoverState(this.field_146123_n);
                GlStateManager.func_179147_l();
                GlStateManager.func_187428_a(SourceFactor.SRC_ALPHA, DestFactor.ONE_MINUS_SRC_ALPHA, SourceFactor.ONE, DestFactor.ZERO);
                GlStateManager.func_187401_a(SourceFactor.SRC_ALPHA, DestFactor.ONE_MINUS_SRC_ALPHA);
-               this.func_73729_b(this.field_146128_h, this.field_146129_i, this.textureX, this.textureY + i * this.field_146121_g, this.field_146120_f, this.field_146121_g);
-               this.func_73732_a(fontRenderer, this.label, this.field_146128_h + this.field_146120_f / 2, this.field_146129_i + (this.field_146121_g - 8) / 2, this.colour);
+               this.drawTexturedModalRect(this.x, this.y, this.textureX, this.textureY + i * this.height, this.width, this.height);
+               this.func_73732_a(fontRenderer, this.label, this.x + this.width / 2, this.y + (this.height - 8) / 2, this.colour);
                if (this.field_146123_n && this.hoverText != null && this.hoverText.length > 0) {
                     this.parent.hoverText = this.hoverText;
                }
@@ -121,7 +121,7 @@ public class CustomGuiButton extends GuiButton implements IClickListener {
      }
 
      public ICustomGuiComponent toComponent() {
-          CustomGuiButtonWrapper component = new CustomGuiButtonWrapper(this.field_146127_k, this.label, this.field_146128_h, this.field_146129_i, this.field_146120_f, this.field_146121_g, this.texture.toString(), this.textureX, this.textureY);
+          CustomGuiButtonWrapper component = new CustomGuiButtonWrapper(this.id, this.label, this.x, this.y, this.width, this.height, this.texture.toString(), this.textureX, this.textureY);
           component.setHoverText(this.hoverText);
           return component;
      }
@@ -140,7 +140,7 @@ public class CustomGuiButton extends GuiButton implements IClickListener {
      }
 
      public boolean mouseClicked(GuiCustom gui, int mouseX, int mouseY, int mouseButton) {
-          if (mouseX >= this.field_146128_h && mouseY >= this.field_146129_i && mouseX < this.field_146128_h + this.field_146120_f && mouseY < this.field_146129_i + this.field_146121_g) {
+          if (mouseX >= this.x && mouseY >= this.y && mouseX < this.x + this.width && mouseY < this.y + this.height) {
                Minecraft.func_71410_x().func_147118_V().func_147682_a(PositionedSoundRecord.func_184371_a(SoundEvents.field_187909_gi, 1.0F));
                gui.buttonClick(this);
                return true;

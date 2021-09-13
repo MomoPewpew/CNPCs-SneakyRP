@@ -44,12 +44,12 @@ public class GuiNPCManageLinkedNpc extends GuiNPCInterface2 implements IScrollDa
      }
 
      public void buttonEvent(GuiButton button) {
-          if (button.field_146127_k == 1) {
+          if (button.id == 1) {
                this.save();
                this.setSubGui(new SubGuiEditText("New"));
           }
 
-          if (button.field_146127_k == 2 && this.scroll.hasSelected()) {
+          if (button.id == 2 && this.scroll.hasSelected()) {
                Client.sendData(EnumPacketServer.LinkedRemove, this.scroll.getSelected());
           }
 

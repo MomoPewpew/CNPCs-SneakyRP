@@ -40,8 +40,8 @@ public class GuiFaction extends GuiNPCInterface implements IGuiData {
 
      public void func_73866_w_() {
           super.func_73866_w_();
-          this.guiLeft = (this.field_146294_l - this.xSize) / 2;
-          this.guiTop = (this.field_146295_m - this.ySize) / 2 + 12;
+          this.guiLeft = (this.width - this.xSize) / 2;
+          this.guiTop = (this.height - this.ySize) / 2 + 12;
           TabRegistry.updateTabValues(this.guiLeft, this.guiTop + 8, InventoryTabFactions.class);
           TabRegistry.addTabsToList(this.field_146292_n);
           this.field_146292_n.add(this.buttonNextPage = new GuiButtonNextPage(1, this.guiLeft + this.xSize - 43, this.guiTop + 180, true));
@@ -51,10 +51,10 @@ public class GuiFaction extends GuiNPCInterface implements IGuiData {
 
      public void func_73863_a(int i, int j, float f) {
           this.func_146276_q_();
-          GlStateManager.func_179131_c(1.0F, 1.0F, 1.0F, 1.0F);
-          this.field_146297_k.field_71446_o.func_110577_a(this.indicator);
-          this.func_73729_b(this.guiLeft, this.guiTop + 8, 0, 0, this.xSize, this.ySize);
-          this.func_73729_b(this.guiLeft + 4, this.guiTop + 8, 56, 0, 200, this.ySize);
+          GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+          this.field_146297_k.renderEngine.bindTexture(this.indicator);
+          this.drawTexturedModalRect(this.guiLeft, this.guiTop + 8, 0, 0, this.xSize, this.ySize);
+          this.drawTexturedModalRect(this.guiLeft + 4, this.guiTop + 8, 56, 0, 200, this.ySize);
           if (this.playerFactions.isEmpty()) {
                String noFaction = I18n.func_74838_a("faction.nostanding");
                this.field_146289_q.func_78276_b(noFaction, this.guiLeft + (this.xSize - this.field_146289_q.func_78256_a(noFaction)) / 2, this.guiTop + 80, CustomNpcResourceListener.DefaultTextColor);
@@ -91,8 +91,8 @@ public class GuiFaction extends GuiNPCInterface implements IGuiData {
                }
 
                this.field_146289_q.func_78276_b(name, this.guiLeft + (this.xSize - this.field_146289_q.func_78256_a(name)) / 2, this.guiTop + 19 + id * 30, faction.color);
-               this.field_146289_q.func_78276_b(standing, this.field_146294_l / 2 - this.field_146289_q.func_78256_a(standing) - 1, this.guiTop + 33 + id * 30, color);
-               this.field_146289_q.func_78276_b(points, this.field_146294_l / 2, this.guiTop + 33 + id * 30, CustomNpcResourceListener.DefaultTextColor);
+               this.field_146289_q.func_78276_b(standing, this.width / 2 - this.field_146289_q.func_78256_a(standing) - 1, this.guiTop + 33 + id * 30, color);
+               this.field_146289_q.func_78276_b(points, this.width / 2, this.guiTop + 33 + id * 30, CustomNpcResourceListener.DefaultTextColor);
           }
 
           this.func_73730_a(this.guiLeft + 2, this.guiLeft + this.xSize, this.guiTop + 14 + size * 30, -16777216 + CustomNpcResourceListener.DefaultTextColor);
@@ -105,7 +105,7 @@ public class GuiFaction extends GuiNPCInterface implements IGuiData {
 
      protected void func_146284_a(GuiButton guibutton) {
           if (guibutton instanceof GuiButtonNextPage) {
-               int id = guibutton.field_146127_k;
+               int id = guibutton.id;
                if (id == 1) {
                     ++this.page;
                }

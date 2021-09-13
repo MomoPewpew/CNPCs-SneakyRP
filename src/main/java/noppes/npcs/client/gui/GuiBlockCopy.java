@@ -67,14 +67,14 @@ public class GuiBlockCopy extends GuiNPCInterface implements IGuiData, ITextfiel
      }
 
      protected void func_146284_a(GuiButton guibutton) {
-          if (guibutton.field_146127_k == 0) {
+          if (guibutton.id == 0) {
                NBTTagCompound compound = new NBTTagCompound();
                this.tile.func_189515_b(compound);
                Client.sendData(EnumPacketServer.SchematicStore, this.getTextField(5).func_146179_b(), this.getButton(6).getValue(), compound);
                this.close();
           }
 
-          if (guibutton.field_146127_k == 1) {
+          if (guibutton.id == 1) {
                this.close();
           }
 

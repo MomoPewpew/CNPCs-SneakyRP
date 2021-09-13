@@ -46,7 +46,7 @@ public abstract class LayerInterface implements LayerRenderer {
                float red = (float)(color >> 16 & 255) / 255.0F;
                float green = (float)(color >> 8 & 255) / 255.0F;
                float blue = (float)(color & 255) / 255.0F;
-               GlStateManager.func_179131_c(red, green, blue, this.npc.func_82150_aj() ? 0.15F : 0.99F);
+               GlStateManager.color(red, green, blue, this.npc.func_82150_aj() ? 0.15F : 0.99F);
           }
      }
 
@@ -71,13 +71,13 @@ public abstract class LayerInterface implements LayerRenderer {
 
      public void func_177141_a(EntityLivingBase entity, float par2, float par3, float par8, float par4, float par5, float par6, float par7) {
           this.npc = (EntityCustomNpc)entity;
-          if (!this.npc.func_98034_c(Minecraft.func_71410_x().field_71439_g)) {
+          if (!this.npc.func_98034_c(Minecraft.func_71410_x().player)) {
                this.playerdata = this.npc.modelData;
                this.model = (ModelBiped)this.render.func_177087_b();
                this.rotate(par2, par3, par4, par5, par6, par7);
                GlStateManager.func_179094_E();
                if (entity.func_82150_aj()) {
-                    GlStateManager.func_179131_c(1.0F, 1.0F, 1.0F, 0.15F);
+                    GlStateManager.color(1.0F, 1.0F, 1.0F, 0.15F);
                     GlStateManager.func_179132_a(false);
                     GlStateManager.func_179147_l();
                     GlStateManager.func_179112_b(770, 771);
@@ -85,14 +85,14 @@ public abstract class LayerInterface implements LayerRenderer {
                }
 
                if (this.npc.field_70737_aN > 0 || this.npc.field_70725_aQ > 0) {
-                    GlStateManager.func_179131_c(1.0F, 0.0F, 0.0F, 0.3F);
+                    GlStateManager.color(1.0F, 0.0F, 0.0F, 0.3F);
                }
 
                if (this.npc.func_70093_af()) {
                     GlStateManager.func_179109_b(0.0F, 0.2F, 0.0F);
                }
 
-               GlStateManager.func_179091_B();
+               GlStateManager.enableRescaleNormal();
                this.render(par2, par3, par4, par5, par6, par7);
                GlStateManager.func_179101_C();
                if (entity.func_82150_aj()) {

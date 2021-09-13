@@ -7,12 +7,12 @@ import net.minecraft.util.text.translation.I18n;
 public class GuiNpcButton extends GuiButton {
      protected String[] display;
      private int displayValue;
-     public int field_146127_k;
+     public int id;
 
      public GuiNpcButton(int i, int j, int k, String s) {
           super(i, j, k, I18n.func_74838_a(s));
           this.displayValue = 0;
-          this.field_146127_k = i;
+          this.id = i;
      }
 
      public GuiNpcButton(int i, int j, int k, String[] display, int val) {
@@ -24,12 +24,12 @@ public class GuiNpcButton extends GuiButton {
      public GuiNpcButton(int i, int j, int k, int l, int m, String string) {
           super(i, j, k, l, m, I18n.func_74838_a(string));
           this.displayValue = 0;
-          this.field_146127_k = i;
+          this.id = i;
      }
 
      public GuiNpcButton(int i, int j, int k, int l, int m, String string, boolean enabled) {
           this(i, j, k, l, m, string);
-          this.field_146124_l = enabled;
+          this.enabled = enabled;
      }
 
      public GuiNpcButton(int i, int j, int k, int l, int m, String[] display, int val) {
@@ -53,15 +53,15 @@ public class GuiNpcButton extends GuiButton {
      }
 
      public void setEnabled(boolean bo) {
-          this.field_146124_l = bo;
+          this.enabled = bo;
      }
 
      public void setVisible(boolean b) {
-          this.field_146125_m = b;
+          this.visible = b;
      }
 
      public boolean getVisible() {
-          return this.field_146125_m;
+          return this.visible;
      }
 
      public void setDisplay(int value) {
@@ -84,6 +84,6 @@ public class GuiNpcButton extends GuiButton {
      }
 
      public int getWidth() {
-          return this.field_146120_f;
+          return this.width;
      }
 }

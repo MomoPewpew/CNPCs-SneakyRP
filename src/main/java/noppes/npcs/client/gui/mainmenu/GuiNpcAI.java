@@ -88,30 +88,30 @@ public class GuiNpcAI extends GuiNPCInterface2 implements ITextfieldListener, IG
 
      protected void func_146284_a(GuiButton guibutton) {
           GuiNpcButton button = (GuiNpcButton)guibutton;
-          if (button.field_146127_k == 0) {
+          if (button.id == 0) {
                this.ai.onAttack = button.getValue();
                this.func_73866_w_();
-          } else if (button.field_146127_k == 1) {
+          } else if (button.id == 1) {
                this.ai.doorInteract = button.getValue();
-          } else if (button.field_146127_k == 2) {
+          } else if (button.id == 2) {
                this.setSubGui(new SubGuiNpcMovement(this.ai));
-          } else if (button.field_146127_k == 5) {
+          } else if (button.id == 5) {
                this.npc.ais.setAvoidsWater(button.getValue() == 1);
-          } else if (button.field_146127_k == 6) {
+          } else if (button.id == 6) {
                this.ai.returnToStart = button.getValue() == 1;
-          } else if (button.field_146127_k == 7) {
+          } else if (button.id == 7) {
                this.ai.canSwim = button.getValue() == 1;
-          } else if (button.field_146127_k == 9) {
+          } else if (button.id == 9) {
                this.ai.findShelter = button.getValue();
-          } else if (button.field_146127_k == 10) {
+          } else if (button.id == 10) {
                this.ai.directLOS = button.getValue() == 1;
-          } else if (button.field_146127_k == 15) {
+          } else if (button.id == 15) {
                this.ai.canLeap = button.getValue() == 1;
-          } else if (button.field_146127_k == 17) {
+          } else if (button.id == 17) {
                this.ai.tacticalVariant = button.getValue();
                this.ai.directLOS = button.getValue() == 5 ? false : this.ai.directLOS;
                this.func_73866_w_();
-          } else if (button.field_146127_k == 23) {
+          } else if (button.id == 23) {
                this.ai.attackInvisible = ((GuiNpcButtonYesNo)button).getBoolean();
           }
 

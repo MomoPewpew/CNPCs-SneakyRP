@@ -30,7 +30,7 @@ public class GuiPresetSave extends SubGuiInterface {
      protected void func_146284_a(GuiButton btn) {
           super.func_146284_a(btn);
           GuiNpcButton button = (GuiNpcButton)btn;
-          if (button.field_146127_k == 0) {
+          if (button.id == 0) {
                String name = this.getTextField(0).func_146179_b().trim();
                if (name.isEmpty()) {
                     return;

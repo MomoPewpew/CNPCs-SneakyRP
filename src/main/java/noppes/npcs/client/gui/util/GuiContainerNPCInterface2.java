@@ -56,12 +56,12 @@ public abstract class GuiContainerNPCInterface2 extends GuiContainerNPCInterface
 
      protected void func_146976_a(float f, int i, int j) {
           this.func_146276_q_();
-          GlStateManager.func_179131_c(1.0F, 1.0F, 1.0F, 1.0F);
-          this.field_146297_k.field_71446_o.func_110577_a(this.background);
-          this.func_73729_b(this.field_147003_i, this.field_147009_r, 0, 0, 256, 256);
-          GlStateManager.func_179131_c(1.0F, 1.0F, 1.0F, 1.0F);
-          this.field_146297_k.field_71446_o.func_110577_a(this.defaultBackground);
-          this.func_73729_b(this.field_147003_i + this.field_146999_f - 200, this.field_147009_r, 26, 0, 200, 220);
+          GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+          this.field_146297_k.renderEngine.bindTexture(this.background);
+          this.drawTexturedModalRect(this.field_147003_i, this.field_147009_r, 0, 0, 256, 256);
+          GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+          this.field_146297_k.renderEngine.bindTexture(this.defaultBackground);
+          this.drawTexturedModalRect(this.field_147003_i + this.field_146999_f - 200, this.field_147009_r, 26, 0, 200, 220);
           this.menu.drawElements(this.field_146289_q, i, j, this.field_146297_k, f);
           super.func_146976_a(f, i, j);
      }

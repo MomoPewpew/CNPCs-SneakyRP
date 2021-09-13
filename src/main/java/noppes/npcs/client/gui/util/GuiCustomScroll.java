@@ -44,8 +44,8 @@ public class GuiCustomScroll extends GuiScreen {
           this.visible = true;
           this.selectable = true;
           this.lastClickedTime = 0L;
-          this.field_146294_l = 176;
-          this.field_146295_m = 166;
+          this.width = 176;
+          this.height = 166;
           this.xSize = 176;
           this.ySize = 159;
           this.selected = -1;
@@ -92,8 +92,8 @@ public class GuiCustomScroll extends GuiScreen {
      public void drawScreen(int i, int j, float f, int mouseScrolled) {
           if (this.visible) {
                this.func_73733_a(this.guiLeft, this.guiTop, this.xSize + this.guiLeft, this.ySize + this.guiTop, -1072689136, -804253680);
-               GlStateManager.func_179131_c(1.0F, 1.0F, 1.0F, 1.0F);
-               this.field_146297_k.field_71446_o.func_110577_a(resource);
+               GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+               this.field_146297_k.renderEngine.bindTexture(resource);
                if (this.scrollHeight < this.ySize - 8) {
                     this.drawScrollBar();
                }
@@ -103,7 +103,7 @@ public class GuiCustomScroll extends GuiScreen {
                GlStateManager.func_179121_F();
                GlStateManager.func_179094_E();
                GlStateManager.func_179109_b((float)this.guiLeft, (float)this.guiTop, 0.0F);
-               GlStateManager.func_179131_c(1.0F, 1.0F, 1.0F, 1.0F);
+               GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
                if (this.selectable) {
                     this.hover = this.getMouseOver(i, j);
                }
@@ -245,14 +245,14 @@ public class GuiCustomScroll extends GuiScreen {
      private void drawScrollBar() {
           int i = this.guiLeft + this.xSize - 9;
           int j = this.guiTop + (int)((double)this.scrollY / (double)this.listHeight * (double)(this.ySize - 8)) + 4;
-          this.func_73729_b(i, j, this.xSize, 9, 5, 1);
+          this.drawTexturedModalRect(i, j, this.xSize, 9, 5, 1);
 
           int k;
           for(k = j + 1; k < j + this.scrollHeight - 1; ++k) {
-               this.func_73729_b(i, k, this.xSize, 10, 5, 1);
+               this.drawTexturedModalRect(i, k, this.xSize, 10, 5, 1);
           }
 
-          this.func_73729_b(i, k, this.xSize, 11, 5, 1);
+          this.drawTexturedModalRect(i, k, this.xSize, 11, 5, 1);
      }
 
      public boolean hasSelected() {

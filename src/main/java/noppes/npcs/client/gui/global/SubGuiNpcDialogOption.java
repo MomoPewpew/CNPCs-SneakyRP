@@ -66,20 +66,20 @@ public class SubGuiNpcDialogOption extends SubGuiInterface implements ITextfield
 
      protected void func_146284_a(GuiButton guibutton) {
           GuiNpcButton button = (GuiNpcButton)guibutton;
-          if (button.field_146127_k == 1) {
+          if (button.id == 1) {
                this.option.optionType = button.getValue();
                this.func_73866_w_();
           }
 
-          if (button.field_146127_k == 2) {
+          if (button.id == 2) {
                this.setSubGui(new SubGuiColorSelector(this.option.optionColor));
           }
 
-          if (button.field_146127_k == 3) {
+          if (button.id == 3) {
                this.setSubGui(new GuiDialogSelection(this.option.dialogId));
           }
 
-          if (button.field_146127_k == 66) {
+          if (button.id == 66) {
                this.close();
           }
 

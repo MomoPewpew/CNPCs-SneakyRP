@@ -45,9 +45,9 @@ public class GuiRoleDialog extends GuiNPCInterface2 implements ISubGuiListener {
      }
 
      protected void func_146284_a(GuiButton guibutton) {
-          if (guibutton.field_146127_k <= 6) {
+          if (guibutton.id <= 6) {
                this.save();
-               this.slot = guibutton.field_146127_k;
+               this.slot = guibutton.id;
                String text = this.role.dialog;
                if (this.slot >= 1) {
                     text = (String)this.role.optionsTexts.get(this.slot);

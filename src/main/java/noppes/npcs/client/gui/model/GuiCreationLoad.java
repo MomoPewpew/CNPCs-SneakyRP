@@ -46,7 +46,7 @@ public class GuiCreationLoad extends GuiCreationScreenInterface implements ICust
 
      protected void func_146284_a(GuiButton btn) {
           super.func_146284_a(btn);
-          if (btn.field_146127_k == 10 && this.scroll.hasSelected()) {
+          if (btn.id == 10 && this.scroll.hasSelected()) {
                PresetController.instance.removePreset(this.scroll.getSelected());
                this.func_73866_w_();
           }

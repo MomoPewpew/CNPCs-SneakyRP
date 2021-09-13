@@ -122,7 +122,7 @@ public class BankData {
      }
 
      private ContainerNPCBankInterface getContainer(EntityPlayer player) {
-          Container con = player.field_71070_bA;
+          Container con = player.openContainer;
           return con != null && con instanceof ContainerNPCBankInterface ? (ContainerNPCBankInterface)con : null;
      }
 }

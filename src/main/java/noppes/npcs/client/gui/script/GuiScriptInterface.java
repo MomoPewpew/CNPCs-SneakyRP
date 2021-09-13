@@ -40,10 +40,10 @@ public class GuiScriptInterface extends GuiNPCInterface implements IGuiData, ITe
      }
 
      public void func_73866_w_() {
-          this.xSize = (int)((double)this.field_146294_l * 0.88D);
+          this.xSize = (int)((double)this.width * 0.88D);
           this.ySize = (int)((double)this.xSize * 0.56D);
-          if ((double)this.ySize > (double)this.field_146295_m * 0.95D) {
-               this.ySize = (int)((double)this.field_146295_m * 0.95D);
+          if ((double)this.ySize > (double)this.height * 0.95D) {
+               this.ySize = (int)((double)this.height * 0.95D);
                this.xSize = (int)((double)this.ySize / 0.56D);
           }
 
@@ -100,7 +100,7 @@ public class GuiScriptInterface extends GuiNPCInterface implements IGuiData, ITe
                this.addButton(new GuiNpcButton(102, left, this.guiTop + 146, 60, 20, "gui.clear"));
                this.addLabel(new GuiNpcLabel(1, "script.language", left, this.guiTop + 15));
                this.addButton(new GuiNpcButton(103, left + 60, this.guiTop + 10, 80, 20, (String[])this.languages.keySet().toArray(new String[this.languages.keySet().size()]), this.getScriptIndex()));
-               this.getButton(103).field_146124_l = this.languages.size() > 0;
+               this.getButton(103).enabled = this.languages.size() > 0;
                this.addLabel(new GuiNpcLabel(2, "gui.enabled", left, this.guiTop + 36));
                this.addButton(new GuiNpcButton(104, left + 60, this.guiTop + 31, 50, 20, new String[]{"gui.no", "gui.yes"}, this.handler.getEnabled() ? 1 : 0));
                if (this.player.func_184102_h() != null) {
@@ -171,44 +171,44 @@ public class GuiScriptInterface extends GuiNPCInterface implements IGuiData, ITe
      }
 
      protected void func_146284_a(GuiButton guibutton) {
-          if (guibutton.field_146127_k >= 0 && guibutton.field_146127_k < 12) {
+          if (guibutton.id >= 0 && guibutton.id < 12) {
                this.setScript();
-               this.activeTab = guibutton.field_146127_k;
+               this.activeTab = guibutton.id;
                this.func_73866_w_();
           }
 
-          if (guibutton.field_146127_k == 12) {
+          if (guibutton.id == 12) {
                this.handler.getScripts().add(new ScriptContainer(this.handler));
                this.activeTab = this.handler.getScripts().size();
                this.func_73866_w_();
           }
 
-          if (guibutton.field_146127_k == 109) {
+          if (guibutton.id == 109) {
                this.displayGuiScreen(new GuiConfirmOpenLink(this, "http://www.kodevelopment.nl/minecraft/customnpcs/scripting", 0, true));
           }
 
-          if (guibutton.field_146127_k == 110) {
+          if (guibutton.id == 110) {
                this.displayGuiScreen(new GuiConfirmOpenLink(this, "http://www.kodevelopment.nl/customnpcs/api/", 1, true));
           }
 
-          if (guibutton.field_146127_k == 111) {
+          if (guibutton.id == 111) {
                this.displayGuiScreen(new GuiConfirmOpenLink(this, "https://github.com/Noppes/CustomNPCsAPI", 2, true));
           }
 
-          if (guibutton.field_146127_k == 112) {
+          if (guibutton.id == 112) {
                this.displayGuiScreen(new GuiConfirmOpenLink(this, "http://www.minecraftforge.net/forum/index.php/board,122.0.html", 3, true));
           }
 
-          if (guibutton.field_146127_k == 100) {
+          if (guibutton.id == 100) {
                NoppesStringUtils.setClipboardContents(((GuiTextArea)this.get(2)).getText());
           }
 
-          if (guibutton.field_146127_k == 101) {
+          if (guibutton.id == 101) {
                ((GuiTextArea)this.get(2)).setText(NoppesStringUtils.getClipboardContents());
           }
 
           ScriptContainer container;
-          if (guibutton.field_146127_k == 102) {
+          if (guibutton.id == 102) {
                if (this.activeTab > 0) {
                     container = (ScriptContainer)this.handler.getScripts().get(this.activeTab - 1);
                     container.script = "";
@@ -219,24 +219,24 @@ public class GuiScriptInterface extends GuiNPCInterface implements IGuiData, ITe
                this.func_73866_w_();
           }
 
-          if (guibutton.field_146127_k == 103) {
+          if (guibutton.id == 103) {
                this.handler.setLanguage(((GuiNpcButton)guibutton).field_146126_j);
           }
 
-          if (guibutton.field_146127_k == 104) {
+          if (guibutton.id == 104) {
                this.handler.setEnabled(((GuiNpcButton)guibutton).getValue() == 1);
           }
 
-          if (guibutton.field_146127_k == 105) {
+          if (guibutton.id == 105) {
                GuiYesNo guiyesno = new GuiYesNo(this, "", I18n.func_74838_a("gui.deleteMessage"), 10);
                this.displayGuiScreen(guiyesno);
           }
 
-          if (guibutton.field_146127_k == 106) {
+          if (guibutton.id == 106) {
                NoppesUtil.openFolder(ScriptController.Instance.dir);
           }
 
-          if (guibutton.field_146127_k == 107) {
+          if (guibutton.id == 107) {
                container = (ScriptContainer)this.handler.getScripts().get(this.activeTab - 1);
                if (container == null) {
                     this.handler.getScripts().add(container = new ScriptContainer(this.handler));
@@ -245,7 +245,7 @@ public class GuiScriptInterface extends GuiNPCInterface implements IGuiData, ITe
                this.setSubGui(new GuiScriptList((List)this.languages.get(this.handler.getLanguage()), container));
           }
 
-          if (guibutton.field_146127_k == 108) {
+          if (guibutton.id == 108) {
                container = (ScriptContainer)this.handler.getScripts().get(this.activeTab - 1);
                if (container != null) {
                     this.setScript();

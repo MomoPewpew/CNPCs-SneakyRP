@@ -66,7 +66,7 @@ public class TrueTypeFont {
           float r = (float)(color >> 16 & 255) / 255.0F;
           float g = (float)(color >> 8 & 255) / 255.0F;
           float b = (float)(color & 255) / 255.0F;
-          GlStateManager.func_179131_c(r, g, b, 1.0F);
+          GlStateManager.color(r, g, b, 1.0F);
           GlStateManager.func_179147_l();
           GlStateManager.func_179094_E();
           GlStateManager.func_179109_b(x, y, 0.0F);
@@ -78,9 +78,9 @@ public class TrueTypeFont {
                TrueTypeFont.Glyph gl = (TrueTypeFont.Glyph)var10.next();
                if (gl.type != TrueTypeFont.GlyphType.NORMAL) {
                     if (gl.type == TrueTypeFont.GlyphType.RESET) {
-                         GlStateManager.func_179131_c(r, g, b, 1.0F);
+                         GlStateManager.color(r, g, b, 1.0F);
                     } else if (gl.type == TrueTypeFont.GlyphType.COLOR) {
-                         GlStateManager.func_179131_c((float)(gl.color >> 16 & 255) / 255.0F, (float)(gl.color >> 8 & 255) / 255.0F, (float)(gl.color & 255) / 255.0F, 1.0F);
+                         GlStateManager.color((float)(gl.color >> 16 & 255) / 255.0F, (float)(gl.color >> 8 & 255) / 255.0F, (float)(gl.color & 255) / 255.0F, 1.0F);
                     }
                } else {
                     GlStateManager.func_179144_i(gl.texture);
@@ -91,7 +91,7 @@ public class TrueTypeFont {
 
           GlStateManager.func_179084_k();
           GlStateManager.func_179121_F();
-          GlStateManager.func_179131_c(1.0F, 1.0F, 1.0F, 1.0F);
+          GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
      }
 
      private TrueTypeFont.GlyphCache getOrCreateCache(String text) {
@@ -110,7 +110,7 @@ public class TrueTypeFont {
                               TrueTypeFont.Glyph g = new TrueTypeFont.Glyph();
                               if (index < 16) {
                                    g.type = TrueTypeFont.GlyphType.COLOR;
-                                   g.color = Minecraft.func_71410_x().field_71466_p.func_175064_b(next);
+                                   g.color = Minecraft.func_71410_x().fontRenderer.func_175064_b(next);
                               } else if (index == 16) {
                                    g.type = TrueTypeFont.GlyphType.RANDOM;
                               } else if (index == 17) {

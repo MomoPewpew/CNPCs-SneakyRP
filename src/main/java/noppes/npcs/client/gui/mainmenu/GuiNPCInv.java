@@ -65,7 +65,7 @@ public class GuiNPCInv extends GuiContainerNPCInterface2 implements ISliderListe
      }
 
      protected void func_146284_a(GuiButton guibutton) {
-          if (guibutton.field_146127_k == 10) {
+          if (guibutton.id == 10) {
                this.npc.inventory.lootMode = ((GuiNpcButton)guibutton).getValue();
           }
 
@@ -73,13 +73,13 @@ public class GuiNPCInv extends GuiContainerNPCInterface2 implements ISliderListe
 
      protected void func_146976_a(float f, int i, int j) {
           super.func_146976_a(f, i, j);
-          GlStateManager.func_179131_c(1.0F, 1.0F, 1.0F, 1.0F);
-          this.field_146297_k.field_71446_o.func_110577_a(this.slot);
+          GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+          this.field_146297_k.renderEngine.bindTexture(this.slot);
 
           for(int id = 4; id <= 6; ++id) {
                Slot slot = this.container.func_75139_a(id);
                if (slot.func_75216_d()) {
-                    this.func_73729_b(this.field_147003_i + slot.field_75223_e - 1, this.field_147009_r + slot.field_75221_f - 1, 0, 0, 18, 18);
+                    this.drawTexturedModalRect(this.field_147003_i + slot.field_75223_e - 1, this.field_147009_r + slot.field_75221_f - 1, 0, 0, 18, 18);
                }
           }
 
@@ -112,6 +112,6 @@ public class GuiNPCInv extends GuiContainerNPCInterface2 implements ISliderListe
      }
 
      public void mouseReleased(GuiNpcSlider guiNpcSlider) {
-          this.chances.put(guiNpcSlider.field_146127_k, (int)(guiNpcSlider.sliderValue * 100.0F));
+          this.chances.put(guiNpcSlider.id, (int)(guiNpcSlider.sliderValue * 100.0F));
      }
 }

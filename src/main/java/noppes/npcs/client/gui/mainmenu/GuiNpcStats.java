@@ -100,29 +100,29 @@ public class GuiNpcStats extends GuiNPCInterface2 implements ITextfieldListener,
 
      protected void func_146284_a(GuiButton guibutton) {
           GuiNpcButton button = (GuiNpcButton)guibutton;
-          if (button.field_146127_k == 0) {
+          if (button.id == 0) {
                this.setSubGui(new SubGuiNpcRespawn(this.stats));
-          } else if (button.field_146127_k == 2) {
+          } else if (button.id == 2) {
                this.setSubGui(new SubGuiNpcMeleeProperties(this.stats.melee));
-          } else if (button.field_146127_k == 3) {
+          } else if (button.id == 3) {
                this.setSubGui(new SubGuiNpcRangeProperties(this.stats));
-          } else if (button.field_146127_k == 4) {
+          } else if (button.id == 4) {
                this.npc.setImmuneToFire(button.getValue() == 1);
-          } else if (button.field_146127_k == 5) {
+          } else if (button.id == 5) {
                this.stats.canDrown = button.getValue() == 1;
-          } else if (button.field_146127_k == 6) {
+          } else if (button.id == 6) {
                this.stats.burnInSun = button.getValue() == 1;
-          } else if (button.field_146127_k == 7) {
+          } else if (button.id == 7) {
                this.stats.noFallDamage = button.getValue() == 1;
-          } else if (button.field_146127_k == 8) {
+          } else if (button.id == 8) {
                this.stats.creatureType = EnumCreatureAttribute.values()[button.getValue()];
-          } else if (button.field_146127_k == 9) {
+          } else if (button.id == 9) {
                this.setSubGui(new SubGuiNpcProjectiles(this.stats.ranged));
-          } else if (button.field_146127_k == 15) {
+          } else if (button.id == 15) {
                this.setSubGui(new SubGuiNpcResistanceProperties(this.stats.resistances));
-          } else if (button.field_146127_k == 17) {
+          } else if (button.id == 17) {
                this.stats.potionImmune = ((GuiNpcButtonYesNo)guibutton).getBoolean();
-          } else if (button.field_146127_k == 22) {
+          } else if (button.id == 22) {
                this.stats.ignoreCobweb = button.getValue() == 0;
           }
 

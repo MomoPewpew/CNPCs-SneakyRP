@@ -94,30 +94,30 @@ public class GuiNPCManageQuest extends GuiNPCInterface2 implements ISubGuiListen
 
      public void buttonEvent(GuiButton guibutton) {
           GuiNpcButton button = (GuiNpcButton)guibutton;
-          if (button.field_146127_k == 1) {
+          if (button.id == 1) {
                this.setSubGui(new SubGuiEditText(1, I18n.func_74838_a("gui.new")));
           }
 
           GuiYesNo guiyesno;
-          if (button.field_146127_k == 2) {
+          if (button.id == 2) {
                guiyesno = new GuiYesNo(this, this.selectedCategory.title, I18n.func_74838_a("gui.deleteMessage"), 2);
                this.displayGuiScreen(guiyesno);
           }
 
-          if (button.field_146127_k == 3) {
+          if (button.id == 3) {
                this.setSubGui(new SubGuiEditText(3, this.selectedCategory.title));
           }
 
-          if (button.field_146127_k == 11) {
+          if (button.id == 11) {
                this.setSubGui(new SubGuiEditText(11, I18n.func_74838_a("gui.new")));
           }
 
-          if (button.field_146127_k == 12) {
+          if (button.id == 12) {
                guiyesno = new GuiYesNo(this, this.selectedQuest.title, I18n.func_74838_a("gui.deleteMessage"), 12);
                this.displayGuiScreen(guiyesno);
           }
 
-          if (button.field_146127_k == 13) {
+          if (button.id == 13) {
                this.setSubGui(new GuiQuestEdit(this.selectedQuest));
           }
 

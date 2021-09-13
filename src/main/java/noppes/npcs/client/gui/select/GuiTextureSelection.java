@@ -272,7 +272,7 @@ public class GuiTextureSelection extends SubGuiInterface implements ICustomScrol
 
      protected void func_146284_a(GuiButton guibutton) {
           super.func_146284_a(guibutton);
-          if (guibutton.field_146127_k == 2) {
+          if (guibutton.id == 2) {
                this.npc.display.setSkinTexture(this.selectedResource.toString());
           }
 

@@ -112,7 +112,7 @@ public class GuiBlockBuilder extends GuiNPCInterface implements IGuiData, ICusto
      }
 
      protected void func_146284_a(GuiButton guibutton) {
-          if (guibutton.field_146127_k == 3) {
+          if (guibutton.id == 3) {
                GuiNpcButtonYesNo button = (GuiNpcButtonYesNo)guibutton;
                if (button.getBoolean()) {
                     TileBuilder.SetDrawPos(new BlockPos(this.x, this.y, this.z));
@@ -123,29 +123,29 @@ public class GuiBlockBuilder extends GuiNPCInterface implements IGuiData, ICusto
                }
           }
 
-          if (guibutton.field_146127_k == 4) {
+          if (guibutton.id == 4) {
                this.tile.enabled = ((GuiNpcButtonYesNo)guibutton).getBoolean();
           }
 
-          if (guibutton.field_146127_k == 5) {
+          if (guibutton.id == 5) {
                this.tile.rotation = ((GuiNpcButton)guibutton).getValue();
                TileBuilder.Compiled = false;
           }
 
-          if (guibutton.field_146127_k == 6) {
+          if (guibutton.id == 6) {
                this.setSubGui(new SubGuiNpcAvailability(this.tile.availability));
           }
 
-          if (guibutton.field_146127_k == 7) {
+          if (guibutton.id == 7) {
                this.tile.finished = ((GuiNpcButtonYesNo)guibutton).getBoolean();
                Client.sendData(EnumPacketServer.SchematicsSet, this.x, this.y, this.z, this.scroll.getSelected());
           }
 
-          if (guibutton.field_146127_k == 8) {
+          if (guibutton.id == 8) {
                this.tile.started = ((GuiNpcButtonYesNo)guibutton).getBoolean();
           }
 
-          if (guibutton.field_146127_k == 10) {
+          if (guibutton.id == 10) {
                this.save();
                GuiYesNo guiyesno = new GuiYesNo(this, "", I18n.func_74838_a("schematic.instantBuildText"), 0);
                this.displayGuiScreen(guiyesno);

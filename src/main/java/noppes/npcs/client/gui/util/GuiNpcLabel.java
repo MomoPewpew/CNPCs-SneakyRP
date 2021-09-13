@@ -35,7 +35,7 @@ public class GuiNpcLabel {
      }
 
      public void center(int width) {
-          int size = Minecraft.func_71410_x().field_71466_p.func_78256_a(this.label);
+          int size = Minecraft.func_71410_x().fontRenderer.func_78256_a(this.label);
           this.x += (width - size) / 2;
      }
 }

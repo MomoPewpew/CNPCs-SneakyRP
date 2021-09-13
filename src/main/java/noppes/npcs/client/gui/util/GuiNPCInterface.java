@@ -63,15 +63,15 @@ public abstract class GuiNPCInterface extends GuiScreen {
           this.background = null;
           this.closeOnEsc = false;
           this.bgScale = 1.0F;
-          this.player = Minecraft.func_71410_x().field_71439_g;
+          this.player = Minecraft.func_71410_x().player;
           this.npc = npc;
           this.title = "";
           this.xSize = 200;
           this.ySize = 222;
           this.drawDefaultBackground = false;
           this.field_146297_k = Minecraft.func_71410_x();
-          this.field_146296_j = this.field_146297_k.func_175599_af();
-          this.field_146289_q = this.field_146297_k.field_71466_p;
+          this.field_146296_j = this.field_146297_k.getRenderItem();
+          this.field_146289_q = this.field_146297_k.fontRenderer;
      }
 
      public GuiNPCInterface() {
@@ -98,12 +98,12 @@ public abstract class GuiNPCInterface extends GuiScreen {
           super.func_73866_w_();
           GuiNpcTextField.unfocus();
           if (this.subgui != null) {
-               this.subgui.func_146280_a(this.field_146297_k, this.field_146294_l, this.field_146295_m);
+               this.subgui.func_146280_a(this.field_146297_k, this.width, this.height);
                this.subgui.func_73866_w_();
           }
 
-          this.guiLeft = (this.field_146294_l - this.xSize) / 2;
-          this.guiTop = (this.field_146295_m - this.ySize) / 2;
+          this.guiLeft = (this.width - this.xSize) / 2;
+          this.guiTop = (this.height - this.ySize) / 2;
           this.field_146292_n = Lists.newArrayList();
           this.buttons = new ConcurrentHashMap();
           this.topbuttons = new ConcurrentHashMap();
@@ -274,17 +274,17 @@ public abstract class GuiNPCInterface extends GuiScreen {
      }
 
      public void addButton(GuiNpcButton button) {
-          this.buttons.put(button.field_146127_k, button);
+          this.buttons.put(button.id, button);
           this.field_146292_n.add(button);
      }
 
      public void addTopButton(GuiMenuTopButton button) {
-          this.topbuttons.put(button.field_146127_k, button);
+          this.topbuttons.put(button.id, button);
           this.field_146292_n.add(button);
      }
 
      public void addSideButton(GuiMenuSideButton button) {
-          this.sidebuttons.put(button.field_146127_k, button);
+          this.sidebuttons.put(button.id, button);
           this.field_146292_n.add(button);
      }
 
@@ -336,7 +336,7 @@ public abstract class GuiNPCInterface extends GuiScreen {
      }
 
      public void addSlider(GuiNpcSlider slider) {
-          this.sliders.put(slider.field_146127_k, slider);
+          this.sliders.put(slider.id, slider);
           this.field_146292_n.add(slider);
      }
 
@@ -369,23 +369,23 @@ public abstract class GuiNPCInterface extends GuiScreen {
                this.func_146276_q_();
           }
 
-          if (this.background != null && this.field_146297_k.field_71446_o != null) {
-               GlStateManager.func_179131_c(1.0F, 1.0F, 1.0F, 1.0F);
+          if (this.background != null && this.field_146297_k.renderEngine != null) {
+               GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
                GlStateManager.func_179094_E();
                GlStateManager.func_179109_b((float)this.guiLeft, (float)this.guiTop, 0.0F);
                GlStateManager.func_179152_a(this.bgScale, this.bgScale, this.bgScale);
-               this.field_146297_k.field_71446_o.func_110577_a(this.background);
+               this.field_146297_k.renderEngine.bindTexture(this.background);
                if (this.xSize > 256) {
-                    this.func_73729_b(0, 0, 0, 0, 250, this.ySize);
-                    this.func_73729_b(250, 0, 256 - (this.xSize - 250), 0, this.xSize - 250, this.ySize);
+                    this.drawTexturedModalRect(0, 0, 0, 0, 250, this.ySize);
+                    this.drawTexturedModalRect(250, 0, 256 - (this.xSize - 250), 0, this.xSize - 250, this.ySize);
                } else {
-                    this.func_73729_b(0, 0, 0, 0, this.xSize, this.ySize);
+                    this.drawTexturedModalRect(0, 0, 0, 0, this.xSize, this.ySize);
                }
 
                GlStateManager.func_179121_F();
           }
 
-          this.func_73732_a(this.field_146289_q, this.title, this.field_146294_l / 2, 8, 16777215);
+          this.func_73732_a(this.field_146289_q, this.title, this.width / 2, 8, 16777215);
           Iterator var6 = (new ArrayList(this.labels.values())).iterator();
 
           while(var6.hasNext()) {
@@ -455,13 +455,13 @@ public abstract class GuiNPCInterface extends GuiScreen {
      }
 
      public void displayGuiScreen(GuiScreen gui) {
-          this.field_146297_k.func_147108_a(gui);
+          this.field_146297_k.displayGuiScreen(gui);
      }
 
      public void setSubGui(SubGuiInterface gui) {
           this.subgui = gui;
           this.subgui.npc = this.npc;
-          this.subgui.func_146280_a(this.field_146297_k, this.field_146294_l, this.field_146295_m);
+          this.subgui.func_146280_a(this.field_146297_k, this.width, this.height);
           this.subgui.parent = this;
           this.func_73866_w_();
      }
@@ -488,7 +488,7 @@ public abstract class GuiNPCInterface extends GuiScreen {
                npc = (EntityNPCInterface)entity;
           }
 
-          GlStateManager.func_179131_c(1.0F, 1.0F, 1.0F, 1.0F);
+          GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
           GlStateManager.func_179142_g();
           GlStateManager.func_179094_E();
           GlStateManager.func_179109_b((float)(this.guiLeft + x), (float)(this.guiTop + y), 50.0F);
@@ -530,7 +530,7 @@ public abstract class GuiNPCInterface extends GuiScreen {
           }
 
           GlStateManager.func_179121_F();
-          RenderHelper.func_74518_a();
+          RenderHelper.disableStandardItemLighting();
           GlStateManager.func_179101_C();
           GlStateManager.func_179138_g(OpenGlHelper.field_77476_b);
           GlStateManager.func_179090_x();

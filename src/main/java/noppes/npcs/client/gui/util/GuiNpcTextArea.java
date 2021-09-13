@@ -249,7 +249,7 @@ public class GuiNpcTextArea extends GuiNpcTextField {
      }
 
      public void func_73731_b(FontRenderer fontRendererIn, String text, int x, int y, int color) {
-          GlStateManager.func_179131_c(1.0F, 1.0F, 1.0F, 1.0F);
+          GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
           this.font.drawString(text, x, y, color);
      }
 
@@ -301,7 +301,7 @@ public class GuiNpcTextArea extends GuiNpcTextField {
           }
 
           BufferBuilder tessellator = Tessellator.func_178181_a().func_178180_c();
-          GlStateManager.func_179131_c(0.0F, 0.0F, 255.0F, 255.0F);
+          GlStateManager.color(0.0F, 0.0F, 255.0F, 255.0F);
           GlStateManager.func_179090_x();
           GlStateManager.func_179115_u();
           GlStateManager.func_179116_f(5387);
@@ -321,18 +321,18 @@ public class GuiNpcTextArea extends GuiNpcTextField {
 
      private void drawVerticalScrollBar() {
           if (this.listHeight > this.height - 4) {
-               Minecraft.func_71410_x().field_71446_o.func_110577_a(GuiCustomScroll.resource);
+               Minecraft.func_71410_x().renderEngine.bindTexture(GuiCustomScroll.resource);
                int x = this.posX + this.width - 6;
                int y = (int)((float)this.posY + this.scrolledY * (float)this.height) + 2;
-               GlStateManager.func_179131_c(1.0F, 1.0F, 1.0F, 1.0F);
+               GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
                int sbSize = this.getVerticalBarSize();
-               this.func_73729_b(x, y, this.width, 9, 5, 1);
+               this.drawTexturedModalRect(x, y, this.width, 9, 5, 1);
 
                for(int k = 0; k < sbSize; ++k) {
-                    this.func_73729_b(x, y + k, this.width, 10, 5, 1);
+                    this.drawTexturedModalRect(x, y + k, this.width, 10, 5, 1);
                }
 
-               this.func_73729_b(x, y, this.width, 11, 5, 1);
+               this.drawTexturedModalRect(x, y, this.width, 11, 5, 1);
           }
      }
 }

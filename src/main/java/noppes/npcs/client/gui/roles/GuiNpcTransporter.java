@@ -43,14 +43,14 @@ public class GuiNpcTransporter extends GuiNPCInterface2 implements IScrollData, 
           this.scroll.guiLeft = this.guiLeft + 214;
           this.scroll.guiTop = this.guiTop + 4;
           this.addScroll(this.scroll);
-          this.addLabel(new GuiNpcLabel(0, "gui.name", this.guiLeft + 4, this.field_146295_m + 8));
+          this.addLabel(new GuiNpcLabel(0, "gui.name", this.guiLeft + 4, this.height + 8));
           this.addTextField(new GuiNpcTextField(0, this, this.field_146289_q, this.guiLeft + 60, this.guiTop + 3, 140, 20, this.location.name));
           this.addButton(new GuiNpcButton(0, this.guiLeft + 4, this.guiTop + 31, new String[]{"transporter.discovered", "transporter.start", "transporter.interaction"}, this.location.type));
      }
 
      protected void func_146284_a(GuiButton guibutton) {
           GuiNpcButton button = (GuiNpcButton)guibutton;
-          if (button.field_146127_k == 0) {
+          if (button.id == 0) {
                this.location.type = button.getValue();
           }
 

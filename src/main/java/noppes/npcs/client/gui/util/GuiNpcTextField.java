@@ -40,7 +40,7 @@ public class GuiNpcTextField extends GuiTextField {
      }
 
      public GuiNpcTextField(int id, GuiScreen parent, int i, int j, int k, int l, String s) {
-          this(id, parent, Minecraft.func_71410_x().field_71466_p, i, j, k, l, s);
+          this(id, parent, Minecraft.func_71410_x().fontRenderer, i, j, k, l, s);
      }
 
      private boolean charAllowed(char c, int i) {

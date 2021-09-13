@@ -38,7 +38,7 @@ public class SubGuiNpcConversationLine extends SubGuiInterface implements ITextf
      }
 
      protected void func_146284_a(GuiButton guibutton) {
-          int id = guibutton.field_146127_k;
+          int id = guibutton.id;
           if (id == 1) {
                this.setSubGui(new GuiSoundSelection(this.sound));
           }

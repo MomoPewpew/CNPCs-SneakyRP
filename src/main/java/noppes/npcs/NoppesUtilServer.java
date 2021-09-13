@@ -629,8 +629,8 @@ public class NoppesUtilServer {
 
      public static void setRecipeGui(EntityPlayerMP player, RecipeCarpentry recipe) {
           if (recipe != null) {
-               if (player.field_71070_bA instanceof ContainerManageRecipes) {
-                    ContainerManageRecipes container = (ContainerManageRecipes)player.field_71070_bA;
+               if (player.openContainer instanceof ContainerManageRecipes) {
+                    ContainerManageRecipes container = (ContainerManageRecipes)player.openContainer;
                     container.setRecipe(recipe);
                     Server.sendData(player, EnumPacketClient.GUI_DATA, recipe.writeNBT());
                }
@@ -641,11 +641,11 @@ public class NoppesUtilServer {
           NBTTagCompound compound = new NBTTagCompound();
           bank.writeEntityToNBT(compound);
           Server.sendData(player, EnumPacketClient.GUI_DATA, compound);
-          if (player.field_71070_bA instanceof ContainerManageBanks) {
-               ((ContainerManageBanks)player.field_71070_bA).setBank(bank);
+          if (player.openContainer instanceof ContainerManageBanks) {
+               ((ContainerManageBanks)player.openContainer).setBank(bank);
           }
 
-          player.func_71110_a(player.field_71070_bA, player.field_71070_bA.func_75138_a());
+          player.func_71110_a(player.openContainer, player.openContainer.func_75138_a());
      }
 
      public static void sendNearbyNpcs(EntityPlayerMP player) {

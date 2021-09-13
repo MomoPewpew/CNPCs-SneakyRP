@@ -33,14 +33,14 @@ public class GuiNPCManageTransporters extends GuiNPCInterface implements IScroll
           Vector list = new Vector();
           this.slot = new GuiNPCStringSlot(list, this, false, 18);
           this.slot.func_148134_d(4, 5);
-          this.addButton(new GuiNpcButton(0, this.field_146294_l / 2 - 100, this.field_146295_m - 52, 65, 20, "gui.add"));
-          this.addButton(new GuiNpcButton(1, this.field_146294_l / 2 - 33, this.field_146295_m - 52, 65, 20, "selectServer.edit"));
+          this.addButton(new GuiNpcButton(0, this.width / 2 - 100, this.height - 52, 65, 20, "gui.add"));
+          this.addButton(new GuiNpcButton(1, this.width / 2 - 33, this.height - 52, 65, 20, "selectServer.edit"));
           this.getButton(0).setEnabled(this.selectCategory);
           this.getButton(1).setEnabled(this.selectCategory);
-          this.addButton(new GuiNpcButton(3, this.field_146294_l / 2 + 33, this.field_146295_m - 52, 65, 20, "gui.remove"));
-          this.addButton(new GuiNpcButton(2, this.field_146294_l / 2 - 100, this.field_146295_m - 31, 98, 20, "gui.open"));
+          this.addButton(new GuiNpcButton(3, this.width / 2 + 33, this.height - 52, 65, 20, "gui.remove"));
+          this.addButton(new GuiNpcButton(2, this.width / 2 - 100, this.height - 31, 98, 20, "gui.open"));
           this.getButton(2).setEnabled(this.selectCategory);
-          this.addButton(new GuiNpcButton(4, this.field_146294_l / 2 + 2, this.field_146295_m - 31, 98, 20, "gui.back"));
+          this.addButton(new GuiNpcButton(4, this.width / 2 + 2, this.height - 31, 98, 20, "gui.back"));
      }
 
      public void func_73863_a(int i, int j, float f) {
@@ -54,7 +54,7 @@ public class GuiNPCManageTransporters extends GuiNPCInterface implements IScroll
      }
 
      protected void func_146284_a(GuiButton guibutton) {
-          int id = guibutton.field_146127_k;
+          int id = guibutton.id;
           if (id == 0 && this.selectCategory) {
                NoppesUtil.openGUI(this.player, new GuiNPCTransportCategoryEdit(this.npc, this, "", -1));
           }

@@ -41,12 +41,12 @@ public abstract class GuiContainerNPCInterface extends GuiContainer {
 
      public GuiContainerNPCInterface(EntityNPCInterface npc, Container cont) {
           super(cont);
-          this.player = Minecraft.func_71410_x().field_71439_g;
+          this.player = Minecraft.func_71410_x().player;
           this.npc = npc;
           this.title = "Npc Mainmenu";
           this.field_146297_k = Minecraft.func_71410_x();
-          this.field_146296_j = this.field_146297_k.func_175599_af();
-          this.field_146289_q = this.field_146297_k.field_71466_p;
+          this.field_146296_j = this.field_146297_k.getRenderItem();
+          this.field_146289_q = this.field_146297_k.fontRenderer;
      }
 
      public void func_146280_a(Minecraft mc, int width, int height) {
@@ -69,13 +69,13 @@ public abstract class GuiContainerNPCInterface extends GuiContainer {
           this.textfields.clear();
           Keyboard.enableRepeatEvents(true);
           if (this.subgui != null) {
-               this.subgui.func_146280_a(this.field_146297_k, this.field_146294_l, this.field_146295_m);
+               this.subgui.func_146280_a(this.field_146297_k, this.width, this.height);
                this.subgui.func_73866_w_();
           }
 
           this.field_146292_n.clear();
-          this.field_147003_i = (this.field_146294_l - this.field_146999_f) / 2;
-          this.field_147009_r = (this.field_146295_m - this.field_147000_g) / 2;
+          this.field_147003_i = (this.width - this.field_146999_f) / 2;
+          this.field_147009_r = (this.height - this.field_147000_g) / 2;
      }
 
      public ResourceLocation getResource(String texture) {
@@ -165,12 +165,12 @@ public abstract class GuiContainerNPCInterface extends GuiContainer {
      }
 
      public void addButton(GuiNpcButton button) {
-          this.buttons.put(button.field_146127_k, button);
+          this.buttons.put(button.id, button);
           this.field_146292_n.add(button);
      }
 
      public void addTopButton(GuiMenuTopButton button) {
-          this.topbuttons.put(button.field_146127_k, button);
+          this.topbuttons.put(button.id, button);
           this.field_146292_n.add(button);
      }
 
@@ -199,7 +199,7 @@ public abstract class GuiContainerNPCInterface extends GuiContainer {
      }
 
      public void addSlider(GuiNpcSlider slider) {
-          this.sliders.put(slider.field_146127_k, slider);
+          this.sliders.put(slider.id, slider);
           this.field_146292_n.add(slider);
      }
 
@@ -220,7 +220,7 @@ public abstract class GuiContainerNPCInterface extends GuiContainer {
      }
 
      protected void func_146976_a(float f, int i, int j) {
-          this.func_73732_a(this.field_146289_q, I18n.func_74838_a(this.title), this.field_146294_l / 2, this.field_147009_r - 8, 16777215);
+          this.func_73732_a(this.field_146289_q, I18n.func_74838_a(this.title), this.width / 2, this.field_147009_r - 8, 16777215);
           Iterator var4 = (new ArrayList(this.labels.values())).iterator();
 
           while(var4.hasNext()) {
@@ -255,11 +255,11 @@ public abstract class GuiContainerNPCInterface extends GuiContainer {
           }
 
           super.func_73863_a(i, j, f);
-          this.field_73735_i = 0.0F;
-          GlStateManager.func_179131_c(1.0F, 1.0F, 1.0F, 1.0F);
+          this.zLevel = 0.0F;
+          GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
           if (this.subgui != null) {
                this.field_147002_h = container;
-               RenderHelper.func_74518_a();
+               RenderHelper.disableStandardItemLighting();
                this.subgui.func_73863_a(i, j, f);
           } else {
                this.func_191948_b(this.mouseX, this.mouseY);
@@ -291,18 +291,18 @@ public abstract class GuiContainerNPCInterface extends GuiContainer {
      }
 
      public void displayGuiScreen(GuiScreen gui) {
-          this.field_146297_k.func_147108_a(gui);
+          this.field_146297_k.displayGuiScreen(gui);
      }
 
      public void setSubGui(SubGuiInterface gui) {
           this.subgui = gui;
-          this.subgui.func_146280_a(this.field_146297_k, this.field_146294_l, this.field_146295_m);
+          this.subgui.func_146280_a(this.field_146297_k, this.width, this.height);
           this.subgui.parent = this;
           this.func_73866_w_();
      }
 
      public void drawNpc(int x, int y) {
-          GlStateManager.func_179131_c(1.0F, 1.0F, 1.0F, 1.0F);
+          GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
           GlStateManager.func_179142_g();
           GlStateManager.func_179094_E();
           GlStateManager.func_179109_b((float)(this.field_147003_i + x), (float)(this.field_147009_r + y), 50.0F);
@@ -344,11 +344,11 @@ public abstract class GuiContainerNPCInterface extends GuiContainer {
           }
 
           GlStateManager.func_179121_F();
-          RenderHelper.func_74518_a();
+          RenderHelper.disableStandardItemLighting();
           GlStateManager.func_179101_C();
           GlStateManager.func_179138_g(OpenGlHelper.field_77476_b);
           GlStateManager.func_179090_x();
           GlStateManager.func_179138_g(OpenGlHelper.field_77478_a);
-          GlStateManager.func_179131_c(1.0F, 1.0F, 1.0F, 1.0F);
+          GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
      }
 }

@@ -55,7 +55,7 @@ public class GuiDialogInteract extends GuiNPCInterface implements IGuiClose {
           super.func_73866_w_();
           this.isGrabbed = false;
           this.grabMouse(this.dialog.showWheel);
-          this.guiTop = this.field_146295_m - this.ySize;
+          this.guiTop = this.height - this.ySize;
           this.calculateRowHeight();
      }
 
@@ -71,8 +71,8 @@ public class GuiDialogInteract extends GuiNPCInterface implements IGuiClose {
      }
 
      public void func_73863_a(int i, int j, float f) {
-          GlStateManager.func_179131_c(1.0F, 1.0F, 1.0F, 1.0F);
-          this.func_73733_a(0, 0, this.field_146294_l, this.field_146295_m, -587202560, -587202560);
+          GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+          this.func_73733_a(0, 0, this.width, this.height, -587202560, -587202560);
           if (!this.dialog.hideNPC) {
                int l = -70;
                int i1 = this.ySize;
@@ -111,9 +111,9 @@ public class GuiDialogInteract extends GuiNPCInterface implements IGuiClose {
 
      private void drawWheel() {
           int yoffset = this.guiTop + this.dialogHeight + 14;
-          GlStateManager.func_179131_c(1.0F, 1.0F, 1.0F, 1.0F);
-          this.field_146297_k.field_71446_o.func_110577_a(this.wheel);
-          this.func_73729_b(this.field_146294_l / 2 - 31, yoffset, 0, 0, 63, 40);
+          GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+          this.field_146297_k.renderEngine.bindTexture(this.wheel);
+          this.drawTexturedModalRect(this.width / 2 - 31, yoffset, 0, 0, 63, 40);
           this.selectedX += Mouse.getDX();
           this.selectedY += Mouse.getDY();
           int limit = 80;
@@ -146,8 +146,8 @@ public class GuiDialogInteract extends GuiNPCInterface implements IGuiClose {
                this.selected += 3;
           }
 
-          this.field_146297_k.field_71446_o.func_110577_a(this.wheelparts[this.selected]);
-          this.func_73729_b(this.field_146294_l / 2 - 31, yoffset, 0, 0, 85, 55);
+          this.field_146297_k.renderEngine.bindTexture(this.wheelparts[this.selected]);
+          this.drawTexturedModalRect(this.width / 2 - 31, yoffset, 0, 0, 85, 55);
           Iterator var3 = this.dialog.options.keySet().iterator();
 
           while(true) {
@@ -157,8 +157,8 @@ public class GuiDialogInteract extends GuiNPCInterface implements IGuiClose {
                     do {
                          do {
                               if (!var3.hasNext()) {
-                                   this.field_146297_k.field_71446_o.func_110577_a(this.indicator);
-                                   this.func_73729_b(this.field_146294_l / 2 + this.selectedX / 4 - 2, yoffset + 16 - this.selectedY / 6, 0, 0, 8, 8);
+                                   this.field_146297_k.renderEngine.bindTexture(this.indicator);
+                                   this.drawTexturedModalRect(this.width / 2 + this.selectedX / 4 - 2, yoffset + 16 - this.selectedY / 6, 0, 0, 8, 8);
                                    return;
                               }
 
@@ -175,27 +175,27 @@ public class GuiDialogInteract extends GuiNPCInterface implements IGuiClose {
 
                int height = ClientProxy.Font.height(option.title);
                if (slot == 0) {
-                    this.func_73731_b(this.field_146289_q, option.title, this.field_146294_l / 2 + 13, yoffset - height, color);
+                    this.func_73731_b(this.field_146289_q, option.title, this.width / 2 + 13, yoffset - height, color);
                }
 
                if (slot == 1) {
-                    this.func_73731_b(this.field_146289_q, option.title, this.field_146294_l / 2 + 33, yoffset - height / 2 + 14, color);
+                    this.func_73731_b(this.field_146289_q, option.title, this.width / 2 + 33, yoffset - height / 2 + 14, color);
                }
 
                if (slot == 2) {
-                    this.func_73731_b(this.field_146289_q, option.title, this.field_146294_l / 2 + 27, yoffset + 27, color);
+                    this.func_73731_b(this.field_146289_q, option.title, this.width / 2 + 27, yoffset + 27, color);
                }
 
                if (slot == 3) {
-                    this.func_73731_b(this.field_146289_q, option.title, this.field_146294_l / 2 - 13 - ClientProxy.Font.width(option.title), yoffset - height, color);
+                    this.func_73731_b(this.field_146289_q, option.title, this.width / 2 - 13 - ClientProxy.Font.width(option.title), yoffset - height, color);
                }
 
                if (slot == 4) {
-                    this.func_73731_b(this.field_146289_q, option.title, this.field_146294_l / 2 - 33 - ClientProxy.Font.width(option.title), yoffset - height / 2 + 14, color);
+                    this.func_73731_b(this.field_146289_q, option.title, this.width / 2 - 33 - ClientProxy.Font.width(option.title), yoffset - height / 2 + 14, color);
                }
 
                if (slot == 5) {
-                    this.func_73731_b(this.field_146289_q, option.title, this.field_146294_l / 2 - 27 - ClientProxy.Font.width(option.title), yoffset + 27, color);
+                    this.func_73731_b(this.field_146289_q, option.title, this.width / 2 - 27 - ClientProxy.Font.width(option.title), yoffset + 27, color);
                }
           }
      }

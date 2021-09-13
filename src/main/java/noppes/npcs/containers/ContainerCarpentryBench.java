@@ -60,7 +60,7 @@ public class ContainerCarpentryBench extends Container {
 
                this.craftResult.func_70299_a(0, item);
                EntityPlayerMP plmp = (EntityPlayerMP)this.player;
-               plmp.field_71135_a.func_147359_a(new SPacketSetSlot(this.field_75152_c, 0, item));
+               plmp.field_71135_a.func_147359_a(new SPacketSetSlot(this.windowId, 0, item));
           }
 
      }

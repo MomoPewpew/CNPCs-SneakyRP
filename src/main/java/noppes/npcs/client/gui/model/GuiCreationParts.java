@@ -105,7 +105,7 @@ public class GuiCreationParts extends GuiCreationScreenInterface implements ITex
           }
 
           protected void actionPerformed(GuiButton btn) {
-               if (btn.field_146127_k == 20) {
+               if (btn.id == 20) {
                     int i = ((GuiNpcButton)btn).getValue();
                     this.data.playerTexture = i <= 1;
                }
@@ -156,7 +156,7 @@ public class GuiCreationParts extends GuiCreationScreenInterface implements ITex
           }
 
           protected void actionPerformed(GuiButton btn) {
-               if (btn.field_146127_k == 34) {
+               if (btn.id == 34) {
                }
 
                super.actionPerformed(btn);
@@ -202,27 +202,27 @@ public class GuiCreationParts extends GuiCreationScreenInterface implements ITex
           }
 
           protected void actionPerformed(GuiButton btn) {
-               if (btn.field_146127_k == 34) {
+               if (btn.id == 34) {
                     this.eyes.glint = ((GuiNpcButtonYesNo)btn).getBoolean();
                }
 
-               if (btn.field_146127_k == 35) {
+               if (btn.id == 35) {
                     GuiCreationParts.this.setSubGui(new GuiModelColor(GuiCreationParts.this, this.eyes.browColor, (color) -> {
                          this.eyes.browColor = color;
                     }));
                }
 
-               if (btn.field_146127_k == 36) {
+               if (btn.id == 36) {
                     GuiCreationParts.this.setSubGui(new GuiModelColor(GuiCreationParts.this, this.eyes.skinColor, (color) -> {
                          this.eyes.skinColor = color;
                     }));
                }
 
-               if (btn.field_146127_k == 37) {
+               if (btn.id == 37) {
                     this.eyes.eyePos = ((GuiButtonBiDirectional)btn).getValue() - 1;
                }
 
-               if (btn.field_146127_k == 38) {
+               if (btn.id == 38) {
                     this.eyes.browThickness = ((GuiButtonBiDirectional)btn).getValue();
                }
 
@@ -328,7 +328,7 @@ public class GuiCreationParts extends GuiCreationScreenInterface implements ITex
           }
 
           protected void actionPerformed(GuiButton btn) {
-               if (btn.field_146127_k == 20) {
+               if (btn.id == 20) {
                     int i = ((GuiNpcButton)btn).getValue();
                     if (i == 0 && this.canBeDeleted) {
                          GuiCreationParts.this.playerdata.removePart(this.part);
@@ -341,16 +341,16 @@ public class GuiCreationParts extends GuiCreationScreenInterface implements ITex
                     GuiCreationParts.this.func_73866_w_();
                }
 
-               if (btn.field_146127_k == 22) {
+               if (btn.id == 22) {
                     this.data.pattern = (byte)((GuiNpcButton)btn).getValue();
                }
 
-               if (btn.field_146127_k == 21) {
+               if (btn.id == 21) {
                     this.data.playerTexture = ((GuiNpcButtonYesNo)btn).getBoolean();
                     GuiCreationParts.this.func_73866_w_();
                }
 
-               if (btn.field_146127_k == 23) {
+               if (btn.id == 23) {
                     GuiCreationParts.this.setSubGui(new GuiModelColor(GuiCreationParts.this, this.data.color, (color) -> {
                          this.data.color = color;
                     }));

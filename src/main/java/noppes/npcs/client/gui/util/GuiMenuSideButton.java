@@ -23,14 +23,14 @@ public class GuiMenuSideButton extends GuiNpcButton {
      }
 
      public void func_191745_a(Minecraft minecraft, int i, int j, float partialTicks) {
-          if (this.field_146125_m) {
-               FontRenderer fontrenderer = minecraft.field_71466_p;
-               minecraft.field_71446_o.func_110577_a(resource);
-               GlStateManager.func_179131_c(1.0F, 1.0F, 1.0F, 1.0F);
-               int width = this.field_146120_f + (this.active ? 2 : 0);
-               this.field_146123_n = i >= this.field_146128_h && j >= this.field_146129_i && i < this.field_146128_h + width && j < this.field_146129_i + this.field_146121_g;
+          if (this.visible) {
+               FontRenderer fontrenderer = minecraft.fontRenderer;
+               minecraft.renderEngine.bindTexture(resource);
+               GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+               int width = this.width + (this.active ? 2 : 0);
+               this.field_146123_n = i >= this.x && j >= this.y && i < this.x + width && j < this.y + this.height;
                int k = this.func_146114_a(this.field_146123_n);
-               this.func_73729_b(this.field_146128_h, this.field_146129_i, 0, k * 22, width, this.field_146121_g);
+               this.drawTexturedModalRect(this.x, this.y, 0, k * 22, width, this.height);
                this.func_146119_b(minecraft, i, j);
                String text = "";
                float maxWidth = (float)width * 0.75F;
@@ -50,11 +50,11 @@ public class GuiMenuSideButton extends GuiNpcButton {
                }
 
                if (this.active) {
-                    this.func_73732_a(fontrenderer, text, this.field_146128_h + width / 2, this.field_146129_i + (this.field_146121_g - 8) / 2, 16777120);
+                    this.func_73732_a(fontrenderer, text, this.x + width / 2, this.y + (this.height - 8) / 2, 16777120);
                } else if (this.field_146123_n) {
-                    this.func_73732_a(fontrenderer, text, this.field_146128_h + width / 2, this.field_146129_i + (this.field_146121_g - 8) / 2, 16777120);
+                    this.func_73732_a(fontrenderer, text, this.x + width / 2, this.y + (this.height - 8) / 2, 16777120);
                } else {
-                    this.func_73732_a(fontrenderer, text, this.field_146128_h + width / 2, this.field_146129_i + (this.field_146121_g - 8) / 2, 14737632);
+                    this.func_73732_a(fontrenderer, text, this.x + width / 2, this.y + (this.height - 8) / 2, 14737632);
                }
 
           }
@@ -67,6 +67,6 @@ public class GuiMenuSideButton extends GuiNpcButton {
      }
 
      public boolean func_146116_c(Minecraft minecraft, int i, int j) {
-          return !this.active && this.field_146125_m && this.field_146123_n;
+          return !this.active && this.visible && this.field_146123_n;
      }
 }

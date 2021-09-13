@@ -23,13 +23,13 @@ public class CustomGuiScrollComponent extends GuiCustomScroll implements IDataHo
      public CustomGuiScrollComponent(Minecraft mc, GuiScreen parent, int id) {
           super(parent, id);
           this.field_146297_k = mc;
-          this.field_146289_q = mc.field_71466_p;
+          this.field_146289_q = mc.fontRenderer;
      }
 
      public CustomGuiScrollComponent(Minecraft mc, GuiScreen parent, int id, boolean multiSelect) {
           super(parent, id, multiSelect);
           this.field_146297_k = mc;
-          this.field_146289_q = mc.field_71466_p;
+          this.field_146289_q = mc.fontRenderer;
           this.multiSelect = multiSelect;
      }
 
@@ -77,7 +77,7 @@ public class CustomGuiScrollComponent extends GuiCustomScroll implements IDataHo
      }
 
      public ICustomGuiComponent toComponent() {
-          CustomGuiScrollWrapper component = new CustomGuiScrollWrapper(this.id, this.guiLeft - GuiCustom.guiLeft, this.guiTop - GuiCustom.guiTop, this.field_146294_l, this.field_146295_m, (String[])this.getList().toArray(new String[0]));
+          CustomGuiScrollWrapper component = new CustomGuiScrollWrapper(this.id, this.guiLeft - GuiCustom.guiLeft, this.guiTop - GuiCustom.guiTop, this.width, this.height, (String[])this.getList().toArray(new String[0]));
           component.setHoverText(this.hoverText);
           return component;
      }

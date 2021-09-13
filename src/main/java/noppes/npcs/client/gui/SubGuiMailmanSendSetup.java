@@ -43,15 +43,15 @@ public class SubGuiMailmanSendSetup extends SubGuiInterface implements ITextfiel
           this.addButton(new GuiNpcButton(4, this.guiLeft + 171, this.guiTop + 130, 20, 20, "X"));
           this.addButton(new GuiNpcButton(0, this.guiLeft + 26, this.guiTop + 190, 100, 20, "gui.done"));
           this.addButton(new GuiNpcButton(1, this.guiLeft + 130, this.guiTop + 190, 100, 20, "gui.cancel"));
-          if (this.player.field_71070_bA instanceof ContainerMail) {
-               ContainerMail container = (ContainerMail)this.player.field_71070_bA;
+          if (this.player.openContainer instanceof ContainerMail) {
+               ContainerMail container = (ContainerMail)this.player.openContainer;
                this.mail.items = container.mail.items;
           }
 
      }
 
      public void buttonEvent(GuiButton guibutton) {
-          int id = guibutton.field_146127_k;
+          int id = guibutton.id;
           if (id == 0) {
                this.close();
           }

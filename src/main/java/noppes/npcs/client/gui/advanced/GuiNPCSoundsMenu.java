@@ -44,10 +44,10 @@ public class GuiNPCSoundsMenu extends GuiNPCInterface2 implements ITextfieldList
      }
 
      public void buttonEvent(GuiButton button) {
-          if (button.field_146127_k == 6) {
+          if (button.id == 6) {
                this.npc.advanced.disablePitch = ((GuiNpcButton)button).getValue() == 0;
           } else {
-               this.selectedField = this.getTextField(button.field_146127_k);
+               this.selectedField = this.getTextField(button.id);
                this.setSubGui(new GuiSoundSelection(this.selectedField.func_146179_b()));
           }
 

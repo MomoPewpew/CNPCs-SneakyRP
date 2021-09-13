@@ -60,7 +60,7 @@ import noppes.npcs.items.ItemScripted;
 public class PacketHandlerClient extends PacketHandlerServer {
      @SubscribeEvent
      public void onPacketData(ClientCustomPacketEvent event) {
-          EntityPlayer player = Minecraft.func_71410_x().field_71439_g;
+          EntityPlayer player = Minecraft.func_71410_x().player;
           if (player != null) {
                ByteBuf buffer = event.getPacket().payload();
                Minecraft.func_71410_x().func_152344_a(() -> {
@@ -289,7 +289,7 @@ public class PacketHandlerClient extends PacketHandlerServer {
                                                             }
 
                                                             Minecraft mc = Minecraft.func_71410_x();
-                                                            mc.func_147108_a((GuiScreen)null);
+                                                            mc.displayGuiScreen((GuiScreen)null);
                                                             mc.func_71381_h();
                                                        } else if (type == EnumPacketClient.VILLAGER_LIST) {
                                                             MerchantRecipeList merchantrecipelist = MerchantRecipeList.func_151390_b(new PacketBuffer(buffer));
@@ -336,7 +336,7 @@ public class PacketHandlerClient extends PacketHandlerServer {
                                    while(var6.hasNext()) {
                                         Entry entry = (Entry)var6.next();
                                         ModelResourceLocation mrl = new ModelResourceLocation((String)entry.getValue(), "inventory");
-                                        Minecraft.func_71410_x().func_175599_af().func_175037_a().func_178086_a(CustomItems.scripted_item, (Integer)entry.getKey(), mrl);
+                                        Minecraft.func_71410_x().getRenderItem().func_175037_a().func_178086_a(CustomItems.scripted_item, (Integer)entry.getKey(), mrl);
                                         ModelLoader.setCustomModelResourceLocation(CustomItems.scripted_item, (Integer)entry.getKey(), mrl);
                                    }
                               }

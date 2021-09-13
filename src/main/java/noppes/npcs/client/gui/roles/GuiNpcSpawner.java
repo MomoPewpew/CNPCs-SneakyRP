@@ -85,25 +85,25 @@ public class GuiNpcSpawner extends GuiNPCInterface2 implements ITextfieldListene
 
      protected void func_146284_a(GuiButton guibutton) {
           GuiNpcButton button = (GuiNpcButton)guibutton;
-          if (button.field_146127_k >= 0 && button.field_146127_k < 6) {
-               this.slot = button.field_146127_k + 1;
+          if (button.id >= 0 && button.id < 6) {
+               this.slot = button.id + 1;
                this.setSubGui(new GuiNpcMobSpawnerSelector());
           }
 
-          if (button.field_146127_k >= 20 && button.field_146127_k < 26) {
-               this.job.setJobCompound(button.field_146127_k - 19, (NBTTagCompound)null);
-               Client.sendData(EnumPacketServer.JobSpawnerRemove, button.field_146127_k - 19);
+          if (button.id >= 20 && button.id < 26) {
+               this.job.setJobCompound(button.id - 19, (NBTTagCompound)null);
+               Client.sendData(EnumPacketServer.JobSpawnerRemove, button.id - 19);
           }
 
-          if (button.field_146127_k == 26) {
+          if (button.id == 26) {
                this.job.doesntDie = button.getValue() == 1;
           }
 
-          if (button.field_146127_k == 10) {
+          if (button.id == 10) {
                this.job.spawnType = button.getValue();
           }
 
-          if (button.field_146127_k == 11) {
+          if (button.id == 11) {
                this.job.despawnOnTargetLost = button.getValue() == 1;
           }
 

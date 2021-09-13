@@ -23,7 +23,7 @@ public class GuiNpcTextureCloaks extends GuiNpcSelectionInterface {
 
      public void func_73863_a(int i, int j, float f) {
           int l = -50;
-          int i1 = this.field_146295_m / 2 + 30;
+          int i1 = this.height / 2 + 30;
           this.drawNpc(this.npc, l, i1, 2.0F, 180);
           super.func_73863_a(i, j, f);
      }

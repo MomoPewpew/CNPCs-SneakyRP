@@ -62,19 +62,19 @@ public class GuiNpcFollowerSetup extends GuiContainerNPCInterface2 {
      }
 
      protected void func_146284_a(GuiButton guibutton) {
-          if (guibutton.field_146127_k == 7) {
+          if (guibutton.id == 7) {
                this.role.infiniteDays = ((GuiNpcButtonYesNo)guibutton).getBoolean();
           }
 
-          if (guibutton.field_146127_k == 8) {
+          if (guibutton.id == 8) {
                this.role.disableGui = ((GuiNpcButtonYesNo)guibutton).getBoolean();
           }
 
-          if (guibutton.field_146127_k == 9) {
+          if (guibutton.id == 9) {
                this.role.refuseSoulStone = !((GuiNpcButtonYesNo)guibutton).getBoolean();
           }
 
-          if (guibutton.field_146127_k == 10) {
+          if (guibutton.id == 10) {
                this.role.killed();
           }
 

@@ -53,7 +53,7 @@ public class CustomGuiTexturedRect extends Gui implements IGuiComponent {
           boolean hovered = mouseX >= this.x && mouseY >= this.y && mouseX < this.x + this.width && mouseY < this.y + this.height;
           GlStateManager.func_179094_E();
           GlStateManager.func_179124_c(1.0F, 1.0F, 1.0F);
-          mc.func_110434_K().func_110577_a(this.texture);
+          mc.func_110434_K().bindTexture(this.texture);
           Tessellator tessellator = Tessellator.func_178181_a();
           BufferBuilder bufferbuilder = tessellator.func_178180_c();
           bufferbuilder.func_181668_a(7, DefaultVertexFormats.field_181707_g);

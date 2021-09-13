@@ -36,7 +36,7 @@ public class GuiNpcQuestReward extends GuiContainerNPCInterface implements IText
      }
 
      public void func_146284_a(GuiButton guibutton) {
-          int id = guibutton.field_146127_k;
+          int id = guibutton.id;
           if (id == 5) {
                NoppesUtil.openGUI(this.player, GuiNPCManageQuest.Instance);
           }
@@ -48,11 +48,11 @@ public class GuiNpcQuestReward extends GuiContainerNPCInterface implements IText
      }
 
      protected void func_146976_a(float f, int i, int j) {
-          GlStateManager.func_179131_c(1.0F, 1.0F, 1.0F, 1.0F);
-          this.field_146297_k.field_71446_o.func_110577_a(this.resource);
-          int l = (this.field_146294_l - this.field_146999_f) / 2;
-          int i1 = (this.field_146295_m - this.field_147000_g) / 2;
-          this.func_73729_b(l, i1, 0, 0, this.field_146999_f, this.field_147000_g);
+          GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+          this.field_146297_k.renderEngine.bindTexture(this.resource);
+          int l = (this.width - this.field_146999_f) / 2;
+          int i1 = (this.height - this.field_147000_g) / 2;
+          this.drawTexturedModalRect(l, i1, 0, 0, this.field_146999_f, this.field_147000_g);
           super.func_146976_a(f, i, j);
      }
 

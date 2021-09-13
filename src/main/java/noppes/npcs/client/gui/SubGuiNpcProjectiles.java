@@ -89,50 +89,50 @@ public class SubGuiNpcProjectiles extends SubGuiInterface implements ITextfieldL
 
      protected void func_146284_a(GuiButton guibutton) {
           GuiNpcButton button = (GuiNpcButton)guibutton;
-          if (button.field_146127_k == 0) {
+          if (button.id == 0) {
                this.stats.setHasGravity(button.getValue() == 1);
                this.func_73866_w_();
           }
 
-          if (button.field_146127_k == 1) {
+          if (button.id == 1) {
                this.stats.setAccelerate(button.getValue() == 1);
           }
 
-          if (button.field_146127_k == 3) {
+          if (button.id == 3) {
                this.stats.setExplodeSize(button.getValue());
           }
 
-          if (button.field_146127_k == 4) {
+          if (button.id == 4) {
                this.stats.setEffect(button.getValue(), this.stats.getEffectStrength(), this.stats.getEffectTime());
                this.func_73866_w_();
           }
 
-          if (button.field_146127_k == 5) {
+          if (button.id == 5) {
                this.stats.setParticle(button.getValue());
           }
 
-          if (button.field_146127_k == 6) {
+          if (button.id == 6) {
                this.stats.setGlows(button.getValue() == 1);
           }
 
-          if (button.field_146127_k == 7) {
+          if (button.id == 7) {
                this.stats.setRender3D(button.getValue() == 1);
                this.func_73866_w_();
           }
 
-          if (button.field_146127_k == 8) {
+          if (button.id == 8) {
                this.stats.setSpins(button.getValue() == 1);
           }
 
-          if (button.field_146127_k == 9) {
+          if (button.id == 9) {
                this.stats.setSticks(button.getValue() == 1);
           }
 
-          if (button.field_146127_k == 10) {
+          if (button.id == 10) {
                this.stats.setEffect(this.stats.getEffectType(), button.getValue(), this.stats.getEffectTime());
           }
 
-          if (button.field_146127_k == 66) {
+          if (button.id == 66) {
                this.close();
           }
 

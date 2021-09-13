@@ -80,7 +80,7 @@ public class GuiMailbox extends GuiNPCInterface implements IGuiData, ICustomScro
      }
 
      protected void func_146284_a(GuiButton guibutton) {
-          int id = guibutton.field_146127_k;
+          int id = guibutton.id;
           if (this.scroll.selected >= 0) {
                if (id == 0) {
                     GuiMailmanWrite.parent = this;

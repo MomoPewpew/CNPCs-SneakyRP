@@ -49,27 +49,27 @@ public class GuiNPCMarks extends GuiNPCInterface2 implements ISubGuiListener {
      }
 
      public void buttonEvent(GuiButton button) {
-          if (button.field_146127_k < 90) {
-               this.selectedMark = (MarkData.Mark)this.data.marks.get(button.field_146127_k / 10);
-               if (button.field_146127_k % 10 == 1) {
+          if (button.id < 90) {
+               this.selectedMark = (MarkData.Mark)this.data.marks.get(button.id / 10);
+               if (button.id % 10 == 1) {
                     this.selectedMark.type = ((GuiNpcButton)button).getValue();
                }
 
-               if (button.field_146127_k % 10 == 2) {
+               if (button.id % 10 == 2) {
                     this.setSubGui(new SubGuiColorSelector(this.selectedMark.color));
                }
 
-               if (button.field_146127_k % 10 == 3) {
+               if (button.id % 10 == 3) {
                     this.setSubGui(new SubGuiNpcAvailability(this.selectedMark.availability));
                }
 
-               if (button.field_146127_k % 10 == 4) {
+               if (button.id % 10 == 4) {
                     this.data.marks.remove(this.selectedMark);
                     this.func_73866_w_();
                }
           }
 
-          if (button.field_146127_k == 101) {
+          if (button.id == 101) {
                this.data.addMark(0);
                this.func_73866_w_();
           }

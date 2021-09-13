@@ -61,8 +61,8 @@ public class GuiCustom extends GuiContainer implements ICustomScrollListener, IG
      public void func_73866_w_() {
           super.func_73866_w_();
           if (this.gui != null) {
-               guiLeft = (this.field_146294_l - this.field_146999_f) / 2;
-               guiTop = (this.field_146295_m - this.field_147000_g) / 2;
+               guiLeft = (this.width - this.field_146999_f) / 2;
+               guiTop = (this.height - this.field_147000_g) / 2;
                this.components.clear();
                this.clickListeners.clear();
                this.keyListeners.clear();
@@ -115,8 +115,8 @@ public class GuiCustom extends GuiContainer implements ICustomScrollListener, IG
      }
 
      void drawBackgroundTexture() {
-          this.field_146297_k.func_110434_K().func_110577_a(this.background);
-          this.func_73729_b(guiLeft, guiTop, 0, 0, this.field_146999_f, this.field_147000_g);
+          this.field_146297_k.func_110434_K().bindTexture(this.background);
+          this.drawTexturedModalRect(guiLeft, guiTop, 0, 0, this.field_146999_f, this.field_147000_g);
      }
 
      private void addComponent(ICustomGuiComponent component) {
@@ -159,11 +159,11 @@ public class GuiCustom extends GuiContainer implements ICustomScrollListener, IG
 
      protected void func_146284_a(GuiButton button) throws IOException {
           super.func_146284_a(button);
-          Client.sendData(EnumPacketServer.CustomGuiButton, this.updateGui().toNBT(), button.field_146127_k);
+          Client.sendData(EnumPacketServer.CustomGuiButton, this.updateGui().toNBT(), button.id);
      }
 
      public void buttonClick(CustomGuiButton button) {
-          Client.sendData(EnumPacketServer.CustomGuiButton, this.updateGui().toNBT(), button.field_146127_k);
+          Client.sendData(EnumPacketServer.CustomGuiButton, this.updateGui().toNBT(), button.id);
      }
 
      public void slotChange(Slot slot) {
@@ -258,7 +258,7 @@ public class GuiCustom extends GuiContainer implements ICustomScrollListener, IG
      public void setGuiData(NBTTagCompound compound) {
           Minecraft mc = Minecraft.func_71410_x();
           CustomGuiWrapper gui = (CustomGuiWrapper)(new CustomGuiWrapper()).fromNBT(compound);
-          ((ContainerCustomGui)this.field_147002_h).setGui(gui, mc.field_71439_g);
+          ((ContainerCustomGui)this.field_147002_h).setGui(gui, mc.player);
           this.gui = gui;
           this.field_146999_f = gui.getWidth();
           this.field_147000_g = gui.getHeight();

@@ -95,7 +95,7 @@ public class GuiCreationEntities extends GuiCreationScreenInterface implements I
 
      protected void func_146284_a(GuiButton btn) {
           super.func_146284_a(btn);
-          if (btn.field_146127_k == 10) {
+          if (btn.id == 10) {
                this.playerdata.setEntityClass((Class)null);
                this.resetToSelected = true;
                this.func_73866_w_();

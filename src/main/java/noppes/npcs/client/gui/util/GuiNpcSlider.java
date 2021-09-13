@@ -9,14 +9,14 @@ import org.lwjgl.input.Mouse;
 
 public class GuiNpcSlider extends GuiButton {
      private ISliderListener listener;
-     public int field_146127_k;
+     public int id;
      public float sliderValue;
      public boolean dragging;
 
      public GuiNpcSlider(GuiScreen parent, int id, int xPos, int yPos, String displayString, float sliderValue) {
           super(id, xPos, yPos, 150, 20, NoppesStringUtils.translate(displayString));
           this.sliderValue = 1.0F;
-          this.field_146127_k = id;
+          this.id = id;
           this.sliderValue = sliderValue;
           if (parent instanceof ISliderListener) {
                this.listener = (ISliderListener)parent;
@@ -34,8 +34,8 @@ public class GuiNpcSlider extends GuiButton {
 
      public GuiNpcSlider(GuiScreen parent, int id, int xPos, int yPos, int width, int height, float sliderValue) {
           this(parent, id, xPos, yPos, "", sliderValue);
-          this.field_146120_f = width;
-          this.field_146121_g = height;
+          this.width = width;
+          this.height = height;
           if (this.listener != null) {
                this.listener.mouseDragged(this);
           }
@@ -43,10 +43,10 @@ public class GuiNpcSlider extends GuiButton {
      }
 
      public void func_146119_b(Minecraft mc, int par2, int par3) {
-          if (this.field_146125_m) {
-               mc.func_110434_K().func_110577_a(field_146122_a);
+          if (this.visible) {
+               mc.func_110434_K().bindTexture(field_146122_a);
                if (this.dragging) {
-                    this.sliderValue = (float)(par2 - (this.field_146128_h + 4)) / (float)(this.field_146120_f - 8);
+                    this.sliderValue = (float)(par2 - (this.x + 4)) / (float)(this.width - 8);
                     if (this.sliderValue < 0.0F) {
                          this.sliderValue = 0.0F;
                     }
@@ -64,9 +64,9 @@ public class GuiNpcSlider extends GuiButton {
                     }
                }
 
-               GlStateManager.func_179131_c(1.0F, 1.0F, 1.0F, 1.0F);
-               this.func_73729_b(this.field_146128_h + (int)(this.sliderValue * (float)(this.field_146120_f - 8)), this.field_146129_i, 0, 66, 4, 20);
-               this.func_73729_b(this.field_146128_h + (int)(this.sliderValue * (float)(this.field_146120_f - 8)) + 4, this.field_146129_i, 196, 66, 4, 20);
+               GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+               this.drawTexturedModalRect(this.x + (int)(this.sliderValue * (float)(this.width - 8)), this.y, 0, 66, 4, 20);
+               this.drawTexturedModalRect(this.x + (int)(this.sliderValue * (float)(this.width - 8)) + 4, this.y, 196, 66, 4, 20);
           }
      }
 
@@ -79,8 +79,8 @@ public class GuiNpcSlider extends GuiButton {
      }
 
      public boolean func_146116_c(Minecraft par1Minecraft, int par2, int par3) {
-          if (this.field_146124_l && this.field_146125_m && par2 >= this.field_146128_h && par3 >= this.field_146129_i && par2 < this.field_146128_h + this.field_146120_f && par3 < this.field_146129_i + this.field_146121_g) {
-               this.sliderValue = (float)(par2 - (this.field_146128_h + 4)) / (float)(this.field_146120_f - 8);
+          if (this.enabled && this.visible && par2 >= this.x && par3 >= this.y && par2 < this.x + this.width && par3 < this.y + this.height) {
+               this.sliderValue = (float)(par2 - (this.x + 4)) / (float)(this.width - 8);
                if (this.sliderValue < 0.0F) {
                     this.sliderValue = 0.0F;
                }

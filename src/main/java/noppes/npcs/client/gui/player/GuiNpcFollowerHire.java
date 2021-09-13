@@ -37,7 +37,7 @@ public class GuiNpcFollowerHire extends GuiContainerNPCInterface {
 
      public void func_146284_a(GuiButton guibutton) {
           super.func_146284_a(guibutton);
-          if (guibutton.field_146127_k == 5) {
+          if (guibutton.id == 5) {
                NoppesUtilPlayer.sendData(EnumPlayerPacket.FollowerHire);
                this.close();
           }
@@ -48,11 +48,11 @@ public class GuiNpcFollowerHire extends GuiContainerNPCInterface {
      }
 
      protected void func_146976_a(float f, int i, int j) {
-          GlStateManager.func_179131_c(1.0F, 1.0F, 1.0F, 1.0F);
-          this.field_146297_k.field_71446_o.func_110577_a(this.resource);
-          int l = (this.field_146294_l - this.field_146999_f) / 2;
-          int i1 = (this.field_146295_m - this.field_147000_g) / 2;
-          this.func_73729_b(l, i1, 0, 0, this.field_146999_f, this.field_147000_g);
+          GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+          this.field_146297_k.renderEngine.bindTexture(this.resource);
+          int l = (this.width - this.field_146999_f) / 2;
+          int i1 = (this.height - this.field_147000_g) / 2;
+          this.drawTexturedModalRect(l, i1, 0, 0, this.field_146999_f, this.field_147000_g);
           int index = 0;
 
           for(int slot = 0; slot < this.role.inventory.items.size(); ++slot) {
@@ -66,11 +66,11 @@ public class GuiNpcFollowerHire extends GuiContainerNPCInterface {
                     int yOffset = index * 26;
                     int x = this.field_147003_i + 78;
                     int y = this.field_147009_r + yOffset + 10;
-                    GlStateManager.func_179091_B();
-                    RenderHelper.func_74520_c();
-                    this.field_146296_j.func_180450_b(itemstack, x + 11, y);
+                    GlStateManager.enableRescaleNormal();
+                    RenderHelper.enableGUIStandardItemLighting();
+                    this.field_146296_j.renderItemAndEffectIntoGUI(itemstack, x + 11, y);
                     this.field_146296_j.func_175030_a(this.field_146289_q, itemstack, x + 11, y);
-                    RenderHelper.func_74518_a();
+                    RenderHelper.disableStandardItemLighting();
                     GlStateManager.func_179101_C();
                     String daysS = days + " " + (days == 1 ? I18n.func_74838_a("follower.day") : I18n.func_74838_a("follower.days"));
                     this.field_146289_q.func_78276_b(" = " + daysS, x + 27, y + 4, CustomNpcResourceListener.DefaultTextColor);

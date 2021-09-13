@@ -79,7 +79,7 @@ public class GuiNpcGuard extends GuiNPCInterface2 {
           EntityEntry ent;
           Class cl;
           String name;
-          if (button.field_146127_k == 0) {
+          if (button.id == 0) {
                var3 = ForgeRegistries.ENTITIES.getValues().iterator();
 
                while(var3.hasNext()) {
@@ -96,7 +96,7 @@ public class GuiNpcGuard extends GuiNPCInterface2 {
                this.func_73866_w_();
           }
 
-          if (button.field_146127_k == 1) {
+          if (button.id == 1) {
                var3 = ForgeRegistries.ENTITIES.getValues().iterator();
 
                while(var3.hasNext()) {
@@ -113,7 +113,7 @@ public class GuiNpcGuard extends GuiNPCInterface2 {
                this.func_73866_w_();
           }
 
-          if (button.field_146127_k == 2) {
+          if (button.id == 2) {
                var3 = ForgeRegistries.ENTITIES.getValues().iterator();
 
                while(var3.hasNext()) {
@@ -130,20 +130,20 @@ public class GuiNpcGuard extends GuiNPCInterface2 {
                this.func_73866_w_();
           }
 
-          if (button.field_146127_k == 11 && this.scroll1.hasSelected()) {
+          if (button.id == 11 && this.scroll1.hasSelected()) {
                this.role.targets.add(this.scroll1.getSelected());
                this.scroll1.selected = -1;
                this.scroll2.selected = -1;
                this.func_73866_w_();
           }
 
-          if (button.field_146127_k == 12 && this.scroll2.hasSelected()) {
+          if (button.id == 12 && this.scroll2.hasSelected()) {
                this.role.targets.remove(this.scroll2.getSelected());
                this.scroll2.selected = -1;
                this.func_73866_w_();
           }
 
-          if (button.field_146127_k == 13) {
+          if (button.id == 13) {
                this.role.targets.clear();
                List all = new ArrayList();
                Iterator var9 = ForgeRegistries.ENTITIES.getValues().iterator();
@@ -163,7 +163,7 @@ public class GuiNpcGuard extends GuiNPCInterface2 {
                this.func_73866_w_();
           }
 
-          if (button.field_146127_k == 14) {
+          if (button.id == 14) {
                this.role.targets.clear();
                this.scroll1.selected = -1;
                this.scroll2.selected = -1;

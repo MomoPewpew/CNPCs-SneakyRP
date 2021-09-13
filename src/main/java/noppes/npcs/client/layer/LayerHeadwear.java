@@ -22,7 +22,7 @@ public class LayerHeadwear extends LayerInterface implements LayerPreRender {
                     float red = (float)(color >> 16 & 255) / 255.0F;
                     float green = (float)(color >> 8 & 255) / 255.0F;
                     float blue = (float)(color & 255) / 255.0F;
-                    GlStateManager.func_179131_c(red, green, blue, 1.0F);
+                    GlStateManager.color(red, green, blue, 1.0F);
                }
 
                ClientProxy.bindTexture(this.npc.textureLocation);

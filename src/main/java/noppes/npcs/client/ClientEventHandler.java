@@ -30,7 +30,7 @@ public class ClientEventHandler {
 
      @SubscribeEvent
      public void onRenderTick(RenderWorldLastEvent event) {
-          EntityPlayer player = Minecraft.func_71410_x().field_71439_g;
+          EntityPlayer player = Minecraft.func_71410_x().player;
           if (TileBuilder.DrawPos != null && TileBuilder.DrawPos.func_177951_i(player.func_180425_c()) <= 1000000.0D) {
                TileEntity te = player.field_70170_p.func_175625_s(TileBuilder.DrawPos);
                if (te != null && te instanceof TileBuilder) {
@@ -68,9 +68,9 @@ public class ClientEventHandler {
                                              BlockPos pos = schem.rotatePos(posX, posY, posZ, tile.rotation);
                                              GlStateManager.func_179094_E();
                                              GlStateManager.func_179123_a();
-                                             GlStateManager.func_179091_B();
+                                             GlStateManager.enableRescaleNormal();
                                              GlStateManager.func_179109_b((float)pos.func_177958_n(), (float)pos.func_177956_o(), (float)pos.func_177952_p());
-                                             Minecraft.func_71410_x().func_110434_K().func_110577_a(TextureMap.field_110575_b);
+                                             Minecraft.func_71410_x().func_110434_K().bindTexture(TextureMap.field_110575_b);
                                              GlStateManager.func_179114_b(-90.0F, 0.0F, 1.0F, 0.0F);
                                              state = schem.rotationState(state, tile.rotation);
 
@@ -98,7 +98,7 @@ public class ClientEventHandler {
                               }
                          }
 
-                         RenderHelper.func_74518_a();
+                         RenderHelper.disableStandardItemLighting();
                          GlStateManager.func_179109_b(-1.0F, 0.0F, -1.0F);
                          GlStateManager.func_179121_F();
                     }
@@ -109,7 +109,7 @@ public class ClientEventHandler {
      @SubscribeEvent
      public void post(Post event) {
           MarkData data = MarkData.get(event.getEntity());
-          EntityPlayer player = Minecraft.func_71410_x().field_71439_g;
+          EntityPlayer player = Minecraft.func_71410_x().player;
           Iterator var4 = data.marks.iterator();
 
           while(var4.hasNext()) {
@@ -124,13 +124,13 @@ public class ClientEventHandler {
 
      public void drawSelectionBox(BlockPos pos) {
           GlStateManager.func_179090_x();
-          GlStateManager.func_179140_f();
+          GlStateManager.disableLighting();
           GlStateManager.func_179129_p();
           GlStateManager.func_179084_k();
           AxisAlignedBB bb = new AxisAlignedBB(BlockPos.field_177992_a, pos);
           RenderGlobal.func_189697_a(bb, 1.0F, 0.0F, 0.0F, 1.0F);
           GlStateManager.func_179098_w();
-          GlStateManager.func_179145_e();
+          GlStateManager.enableLighting();
           GlStateManager.func_179089_o();
           GlStateManager.func_179084_k();
      }

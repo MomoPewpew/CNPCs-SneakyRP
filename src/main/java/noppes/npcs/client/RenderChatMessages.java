@@ -30,7 +30,7 @@ public class RenderChatMessages implements IChatMessages {
                long time = System.currentTimeMillis();
                if (!message.equals(this.lastMessage) || this.lastMessageTime + 5000L <= time) {
                     Map messages = new TreeMap(this.messages);
-                    messages.put(time, new TextBlockClient(message, this.boxLength * 4, true, new Object[]{Minecraft.func_71410_x().field_71439_g, npc}));
+                    messages.put(time, new TextBlockClient(message, this.boxLength * 4, true, new Object[]{Minecraft.func_71410_x().player, npc}));
                     if (messages.size() > 3) {
                          messages.remove(messages.keySet().iterator().next());
                     }
@@ -54,7 +54,7 @@ public class RenderChatMessages implements IChatMessages {
      }
 
      private void render(double par3, double par5, double par7, float textscale, boolean depth) {
-          FontRenderer font = Minecraft.func_71410_x().field_71466_p;
+          FontRenderer font = Minecraft.func_71410_x().fontRenderer;
           float var13 = 1.6F;
           float var14 = 0.016666668F * var13;
           GlStateManager.func_179094_E();
@@ -73,9 +73,9 @@ public class RenderChatMessages implements IChatMessages {
           GlStateManager.func_179114_b(-mc.func_175598_ae().field_78735_i, 0.0F, 1.0F, 0.0F);
           GlStateManager.func_179114_b(mc.func_175598_ae().field_78732_j, 1.0F, 0.0F, 0.0F);
           GlStateManager.func_179152_a(-var14, -var14, var14);
-          GlStateManager.func_179131_c(1.0F, 1.0F, 1.0F, 1.0F);
+          GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
           GlStateManager.func_179132_a(true);
-          GlStateManager.func_179140_f();
+          GlStateManager.disableLighting();
           GlStateManager.func_179147_l();
           if (depth) {
                GlStateManager.func_179126_j();
@@ -123,10 +123,10 @@ public class RenderChatMessages implements IChatMessages {
           }
 
           GlStateManager.func_179129_p();
-          GlStateManager.func_179145_e();
+          GlStateManager.enableLighting();
           GlStateManager.func_179084_k();
           GlStateManager.func_179126_j();
-          GlStateManager.func_179131_c(1.0F, 1.0F, 1.0F, 1.0F);
+          GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
           GlStateManager.func_179121_F();
      }
 
@@ -149,7 +149,7 @@ public class RenderChatMessages implements IChatMessages {
           float f2 = (float)(par4 >> 8 & 255) / 255.0F;
           float f3 = (float)(par4 & 255) / 255.0F;
           BufferBuilder tessellator = Tessellator.func_178181_a().func_178180_c();
-          GlStateManager.func_179131_c(f1, f2, f3, f);
+          GlStateManager.color(f1, f2, f3, f);
           tessellator.func_181668_a(7, DefaultVertexFormats.field_181705_e);
           tessellator.func_181662_b((double)par0, (double)par3, par5).func_181675_d();
           tessellator.func_181662_b((double)par2, (double)par3, par5).func_181675_d();

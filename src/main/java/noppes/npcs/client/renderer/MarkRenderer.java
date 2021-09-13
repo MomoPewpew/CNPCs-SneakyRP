@@ -30,17 +30,17 @@ public class MarkRenderer {
           GlStateManager.func_179137_b(x, y + (double)entity.field_70131_O + 0.6D, z);
           GlStateManager.func_179114_b(-entity.field_70759_as, 0.0F, 1.0F, 0.0F);
           if (mark.type == 2) {
-               Minecraft.func_71410_x().func_110434_K().func_110577_a(markExclamation);
+               Minecraft.func_71410_x().func_110434_K().bindTexture(markExclamation);
           } else if (mark.type == 1) {
-               Minecraft.func_71410_x().func_110434_K().func_110577_a(markQuestion);
+               Minecraft.func_71410_x().func_110434_K().bindTexture(markQuestion);
           } else if (mark.type == 3) {
-               Minecraft.func_71410_x().func_110434_K().func_110577_a(markPointer);
+               Minecraft.func_71410_x().func_110434_K().bindTexture(markPointer);
           } else if (mark.type == 5) {
-               Minecraft.func_71410_x().func_110434_K().func_110577_a(markCross);
+               Minecraft.func_71410_x().func_110434_K().bindTexture(markCross);
           } else if (mark.type == 4) {
-               Minecraft.func_71410_x().func_110434_K().func_110577_a(markSkull);
+               Minecraft.func_71410_x().func_110434_K().bindTexture(markSkull);
           } else if (mark.type == 6) {
-               Minecraft.func_71410_x().func_110434_K().func_110577_a(markStar);
+               Minecraft.func_71410_x().func_110434_K().bindTexture(markStar);
           }
 
           if (displayList >= 0) {

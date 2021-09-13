@@ -151,8 +151,8 @@ public class GuiMailmanWrite extends GuiContainerNPCInterface implements ITextfi
      }
 
      protected void func_146284_a(GuiButton par1GuiButton) {
-          if (par1GuiButton.field_146124_l) {
-               int id = par1GuiButton.field_146127_k;
+          if (par1GuiButton.enabled) {
+               int id = par1GuiButton.id;
                if (id == 0) {
                     mail.message.func_74782_a("pages", this.bookPages);
                     if (this.canSend) {
@@ -248,7 +248,7 @@ public class GuiMailmanWrite extends GuiContainerNPCInterface implements ITextfi
      private void func_74160_b(String par1Str) {
           String s1 = this.func_74158_i();
           String s2 = s1 + par1Str;
-          int i = this.mc.field_71466_p.func_78267_b(s2 + "" + TextFormatting.BLACK + "_", 118);
+          int i = this.mc.fontRenderer.func_78267_b(s2 + "" + TextFormatting.BLACK + "_", 118);
           if (i <= 118 && s2.length() < 256) {
                this.func_74159_a(s2);
           }
@@ -257,14 +257,14 @@ public class GuiMailmanWrite extends GuiContainerNPCInterface implements ITextfi
 
      public void func_73863_a(int par1, int par2, float par3) {
           this.func_146270_b(0);
-          GlStateManager.func_179131_c(1.0F, 1.0F, 1.0F, 1.0F);
-          this.mc.func_110434_K().func_110577_a(bookGuiTextures);
-          this.func_73729_b(this.field_147003_i + 130, this.field_147009_r + 22, 0, 0, this.bookImageWidth, this.bookImageHeight / 3);
-          this.func_73729_b(this.field_147003_i + 130, this.field_147009_r + 22 + this.bookImageHeight / 3, 0, this.bookImageHeight / 2, this.bookImageWidth, this.bookImageHeight / 2);
-          this.func_73729_b(this.field_147003_i, this.field_147009_r + 2, 0, 0, this.bookImageWidth, this.bookImageHeight);
-          this.mc.func_110434_K().func_110577_a(bookInventory);
-          this.func_73729_b(this.field_147003_i + 20, this.field_147009_r + 173, 0, 82, 180, 55);
-          this.func_73729_b(this.field_147003_i + 20, this.field_147009_r + 228, 0, 140, 180, 28);
+          GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+          this.mc.func_110434_K().bindTexture(bookGuiTextures);
+          this.drawTexturedModalRect(this.field_147003_i + 130, this.field_147009_r + 22, 0, 0, this.bookImageWidth, this.bookImageHeight / 3);
+          this.drawTexturedModalRect(this.field_147003_i + 130, this.field_147009_r + 22 + this.bookImageHeight / 3, 0, this.bookImageHeight / 2, this.bookImageWidth, this.bookImageHeight / 2);
+          this.drawTexturedModalRect(this.field_147003_i, this.field_147009_r + 2, 0, 0, this.bookImageWidth, this.bookImageHeight);
+          this.mc.func_110434_K().bindTexture(bookInventory);
+          this.drawTexturedModalRect(this.field_147003_i + 20, this.field_147009_r + 173, 0, 82, 180, 55);
+          this.drawTexturedModalRect(this.field_147003_i + 20, this.field_147009_r + 228, 0, 140, 180, 28);
           String s = net.minecraft.client.resources.I18n.func_135052_a("book.pageIndicator", new Object[]{this.currPage + 1, this.bookTotalPages});
           String s1 = "";
           if (this.bookPages != null && this.currPage >= 0 && this.currPage < this.bookPages.func_74745_c()) {
@@ -272,7 +272,7 @@ public class GuiMailmanWrite extends GuiContainerNPCInterface implements ITextfi
           }
 
           if (this.canEdit) {
-               if (this.mc.field_71466_p.func_78260_a()) {
+               if (this.mc.fontRenderer.func_78260_a()) {
                     s1 = s1 + "_";
                } else if (this.updateCount / 6 % 2 == 0) {
                     s1 = s1 + "" + TextFormatting.BLACK + "_";
@@ -281,22 +281,22 @@ public class GuiMailmanWrite extends GuiContainerNPCInterface implements ITextfi
                }
           }
 
-          int l = this.mc.field_71466_p.func_78256_a(s);
-          this.mc.field_71466_p.func_78276_b(s, this.field_147003_i - l + this.bookImageWidth - 44, this.field_147009_r + 18, 0);
-          this.mc.field_71466_p.func_78279_b(s1, this.field_147003_i + 36, this.field_147009_r + 18 + 16, 116, 0);
+          int l = this.mc.fontRenderer.func_78256_a(s);
+          this.mc.fontRenderer.func_78276_b(s, this.field_147003_i - l + this.bookImageWidth - 44, this.field_147009_r + 18, 0);
+          this.mc.fontRenderer.func_78279_b(s1, this.field_147003_i + 36, this.field_147009_r + 18 + 16, 116, 0);
           this.func_73733_a(this.field_147003_i + 175, this.field_147009_r + 136, this.field_147003_i + 269, this.field_147009_r + 154, -1072689136, -804253680);
-          GlStateManager.func_179131_c(1.0F, 1.0F, 1.0F, 1.0F);
-          this.mc.func_110434_K().func_110577_a(bookWidgets);
+          GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+          this.mc.func_110434_K().bindTexture(bookWidgets);
 
           for(int i = 0; i < 4; ++i) {
-               this.func_73729_b(this.field_147003_i + 175 + i * 24, this.field_147009_r + 134, 0, 22, 24, 24);
+               this.drawTexturedModalRect(this.field_147003_i + 175 + i * 24, this.field_147009_r + 134, 0, 22, 24, 24);
           }
 
           super.func_73863_a(par1, par2, par3);
      }
 
      public void close() {
-          this.mc.func_147108_a(parent);
+          this.mc.displayGuiScreen(parent);
           parent = null;
           mail = new PlayerMail();
      }

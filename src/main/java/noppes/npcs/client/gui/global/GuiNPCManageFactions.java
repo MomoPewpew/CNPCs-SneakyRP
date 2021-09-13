@@ -94,7 +94,7 @@ public class GuiNPCManageFactions extends GuiNPCInterface2 implements IScrollDat
 
      protected void func_146284_a(GuiButton guibutton) {
           GuiNpcButton button = (GuiNpcButton)guibutton;
-          if (button.field_146127_k == 0) {
+          if (button.id == 0) {
                this.save();
 
                String name;
@@ -107,26 +107,26 @@ public class GuiNPCManageFactions extends GuiNPCInterface2 implements IScrollDat
                Client.sendData(EnumPacketServer.FactionSave, compound);
           }
 
-          if (button.field_146127_k == 1 && this.data.containsKey(this.scrollFactions.getSelected())) {
+          if (button.id == 1 && this.data.containsKey(this.scrollFactions.getSelected())) {
                Client.sendData(EnumPacketServer.FactionRemove, this.data.get(this.selected));
                this.scrollFactions.clear();
                this.faction = new Faction();
                this.func_73866_w_();
           }
 
-          if (button.field_146127_k == 2) {
+          if (button.id == 2) {
                this.setSubGui(new SubGuiNpcFactionPoints(this.faction));
           }
 
-          if (button.field_146127_k == 3) {
+          if (button.id == 3) {
                this.faction.hideFaction = button.getValue() == 1;
           }
 
-          if (button.field_146127_k == 4) {
+          if (button.id == 4) {
                this.faction.getsAttacked = button.getValue() == 1;
           }
 
-          if (button.field_146127_k == 10) {
+          if (button.id == 10) {
                this.setSubGui(new SubGuiColorSelector(this.faction.color));
           }
 

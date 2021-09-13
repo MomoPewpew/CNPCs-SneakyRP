@@ -37,9 +37,9 @@ public class SubGuiNpcRespawn extends SubGuiInterface implements ITextfieldListe
      }
 
      protected void func_146284_a(GuiButton guibutton) {
-          int id = guibutton.field_146127_k;
+          int id = guibutton.id;
           GuiNpcButton button = (GuiNpcButton)guibutton;
-          if (button.field_146127_k == 0) {
+          if (button.id == 0) {
                this.stats.spawnCycle = button.getValue();
                if (this.stats.spawnCycle != 3 && this.stats.spawnCycle != 4) {
                     this.stats.respawnTime = 20;
@@ -48,7 +48,7 @@ public class SubGuiNpcRespawn extends SubGuiInterface implements ITextfieldListe
                }
 
                this.func_73866_w_();
-          } else if (button.field_146127_k == 4) {
+          } else if (button.id == 4) {
                this.stats.hideKilledBody = button.getValue() == 1;
           }
 

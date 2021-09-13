@@ -118,7 +118,7 @@ public class GuiDialogSelection extends SubGuiInterface implements ICustomScroll
      }
 
      protected void func_146284_a(GuiButton guibutton) {
-          int id = guibutton.field_146127_k;
+          int id = guibutton.id;
           if (id == 2) {
                if (this.selectedDialog != null) {
                     this.scrollDoubleClicked((String)null, (GuiCustomScroll)null);

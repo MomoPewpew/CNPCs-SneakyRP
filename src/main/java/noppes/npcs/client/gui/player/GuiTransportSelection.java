@@ -31,8 +31,8 @@ public class GuiTransportSelection extends GuiNPCInterface implements ITopButton
 
      public void func_73866_w_() {
           super.func_73866_w_();
-          this.guiLeft = (this.field_146294_l - this.xSize) / 2;
-          this.guiTop = (this.field_146295_m - 222) / 2;
+          this.guiLeft = (this.width - this.xSize) / 2;
+          this.guiTop = (this.height - 222) / 2;
           String name = "";
           this.addLabel(new GuiNpcLabel(0, name, this.guiLeft + (this.xSize - this.field_146289_q.func_78256_a(name)) / 2, this.guiTop + 10));
           this.addButton(new GuiNpcButton(0, this.guiLeft + 10, this.guiTop + 192, 156, 20, I18n.func_74838_a("transporter.travel")));
@@ -48,16 +48,16 @@ public class GuiTransportSelection extends GuiNPCInterface implements ITopButton
 
      public void func_73863_a(int i, int j, float f) {
           this.func_146276_q_();
-          GlStateManager.func_179131_c(1.0F, 1.0F, 1.0F, 1.0F);
-          this.field_146297_k.field_71446_o.func_110577_a(this.resource);
-          this.func_73729_b(this.guiLeft, this.guiTop, 0, 0, 176, 222);
+          GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+          this.field_146297_k.renderEngine.bindTexture(this.resource);
+          this.drawTexturedModalRect(this.guiLeft, this.guiTop, 0, 0, 176, 222);
           super.func_73863_a(i, j, f);
      }
 
      protected void func_146284_a(GuiButton guibutton) {
           GuiNpcButton button = (GuiNpcButton)guibutton;
           String sel = this.scroll.getSelected();
-          if (button.field_146127_k == 0 && sel != null) {
+          if (button.id == 0 && sel != null) {
                this.close();
                NoppesUtilPlayer.sendData(EnumPlayerPacket.Transport, sel);
           }

@@ -29,10 +29,10 @@ public class SubGuiNpcTextArea extends SubGuiInterface implements ITextChangeLis
      }
 
      public void func_73866_w_() {
-          this.xSize = (int)((double)this.field_146294_l * 0.88D);
+          this.xSize = (int)((double)this.width * 0.88D);
           this.ySize = (int)((double)this.xSize * 0.56D);
-          if ((double)this.ySize > (double)this.field_146295_m * 0.95D) {
-               this.ySize = (int)((double)this.field_146295_m * 0.95D);
+          if ((double)this.ySize > (double)this.height * 0.95D) {
+               this.ySize = (int)((double)this.height * 0.95D);
                this.xSize = (int)((double)this.ySize / 0.56D);
           }
 
@@ -65,7 +65,7 @@ public class SubGuiNpcTextArea extends SubGuiInterface implements ITextChangeLis
      }
 
      public void buttonEvent(GuiButton guibutton) {
-          int id = guibutton.field_146127_k;
+          int id = guibutton.id;
           if (id == 100) {
                NoppesStringUtils.setClipboardContents(this.textarea.getText());
           }

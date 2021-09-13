@@ -73,7 +73,7 @@ public class BlockDoorRenderer extends BlockRendererInterface {
      }
 
      private boolean overrideModel() {
-          ItemStack held = Minecraft.func_71410_x().field_71439_g.func_184614_ca();
+          ItemStack held = Minecraft.func_71410_x().player.func_184614_ca();
           if (held == null) {
                return false;
           } else {

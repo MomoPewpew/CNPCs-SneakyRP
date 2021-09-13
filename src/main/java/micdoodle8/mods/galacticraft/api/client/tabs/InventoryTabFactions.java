@@ -22,7 +22,7 @@ public class InventoryTabFactions extends AbstractTab {
      public void onTabClicked() {
           CustomNPCsScheduler.runTack(() -> {
                Minecraft mc = Minecraft.func_71410_x();
-               mc.func_147108_a(new GuiFaction());
+               mc.displayGuiScreen(new GuiFaction());
           });
      }
 
@@ -31,14 +31,14 @@ public class InventoryTabFactions extends AbstractTab {
      }
 
      public void func_191745_a(Minecraft minecraft, int mouseX, int mouseY, float partialTicks) {
-          if (this.field_146124_l && this.field_146125_m) {
+          if (this.enabled && this.visible) {
                Minecraft mc = Minecraft.func_71410_x();
-               boolean hovered = mouseX >= this.field_146128_h && mouseY >= this.field_146129_i && mouseX < this.field_146128_h + this.field_146120_f && mouseY < this.field_146129_i + this.field_146121_g;
+               boolean hovered = mouseX >= this.x && mouseY >= this.y && mouseX < this.x + this.width && mouseY < this.y + this.height;
                if (hovered) {
-                    int x = mouseX + mc.field_71466_p.func_78256_a(this.field_146126_j);
-                    GlStateManager.func_179109_b((float)x, (float)(this.field_146129_i + 2), 0.0F);
-                    this.drawHoveringText(Arrays.asList(this.field_146126_j), 0, 0, mc.field_71466_p);
-                    GlStateManager.func_179109_b((float)(-x), (float)(-(this.field_146129_i + 2)), 0.0F);
+                    int x = mouseX + mc.fontRenderer.func_78256_a(this.field_146126_j);
+                    GlStateManager.func_179109_b((float)x, (float)(this.y + 2), 0.0F);
+                    this.drawHoveringText(Arrays.asList(this.field_146126_j), 0, 0, mc.fontRenderer);
+                    GlStateManager.func_179109_b((float)(-x), (float)(-(this.y + 2)), 0.0F);
                }
 
                super.func_191745_a(minecraft, mouseX, mouseY, partialTicks);
@@ -50,8 +50,8 @@ public class InventoryTabFactions extends AbstractTab {
      protected void drawHoveringText(List list, int x, int y, FontRenderer font) {
           if (!list.isEmpty()) {
                GlStateManager.func_179101_C();
-               RenderHelper.func_74518_a();
-               GlStateManager.func_179140_f();
+               RenderHelper.disableStandardItemLighting();
+               GlStateManager.disableLighting();
                GlStateManager.func_179097_i();
                int k = 0;
                Iterator iterator = list.iterator();
@@ -72,16 +72,16 @@ public class InventoryTabFactions extends AbstractTab {
                     i1 += 2 + (list.size() - 1) * 10;
                }
 
-               if (j2 + k > this.field_146120_f) {
+               if (j2 + k > this.width) {
                     j2 -= 28 + k;
                }
 
-               if (k2 + i1 + 6 > this.field_146121_g) {
-                    k2 = this.field_146121_g - i1 - 6;
+               if (k2 + i1 + 6 > this.height) {
+                    k2 = this.height - i1 - 6;
                }
 
-               this.field_73735_i = 300.0F;
-               this.itemRender.field_77023_b = 300.0F;
+               this.zLevel = 300.0F;
+               this.itemRender.zLevel = 300.0F;
                int j1 = -267386864;
                this.func_73733_a(j2 - 3, k2 - 4, j2 + k + 3, k2 - 3, j1, j1);
                this.func_73733_a(j2 - 3, k2 + i1 + 3, j2 + k + 3, k2 + i1 + 4, j1, j1);
@@ -105,12 +105,12 @@ public class InventoryTabFactions extends AbstractTab {
                     k2 += 10;
                }
 
-               this.field_73735_i = 0.0F;
-               this.itemRender.field_77023_b = 0.0F;
-               GlStateManager.func_179145_e();
+               this.zLevel = 0.0F;
+               this.itemRender.zLevel = 0.0F;
+               GlStateManager.enableLighting();
                GlStateManager.func_179126_j();
                RenderHelper.func_74519_b();
-               GlStateManager.func_179091_B();
+               GlStateManager.enableRescaleNormal();
           }
      }
 }

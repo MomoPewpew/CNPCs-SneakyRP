@@ -60,7 +60,7 @@ public class GuiNPCBankChest extends GuiContainerNPCInterface implements IGuiDat
           }
 
           if (this.maxSlots > 1) {
-               this.getButton(this.container.slot).field_146125_m = false;
+               this.getButton(this.container.slot).visible = false;
                this.getButton(this.container.slot).setEnabled(false);
           }
 
@@ -68,7 +68,7 @@ public class GuiNPCBankChest extends GuiContainerNPCInterface implements IGuiDat
 
      public void func_146284_a(GuiButton guibutton) {
           super.func_146284_a(guibutton);
-          int id = guibutton.field_146127_k;
+          int id = guibutton.id;
           if (id < 6) {
                NoppesUtilPlayer.sendData(EnumPlayerPacket.BankSlotOpen, id, this.container.bankid);
           }
@@ -84,31 +84,31 @@ public class GuiNPCBankChest extends GuiContainerNPCInterface implements IGuiDat
      }
 
      protected void func_146976_a(float f, int i, int j) {
-          GlStateManager.func_179131_c(1.0F, 1.0F, 1.0F, 1.0F);
-          this.field_146297_k.field_71446_o.func_110577_a(this.resource);
-          int l = (this.field_146294_l - this.field_146999_f) / 2;
-          int i1 = (this.field_146295_m - this.field_147000_g) / 2;
-          this.func_73729_b(l, i1, 0, 0, this.field_146999_f, 6);
+          GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+          this.field_146297_k.renderEngine.bindTexture(this.resource);
+          int l = (this.width - this.field_146999_f) / 2;
+          int i1 = (this.height - this.field_147000_g) / 2;
+          this.drawTexturedModalRect(l, i1, 0, 0, this.field_146999_f, 6);
           int ii;
           int y;
           if (!this.container.isAvailable()) {
-               this.func_73729_b(l, i1 + 6, 0, 6, this.field_146999_f, 64);
-               this.func_73729_b(l, i1 + 70, 0, 124, this.field_146999_f, 98);
+               this.drawTexturedModalRect(l, i1 + 6, 0, 6, this.field_146999_f, 64);
+               this.drawTexturedModalRect(l, i1 + 70, 0, 124, this.field_146999_f, 98);
                ii = this.field_147003_i + 30;
                y = this.field_147009_r + 8;
                this.field_146289_q.func_78276_b(I18n.func_74838_a("bank.unlockCosts") + ":", ii, y + 4, CustomNpcResourceListener.DefaultTextColor);
                this.drawItem(ii + 90, y, this.currency, i, j);
           } else if (this.container.isUpgraded()) {
-               this.func_73729_b(l, i1 + 60, 0, 60, this.field_146999_f, 162);
-               this.func_73729_b(l, i1 + 6, 0, 60, this.field_146999_f, 64);
+               this.drawTexturedModalRect(l, i1 + 60, 0, 60, this.field_146999_f, 162);
+               this.drawTexturedModalRect(l, i1 + 6, 0, 60, this.field_146999_f, 64);
           } else if (this.container.canBeUpgraded()) {
-               this.func_73729_b(l, i1 + 6, 0, 6, this.field_146999_f, 216);
+               this.drawTexturedModalRect(l, i1 + 6, 0, 6, this.field_146999_f, 216);
                ii = this.field_147003_i + 30;
                y = this.field_147009_r + 8;
                this.field_146289_q.func_78276_b(I18n.func_74838_a("bank.upgradeCosts") + ":", ii, y + 4, CustomNpcResourceListener.DefaultTextColor);
                this.drawItem(ii + 90, y, this.currency, i, j);
           } else {
-               this.func_73729_b(l, i1 + 6, 0, 60, this.field_146999_f, 162);
+               this.drawTexturedModalRect(l, i1 + 6, 0, 60, this.field_146999_f, 162);
           }
 
           if (this.maxSlots > 1) {
@@ -122,11 +122,11 @@ public class GuiNPCBankChest extends GuiContainerNPCInterface implements IGuiDat
 
      private void drawItem(int x, int y, ItemStack item, int mouseX, int mouseY) {
           if (!NoppesUtilServer.IsItemStackNull(item)) {
-               GlStateManager.func_179091_B();
-               RenderHelper.func_74520_c();
-               this.field_146296_j.func_180450_b(item, x, y);
+               GlStateManager.enableRescaleNormal();
+               RenderHelper.enableGUIStandardItemLighting();
+               this.field_146296_j.renderItemAndEffectIntoGUI(item, x, y);
                this.field_146296_j.func_175030_a(this.field_146289_q, item, x, y);
-               RenderHelper.func_74518_a();
+               RenderHelper.disableStandardItemLighting();
                GlStateManager.func_179101_C();
                if (this.func_146978_c(x - this.field_147003_i, y - this.field_147009_r, 16, 16, mouseX, mouseY)) {
                     this.func_146285_a(item, mouseX, mouseY);

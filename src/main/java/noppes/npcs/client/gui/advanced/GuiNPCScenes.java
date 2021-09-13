@@ -51,29 +51,29 @@ public class GuiNPCScenes extends GuiNPCInterface2 {
      }
 
      public void buttonEvent(GuiButton button) {
-          if (button.field_146127_k < 60) {
-               DataScenes.SceneContainer scene = (DataScenes.SceneContainer)this.scenes.scenes.get(button.field_146127_k / 10);
-               if (button.field_146127_k % 10 == 1) {
+          if (button.id < 60) {
+               DataScenes.SceneContainer scene = (DataScenes.SceneContainer)this.scenes.scenes.get(button.id / 10);
+               if (button.id % 10 == 1) {
                     scene.enabled = ((GuiNpcButton)button).getValue() == 1;
                }
 
-               if (button.field_146127_k % 10 == 2) {
+               if (button.id % 10 == 2) {
                     this.scene = scene;
                     this.setSubGui(new SubGuiNpcTextArea(scene.lines));
                }
 
-               if (button.field_146127_k % 10 == 3) {
+               if (button.id % 10 == 3) {
                     this.scenes.scenes.remove(scene);
                     this.func_73866_w_();
                }
 
-               if (button.field_146127_k % 10 == 4) {
+               if (button.id % 10 == 4) {
                     scene.btn = ((GuiNpcButton)button).getValue();
                     this.func_73866_w_();
                }
           }
 
-          if (button.field_146127_k == 101) {
+          if (button.id == 101) {
                this.scenes.addScene(this.getTextField(101).func_146179_b());
                this.func_73866_w_();
           }

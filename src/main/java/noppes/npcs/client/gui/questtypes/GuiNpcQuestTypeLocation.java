@@ -37,7 +37,7 @@ public class GuiNpcQuestTypeLocation extends SubGuiInterface implements ITextfie
 
      protected void func_146284_a(GuiButton guibutton) {
           super.func_146284_a(guibutton);
-          if (guibutton.field_146127_k == 0) {
+          if (guibutton.id == 0) {
                this.close();
           }
 

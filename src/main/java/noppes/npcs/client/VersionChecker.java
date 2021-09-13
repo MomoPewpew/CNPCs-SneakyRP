@@ -14,12 +14,12 @@ public class VersionChecker extends Thread {
 
           EntityPlayerSP player;
           try {
-               player = Minecraft.func_71410_x().field_71439_g;
+               player = Minecraft.func_71410_x().player;
           } catch (NoSuchMethodError var7) {
                return;
           }
 
-          while((player = Minecraft.func_71410_x().field_71439_g) == null) {
+          while((player = Minecraft.func_71410_x().player) == null) {
                try {
                     Thread.sleep(2000L);
                } catch (InterruptedException var6) {

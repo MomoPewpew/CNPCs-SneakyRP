@@ -72,16 +72,16 @@ public class SubGuiNpcMeleeProperties extends SubGuiInterface implements ITextfi
 
      protected void func_146284_a(GuiButton guibutton) {
           GuiNpcButton button = (GuiNpcButton)guibutton;
-          if (button.field_146127_k == 5) {
+          if (button.id == 5) {
                this.stats.setEffect(button.getValue(), this.stats.getEffectStrength(), this.stats.getEffectTime());
                this.func_73866_w_();
           }
 
-          if (button.field_146127_k == 7) {
+          if (button.id == 7) {
                this.stats.setEffect(this.stats.getEffectType(), button.getValue(), this.stats.getEffectTime());
           }
 
-          if (button.field_146127_k == 66) {
+          if (button.id == 66) {
                this.close();
           }
 

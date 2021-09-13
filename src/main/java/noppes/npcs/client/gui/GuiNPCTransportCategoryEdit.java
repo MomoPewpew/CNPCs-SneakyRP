@@ -26,10 +26,10 @@ public class GuiNPCTransportCategoryEdit extends GuiNPCInterface {
 
      public void func_73866_w_() {
           super.func_73866_w_();
-          this.addTextField(new GuiNpcTextField(1, this, this.field_146289_q, this.field_146294_l / 2 - 40, 100, 140, 20, this.name));
-          this.addLabel(new GuiNpcLabel(1, "Title:", this.field_146294_l / 2 - 100 + 4, 105, 16777215));
-          this.addButton(new GuiNpcButton(2, this.field_146294_l / 2 - 100, 210, 98, 20, "gui.back"));
-          this.addButton(new GuiNpcButton(3, this.field_146294_l / 2 + 2, 210, 98, 20, "Save"));
+          this.addTextField(new GuiNpcTextField(1, this, this.field_146289_q, this.width / 2 - 40, 100, 140, 20, this.name));
+          this.addLabel(new GuiNpcLabel(1, "Title:", this.width / 2 - 100 + 4, 105, 16777215));
+          this.addButton(new GuiNpcButton(2, this.width / 2 - 100, 210, 98, 20, "gui.back"));
+          this.addButton(new GuiNpcButton(3, this.width / 2 + 2, 210, 98, 20, "Save"));
      }
 
      public void func_73863_a(int i, int j, float f) {
@@ -37,7 +37,7 @@ public class GuiNPCTransportCategoryEdit extends GuiNPCInterface {
      }
 
      protected void func_146284_a(GuiButton guibutton) {
-          int id = guibutton.field_146127_k;
+          int id = guibutton.id;
           if (id == 2) {
                NoppesUtil.openGUI(this.player, this.parent);
                Client.sendData(EnumPacketServer.TransportCategoriesGet);

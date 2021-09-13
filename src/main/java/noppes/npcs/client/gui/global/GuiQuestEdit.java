@@ -87,25 +87,25 @@ public class GuiQuestEdit extends SubGuiInterface implements ISubGuiListener, Gu
 
      public void buttonEvent(GuiButton guibutton) {
           GuiNpcButton button = (GuiNpcButton)guibutton;
-          if (button.field_146127_k == 3) {
+          if (button.id == 3) {
                this.questlogTA = false;
                this.setSubGui(new SubGuiNpcTextArea(this.quest.completeText));
           }
 
-          if (button.field_146127_k == 4) {
+          if (button.id == 4) {
                this.questlogTA = true;
                this.setSubGui(new SubGuiNpcTextArea(this.quest.logText));
           }
 
-          if (button.field_146127_k == 5) {
+          if (button.id == 5) {
                Client.sendData(EnumPacketServer.QuestOpenGui, EnumGuiType.QuestReward, this.quest.writeToNBT(new NBTTagCompound()));
           }
 
-          if (button.field_146127_k == 6) {
+          if (button.id == 6) {
                this.quest.setType(button.getValue());
           }
 
-          if (button.field_146127_k == 7) {
+          if (button.id == 7) {
                if (this.quest.type == 0) {
                     Client.sendData(EnumPacketServer.QuestOpenGui, EnumGuiType.QuestItem, this.quest.writeToNBT(new NBTTagCompound()));
                }
@@ -131,42 +131,42 @@ public class GuiQuestEdit extends SubGuiInterface implements ISubGuiListener, Gu
                }
           }
 
-          if (button.field_146127_k == 8) {
+          if (button.id == 8) {
                this.quest.repeat = EnumQuestRepeat.values()[button.getValue()];
           }
 
-          if (button.field_146127_k == 9) {
+          if (button.id == 9) {
                this.quest.completion = EnumQuestCompletion.values()[button.getValue()];
                this.getTextField(2).enabled = this.quest.completion == EnumQuestCompletion.Npc;
           }
 
-          if (button.field_146127_k == 15) {
+          if (button.id == 15) {
                this.setSubGui(new SubGuiNpcCommand(this.quest.command));
           }
 
-          if (button.field_146127_k == 10) {
+          if (button.id == 10) {
                this.setSubGui(new SubGuiNpcFactionOptions(this.quest.factionOptions));
           }
 
-          if (button.field_146127_k == 11) {
+          if (button.id == 11) {
                this.setSubGui(new GuiQuestSelection(this.quest.nextQuestid));
           }
 
-          if (button.field_146127_k == 12) {
+          if (button.id == 12) {
                this.quest.nextQuestid = -1;
                this.func_73866_w_();
           }
 
-          if (button.field_146127_k == 13) {
+          if (button.id == 13) {
                this.setSubGui(new SubGuiMailmanSendSetup(this.quest.mail));
           }
 
-          if (button.field_146127_k == 14) {
+          if (button.id == 14) {
                this.quest.mail = new PlayerMail();
                this.func_73866_w_();
           }
 
-          if (button.field_146127_k == 66) {
+          if (button.id == 66) {
                this.close();
           }
 

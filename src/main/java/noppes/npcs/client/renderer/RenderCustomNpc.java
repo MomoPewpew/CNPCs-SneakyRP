@@ -109,14 +109,14 @@ public class RenderCustomNpc extends RenderNPCInterface {
      protected void renderModel(EntityCustomNpc npc, float par2, float par3, float par4, float par5, float par6, float par7) {
           if (this.renderEntity != null) {
                boolean flag = !npc.func_82150_aj();
-               boolean flag1 = !flag && !npc.func_98034_c(Minecraft.func_71410_x().field_71439_g);
+               boolean flag1 = !flag && !npc.func_98034_c(Minecraft.func_71410_x().player);
                if (!flag && !flag1) {
                     return;
                }
 
                if (flag1) {
                     GlStateManager.func_179094_E();
-                    GlStateManager.func_179131_c(1.0F, 1.0F, 1.0F, 0.15F);
+                    GlStateManager.color(1.0F, 1.0F, 1.0F, 0.15F);
                     GlStateManager.func_179132_a(false);
                     GlStateManager.func_179147_l();
                     GlStateManager.func_179112_b(770, 771);
@@ -147,20 +147,20 @@ public class RenderCustomNpc extends RenderNPCInterface {
                     float f1 = 1.0F;
                     GlStateManager.func_179147_l();
                     GlStateManager.func_179112_b(1, 1);
-                    GlStateManager.func_179140_f();
+                    GlStateManager.disableLighting();
                     if (npc.func_82150_aj()) {
                          GlStateManager.func_179132_a(false);
                     } else {
                          GlStateManager.func_179132_a(true);
                     }
 
-                    GlStateManager.func_179131_c(1.0F, 1.0F, 1.0F, 1.0F);
+                    GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
                     GlStateManager.func_179094_E();
                     GlStateManager.func_179152_a(1.001F, 1.001F, 1.001F);
                     NPCRendererHelper.renderModel(this.entity, par2, par3, par4, par5, par6, par7, this.renderEntity, model, npc.textureGlowLocation);
                     GlStateManager.func_179121_F();
-                    GlStateManager.func_179145_e();
-                    GlStateManager.func_179131_c(1.0F, 1.0F, 1.0F, f1);
+                    GlStateManager.enableLighting();
+                    GlStateManager.color(1.0F, 1.0F, 1.0F, f1);
                     GlStateManager.func_179143_c(515);
                     GlStateManager.func_179084_k();
                }

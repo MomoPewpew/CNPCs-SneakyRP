@@ -49,7 +49,7 @@ public class GuiNPCDialogNpcOptions extends GuiNPCInterface2 implements GuiSelec
      }
 
      protected void func_146284_a(GuiButton guibutton) {
-          int id = guibutton.field_146127_k;
+          int id = guibutton.id;
           int slot;
           if (id >= 0 && id < 20) {
                this.selectedSlot = id;

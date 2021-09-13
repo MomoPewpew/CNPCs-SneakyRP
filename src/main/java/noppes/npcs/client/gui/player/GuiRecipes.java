@@ -47,12 +47,12 @@ public class GuiRecipes extends GuiNPCInterface {
      }
 
      private void updateButton() {
-          this.right.field_146125_m = this.right.field_146124_l = this.page > 0;
-          this.left.field_146125_m = this.left.field_146124_l = this.page + 1 < MathHelper.func_76123_f((float)this.recipes.size() / 4.0F);
+          this.right.visible = this.right.enabled = this.page > 0;
+          this.left.visible = this.left.enabled = this.page + 1 < MathHelper.func_76123_f((float)this.recipes.size() / 4.0F);
      }
 
      protected void func_146284_a(GuiButton button) {
-          if (button.field_146124_l) {
+          if (button.enabled) {
                if (button == this.right) {
                     --this.page;
                }
@@ -67,9 +67,9 @@ public class GuiRecipes extends GuiNPCInterface {
 
      public void func_73863_a(int xMouse, int yMouse, float f) {
           super.func_73863_a(xMouse, yMouse, f);
-          this.field_146297_k.field_71446_o.func_110577_a(resource);
+          this.field_146297_k.renderEngine.bindTexture(resource);
           this.label.label = this.page + 1 + "/" + MathHelper.func_76123_f((float)this.recipes.size() / 4.0F);
-          this.label.x = this.guiLeft + (256 - Minecraft.func_71410_x().field_71466_p.func_78256_a(this.label.label)) / 2;
+          this.label.x = this.guiLeft + (256 - Minecraft.func_71410_x().fontRenderer.func_78256_a(this.label.label)) / 2;
 
           int i;
           int index;
@@ -96,9 +96,9 @@ public class GuiRecipes extends GuiNPCInterface {
 
                          for(j = 0; j < recipe.field_77576_b; ++j) {
                               for(k = 0; k < recipe.field_77577_c; ++k) {
-                                   this.field_146297_k.field_71446_o.func_110577_a(resource);
-                                   GlStateManager.func_179131_c(1.0F, 1.0F, 1.0F, 1.0F);
-                                   this.func_73729_b(x + j * 18, x + k * 18, 0, 0, 18, 18);
+                                   this.field_146297_k.renderEngine.bindTexture(resource);
+                                   GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+                                   this.drawTexturedModalRect(x + j * 18, x + k * 18, 0, 0, 18, 18);
                                    item = recipe.getCraftingItem(j + k * recipe.field_77576_b);
                                    if (!item.func_190926_b()) {
                                         this.drawItem(item, x + j * 18 + 1, x + k * 18 + 1, xMouse, yMouse);
@@ -141,13 +141,13 @@ public class GuiRecipes extends GuiNPCInterface {
 
      private void drawItem(ItemStack item, int x, int y, int xMouse, int yMouse) {
           GlStateManager.func_179094_E();
-          GlStateManager.func_179091_B();
-          RenderHelper.func_74520_c();
-          this.field_146296_j.field_77023_b = 100.0F;
-          this.field_146296_j.func_180450_b(item, x, y);
+          GlStateManager.enableRescaleNormal();
+          RenderHelper.enableGUIStandardItemLighting();
+          this.field_146296_j.zLevel = 100.0F;
+          this.field_146296_j.renderItemAndEffectIntoGUI(item, x, y);
           this.field_146296_j.func_175030_a(this.field_146289_q, item, x, y);
-          this.field_146296_j.field_77023_b = 0.0F;
-          RenderHelper.func_74518_a();
+          this.field_146296_j.zLevel = 0.0F;
+          RenderHelper.disableStandardItemLighting();
           GlStateManager.func_179101_C();
           GlStateManager.func_179121_F();
      }

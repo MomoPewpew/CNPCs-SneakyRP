@@ -35,8 +35,8 @@ public class TabRegistry {
      @SubscribeEvent
      public void guiPostInit(Post event) {
           if (event.getGui() instanceof GuiInventory) {
-               int guiLeft = (event.getGui().field_146294_l - 176) / 2;
-               int guiTop = (event.getGui().field_146295_m - 166) / 2;
+               int guiLeft = (event.getGui().width - 176) / 2;
+               int guiTop = (event.getGui().height - 166) / 2;
                guiLeft += getPotionOffset();
                updateTabValues(guiLeft, guiTop, InventoryTabVanilla.class);
                addTabsToList(event.getButtonList());
@@ -45,9 +45,9 @@ public class TabRegistry {
      }
 
      public static void openInventoryGui() {
-          mc.field_71439_g.field_71174_a.func_147297_a(new CPacketCloseWindow(mc.field_71439_g.field_71070_bA.field_75152_c));
-          GuiInventory inventory = new GuiInventory(mc.field_71439_g);
-          mc.func_147108_a(inventory);
+          mc.player.connection.sendPacket(new CPacketCloseWindow(mc.player.openContainer.windowId));
+          GuiInventory inventory = new GuiInventory(mc.player);
+          mc.displayGuiScreen(inventory);
      }
 
      public static void updateTabValues(int cornerX, int cornerY, Class selectedButton) {
@@ -56,10 +56,10 @@ public class TabRegistry {
           for(int i = 0; i < tabList.size(); ++i) {
                AbstractTab t = (AbstractTab)tabList.get(i);
                if (t.shouldAddToList()) {
-                    t.field_146127_k = count;
-                    t.field_146128_h = cornerX + (count - 2) * 28;
-                    t.field_146129_i = cornerY - 28;
-                    t.field_146124_l = !t.getClass().equals(selectedButton);
+                    t.id = count;
+                    t.x = cornerX + (count - 2) * 28;
+                    t.y = cornerY - 28;
+                    t.enabled = !t.getClass().equals(selectedButton);
                     t.potionOffsetLast = getPotionOffsetNEI();
                     ++count;
                }
@@ -80,7 +80,7 @@ public class TabRegistry {
      }
 
      public static int getPotionOffset() {
-          if (!mc.field_71439_g.func_70651_bq().isEmpty()) {
+          if (!mc.player.getActivePotionEffects().isEmpty()) {
                initWithPotion = true;
                return 60 + getPotionOffsetJEI() + getPotionOffsetNEI();
           } else {

@@ -83,7 +83,7 @@ public class GuiDialogEdit extends SubGuiInterface implements ISubGuiListener, I
      }
 
      public void buttonEvent(GuiButton guibutton) {
-          int id = guibutton.field_146127_k;
+          int id = guibutton.id;
           GuiNpcButton button = (GuiNpcButton)guibutton;
           if (id == 3) {
                this.setSubGui(new SubGuiNpcTextArea(this.dialog.text));

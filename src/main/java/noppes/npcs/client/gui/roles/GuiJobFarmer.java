@@ -25,7 +25,7 @@ public class GuiJobFarmer extends GuiNPCInterface2 {
      }
 
      protected void func_146284_a(GuiButton guibutton) {
-          if (guibutton.field_146127_k == 0) {
+          if (guibutton.id == 0) {
                this.job.chestMode = ((GuiNpcButton)guibutton).getValue();
           }
 

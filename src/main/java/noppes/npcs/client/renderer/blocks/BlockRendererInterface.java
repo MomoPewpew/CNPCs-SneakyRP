@@ -35,17 +35,17 @@ public abstract class BlockRendererInterface extends TileEntitySpecialRenderer {
      public void setWoodTexture(int meta) {
           TextureManager manager = Minecraft.func_71410_x().func_110434_K();
           if (meta == 1) {
-               manager.func_110577_a(PlanksSpruce);
+               manager.bindTexture(PlanksSpruce);
           } else if (meta == 2) {
-               manager.func_110577_a(PlanksBirch);
+               manager.bindTexture(PlanksBirch);
           } else if (meta == 3) {
-               manager.func_110577_a(PlanksJungle);
+               manager.bindTexture(PlanksJungle);
           } else if (meta == 4) {
-               manager.func_110577_a(PlanksAcacia);
+               manager.bindTexture(PlanksAcacia);
           } else if (meta == 5) {
-               manager.func_110577_a(PlanksBigOak);
+               manager.bindTexture(PlanksBigOak);
           } else {
-               manager.func_110577_a(PlanksOak);
+               manager.bindTexture(PlanksOak);
           }
 
      }
@@ -53,15 +53,15 @@ public abstract class BlockRendererInterface extends TileEntitySpecialRenderer {
      public static void setMaterialTexture(int meta) {
           TextureManager manager = Minecraft.func_71410_x().func_110434_K();
           if (meta == 1) {
-               manager.func_110577_a(Stone);
+               manager.bindTexture(Stone);
           } else if (meta == 2) {
-               manager.func_110577_a(Iron);
+               manager.bindTexture(Iron);
           } else if (meta == 3) {
-               manager.func_110577_a(Gold);
+               manager.bindTexture(Gold);
           } else if (meta == 4) {
-               manager.func_110577_a(Diamond);
+               manager.bindTexture(Diamond);
           } else {
-               manager.func_110577_a(PlanksOak);
+               manager.bindTexture(PlanksOak);
           }
 
      }

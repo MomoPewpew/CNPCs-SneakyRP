@@ -108,12 +108,12 @@ public class BlockScriptedRenderer extends BlockRendererInterface {
 
      private void drawText(TileScripted.TextPlane text1, double x, double y, double z) {
           if (text1.textBlock == null || text1.textHasChanged) {
-               text1.textBlock = new TextBlockClient(text1.text, 336, true, new Object[]{Minecraft.func_71410_x().field_71439_g});
+               text1.textBlock = new TextBlockClient(text1.text, 336, true, new Object[]{Minecraft.func_71410_x().player});
                text1.textHasChanged = false;
           }
 
           GlStateManager.func_179084_k();
-          GlStateManager.func_179145_e();
+          GlStateManager.enableLighting();
           GlStateManager.func_179124_c(1.0F, 1.0F, 1.0F);
           GlStateManager.func_179094_E();
           GlStateManager.func_179137_b(x + 0.5D, y + 0.5D, z + 0.5D);
@@ -140,12 +140,12 @@ public class BlockScriptedRenderer extends BlockRendererInterface {
           }
 
           GlStateManager.func_179132_a(true);
-          GlStateManager.func_179131_c(1.0F, 1.0F, 1.0F, 1.0F);
+          GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
           GlStateManager.func_179121_F();
      }
 
      private void renderItem(ItemStack item) {
-          Minecraft.func_71410_x().func_175599_af().func_181564_a(item, TransformType.NONE);
+          Minecraft.func_71410_x().getRenderItem().func_181564_a(item, TransformType.NONE);
      }
 
      private void renderBlock(TileScripted tile, Block b, IBlockState state) {
@@ -164,7 +164,7 @@ public class BlockScriptedRenderer extends BlockRendererInterface {
      }
 
      private boolean overrideModel() {
-          ItemStack held = Minecraft.func_71410_x().field_71439_g.func_184614_ca();
+          ItemStack held = Minecraft.func_71410_x().player.func_184614_ca();
           if (held == null) {
                return false;
           } else {

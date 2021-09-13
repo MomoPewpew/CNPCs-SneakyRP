@@ -45,7 +45,7 @@ public class GuiNPCAdvancedLinkedNpc extends GuiNPCInterface2 implements IScroll
      }
 
      public void buttonEvent(GuiButton button) {
-          if (button.field_146127_k == 1) {
+          if (button.id == 1) {
                Client.sendData(EnumPacketServer.LinkedSet, "");
           }
 

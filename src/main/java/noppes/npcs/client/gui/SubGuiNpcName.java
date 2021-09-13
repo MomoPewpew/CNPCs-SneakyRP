@@ -52,21 +52,21 @@ public class SubGuiNpcName extends SubGuiInterface implements ITextfieldListener
 
      protected void func_146284_a(GuiButton guibutton) {
           GuiNpcButton button = (GuiNpcButton)guibutton;
-          if (button.field_146127_k == 1) {
+          if (button.id == 1) {
                this.display.setMarkovGeneratorId(button.getValue());
           }
 
-          if (button.field_146127_k == 2) {
+          if (button.id == 2) {
                this.display.setMarkovGender(button.getValue());
           }
 
-          if (button.field_146127_k == 3) {
+          if (button.id == 3) {
                String name = this.display.getRandomName();
                this.display.setName(name);
                this.getTextField(0).func_146180_a(name);
           }
 
-          if (button.field_146127_k == 66) {
+          if (button.id == 66) {
                this.close();
           }
 

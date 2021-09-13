@@ -31,7 +31,7 @@ public class SubGuiEditText extends SubGuiInterface {
      }
 
      public void buttonEvent(GuiButton button) {
-          if (button.field_146127_k == 0) {
+          if (button.id == 0) {
                this.cancelled = false;
                this.text = this.getTextField(0).func_146179_b();
           }

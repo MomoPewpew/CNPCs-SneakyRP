@@ -111,7 +111,7 @@ public class GuiNpcManagePlayerData extends GuiNPCInterface2 implements IScrollD
      }
 
      protected void func_146284_a(GuiButton guibutton) {
-          int id = guibutton.field_146127_k;
+          int id = guibutton.id;
           if (id == 0) {
                if (this.selected != null) {
                     if (this.selection == EnumPlayerData.Players) {

@@ -111,19 +111,19 @@ public class GuiQuestLog extends GuiNPCInterface implements ITopButtonListener, 
                this.addScroll(this.scroll);
                this.addButton(new GuiButtonNextPage(1, this.guiLeft + 286, this.guiTop + 114, true));
                this.addButton(new GuiButtonNextPage(2, this.guiLeft + 144, this.guiTop + 114, false));
-               this.getButton(1).field_146125_m = this.selectedQuest != null && this.currentPage < this.maxPages - 1;
-               this.getButton(2).field_146125_m = this.selectedQuest != null && this.currentPage > 0;
+               this.getButton(1).visible = this.selectedQuest != null && this.currentPage < this.maxPages - 1;
+               this.getButton(2).visible = this.selectedQuest != null && this.currentPage > 0;
           }
      }
 
      protected void func_146284_a(GuiButton guibutton) {
           if (guibutton instanceof GuiButtonNextPage) {
-               if (guibutton.field_146127_k == 1) {
+               if (guibutton.id == 1) {
                     ++this.currentPage;
                     this.func_73866_w_();
                }
 
-               if (guibutton.field_146127_k == 2) {
+               if (guibutton.id == 2) {
                     --this.currentPage;
                     this.func_73866_w_();
                }
@@ -137,13 +137,13 @@ public class GuiQuestLog extends GuiNPCInterface implements ITopButtonListener, 
           }
 
           this.func_146276_q_();
-          GlStateManager.func_179131_c(1.0F, 1.0F, 1.0F, 1.0F);
-          this.mc.field_71446_o.func_110577_a(this.resource);
-          this.func_73729_b(this.guiLeft, this.guiTop, 0, 0, 252, 195);
-          this.func_73729_b(this.guiLeft + 252, this.guiTop, 188, 0, 67, 195);
+          GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+          this.mc.renderEngine.bindTexture(this.resource);
+          this.drawTexturedModalRect(this.guiLeft, this.guiTop, 0, 0, 252, 195);
+          this.drawTexturedModalRect(this.guiLeft + 252, this.guiTop, 188, 0, 67, 195);
           super.func_73863_a(i, j, f);
           if (this.noQuests) {
-               this.mc.field_71466_p.func_78276_b(I18n.func_74838_a("quest.noquests"), this.guiLeft + 84, this.guiTop + 80, CustomNpcResourceListener.DefaultTextColor);
+               this.mc.fontRenderer.func_78276_b(I18n.func_74838_a("quest.noquests"), this.guiLeft + 84, this.guiTop + 80, CustomNpcResourceListener.DefaultTextColor);
           } else {
                GuiMenuSideButton[] var4 = (GuiMenuSideButton[])this.sideButtons.values().toArray(new GuiMenuSideButton[this.sideButtons.size()]);
                int var5 = var4.length;
@@ -153,7 +153,7 @@ public class GuiQuestLog extends GuiNPCInterface implements ITopButtonListener, 
                     button.func_191745_a(this.mc, i, j, f);
                }
 
-               this.mc.field_71466_p.func_78276_b(this.selectedCategory, this.guiLeft + 5, this.guiTop + 5, CustomNpcResourceListener.DefaultTextColor);
+               this.mc.fontRenderer.func_78276_b(this.selectedCategory, this.guiLeft + 5, this.guiTop + 5, CustomNpcResourceListener.DefaultTextColor);
                if (this.selectedQuest != null) {
                     this.drawProgress();
                     this.drawQuestText();
@@ -185,7 +185,7 @@ public class GuiQuestLog extends GuiNPCInterface implements ITopButtonListener, 
 
      private void drawProgress() {
           String title = I18n.func_74838_a("quest.objectives") + ":";
-          this.mc.field_71466_p.func_78276_b(title, this.guiLeft + 142, this.guiTop + 130, CustomNpcResourceListener.DefaultTextColor);
+          this.mc.fontRenderer.func_78276_b(title, this.guiLeft + 142, this.guiTop + 130, CustomNpcResourceListener.DefaultTextColor);
           this.func_73730_a(this.guiLeft + 142, this.guiLeft + 312, this.guiTop + 140, -16777216 + CustomNpcResourceListener.DefaultTextColor);
           int yoffset = this.guiTop + 144;
           IQuestObjective[] var3 = this.selectedQuest.questInterface.getObjectives(this.player);
@@ -193,14 +193,14 @@ public class GuiQuestLog extends GuiNPCInterface implements ITopButtonListener, 
 
           for(int var5 = 0; var5 < var4; ++var5) {
                IQuestObjective objective = var3[var5];
-               this.mc.field_71466_p.func_78276_b("- " + objective.getText(), this.guiLeft + 142, yoffset, CustomNpcResourceListener.DefaultTextColor);
+               this.mc.fontRenderer.func_78276_b("- " + objective.getText(), this.guiLeft + 142, yoffset, CustomNpcResourceListener.DefaultTextColor);
                yoffset += 10;
           }
 
           this.func_73730_a(this.guiLeft + 142, this.guiLeft + 312, this.guiTop + 178, -16777216 + CustomNpcResourceListener.DefaultTextColor);
           String complete = this.selectedQuest.getNpcName();
           if (complete != null && !complete.isEmpty()) {
-               this.mc.field_71466_p.func_78276_b(I18n.func_74837_a("quest.completewith", new Object[]{complete}), this.guiLeft + 142, this.guiTop + 182, CustomNpcResourceListener.DefaultTextColor);
+               this.mc.fontRenderer.func_78276_b(I18n.func_74837_a("quest.completewith", new Object[]{complete}), this.guiLeft + 142, this.guiTop + 182, CustomNpcResourceListener.DefaultTextColor);
           }
 
      }
@@ -248,7 +248,7 @@ public class GuiQuestLog extends GuiNPCInterface implements ITopButtonListener, 
 
      public void func_73869_a(char c, int i) {
           if (i == 1 || i == this.mc.field_71474_y.field_151445_Q.func_151463_i()) {
-               this.mc.func_147108_a((GuiScreen)null);
+               this.mc.displayGuiScreen((GuiScreen)null);
                this.mc.func_71381_h();
           }
 

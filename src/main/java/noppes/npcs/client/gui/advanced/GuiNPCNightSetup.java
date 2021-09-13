@@ -47,45 +47,45 @@ public class GuiNPCNightSetup extends GuiNPCInterface2 implements IGuiData {
 
      public void buttonEvent(GuiButton guibutton) {
           GuiNpcButton button = (GuiNpcButton)guibutton;
-          if (button.field_146127_k == 0) {
+          if (button.id == 0) {
                this.data.hasDisplay = button.getValue() == 1;
           }
 
-          if (button.field_146127_k == 1) {
+          if (button.id == 1) {
                this.data.hasStats = button.getValue() == 1;
           }
 
-          if (button.field_146127_k == 2) {
+          if (button.id == 2) {
                this.data.hasAi = button.getValue() == 1;
           }
 
-          if (button.field_146127_k == 3) {
+          if (button.id == 3) {
                this.data.hasInv = button.getValue() == 1;
           }
 
-          if (button.field_146127_k == 4) {
+          if (button.id == 4) {
                this.data.hasAdvanced = button.getValue() == 1;
           }
 
-          if (button.field_146127_k == 5) {
+          if (button.id == 5) {
                this.data.hasRole = button.getValue() == 1;
           }
 
-          if (button.field_146127_k == 6) {
+          if (button.id == 6) {
                this.data.hasJob = button.getValue() == 1;
           }
 
-          if (button.field_146127_k == 10) {
+          if (button.id == 10) {
                this.data.editingModus = button.getValue() == 1;
                this.save();
                this.func_73866_w_();
           }
 
-          if (button.field_146127_k == 11) {
+          if (button.id == 11) {
                Client.sendData(EnumPacketServer.TransformLoad, false);
           }
 
-          if (button.field_146127_k == 12) {
+          if (button.id == 12) {
                Client.sendData(EnumPacketServer.TransformLoad, true);
           }
 

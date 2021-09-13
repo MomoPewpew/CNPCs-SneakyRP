@@ -37,9 +37,9 @@ public class GuiQuestCompletion extends GuiNPCInterface implements ITopButtonLis
 
      public void func_73863_a(int i, int j, float f) {
           this.func_146276_q_();
-          GlStateManager.func_179131_c(1.0F, 1.0F, 1.0F, 1.0F);
-          this.field_146297_k.field_71446_o.func_110577_a(this.resource);
-          this.func_73729_b(this.guiLeft, this.guiTop, 0, 0, this.xSize, this.ySize);
+          GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+          this.field_146297_k.renderEngine.bindTexture(this.resource);
+          this.drawTexturedModalRect(this.guiLeft, this.guiTop, 0, 0, this.xSize, this.ySize);
           this.func_73730_a(this.guiLeft + 4, this.guiLeft + 170, this.guiTop + 13, -16777216 + CustomNpcResourceListener.DefaultTextColor);
           this.drawQuestText();
           super.func_73863_a(i, j, f);
@@ -58,7 +58,7 @@ public class GuiQuestCompletion extends GuiNPCInterface implements ITopButtonLis
      }
 
      protected void func_146284_a(GuiButton guibutton) {
-          if (guibutton.field_146127_k == 0) {
+          if (guibutton.id == 0) {
                NoppesUtilPlayer.sendData(EnumPlayerPacket.QuestCompletion, this.quest.getId());
                this.close();
           }

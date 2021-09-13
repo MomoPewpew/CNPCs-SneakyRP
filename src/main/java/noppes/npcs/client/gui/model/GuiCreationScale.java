@@ -84,7 +84,7 @@ public class GuiCreationScale extends GuiCreationScreenInterface implements ISli
 
      protected void func_146284_a(GuiButton btn) {
           super.func_146284_a(btn);
-          if (btn.field_146127_k == 13) {
+          if (btn.id == 13) {
                boolean bo = ((GuiNpcButton)btn).getValue() == 0;
                this.playerdata.getPartConfig(selected).notShared = bo;
                this.func_73866_w_();
@@ -94,19 +94,19 @@ public class GuiCreationScale extends GuiCreationScreenInterface implements ISli
 
      public void mouseDragged(GuiNpcSlider slider) {
           super.mouseDragged(slider);
-          if (slider.field_146127_k >= 10 && slider.field_146127_k <= 12) {
+          if (slider.id >= 10 && slider.id <= 12) {
                int percent = (int)(50.0F + slider.sliderValue * 100.0F);
                slider.setString(percent + "%");
                ModelPartConfig config = this.playerdata.getPartConfig(selected);
-               if (slider.field_146127_k == 10) {
+               if (slider.id == 10) {
                     config.scaleX = slider.sliderValue + 0.5F;
                }
 
-               if (slider.field_146127_k == 11) {
+               if (slider.id == 11) {
                     config.scaleY = slider.sliderValue + 0.5F;
                }
 
-               if (slider.field_146127_k == 12) {
+               if (slider.id == 12) {
                     config.scaleZ = slider.sliderValue + 0.5F;
                }
 

@@ -29,21 +29,21 @@ public class GuiNpcMenu implements GuiYesNoCallback {
      public void initGui(int guiLeft, int guiTop, int width) {
           Keyboard.enableRepeatEvents(true);
           GuiMenuTopButton display = new GuiMenuTopButton(1, guiLeft + 4, guiTop - 17, "menu.display");
-          GuiMenuTopButton stats = new GuiMenuTopButton(2, display.field_146128_h + display.getWidth(), guiTop - 17, "menu.stats");
-          GuiMenuTopButton ai = new GuiMenuTopButton(6, stats.field_146128_h + stats.getWidth(), guiTop - 17, "menu.ai");
-          GuiMenuTopButton inv = new GuiMenuTopButton(3, ai.field_146128_h + ai.getWidth(), guiTop - 17, "menu.inventory");
-          GuiMenuTopButton advanced = new GuiMenuTopButton(4, inv.field_146128_h + inv.getWidth(), guiTop - 17, "menu.advanced");
-          GuiMenuTopButton global = new GuiMenuTopButton(5, advanced.field_146128_h + advanced.getWidth(), guiTop - 17, "menu.global");
+          GuiMenuTopButton stats = new GuiMenuTopButton(2, display.x + display.getWidth(), guiTop - 17, "menu.stats");
+          GuiMenuTopButton ai = new GuiMenuTopButton(6, stats.x + stats.getWidth(), guiTop - 17, "menu.ai");
+          GuiMenuTopButton inv = new GuiMenuTopButton(3, ai.x + ai.getWidth(), guiTop - 17, "menu.inventory");
+          GuiMenuTopButton advanced = new GuiMenuTopButton(4, inv.x + inv.getWidth(), guiTop - 17, "menu.advanced");
+          GuiMenuTopButton global = new GuiMenuTopButton(5, advanced.x + advanced.getWidth(), guiTop - 17, "menu.global");
           GuiMenuTopButton close = new GuiMenuTopButton(0, guiLeft + width - 22, guiTop - 17, "X");
           GuiMenuTopButton delete = new GuiMenuTopButton(66, guiLeft + width - 72, guiTop - 17, "selectWorld.deleteButton");
-          delete.field_146128_h = close.field_146128_h - delete.getWidth();
+          delete.x = close.x - delete.getWidth();
           this.topButtons = new GuiMenuTopButton[]{display, stats, ai, inv, advanced, global, close, delete};
           GuiMenuTopButton[] var12 = this.topButtons;
           int var13 = var12.length;
 
           for(int var14 = 0; var14 < var13; ++var14) {
                GuiMenuTopButton button = var12[var14];
-               button.active = button.field_146127_k == this.activeMenu;
+               button.active = button.id == this.activeMenu;
           }
 
      }
@@ -52,12 +52,12 @@ public class GuiNpcMenu implements GuiYesNoCallback {
           if (!button.field_146126_j.equals(this.activeMenu)) {
                Minecraft mc = Minecraft.func_71410_x();
                NoppesUtil.clickSound();
-               int id = button.field_146127_k;
+               int id = button.id;
                if (id == 0) {
                     this.close();
                } else if (id == 66) {
                     GuiYesNo guiyesno = new GuiYesNo(this, "", I18n.func_74838_a("gui.deleteMessage"), 0);
-                    mc.func_147108_a(guiyesno);
+                    mc.displayGuiScreen(guiyesno);
                } else {
                     this.save();
                     if (id == 1) {
@@ -138,10 +138,10 @@ public class GuiNpcMenu implements GuiYesNoCallback {
           Minecraft mc = Minecraft.func_71410_x();
           if (flag) {
                Client.sendData(EnumPacketServer.Delete);
-               mc.func_147108_a((GuiScreen)null);
+               mc.displayGuiScreen((GuiScreen)null);
                mc.func_71381_h();
           } else {
-               NoppesUtil.openGUI(mc.field_71439_g, this.parent);
+               NoppesUtil.openGUI(mc.player, this.parent);
           }
 
      }

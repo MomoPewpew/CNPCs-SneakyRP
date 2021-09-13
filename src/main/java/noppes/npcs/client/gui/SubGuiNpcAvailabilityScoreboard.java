@@ -42,15 +42,15 @@ public class SubGuiNpcAvailabilityScoreboard extends SubGuiInterface implements 
 
      protected void func_146284_a(GuiButton guibutton) {
           GuiNpcButton button = (GuiNpcButton)guibutton;
-          if (guibutton.field_146127_k == 0) {
+          if (guibutton.id == 0) {
                this.availabitily.scoreboardType = EnumAvailabilityScoreboard.values()[button.getValue()];
           }
 
-          if (guibutton.field_146127_k == 1) {
+          if (guibutton.id == 1) {
                this.availabitily.scoreboard2Type = EnumAvailabilityScoreboard.values()[button.getValue()];
           }
 
-          if (guibutton.field_146127_k == 66) {
+          if (guibutton.id == 66) {
                this.close();
           }
 

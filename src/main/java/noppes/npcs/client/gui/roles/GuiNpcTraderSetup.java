@@ -46,11 +46,11 @@ public class GuiNpcTraderSetup extends GuiContainerNPCInterface2 implements ITex
      }
 
      public void func_146284_a(GuiButton guibutton) {
-          if (guibutton.field_146127_k == 1) {
+          if (guibutton.id == 1) {
                this.role.ignoreDamage = ((GuiNpcButtonYesNo)guibutton).getBoolean();
           }
 
-          if (guibutton.field_146127_k == 2) {
+          if (guibutton.id == 2) {
                this.role.ignoreNBT = ((GuiNpcButtonYesNo)guibutton).getBoolean();
           }
 
@@ -58,19 +58,19 @@ public class GuiNpcTraderSetup extends GuiContainerNPCInterface2 implements ITex
 
      protected void func_146976_a(float f, int i, int j) {
           super.func_146976_a(f, i, j);
-          GlStateManager.func_179131_c(1.0F, 1.0F, 1.0F, 1.0F);
+          GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
 
           for(int slot = 0; slot < 18; ++slot) {
                int x = this.field_147003_i + slot % 3 * 94 + 7;
                int y = this.field_147009_r + slot / 3 * 22 + 4;
-               this.field_146297_k.field_71446_o.func_110577_a(this.slot);
-               GlStateManager.func_179131_c(1.0F, 1.0F, 1.0F, 1.0F);
-               this.func_73729_b(x - 1, y, 0, 0, 18, 18);
-               this.func_73729_b(x + 17, y, 0, 0, 18, 18);
+               this.field_146297_k.renderEngine.bindTexture(this.slot);
+               GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+               this.drawTexturedModalRect(x - 1, y, 0, 0, 18, 18);
+               this.drawTexturedModalRect(x + 17, y, 0, 0, 18, 18);
                this.field_146289_q.func_78276_b("=", x + 36, y + 5, CustomNpcResourceListener.DefaultTextColor);
-               this.field_146297_k.field_71446_o.func_110577_a(this.slot);
-               GlStateManager.func_179131_c(1.0F, 1.0F, 1.0F, 1.0F);
-               this.func_73729_b(x + 42, y, 0, 0, 18, 18);
+               this.field_146297_k.renderEngine.bindTexture(this.slot);
+               GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+               this.drawTexturedModalRect(x + 42, y, 0, 0, 18, 18);
           }
 
      }

@@ -62,7 +62,7 @@ public class NoppesUtilPlayer {
 
      public static void hireFollower(EntityPlayerMP player, EntityNPCInterface npc) {
           if (npc.advanced.role == 2) {
-               Container con = player.field_71070_bA;
+               Container con = player.openContainer;
                if (con != null && con instanceof ContainerNPCFollowerHire) {
                     ContainerNPCFollowerHire container = (ContainerNPCFollowerHire)con;
                     RoleFollower role = (RoleFollower)npc.roleInterface;
@@ -73,7 +73,7 @@ public class NoppesUtilPlayer {
 
      public static void extendFollower(EntityPlayerMP player, EntityNPCInterface npc) {
           if (npc.advanced.role == 2) {
-               Container con = player.field_71070_bA;
+               Container con = player.openContainer;
                if (con != null && con instanceof ContainerNPCFollower) {
                     ContainerNPCFollower container = (ContainerNPCFollower)con;
                     RoleFollower role = (RoleFollower)npc.roleInterface;
@@ -181,7 +181,7 @@ public class NoppesUtilPlayer {
 
      public static void bankUpgrade(EntityPlayerMP player, EntityNPCInterface npc) {
           if (npc.advanced.role == 3) {
-               Container con = player.field_71070_bA;
+               Container con = player.openContainer;
                if (con != null && con instanceof ContainerNPCBankInterface) {
                     ContainerNPCBankInterface container = (ContainerNPCBankInterface)con;
                     Bank bank = BankController.getInstance().getBank(container.bankid);
@@ -211,7 +211,7 @@ public class NoppesUtilPlayer {
 
      public static void bankUnlock(EntityPlayerMP player, EntityNPCInterface npc) {
           if (npc.advanced.role == 3) {
-               Container con = player.field_71070_bA;
+               Container con = player.openContainer;
                if (con != null && con instanceof ContainerNPCBankInterface) {
                     ContainerNPCBankInterface container = (ContainerNPCBankInterface)con;
                     Bank bank = BankController.getInstance().getBank(container.bankid);

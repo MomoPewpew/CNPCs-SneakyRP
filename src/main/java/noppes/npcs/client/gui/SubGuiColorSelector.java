@@ -61,7 +61,7 @@ public class SubGuiColorSelector extends SubGuiInterface implements ITextfieldLi
 
      protected void func_146284_a(GuiButton btn) {
           super.func_146284_a(btn);
-          if (btn.field_146127_k == 66) {
+          if (btn.id == 66) {
                this.close();
           }
 
@@ -73,9 +73,9 @@ public class SubGuiColorSelector extends SubGuiInterface implements ITextfieldLi
 
      public void func_73863_a(int par1, int par2, float par3) {
           super.func_73863_a(par1, par2, par3);
-          this.field_146297_k.func_110434_K().func_110577_a(resource);
-          GlStateManager.func_179131_c(1.0F, 1.0F, 1.0F, 1.0F);
-          this.func_73729_b(this.colorX, this.colorY, 0, 0, 120, 120);
+          this.field_146297_k.func_110434_K().bindTexture(resource);
+          GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+          this.drawTexturedModalRect(this.colorX, this.colorY, 0, 0, 120, 120);
      }
 
      public void func_73864_a(int i, int j, int k) {

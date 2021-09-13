@@ -104,7 +104,7 @@ public class GuiNpcMobSpawnerSelector extends SubGuiInterface implements IGuiDat
      }
 
      public void buttonEvent(GuiButton guibutton) {
-          int id = guibutton.field_146127_k;
+          int id = guibutton.id;
           if (id == 0) {
                this.close();
           }
