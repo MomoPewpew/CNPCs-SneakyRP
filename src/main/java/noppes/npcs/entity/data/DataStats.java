@@ -39,36 +39,36 @@ public class DataStats implements INPCStats {
      }
 
      public void readToNBT(NBTTagCompound compound) {
-          this.resistances.readToNBT(compound.func_74775_l("Resistances"));
+          this.resistances.readToNBT(compound.getCompoundTag("Resistances"));
           this.setMaxHealth(compound.func_74762_e("MaxHealth"));
-          this.hideKilledBody = compound.func_74767_n("HideBodyWhenKilled");
+          this.hideKilledBody = compound.getBoolean("HideBodyWhenKilled");
           this.aggroRange = compound.func_74762_e("AggroRange");
           this.respawnTime = compound.func_74762_e("RespawnTime");
           this.spawnCycle = compound.func_74762_e("SpawnCycle");
           this.creatureType = EnumCreatureAttribute.values()[compound.func_74762_e("CreatureType")];
           this.healthRegen = compound.func_74762_e("HealthRegen");
           this.combatRegen = compound.func_74762_e("CombatRegen");
-          this.immuneToFire = compound.func_74767_n("ImmuneToFire");
-          this.potionImmune = compound.func_74767_n("PotionImmune");
-          this.canDrown = compound.func_74767_n("CanDrown");
-          this.burnInSun = compound.func_74767_n("BurnInSun");
-          this.noFallDamage = compound.func_74767_n("NoFallDamage");
+          this.immuneToFire = compound.getBoolean("ImmuneToFire");
+          this.potionImmune = compound.getBoolean("PotionImmune");
+          this.canDrown = compound.getBoolean("CanDrown");
+          this.burnInSun = compound.getBoolean("BurnInSun");
+          this.noFallDamage = compound.getBoolean("NoFallDamage");
           this.npc.setImmuneToFire(this.immuneToFire);
-          this.ignoreCobweb = compound.func_74767_n("IgnoreCobweb");
+          this.ignoreCobweb = compound.getBoolean("IgnoreCobweb");
           this.melee.readFromNBT(compound);
           this.ranged.readFromNBT(compound);
      }
 
      public NBTTagCompound writeToNBT(NBTTagCompound compound) {
-          compound.func_74782_a("Resistances", this.resistances.writeToNBT());
-          compound.func_74768_a("MaxHealth", this.maxHealth);
-          compound.func_74768_a("AggroRange", this.aggroRange);
+          compound.setTag("Resistances", this.resistances.writeToNBT());
+          compound.setInteger("MaxHealth", this.maxHealth);
+          compound.setInteger("AggroRange", this.aggroRange);
           compound.func_74757_a("HideBodyWhenKilled", this.hideKilledBody);
-          compound.func_74768_a("RespawnTime", this.respawnTime);
-          compound.func_74768_a("SpawnCycle", this.spawnCycle);
-          compound.func_74768_a("CreatureType", this.creatureType.ordinal());
-          compound.func_74768_a("HealthRegen", this.healthRegen);
-          compound.func_74768_a("CombatRegen", this.combatRegen);
+          compound.setInteger("RespawnTime", this.respawnTime);
+          compound.setInteger("SpawnCycle", this.spawnCycle);
+          compound.setInteger("CreatureType", this.creatureType.ordinal());
+          compound.setInteger("HealthRegen", this.healthRegen);
+          compound.setInteger("CombatRegen", this.combatRegen);
           compound.func_74757_a("ImmuneToFire", this.immuneToFire);
           compound.func_74757_a("PotionImmune", this.potionImmune);
           compound.func_74757_a("CanDrown", this.canDrown);

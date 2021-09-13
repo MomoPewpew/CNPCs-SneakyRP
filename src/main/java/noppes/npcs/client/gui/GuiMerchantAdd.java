@@ -33,7 +33,7 @@ public class GuiMerchantAdd extends GuiContainer {
      private String field_94082_v;
 
      public GuiMerchantAdd() {
-          super(new ContainerMerchantAdd(Minecraft.func_71410_x().player, ServerEventsHandler.Merchant, Minecraft.func_71410_x().field_71441_e));
+          super(new ContainerMerchantAdd(Minecraft.getMinecraft().player, ServerEventsHandler.Merchant, Minecraft.getMinecraft().field_71441_e));
           this.theIMerchant = ServerEventsHandler.Merchant;
           this.field_94082_v = I18n.func_135052_a("entity.Villager.name", new Object[0]);
      }
@@ -57,7 +57,7 @@ public class GuiMerchantAdd extends GuiContainer {
 
      public void func_73876_c() {
           super.func_73876_c();
-          Minecraft mc = Minecraft.func_71410_x();
+          Minecraft mc = Minecraft.getMinecraft();
           MerchantRecipeList merchantrecipelist = this.theIMerchant.func_70934_b(mc.player);
           if (merchantrecipelist != null) {
                this.nextRecipeButtonIndex.enabled = this.currentRecipeIndex < merchantrecipelist.size() - 1;
@@ -68,7 +68,7 @@ public class GuiMerchantAdd extends GuiContainer {
 
      protected void func_146284_a(GuiButton par1GuiButton) {
           boolean flag = false;
-          Minecraft mc = Minecraft.func_71410_x();
+          Minecraft mc = Minecraft.getMinecraft();
           if (par1GuiButton == this.nextRecipeButtonIndex) {
                ++this.currentRecipeIndex;
                flag = true;
@@ -123,7 +123,7 @@ public class GuiMerchantAdd extends GuiContainer {
      }
 
      protected void func_146976_a(float par1, int par2, int par3) {
-          Minecraft mc = Minecraft.func_71410_x();
+          Minecraft mc = Minecraft.getMinecraft();
           GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
           mc.func_110434_K().bindTexture(merchantGuiTextures);
           int k = (this.width - this.field_146999_f) / 2;
@@ -146,7 +146,7 @@ public class GuiMerchantAdd extends GuiContainer {
 
      public void func_73863_a(int par1, int par2, float par3) {
           super.func_73863_a(par1, par2, par3);
-          Minecraft mc = Minecraft.func_71410_x();
+          Minecraft mc = Minecraft.getMinecraft();
           MerchantRecipeList merchantrecipelist = this.theIMerchant.func_70934_b(mc.player);
           if (merchantrecipelist != null && !merchantrecipelist.isEmpty()) {
                int k = (this.width - this.field_146999_f) / 2;

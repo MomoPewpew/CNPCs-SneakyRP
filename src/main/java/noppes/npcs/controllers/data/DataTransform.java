@@ -34,31 +34,31 @@ public class DataTransform {
           compound.func_74757_a("TransformIsActive", this.isActive);
           this.writeOptions(compound);
           if (this.hasDisplay) {
-               compound.func_74782_a("TransformDisplay", this.display);
+               compound.setTag("TransformDisplay", this.display);
           }
 
           if (this.hasAi) {
-               compound.func_74782_a("TransformAI", this.ai);
+               compound.setTag("TransformAI", this.ai);
           }
 
           if (this.hasAdvanced) {
-               compound.func_74782_a("TransformAdvanced", this.advanced);
+               compound.setTag("TransformAdvanced", this.advanced);
           }
 
           if (this.hasInv) {
-               compound.func_74782_a("TransformInv", this.inv);
+               compound.setTag("TransformInv", this.inv);
           }
 
           if (this.hasStats) {
-               compound.func_74782_a("TransformStats", this.stats);
+               compound.setTag("TransformStats", this.stats);
           }
 
           if (this.hasRole) {
-               compound.func_74782_a("TransformRole", this.role);
+               compound.setTag("TransformRole", this.role);
           }
 
           if (this.hasJob) {
-               compound.func_74782_a("TransformJob", this.job);
+               compound.setTag("TransformJob", this.job);
           }
 
           return compound;
@@ -77,20 +77,20 @@ public class DataTransform {
      }
 
      public void readToNBT(NBTTagCompound compound) {
-          this.isActive = compound.func_74767_n("TransformIsActive");
+          this.isActive = compound.getBoolean("TransformIsActive");
           this.readOptions(compound);
-          this.display = this.hasDisplay ? compound.func_74775_l("TransformDisplay") : this.getDisplay();
-          this.ai = this.hasAi ? compound.func_74775_l("TransformAI") : this.npc.ais.writeToNBT(new NBTTagCompound());
-          this.advanced = this.hasAdvanced ? compound.func_74775_l("TransformAdvanced") : this.getAdvanced();
-          this.inv = this.hasInv ? compound.func_74775_l("TransformInv") : this.npc.inventory.writeEntityToNBT(new NBTTagCompound());
-          this.stats = this.hasStats ? compound.func_74775_l("TransformStats") : this.npc.stats.writeToNBT(new NBTTagCompound());
-          this.job = this.hasJob ? compound.func_74775_l("TransformJob") : this.getJob();
-          this.role = this.hasRole ? compound.func_74775_l("TransformRole") : this.getRole();
+          this.display = this.hasDisplay ? compound.getCompoundTag("TransformDisplay") : this.getDisplay();
+          this.ai = this.hasAi ? compound.getCompoundTag("TransformAI") : this.npc.ais.writeToNBT(new NBTTagCompound());
+          this.advanced = this.hasAdvanced ? compound.getCompoundTag("TransformAdvanced") : this.getAdvanced();
+          this.inv = this.hasInv ? compound.getCompoundTag("TransformInv") : this.npc.inventory.writeEntityToNBT(new NBTTagCompound());
+          this.stats = this.hasStats ? compound.getCompoundTag("TransformStats") : this.npc.stats.writeToNBT(new NBTTagCompound());
+          this.job = this.hasJob ? compound.getCompoundTag("TransformJob") : this.getJob();
+          this.role = this.hasRole ? compound.getCompoundTag("TransformRole") : this.getRole();
      }
 
      public NBTTagCompound getJob() {
           NBTTagCompound compound = new NBTTagCompound();
-          compound.func_74768_a("NpcJob", this.npc.advanced.job);
+          compound.setInteger("NpcJob", this.npc.advanced.job);
           if (this.npc.advanced.job != 0 && this.npc.jobInterface != null) {
                this.npc.jobInterface.writeToNBT(compound);
           }
@@ -100,7 +100,7 @@ public class DataTransform {
 
      public NBTTagCompound getRole() {
           NBTTagCompound compound = new NBTTagCompound();
-          compound.func_74768_a("Role", this.npc.advanced.role);
+          compound.setInteger("Role", this.npc.advanced.role);
           if (this.npc.advanced.role != 0 && this.npc.roleInterface != null) {
                this.npc.roleInterface.writeToNBT(compound);
           }
@@ -111,7 +111,7 @@ public class DataTransform {
      public NBTTagCompound getDisplay() {
           NBTTagCompound compound = this.npc.display.writeToNBT(new NBTTagCompound());
           if (this.npc instanceof EntityCustomNpc) {
-               compound.func_74782_a("ModelData", ((EntityCustomNpc)this.npc).modelData.writeToNBT());
+               compound.setTag("ModelData", ((EntityCustomNpc)this.npc).modelData.writeToNBT());
           }
 
           return compound;
@@ -138,14 +138,14 @@ public class DataTransform {
           boolean hadStats = this.hasStats;
           boolean hadRole = this.hasRole;
           boolean hadJob = this.hasJob;
-          this.hasDisplay = compound.func_74767_n("TransformHasDisplay");
-          this.hasAi = compound.func_74767_n("TransformHasAI");
-          this.hasAdvanced = compound.func_74767_n("TransformHasAdvanced");
-          this.hasInv = compound.func_74767_n("TransformHasInv");
-          this.hasStats = compound.func_74767_n("TransformHasStats");
-          this.hasRole = compound.func_74767_n("TransformHasRole");
-          this.hasJob = compound.func_74767_n("TransformHasJob");
-          this.editingModus = compound.func_74767_n("TransformEditingModus");
+          this.hasDisplay = compound.getBoolean("TransformHasDisplay");
+          this.hasAi = compound.getBoolean("TransformHasAI");
+          this.hasAdvanced = compound.getBoolean("TransformHasAdvanced");
+          this.hasInv = compound.getBoolean("TransformHasInv");
+          this.hasStats = compound.getBoolean("TransformHasStats");
+          this.hasRole = compound.getBoolean("TransformHasRole");
+          this.hasJob = compound.getBoolean("TransformHasJob");
+          this.editingModus = compound.getBoolean("TransformEditingModus");
           if (this.hasDisplay && !hadDisplay) {
                this.display = this.getDisplay();
           }
@@ -193,21 +193,21 @@ public class DataTransform {
                compoundJob = this.job;
           }
 
-          Set names = compoundRole.func_150296_c();
+          Set names = compoundRole.getKeySet();
           Iterator var5 = names.iterator();
 
           String name;
           while(var5.hasNext()) {
                name = (String)var5.next();
-               compoundAdv.func_74782_a(name, compoundRole.func_74781_a(name));
+               compoundAdv.setTag(name, compoundRole.getTag(name));
           }
 
-          names = compoundJob.func_150296_c();
+          names = compoundJob.getKeySet();
           var5 = names.iterator();
 
           while(var5.hasNext()) {
                name = (String)var5.next();
-               compoundAdv.func_74782_a(name, compoundJob.func_74781_a(name));
+               compoundAdv.setTag(name, compoundJob.getTag(name));
           }
 
           return compoundAdv;
@@ -220,7 +220,7 @@ public class DataTransform {
                     compoundAdv = this.getDisplay();
                     this.npc.display.readToNBT(NBTTags.NBTMerge(compoundAdv, this.display));
                     if (this.npc instanceof EntityCustomNpc) {
-                         ((EntityCustomNpc)this.npc).modelData.readFromNBT(NBTTags.NBTMerge(compoundAdv.func_74775_l("ModelData"), this.display.func_74775_l("ModelData")));
+                         ((EntityCustomNpc)this.npc).modelData.readFromNBT(NBTTags.NBTMerge(compoundAdv.getCompoundTag("ModelData"), this.display.getCompoundTag("ModelData")));
                     }
 
                     this.display = compoundAdv;

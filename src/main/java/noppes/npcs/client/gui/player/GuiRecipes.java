@@ -69,7 +69,7 @@ public class GuiRecipes extends GuiNPCInterface {
           super.func_73863_a(xMouse, yMouse, f);
           this.field_146297_k.renderEngine.bindTexture(resource);
           this.label.label = this.page + 1 + "/" + MathHelper.func_76123_f((float)this.recipes.size() / 4.0F);
-          this.label.x = this.guiLeft + (256 - Minecraft.func_71410_x().fontRenderer.func_78256_a(this.label.label)) / 2;
+          this.label.x = this.guiLeft + (256 - Minecraft.getMinecraft().fontRenderer.func_78256_a(this.label.label)) / 2;
 
           int i;
           int index;

@@ -45,23 +45,23 @@ public class DataInventory implements IInventory, INPCInventory {
      }
 
      public NBTTagCompound writeEntityToNBT(NBTTagCompound nbttagcompound) {
-          nbttagcompound.func_74768_a("MinExp", this.minExp);
-          nbttagcompound.func_74768_a("MaxExp", this.maxExp);
-          nbttagcompound.func_74782_a("NpcInv", NBTTags.nbtIItemStackMap(this.drops));
-          nbttagcompound.func_74782_a("Armor", NBTTags.nbtIItemStackMap(this.armor));
-          nbttagcompound.func_74782_a("Weapons", NBTTags.nbtIItemStackMap(this.weapons));
-          nbttagcompound.func_74782_a("DropChance", NBTTags.nbtIntegerIntegerMap(this.dropchance));
-          nbttagcompound.func_74768_a("LootMode", this.lootMode);
+          nbttagcompound.setInteger("MinExp", this.minExp);
+          nbttagcompound.setInteger("MaxExp", this.maxExp);
+          nbttagcompound.setTag("NpcInv", NBTTags.nbtIItemStackMap(this.drops));
+          nbttagcompound.setTag("Armor", NBTTags.nbtIItemStackMap(this.armor));
+          nbttagcompound.setTag("Weapons", NBTTags.nbtIItemStackMap(this.weapons));
+          nbttagcompound.setTag("DropChance", NBTTags.nbtIntegerIntegerMap(this.dropchance));
+          nbttagcompound.setInteger("LootMode", this.lootMode);
           return nbttagcompound;
      }
 
      public void readEntityFromNBT(NBTTagCompound nbttagcompound) {
           this.minExp = nbttagcompound.func_74762_e("MinExp");
           this.maxExp = nbttagcompound.func_74762_e("MaxExp");
-          this.drops = NBTTags.getIItemStackMap(nbttagcompound.func_150295_c("NpcInv", 10));
-          this.armor = NBTTags.getIItemStackMap(nbttagcompound.func_150295_c("Armor", 10));
-          this.weapons = NBTTags.getIItemStackMap(nbttagcompound.func_150295_c("Weapons", 10));
-          this.dropchance = NBTTags.getIntegerIntegerMap(nbttagcompound.func_150295_c("DropChance", 10));
+          this.drops = NBTTags.getIItemStackMap(nbttagcompound.getTagList("NpcInv", 10));
+          this.armor = NBTTags.getIItemStackMap(nbttagcompound.getTagList("Armor", 10));
+          this.weapons = NBTTags.getIItemStackMap(nbttagcompound.getTagList("Weapons", 10));
+          this.dropchance = NBTTags.getIntegerIntegerMap(nbttagcompound.getTagList("DropChance", 10));
           this.lootMode = nbttagcompound.func_74762_e("LootMode");
      }
 

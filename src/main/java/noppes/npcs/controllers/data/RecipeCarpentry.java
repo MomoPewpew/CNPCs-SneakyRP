@@ -39,28 +39,28 @@ public class RecipeCarpentry extends ShapedRecipes implements IRecipe {
      }
 
      public static RecipeCarpentry read(NBTTagCompound compound) {
-          RecipeCarpentry recipe = new RecipeCarpentry(compound.func_74762_e("Width"), compound.func_74762_e("Height"), NBTTags.getIngredientList(compound.func_150295_c("Materials", 10)), new ItemStack(compound.func_74775_l("Item")));
-          recipe.name = compound.func_74779_i("Name");
+          RecipeCarpentry recipe = new RecipeCarpentry(compound.func_74762_e("Width"), compound.func_74762_e("Height"), NBTTags.getIngredientList(compound.getTagList("Materials", 10)), new ItemStack(compound.getCompoundTag("Item")));
+          recipe.name = compound.getString("Name");
           recipe.id = compound.func_74762_e("ID");
-          recipe.availability.readFromNBT(compound.func_74775_l("Availability"));
-          recipe.ignoreDamage = compound.func_74767_n("IgnoreDamage");
-          recipe.ignoreNBT = compound.func_74767_n("IgnoreNBT");
-          recipe.isGlobal = compound.func_74767_n("Global");
+          recipe.availability.readFromNBT(compound.getCompoundTag("Availability"));
+          recipe.ignoreDamage = compound.getBoolean("IgnoreDamage");
+          recipe.ignoreNBT = compound.getBoolean("IgnoreNBT");
+          recipe.isGlobal = compound.getBoolean("Global");
           return recipe;
      }
 
      public NBTTagCompound writeNBT() {
           NBTTagCompound compound = new NBTTagCompound();
-          compound.func_74768_a("ID", this.id);
-          compound.func_74768_a("Width", this.field_77576_b);
-          compound.func_74768_a("Height", this.field_77577_c);
+          compound.setInteger("ID", this.id);
+          compound.setInteger("Width", this.field_77576_b);
+          compound.setInteger("Height", this.field_77577_c);
           if (this.func_77571_b() != null) {
-               compound.func_74782_a("Item", this.func_77571_b().func_77955_b(new NBTTagCompound()));
+               compound.setTag("Item", this.func_77571_b().func_77955_b(new NBTTagCompound()));
           }
 
-          compound.func_74782_a("Materials", NBTTags.nbtIngredientList(this.field_77574_d));
-          compound.func_74782_a("Availability", this.availability.writeToNBT(new NBTTagCompound()));
-          compound.func_74778_a("Name", this.name);
+          compound.setTag("Materials", NBTTags.nbtIngredientList(this.field_77574_d));
+          compound.setTag("Availability", this.availability.writeToNBT(new NBTTagCompound()));
+          compound.setString("Name", this.name);
           compound.func_74757_a("Global", this.isGlobal);
           compound.func_74757_a("IgnoreDamage", this.ignoreDamage);
           compound.func_74757_a("IgnoreNBT", this.ignoreNBT);

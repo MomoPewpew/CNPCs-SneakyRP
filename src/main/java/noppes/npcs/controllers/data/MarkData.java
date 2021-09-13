@@ -27,14 +27,14 @@ public class MarkData implements ICapabilityProvider {
 
      public void setNBT(NBTTagCompound compound) {
           List marks = new ArrayList();
-          NBTTagList list = compound.func_150295_c("marks", 10);
+          NBTTagList list = compound.getTagList("marks", 10);
 
-          for(int i = 0; i < list.func_74745_c(); ++i) {
-               NBTTagCompound c = list.func_150305_b(i);
+          for(int i = 0; i < list.tagCount(); ++i) {
+               NBTTagCompound c = list.getCompoundTagAt(i);
                MarkData.Mark m = new MarkData.Mark();
                m.type = c.func_74762_e("type");
                m.color = c.func_74762_e("color");
-               m.availability.readFromNBT(c.func_74775_l("availability"));
+               m.availability.readFromNBT(c.getCompoundTag("availability"));
                marks.add(m);
           }
 
@@ -49,13 +49,13 @@ public class MarkData implements ICapabilityProvider {
           while(var3.hasNext()) {
                MarkData.Mark m = (MarkData.Mark)var3.next();
                NBTTagCompound c = new NBTTagCompound();
-               c.func_74768_a("type", m.type);
-               c.func_74768_a("color", m.color);
-               c.func_74782_a("availability", m.availability.writeToNBT(new NBTTagCompound()));
-               list.func_74742_a(c);
+               c.setInteger("type", m.type);
+               c.setInteger("color", m.color);
+               c.setTag("availability", m.availability.writeToNBT(new NBTTagCompound()));
+               list.appendTag(c);
           }
 
-          compound.func_74782_a("marks", list);
+          compound.setTag("marks", list);
           return compound;
      }
 
@@ -72,7 +72,7 @@ public class MarkData implements ICapabilityProvider {
      }
 
      public void save() {
-          this.entity.getEntityData().func_74782_a("cnpcmarkdata", this.getNBT());
+          this.entity.getEntityData().setTag("cnpcmarkdata", this.getNBT());
      }
 
      public IMark addMark(int type) {
@@ -102,7 +102,7 @@ public class MarkData implements ICapabilityProvider {
           MarkData data = (MarkData)entity.getCapability(MARKDATA_CAPABILITY, (EnumFacing)null);
           if (data.entity == null) {
                data.entity = entity;
-               data.setNBT(entity.getEntityData().func_74775_l("cnpcmarkdata"));
+               data.setNBT(entity.getEntityData().getCompoundTag("cnpcmarkdata"));
           }
 
           return data;

@@ -22,7 +22,7 @@ public class EntityNpcDragon extends EntityNPCInterface {
           this.scaleZ = 0.4F;
           this.display.setSkinTexture("customnpcs:textures/entity/dragon/BlackDragon.png");
           this.field_70130_N = 1.8F;
-          this.field_70131_O = 1.4F;
+          this.height = 1.4F;
      }
 
      public double func_70042_X() {
@@ -92,6 +92,6 @@ public class EntityNpcDragon extends EntityNPCInterface {
 
      public void updateHitbox() {
           this.field_70130_N = 1.8F;
-          this.field_70131_O = 1.4F;
+          this.height = 1.4F;
      }
 }

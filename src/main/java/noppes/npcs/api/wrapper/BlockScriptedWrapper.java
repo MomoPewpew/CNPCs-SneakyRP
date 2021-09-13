@@ -41,8 +41,8 @@ public class BlockScriptedWrapper extends BlockWrapper implements IBlockScripted
                this.tile.setItemModel((ItemStack)null, (Block)null);
           } else {
                ResourceLocation loc = new ResourceLocation(name);
-               Block block = (Block)Block.field_149771_c.func_82594_a(loc);
-               this.tile.setItemModel(new ItemStack((Item)Item.field_150901_e.func_82594_a(loc)), block);
+               Block block = (Block)Block.REGISTRY.getObject(loc);
+               this.tile.setItemModel(new ItemStack((Item)Item.field_150901_e.getObject(loc)), block);
           }
 
      }

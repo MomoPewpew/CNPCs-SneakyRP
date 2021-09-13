@@ -41,27 +41,27 @@ public class Faction implements IFaction {
      }
 
      public void readNBT(NBTTagCompound compound) {
-          this.name = compound.func_74779_i("Name");
+          this.name = compound.getString("Name");
           this.color = compound.func_74762_e("Color");
           this.id = compound.func_74762_e("Slot");
           this.neutralPoints = compound.func_74762_e("NeutralPoints");
           this.friendlyPoints = compound.func_74762_e("FriendlyPoints");
           this.defaultPoints = compound.func_74762_e("DefaultPoints");
-          this.hideFaction = compound.func_74767_n("HideFaction");
-          this.getsAttacked = compound.func_74767_n("GetsAttacked");
-          this.attackFactions = NBTTags.getIntegerSet(compound.func_150295_c("AttackFactions", 10));
+          this.hideFaction = compound.getBoolean("HideFaction");
+          this.getsAttacked = compound.getBoolean("GetsAttacked");
+          this.attackFactions = NBTTags.getIntegerSet(compound.getTagList("AttackFactions", 10));
      }
 
      public NBTTagCompound writeNBT(NBTTagCompound compound) {
-          compound.func_74768_a("Slot", this.id);
-          compound.func_74778_a("Name", this.name);
-          compound.func_74768_a("Color", this.color);
-          compound.func_74768_a("NeutralPoints", this.neutralPoints);
-          compound.func_74768_a("FriendlyPoints", this.friendlyPoints);
-          compound.func_74768_a("DefaultPoints", this.defaultPoints);
+          compound.setInteger("Slot", this.id);
+          compound.setString("Name", this.name);
+          compound.setInteger("Color", this.color);
+          compound.setInteger("NeutralPoints", this.neutralPoints);
+          compound.setInteger("FriendlyPoints", this.friendlyPoints);
+          compound.setInteger("DefaultPoints", this.defaultPoints);
           compound.func_74757_a("HideFaction", this.hideFaction);
           compound.func_74757_a("GetsAttacked", this.getsAttacked);
-          compound.func_74782_a("AttackFactions", NBTTags.nbtIntegerCollection(this.attackFactions));
+          compound.setTag("AttackFactions", NBTTags.nbtIntegerCollection(this.attackFactions));
           return compound;
      }
 

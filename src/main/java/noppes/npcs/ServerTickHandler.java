@@ -78,7 +78,7 @@ public class ServerTickHandler {
           MinecraftServer server = event.player.func_184102_h();
           if (server.func_70002_Q()) {
                String serverName = null;
-               if (server.func_71262_S()) {
+               if (server.isDedicatedServer()) {
                     serverName = "server";
                } else {
                     serverName = ((IntegratedServer)server).func_71344_c() ? "lan" : "local";

@@ -37,16 +37,16 @@ public class RoleFollower extends RoleInterface implements IRoleFollower {
      }
 
      public NBTTagCompound writeToNBT(NBTTagCompound nbttagcompound) {
-          nbttagcompound.func_74768_a("MercenaryDaysHired", this.daysHired);
+          nbttagcompound.setInteger("MercenaryDaysHired", this.daysHired);
           nbttagcompound.func_74772_a("MercenaryHiredTime", this.hiredTime);
-          nbttagcompound.func_74778_a("MercenaryDialogHired", this.dialogHire);
-          nbttagcompound.func_74778_a("MercenaryDialogFarewell", this.dialogFarewell);
+          nbttagcompound.setString("MercenaryDialogHired", this.dialogHire);
+          nbttagcompound.setString("MercenaryDialogFarewell", this.dialogFarewell);
           if (this.hasOwner()) {
-               nbttagcompound.func_74778_a("MercenaryOwner", this.ownerUUID);
+               nbttagcompound.setString("MercenaryOwner", this.ownerUUID);
           }
 
-          nbttagcompound.func_74782_a("MercenaryDayRates", NBTTags.nbtIntegerIntegerMap(this.rates));
-          nbttagcompound.func_74782_a("MercenaryInv", this.inventory.getToNBT());
+          nbttagcompound.setTag("MercenaryDayRates", NBTTags.nbtIntegerIntegerMap(this.rates));
+          nbttagcompound.setTag("MercenaryInv", this.inventory.getToNBT());
           nbttagcompound.func_74757_a("MercenaryIsFollowing", this.isFollowing);
           nbttagcompound.func_74757_a("MercenaryDisableGui", this.disableGui);
           nbttagcompound.func_74757_a("MercenaryInfiniteDays", this.infiniteDays);
@@ -55,17 +55,17 @@ public class RoleFollower extends RoleInterface implements IRoleFollower {
      }
 
      public void readFromNBT(NBTTagCompound nbttagcompound) {
-          this.ownerUUID = nbttagcompound.func_74779_i("MercenaryOwner");
+          this.ownerUUID = nbttagcompound.getString("MercenaryOwner");
           this.daysHired = nbttagcompound.func_74762_e("MercenaryDaysHired");
           this.hiredTime = nbttagcompound.func_74763_f("MercenaryHiredTime");
-          this.dialogHire = nbttagcompound.func_74779_i("MercenaryDialogHired");
-          this.dialogFarewell = nbttagcompound.func_74779_i("MercenaryDialogFarewell");
-          this.rates = NBTTags.getIntegerIntegerMap(nbttagcompound.func_150295_c("MercenaryDayRates", 10));
-          this.inventory.setFromNBT(nbttagcompound.func_74775_l("MercenaryInv"));
-          this.isFollowing = nbttagcompound.func_74767_n("MercenaryIsFollowing");
-          this.disableGui = nbttagcompound.func_74767_n("MercenaryDisableGui");
-          this.infiniteDays = nbttagcompound.func_74767_n("MercenaryInfiniteDays");
-          this.refuseSoulStone = nbttagcompound.func_74767_n("MercenaryRefuseSoulstone");
+          this.dialogHire = nbttagcompound.getString("MercenaryDialogHired");
+          this.dialogFarewell = nbttagcompound.getString("MercenaryDialogFarewell");
+          this.rates = NBTTags.getIntegerIntegerMap(nbttagcompound.getTagList("MercenaryDayRates", 10));
+          this.inventory.setFromNBT(nbttagcompound.getCompoundTag("MercenaryInv"));
+          this.isFollowing = nbttagcompound.getBoolean("MercenaryIsFollowing");
+          this.disableGui = nbttagcompound.getBoolean("MercenaryDisableGui");
+          this.infiniteDays = nbttagcompound.getBoolean("MercenaryInfiniteDays");
+          this.refuseSoulStone = nbttagcompound.getBoolean("MercenaryRefuseSoulstone");
      }
 
      public boolean aiShouldExecute() {

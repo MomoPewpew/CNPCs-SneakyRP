@@ -86,16 +86,16 @@ public class ItemStackWrapper implements IItemStack, ICapabilityProvider, ICapab
                if (value instanceof Number) {
                     ItemStackWrapper.this.storedData.func_74780_a(key, ((Number)value).doubleValue());
                } else if (value instanceof String) {
-                    ItemStackWrapper.this.storedData.func_74778_a(key, (String)value);
+                    ItemStackWrapper.this.storedData.setString(key, (String)value);
                }
 
           }
 
           public Object get(String key) {
-               if (!ItemStackWrapper.this.storedData.func_74764_b(key)) {
+               if (!ItemStackWrapper.this.storedData.hasKey(key)) {
                     return null;
                } else {
-                    NBTBase base = ItemStackWrapper.this.storedData.func_74781_a(key);
+                    NBTBase base = ItemStackWrapper.this.storedData.getTag(key);
                     return base instanceof NBTPrimitive ? ((NBTPrimitive)base).func_150286_g() : ((NBTTagString)base).func_150285_a_();
                }
           }
@@ -105,7 +105,7 @@ public class ItemStackWrapper implements IItemStack, ICapabilityProvider, ICapab
           }
 
           public boolean has(String key) {
-               return ItemStackWrapper.this.storedData.func_74764_b(key);
+               return ItemStackWrapper.this.storedData.hasKey(key);
           }
 
           public void clear() {
@@ -113,7 +113,7 @@ public class ItemStackWrapper implements IItemStack, ICapabilityProvider, ICapab
           }
 
           public String[] getKeys() {
-               return (String[])ItemStackWrapper.this.storedData.func_150296_c().toArray(new String[ItemStackWrapper.this.storedData.func_150296_c().size()]);
+               return (String[])ItemStackWrapper.this.storedData.getKeySet().toArray(new String[ItemStackWrapper.this.storedData.getKeySet().size()]);
           }
      };
      private static final ResourceLocation key;
@@ -153,27 +153,27 @@ public class ItemStackWrapper implements IItemStack, ICapabilityProvider, ICapab
                     this.item.func_77982_d(compound = new NBTTagCompound());
                }
 
-               NBTTagList nbttaglist = compound.func_150295_c("AttributeModifiers", 10);
+               NBTTagList nbttaglist = compound.getTagList("AttributeModifiers", 10);
                NBTTagList newList = new NBTTagList();
 
-               for(int i = 0; i < nbttaglist.func_74745_c(); ++i) {
-                    NBTTagCompound c = nbttaglist.func_150305_b(i);
-                    if (!c.func_74779_i("AttributeName").equals(name)) {
-                         newList.func_74742_a(c);
+               for(int i = 0; i < nbttaglist.tagCount(); ++i) {
+                    NBTTagCompound c = nbttaglist.getCompoundTagAt(i);
+                    if (!c.getString("AttributeName").equals(name)) {
+                         newList.appendTag(c);
                     }
                }
 
                if (value != 0.0D) {
                     NBTTagCompound nbttagcompound = SharedMonsterAttributes.func_111262_a(new AttributeModifier(name, value, 0));
-                    nbttagcompound.func_74778_a("AttributeName", name);
+                    nbttagcompound.setString("AttributeName", name);
                     if (slot >= 0) {
-                         nbttagcompound.func_74778_a("Slot", EntityEquipmentSlot.values()[slot].func_188450_d());
+                         nbttagcompound.setString("Slot", EntityEquipmentSlot.values()[slot].func_188450_d());
                     }
 
-                    newList.func_74742_a(nbttagcompound);
+                    newList.appendTag(nbttagcompound);
                }
 
-               compound.func_74782_a("AttributeModifiers", newList);
+               compound.setTag("AttributeModifiers", newList);
           } else {
                throw new CustomNPCsException("Slot has to be between -1 and 5, given was: " + slot, new Object[0]);
           }
@@ -206,11 +206,11 @@ public class ItemStackWrapper implements IItemStack, ICapabilityProvider, ICapab
           if (compound == null) {
                return false;
           } else {
-               NBTTagList nbttaglist = compound.func_150295_c("AttributeModifiers", 10);
+               NBTTagList nbttaglist = compound.getTagList("AttributeModifiers", 10);
 
-               for(int i = 0; i < nbttaglist.func_74745_c(); ++i) {
-                    NBTTagCompound c = nbttaglist.func_150305_b(i);
-                    if (c.func_74779_i("AttributeName").equals(name)) {
+               for(int i = 0; i < nbttaglist.tagCount(); ++i) {
+                    NBTTagCompound c = nbttaglist.getCompoundTagAt(i);
+                    if (c.getString("AttributeName").equals(name)) {
                          return true;
                     }
                }
@@ -250,8 +250,8 @@ public class ItemStackWrapper implements IItemStack, ICapabilityProvider, ICapab
                int enchId = Enchantment.func_185258_b(ench);
                NBTTagList list = this.item.func_77986_q();
 
-               for(int i = 0; i < list.func_74745_c(); ++i) {
-                    NBTTagCompound compound = list.func_150305_b(i);
+               for(int i = 0; i < list.tagCount(); ++i) {
+                    NBTTagCompound compound = list.getCompoundTagAt(i);
                     if (compound.func_74765_d("id") == enchId) {
                          return true;
                     }
@@ -272,17 +272,17 @@ public class ItemStackWrapper implements IItemStack, ICapabilityProvider, ICapab
                NBTTagList list = this.item.func_77986_q();
                NBTTagList newList = new NBTTagList();
 
-               for(int i = 0; i < list.func_74745_c(); ++i) {
-                    NBTTagCompound compound = list.func_150305_b(i);
+               for(int i = 0; i < list.tagCount(); ++i) {
+                    NBTTagCompound compound = list.getCompoundTagAt(i);
                     if (compound.func_74765_d("id") != enchId) {
-                         newList.func_74742_a(compound);
+                         newList.appendTag(compound);
                     }
                }
 
-               if (list.func_74745_c() == newList.func_74745_c()) {
+               if (list.tagCount() == newList.tagCount()) {
                     return false;
                } else {
-                    this.item.func_77978_p().func_74782_a("ench", newList);
+                    this.item.func_77978_p().setTag("ench", newList);
                     return true;
                }
           }
@@ -443,13 +443,13 @@ public class ItemStackWrapper implements IItemStack, ICapabilityProvider, ICapab
      public String[] getLore() {
           NBTTagCompound compound = this.item.func_179543_a("display");
           if (compound != null && compound.func_150299_b("Lore") == 9) {
-               NBTTagList nbttaglist = compound.func_150295_c("Lore", 8);
+               NBTTagList nbttaglist = compound.getTagList("Lore", 8);
                if (nbttaglist.func_82582_d()) {
                     return new String[0];
                } else {
                     List lore = new ArrayList();
 
-                    for(int i = 0; i < nbttaglist.func_74745_c(); ++i) {
+                    for(int i = 0; i < nbttaglist.tagCount(); ++i) {
                          lore.add(nbttaglist.func_150307_f(i));
                     }
 
@@ -469,10 +469,10 @@ public class ItemStackWrapper implements IItemStack, ICapabilityProvider, ICapab
 
                for(int var6 = 0; var6 < var5; ++var6) {
                     String s = var4[var6];
-                    nbtlist.func_74742_a(new NBTTagString(s));
+                    nbtlist.appendTag(new NBTTagString(s));
                }
 
-               compound.func_74782_a("Lore", nbtlist);
+               compound.setTag("Lore", nbtlist);
           } else {
                compound.func_82580_o("Lore");
           }
@@ -489,14 +489,14 @@ public class ItemStackWrapper implements IItemStack, ICapabilityProvider, ICapab
      public NBTTagCompound getMCNbt() {
           NBTTagCompound compound = new NBTTagCompound();
           if (!this.storedData.func_82582_d()) {
-               compound.func_74782_a("StoredData", this.storedData);
+               compound.setTag("StoredData", this.storedData);
           }
 
           return compound;
      }
 
      public void setMCNbt(NBTTagCompound compound) {
-          this.storedData = compound.func_74775_l("StoredData");
+          this.storedData = compound.getCompoundTag("StoredData");
      }
 
      public void removeNbt() {

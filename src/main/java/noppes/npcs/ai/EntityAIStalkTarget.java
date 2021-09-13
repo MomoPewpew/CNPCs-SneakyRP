@@ -158,7 +158,7 @@ public class EntityAIStalkTarget extends EntityAIBase {
 
      private boolean isLookingAway() {
           Vec3d vec3 = this.targetEntity.func_70676_i(1.0F).func_72432_b();
-          Vec3d vec31 = new Vec3d(this.npc.field_70165_t - this.targetEntity.field_70165_t, this.npc.func_174813_aQ().field_72338_b + (double)(this.npc.field_70131_O / 2.0F) - (this.targetEntity.field_70163_u + (double)this.targetEntity.func_70047_e()), this.npc.field_70161_v - this.targetEntity.field_70161_v);
+          Vec3d vec31 = new Vec3d(this.npc.field_70165_t - this.targetEntity.field_70165_t, this.npc.func_174813_aQ().field_72338_b + (double)(this.npc.height / 2.0F) - (this.targetEntity.field_70163_u + (double)this.targetEntity.func_70047_e()), this.npc.field_70161_v - this.targetEntity.field_70161_v);
           double d0 = vec31.func_72433_c();
           vec31 = vec31.func_72432_b();
           double d1 = vec3.func_72430_b(vec31);

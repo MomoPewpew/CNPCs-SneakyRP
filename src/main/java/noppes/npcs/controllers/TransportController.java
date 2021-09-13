@@ -65,11 +65,11 @@ public class TransportController {
           HashMap categories = new HashMap();
           NBTTagCompound nbttagcompound1 = CompressedStreamTools.func_74796_a(new FileInputStream(file));
           this.lastUsedID = nbttagcompound1.func_74762_e("lastID");
-          NBTTagList list = nbttagcompound1.func_150295_c("NPCTransportCategories", 10);
+          NBTTagList list = nbttagcompound1.getTagList("NPCTransportCategories", 10);
           if (list != null) {
-               for(int i = 0; i < list.func_74745_c(); ++i) {
+               for(int i = 0; i < list.tagCount(); ++i) {
                     TransportCategory category = new TransportCategory();
-                    NBTTagCompound compound = list.func_150305_b(i);
+                    NBTTagCompound compound = list.getCompoundTagAt(i);
                     category.readNBT(compound);
                     Iterator var9 = category.locations.values().iterator();
 
@@ -94,12 +94,12 @@ public class TransportController {
                TransportCategory category = (TransportCategory)var2.next();
                NBTTagCompound compound = new NBTTagCompound();
                category.writeNBT(compound);
-               list.func_74742_a(compound);
+               list.appendTag(compound);
           }
 
           NBTTagCompound nbttagcompound = new NBTTagCompound();
-          nbttagcompound.func_74768_a("lastID", this.lastUsedID);
-          nbttagcompound.func_74782_a("NPCTransportCategories", list);
+          nbttagcompound.setInteger("lastID", this.lastUsedID);
+          nbttagcompound.setTag("NPCTransportCategories", list);
           return nbttagcompound;
      }
 

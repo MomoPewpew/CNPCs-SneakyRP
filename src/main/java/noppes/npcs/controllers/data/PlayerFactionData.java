@@ -17,10 +17,10 @@ public class PlayerFactionData {
      public void loadNBTData(NBTTagCompound compound) {
           HashMap factionData = new HashMap();
           if (compound != null) {
-               NBTTagList list = compound.func_150295_c("FactionData", 10);
+               NBTTagList list = compound.getTagList("FactionData", 10);
                if (list != null) {
-                    for(int i = 0; i < list.func_74745_c(); ++i) {
-                         NBTTagCompound nbttagcompound = list.func_150305_b(i);
+                    for(int i = 0; i < list.tagCount(); ++i) {
+                         NBTTagCompound nbttagcompound = list.getCompoundTagAt(i);
                          factionData.put(nbttagcompound.func_74762_e("Faction"), nbttagcompound.func_74762_e("Points"));
                     }
 
@@ -36,12 +36,12 @@ public class PlayerFactionData {
           while(var3.hasNext()) {
                int faction = (Integer)var3.next();
                NBTTagCompound nbttagcompound = new NBTTagCompound();
-               nbttagcompound.func_74768_a("Faction", faction);
-               nbttagcompound.func_74768_a("Points", (Integer)this.factionData.get(faction));
-               list.func_74742_a(nbttagcompound);
+               nbttagcompound.setInteger("Faction", faction);
+               nbttagcompound.setInteger("Points", (Integer)this.factionData.get(faction));
+               list.appendTag(nbttagcompound);
           }
 
-          compound.func_74782_a("FactionData", list);
+          compound.setTag("FactionData", list);
      }
 
      public int getFactionPoints(EntityPlayer player, int factionId) {
@@ -95,11 +95,11 @@ public class PlayerFactionData {
                if (faction != null && !faction.hideFaction) {
                     NBTTagCompound com = new NBTTagCompound();
                     faction.writeNBT(com);
-                    list.func_74742_a(com);
+                    list.appendTag(com);
                }
           }
 
-          compound.func_74782_a("FactionList", list);
+          compound.setTag("FactionList", list);
           return compound;
      }
 }

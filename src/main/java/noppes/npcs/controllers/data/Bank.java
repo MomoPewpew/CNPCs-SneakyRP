@@ -22,23 +22,23 @@ public class Bank {
      }
 
      public void writeEntityToNBT(NBTTagCompound nbttagcompound) {
-          nbttagcompound.func_74768_a("BankID", this.id);
-          nbttagcompound.func_74782_a("BankCurrency", this.currencyInventory.getToNBT());
-          nbttagcompound.func_74782_a("BankUpgrade", this.upgradeInventory.getToNBT());
-          nbttagcompound.func_74778_a("Username", this.name);
-          nbttagcompound.func_74768_a("MaxSlots", this.maxSlots);
-          nbttagcompound.func_74768_a("StartSlots", this.startSlots);
-          nbttagcompound.func_74782_a("BankTypes", NBTTags.nbtIntegerIntegerMap(this.slotTypes));
+          nbttagcompound.setInteger("BankID", this.id);
+          nbttagcompound.setTag("BankCurrency", this.currencyInventory.getToNBT());
+          nbttagcompound.setTag("BankUpgrade", this.upgradeInventory.getToNBT());
+          nbttagcompound.setString("Username", this.name);
+          nbttagcompound.setInteger("MaxSlots", this.maxSlots);
+          nbttagcompound.setInteger("StartSlots", this.startSlots);
+          nbttagcompound.setTag("BankTypes", NBTTags.nbtIntegerIntegerMap(this.slotTypes));
      }
 
      public void readEntityFromNBT(NBTTagCompound nbttagcompound) {
           this.id = nbttagcompound.func_74762_e("BankID");
-          this.name = nbttagcompound.func_74779_i("Username");
+          this.name = nbttagcompound.getString("Username");
           this.startSlots = nbttagcompound.func_74762_e("StartSlots");
           this.maxSlots = nbttagcompound.func_74762_e("MaxSlots");
-          this.slotTypes = NBTTags.getIntegerIntegerMap(nbttagcompound.func_150295_c("BankTypes", 10));
-          this.currencyInventory.setFromNBT(nbttagcompound.func_74775_l("BankCurrency"));
-          this.upgradeInventory.setFromNBT(nbttagcompound.func_74775_l("BankUpgrade"));
+          this.slotTypes = NBTTags.getIntegerIntegerMap(nbttagcompound.getTagList("BankTypes", 10));
+          this.currencyInventory.setFromNBT(nbttagcompound.getCompoundTag("BankCurrency"));
+          this.upgradeInventory.setFromNBT(nbttagcompound.getCompoundTag("BankUpgrade"));
      }
 
      public boolean isUpgraded(int slot) {

@@ -64,7 +64,7 @@ public class TileWaypoint extends TileNpcEntity implements ITickable {
 
      public void func_145839_a(NBTTagCompound compound) {
           super.func_145839_a(compound);
-          this.name = compound.func_74779_i("LocationName");
+          this.name = compound.getString("LocationName");
           this.range = compound.func_74762_e("LocationRange");
           if (this.range < 2) {
                this.range = 2;
@@ -74,10 +74,10 @@ public class TileWaypoint extends TileNpcEntity implements ITickable {
 
      public NBTTagCompound func_189515_b(NBTTagCompound compound) {
           if (!this.name.isEmpty()) {
-               compound.func_74778_a("LocationName", this.name);
+               compound.setString("LocationName", this.name);
           }
 
-          compound.func_74768_a("LocationRange", this.range);
+          compound.setInteger("LocationRange", this.range);
           return super.func_189515_b(compound);
      }
 }

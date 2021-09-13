@@ -28,7 +28,7 @@ public class RoleTransporter extends RoleInterface implements IRoleTransporter {
      }
 
      public NBTTagCompound writeToNBT(NBTTagCompound nbttagcompound) {
-          nbttagcompound.func_74768_a("TransporterId", this.transportId);
+          nbttagcompound.setInteger("TransporterId", this.transportId);
           return nbttagcompound;
      }
 

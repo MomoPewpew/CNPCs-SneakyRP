@@ -59,52 +59,52 @@ public class DataDisplay implements INPCDisplay {
      }
 
      public NBTTagCompound writeToNBT(NBTTagCompound nbttagcompound) {
-          nbttagcompound.func_74778_a("Name", this.name);
-          nbttagcompound.func_74768_a("MarkovGeneratorId", this.markovGeneratorId);
-          nbttagcompound.func_74768_a("MarkovGender", this.markovGender);
-          nbttagcompound.func_74778_a("Title", this.title);
-          nbttagcompound.func_74778_a("SkinUrl", this.url);
-          nbttagcompound.func_74778_a("Texture", this.texture);
-          nbttagcompound.func_74778_a("CloakTexture", this.cloakTexture);
-          nbttagcompound.func_74778_a("GlowTexture", this.glowTexture);
+          nbttagcompound.setString("Name", this.name);
+          nbttagcompound.setInteger("MarkovGeneratorId", this.markovGeneratorId);
+          nbttagcompound.setInteger("MarkovGender", this.markovGender);
+          nbttagcompound.setString("Title", this.title);
+          nbttagcompound.setString("SkinUrl", this.url);
+          nbttagcompound.setString("Texture", this.texture);
+          nbttagcompound.setString("CloakTexture", this.cloakTexture);
+          nbttagcompound.setString("GlowTexture", this.glowTexture);
           nbttagcompound.func_74774_a("UsingSkinUrl", this.skinType);
           if (this.playerProfile != null) {
                NBTTagCompound nbttagcompound1 = new NBTTagCompound();
                NBTUtil.func_180708_a(nbttagcompound1, this.playerProfile);
-               nbttagcompound.func_74782_a("SkinUsername", nbttagcompound1);
+               nbttagcompound.setTag("SkinUsername", nbttagcompound1);
           }
 
-          nbttagcompound.func_74768_a("Size", this.modelSize);
-          nbttagcompound.func_74768_a("ShowName", this.showName);
-          nbttagcompound.func_74768_a("SkinColor", this.skinColor);
-          nbttagcompound.func_74768_a("NpcVisible", this.visible);
+          nbttagcompound.setInteger("Size", this.modelSize);
+          nbttagcompound.setInteger("ShowName", this.showName);
+          nbttagcompound.setInteger("SkinColor", this.skinColor);
+          nbttagcompound.setInteger("NpcVisible", this.visible);
           nbttagcompound.func_74757_a("NoLivingAnimation", this.disableLivingAnimation);
           nbttagcompound.func_74757_a("IsStatue", this.noHitbox);
           nbttagcompound.func_74774_a("BossBar", this.showBossBar);
-          nbttagcompound.func_74768_a("BossColor", this.bossColor.ordinal());
+          nbttagcompound.setInteger("BossColor", this.bossColor.ordinal());
           return nbttagcompound;
      }
 
      public void readToNBT(NBTTagCompound nbttagcompound) {
-          this.setName(nbttagcompound.func_74779_i("Name"));
+          this.setName(nbttagcompound.getString("Name"));
           this.setMarkovGeneratorId(nbttagcompound.func_74762_e("MarkovGeneratorId"));
           this.setMarkovGender(nbttagcompound.func_74762_e("MarkovGender"));
-          this.title = nbttagcompound.func_74779_i("Title");
+          this.title = nbttagcompound.getString("Title");
           int prevSkinType = this.skinType;
           String prevTexture = this.texture;
           String prevUrl = this.url;
           String prevPlayer = this.getSkinPlayer();
-          this.url = nbttagcompound.func_74779_i("SkinUrl");
+          this.url = nbttagcompound.getString("SkinUrl");
           this.skinType = nbttagcompound.func_74771_c("UsingSkinUrl");
-          this.texture = nbttagcompound.func_74779_i("Texture");
-          this.cloakTexture = nbttagcompound.func_74779_i("CloakTexture");
-          this.glowTexture = nbttagcompound.func_74779_i("GlowTexture");
+          this.texture = nbttagcompound.getString("Texture");
+          this.cloakTexture = nbttagcompound.getString("CloakTexture");
+          this.glowTexture = nbttagcompound.getString("GlowTexture");
           this.playerProfile = null;
           if (this.skinType == 1) {
                if (nbttagcompound.func_150297_b("SkinUsername", 10)) {
-                    this.playerProfile = NBTUtil.func_152459_a(nbttagcompound.func_74775_l("SkinUsername"));
-               } else if (nbttagcompound.func_150297_b("SkinUsername", 8) && !StringUtils.func_151246_b(nbttagcompound.func_74779_i("SkinUsername"))) {
-                    this.playerProfile = new GameProfile((UUID)null, nbttagcompound.func_74779_i("SkinUsername"));
+                    this.playerProfile = NBTUtil.func_152459_a(nbttagcompound.getCompoundTag("SkinUsername"));
+               } else if (nbttagcompound.func_150297_b("SkinUsername", 8) && !StringUtils.func_151246_b(nbttagcompound.getString("SkinUsername"))) {
+                    this.playerProfile = new GameProfile((UUID)null, nbttagcompound.getString("SkinUsername"));
                }
 
                this.loadProfile();
@@ -112,13 +112,13 @@ public class DataDisplay implements INPCDisplay {
 
           this.modelSize = ValueUtil.CorrectInt(nbttagcompound.func_74762_e("Size"), 1, 30);
           this.showName = nbttagcompound.func_74762_e("ShowName");
-          if (nbttagcompound.func_74764_b("SkinColor")) {
+          if (nbttagcompound.hasKey("SkinColor")) {
                this.skinColor = nbttagcompound.func_74762_e("SkinColor");
           }
 
           this.visible = nbttagcompound.func_74762_e("NpcVisible");
-          this.disableLivingAnimation = nbttagcompound.func_74767_n("NoLivingAnimation");
-          this.noHitbox = nbttagcompound.func_74767_n("IsStatue");
+          this.disableLivingAnimation = nbttagcompound.getBoolean("NoLivingAnimation");
+          this.noHitbox = nbttagcompound.getBoolean("IsStatue");
           this.setBossbar(nbttagcompound.func_74771_c("BossBar"));
           this.setBossColor(nbttagcompound.func_74762_e("BossColor"));
           if (prevSkinType != this.skinType || !this.texture.equals(prevTexture) || !this.url.equals(prevUrl) || !this.getSkinPlayer().equals(prevPlayer)) {

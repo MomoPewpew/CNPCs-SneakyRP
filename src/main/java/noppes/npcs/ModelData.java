@@ -18,8 +18,8 @@ public class ModelData extends ModelDataShared {
                if (this.entity == null) {
                     try {
                          this.entity = (EntityLivingBase)this.entityClass.getConstructor(World.class).newInstance(npc.world);
-                         if (PixelmonHelper.isPixelmon(this.entity) && npc.world.field_72995_K && !this.extra.func_74764_b("Name")) {
-                              this.extra.func_74778_a("Name", "Abra");
+                         if (PixelmonHelper.isPixelmon(this.entity) && npc.world.field_72995_K && !this.extra.hasKey("Name")) {
+                              this.extra.setString("Name", "Abra");
                          }
 
                          try {
@@ -60,14 +60,14 @@ public class ModelData extends ModelDataShared {
                     method.invoke(entity, ((Enum[])breed.getClass().getEnumConstants())[Integer.parseInt(value)]);
                     NBTTagCompound comp = new NBTTagCompound();
                     entity.func_70014_b(comp);
-                    this.extra.func_74778_a("EntityData21", comp.func_74779_i("EntityData21"));
+                    this.extra.setString("EntityData21", comp.getString("EntityData21"));
                } catch (Exception var7) {
                     var7.printStackTrace();
                }
           }
 
           if (key.equalsIgnoreCase("name") && PixelmonHelper.isPixelmon(entity)) {
-               this.extra.func_74778_a("Name", value);
+               this.extra.setString("Name", value);
           }
 
           this.clearEntity();

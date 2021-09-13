@@ -30,7 +30,7 @@ public class ClientEventHandler {
 
      @SubscribeEvent
      public void onRenderTick(RenderWorldLastEvent event) {
-          EntityPlayer player = Minecraft.func_71410_x().player;
+          EntityPlayer player = Minecraft.getMinecraft().player;
           if (TileBuilder.DrawPos != null && TileBuilder.DrawPos.func_177951_i(player.func_180425_c()) <= 1000000.0D) {
                TileEntity te = player.world.func_175625_s(TileBuilder.DrawPos);
                if (te != null && te instanceof TileBuilder) {
@@ -50,7 +50,7 @@ public class ClientEventHandler {
                          if (TileBuilder.Compiled) {
                               GlStateManager.func_179148_o(this.displayList);
                          } else {
-                              BlockRendererDispatcher dispatcher = Minecraft.func_71410_x().func_175602_ab();
+                              BlockRendererDispatcher dispatcher = Minecraft.getMinecraft().func_175602_ab();
                               if (this.displayList >= 0) {
                                    GLAllocation.func_74523_b(this.displayList);
                               }
@@ -70,7 +70,7 @@ public class ClientEventHandler {
                                              GlStateManager.func_179123_a();
                                              GlStateManager.enableRescaleNormal();
                                              GlStateManager.func_179109_b((float)pos.func_177958_n(), (float)pos.func_177956_o(), (float)pos.func_177952_p());
-                                             Minecraft.func_71410_x().func_110434_K().bindTexture(TextureMap.field_110575_b);
+                                             Minecraft.getMinecraft().func_110434_K().bindTexture(TextureMap.field_110575_b);
                                              GlStateManager.func_179114_b(-90.0F, 0.0F, 1.0F, 0.0F);
                                              state = schem.rotationState(state, tile.rotation);
 
@@ -109,7 +109,7 @@ public class ClientEventHandler {
      @SubscribeEvent
      public void post(Post event) {
           MarkData data = MarkData.get(event.getEntity());
-          EntityPlayer player = Minecraft.func_71410_x().player;
+          EntityPlayer player = Minecraft.getMinecraft().player;
           Iterator var4 = data.marks.iterator();
 
           while(var4.hasNext()) {

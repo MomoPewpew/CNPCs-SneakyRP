@@ -25,7 +25,7 @@ public class ScoreboardWrapper implements IScoreboard {
 
      protected ScoreboardWrapper(MinecraftServer server) {
           this.server = server;
-          this.board = server.func_71218_a(0).func_96441_U();
+          this.board = server.getWorld(0).func_96441_U();
      }
 
      public IScoreboardObjective[] getObjectives() {

@@ -17,14 +17,14 @@ public class TileCopy extends TileEntity {
           this.length = compound.func_74765_d("Length");
           this.width = compound.func_74765_d("Width");
           this.height = compound.func_74765_d("Height");
-          this.name = compound.func_74779_i("Name");
+          this.name = compound.getString("Name");
      }
 
      public NBTTagCompound func_189515_b(NBTTagCompound compound) {
           compound.func_74777_a("Length", this.length);
           compound.func_74777_a("Width", this.width);
           compound.func_74777_a("Height", this.height);
-          compound.func_74778_a("Name", this.name);
+          compound.setString("Name", this.name);
           return super.func_189515_b(compound);
      }
 
@@ -44,9 +44,9 @@ public class TileCopy extends TileEntity {
 
      public NBTTagCompound func_189517_E_() {
           NBTTagCompound compound = new NBTTagCompound();
-          compound.func_74768_a("x", this.field_174879_c.func_177958_n());
-          compound.func_74768_a("y", this.field_174879_c.func_177956_o());
-          compound.func_74768_a("z", this.field_174879_c.func_177952_p());
+          compound.setInteger("x", this.field_174879_c.func_177958_n());
+          compound.setInteger("y", this.field_174879_c.func_177956_o());
+          compound.setInteger("z", this.field_174879_c.func_177952_p());
           compound.func_74777_a("Length", this.length);
           compound.func_74777_a("Width", this.width);
           compound.func_74777_a("Height", this.height);

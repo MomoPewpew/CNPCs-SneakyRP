@@ -141,7 +141,7 @@ public class CustomGuiButton extends GuiButton implements IClickListener {
 
      public boolean mouseClicked(GuiCustom gui, int mouseX, int mouseY, int mouseButton) {
           if (mouseX >= this.x && mouseY >= this.y && mouseX < this.x + this.width && mouseY < this.y + this.height) {
-               Minecraft.func_71410_x().func_147118_V().func_147682_a(PositionedSoundRecord.func_184371_a(SoundEvents.field_187909_gi, 1.0F));
+               Minecraft.getMinecraft().func_147118_V().func_147682_a(PositionedSoundRecord.func_184371_a(SoundEvents.field_187909_gi, 1.0F));
                gui.buttonClick(this);
                return true;
           } else {

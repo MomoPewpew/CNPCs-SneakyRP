@@ -22,19 +22,19 @@ public class ModelPartData {
      public NBTTagCompound writeToNBT() {
           NBTTagCompound compound = new NBTTagCompound();
           compound.func_74774_a("Type", this.type);
-          compound.func_74768_a("Color", this.color);
+          compound.setInteger("Color", this.color);
           compound.func_74757_a("PlayerTexture", this.playerTexture);
           compound.func_74774_a("Pattern", this.pattern);
           return compound;
      }
 
      public void readFromNBT(NBTTagCompound compound) {
-          if (!compound.func_74764_b("Type")) {
+          if (!compound.hasKey("Type")) {
                this.type = -1;
           } else {
                this.type = compound.func_74771_c("Type");
                this.color = compound.func_74762_e("Color");
-               this.playerTexture = compound.func_74767_n("PlayerTexture");
+               this.playerTexture = compound.getBoolean("PlayerTexture");
                this.pattern = compound.func_74771_c("Pattern");
                this.location = null;
           }

@@ -18,19 +18,19 @@ public class TransportLocation implements IRoleTransporter.ITransportLocation {
                this.pos = new BlockPos(compound.func_74769_h("PosX"), compound.func_74769_h("PosY"), compound.func_74769_h("PosZ"));
                this.type = compound.func_74762_e("Type");
                this.dimension = compound.func_74762_e("Dimension");
-               this.name = compound.func_74779_i("Name");
+               this.name = compound.getString("Name");
           }
      }
 
      public NBTTagCompound writeNBT() {
           NBTTagCompound compound = new NBTTagCompound();
-          compound.func_74768_a("Id", this.id);
+          compound.setInteger("Id", this.id);
           compound.func_74780_a("PosX", (double)this.pos.func_177958_n());
           compound.func_74780_a("PosY", (double)this.pos.func_177956_o());
           compound.func_74780_a("PosZ", (double)this.pos.func_177952_p());
-          compound.func_74768_a("Type", this.type);
-          compound.func_74768_a("Dimension", this.dimension);
-          compound.func_74778_a("Name", this.name);
+          compound.setInteger("Type", this.type);
+          compound.setInteger("Dimension", this.dimension);
+          compound.setString("Name", this.name);
           return compound;
      }
 

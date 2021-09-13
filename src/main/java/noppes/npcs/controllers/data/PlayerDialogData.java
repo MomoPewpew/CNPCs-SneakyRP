@@ -11,10 +11,10 @@ public class PlayerDialogData {
      public void loadNBTData(NBTTagCompound compound) {
           HashSet dialogsRead = new HashSet();
           if (compound != null) {
-               NBTTagList list = compound.func_150295_c("DialogData", 10);
+               NBTTagList list = compound.getTagList("DialogData", 10);
                if (list != null) {
-                    for(int i = 0; i < list.func_74745_c(); ++i) {
-                         NBTTagCompound nbttagcompound = list.func_150305_b(i);
+                    for(int i = 0; i < list.tagCount(); ++i) {
+                         NBTTagCompound nbttagcompound = list.getCompoundTagAt(i);
                          dialogsRead.add(nbttagcompound.func_74762_e("Dialog"));
                     }
 
@@ -30,10 +30,10 @@ public class PlayerDialogData {
           while(var3.hasNext()) {
                int dia = (Integer)var3.next();
                NBTTagCompound nbttagcompound = new NBTTagCompound();
-               nbttagcompound.func_74768_a("Dialog", dia);
-               list.func_74742_a(nbttagcompound);
+               nbttagcompound.setInteger("Dialog", dia);
+               list.appendTag(nbttagcompound);
           }
 
-          compound.func_74782_a("DialogData", list);
+          compound.setTag("DialogData", list);
      }
 }

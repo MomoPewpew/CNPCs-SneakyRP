@@ -223,10 +223,10 @@ public class CustomGuiWrapper implements ICustomGui {
           this.id = tag.func_74762_e("id");
           this.width = tag.func_74759_k("size")[0];
           this.height = tag.func_74759_k("size")[1];
-          this.pauseGame = tag.func_74767_n("pause");
-          this.backgroundTexture = tag.func_74779_i("bgTexture");
+          this.pauseGame = tag.getBoolean("pause");
+          this.backgroundTexture = tag.getString("bgTexture");
           List components = new ArrayList();
-          NBTTagList list = tag.func_150295_c("components", 10);
+          NBTTagList list = tag.getTagList("components", 10);
           Iterator var4 = list.iterator();
 
           while(var4.hasNext()) {
@@ -237,7 +237,7 @@ public class CustomGuiWrapper implements ICustomGui {
 
           this.components = components;
           List slots = new ArrayList();
-          list = tag.func_150295_c("slots", 10);
+          list = tag.getTagList("slots", 10);
           Iterator var9 = list.iterator();
 
           while(var9.hasNext()) {
@@ -247,7 +247,7 @@ public class CustomGuiWrapper implements ICustomGui {
           }
 
           this.slots = slots;
-          this.showPlayerInv = tag.func_74767_n("showPlayerInv");
+          this.showPlayerInv = tag.getBoolean("showPlayerInv");
           if (this.showPlayerInv) {
                this.playerInvX = tag.func_74759_k("pInvPos")[0];
                this.playerInvY = tag.func_74759_k("pInvPos")[1];
@@ -258,32 +258,32 @@ public class CustomGuiWrapper implements ICustomGui {
 
      public NBTTagCompound toNBT() {
           NBTTagCompound tag = new NBTTagCompound();
-          tag.func_74768_a("id", this.id);
-          tag.func_74783_a("size", new int[]{this.width, this.height});
+          tag.setInteger("id", this.id);
+          tag.setIntArray("size", new int[]{this.width, this.height});
           tag.func_74757_a("pause", this.pauseGame);
-          tag.func_74778_a("bgTexture", this.backgroundTexture);
+          tag.setString("bgTexture", this.backgroundTexture);
           NBTTagList list = new NBTTagList();
           Iterator var3 = this.components.iterator();
 
           ICustomGuiComponent c;
           while(var3.hasNext()) {
                c = (ICustomGuiComponent)var3.next();
-               list.func_74742_a(((CustomGuiComponentWrapper)c).toNBT(new NBTTagCompound()));
+               list.appendTag(((CustomGuiComponentWrapper)c).toNBT(new NBTTagCompound()));
           }
 
-          tag.func_74782_a("components", list);
+          tag.setTag("components", list);
           list = new NBTTagList();
           var3 = this.slots.iterator();
 
           while(var3.hasNext()) {
                c = (ICustomGuiComponent)var3.next();
-               list.func_74742_a(((CustomGuiComponentWrapper)c).toNBT(new NBTTagCompound()));
+               list.appendTag(((CustomGuiComponentWrapper)c).toNBT(new NBTTagCompound()));
           }
 
-          tag.func_74782_a("slots", list);
+          tag.setTag("slots", list);
           tag.func_74757_a("showPlayerInv", this.showPlayerInv);
           if (this.showPlayerInv) {
-               tag.func_74783_a("pInvPos", new int[]{this.playerInvX, this.playerInvY});
+               tag.setIntArray("pInvPos", new int[]{this.playerInvX, this.playerInvY});
           }
 
           return tag;

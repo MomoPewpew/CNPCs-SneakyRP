@@ -55,8 +55,8 @@ public abstract class CustomGuiComponentWrapper implements ICustomGuiComponent {
      public abstract int getType();
 
      public NBTTagCompound toNBT(NBTTagCompound nbt) {
-          nbt.func_74768_a("id", this.id);
-          nbt.func_74783_a("pos", new int[]{this.posX, this.posY});
+          nbt.setInteger("id", this.id);
+          nbt.setIntArray("pos", new int[]{this.posX, this.posY});
           if (this.hoverText != null) {
                NBTTagList list = new NBTTagList();
                String[] var3 = this.hoverText;
@@ -65,27 +65,27 @@ public abstract class CustomGuiComponentWrapper implements ICustomGuiComponent {
                for(int var5 = 0; var5 < var4; ++var5) {
                     String s = var3[var5];
                     if (s != null && !s.isEmpty()) {
-                         list.func_74742_a(new NBTTagString(s));
+                         list.appendTag(new NBTTagString(s));
                     }
                }
 
-               if (list.func_74745_c() > 0) {
-                    nbt.func_74782_a("hover", list);
+               if (list.tagCount() > 0) {
+                    nbt.setTag("hover", list);
                }
           }
 
-          nbt.func_74768_a("type", this.getType());
+          nbt.setInteger("type", this.getType());
           return nbt;
      }
 
      public CustomGuiComponentWrapper fromNBT(NBTTagCompound nbt) {
           this.setID(nbt.func_74762_e("id"));
           this.setPos(nbt.func_74759_k("pos")[0], nbt.func_74759_k("pos")[1]);
-          if (nbt.func_74764_b("hover")) {
-               NBTTagList list = nbt.func_150295_c("hover", 8);
-               String[] hoverText = new String[list.func_74745_c()];
+          if (nbt.hasKey("hover")) {
+               NBTTagList list = nbt.getTagList("hover", 8);
+               String[] hoverText = new String[list.tagCount()];
 
-               for(int i = 0; i < list.func_74745_c(); ++i) {
+               for(int i = 0; i < list.tagCount(); ++i) {
                     hoverText[i] = ((NBTTagString)list.func_179238_g(i)).func_150285_a_();
                }
 

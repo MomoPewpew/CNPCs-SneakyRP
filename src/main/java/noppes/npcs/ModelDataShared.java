@@ -26,45 +26,45 @@ public class ModelDataShared {
      public NBTTagCompound writeToNBT() {
           NBTTagCompound compound = new NBTTagCompound();
           if (this.entityClass != null) {
-               compound.func_74778_a("EntityClass", this.entityClass.getCanonicalName());
+               compound.setString("EntityClass", this.entityClass.getCanonicalName());
           }
 
-          compound.func_74782_a("ArmsConfig", this.arm1.writeToNBT());
-          compound.func_74782_a("BodyConfig", this.body.writeToNBT());
-          compound.func_74782_a("LegsConfig", this.leg1.writeToNBT());
-          compound.func_74782_a("HeadConfig", this.head.writeToNBT());
-          compound.func_74782_a("LegParts", this.legParts.writeToNBT());
-          compound.func_74782_a("Eyes", this.eyes.writeToNBT());
-          compound.func_74782_a("ExtraData", this.extra);
+          compound.setTag("ArmsConfig", this.arm1.writeToNBT());
+          compound.setTag("BodyConfig", this.body.writeToNBT());
+          compound.setTag("LegsConfig", this.leg1.writeToNBT());
+          compound.setTag("HeadConfig", this.head.writeToNBT());
+          compound.setTag("LegParts", this.legParts.writeToNBT());
+          compound.setTag("Eyes", this.eyes.writeToNBT());
+          compound.setTag("ExtraData", this.extra);
           NBTTagList list = new NBTTagList();
           Iterator var3 = this.parts.keySet().iterator();
 
           while(var3.hasNext()) {
                EnumParts e = (EnumParts)var3.next();
                NBTTagCompound item = ((ModelPartData)this.parts.get(e)).writeToNBT();
-               item.func_74778_a("PartName", e.name);
-               list.func_74742_a(item);
+               item.setString("PartName", e.name);
+               list.appendTag(item);
           }
 
-          compound.func_74782_a("Parts", list);
+          compound.setTag("Parts", list);
           return compound;
      }
 
      public void readFromNBT(NBTTagCompound compound) {
-          this.setEntityName(compound.func_74779_i("EntityClass"));
-          this.arm1.readFromNBT(compound.func_74775_l("ArmsConfig"));
-          this.body.readFromNBT(compound.func_74775_l("BodyConfig"));
-          this.leg1.readFromNBT(compound.func_74775_l("LegsConfig"));
-          this.head.readFromNBT(compound.func_74775_l("HeadConfig"));
-          this.legParts.readFromNBT(compound.func_74775_l("LegParts"));
-          this.eyes.readFromNBT(compound.func_74775_l("Eyes"));
-          this.extra = compound.func_74775_l("ExtraData");
+          this.setEntityName(compound.getString("EntityClass"));
+          this.arm1.readFromNBT(compound.getCompoundTag("ArmsConfig"));
+          this.body.readFromNBT(compound.getCompoundTag("BodyConfig"));
+          this.leg1.readFromNBT(compound.getCompoundTag("LegsConfig"));
+          this.head.readFromNBT(compound.getCompoundTag("HeadConfig"));
+          this.legParts.readFromNBT(compound.getCompoundTag("LegParts"));
+          this.eyes.readFromNBT(compound.getCompoundTag("Eyes"));
+          this.extra = compound.getCompoundTag("ExtraData");
           HashMap parts = new HashMap();
-          NBTTagList list = compound.func_150295_c("Parts", 10);
+          NBTTagList list = compound.getTagList("Parts", 10);
 
-          for(int i = 0; i < list.func_74745_c(); ++i) {
-               NBTTagCompound item = list.func_150305_b(i);
-               String name = item.func_74779_i("PartName");
+          for(int i = 0; i < list.tagCount(); ++i) {
+               NBTTagCompound item = list.getCompoundTagAt(i);
+               String name = item.getString("PartName");
                ModelPartData part = new ModelPartData(name);
                part.readFromNBT(item);
                EnumParts e = EnumParts.FromName(name);
@@ -149,7 +149,7 @@ public class ModelDataShared {
      }
 
      public float offsetY() {
-          return this.entity == null ? -this.getBodyY() : this.entity.field_70131_O - 1.8F;
+          return this.entity == null ? -this.getBodyY() : this.entity.height - 1.8F;
      }
 
      public void clearEntity() {

@@ -30,13 +30,13 @@ public class DataMelee implements INPCMelee {
      }
 
      public NBTTagCompound writeToNBT(NBTTagCompound compound) {
-          compound.func_74768_a("AttackStrenght", this.attackStrength);
-          compound.func_74768_a("AttackSpeed", this.attackSpeed);
-          compound.func_74768_a("AttackRange", this.attackRange);
-          compound.func_74768_a("KnockBack", this.knockback);
-          compound.func_74768_a("PotionEffect", this.potionType);
-          compound.func_74768_a("PotionDuration", this.potionDuration);
-          compound.func_74768_a("PotionAmp", this.potionAmp);
+          compound.setInteger("AttackStrenght", this.attackStrength);
+          compound.setInteger("AttackSpeed", this.attackSpeed);
+          compound.setInteger("AttackRange", this.attackRange);
+          compound.setInteger("KnockBack", this.knockback);
+          compound.setInteger("PotionEffect", this.potionType);
+          compound.setInteger("PotionDuration", this.potionDuration);
+          compound.setInteger("PotionAmp", this.potionAmp);
           return compound;
      }
 

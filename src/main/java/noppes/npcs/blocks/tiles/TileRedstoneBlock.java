@@ -109,8 +109,8 @@ public class TileRedstoneBlock extends TileNpcEntity implements ITickable {
           super.func_145839_a(compound);
           this.onRange = compound.func_74762_e("BlockOnRange");
           this.offRange = compound.func_74762_e("BlockOffRange");
-          this.isDetailed = compound.func_74767_n("BlockIsDetailed");
-          if (compound.func_74764_b("BlockOnRangeX")) {
+          this.isDetailed = compound.getBoolean("BlockIsDetailed");
+          if (compound.hasKey("BlockOnRangeX")) {
                this.isDetailed = true;
                this.onRangeX = compound.func_74762_e("BlockOnRangeX");
                this.onRangeY = compound.func_74762_e("BlockOnRangeY");
@@ -120,25 +120,25 @@ public class TileRedstoneBlock extends TileNpcEntity implements ITickable {
                this.offRangeZ = compound.func_74762_e("BlockOffRangeZ");
           }
 
-          if (compound.func_74764_b("BlockActivated")) {
-               this.isActivated = compound.func_74767_n("BlockActivated");
+          if (compound.hasKey("BlockActivated")) {
+               this.isActivated = compound.getBoolean("BlockActivated");
           }
 
           this.availability.readFromNBT(compound);
      }
 
      public NBTTagCompound func_189515_b(NBTTagCompound compound) {
-          compound.func_74768_a("BlockOnRange", this.onRange);
-          compound.func_74768_a("BlockOffRange", this.offRange);
+          compound.setInteger("BlockOnRange", this.onRange);
+          compound.setInteger("BlockOffRange", this.offRange);
           compound.func_74757_a("BlockActivated", this.isActivated);
           compound.func_74757_a("BlockIsDetailed", this.isDetailed);
           if (this.isDetailed) {
-               compound.func_74768_a("BlockOnRangeX", this.onRangeX);
-               compound.func_74768_a("BlockOnRangeY", this.onRangeY);
-               compound.func_74768_a("BlockOnRangeZ", this.onRangeZ);
-               compound.func_74768_a("BlockOffRangeX", this.offRangeX);
-               compound.func_74768_a("BlockOffRangeY", this.offRangeY);
-               compound.func_74768_a("BlockOffRangeZ", this.offRangeZ);
+               compound.setInteger("BlockOnRangeX", this.onRangeX);
+               compound.setInteger("BlockOnRangeY", this.onRangeY);
+               compound.setInteger("BlockOnRangeZ", this.onRangeZ);
+               compound.setInteger("BlockOffRangeX", this.offRangeX);
+               compound.setInteger("BlockOffRangeY", this.offRangeY);
+               compound.setInteger("BlockOffRangeZ", this.offRangeZ);
           }
 
           this.availability.writeToNBT(compound);

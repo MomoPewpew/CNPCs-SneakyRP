@@ -150,12 +150,12 @@ public class GuiNpcSpawner extends GuiNPCInterface2 implements ITextfieldListene
      }
 
      public void setGuiData(NBTTagCompound compound) {
-          this.title1 = compound.func_74779_i("Title1");
-          this.title2 = compound.func_74779_i("Title2");
-          this.title3 = compound.func_74779_i("Title3");
-          this.title4 = compound.func_74779_i("Title4");
-          this.title5 = compound.func_74779_i("Title5");
-          this.title6 = compound.func_74779_i("Title6");
+          this.title1 = compound.getString("Title1");
+          this.title2 = compound.getString("Title2");
+          this.title3 = compound.getString("Title3");
+          this.title4 = compound.getString("Title4");
+          this.title5 = compound.getString("Title5");
+          this.title6 = compound.getString("Title6");
           this.func_73866_w_();
      }
 }

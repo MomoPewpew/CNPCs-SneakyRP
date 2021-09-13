@@ -56,37 +56,37 @@ public class DataRanged implements INPCRanged {
           this.maxDelay = ValueUtil.CorrectInt(compound.func_74762_e("maxDelay"), 1, 9999);
           this.shotCount = ValueUtil.CorrectInt(compound.func_74762_e("ShotCount"), 1, 10);
           this.accuracy = compound.func_74762_e("Accuracy");
-          this.pRender3D = compound.func_74767_n("pRender3D");
-          this.pSpin = compound.func_74767_n("pSpin");
-          this.pStick = compound.func_74767_n("pStick");
-          this.pPhysics = compound.func_74767_n("pPhysics");
-          this.pXlr8 = compound.func_74767_n("pXlr8");
-          this.pGlows = compound.func_74767_n("pGlows");
-          this.aimWhileShooting = compound.func_74767_n("AimWhileShooting");
+          this.pRender3D = compound.getBoolean("pRender3D");
+          this.pSpin = compound.getBoolean("pSpin");
+          this.pStick = compound.getBoolean("pStick");
+          this.pPhysics = compound.getBoolean("pPhysics");
+          this.pXlr8 = compound.getBoolean("pXlr8");
+          this.pGlows = compound.getBoolean("pGlows");
+          this.aimWhileShooting = compound.getBoolean("AimWhileShooting");
           this.pEffect = compound.func_74762_e("pEffect");
           this.pDur = compound.func_74762_e("pDur");
           this.pEffAmp = compound.func_74762_e("pEffAmp");
-          this.fireSound = compound.func_74779_i("FiringSound");
-          this.hitSound = compound.func_74779_i("HitSound");
-          this.groundSound = compound.func_74779_i("GroundSound");
+          this.fireSound = compound.getString("FiringSound");
+          this.hitSound = compound.getString("HitSound");
+          this.groundSound = compound.getString("GroundSound");
           this.canFireIndirect = compound.func_74762_e("FireIndirect");
           this.meleeDistance = compound.func_74762_e("DistanceToMelee");
      }
 
      public NBTTagCompound writeToNBT(NBTTagCompound compound) {
-          compound.func_74768_a("BurstCount", this.burstCount);
-          compound.func_74768_a("pSpeed", this.pSpeed);
-          compound.func_74768_a("pDamage", this.pDamage);
-          compound.func_74768_a("pImpact", this.pImpact);
-          compound.func_74768_a("pSize", this.pSize);
-          compound.func_74768_a("pArea", this.pArea);
-          compound.func_74768_a("pTrail", this.pTrail);
-          compound.func_74768_a("MaxFiringRange", this.rangedRange);
-          compound.func_74768_a("FireRate", this.fireRate);
-          compound.func_74768_a("minDelay", this.minDelay);
-          compound.func_74768_a("maxDelay", this.maxDelay);
-          compound.func_74768_a("ShotCount", this.shotCount);
-          compound.func_74768_a("Accuracy", this.accuracy);
+          compound.setInteger("BurstCount", this.burstCount);
+          compound.setInteger("pSpeed", this.pSpeed);
+          compound.setInteger("pDamage", this.pDamage);
+          compound.setInteger("pImpact", this.pImpact);
+          compound.setInteger("pSize", this.pSize);
+          compound.setInteger("pArea", this.pArea);
+          compound.setInteger("pTrail", this.pTrail);
+          compound.setInteger("MaxFiringRange", this.rangedRange);
+          compound.setInteger("FireRate", this.fireRate);
+          compound.setInteger("minDelay", this.minDelay);
+          compound.setInteger("maxDelay", this.maxDelay);
+          compound.setInteger("ShotCount", this.shotCount);
+          compound.setInteger("Accuracy", this.accuracy);
           compound.func_74757_a("pRender3D", this.pRender3D);
           compound.func_74757_a("pSpin", this.pSpin);
           compound.func_74757_a("pStick", this.pStick);
@@ -94,14 +94,14 @@ public class DataRanged implements INPCRanged {
           compound.func_74757_a("pXlr8", this.pXlr8);
           compound.func_74757_a("pGlows", this.pGlows);
           compound.func_74757_a("AimWhileShooting", this.aimWhileShooting);
-          compound.func_74768_a("pEffect", this.pEffect);
-          compound.func_74768_a("pDur", this.pDur);
-          compound.func_74768_a("pEffAmp", this.pEffAmp);
-          compound.func_74778_a("FiringSound", this.fireSound);
-          compound.func_74778_a("HitSound", this.hitSound);
-          compound.func_74778_a("GroundSound", this.groundSound);
-          compound.func_74768_a("FireIndirect", this.canFireIndirect);
-          compound.func_74768_a("DistanceToMelee", this.meleeDistance);
+          compound.setInteger("pEffect", this.pEffect);
+          compound.setInteger("pDur", this.pDur);
+          compound.setInteger("pEffAmp", this.pEffAmp);
+          compound.setString("FiringSound", this.fireSound);
+          compound.setString("HitSound", this.hitSound);
+          compound.setString("GroundSound", this.groundSound);
+          compound.setInteger("FireIndirect", this.canFireIndirect);
+          compound.setInteger("DistanceToMelee", this.meleeDistance);
           return compound;
      }
 
@@ -297,7 +297,7 @@ public class DataRanged implements INPCRanged {
                return null;
           } else {
                ResourceLocation res = new ResourceLocation(sound);
-               SoundEvent ev = (SoundEvent)SoundEvent.field_187505_a.func_82594_a(res);
+               SoundEvent ev = (SoundEvent)SoundEvent.field_187505_a.getObject(res);
                return ev != null ? ev : new SoundEvent(res);
           }
      }

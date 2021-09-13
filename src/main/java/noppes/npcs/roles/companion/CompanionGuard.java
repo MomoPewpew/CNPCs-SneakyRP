@@ -17,7 +17,7 @@ public class CompanionGuard extends CompanionJobInterface {
      }
 
      public void setNBT(NBTTagCompound compound) {
-          this.isStanding = compound.func_74767_n("CompanionGuardStanding");
+          this.isStanding = compound.getBoolean("CompanionGuardStanding");
      }
 
      public boolean isEntityApplicable(Entity entity) {

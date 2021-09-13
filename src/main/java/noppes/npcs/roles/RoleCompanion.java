@@ -183,7 +183,7 @@ public class RoleCompanion extends RoleInterface {
                          Vec3d vec31 = new Vec3d(((double)rand.nextFloat() - 0.5D) * 0.3D, (double)(-rand.nextFloat()) * 0.6D - 0.3D, (double)(this.npc.field_70130_N / 2.0F) + 0.1D);
                          vec31.func_178785_b(-this.npc.field_70125_A * 3.1415927F / 180.0F);
                          vec31.func_178789_a(-this.npc.field_70761_aq * 3.1415927F / 180.0F);
-                         vec31 = vec31.func_72441_c(this.npc.field_70165_t, this.npc.field_70163_u + (double)this.npc.field_70131_O + 0.1D, this.npc.field_70161_v);
+                         vec31 = vec31.func_72441_c(this.npc.field_70165_t, this.npc.field_70163_u + (double)this.npc.height + 0.1D, this.npc.field_70161_v);
                          (new StringBuilder()).append("iconcrack_").append(Item.func_150891_b(eating.func_77973_b())).toString();
                          if (eating.func_77981_g()) {
                               this.npc.world.func_175688_a(EnumParticleTypes.ITEM_CRACK, vec31.field_72450_a, vec31.field_72448_b, vec31.field_72449_c, vec3.field_72450_a, vec3.field_72448_b + 0.05D, vec3.field_72449_c, new int[]{Item.func_150891_b(eating.func_77973_b()), eating.func_77960_j()});
@@ -264,20 +264,20 @@ public class RoleCompanion extends RoleInterface {
      }
 
      public NBTTagCompound writeToNBT(NBTTagCompound compound) {
-          compound.func_74782_a("CompanionInventory", this.inventory.getToNBT());
-          compound.func_74778_a("CompanionOwner", this.uuid);
-          compound.func_74778_a("CompanionOwnerName", this.ownerName);
-          compound.func_74768_a("CompanionID", this.companionID);
-          compound.func_74768_a("CompanionStage", this.stage.ordinal());
-          compound.func_74768_a("CompanionExp", this.currentExp);
+          compound.setTag("CompanionInventory", this.inventory.getToNBT());
+          compound.setString("CompanionOwner", this.uuid);
+          compound.setString("CompanionOwnerName", this.ownerName);
+          compound.setInteger("CompanionID", this.companionID);
+          compound.setInteger("CompanionStage", this.stage.ordinal());
+          compound.setInteger("CompanionExp", this.currentExp);
           compound.func_74757_a("CompanionCanAge", this.canAge);
           compound.func_74772_a("CompanionAge", this.ticksActive);
           compound.func_74757_a("CompanionHasInv", this.hasInv);
           compound.func_74757_a("CompanionDefendOwner", this.defendOwner);
           this.foodstats.writeNBT(compound);
-          compound.func_74768_a("CompanionJob", this.job.ordinal());
+          compound.setInteger("CompanionJob", this.job.ordinal());
           if (this.jobInterface != null) {
-               compound.func_74782_a("CompanionJobData", this.jobInterface.getNBT());
+               compound.setTag("CompanionJobData", this.jobInterface.getNBT());
           }
 
           NBTTagList list = new NBTTagList();
@@ -286,32 +286,32 @@ public class RoleCompanion extends RoleInterface {
           while(var3.hasNext()) {
                EnumCompanionTalent talent = (EnumCompanionTalent)var3.next();
                NBTTagCompound c = new NBTTagCompound();
-               c.func_74768_a("Talent", talent.ordinal());
-               c.func_74768_a("Exp", (Integer)this.talents.get(talent));
-               list.func_74742_a(c);
+               c.setInteger("Talent", talent.ordinal());
+               c.setInteger("Exp", (Integer)this.talents.get(talent));
+               list.appendTag(c);
           }
 
-          compound.func_74782_a("CompanionTalents", list);
+          compound.setTag("CompanionTalents", list);
           return compound;
      }
 
      public void readFromNBT(NBTTagCompound compound) {
-          this.inventory.setFromNBT(compound.func_74775_l("CompanionInventory"));
-          this.uuid = compound.func_74779_i("CompanionOwner");
-          this.ownerName = compound.func_74779_i("CompanionOwnerName");
+          this.inventory.setFromNBT(compound.getCompoundTag("CompanionInventory"));
+          this.uuid = compound.getString("CompanionOwner");
+          this.ownerName = compound.getString("CompanionOwnerName");
           this.companionID = compound.func_74762_e("CompanionID");
           this.stage = EnumCompanionStage.values()[compound.func_74762_e("CompanionStage")];
           this.currentExp = compound.func_74762_e("CompanionExp");
-          this.canAge = compound.func_74767_n("CompanionCanAge");
+          this.canAge = compound.getBoolean("CompanionCanAge");
           this.ticksActive = compound.func_74763_f("CompanionAge");
-          this.hasInv = compound.func_74767_n("CompanionHasInv");
-          this.defendOwner = compound.func_74767_n("CompanionDefendOwner");
+          this.hasInv = compound.getBoolean("CompanionHasInv");
+          this.defendOwner = compound.getBoolean("CompanionDefendOwner");
           this.foodstats.readNBT(compound);
-          NBTTagList list = compound.func_150295_c("CompanionTalents", 10);
+          NBTTagList list = compound.getTagList("CompanionTalents", 10);
           Map talents = new TreeMap();
 
-          for(int i = 0; i < list.func_74745_c(); ++i) {
-               NBTTagCompound c = list.func_150305_b(i);
+          for(int i = 0; i < list.tagCount(); ++i) {
+               NBTTagCompound c = list.getCompoundTagAt(i);
                EnumCompanionTalent talent = EnumCompanionTalent.values()[c.func_74762_e("Talent")];
                talents.put(talent, c.func_74762_e("Exp"));
           }
@@ -319,7 +319,7 @@ public class RoleCompanion extends RoleInterface {
           this.talents = talents;
           this.setJob(compound.func_74762_e("CompanionJob"));
           if (this.jobInterface != null) {
-               this.jobInterface.setNBT(compound.func_74775_l("CompanionJobData"));
+               this.jobInterface.setNBT(compound.getCompoundTag("CompanionJobData"));
           }
 
           this.setStats();

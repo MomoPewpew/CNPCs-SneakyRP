@@ -284,22 +284,22 @@ public class CustomNpcs {
           ScriptController.Instance.loadForgeScripts();
           ScriptController.HasStart = false;
           WrapperNpcAPI.clearCache();
-          Set names = Block.field_149771_c.func_148742_b();
+          Set names = Block.REGISTRY.getKeys();
           Iterator var3 = names.iterator();
 
           while(var3.hasNext()) {
                ResourceLocation name = (ResourceLocation)var3.next();
-               Block block = (Block)Block.field_149771_c.func_82594_a(name);
+               Block block = (Block)Block.REGISTRY.getObject(name);
                if (block instanceof BlockLeaves) {
-                    block.func_149675_a(LeavesDecayEnabled);
+                    block.setTickRandomly(LeavesDecayEnabled);
                }
 
                if (block instanceof BlockVine) {
-                    block.func_149675_a(VineGrowthEnabled);
+                    block.setTickRandomly(VineGrowthEnabled);
                }
 
                if (block instanceof BlockIce) {
-                    block.func_149675_a(IceMeltsEnabled);
+                    block.setTickRandomly(IceMeltsEnabled);
                }
           }
 
@@ -325,9 +325,9 @@ public class CustomNpcs {
      @EventHandler
      public void serverstart(FMLServerStartingEvent event) {
           event.registerServerCommand(NoppesCommand);
-          EntityNPCInterface.ChatEventPlayer = new FakePlayer(event.getServer().func_71218_a(0), EntityNPCInterface.ChatEventProfile);
-          EntityNPCInterface.CommandPlayer = new FakePlayer(event.getServer().func_71218_a(0), EntityNPCInterface.CommandProfile);
-          EntityNPCInterface.GenericPlayer = new FakePlayer(event.getServer().func_71218_a(0), EntityNPCInterface.GenericProfile);
+          EntityNPCInterface.ChatEventPlayer = new FakePlayer(event.getServer().getWorld(0), EntityNPCInterface.ChatEventProfile);
+          EntityNPCInterface.CommandPlayer = new FakePlayer(event.getServer().getWorld(0), EntityNPCInterface.CommandProfile);
+          EntityNPCInterface.GenericPlayer = new FakePlayer(event.getServer().getWorld(0), EntityNPCInterface.GenericProfile);
      }
 
      public static File getWorldSaveDirectory() {
@@ -338,11 +338,11 @@ public class CustomNpcs {
           try {
                File dir = new File(".");
                if (Server != null) {
-                    if (!Server.func_71262_S()) {
-                         dir = new File(Minecraft.func_71410_x().field_71412_D, "saves");
+                    if (!Server.isDedicatedServer()) {
+                         dir = new File(Minecraft.getMinecraft().mcDataDir, "saves");
                     }
 
-                    dir = new File(new File(dir, Server.func_71270_I()), "customnpcs");
+                    dir = new File(new File(dir, Server.getFolderName()), "customnpcs");
                }
 
                if (s != null) {

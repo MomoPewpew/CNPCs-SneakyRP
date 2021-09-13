@@ -141,7 +141,7 @@ public class ModelBipedAlt extends ModelBiped {
                JobPuppet job = (JobPuppet)player.jobInterface;
                if (job.isActive()) {
                     float pi = 3.1415927F;
-                    float partialTicks = Minecraft.func_71410_x().func_184121_ak();
+                    float partialTicks = Minecraft.getMinecraft().func_184121_ak();
                     if (!job.head.disabled) {
                          this.field_178720_f.field_78795_f = this.field_78116_c.field_78795_f = job.getRotationX(job.head, job.head2, partialTicks) * pi;
                          this.field_178720_f.field_78796_g = this.field_78116_c.field_78796_g = job.getRotationY(job.head, job.head2, partialTicks) * pi;

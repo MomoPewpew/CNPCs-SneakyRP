@@ -21,7 +21,7 @@ public class InventoryTabFactions extends AbstractTab {
 
      public void onTabClicked() {
           CustomNPCsScheduler.runTack(() -> {
-               Minecraft mc = Minecraft.func_71410_x();
+               Minecraft mc = Minecraft.getMinecraft();
                mc.displayGuiScreen(new GuiFaction());
           });
      }
@@ -32,7 +32,7 @@ public class InventoryTabFactions extends AbstractTab {
 
      public void func_191745_a(Minecraft minecraft, int mouseX, int mouseY, float partialTicks) {
           if (this.enabled && this.visible) {
-               Minecraft mc = Minecraft.func_71410_x();
+               Minecraft mc = Minecraft.getMinecraft();
                boolean hovered = mouseX >= this.x && mouseY >= this.y && mouseX < this.x + this.width && mouseY < this.y + this.height;
                if (hovered) {
                     int x = mouseX + mc.fontRenderer.func_78256_a(this.field_146126_j);

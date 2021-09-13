@@ -29,17 +29,17 @@ public class SyncController {
           NBTTagCompound compound;
           while(var3.hasNext()) {
                Faction faction = (Faction)var3.next();
-               list.func_74742_a(faction.writeNBT(new NBTTagCompound()));
-               if (list.func_74745_c() > 20) {
+               list.appendTag(faction.writeNBT(new NBTTagCompound()));
+               if (list.tagCount() > 20) {
                     compound = new NBTTagCompound();
-                    compound.func_74782_a("Data", list);
+                    compound.setTag("Data", list);
                     Server.sendData(player, EnumPacketClient.SYNC_ADD, 1, compound);
                     list = new NBTTagList();
                }
           }
 
           compound = new NBTTagCompound();
-          compound.func_74782_a("Data", list);
+          compound.setTag("Data", list);
           Server.sendData(player, EnumPacketClient.SYNC_END, 1, compound);
           var3 = QuestController.instance.categories.values().iterator();
 
@@ -63,34 +63,34 @@ public class SyncController {
           RecipeCarpentry category;
           while(var3.hasNext()) {
                category = (RecipeCarpentry)var3.next();
-               list.func_74742_a(category.writeNBT());
-               if (list.func_74745_c() > 10) {
+               list.appendTag(category.writeNBT());
+               if (list.tagCount() > 10) {
                     compound = new NBTTagCompound();
-                    compound.func_74782_a("Data", list);
+                    compound.setTag("Data", list);
                     Server.sendData(player, EnumPacketClient.SYNC_ADD, 6, compound);
                     list = new NBTTagList();
                }
           }
 
           compound = new NBTTagCompound();
-          compound.func_74782_a("Data", list);
+          compound.setTag("Data", list);
           Server.sendData(player, EnumPacketClient.SYNC_END, 6, compound);
           list = new NBTTagList();
           var3 = RecipeController.instance.anvilRecipes.values().iterator();
 
           while(var3.hasNext()) {
                category = (RecipeCarpentry)var3.next();
-               list.func_74742_a(category.writeNBT());
-               if (list.func_74745_c() > 10) {
+               list.appendTag(category.writeNBT());
+               if (list.tagCount() > 10) {
                     compound = new NBTTagCompound();
-                    compound.func_74782_a("Data", list);
+                    compound.setTag("Data", list);
                     Server.sendData(player, EnumPacketClient.SYNC_ADD, 7, compound);
                     list = new NBTTagList();
                }
           }
 
           compound = new NBTTagCompound();
-          compound.func_74782_a("Data", list);
+          compound.setTag("Data", list);
           Server.sendData(player, EnumPacketClient.SYNC_END, 7, compound);
           PlayerData data = PlayerData.get(player);
           Server.sendData(player, EnumPacketClient.SYNC_END, 8, data.getNBT());
@@ -121,13 +121,13 @@ public class SyncController {
 
      public static void syncScriptItems(EntityPlayerMP player) {
           NBTTagCompound comp = new NBTTagCompound();
-          comp.func_74782_a("List", NBTTags.nbtIntegerStringMap(ItemScripted.Resources));
+          comp.setTag("List", NBTTags.nbtIntegerStringMap(ItemScripted.Resources));
           Server.sendData(player, EnumPacketClient.SYNC_END, 9, comp);
      }
 
      public static void syncScriptItemsEverybody() {
           NBTTagCompound comp = new NBTTagCompound();
-          comp.func_74782_a("List", NBTTags.nbtIntegerStringMap(ItemScripted.Resources));
+          comp.setTag("List", NBTTags.nbtIntegerStringMap(ItemScripted.Resources));
           Iterator var1 = CustomNpcs.Server.func_184103_al().func_181057_v().iterator();
 
           while(var1.hasNext()) {
@@ -139,11 +139,11 @@ public class SyncController {
 
      public static void clientSync(int synctype, NBTTagCompound compound, boolean syncEnd) {
           if (synctype == 1) {
-               NBTTagList list = compound.func_150295_c("Data", 10);
+               NBTTagList list = compound.getTagList("Data", 10);
 
-               for(int i = 0; i < list.func_74745_c(); ++i) {
+               for(int i = 0; i < list.tagCount(); ++i) {
                     Faction faction = new Faction();
-                    faction.readNBT(list.func_150305_b(i));
+                    faction.readNBT(list.getCompoundTagAt(i));
                     FactionController.instance.factionsSync.put(faction.id, faction);
                }
 

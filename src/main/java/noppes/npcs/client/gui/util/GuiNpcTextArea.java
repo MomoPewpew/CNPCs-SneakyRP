@@ -321,7 +321,7 @@ public class GuiNpcTextArea extends GuiNpcTextField {
 
      private void drawVerticalScrollBar() {
           if (this.listHeight > this.height - 4) {
-               Minecraft.func_71410_x().renderEngine.bindTexture(GuiCustomScroll.resource);
+               Minecraft.getMinecraft().renderEngine.bindTexture(GuiCustomScroll.resource);
                int x = this.posX + this.width - 6;
                int y = (int)((float)this.posY + this.scrolledY * (float)this.height) + 2;
                GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);

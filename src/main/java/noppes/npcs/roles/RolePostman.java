@@ -48,12 +48,12 @@ public class RolePostman extends RoleInterface {
      }
 
      public NBTTagCompound writeToNBT(NBTTagCompound nbttagcompound) {
-          nbttagcompound.func_74782_a("PostInv", this.inventory.getToNBT());
+          nbttagcompound.setTag("PostInv", this.inventory.getToNBT());
           return nbttagcompound;
      }
 
      public void readFromNBT(NBTTagCompound nbttagcompound) {
-          this.inventory.setFromNBT(nbttagcompound.func_74775_l("PostInv"));
+          this.inventory.setFromNBT(nbttagcompound.getCompoundTag("PostInv"));
      }
 
      public void interact(EntityPlayer player) {

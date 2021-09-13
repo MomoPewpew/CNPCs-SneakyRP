@@ -85,10 +85,10 @@ public class BankController {
 
      public void loadBanks(NBTTagCompound nbttagcompound1) throws IOException {
           HashMap banks = new HashMap();
-          NBTTagList list = nbttagcompound1.func_150295_c("Data", 10);
+          NBTTagList list = nbttagcompound1.getTagList("Data", 10);
           if (list != null) {
-               for(int i = 0; i < list.func_74745_c(); ++i) {
-                    NBTTagCompound nbttagcompound = list.func_150305_b(i);
+               for(int i = 0; i < list.tagCount(); ++i) {
+                    NBTTagCompound nbttagcompound = list.getCompoundTagAt(i);
                     Bank bank = new Bank();
                     bank.readEntityFromNBT(nbttagcompound);
                     banks.put(bank.id, bank);
@@ -106,11 +106,11 @@ public class BankController {
                Bank bank = (Bank)var2.next();
                NBTTagCompound nbtfactions = new NBTTagCompound();
                bank.writeEntityToNBT(nbtfactions);
-               list.func_74742_a(nbtfactions);
+               list.appendTag(nbtfactions);
           }
 
           NBTTagCompound nbttagcompound = new NBTTagCompound();
-          nbttagcompound.func_74782_a("Data", list);
+          nbttagcompound.setTag("Data", list);
           return nbttagcompound;
      }
 

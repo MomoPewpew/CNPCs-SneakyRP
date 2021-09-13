@@ -75,23 +75,23 @@ public class Dialog implements ICompatibilty, IDialog {
      public void readNBTPartial(NBTTagCompound compound) {
           this.version = compound.func_74762_e("ModRev");
           VersionCompatibility.CheckAvailabilityCompatibility(this, compound);
-          this.title = compound.func_74779_i("DialogTitle");
-          this.text = compound.func_74779_i("DialogText");
+          this.title = compound.getString("DialogTitle");
+          this.text = compound.getString("DialogText");
           this.quest = compound.func_74762_e("DialogQuest");
-          this.sound = compound.func_74779_i("DialogSound");
-          this.command = compound.func_74779_i("DialogCommand");
-          this.mail.readNBT(compound.func_74775_l("DialogMail"));
-          this.hideNPC = compound.func_74767_n("DialogHideNPC");
-          this.showWheel = compound.func_74767_n("DialogShowWheel");
-          this.disableEsc = compound.func_74767_n("DialogDisableEsc");
-          NBTTagList options = compound.func_150295_c("Options", 10);
+          this.sound = compound.getString("DialogSound");
+          this.command = compound.getString("DialogCommand");
+          this.mail.readNBT(compound.getCompoundTag("DialogMail"));
+          this.hideNPC = compound.getBoolean("DialogHideNPC");
+          this.showWheel = compound.getBoolean("DialogShowWheel");
+          this.disableEsc = compound.getBoolean("DialogDisableEsc");
+          NBTTagList options = compound.getTagList("Options", 10);
           HashMap newoptions = new HashMap();
 
-          for(int iii = 0; iii < options.func_74745_c(); ++iii) {
-               NBTTagCompound option = options.func_150305_b(iii);
+          for(int iii = 0; iii < options.tagCount(); ++iii) {
+               NBTTagCompound option = options.getCompoundTagAt(iii);
                int opslot = option.func_74762_e("OptionSlot");
                DialogOption dia = new DialogOption();
-               dia.readNBT(option.func_74775_l("Option"));
+               dia.readNBT(option.getCompoundTag("Option"));
                newoptions.put(opslot, dia);
                dia.slot = opslot;
           }
@@ -102,21 +102,21 @@ public class Dialog implements ICompatibilty, IDialog {
      }
 
      public NBTTagCompound writeToNBT(NBTTagCompound compound) {
-          compound.func_74768_a("DialogId", this.id);
+          compound.setInteger("DialogId", this.id);
           return this.writeToNBTPartial(compound);
      }
 
      public NBTTagCompound writeToNBTPartial(NBTTagCompound compound) {
-          compound.func_74778_a("DialogTitle", this.title);
-          compound.func_74778_a("DialogText", this.text);
-          compound.func_74768_a("DialogQuest", this.quest);
-          compound.func_74778_a("DialogCommand", this.command);
-          compound.func_74782_a("DialogMail", this.mail.writeNBT());
+          compound.setString("DialogTitle", this.title);
+          compound.setString("DialogText", this.text);
+          compound.setInteger("DialogQuest", this.quest);
+          compound.setString("DialogCommand", this.command);
+          compound.setTag("DialogMail", this.mail.writeNBT());
           compound.func_74757_a("DialogHideNPC", this.hideNPC);
           compound.func_74757_a("DialogShowWheel", this.showWheel);
           compound.func_74757_a("DialogDisableEsc", this.disableEsc);
           if (this.sound != null && !this.sound.isEmpty()) {
-               compound.func_74778_a("DialogSound", this.sound);
+               compound.setString("DialogSound", this.sound);
           }
 
           NBTTagList options = new NBTTagList();
@@ -125,15 +125,15 @@ public class Dialog implements ICompatibilty, IDialog {
           while(var3.hasNext()) {
                int opslot = (Integer)var3.next();
                NBTTagCompound listcompound = new NBTTagCompound();
-               listcompound.func_74768_a("OptionSlot", opslot);
-               listcompound.func_74782_a("Option", ((DialogOption)this.options.get(opslot)).writeNBT());
-               options.func_74742_a(listcompound);
+               listcompound.setInteger("OptionSlot", opslot);
+               listcompound.setTag("Option", ((DialogOption)this.options.get(opslot)).writeNBT());
+               options.appendTag(listcompound);
           }
 
-          compound.func_74782_a("Options", options);
+          compound.setTag("Options", options);
           this.availability.writeToNBT(compound);
           this.factionOptions.writeToNBT(compound);
-          compound.func_74768_a("ModRev", this.version);
+          compound.setInteger("ModRev", this.version);
           return compound;
      }
 

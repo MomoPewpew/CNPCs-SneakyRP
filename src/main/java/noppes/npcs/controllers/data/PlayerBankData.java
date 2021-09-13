@@ -11,10 +11,10 @@ public class PlayerBankData {
 
      public void loadNBTData(NBTTagCompound compound) {
           HashMap banks = new HashMap();
-          NBTTagList list = compound.func_150295_c("BankData", 10);
+          NBTTagList list = compound.getTagList("BankData", 10);
           if (list != null) {
-               for(int i = 0; i < list.func_74745_c(); ++i) {
-                    NBTTagCompound nbttagcompound = list.func_150305_b(i);
+               for(int i = 0; i < list.tagCount(); ++i) {
+                    NBTTagCompound nbttagcompound = list.getCompoundTagAt(i);
                     BankData data = new BankData();
                     data.readNBT(nbttagcompound);
                     banks.put(data.bankId, data);
@@ -32,10 +32,10 @@ public class PlayerBankData {
                BankData data = (BankData)var3.next();
                NBTTagCompound nbttagcompound = new NBTTagCompound();
                data.writeNBT(nbttagcompound);
-               list.func_74742_a(nbttagcompound);
+               list.appendTag(nbttagcompound);
           }
 
-          playerData.func_74782_a("BankData", list);
+          playerData.setTag("BankData", list);
      }
 
      public BankData getBank(int bankId) {

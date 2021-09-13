@@ -578,29 +578,29 @@ public class EntityProjectile extends EntityThrowable {
           par1NBTTagCompound.func_74774_a("shake", (byte)this.field_70191_b);
           par1NBTTagCompound.func_74757_a("inGround", this.field_174854_a);
           par1NBTTagCompound.func_74757_a("isArrow", this.isArrow());
-          par1NBTTagCompound.func_74782_a("direction", this.func_70087_a(new double[]{this.field_70159_w, this.field_70181_x, this.field_70179_y}));
+          par1NBTTagCompound.setTag("direction", this.func_70087_a(new double[]{this.field_70159_w, this.field_70181_x, this.field_70179_y}));
           par1NBTTagCompound.func_74757_a("canBePickedUp", this.canBePickedUp);
           if ((this.throwerName == null || this.throwerName.length() == 0) && this.thrower != null && this.thrower instanceof EntityPlayer) {
                this.throwerName = this.thrower.func_110124_au().toString();
           }
 
-          par1NBTTagCompound.func_74778_a("ownerName", this.throwerName == null ? "" : this.throwerName);
-          par1NBTTagCompound.func_74782_a("Item", this.getItemDisplay().func_77955_b(new NBTTagCompound()));
+          par1NBTTagCompound.setString("ownerName", this.throwerName == null ? "" : this.throwerName);
+          par1NBTTagCompound.setTag("Item", this.getItemDisplay().func_77955_b(new NBTTagCompound()));
           par1NBTTagCompound.func_74776_a("damagev2", this.damage);
-          par1NBTTagCompound.func_74768_a("punch", this.punch);
-          par1NBTTagCompound.func_74768_a("size", (Integer)this.field_70180_af.func_187225_a(Size));
-          par1NBTTagCompound.func_74768_a("velocity", (Integer)this.field_70180_af.func_187225_a(Velocity));
-          par1NBTTagCompound.func_74768_a("explosiveRadius", this.explosiveRadius);
-          par1NBTTagCompound.func_74768_a("effectDuration", this.duration);
+          par1NBTTagCompound.setInteger("punch", this.punch);
+          par1NBTTagCompound.setInteger("size", (Integer)this.field_70180_af.func_187225_a(Size));
+          par1NBTTagCompound.setInteger("velocity", (Integer)this.field_70180_af.func_187225_a(Velocity));
+          par1NBTTagCompound.setInteger("explosiveRadius", this.explosiveRadius);
+          par1NBTTagCompound.setInteger("effectDuration", this.duration);
           par1NBTTagCompound.func_74757_a("gravity", this.hasGravity());
           par1NBTTagCompound.func_74757_a("accelerate", this.accelerate);
           par1NBTTagCompound.func_74757_a("glows", (Boolean)this.field_70180_af.func_187225_a(Glows));
-          par1NBTTagCompound.func_74768_a("PotionEffect", this.effect);
-          par1NBTTagCompound.func_74768_a("trailenum", (Integer)this.field_70180_af.func_187225_a(Particle));
+          par1NBTTagCompound.setInteger("PotionEffect", this.effect);
+          par1NBTTagCompound.setInteger("trailenum", (Integer)this.field_70180_af.func_187225_a(Particle));
           par1NBTTagCompound.func_74757_a("Render3D", (Boolean)this.field_70180_af.func_187225_a(Is3d));
           par1NBTTagCompound.func_74757_a("Spins", (Boolean)this.field_70180_af.func_187225_a(Rotating));
           par1NBTTagCompound.func_74757_a("Sticks", (Boolean)this.field_70180_af.func_187225_a(Sticks));
-          par1NBTTagCompound.func_74768_a("accuracy", this.accuracy);
+          par1NBTTagCompound.setInteger("accuracy", this.accuracy);
      }
 
      public void func_70037_a(NBTTagCompound compound) {
@@ -609,36 +609,36 @@ public class EntityProjectile extends EntityThrowable {
           this.inData = compound.func_74771_c("inData") & 255;
           this.field_70191_b = compound.func_74771_c("shake") & 255;
           this.field_174854_a = compound.func_74771_c("inGround") == 1;
-          this.field_70180_af.func_187227_b(Arrow, compound.func_74767_n("isArrow"));
-          this.throwerName = compound.func_74779_i("ownerName");
-          this.canBePickedUp = compound.func_74767_n("canBePickedUp");
+          this.field_70180_af.func_187227_b(Arrow, compound.getBoolean("isArrow"));
+          this.throwerName = compound.getString("ownerName");
+          this.canBePickedUp = compound.getBoolean("canBePickedUp");
           this.damage = compound.func_74760_g("damagev2");
           this.punch = compound.func_74762_e("punch");
           this.explosiveRadius = compound.func_74762_e("explosiveRadius");
           this.duration = compound.func_74762_e("effectDuration");
-          this.accelerate = compound.func_74767_n("accelerate");
+          this.accelerate = compound.getBoolean("accelerate");
           this.effect = compound.func_74762_e("PotionEffect");
           this.accuracy = compound.func_74762_e("accuracy");
           this.field_70180_af.func_187227_b(Particle, compound.func_74762_e("trailenum"));
           this.field_70180_af.func_187227_b(Size, compound.func_74762_e("size"));
-          this.field_70180_af.func_187227_b(Glows, compound.func_74767_n("glows"));
+          this.field_70180_af.func_187227_b(Glows, compound.getBoolean("glows"));
           this.field_70180_af.func_187227_b(Velocity, compound.func_74762_e("velocity"));
-          this.field_70180_af.func_187227_b(Gravity, compound.func_74767_n("gravity"));
-          this.field_70180_af.func_187227_b(Is3d, compound.func_74767_n("Render3D"));
-          this.field_70180_af.func_187227_b(Rotating, compound.func_74767_n("Spins"));
-          this.field_70180_af.func_187227_b(Sticks, compound.func_74767_n("Sticks"));
+          this.field_70180_af.func_187227_b(Gravity, compound.getBoolean("gravity"));
+          this.field_70180_af.func_187227_b(Is3d, compound.getBoolean("Render3D"));
+          this.field_70180_af.func_187227_b(Rotating, compound.getBoolean("Spins"));
+          this.field_70180_af.func_187227_b(Sticks, compound.getBoolean("Sticks"));
           if (this.throwerName != null && this.throwerName.length() == 0) {
                this.throwerName = null;
           }
 
-          if (compound.func_74764_b("direction")) {
-               NBTTagList nbttaglist = compound.func_150295_c("direction", 6);
+          if (compound.hasKey("direction")) {
+               NBTTagList nbttaglist = compound.getTagList("direction", 6);
                this.field_70159_w = nbttaglist.func_150309_d(0);
                this.field_70181_x = nbttaglist.func_150309_d(1);
                this.field_70179_y = nbttaglist.func_150309_d(2);
           }
 
-          NBTTagCompound var2 = compound.func_74775_l("Item");
+          NBTTagCompound var2 = compound.getCompoundTag("Item");
           ItemStack item = new ItemStack(var2);
           if (item.func_190926_b()) {
                this.func_70106_y();

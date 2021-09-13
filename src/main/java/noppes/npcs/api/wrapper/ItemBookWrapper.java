@@ -14,26 +14,26 @@ public class ItemBookWrapper extends ItemStackWrapper implements IItemBook {
      }
 
      public String getTitle() {
-          return this.getTag().func_74779_i("title");
+          return this.getTag().getString("title");
      }
 
      public void setTitle(String title) {
-          this.getTag().func_74778_a("title", title);
+          this.getTag().setString("title", title);
      }
 
      public String getAuthor() {
-          return this.getTag().func_74779_i("author");
+          return this.getTag().getString("author");
      }
 
      public void setAuthor(String author) {
-          this.getTag().func_74778_a("author", author);
+          this.getTag().setString("author", author);
      }
 
      public String[] getText() {
           List list = new ArrayList();
-          NBTTagList pages = this.getTag().func_150295_c("pages", 8);
+          NBTTagList pages = this.getTag().getTagList("pages", 8);
 
-          for(int i = 0; i < pages.func_74745_c(); ++i) {
+          for(int i = 0; i < pages.tagCount(); ++i) {
                list.add(pages.func_150307_f(i));
           }
 
@@ -48,11 +48,11 @@ public class ItemBookWrapper extends ItemStackWrapper implements IItemBook {
 
                for(int var5 = 0; var5 < var4; ++var5) {
                     String page = var3[var5];
-                    list.func_74742_a(new NBTTagString(page));
+                    list.appendTag(new NBTTagString(page));
                }
           }
 
-          this.getTag().func_74782_a("pages", list);
+          this.getTag().setTag("pages", list);
      }
 
      private NBTTagCompound getTag() {

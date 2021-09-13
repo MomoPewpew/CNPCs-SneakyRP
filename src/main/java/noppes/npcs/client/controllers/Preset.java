@@ -12,14 +12,14 @@ public class Preset {
 
      public NBTTagCompound writeToNBT() {
           NBTTagCompound compound = new NBTTagCompound();
-          compound.func_74778_a("PresetName", this.name);
-          compound.func_74782_a("PresetData", this.data.writeToNBT());
+          compound.setString("PresetName", this.name);
+          compound.setTag("PresetData", this.data.writeToNBT());
           return compound;
      }
 
      public void readFromNBT(NBTTagCompound compound) {
-          this.name = compound.func_74779_i("PresetName");
-          this.data.readFromNBT(compound.func_74775_l("PresetData"));
+          this.name = compound.getString("PresetName");
+          this.data.readFromNBT(compound.getCompoundTag("PresetData"));
      }
 
      public static void FillDefault(HashMap presets) {

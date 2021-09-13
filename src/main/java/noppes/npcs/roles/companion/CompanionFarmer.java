@@ -12,7 +12,7 @@ public class CompanionFarmer extends CompanionJobInterface {
      }
 
      public void setNBT(NBTTagCompound compound) {
-          this.isStanding = compound.func_74767_n("CompanionFarmerStanding");
+          this.isStanding = compound.getBoolean("CompanionFarmerStanding");
      }
 
      public boolean isSelfSufficient() {

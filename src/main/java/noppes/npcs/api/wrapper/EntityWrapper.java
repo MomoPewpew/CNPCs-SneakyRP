@@ -69,7 +69,7 @@ public class EntityWrapper implements IEntity {
                if (value instanceof Number) {
                     compound.func_74780_a(key, ((Number)value).doubleValue());
                } else if (value instanceof String) {
-                    compound.func_74778_a(key, (String)value);
+                    compound.setString(key, (String)value);
                }
 
                this.saveStoredCompound(compound);
@@ -77,10 +77,10 @@ public class EntityWrapper implements IEntity {
 
           public Object get(String key) {
                NBTTagCompound compound = this.getStoredCompound();
-               if (!compound.func_74764_b(key)) {
+               if (!compound.hasKey(key)) {
                     return null;
                } else {
-                    NBTBase base = compound.func_74781_a(key);
+                    NBTBase base = compound.getTag(key);
                     return base instanceof NBTPrimitive ? ((NBTPrimitive)base).func_150286_g() : ((NBTTagString)base).func_150285_a_();
                }
           }
@@ -92,7 +92,7 @@ public class EntityWrapper implements IEntity {
           }
 
           public boolean has(String key) {
-               return this.getStoredCompound().func_74764_b(key);
+               return this.getStoredCompound().hasKey(key);
           }
 
           public void clear() {
@@ -100,21 +100,21 @@ public class EntityWrapper implements IEntity {
           }
 
           private NBTTagCompound getStoredCompound() {
-               NBTTagCompound compound = EntityWrapper.this.entity.getEntityData().func_74775_l("CNPCStoredData");
+               NBTTagCompound compound = EntityWrapper.this.entity.getEntityData().getCompoundTag("CNPCStoredData");
                if (compound == null) {
-                    EntityWrapper.this.entity.getEntityData().func_74782_a("CNPCStoredData", compound = new NBTTagCompound());
+                    EntityWrapper.this.entity.getEntityData().setTag("CNPCStoredData", compound = new NBTTagCompound());
                }
 
                return compound;
           }
 
           private void saveStoredCompound(NBTTagCompound compound) {
-               EntityWrapper.this.entity.getEntityData().func_74782_a("CNPCStoredData", compound);
+               EntityWrapper.this.entity.getEntityData().setTag("CNPCStoredData", compound);
           }
 
           public String[] getKeys() {
                NBTTagCompound compound = this.getStoredCompound();
-               return (String[])compound.func_150296_c().toArray(new String[compound.func_150296_c().size()]);
+               return (String[])compound.getKeySet().toArray(new String[compound.getKeySet().size()]);
           }
      };
 
@@ -433,7 +433,7 @@ public class EntityWrapper implements IEntity {
           }
 
           if (resourcelocation != null) {
-               compound.func_74778_a("id", resourcelocation.toString());
+               compound.setString("id", resourcelocation.toString());
           }
 
           return NpcAPI.Instance().getINbt(compound);
@@ -448,7 +448,7 @@ public class EntityWrapper implements IEntity {
      }
 
      public float getHeight() {
-          return this.entity.field_70131_O;
+          return this.entity.height;
      }
 
      public float getEyeHeight() {

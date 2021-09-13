@@ -86,7 +86,7 @@ public class WorldWrapper implements IWorld {
                if (value instanceof Number) {
                     compound.func_74780_a(key, ((Number)value).doubleValue());
                } else if (value instanceof String) {
-                    compound.func_74778_a(key, (String)value);
+                    compound.setString(key, (String)value);
                }
 
                ScriptController.Instance.shouldSave = true;
@@ -94,10 +94,10 @@ public class WorldWrapper implements IWorld {
 
           public Object get(String key) {
                NBTTagCompound compound = ScriptController.Instance.compound;
-               if (!compound.func_74764_b(key)) {
+               if (!compound.hasKey(key)) {
                     return null;
                } else {
-                    NBTBase base = compound.func_74781_a(key);
+                    NBTBase base = compound.getTag(key);
                     return base instanceof NBTPrimitive ? ((NBTPrimitive)base).func_150286_g() : ((NBTTagString)base).func_150285_a_();
                }
           }
@@ -108,7 +108,7 @@ public class WorldWrapper implements IWorld {
           }
 
           public boolean has(String key) {
-               return ScriptController.Instance.compound.func_74764_b(key);
+               return ScriptController.Instance.compound.hasKey(key);
           }
 
           public void clear() {
@@ -117,7 +117,7 @@ public class WorldWrapper implements IWorld {
           }
 
           public String[] getKeys() {
-               return (String[])ScriptController.Instance.compound.func_150296_c().toArray(new String[ScriptController.Instance.compound.func_150296_c().size()]);
+               return (String[])ScriptController.Instance.compound.getKeySet().toArray(new String[ScriptController.Instance.compound.getKeySet().size()]);
           }
      };
 
@@ -354,7 +354,7 @@ public class WorldWrapper implements IWorld {
      }
 
      public IItemStack createItem(String name, int damage, int size) {
-          Item item = (Item)Item.field_150901_e.func_82594_a(new ResourceLocation(name));
+          Item item = (Item)Item.field_150901_e.getObject(new ResourceLocation(name));
           if (item == null) {
                throw new CustomNPCsException("Unknown item id: " + name, new Object[0]);
           } else {

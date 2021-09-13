@@ -60,10 +60,10 @@ import noppes.npcs.items.ItemScripted;
 public class PacketHandlerClient extends PacketHandlerServer {
      @SubscribeEvent
      public void onPacketData(ClientCustomPacketEvent event) {
-          EntityPlayer player = Minecraft.func_71410_x().player;
+          EntityPlayer player = Minecraft.getMinecraft().player;
           if (player != null) {
                ByteBuf buffer = event.getPacket().payload();
-               Minecraft.func_71410_x().func_152344_a(() -> {
+               Minecraft.getMinecraft().func_152344_a(() -> {
                     EnumPacketClient type = null;
 
                     try {
@@ -83,7 +83,7 @@ public class PacketHandlerClient extends PacketHandlerServer {
      private void client(ByteBuf buffer, EntityPlayer player, EnumPacketClient type) throws Exception {
           Entity entity;
           if (type == EnumPacketClient.CHATBUBBLE) {
-               entity = Minecraft.func_71410_x().field_71441_e.func_73045_a(buffer.readInt());
+               entity = Minecraft.getMinecraft().field_71441_e.func_73045_a(buffer.readInt());
                if (entity == null || !(entity instanceof EntityNPCInterface)) {
                     return;
                }
@@ -107,7 +107,7 @@ public class PacketHandlerClient extends PacketHandlerServer {
 
                     player.func_145747_a(new TextComponentTranslation(message, new Object[0]));
                } else if (type == EnumPacketClient.EYE_BLINK) {
-                    entity = Minecraft.func_71410_x().field_71441_e.func_73045_a(buffer.readInt());
+                    entity = Minecraft.getMinecraft().field_71441_e.func_73045_a(buffer.readInt());
                     if (entity == null || !(entity instanceof EntityNPCInterface)) {
                          return;
                     }
@@ -120,7 +120,7 @@ public class PacketHandlerClient extends PacketHandlerServer {
                          TextComponentTranslation title = new TextComponentTranslation(Server.readString(buffer), new Object[0]);
                          TextComponentTranslation message = new TextComponentTranslation(Server.readString(buffer), new Object[0]);
                          size = buffer.readInt();
-                         Minecraft.func_71410_x().func_193033_an().func_192988_a(new GuiAchievement(title, message, size));
+                         Minecraft.getMinecraft().func_193033_an().func_192988_a(new GuiAchievement(title, message, size));
                     } else {
                          int config;
                          NBTTagCompound compound;
@@ -139,7 +139,7 @@ public class PacketHandlerClient extends PacketHandlerServer {
                               } else {
                                    GuiScreen gui;
                                    if (type == EnumPacketClient.CHEST_NAME) {
-                                        gui = Minecraft.func_71410_x().field_71462_r;
+                                        gui = Minecraft.getMinecraft().field_71462_r;
                                         if (gui instanceof GuiCustomChest) {
                                              ((GuiCustomChest)gui).title = I18n.func_74838_a(Server.readString(buffer));
                                         }
@@ -150,7 +150,7 @@ public class PacketHandlerClient extends PacketHandlerServer {
                                              i = buffer.readInt();
                                              SyncController.clientSyncRemove(config, i);
                                         } else if (type == EnumPacketClient.MARK_DATA) {
-                                             entity = Minecraft.func_71410_x().field_71441_e.func_73045_a(buffer.readInt());
+                                             entity = Minecraft.getMinecraft().field_71441_e.func_73045_a(buffer.readInt());
                                              if (entity == null || !(entity instanceof EntityLivingBase)) {
                                                   return;
                                              }
@@ -160,7 +160,7 @@ public class PacketHandlerClient extends PacketHandlerServer {
                                         } else {
                                              Dialog dialog;
                                              if (type == EnumPacketClient.DIALOG) {
-                                                  entity = Minecraft.func_71410_x().field_71441_e.func_73045_a(buffer.readInt());
+                                                  entity = Minecraft.getMinecraft().field_71441_e.func_73045_a(buffer.readInt());
                                                   if (entity == null || !(entity instanceof EntityNPCInterface)) {
                                                        return;
                                                   }
@@ -183,7 +183,7 @@ public class PacketHandlerClient extends PacketHandlerServer {
                                                        NoppesUtilPlayer.sendData(EnumPlayerPacket.QuestCompletion, config);
                                                   }
                                              } else if (type == EnumPacketClient.EDIT_NPC) {
-                                                  entity = Minecraft.func_71410_x().field_71441_e.func_73045_a(buffer.readInt());
+                                                  entity = Minecraft.getMinecraft().field_71441_e.func_73045_a(buffer.readInt());
                                                   if (entity != null && entity instanceof EntityNPCInterface) {
                                                        NoppesUtil.setLastNpc((EntityNPCInterface)entity);
                                                   } else {
@@ -198,7 +198,7 @@ public class PacketHandlerClient extends PacketHandlerServer {
                                                   NBTTagCompound compound;
                                                   if (type == EnumPacketClient.UPDATE_NPC) {
                                                        compound = Server.readNBT(buffer);
-                                                       entity = Minecraft.func_71410_x().field_71441_e.func_73045_a(compound.func_74762_e("EntityId"));
+                                                       entity = Minecraft.getMinecraft().field_71441_e.func_73045_a(compound.func_74762_e("EntityId"));
                                                        if (entity == null || !(entity instanceof EntityNPCInterface)) {
                                                             return;
                                                        }
@@ -206,7 +206,7 @@ public class PacketHandlerClient extends PacketHandlerServer {
                                                        ((EntityNPCInterface)entity).readSpawnData(compound);
                                                   } else if (type == EnumPacketClient.ROLE) {
                                                        compound = Server.readNBT(buffer);
-                                                       entity = Minecraft.func_71410_x().field_71441_e.func_73045_a(compound.func_74762_e("EntityId"));
+                                                       entity = Minecraft.getMinecraft().field_71441_e.func_73045_a(compound.func_74762_e("EntityId"));
                                                        if (entity == null || !(entity instanceof EntityNPCInterface)) {
                                                             return;
                                                        }
@@ -220,7 +220,7 @@ public class PacketHandlerClient extends PacketHandlerServer {
                                                   } else if (type == EnumPacketClient.PARTICLE) {
                                                        NoppesUtil.spawnParticle(buffer);
                                                   } else if (type == EnumPacketClient.DELETE_NPC) {
-                                                       entity = Minecraft.func_71410_x().field_71441_e.func_73045_a(buffer.readInt());
+                                                       entity = Minecraft.getMinecraft().field_71441_e.func_73045_a(buffer.readInt());
                                                        if (entity == null || !(entity instanceof EntityNPCInterface)) {
                                                             return;
                                                        }
@@ -233,7 +233,7 @@ public class PacketHandlerClient extends PacketHandlerServer {
                                                   } else if (type == EnumPacketClient.SCROLL_DATA_PART) {
                                                        NoppesUtil.addScrollData(buffer);
                                                   } else if (type == EnumPacketClient.SCROLL_SELECTED) {
-                                                       gui = Minecraft.func_71410_x().field_71462_r;
+                                                       gui = Minecraft.getMinecraft().field_71462_r;
                                                        if (gui == null || !(gui instanceof IScrollData)) {
                                                             return;
                                                        }
@@ -244,7 +244,7 @@ public class PacketHandlerClient extends PacketHandlerServer {
                                                        compound = Server.readNBT(buffer);
                                                        NoppesUtil.openGUI(player, new GuiNpcMobSpawnerAdd(compound));
                                                   } else if (type == EnumPacketClient.GUI_DATA) {
-                                                       GuiScreen gui = Minecraft.func_71410_x().field_71462_r;
+                                                       GuiScreen gui = Minecraft.getMinecraft().field_71462_r;
                                                        if (gui == null) {
                                                             return;
                                                        }
@@ -259,7 +259,7 @@ public class PacketHandlerClient extends PacketHandlerServer {
                                                             ((IGuiData)gui).setGuiData(Server.readNBT(buffer));
                                                        }
                                                   } else if (type == EnumPacketClient.GUI_UPDATE) {
-                                                       gui = Minecraft.func_71410_x().field_71462_r;
+                                                       gui = Minecraft.getMinecraft().field_71462_r;
                                                        if (gui == null) {
                                                             return;
                                                        }
@@ -268,7 +268,7 @@ public class PacketHandlerClient extends PacketHandlerServer {
                                                   } else {
                                                        NBTTagCompound compound;
                                                        if (type == EnumPacketClient.GUI_ERROR) {
-                                                            gui = Minecraft.func_71410_x().field_71462_r;
+                                                            gui = Minecraft.getMinecraft().field_71462_r;
                                                             if (gui == null || !(gui instanceof IGuiError)) {
                                                                  return;
                                                             }
@@ -277,7 +277,7 @@ public class PacketHandlerClient extends PacketHandlerServer {
                                                             compound = Server.readNBT(buffer);
                                                             ((IGuiError)gui).setError(i, compound);
                                                        } else if (type == EnumPacketClient.GUI_CLOSE) {
-                                                            gui = Minecraft.func_71410_x().field_71462_r;
+                                                            gui = Minecraft.getMinecraft().field_71462_r;
                                                             if (gui == null) {
                                                                  return;
                                                             }
@@ -288,7 +288,7 @@ public class PacketHandlerClient extends PacketHandlerServer {
                                                                  ((IGuiClose)gui).setClose(i, compound);
                                                             }
 
-                                                            Minecraft mc = Minecraft.func_71410_x();
+                                                            Minecraft mc = Minecraft.getMinecraft();
                                                             mc.displayGuiScreen((GuiScreen)null);
                                                             mc.func_71381_h();
                                                        } else if (type == EnumPacketClient.VILLAGER_LIST) {
@@ -312,7 +312,7 @@ public class PacketHandlerClient extends PacketHandlerServer {
                                                                       }
 
                                                                  };
-                                                                 Minecraft.func_71410_x().func_152344_a(run);
+                                                                 Minecraft.getMinecraft().func_152344_a(run);
                                                             }
                                                        }
                                                   }
@@ -328,7 +328,7 @@ public class PacketHandlerClient extends PacketHandlerServer {
                                    ClientProxy.playerData.setNBT(compound);
                               } else if (config == 9) {
                                    if (player.func_184102_h() == null) {
-                                        ItemScripted.Resources = NBTTags.getIntegerStringMap(compound.func_150295_c("List", 10));
+                                        ItemScripted.Resources = NBTTags.getIntegerStringMap(compound.getTagList("List", 10));
                                    }
 
                                    Iterator var6 = ItemScripted.Resources.entrySet().iterator();
@@ -336,7 +336,7 @@ public class PacketHandlerClient extends PacketHandlerServer {
                                    while(var6.hasNext()) {
                                         Entry entry = (Entry)var6.next();
                                         ModelResourceLocation mrl = new ModelResourceLocation((String)entry.getValue(), "inventory");
-                                        Minecraft.func_71410_x().getRenderItem().func_175037_a().func_178086_a(CustomItems.scripted_item, (Integer)entry.getKey(), mrl);
+                                        Minecraft.getMinecraft().getRenderItem().func_175037_a().func_178086_a(CustomItems.scripted_item, (Integer)entry.getKey(), mrl);
                                         ModelLoader.setCustomModelResourceLocation(CustomItems.scripted_item, (Integer)entry.getKey(), mrl);
                                    }
                               }

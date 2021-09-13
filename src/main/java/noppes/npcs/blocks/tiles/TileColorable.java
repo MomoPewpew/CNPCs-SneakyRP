@@ -16,8 +16,8 @@ public class TileColorable extends TileNpcEntity {
      }
 
      public NBTTagCompound func_189515_b(NBTTagCompound compound) {
-          compound.func_74768_a("BannerColor", this.color);
-          compound.func_74768_a("BannerRotation", this.rotation);
+          compound.setInteger("BannerColor", this.color);
+          compound.setInteger("BannerRotation", this.rotation);
           return super.func_189515_b(compound);
      }
 

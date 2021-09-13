@@ -38,13 +38,13 @@ public class JobItemGiver extends JobInterface {
      }
 
      public NBTTagCompound writeToNBT(NBTTagCompound nbttagcompound) {
-          nbttagcompound.func_74768_a("igCooldownType", this.cooldownType);
-          nbttagcompound.func_74768_a("igGivingMethod", this.givingMethod);
-          nbttagcompound.func_74768_a("igCooldown", this.cooldown);
-          nbttagcompound.func_74768_a("ItemGiverId", this.itemGiverId);
-          nbttagcompound.func_74782_a("igLines", NBTTags.nbtStringList(this.lines));
-          nbttagcompound.func_74782_a("igJobInventory", this.inventory.getToNBT());
-          nbttagcompound.func_74782_a("igAvailability", this.availability.writeToNBT(new NBTTagCompound()));
+          nbttagcompound.setInteger("igCooldownType", this.cooldownType);
+          nbttagcompound.setInteger("igGivingMethod", this.givingMethod);
+          nbttagcompound.setInteger("igCooldown", this.cooldown);
+          nbttagcompound.setInteger("ItemGiverId", this.itemGiverId);
+          nbttagcompound.setTag("igLines", NBTTags.nbtStringList(this.lines));
+          nbttagcompound.setTag("igJobInventory", this.inventory.getToNBT());
+          nbttagcompound.setTag("igAvailability", this.availability.writeToNBT(new NBTTagCompound()));
           return nbttagcompound;
      }
 
@@ -53,13 +53,13 @@ public class JobItemGiver extends JobInterface {
           this.cooldownType = nbttagcompound.func_74762_e("igCooldownType");
           this.givingMethod = nbttagcompound.func_74762_e("igGivingMethod");
           this.cooldown = nbttagcompound.func_74762_e("igCooldown");
-          this.lines = NBTTags.getStringList(nbttagcompound.func_150295_c("igLines", 10));
-          this.inventory.setFromNBT(nbttagcompound.func_74775_l("igJobInventory"));
+          this.lines = NBTTags.getStringList(nbttagcompound.getTagList("igLines", 10));
+          this.inventory.setFromNBT(nbttagcompound.getCompoundTag("igJobInventory"));
           if (this.itemGiverId == 0 && GlobalDataController.instance != null) {
                this.itemGiverId = GlobalDataController.instance.incrementItemGiverId();
           }
 
-          this.availability.readFromNBT(nbttagcompound.func_74775_l("igAvailability"));
+          this.availability.readFromNBT(nbttagcompound.getCompoundTag("igAvailability"));
      }
 
      public NBTTagList newHashMapNBTList(HashMap lines) {
@@ -69,9 +69,9 @@ public class JobItemGiver extends JobInterface {
           while(var4.hasNext()) {
                String s = (String)var4.next();
                NBTTagCompound nbttagcompound = new NBTTagCompound();
-               nbttagcompound.func_74778_a("Line", s);
+               nbttagcompound.setString("Line", s);
                nbttagcompound.func_74772_a("Time", (Long)lines.get(s));
-               nbttaglist.func_74742_a(nbttagcompound);
+               nbttaglist.appendTag(nbttagcompound);
           }
 
           return nbttaglist;
@@ -80,9 +80,9 @@ public class JobItemGiver extends JobInterface {
      public HashMap getNBTLines(NBTTagList tagList) {
           HashMap map = new HashMap();
 
-          for(int i = 0; i < tagList.func_74745_c(); ++i) {
-               NBTTagCompound nbttagcompound = tagList.func_150305_b(i);
-               String line = nbttagcompound.func_74779_i("Line");
+          for(int i = 0; i < tagList.tagCount(); ++i) {
+               NBTTagCompound nbttagcompound = tagList.getCompoundTagAt(i);
+               String line = nbttagcompound.getString("Line");
                long time = nbttagcompound.func_74763_f("Time");
                map.put(line, time);
           }

@@ -37,8 +37,8 @@ public class PlayerDataController {
                if (!file.isDirectory() && file.getName().endsWith(".json")) {
                     try {
                          NBTTagCompound compound = NBTJsonUtil.LoadFile(file);
-                         if (compound.func_74764_b("PlayerName")) {
-                              map.put(compound.func_74779_i("PlayerName"), file.getName().substring(0, file.getName().length() - 5));
+                         if (compound.hasKey("PlayerName")) {
+                              map.put(compound.getString("PlayerName"), file.getName().substring(0, file.getName().length() - 5));
                          }
                     } catch (Exception var8) {
                          LogWriter.error("Error loading: " + file.getAbsolutePath(), var8);

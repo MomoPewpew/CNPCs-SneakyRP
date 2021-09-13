@@ -44,7 +44,7 @@ public class GuiQuestLog extends GuiNPCInterface implements ITopButtonListener, 
      private int currentPage = 0;
      private int maxPages = 1;
      TextBlockClient textblock = null;
-     private Minecraft mc = Minecraft.func_71410_x();
+     private Minecraft mc = Minecraft.getMinecraft();
 
      public GuiQuestLog(EntityPlayer player) {
           this.player = player;

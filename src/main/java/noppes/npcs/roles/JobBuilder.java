@@ -34,23 +34,23 @@ public class JobBuilder extends JobInterface implements IJobBuilder {
 
      public NBTTagCompound writeToNBT(NBTTagCompound compound) {
           if (this.build != null) {
-               compound.func_74768_a("BuildX", this.build.func_174877_v().func_177958_n());
-               compound.func_74768_a("BuildY", this.build.func_174877_v().func_177956_o());
-               compound.func_74768_a("BuildZ", this.build.func_174877_v().func_177952_p());
+               compound.setInteger("BuildX", this.build.func_174877_v().func_177958_n());
+               compound.setInteger("BuildY", this.build.func_174877_v().func_177956_o());
+               compound.setInteger("BuildZ", this.build.func_174877_v().func_177952_p());
                if (this.placingList != null && !this.placingList.isEmpty()) {
                     NBTTagList list = new NBTTagList();
                     Iterator var3 = this.placingList.iterator();
 
                     while(var3.hasNext()) {
                          BlockData data = (BlockData)var3.next();
-                         list.func_74742_a(data.getNBT());
+                         list.appendTag(data.getNBT());
                     }
 
                     if (this.placing != null) {
-                         list.func_74742_a(this.placing.getNBT());
+                         list.appendTag(this.placing.getNBT());
                     }
 
-                    compound.func_74782_a("Placing", list);
+                    compound.setTag("Placing", list);
                }
           }
 
@@ -58,16 +58,16 @@ public class JobBuilder extends JobInterface implements IJobBuilder {
      }
 
      public void readFromNBT(NBTTagCompound compound) {
-          if (compound.func_74764_b("BuildX")) {
+          if (compound.hasKey("BuildX")) {
                this.possibleBuildPos = new BlockPos(compound.func_74762_e("BuildX"), compound.func_74762_e("BuildY"), compound.func_74762_e("BuildZ"));
           }
 
-          if (this.possibleBuildPos != null && compound.func_74764_b("Placing")) {
+          if (this.possibleBuildPos != null && compound.hasKey("Placing")) {
                Stack placing = new Stack();
-               NBTTagList list = compound.func_150295_c("Placing", 10);
+               NBTTagList list = compound.getTagList("Placing", 10);
 
-               for(int i = 0; i < list.func_74745_c(); ++i) {
-                    BlockData data = BlockData.getData(list.func_150305_b(i));
+               for(int i = 0; i < list.tagCount(); ++i) {
+                    BlockData data = BlockData.getData(list.getCompoundTagAt(i));
                     if (data != null) {
                          placing.add(data);
                     }

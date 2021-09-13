@@ -29,7 +29,7 @@ public class RenderNPCPony extends RenderNPCInterface {
           ResourceLocation loc = super.getEntityTexture(pony);
           if (check) {
                try {
-                    IResource resource = Minecraft.func_71410_x().func_110442_L().func_110536_a(loc);
+                    IResource resource = Minecraft.getMinecraft().func_110442_L().func_110536_a(loc);
                     BufferedImage bufferedimage = ImageIO.read(resource.func_110527_b());
                     pony.isPegasus = false;
                     pony.isUnicorn = false;

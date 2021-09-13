@@ -120,8 +120,8 @@ public class LinkedNpcController {
                     npc.stats.readToNBT(compound);
                     npc.advanced.readToNBT(compound);
                     npc.inventory.readEntityFromNBT(compound);
-                    if (compound.func_74764_b("ModelData")) {
-                         ((EntityCustomNpc)npc).modelData.readFromNBT(compound.func_74775_l("ModelData"));
+                    if (compound.hasKey("ModelData")) {
+                         ((EntityCustomNpc)npc).modelData.readFromNBT(compound.getCompoundTag("ModelData"));
                     }
 
                     npc.ais.readToNBT(compound);
@@ -160,7 +160,7 @@ public class LinkedNpcController {
           npc.ais.writeToNBT(compound);
           npc.advanced.writeToNBT(compound);
           npc.transform.writeToNBT(compound);
-          compound.func_74782_a("ModelData", ((EntityCustomNpc)npc).modelData.writeToNBT());
+          compound.setTag("ModelData", ((EntityCustomNpc)npc).modelData.writeToNBT());
           return compound;
      }
 
@@ -205,14 +205,14 @@ public class LinkedNpcController {
           }
 
           public void setNBT(NBTTagCompound compound) {
-               this.name = compound.func_74779_i("LinkedName");
-               this.data = compound.func_74775_l("NPCData");
+               this.name = compound.getString("LinkedName");
+               this.data = compound.getCompoundTag("NPCData");
           }
 
           public NBTTagCompound getNBT() {
                NBTTagCompound compound = new NBTTagCompound();
-               compound.func_74778_a("LinkedName", this.name);
-               compound.func_74782_a("NPCData", this.data);
+               compound.setString("LinkedName", this.name);
+               compound.setTag("NPCData", this.data);
                return compound;
           }
      }

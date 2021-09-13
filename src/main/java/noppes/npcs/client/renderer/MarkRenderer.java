@@ -20,27 +20,27 @@ public class MarkRenderer {
      public static int displayList = -1;
 
      public static void render(EntityLivingBase entity, double x, double y, double z, MarkData.Mark mark) {
-          Minecraft mc = Minecraft.func_71410_x();
+          Minecraft mc = Minecraft.getMinecraft();
           GlStateManager.func_179094_E();
           int color = mark.color;
           float red = (float)(color >> 16 & 255) / 255.0F;
           float blue = (float)(color >> 8 & 255) / 255.0F;
           float green = (float)(color & 255) / 255.0F;
           GlStateManager.func_179124_c(red, blue, green);
-          GlStateManager.func_179137_b(x, y + (double)entity.field_70131_O + 0.6D, z);
+          GlStateManager.func_179137_b(x, y + (double)entity.height + 0.6D, z);
           GlStateManager.func_179114_b(-entity.field_70759_as, 0.0F, 1.0F, 0.0F);
           if (mark.type == 2) {
-               Minecraft.func_71410_x().func_110434_K().bindTexture(markExclamation);
+               Minecraft.getMinecraft().func_110434_K().bindTexture(markExclamation);
           } else if (mark.type == 1) {
-               Minecraft.func_71410_x().func_110434_K().bindTexture(markQuestion);
+               Minecraft.getMinecraft().func_110434_K().bindTexture(markQuestion);
           } else if (mark.type == 3) {
-               Minecraft.func_71410_x().func_110434_K().bindTexture(markPointer);
+               Minecraft.getMinecraft().func_110434_K().bindTexture(markPointer);
           } else if (mark.type == 5) {
-               Minecraft.func_71410_x().func_110434_K().bindTexture(markCross);
+               Minecraft.getMinecraft().func_110434_K().bindTexture(markCross);
           } else if (mark.type == 4) {
-               Minecraft.func_71410_x().func_110434_K().bindTexture(markSkull);
+               Minecraft.getMinecraft().func_110434_K().bindTexture(markSkull);
           } else if (mark.type == 6) {
-               Minecraft.func_71410_x().func_110434_K().bindTexture(markStar);
+               Minecraft.getMinecraft().func_110434_K().bindTexture(markStar);
           }
 
           if (displayList >= 0) {

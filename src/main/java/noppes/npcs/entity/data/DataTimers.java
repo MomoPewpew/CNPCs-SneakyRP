@@ -57,23 +57,23 @@ public class DataTimers implements ITimers {
           while(var3.hasNext()) {
                DataTimers.Timer timer = (DataTimers.Timer)var3.next();
                NBTTagCompound c = new NBTTagCompound();
-               c.func_74768_a("ID", timer.id);
-               c.func_74768_a("TimerTicks", timer.id);
+               c.setInteger("ID", timer.id);
+               c.setInteger("TimerTicks", timer.id);
                c.func_74757_a("Repeat", timer.repeat);
-               c.func_74768_a("Ticks", timer.ticks);
-               list.func_74742_a(c);
+               c.setInteger("Ticks", timer.ticks);
+               list.appendTag(c);
           }
 
-          compound.func_74782_a("NpcsTimers", list);
+          compound.setTag("NpcsTimers", list);
      }
 
      public void readFromNBT(NBTTagCompound compound) {
           Map timers = new HashMap();
-          NBTTagList list = compound.func_150295_c("NpcsTimers", 10);
+          NBTTagList list = compound.getTagList("NpcsTimers", 10);
 
-          for(int i = 0; i < list.func_74745_c(); ++i) {
-               NBTTagCompound c = list.func_150305_b(i);
-               DataTimers.Timer t = new DataTimers.Timer(c.func_74762_e("ID"), c.func_74762_e("TimerTicks"), c.func_74767_n("Repeat"));
+          for(int i = 0; i < list.tagCount(); ++i) {
+               NBTTagCompound c = list.getCompoundTagAt(i);
+               DataTimers.Timer t = new DataTimers.Timer(c.func_74762_e("ID"), c.func_74762_e("TimerTicks"), c.getBoolean("Repeat"));
                t.ticks = c.func_74762_e("Ticks");
                timers.put(t.id, t);
           }

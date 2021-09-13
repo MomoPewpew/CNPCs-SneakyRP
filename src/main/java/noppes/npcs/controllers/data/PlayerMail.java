@@ -32,21 +32,21 @@ public class PlayerMail implements IInventory, IPlayerMail {
      }
 
      public void readNBT(NBTTagCompound compound) {
-          this.subject = compound.func_74779_i("Subject");
-          this.sender = compound.func_74779_i("Sender");
+          this.subject = compound.getString("Subject");
+          this.sender = compound.getString("Sender");
           this.time = compound.func_74763_f("Time");
-          this.beenRead = compound.func_74767_n("BeenRead");
-          this.message = compound.func_74775_l("Message");
+          this.beenRead = compound.getBoolean("BeenRead");
+          this.message = compound.getCompoundTag("Message");
           this.timePast = compound.func_74763_f("TimePast");
-          if (compound.func_74764_b("MailQuest")) {
+          if (compound.hasKey("MailQuest")) {
                this.questId = compound.func_74762_e("MailQuest");
           }
 
           this.items.clear();
-          NBTTagList nbttaglist = compound.func_150295_c("MailItems", 10);
+          NBTTagList nbttaglist = compound.getTagList("MailItems", 10);
 
-          for(int i = 0; i < nbttaglist.func_74745_c(); ++i) {
-               NBTTagCompound nbttagcompound1 = nbttaglist.func_150305_b(i);
+          for(int i = 0; i < nbttaglist.tagCount(); ++i) {
+               NBTTagCompound nbttagcompound1 = nbttaglist.getCompoundTagAt(i);
                int j = nbttagcompound1.func_74771_c("Slot") & 255;
                if (j >= 0 && j < this.items.size()) {
                     this.items.set(j, new ItemStack(nbttagcompound1));
@@ -57,15 +57,15 @@ public class PlayerMail implements IInventory, IPlayerMail {
 
      public NBTTagCompound writeNBT() {
           NBTTagCompound compound = new NBTTagCompound();
-          compound.func_74778_a("Subject", this.subject);
-          compound.func_74778_a("Sender", this.sender);
+          compound.setString("Subject", this.subject);
+          compound.setString("Sender", this.sender);
           compound.func_74772_a("Time", this.time);
           compound.func_74757_a("BeenRead", this.beenRead);
-          compound.func_74782_a("Message", this.message);
+          compound.setTag("Message", this.message);
           compound.func_74772_a("TimePast", System.currentTimeMillis() - this.time);
-          compound.func_74768_a("MailQuest", this.questId);
+          compound.setInteger("MailQuest", this.questId);
           if (this.hasQuest()) {
-               compound.func_74778_a("MailQuestTitle", this.getQuest().title);
+               compound.setString("MailQuestTitle", this.getQuest().title);
           }
 
           NBTTagList nbttaglist = new NBTTagList();
@@ -75,11 +75,11 @@ public class PlayerMail implements IInventory, IPlayerMail {
                     NBTTagCompound nbttagcompound1 = new NBTTagCompound();
                     nbttagcompound1.func_74774_a("Slot", (byte)i);
                     ((ItemStack)this.items.get(i)).func_77955_b(nbttagcompound1);
-                    nbttaglist.func_74742_a(nbttagcompound1);
+                    nbttaglist.appendTag(nbttagcompound1);
                }
           }
 
-          compound.func_74782_a("MailItems", nbttaglist);
+          compound.setTag("MailItems", nbttaglist);
           return compound;
      }
 
@@ -207,9 +207,9 @@ public class PlayerMail implements IInventory, IPlayerMail {
 
      public String[] getText() {
           List list = new ArrayList();
-          NBTTagList pages = this.message.func_150295_c("pages", 8);
+          NBTTagList pages = this.message.getTagList("pages", 8);
 
-          for(int i = 0; i < pages.func_74745_c(); ++i) {
+          for(int i = 0; i < pages.tagCount(); ++i) {
                list.add(pages.func_150307_f(i));
           }
 
@@ -224,11 +224,11 @@ public class PlayerMail implements IInventory, IPlayerMail {
 
                for(int var5 = 0; var5 < var4; ++var5) {
                     String page = var3[var5];
-                    list.func_74742_a(new NBTTagString(page));
+                    list.appendTag(new NBTTagString(page));
                }
           }
 
-          this.message.func_74782_a("pages", list);
+          this.message.setTag("pages", list);
      }
 
      public void setQuest(int id) {

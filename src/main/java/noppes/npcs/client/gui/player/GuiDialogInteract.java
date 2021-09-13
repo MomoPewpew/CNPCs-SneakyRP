@@ -61,10 +61,10 @@ public class GuiDialogInteract extends GuiNPCInterface implements IGuiClose {
 
      public void grabMouse(boolean grab) {
           if (grab && !this.isGrabbed) {
-               Minecraft.func_71410_x().field_71417_B.func_74372_a();
+               Minecraft.getMinecraft().field_71417_B.func_74372_a();
                this.isGrabbed = true;
           } else if (!grab && this.isGrabbed) {
-               Minecraft.func_71410_x().field_71417_B.func_74373_b();
+               Minecraft.getMinecraft().field_71417_B.func_74373_b();
                this.isGrabbed = false;
           }
 

@@ -18,7 +18,7 @@ public class CustomGuiTextField extends GuiTextField implements IDataHolder, ICl
      public CustomGuiTextField(int id, int x, int y, int width, int height) {
           int var10003 = GuiCustom.guiLeft + x;
           int var10004 = GuiCustom.guiTop + y;
-          super(id, Minecraft.func_71410_x().fontRenderer, var10003, var10004, width, height);
+          super(id, Minecraft.getMinecraft().fontRenderer, var10003, var10004, width, height);
           this.func_146203_f(500);
      }
 
@@ -48,8 +48,8 @@ public class CustomGuiTextField extends GuiTextField implements IDataHolder, ICl
 
      public NBTTagCompound toNBT() {
           NBTTagCompound tag = new NBTTagCompound();
-          tag.func_74768_a("id", this.field_175208_g);
-          tag.func_74778_a("text", this.field_146216_j);
+          tag.setInteger("id", this.field_175208_g);
+          tag.setString("text", this.field_146216_j);
           return tag;
      }
 

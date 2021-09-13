@@ -87,10 +87,10 @@ public class FactionController implements IFactionHandler {
           HashMap factions = new HashMap();
           NBTTagCompound nbttagcompound1 = CompressedStreamTools.func_74794_a(stream);
           this.lastUsedID = nbttagcompound1.func_74762_e("lastID");
-          NBTTagList list = nbttagcompound1.func_150295_c("NPCFactions", 10);
+          NBTTagList list = nbttagcompound1.getTagList("NPCFactions", 10);
           if (list != null) {
-               for(int i = 0; i < list.func_74745_c(); ++i) {
-                    NBTTagCompound nbttagcompound = list.func_150305_b(i);
+               for(int i = 0; i < list.tagCount(); ++i) {
+                    NBTTagCompound nbttagcompound = list.getCompoundTagAt(i);
                     Faction faction = new Faction();
                     faction.readNBT(nbttagcompound);
                     factions.put(faction.id, faction);
@@ -109,12 +109,12 @@ public class FactionController implements IFactionHandler {
                Faction faction = (Faction)this.factions.get(slot);
                NBTTagCompound nbtfactions = new NBTTagCompound();
                faction.writeNBT(nbtfactions);
-               list.func_74742_a(nbtfactions);
+               list.appendTag(nbtfactions);
           }
 
           NBTTagCompound nbttagcompound = new NBTTagCompound();
-          nbttagcompound.func_74768_a("lastID", this.lastUsedID);
-          nbttagcompound.func_74782_a("NPCFactions", list);
+          nbttagcompound.setInteger("lastID", this.lastUsedID);
+          nbttagcompound.setTag("NPCFactions", list);
           return nbttagcompound;
      }
 

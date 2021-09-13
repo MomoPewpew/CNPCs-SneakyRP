@@ -138,11 +138,11 @@ public class GuiFaction extends GuiNPCInterface implements IGuiData {
 
      public void setGuiData(NBTTagCompound compound) {
           this.playerFactions = new ArrayList();
-          NBTTagList list = compound.func_150295_c("FactionList", 10);
+          NBTTagList list = compound.getTagList("FactionList", 10);
 
-          for(int i = 0; i < list.func_74745_c(); ++i) {
+          for(int i = 0; i < list.tagCount(); ++i) {
                Faction faction = new Faction();
-               faction.readNBT(list.func_150305_b(i));
+               faction.readNBT(list.getCompoundTagAt(i));
                this.playerFactions.add(faction);
           }
 

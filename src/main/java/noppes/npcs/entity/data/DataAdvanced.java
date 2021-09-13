@@ -61,63 +61,63 @@ public class DataAdvanced implements INPCAdvanced {
      }
 
      public NBTTagCompound writeToNBT(NBTTagCompound compound) {
-          compound.func_74782_a("NpcLines", this.worldLines.writeToNBT());
-          compound.func_74782_a("NpcKilledLines", this.killedLines.writeToNBT());
-          compound.func_74782_a("NpcInteractLines", this.interactLines.writeToNBT());
-          compound.func_74782_a("NpcAttackLines", this.attackLines.writeToNBT());
-          compound.func_74782_a("NpcKillLines", this.killLines.writeToNBT());
-          compound.func_74782_a("NpcInteractNPCLines", this.npcInteractLines.writeToNBT());
+          compound.setTag("NpcLines", this.worldLines.writeToNBT());
+          compound.setTag("NpcKilledLines", this.killedLines.writeToNBT());
+          compound.setTag("NpcInteractLines", this.interactLines.writeToNBT());
+          compound.setTag("NpcAttackLines", this.attackLines.writeToNBT());
+          compound.setTag("NpcKillLines", this.killLines.writeToNBT());
+          compound.setTag("NpcInteractNPCLines", this.npcInteractLines.writeToNBT());
           compound.func_74757_a("OrderedLines", this.orderedLines);
-          compound.func_74778_a("NpcIdleSound", this.idleSound);
-          compound.func_74778_a("NpcAngrySound", this.angrySound);
-          compound.func_74778_a("NpcHurtSound", this.hurtSound);
-          compound.func_74778_a("NpcDeathSound", this.deathSound);
-          compound.func_74778_a("NpcStepSound", this.stepSound);
-          compound.func_74768_a("FactionID", this.npc.getFaction().id);
+          compound.setString("NpcIdleSound", this.idleSound);
+          compound.setString("NpcAngrySound", this.angrySound);
+          compound.setString("NpcHurtSound", this.hurtSound);
+          compound.setString("NpcDeathSound", this.deathSound);
+          compound.setString("NpcStepSound", this.stepSound);
+          compound.setInteger("FactionID", this.npc.getFaction().id);
           compound.func_74757_a("AttackOtherFactions", this.attackOtherFactions);
           compound.func_74757_a("DefendFaction", this.defendFaction);
           compound.func_74757_a("DisablePitch", this.disablePitch);
-          compound.func_74768_a("Role", this.role);
-          compound.func_74768_a("NpcJob", this.job);
-          compound.func_74782_a("FactionPoints", this.factions.writeToNBT(new NBTTagCompound()));
-          compound.func_74782_a("NPCDialogOptions", this.nbtDialogs(this.npc.dialogs));
-          compound.func_74782_a("NpcScenes", this.scenes.writeToNBT(new NBTTagCompound()));
+          compound.setInteger("Role", this.role);
+          compound.setInteger("NpcJob", this.job);
+          compound.setTag("FactionPoints", this.factions.writeToNBT(new NBTTagCompound()));
+          compound.setTag("NPCDialogOptions", this.nbtDialogs(this.npc.dialogs));
+          compound.setTag("NpcScenes", this.scenes.writeToNBT(new NBTTagCompound()));
           return compound;
      }
 
      public void readToNBT(NBTTagCompound compound) {
-          this.interactLines.readNBT(compound.func_74775_l("NpcInteractLines"));
-          this.worldLines.readNBT(compound.func_74775_l("NpcLines"));
-          this.attackLines.readNBT(compound.func_74775_l("NpcAttackLines"));
-          this.killedLines.readNBT(compound.func_74775_l("NpcKilledLines"));
-          this.killLines.readNBT(compound.func_74775_l("NpcKillLines"));
-          this.npcInteractLines.readNBT(compound.func_74775_l("NpcInteractNPCLines"));
-          this.orderedLines = compound.func_74767_n("OrderedLines");
-          this.idleSound = compound.func_74779_i("NpcIdleSound");
-          this.angrySound = compound.func_74779_i("NpcAngrySound");
-          this.hurtSound = compound.func_74779_i("NpcHurtSound");
-          this.deathSound = compound.func_74779_i("NpcDeathSound");
-          this.stepSound = compound.func_74779_i("NpcStepSound");
+          this.interactLines.readNBT(compound.getCompoundTag("NpcInteractLines"));
+          this.worldLines.readNBT(compound.getCompoundTag("NpcLines"));
+          this.attackLines.readNBT(compound.getCompoundTag("NpcAttackLines"));
+          this.killedLines.readNBT(compound.getCompoundTag("NpcKilledLines"));
+          this.killLines.readNBT(compound.getCompoundTag("NpcKillLines"));
+          this.npcInteractLines.readNBT(compound.getCompoundTag("NpcInteractNPCLines"));
+          this.orderedLines = compound.getBoolean("OrderedLines");
+          this.idleSound = compound.getString("NpcIdleSound");
+          this.angrySound = compound.getString("NpcAngrySound");
+          this.hurtSound = compound.getString("NpcHurtSound");
+          this.deathSound = compound.getString("NpcDeathSound");
+          this.stepSound = compound.getString("NpcStepSound");
           this.npc.setFaction(compound.func_74762_e("FactionID"));
           this.npc.faction = this.npc.getFaction();
-          this.attackOtherFactions = compound.func_74767_n("AttackOtherFactions");
-          this.defendFaction = compound.func_74767_n("DefendFaction");
-          this.disablePitch = compound.func_74767_n("DisablePitch");
+          this.attackOtherFactions = compound.getBoolean("AttackOtherFactions");
+          this.defendFaction = compound.getBoolean("DefendFaction");
+          this.disablePitch = compound.getBoolean("DisablePitch");
           this.setRole(compound.func_74762_e("Role"));
           this.setJob(compound.func_74762_e("NpcJob"));
-          this.factions.readFromNBT(compound.func_74775_l("FactionPoints"));
-          this.npc.dialogs = this.getDialogs(compound.func_150295_c("NPCDialogOptions", 10));
-          this.scenes.readFromNBT(compound.func_74775_l("NpcScenes"));
+          this.factions.readFromNBT(compound.getCompoundTag("FactionPoints"));
+          this.npc.dialogs = this.getDialogs(compound.getTagList("NPCDialogOptions", 10));
+          this.scenes.readFromNBT(compound.getCompoundTag("NpcScenes"));
      }
 
      private HashMap getDialogs(NBTTagList tagList) {
           HashMap map = new HashMap();
 
-          for(int i = 0; i < tagList.func_74745_c(); ++i) {
-               NBTTagCompound nbttagcompound = tagList.func_150305_b(i);
+          for(int i = 0; i < tagList.tagCount(); ++i) {
+               NBTTagCompound nbttagcompound = tagList.getCompoundTagAt(i);
                int slot = nbttagcompound.func_74762_e("DialogSlot");
                DialogOption option = new DialogOption();
-               option.readNBT(nbttagcompound.func_74775_l("NPCDialog"));
+               option.readNBT(nbttagcompound.getCompoundTag("NPCDialog"));
                option.optionType = 1;
                map.put(slot, option);
           }
@@ -132,9 +132,9 @@ public class DataAdvanced implements INPCAdvanced {
           while(var3.hasNext()) {
                int slot = (Integer)var3.next();
                NBTTagCompound nbttagcompound = new NBTTagCompound();
-               nbttagcompound.func_74768_a("DialogSlot", slot);
-               nbttagcompound.func_74782_a("NPCDialog", ((DialogOption)dialogs2.get(slot)).writeNBT());
-               nbttaglist.func_74742_a(nbttagcompound);
+               nbttagcompound.setInteger("DialogSlot", slot);
+               nbttagcompound.setTag("NPCDialog", ((DialogOption)dialogs2.get(slot)).writeNBT());
+               nbttaglist.appendTag(nbttagcompound);
           }
 
           return nbttaglist;

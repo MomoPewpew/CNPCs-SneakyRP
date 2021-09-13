@@ -10,9 +10,9 @@ public class TileNpcEntity extends TileEntity {
 
      public void func_145839_a(NBTTagCompound compound) {
           super.func_145839_a(compound);
-          NBTTagCompound extraData = compound.func_74775_l("ExtraData");
+          NBTTagCompound extraData = compound.getCompoundTag("ExtraData");
           if (extraData.func_186856_d() > 0) {
-               this.getTileData().func_74782_a("CustomNPCsData", extraData);
+               this.getTileData().setTag("CustomNPCsData", extraData);
           }
 
      }

@@ -124,7 +124,7 @@ public class GuiNpcPather extends GuiNPCInterface implements IGuiData {
 
      public void save() {
           NBTTagCompound compound = new NBTTagCompound();
-          compound.func_74782_a("MovingPathNew", NBTTags.nbtIntegerArraySet(this.ai.getMovingPath()));
+          compound.setTag("MovingPathNew", NBTTags.nbtIntegerArraySet(this.ai.getMovingPath()));
           Client.sendData(EnumPacketServer.MovingPathSave, compound);
      }
 

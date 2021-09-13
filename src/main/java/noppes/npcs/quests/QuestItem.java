@@ -23,14 +23,14 @@ public class QuestItem extends QuestInterface {
      public boolean ignoreNBT = false;
 
      public void readEntityFromNBT(NBTTagCompound compound) {
-          this.items.setFromNBT(compound.func_74775_l("Items"));
-          this.leaveItems = compound.func_74767_n("LeaveItems");
-          this.ignoreDamage = compound.func_74767_n("IgnoreDamage");
-          this.ignoreNBT = compound.func_74767_n("IgnoreNBT");
+          this.items.setFromNBT(compound.getCompoundTag("Items"));
+          this.leaveItems = compound.getBoolean("LeaveItems");
+          this.ignoreDamage = compound.getBoolean("IgnoreDamage");
+          this.ignoreNBT = compound.getBoolean("IgnoreNBT");
      }
 
      public void writeEntityToNBT(NBTTagCompound compound) {
-          compound.func_74782_a("Items", this.items.getToNBT());
+          compound.setTag("Items", this.items.getToNBT());
           compound.func_74757_a("LeaveItems", this.leaveItems);
           compound.func_74757_a("IgnoreDamage", this.ignoreDamage);
           compound.func_74757_a("IgnoreNBT", this.ignoreNBT);

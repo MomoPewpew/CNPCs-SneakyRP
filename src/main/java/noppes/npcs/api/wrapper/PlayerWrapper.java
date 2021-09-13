@@ -72,17 +72,17 @@ public class PlayerWrapper extends EntityLivingBaseWrapper implements IPlayer {
                if (value instanceof Number) {
                     compound.func_74780_a(key, ((Number)value).doubleValue());
                } else if (value instanceof String) {
-                    compound.func_74778_a(key, (String)value);
+                    compound.setString(key, (String)value);
                }
 
           }
 
           public Object get(String key) {
                NBTTagCompound compound = this.getStoredCompound();
-               if (!compound.func_74764_b(key)) {
+               if (!compound.hasKey(key)) {
                     return null;
                } else {
-                    NBTBase base = compound.func_74781_a(key);
+                    NBTBase base = compound.getTag(key);
                     return base instanceof NBTPrimitive ? ((NBTPrimitive)base).func_150286_g() : ((NBTTagString)base).func_150285_a_();
                }
           }
@@ -93,7 +93,7 @@ public class PlayerWrapper extends EntityLivingBaseWrapper implements IPlayer {
           }
 
           public boolean has(String key) {
-               return this.getStoredCompound().func_74764_b(key);
+               return this.getStoredCompound().hasKey(key);
           }
 
           public void clear() {
@@ -108,7 +108,7 @@ public class PlayerWrapper extends EntityLivingBaseWrapper implements IPlayer {
 
           public String[] getKeys() {
                NBTTagCompound compound = this.getStoredCompound();
-               return (String[])compound.func_150296_c().toArray(new String[compound.func_150296_c().size()]);
+               return (String[])compound.getKeySet().toArray(new String[compound.getKeySet().size()]);
           }
      };
      private PlayerData data;
@@ -305,7 +305,7 @@ public class PlayerWrapper extends EntityLivingBaseWrapper implements IPlayer {
      }
 
      public int inventoryItemCount(String id, int damage) {
-          Item item = (Item)Item.field_150901_e.func_82594_a(new ResourceLocation(id));
+          Item item = (Item)Item.field_150901_e.getObject(new ResourceLocation(id));
           if (item == null) {
                throw new CustomNPCsException("Unknown item id: " + id, new Object[0]);
           } else {
@@ -349,7 +349,7 @@ public class PlayerWrapper extends EntityLivingBaseWrapper implements IPlayer {
      }
 
      public boolean removeItem(String id, int damage, int amount) {
-          Item item = (Item)Item.field_150901_e.func_82594_a(new ResourceLocation(id));
+          Item item = (Item)Item.field_150901_e.getObject(new ResourceLocation(id));
           if (item == null) {
                throw new CustomNPCsException("Unknown item id: " + id, new Object[0]);
           } else {
@@ -373,7 +373,7 @@ public class PlayerWrapper extends EntityLivingBaseWrapper implements IPlayer {
      }
 
      public boolean giveItem(String id, int damage, int amount) {
-          Item item = (Item)Item.field_150901_e.func_82594_a(new ResourceLocation(id));
+          Item item = (Item)Item.field_150901_e.getObject(new ResourceLocation(id));
           if (item == null) {
                return false;
           } else {

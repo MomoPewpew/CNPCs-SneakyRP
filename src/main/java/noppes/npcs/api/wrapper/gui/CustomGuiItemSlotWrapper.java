@@ -46,7 +46,7 @@ public class CustomGuiItemSlotWrapper extends CustomGuiComponentWrapper implemen
      public NBTTagCompound toNBT(NBTTagCompound nbt) {
           super.toNBT(nbt);
           if (this.hasStack()) {
-               nbt.func_74782_a("stack", this.stack.getItemNbt().getMCNBT());
+               nbt.setTag("stack", this.stack.getItemNbt().getMCNBT());
           }
 
           return nbt;
@@ -54,8 +54,8 @@ public class CustomGuiItemSlotWrapper extends CustomGuiComponentWrapper implemen
 
      public CustomGuiComponentWrapper fromNBT(NBTTagCompound nbt) {
           super.fromNBT(nbt);
-          if (nbt.func_74764_b("stack")) {
-               this.setStack(NpcAPI.Instance().getIItemStack(new ItemStack(nbt.func_74775_l("stack"))));
+          if (nbt.hasKey("stack")) {
+               this.setStack(NpcAPI.Instance().getIItemStack(new ItemStack(nbt.getCompoundTag("stack"))));
           }
 
           return this;

@@ -47,7 +47,7 @@ public class TrueTypeFont {
      }
 
      public TrueTypeFont(ResourceLocation resource, int fontSize, float scale) throws IOException, FontFormatException {
-          InputStream stream = Minecraft.func_71410_x().func_110442_L().func_110536_a(resource).func_110527_b();
+          InputStream stream = Minecraft.getMinecraft().func_110442_L().func_110536_a(resource).func_110527_b();
           GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
           Font font = Font.createFont(0, stream);
           ge.registerFont(font);
@@ -110,7 +110,7 @@ public class TrueTypeFont {
                               TrueTypeFont.Glyph g = new TrueTypeFont.Glyph();
                               if (index < 16) {
                                    g.type = TrueTypeFont.GlyphType.COLOR;
-                                   g.color = Minecraft.func_71410_x().fontRenderer.func_175064_b(next);
+                                   g.color = Minecraft.getMinecraft().fontRenderer.func_175064_b(next);
                               } else if (index == 16) {
                                    g.type = TrueTypeFont.GlyphType.RANDOM;
                               } else if (index == 17) {

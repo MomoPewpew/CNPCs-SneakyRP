@@ -26,11 +26,11 @@ public class RenderProjectile extends Render {
      private static final ResourceLocation field_110798_h = new ResourceLocation("textures/misc/enchanted_item_glint.png");
 
      public RenderProjectile() {
-          super(Minecraft.func_71410_x().func_175598_ae());
+          super(Minecraft.getMinecraft().func_175598_ae());
      }
 
      public void doRenderProjectile(EntityProjectile projectile, double x, double y, double z, float entityYaw, float partialTicks) {
-          Minecraft mc = Minecraft.func_71410_x();
+          Minecraft mc = Minecraft.getMinecraft();
           GlStateManager.func_179094_E();
           GlStateManager.func_179109_b((float)x, (float)y, (float)z);
           GlStateManager.enableRescaleNormal();

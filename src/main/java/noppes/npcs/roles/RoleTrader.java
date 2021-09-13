@@ -32,7 +32,7 @@ public class RoleTrader extends RoleInterface implements IRoleTrader {
      }
 
      public NBTTagCompound writeToNBT(NBTTagCompound nbttagcompound) {
-          nbttagcompound.func_74778_a("TraderMarket", this.marketName);
+          nbttagcompound.setString("TraderMarket", this.marketName);
           this.writeNBT(nbttagcompound);
           if (this.toSave && !this.npc.isRemote()) {
                save(this, this.marketName);
@@ -43,23 +43,23 @@ public class RoleTrader extends RoleInterface implements IRoleTrader {
      }
 
      public NBTTagCompound writeNBT(NBTTagCompound nbttagcompound) {
-          nbttagcompound.func_74782_a("TraderCurrency", this.inventoryCurrency.getToNBT());
-          nbttagcompound.func_74782_a("TraderSold", this.inventorySold.getToNBT());
+          nbttagcompound.setTag("TraderCurrency", this.inventoryCurrency.getToNBT());
+          nbttagcompound.setTag("TraderSold", this.inventorySold.getToNBT());
           nbttagcompound.func_74757_a("TraderIgnoreDamage", this.ignoreDamage);
           nbttagcompound.func_74757_a("TraderIgnoreNBT", this.ignoreNBT);
           return nbttagcompound;
      }
 
      public void readFromNBT(NBTTagCompound nbttagcompound) {
-          this.marketName = nbttagcompound.func_74779_i("TraderMarket");
+          this.marketName = nbttagcompound.getString("TraderMarket");
           this.readNBT(nbttagcompound);
      }
 
      public void readNBT(NBTTagCompound nbttagcompound) {
-          this.inventoryCurrency.setFromNBT(nbttagcompound.func_74775_l("TraderCurrency"));
-          this.inventorySold.setFromNBT(nbttagcompound.func_74775_l("TraderSold"));
-          this.ignoreDamage = nbttagcompound.func_74767_n("TraderIgnoreDamage");
-          this.ignoreNBT = nbttagcompound.func_74767_n("TraderIgnoreNBT");
+          this.inventoryCurrency.setFromNBT(nbttagcompound.getCompoundTag("TraderCurrency"));
+          this.inventorySold.setFromNBT(nbttagcompound.getCompoundTag("TraderSold"));
+          this.ignoreDamage = nbttagcompound.getBoolean("TraderIgnoreDamage");
+          this.ignoreNBT = nbttagcompound.getBoolean("TraderIgnoreNBT");
      }
 
      public void interact(EntityPlayer player) {

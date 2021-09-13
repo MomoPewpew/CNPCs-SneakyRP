@@ -22,8 +22,8 @@ public class EntityCustomNpc extends EntityNPCFlying {
      }
 
      public void func_70037_a(NBTTagCompound compound) {
-          if (compound.func_74764_b("NpcModelData")) {
-               this.modelData.readFromNBT(compound.func_74775_l("NpcModelData"));
+          if (compound.hasKey("NpcModelData")) {
+               this.modelData.readFromNBT(compound.getCompoundTag("NpcModelData"));
           }
 
           super.func_70037_a(compound);
@@ -31,7 +31,7 @@ public class EntityCustomNpc extends EntityNPCFlying {
 
      public void func_70014_b(NBTTagCompound compound) {
           super.func_70014_b(compound);
-          compound.func_74782_a("NpcModelData", this.modelData.writeToNBT());
+          compound.setTag("NpcModelData", this.modelData.writeToNBT());
      }
 
      public boolean func_70039_c(NBTTagCompound compound) {
@@ -39,7 +39,7 @@ public class EntityCustomNpc extends EntityNPCFlying {
           if (bo) {
                String s = this.func_70022_Q();
                if (s.equals("minecraft:customnpcs.customnpc")) {
-                    compound.func_74778_a("id", "customnpcs:customnpc");
+                    compound.setString("id", "customnpcs:customnpc");
                }
           }
 
@@ -82,13 +82,13 @@ public class EntityCustomNpc extends EntityNPCFlying {
                }
 
                this.field_70130_N = entity.field_70130_N / 5.0F * (float)this.display.getSize();
-               this.field_70131_O = entity.field_70131_O / 5.0F * (float)this.display.getSize();
+               this.height = entity.height / 5.0F * (float)this.display.getSize();
                if (this.field_70130_N < 0.1F) {
                     this.field_70130_N = 0.1F;
                }
 
-               if (this.field_70131_O < 0.1F) {
-                    this.field_70131_O = 0.1F;
+               if (this.height < 0.1F) {
+                    this.height = 0.1F;
                }
 
                if (!this.display.getHasHitbox() || this.isKilled() && this.stats.hideKilledBody) {

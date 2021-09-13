@@ -19,12 +19,12 @@ public class JobFollower extends JobInterface implements IJobFollower {
      }
 
      public NBTTagCompound writeToNBT(NBTTagCompound compound) {
-          compound.func_74778_a("FollowingEntityName", this.name);
+          compound.setString("FollowingEntityName", this.name);
           return compound;
      }
 
      public void readFromNBT(NBTTagCompound compound) {
-          this.name = compound.func_74779_i("FollowingEntityName");
+          this.name = compound.getString("FollowingEntityName");
      }
 
      public boolean aiShouldExecute() {

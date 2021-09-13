@@ -52,52 +52,52 @@ public class JobSpawner extends JobInterface implements IJobSpawner {
           this.saveCompound(this.compound4, "SpawnerNBT4", compound);
           this.saveCompound(this.compound5, "SpawnerNBT5", compound);
           this.saveCompound(this.compound6, "SpawnerNBT6", compound);
-          compound.func_74778_a("SpawnerId", this.id);
+          compound.setString("SpawnerId", this.id);
           compound.func_74757_a("SpawnerDoesntDie", this.doesntDie);
-          compound.func_74768_a("SpawnerType", this.spawnType);
-          compound.func_74768_a("SpawnerXOffset", this.xOffset);
-          compound.func_74768_a("SpawnerYOffset", this.yOffset);
-          compound.func_74768_a("SpawnerZOffset", this.zOffset);
+          compound.setInteger("SpawnerType", this.spawnType);
+          compound.setInteger("SpawnerXOffset", this.xOffset);
+          compound.setInteger("SpawnerYOffset", this.yOffset);
+          compound.setInteger("SpawnerZOffset", this.zOffset);
           compound.func_74757_a("DespawnOnTargetLost", this.despawnOnTargetLost);
           return compound;
      }
 
      public NBTTagCompound getTitles() {
           NBTTagCompound compound = new NBTTagCompound();
-          compound.func_74778_a("Title1", this.getTitle(this.compound1));
-          compound.func_74778_a("Title2", this.getTitle(this.compound2));
-          compound.func_74778_a("Title3", this.getTitle(this.compound3));
-          compound.func_74778_a("Title4", this.getTitle(this.compound4));
-          compound.func_74778_a("Title5", this.getTitle(this.compound5));
-          compound.func_74778_a("Title6", this.getTitle(this.compound6));
+          compound.setString("Title1", this.getTitle(this.compound1));
+          compound.setString("Title2", this.getTitle(this.compound2));
+          compound.setString("Title3", this.getTitle(this.compound3));
+          compound.setString("Title4", this.getTitle(this.compound4));
+          compound.setString("Title5", this.getTitle(this.compound5));
+          compound.setString("Title6", this.getTitle(this.compound6));
           return compound;
      }
 
      private String getTitle(NBTTagCompound compound) {
-          return compound != null && compound.func_74764_b("ClonedName") ? compound.func_74779_i("ClonedName") : "gui.selectnpc";
+          return compound != null && compound.hasKey("ClonedName") ? compound.getString("ClonedName") : "gui.selectnpc";
      }
 
      private void saveCompound(NBTTagCompound save, String name, NBTTagCompound compound) {
           if (save != null) {
-               compound.func_74782_a(name, save);
+               compound.setTag(name, save);
           }
 
      }
 
      public void readFromNBT(NBTTagCompound compound) {
-          this.compound1 = compound.func_74775_l("SpawnerNBT1");
-          this.compound2 = compound.func_74775_l("SpawnerNBT2");
-          this.compound3 = compound.func_74775_l("SpawnerNBT3");
-          this.compound4 = compound.func_74775_l("SpawnerNBT4");
-          this.compound5 = compound.func_74775_l("SpawnerNBT5");
-          this.compound6 = compound.func_74775_l("SpawnerNBT6");
-          this.id = compound.func_74779_i("SpawnerId");
-          this.doesntDie = compound.func_74767_n("SpawnerDoesntDie");
+          this.compound1 = compound.getCompoundTag("SpawnerNBT1");
+          this.compound2 = compound.getCompoundTag("SpawnerNBT2");
+          this.compound3 = compound.getCompoundTag("SpawnerNBT3");
+          this.compound4 = compound.getCompoundTag("SpawnerNBT4");
+          this.compound5 = compound.getCompoundTag("SpawnerNBT5");
+          this.compound6 = compound.getCompoundTag("SpawnerNBT6");
+          this.id = compound.getString("SpawnerId");
+          this.doesntDie = compound.getBoolean("SpawnerDoesntDie");
           this.spawnType = compound.func_74762_e("SpawnerType");
           this.xOffset = compound.func_74762_e("SpawnerXOffset");
           this.yOffset = compound.func_74762_e("SpawnerYOffset");
           this.zOffset = compound.func_74762_e("SpawnerZOffset");
-          this.despawnOnTargetLost = compound.func_74767_n("DespawnOnTargetLost");
+          this.despawnOnTargetLost = compound.getBoolean("DespawnOnTargetLost");
      }
 
      public void cleanCompound(NBTTagCompound compound) {
@@ -158,27 +158,27 @@ public class JobSpawner extends JobInterface implements IJobSpawner {
 
                if (this.spawnType == 2) {
                     ArrayList list = new ArrayList();
-                    if (this.compound1 != null && this.compound1.func_74764_b("id")) {
+                    if (this.compound1 != null && this.compound1.hasKey("id")) {
                          list.add(this.compound1);
                     }
 
-                    if (this.compound2 != null && this.compound2.func_74764_b("id")) {
+                    if (this.compound2 != null && this.compound2.hasKey("id")) {
                          list.add(this.compound2);
                     }
 
-                    if (this.compound3 != null && this.compound3.func_74764_b("id")) {
+                    if (this.compound3 != null && this.compound3.hasKey("id")) {
                          list.add(this.compound3);
                     }
 
-                    if (this.compound4 != null && this.compound4.func_74764_b("id")) {
+                    if (this.compound4 != null && this.compound4.hasKey("id")) {
                          list.add(this.compound4);
                     }
 
-                    if (this.compound5 != null && this.compound5.func_74764_b("id")) {
+                    if (this.compound5 != null && this.compound5.hasKey("id")) {
                          list.add(this.compound5);
                     }
 
-                    if (this.compound6 != null && this.compound6.func_74764_b("id")) {
+                    if (this.compound6 != null && this.compound6.hasKey("id")) {
                          list.add(this.compound6);
                     }
 
@@ -259,18 +259,18 @@ public class JobSpawner extends JobInterface implements IJobSpawner {
      }
 
      private boolean isEmpty() {
-          if (this.compound1 != null && this.compound1.func_74764_b("id")) {
+          if (this.compound1 != null && this.compound1.hasKey("id")) {
                return false;
-          } else if (this.compound2 != null && this.compound2.func_74764_b("id")) {
+          } else if (this.compound2 != null && this.compound2.hasKey("id")) {
                return false;
-          } else if (this.compound3 != null && this.compound3.func_74764_b("id")) {
+          } else if (this.compound3 != null && this.compound3.hasKey("id")) {
                return false;
-          } else if (this.compound4 != null && this.compound4.func_74764_b("id")) {
+          } else if (this.compound4 != null && this.compound4.hasKey("id")) {
                return false;
-          } else if (this.compound5 != null && this.compound5.func_74764_b("id")) {
+          } else if (this.compound5 != null && this.compound5.hasKey("id")) {
                return false;
           } else {
-               return this.compound6 == null || !this.compound6.func_74764_b("id");
+               return this.compound6 == null || !this.compound6.hasKey("id");
           }
      }
 
@@ -337,15 +337,15 @@ public class JobSpawner extends JobInterface implements IJobSpawner {
      }
 
      private EntityLivingBase spawnEntity(NBTTagCompound compound) {
-          if (compound != null && compound.func_74764_b("id")) {
+          if (compound != null && compound.hasKey("id")) {
                double x = this.npc.field_70165_t + (double)this.xOffset - 0.5D + (double)this.npc.func_70681_au().nextFloat();
                double y = this.npc.field_70163_u + (double)this.yOffset;
                double z = this.npc.field_70161_v + (double)this.zOffset - 0.5D + (double)this.npc.func_70681_au().nextFloat();
                Entity entity = NoppesUtilServer.spawnClone(compound, x, y, z, this.npc.world);
                if (entity != null && entity instanceof EntityLivingBase) {
                     EntityLivingBase living = (EntityLivingBase)entity;
-                    living.getEntityData().func_74778_a("NpcSpawnerId", this.id);
-                    living.getEntityData().func_74768_a("NpcSpawnerNr", this.number);
+                    living.getEntityData().setString("NpcSpawnerId", this.id);
+                    living.getEntityData().setInteger("NpcSpawnerNr", this.number);
                     this.setTarget(living, this.npc.func_70638_az());
                     living.func_70107_b(x, y, z);
                     if (living instanceof EntityNPCInterface) {
@@ -366,22 +366,22 @@ public class JobSpawner extends JobInterface implements IJobSpawner {
      }
 
      private NBTTagCompound getCompound(int i) {
-          if (i <= 1 && this.compound1 != null && this.compound1.func_74764_b("id")) {
+          if (i <= 1 && this.compound1 != null && this.compound1.hasKey("id")) {
                this.number = 1;
                return this.compound1;
-          } else if (i <= 2 && this.compound2 != null && this.compound2.func_74764_b("id")) {
+          } else if (i <= 2 && this.compound2 != null && this.compound2.hasKey("id")) {
                this.number = 2;
                return this.compound2;
-          } else if (i <= 3 && this.compound3 != null && this.compound3.func_74764_b("id")) {
+          } else if (i <= 3 && this.compound3 != null && this.compound3.hasKey("id")) {
                this.number = 3;
                return this.compound3;
-          } else if (i <= 4 && this.compound4 != null && this.compound4.func_74764_b("id")) {
+          } else if (i <= 4 && this.compound4 != null && this.compound4.hasKey("id")) {
                this.number = 4;
                return this.compound4;
-          } else if (i <= 5 && this.compound5 != null && this.compound5.func_74764_b("id")) {
+          } else if (i <= 5 && this.compound5 != null && this.compound5.hasKey("id")) {
                this.number = 5;
                return this.compound5;
-          } else if (i <= 6 && this.compound6 != null && this.compound6.func_74764_b("id")) {
+          } else if (i <= 6 && this.compound6 != null && this.compound6.hasKey("id")) {
                this.number = 6;
                return this.compound6;
           } else {
@@ -396,7 +396,7 @@ public class JobSpawner extends JobInterface implements IJobSpawner {
 
           while(var3.hasNext()) {
                EntityLivingBase entity = (EntityLivingBase)var3.next();
-               if (entity.getEntityData().func_74779_i("NpcSpawnerId").equals(this.id) && !entity.field_70128_L) {
+               if (entity.getEntityData().getString("NpcSpawnerId").equals(this.id) && !entity.field_70128_L) {
                     spawnList.add(entity);
                }
           }
@@ -414,7 +414,7 @@ public class JobSpawner extends JobInterface implements IJobSpawner {
      }
 
      public boolean hasPixelmon() {
-          return this.compound1 != null && this.compound1.func_74779_i("id").equals("pixelmontainer");
+          return this.compound1 != null && this.compound1.getString("id").equals("pixelmontainer");
      }
 
      public IEntityLivingBase spawnEntity(int i) {

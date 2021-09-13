@@ -114,16 +114,16 @@ public class CustomGuiButtonWrapper extends CustomGuiComponentWrapper implements
      public NBTTagCompound toNBT(NBTTagCompound nbt) {
           super.toNBT(nbt);
           if (this.width > 0 && this.height > 0) {
-               nbt.func_74783_a("size", new int[]{this.width, this.height});
+               nbt.setIntArray("size", new int[]{this.width, this.height});
           }
 
-          nbt.func_74778_a("label", this.label);
+          nbt.setString("label", this.label);
           if (this.hasTexture()) {
-               nbt.func_74778_a("texture", this.texture);
+               nbt.setString("texture", this.texture);
           }
 
           if (this.textureX >= 0 && this.textureY >= 0) {
-               nbt.func_74783_a("texPos", new int[]{this.textureX, this.textureY});
+               nbt.setIntArray("texPos", new int[]{this.textureX, this.textureY});
           }
 
           return nbt;
@@ -131,16 +131,16 @@ public class CustomGuiButtonWrapper extends CustomGuiComponentWrapper implements
 
      public CustomGuiComponentWrapper fromNBT(NBTTagCompound nbt) {
           super.fromNBT(nbt);
-          if (nbt.func_74764_b("size")) {
+          if (nbt.hasKey("size")) {
                this.setSize(nbt.func_74759_k("size")[0], nbt.func_74759_k("size")[1]);
           }
 
-          this.setLabel(nbt.func_74779_i("label"));
-          if (nbt.func_74764_b("texture")) {
-               this.setTexture(nbt.func_74779_i("texture"));
+          this.setLabel(nbt.getString("label"));
+          if (nbt.hasKey("texture")) {
+               this.setTexture(nbt.getString("texture"));
           }
 
-          if (nbt.func_74764_b("texPos")) {
+          if (nbt.hasKey("texPos")) {
                this.setTextureOffset(nbt.func_74759_k("texPos")[0], nbt.func_74759_k("texPos")[1]);
           }
 

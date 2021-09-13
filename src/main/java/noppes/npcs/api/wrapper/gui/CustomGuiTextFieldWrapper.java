@@ -46,9 +46,9 @@ public class CustomGuiTextFieldWrapper extends CustomGuiComponentWrapper impleme
 
      public NBTTagCompound toNBT(NBTTagCompound nbt) {
           super.toNBT(nbt);
-          nbt.func_74783_a("size", new int[]{this.width, this.height});
+          nbt.setIntArray("size", new int[]{this.width, this.height});
           if (this.defaultText != null && !this.defaultText.isEmpty()) {
-               nbt.func_74778_a("default", this.defaultText);
+               nbt.setString("default", this.defaultText);
           }
 
           return nbt;
@@ -57,8 +57,8 @@ public class CustomGuiTextFieldWrapper extends CustomGuiComponentWrapper impleme
      public CustomGuiComponentWrapper fromNBT(NBTTagCompound nbt) {
           super.fromNBT(nbt);
           this.setSize(nbt.func_74759_k("size")[0], nbt.func_74759_k("size")[1]);
-          if (nbt.func_74764_b("default")) {
-               this.setText(nbt.func_74779_i("default"));
+          if (nbt.hasKey("default")) {
+               this.setText(nbt.getString("default"));
           }
 
           return this;

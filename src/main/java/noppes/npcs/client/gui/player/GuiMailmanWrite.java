@@ -50,7 +50,7 @@ public class GuiMailmanWrite extends GuiContainerNPCInterface implements ITextfi
      private boolean hasSend = false;
      public static GuiScreen parent;
      public static PlayerMail mail = new PlayerMail();
-     private Minecraft mc = Minecraft.func_71410_x();
+     private Minecraft mc = Minecraft.getMinecraft();
      private String username = "";
      private GuiNpcLabel error;
 
@@ -59,19 +59,19 @@ public class GuiMailmanWrite extends GuiContainerNPCInterface implements ITextfi
           this.title = "";
           this.canEdit = canEdit;
           this.canSend = canSend;
-          if (mail.message.func_74764_b("pages")) {
-               this.bookPages = mail.message.func_150295_c("pages", 8);
+          if (mail.message.hasKey("pages")) {
+               this.bookPages = mail.message.getTagList("pages", 8);
           }
 
           if (this.bookPages != null) {
                this.bookPages = this.bookPages.func_74737_b();
-               this.bookTotalPages = this.bookPages.func_74745_c();
+               this.bookTotalPages = this.bookPages.tagCount();
                if (this.bookTotalPages < 1) {
                     this.bookTotalPages = 1;
                }
           } else {
                this.bookPages = new NBTTagList();
-               this.bookPages.func_74742_a(new NBTTagString(""));
+               this.bookPages.appendTag(new NBTTagString(""));
                this.bookTotalPages = 1;
           }
 
@@ -154,7 +154,7 @@ public class GuiMailmanWrite extends GuiContainerNPCInterface implements ITextfi
           if (par1GuiButton.enabled) {
                int id = par1GuiButton.id;
                if (id == 0) {
-                    mail.message.func_74782_a("pages", this.bookPages);
+                    mail.message.setTag("pages", this.bookPages);
                     if (this.canSend) {
                          if (!this.hasSend) {
                               this.hasSend = true;
@@ -191,8 +191,8 @@ public class GuiMailmanWrite extends GuiContainerNPCInterface implements ITextfi
      }
 
      private void addNewPage() {
-          if (this.bookPages != null && this.bookPages.func_74745_c() < 50) {
-               this.bookPages.func_74742_a(new NBTTagString(""));
+          if (this.bookPages != null && this.bookPages.tagCount() < 50) {
+               this.bookPages.appendTag(new NBTTagString(""));
                ++this.bookTotalPages;
           }
 
@@ -235,11 +235,11 @@ public class GuiMailmanWrite extends GuiContainerNPCInterface implements ITextfi
      }
 
      private String func_74158_i() {
-          return this.bookPages != null && this.currPage >= 0 && this.currPage < this.bookPages.func_74745_c() ? this.bookPages.func_150307_f(this.currPage) : "";
+          return this.bookPages != null && this.currPage >= 0 && this.currPage < this.bookPages.tagCount() ? this.bookPages.func_150307_f(this.currPage) : "";
      }
 
      private void func_74159_a(String par1Str) {
-          if (this.bookPages != null && this.currPage >= 0 && this.currPage < this.bookPages.func_74745_c()) {
+          if (this.bookPages != null && this.currPage >= 0 && this.currPage < this.bookPages.tagCount()) {
                this.bookPages.func_150304_a(this.currPage, new NBTTagString(par1Str));
           }
 
@@ -267,7 +267,7 @@ public class GuiMailmanWrite extends GuiContainerNPCInterface implements ITextfi
           this.drawTexturedModalRect(this.field_147003_i + 20, this.field_147009_r + 228, 0, 140, 180, 28);
           String s = net.minecraft.client.resources.I18n.func_135052_a("book.pageIndicator", new Object[]{this.currPage + 1, this.bookTotalPages});
           String s1 = "";
-          if (this.bookPages != null && this.currPage >= 0 && this.currPage < this.bookPages.func_74745_c()) {
+          if (this.bookPages != null && this.currPage >= 0 && this.currPage < this.bookPages.tagCount()) {
                s1 = this.bookPages.func_150307_f(this.currPage);
           }
 
@@ -329,7 +329,7 @@ public class GuiMailmanWrite extends GuiContainerNPCInterface implements ITextfi
      }
 
      public void setClose(int i, NBTTagCompound data) {
-          this.player.func_145747_a(new TextComponentTranslation("mailbox.succes", new Object[]{data.func_74779_i("username")}));
+          this.player.func_145747_a(new TextComponentTranslation("mailbox.succes", new Object[]{data.getString("username")}));
      }
 
      public void save() {

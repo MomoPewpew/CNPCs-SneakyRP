@@ -40,7 +40,7 @@ public class TextureCache extends SimpleTexture {
 
      public void setImage(ResourceLocation location) {
           try {
-               IResourceManager manager = Minecraft.func_71410_x().func_110442_L();
+               IResourceManager manager = Minecraft.getMinecraft().func_110442_L();
                BufferedImage bufferedimage = ImageIO.read(manager.func_110536_a(location).func_110527_b());
                int i = bufferedimage.getWidth();
                int j = bufferedimage.getHeight();

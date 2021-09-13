@@ -42,7 +42,7 @@ public abstract class GuiCreationScreenInterface extends GuiNPCInterface impleme
           this.xSize = 400;
           this.ySize = 240;
           this.xOffset = 140;
-          this.player = Minecraft.func_71410_x().player;
+          this.player = Minecraft.getMinecraft().player;
           this.closeOnEsc = true;
      }
 

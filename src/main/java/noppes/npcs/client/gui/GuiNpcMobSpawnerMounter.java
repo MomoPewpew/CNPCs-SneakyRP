@@ -153,7 +153,7 @@ public class GuiNpcMobSpawnerMounter extends GuiNPCInterface implements IGuiData
           } else if (showingClones == 0) {
                return ClientCloneController.Instance.getCloneData(this.player, sel, this.activeTab);
           } else {
-               Entity entity = EntityList.func_188429_b(new ResourceLocation(sel), Minecraft.func_71410_x().field_71441_e);
+               Entity entity = EntityList.func_188429_b(new ResourceLocation(sel), Minecraft.getMinecraft().field_71441_e);
                if (entity == null) {
                     return null;
                } else {
@@ -173,7 +173,7 @@ public class GuiNpcMobSpawnerMounter extends GuiNPCInterface implements IGuiData
           if (id == 1) {
                NBTTagCompound compound = this.getCompound();
                if (compound != null) {
-                    compound.func_74782_a("Pos", this.newDoubleNBTList((double)this.posX + 0.5D, (double)(this.posY + 1), (double)this.posZ + 0.5D));
+                    compound.setTag("Pos", this.newDoubleNBTList((double)this.posX + 0.5D, (double)(this.posY + 1), (double)this.posZ + 0.5D));
                     Client.sendData(EnumPacketServer.SpawnRider, compound);
                     this.close();
                }
@@ -213,7 +213,7 @@ public class GuiNpcMobSpawnerMounter extends GuiNPCInterface implements IGuiData
 
           for(int j = 0; j < i; ++j) {
                double d1 = adouble[j];
-               nbttaglist.func_74742_a(new NBTTagDouble(d1));
+               nbttaglist.appendTag(new NBTTagDouble(d1));
           }
 
           return nbttaglist;
@@ -223,10 +223,10 @@ public class GuiNpcMobSpawnerMounter extends GuiNPCInterface implements IGuiData
      }
 
      public void setGuiData(NBTTagCompound compound) {
-          NBTTagList nbtlist = compound.func_150295_c("List", 8);
+          NBTTagList nbtlist = compound.getTagList("List", 8);
           List list = new ArrayList();
 
-          for(int i = 0; i < nbtlist.func_74745_c(); ++i) {
+          for(int i = 0; i < nbtlist.tagCount(); ++i) {
                list.add(nbtlist.func_150307_f(i));
           }
 

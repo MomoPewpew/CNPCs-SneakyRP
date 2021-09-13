@@ -17,11 +17,11 @@ public class QuestDialog extends QuestInterface {
      public HashMap dialogs = new HashMap();
 
      public void readEntityFromNBT(NBTTagCompound compound) {
-          this.dialogs = NBTTags.getIntegerIntegerMap(compound.func_150295_c("QuestDialogs", 10));
+          this.dialogs = NBTTags.getIntegerIntegerMap(compound.getTagList("QuestDialogs", 10));
      }
 
      public void writeEntityToNBT(NBTTagCompound compound) {
-          compound.func_74782_a("QuestDialogs", NBTTags.nbtIntegerIntegerMap(this.dialogs));
+          compound.setTag("QuestDialogs", NBTTags.nbtIntegerIntegerMap(this.dialogs));
      }
 
      public boolean isCompleted(EntityPlayer player) {

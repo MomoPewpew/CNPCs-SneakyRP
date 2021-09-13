@@ -33,10 +33,10 @@ public class PresetController {
           NBTTagCompound compound = this.loadPreset();
           HashMap presets = new HashMap();
           if (compound != null) {
-               NBTTagList list = compound.func_150295_c("Presets", 10);
+               NBTTagList list = compound.getTagList("Presets", 10);
 
-               for(int i = 0; i < list.func_74745_c(); ++i) {
-                    NBTTagCompound comp = list.func_150305_b(i);
+               for(int i = 0; i < list.tagCount(); ++i) {
+                    NBTTagCompound comp = list.getCompoundTagAt(i);
                     Preset preset = new Preset();
                     preset.readFromNBT(comp);
                     presets.put(preset.name.toLowerCase(), preset);
@@ -74,10 +74,10 @@ public class PresetController {
 
           while(var3.hasNext()) {
                Preset preset = (Preset)var3.next();
-               list.func_74742_a(preset.writeToNBT());
+               list.appendTag(preset.writeToNBT());
           }
 
-          compound.func_74782_a("Presets", list);
+          compound.setTag("Presets", list);
           this.savePreset(compound);
      }
 

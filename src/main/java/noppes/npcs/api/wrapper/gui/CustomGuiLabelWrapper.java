@@ -76,16 +76,16 @@ public class CustomGuiLabelWrapper extends CustomGuiComponentWrapper implements 
 
      public NBTTagCompound toNBT(NBTTagCompound nbt) {
           super.toNBT(nbt);
-          nbt.func_74778_a("label", this.label);
-          nbt.func_74783_a("size", new int[]{this.width, this.height});
-          nbt.func_74768_a("color", this.color);
+          nbt.setString("label", this.label);
+          nbt.setIntArray("size", new int[]{this.width, this.height});
+          nbt.setInteger("color", this.color);
           nbt.func_74776_a("scale", this.scale);
           return nbt;
      }
 
      public CustomGuiComponentWrapper fromNBT(NBTTagCompound nbt) {
           super.fromNBT(nbt);
-          this.setText(nbt.func_74779_i("label"));
+          this.setText(nbt.getString("label"));
           this.setSize(nbt.func_74759_k("size")[0], nbt.func_74759_k("size")[1]);
           this.setColor(nbt.func_74762_e("color"));
           this.setScale(nbt.func_74760_g("scale"));

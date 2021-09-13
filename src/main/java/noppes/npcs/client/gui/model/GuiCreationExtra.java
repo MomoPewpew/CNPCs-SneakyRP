@@ -67,7 +67,7 @@ public class GuiCreationExtra extends GuiCreationScreenInterface implements ICus
      public Map getData(EntityLivingBase entity) {
           Map data = new HashMap();
           NBTTagCompound compound = this.getExtras(entity);
-          Set keys = compound.func_150296_c();
+          Set keys = compound.getKeySet();
           Iterator var5 = keys.iterator();
 
           while(true) {
@@ -89,7 +89,7 @@ public class GuiCreationExtra extends GuiCreationScreenInterface implements ICus
                          name = (String)var5.next();
                     } while(this.isIgnored(name));
 
-                    NBTBase base = compound.func_74781_a(name);
+                    NBTBase base = compound.getTag(name);
                     if (name.equals("Age")) {
                          data.put("Child", new GuiCreationExtra.GuiTypeBoolean("Child", entity.func_70631_g_()));
                     } else if (name.equals("Color") && base.func_74732_a() == 1) {
@@ -97,7 +97,7 @@ public class GuiCreationExtra extends GuiCreationScreenInterface implements ICus
                     } else if (base.func_74732_a() == 1) {
                          byte b = ((NBTTagByte)base).func_150290_f();
                          if (b == 0 || b == 1) {
-                              if (this.playerdata.extra.func_74764_b(name)) {
+                              if (this.playerdata.extra.hasKey(name)) {
                                    b = this.playerdata.extra.func_74771_c(name);
                               }
 
@@ -138,7 +138,7 @@ public class GuiCreationExtra extends GuiCreationScreenInterface implements ICus
           } catch (Throwable var7) {
           }
 
-          Set keys = fake.func_150296_c();
+          Set keys = fake.getKeySet();
           Iterator var5 = keys.iterator();
 
           while(var5.hasNext()) {
@@ -255,7 +255,7 @@ public class GuiCreationExtra extends GuiCreationScreenInterface implements ICus
                if (button.id == 11) {
                     this.bo = ((GuiNpcButtonYesNo)button).getBoolean();
                     if (this.name.equals("Child")) {
-                         GuiCreationExtra.this.playerdata.extra.func_74768_a("Age", this.bo ? -24000 : 0);
+                         GuiCreationExtra.this.playerdata.extra.setInteger("Age", this.bo ? -24000 : 0);
                          GuiCreationExtra.this.playerdata.clearEntity();
                     } else {
                          GuiCreationExtra.this.playerdata.extra.func_74757_a(this.name, this.bo);

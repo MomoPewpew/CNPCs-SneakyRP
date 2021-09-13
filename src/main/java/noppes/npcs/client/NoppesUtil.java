@@ -47,7 +47,7 @@ public class NoppesUtil {
           float height = buffer.readFloat();
           float width = buffer.readFloat();
           String particle = Server.readString(buffer);
-          World world = Minecraft.func_71410_x().field_71441_e;
+          World world = Minecraft.getMinecraft().field_71441_e;
           Random rand = world.field_73012_v;
           if (particle.equals("heal")) {
                for(int k = 0; k < 6; ++k) {
@@ -105,7 +105,7 @@ public class NoppesUtil {
      }
 
      public static void setScrollList(ByteBuf buffer) {
-          GuiScreen gui = Minecraft.func_71410_x().field_71462_r;
+          GuiScreen gui = Minecraft.getMinecraft().field_71462_r;
           if (gui instanceof GuiNPCInterface && ((GuiNPCInterface)gui).hasSubGui()) {
                gui = ((GuiNPCInterface)gui).getSubGui();
           }
@@ -141,7 +141,7 @@ public class NoppesUtil {
      }
 
      public static void setScrollData(ByteBuf buffer) {
-          GuiScreen gui = Minecraft.func_71410_x().field_71462_r;
+          GuiScreen gui = Minecraft.getMinecraft().field_71462_r;
           if (gui != null) {
                try {
                     int size = buffer.readInt();
@@ -171,7 +171,7 @@ public class NoppesUtil {
      }
 
      public static void openDialog(Dialog dialog, EntityNPCInterface npc, EntityPlayer player) {
-          GuiScreen gui = Minecraft.func_71410_x().field_71462_r;
+          GuiScreen gui = Minecraft.getMinecraft().field_71462_r;
           if (gui != null && gui instanceof GuiDialogInteract) {
                GuiDialogInteract dia = (GuiDialogInteract)gui;
                dia.appendDialog(dialog);
@@ -182,6 +182,6 @@ public class NoppesUtil {
      }
 
      public static void clickSound() {
-          Minecraft.func_71410_x().func_147118_V().func_147682_a(PositionedSoundRecord.func_184371_a(SoundEvents.field_187909_gi, 1.0F));
+          Minecraft.getMinecraft().func_147118_V().func_147682_a(PositionedSoundRecord.func_184371_a(SoundEvents.field_187909_gi, 1.0F));
      }
 }

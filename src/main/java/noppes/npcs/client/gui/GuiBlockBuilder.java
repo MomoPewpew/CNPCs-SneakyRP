@@ -162,12 +162,12 @@ public class GuiBlockBuilder extends GuiNPCInterface implements IGuiData, ICusto
      }
 
      public void setGuiData(final NBTTagCompound compound) {
-          if (compound.func_74764_b("Width")) {
+          if (compound.hasKey("Width")) {
                final List states = new ArrayList();
-               NBTTagList list = compound.func_150295_c("Data", 10);
+               NBTTagList list = compound.getTagList("Data", 10);
 
-               for(int i = 0; i < list.func_74745_c(); ++i) {
-                    states.add(NBTUtil.func_190008_d(list.func_150305_b(i)));
+               for(int i = 0; i < list.tagCount(); ++i) {
+                    states.add(NBTUtil.func_190008_d(list.getCompoundTagAt(i)));
                }
 
                this.selected = new ISchematic() {
@@ -184,7 +184,7 @@ public class GuiBlockBuilder extends GuiNPCInterface implements IGuiData, ICusto
                     }
 
                     public String getName() {
-                         return compound.func_74779_i("SchematicName");
+                         return compound.getString("SchematicName");
                     }
 
                     public short getLength() {

@@ -69,7 +69,7 @@ public class NBTJsonUtil {
                          key = key.substring(0, key.length() - 1);
                     }
 
-                    compound.func_74782_a(key, (NBTBase)base);
+                    compound.setTag(key, (NBTBase)base);
                     if (json.startsWith(",")) {
                          FillCompound(compound, json);
                     }
@@ -96,7 +96,7 @@ public class NBTJsonUtil {
                }
 
                for(NBTBase value = ReadValue(json); value != null; value = ReadValue(json)) {
-                    list.func_74742_a(value);
+                    list.appendTag(value);
                     if (!json.startsWith(",")) {
                          break;
                     }
@@ -110,28 +110,28 @@ public class NBTJsonUtil {
                     json.cut(1);
                     int i;
                     if (list.func_150303_d() == 3) {
-                         int[] arr = new int[list.func_74745_c()];
+                         int[] arr = new int[list.tagCount()];
 
-                         for(i = 0; list.func_74745_c() > 0; ++i) {
-                              arr[i] = ((NBTTagInt)list.func_74744_a(0)).func_150287_d();
+                         for(i = 0; list.tagCount() > 0; ++i) {
+                              arr[i] = ((NBTTagInt)list.removeTag(0)).getInt();
                          }
 
                          return new NBTTagIntArray(arr);
                     } else if (list.func_150303_d() == 1) {
-                         byte[] arr = new byte[list.func_74745_c()];
+                         byte[] arr = new byte[list.tagCount()];
 
-                         for(i = 0; list.func_74745_c() > 0; ++i) {
-                              arr[i] = ((NBTTagByte)list.func_74744_a(0)).func_150290_f();
+                         for(i = 0; list.tagCount() > 0; ++i) {
+                              arr[i] = ((NBTTagByte)list.removeTag(0)).func_150290_f();
                          }
 
                          return new NBTTagByteArray(arr);
                     } else if (list.func_150303_d() != 4) {
                          return list;
                     } else {
-                         long[] arr = new long[list.func_74745_c()];
+                         long[] arr = new long[list.tagCount()];
 
-                         for(i = 0; list.func_74745_c() > 0; ++i) {
-                              arr[i] = (long)((NBTTagLong)list.func_74744_a(0)).func_150290_f();
+                         for(i = 0; list.tagCount() > 0; ++i) {
+                              arr[i] = (long)((NBTTagLong)list.removeTag(0)).func_150290_f();
                          }
 
                          return new NBTTagLongArray(arr);
@@ -213,7 +213,7 @@ public class NBTJsonUtil {
                line = null;
 
                Object key;
-               for(Iterator var10 = compound.func_150296_c().iterator(); var10.hasNext(); line = ReadTag(key.toString(), compound.func_74781_a(key.toString()), list)) {
+               for(Iterator var10 = compound.getKeySet().iterator(); var10.hasNext(); line = ReadTag(key.toString(), compound.getTag(key.toString()), list)) {
                     key = var10.next();
                }
 
@@ -281,7 +281,7 @@ public class NBTJsonUtil {
           NBTTagCompound comp = new NBTTagCompound();
           NBTTagCompound comp2 = new NBTTagCompound();
           comp2.func_74773_a("test", new byte[]{0, 0, 1, 1, 0});
-          comp.func_74782_a("comp", comp2);
+          comp.setTag("comp", comp2);
           System.out.println(Convert(comp));
      }
 

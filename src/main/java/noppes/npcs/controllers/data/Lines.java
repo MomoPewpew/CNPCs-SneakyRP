@@ -21,25 +21,25 @@ public class Lines {
                int slot = (Integer)var3.next();
                Line line = (Line)this.lines.get(slot);
                NBTTagCompound nbttagcompound = new NBTTagCompound();
-               nbttagcompound.func_74768_a("Slot", slot);
-               nbttagcompound.func_74778_a("Line", line.getText());
-               nbttagcompound.func_74778_a("Song", line.getSound());
-               nbttaglist.func_74742_a(nbttagcompound);
+               nbttagcompound.setInteger("Slot", slot);
+               nbttagcompound.setString("Line", line.getText());
+               nbttagcompound.setString("Song", line.getSound());
+               nbttaglist.appendTag(nbttagcompound);
           }
 
-          compound.func_74782_a("Lines", nbttaglist);
+          compound.setTag("Lines", nbttaglist);
           return compound;
      }
 
      public void readNBT(NBTTagCompound compound) {
-          NBTTagList nbttaglist = compound.func_150295_c("Lines", 10);
+          NBTTagList nbttaglist = compound.getTagList("Lines", 10);
           HashMap map = new HashMap();
 
-          for(int i = 0; i < nbttaglist.func_74745_c(); ++i) {
-               NBTTagCompound nbttagcompound = nbttaglist.func_150305_b(i);
+          for(int i = 0; i < nbttaglist.tagCount(); ++i) {
+               NBTTagCompound nbttagcompound = nbttaglist.getCompoundTagAt(i);
                Line line = new Line();
-               line.setText(nbttagcompound.func_74779_i("Line"));
-               line.setSound(nbttagcompound.func_74779_i("Song"));
+               line.setText(nbttagcompound.getString("Line"));
+               line.setSound(nbttagcompound.getString("Song"));
                map.put(nbttagcompound.func_74762_e("Slot"), line);
           }
 

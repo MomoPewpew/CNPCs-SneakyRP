@@ -31,7 +31,7 @@ public class ModelPartConfig {
           this.transX = this.checkValue(compound.func_74760_g("TransX"), -1.0F, 1.0F);
           this.transY = this.checkValue(compound.func_74760_g("TransY"), -1.0F, 1.0F);
           this.transZ = this.checkValue(compound.func_74760_g("TransZ"), -1.0F, 1.0F);
-          this.notShared = compound.func_74767_n("NotShared");
+          this.notShared = compound.getBoolean("NotShared");
      }
 
      public String toString() {

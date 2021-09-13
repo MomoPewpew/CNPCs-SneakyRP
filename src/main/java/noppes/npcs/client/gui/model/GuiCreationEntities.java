@@ -42,7 +42,7 @@ public class GuiCreationEntities extends GuiCreationScreenInterface implements I
                Class c = ent.getEntityClass();
 
                try {
-                    if (EntityLiving.class.isAssignableFrom(c) && c.getConstructor(World.class) != null && !Modifier.isAbstract(c.getModifiers()) && Minecraft.func_71410_x().func_175598_ae().func_78715_a(c) instanceof RenderLivingBase && !name.toLowerCase().contains("customnpc")) {
+                    if (EntityLiving.class.isAssignableFrom(c) && c.getConstructor(World.class) != null && !Modifier.isAbstract(c.getModifiers()) && Minecraft.getMinecraft().func_175598_ae().func_78715_a(c) instanceof RenderLivingBase && !name.toLowerCase().contains("customnpc")) {
                          this.data.put(name, c.asSubclass(EntityLivingBase.class));
                     }
                } catch (SecurityException var7) {

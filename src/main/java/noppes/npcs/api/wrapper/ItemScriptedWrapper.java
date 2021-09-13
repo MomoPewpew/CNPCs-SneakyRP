@@ -58,8 +58,8 @@ public class ItemScriptedWrapper extends ItemStackWrapper implements IItemScript
      }
 
      public NBTTagCompound getScriptNBT(NBTTagCompound compound) {
-          compound.func_74782_a("Scripts", NBTTags.NBTScript(this.scripts));
-          compound.func_74778_a("ScriptLanguage", this.scriptLanguage);
+          compound.setTag("Scripts", NBTTags.NBTScript(this.scripts));
+          compound.setString("ScriptLanguage", this.scriptLanguage);
           compound.func_74757_a("ScriptEnabled", this.enabled);
           return compound;
      }
@@ -69,26 +69,26 @@ public class ItemScriptedWrapper extends ItemStackWrapper implements IItemScript
           this.getScriptNBT(compound);
           compound.func_74757_a("DurabilityShow", this.durabilityShow);
           compound.func_74780_a("DurabilityValue", this.durabilityValue);
-          compound.func_74768_a("DurabilityColor", this.durabilityColor);
-          compound.func_74768_a("ItemColor", this.itemColor);
-          compound.func_74768_a("MaxStackSize", this.stackSize);
+          compound.setInteger("DurabilityColor", this.durabilityColor);
+          compound.setInteger("ItemColor", this.itemColor);
+          compound.setInteger("MaxStackSize", this.stackSize);
           return compound;
      }
 
      public void setScriptNBT(NBTTagCompound compound) {
-          if (compound.func_74764_b("Scripts")) {
-               this.scripts = NBTTags.GetScript(compound.func_150295_c("Scripts", 10), this);
-               this.scriptLanguage = compound.func_74779_i("ScriptLanguage");
-               this.enabled = compound.func_74767_n("ScriptEnabled");
+          if (compound.hasKey("Scripts")) {
+               this.scripts = NBTTags.GetScript(compound.getTagList("Scripts", 10), this);
+               this.scriptLanguage = compound.getString("ScriptLanguage");
+               this.enabled = compound.getBoolean("ScriptEnabled");
           }
      }
 
      public void setMCNbt(NBTTagCompound compound) {
           super.setMCNbt(compound);
           this.setScriptNBT(compound);
-          this.durabilityShow = compound.func_74767_n("DurabilityShow");
+          this.durabilityShow = compound.getBoolean("DurabilityShow");
           this.durabilityValue = compound.func_74769_h("DurabilityValue");
-          if (compound.func_74764_b("DurabilityColor")) {
+          if (compound.hasKey("DurabilityColor")) {
                this.durabilityColor = compound.func_74762_e("DurabilityColor");
           }
 
@@ -251,13 +251,13 @@ public class ItemScriptedWrapper extends ItemStackWrapper implements IItemScript
                this.item.func_77982_d(c = new NBTTagCompound());
           }
 
-          c.func_74782_a("ScriptedData", this.getScriptNBT(new NBTTagCompound()));
+          c.setTag("ScriptedData", this.getScriptNBT(new NBTTagCompound()));
      }
 
      public void loadScriptData() {
           NBTTagCompound c = this.item.func_77978_p();
           if (c != null) {
-               this.setScriptNBT(c.func_74775_l("ScriptedData"));
+               this.setScriptNBT(c.getCompoundTag("ScriptedData"));
           }
      }
 }

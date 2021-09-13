@@ -9,19 +9,19 @@ public class EntityNPCGolem extends EntityNPCInterface {
           super(world);
           this.display.setSkinTexture("customnpcs:textures/entity/golem/Iron Golem.png");
           this.field_70130_N = 1.4F;
-          this.field_70131_O = 2.5F;
+          this.height = 2.5F;
      }
 
      public void updateHitbox() {
           this.currentAnimation = (Integer)this.field_70180_af.func_187225_a(Animation);
           if (this.currentAnimation == 2) {
-               this.field_70130_N = this.field_70131_O = 0.5F;
+               this.field_70130_N = this.height = 0.5F;
           } else if (this.currentAnimation == 1) {
                this.field_70130_N = 1.4F;
-               this.field_70131_O = 2.0F;
+               this.height = 2.0F;
           } else {
                this.field_70130_N = 1.4F;
-               this.field_70131_O = 2.5F;
+               this.height = 2.5F;
           }
 
      }

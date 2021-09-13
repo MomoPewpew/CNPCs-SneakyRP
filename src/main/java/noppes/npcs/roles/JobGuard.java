@@ -31,17 +31,17 @@ public class JobGuard extends JobInterface {
      }
 
      public NBTTagCompound writeToNBT(NBTTagCompound nbttagcompound) {
-          nbttagcompound.func_74782_a("GuardTargets", NBTTags.nbtStringList(this.targets));
+          nbttagcompound.setTag("GuardTargets", NBTTags.nbtStringList(this.targets));
           return nbttagcompound;
      }
 
      public void readFromNBT(NBTTagCompound nbttagcompound) {
-          this.targets = NBTTags.getStringList(nbttagcompound.func_150295_c("GuardTargets", 10));
+          this.targets = NBTTags.getStringList(nbttagcompound.getTagList("GuardTargets", 10));
           Iterator var2;
           EntityEntry ent;
           Class cl;
           String name;
-          if (nbttagcompound.func_74767_n("GuardAttackAnimals")) {
+          if (nbttagcompound.getBoolean("GuardAttackAnimals")) {
                var2 = ForgeRegistries.ENTITIES.getValues().iterator();
 
                while(var2.hasNext()) {
@@ -54,7 +54,7 @@ public class JobGuard extends JobInterface {
                }
           }
 
-          if (nbttagcompound.func_74767_n("GuardAttackMobs")) {
+          if (nbttagcompound.getBoolean("GuardAttackMobs")) {
                var2 = ForgeRegistries.ENTITIES.getValues().iterator();
 
                while(var2.hasNext()) {
@@ -67,7 +67,7 @@ public class JobGuard extends JobInterface {
                }
           }
 
-          if (nbttagcompound.func_74767_n("GuardAttackCreepers")) {
+          if (nbttagcompound.getBoolean("GuardAttackCreepers")) {
                var2 = ForgeRegistries.ENTITIES.getValues().iterator();
 
                while(var2.hasNext()) {

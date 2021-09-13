@@ -36,18 +36,18 @@ public class BankData {
      public void readNBT(NBTTagCompound nbttagcompound) {
           this.bankId = nbttagcompound.func_74762_e("DataBankId");
           this.unlockedSlots = nbttagcompound.func_74762_e("UnlockedSlots");
-          this.itemSlots = this.getItemSlots(nbttagcompound.func_150295_c("BankInv", 10));
-          this.upgradedSlots = NBTTags.getBooleanList(nbttagcompound.func_150295_c("UpdatedSlots", 10));
+          this.itemSlots = this.getItemSlots(nbttagcompound.getTagList("BankInv", 10));
+          this.upgradedSlots = NBTTags.getBooleanList(nbttagcompound.getTagList("UpdatedSlots", 10));
      }
 
      private HashMap getItemSlots(NBTTagList tagList) {
           HashMap list = new HashMap();
 
-          for(int i = 0; i < tagList.func_74745_c(); ++i) {
-               NBTTagCompound nbttagcompound = tagList.func_150305_b(i);
+          for(int i = 0; i < tagList.tagCount(); ++i) {
+               NBTTagCompound nbttagcompound = tagList.getCompoundTagAt(i);
                int slot = nbttagcompound.func_74762_e("Slot");
                NpcMiscInventory inv = new NpcMiscInventory(54);
-               inv.setFromNBT(nbttagcompound.func_74775_l("BankItems"));
+               inv.setFromNBT(nbttagcompound.getCompoundTag("BankItems"));
                list.put(slot, inv);
           }
 
@@ -55,10 +55,10 @@ public class BankData {
      }
 
      public void writeNBT(NBTTagCompound nbttagcompound) {
-          nbttagcompound.func_74768_a("DataBankId", this.bankId);
-          nbttagcompound.func_74768_a("UnlockedSlots", this.unlockedSlots);
-          nbttagcompound.func_74782_a("UpdatedSlots", NBTTags.nbtBooleanList(this.upgradedSlots));
-          nbttagcompound.func_74782_a("BankInv", this.nbtItemSlots(this.itemSlots));
+          nbttagcompound.setInteger("DataBankId", this.bankId);
+          nbttagcompound.setInteger("UnlockedSlots", this.unlockedSlots);
+          nbttagcompound.setTag("UpdatedSlots", NBTTags.nbtBooleanList(this.upgradedSlots));
+          nbttagcompound.setTag("BankInv", this.nbtItemSlots(this.itemSlots));
      }
 
      private NBTTagList nbtItemSlots(HashMap items) {
@@ -68,9 +68,9 @@ public class BankData {
           while(var3.hasNext()) {
                int slot = (Integer)var3.next();
                NBTTagCompound nbttagcompound = new NBTTagCompound();
-               nbttagcompound.func_74768_a("Slot", slot);
-               nbttagcompound.func_74782_a("BankItems", ((NpcMiscInventory)items.get(slot)).getToNBT());
-               list.func_74742_a(nbttagcompound);
+               nbttagcompound.setInteger("Slot", slot);
+               nbttagcompound.setTag("BankItems", ((NpcMiscInventory)items.get(slot)).getToNBT());
+               list.appendTag(nbttagcompound);
           }
 
           return list;
@@ -106,10 +106,10 @@ public class BankData {
 
                CustomNPCsScheduler.runTack(() -> {
                     NBTTagCompound compound = new NBTTagCompound();
-                    compound.func_74768_a("MaxSlots", bank.getMaxSlots());
-                    compound.func_74768_a("UnlockedSlots", this.unlockedSlots);
+                    compound.setInteger("MaxSlots", bank.getMaxSlots());
+                    compound.setInteger("UnlockedSlots", this.unlockedSlots);
                     if (currency != null && !currency.func_190926_b()) {
-                         compound.func_74782_a("Currency", currency.func_77955_b(new NBTTagCompound()));
+                         compound.setTag("Currency", currency.func_77955_b(new NBTTagCompound()));
                          ContainerNPCBankInterface container = this.getContainer(player);
                          if (container != null) {
                               container.setCurrency(currency);

@@ -74,14 +74,14 @@ public class ServerCloneController implements ICloneHandler {
      private Map loadOldClones(File file) throws Exception {
           Map clones = new HashMap();
           NBTTagCompound nbttagcompound1 = CompressedStreamTools.func_74796_a(new FileInputStream(file));
-          NBTTagList list = nbttagcompound1.func_150295_c("Data", 10);
+          NBTTagList list = nbttagcompound1.getTagList("Data", 10);
           if (list == null) {
                return clones;
           } else {
-               for(int i = 0; i < list.func_74745_c(); ++i) {
-                    NBTTagCompound compound = list.func_150305_b(i);
-                    if (!compound.func_74764_b("ClonedTab")) {
-                         compound.func_74768_a("ClonedTab", 1);
+               for(int i = 0; i < list.tagCount(); ++i) {
+                    NBTTagCompound compound = list.getCompoundTagAt(i);
+                    if (!compound.hasKey("ClonedTab")) {
+                         compound.setInteger("ClonedTab", 1);
                     }
 
                     Map tab = (Map)clones.get(compound.func_74762_e("ClonedTab"));
@@ -89,9 +89,9 @@ public class ServerCloneController implements ICloneHandler {
                          clones.put(compound.func_74762_e("ClonedTab"), tab = new HashMap());
                     }
 
-                    String name = compound.func_74779_i("ClonedName");
+                    String name = compound.getString("ClonedName");
 
-                    for(int number = 1; ((Map)tab).containsKey(name); name = String.format("%s%s", compound.func_74779_i("ClonedName"), number)) {
+                    for(int number = 1; ((Map)tab).containsKey(name); name = String.format("%s%s", compound.getString("ClonedName"), number)) {
                          ++number;
                     }
 
@@ -187,12 +187,12 @@ public class ServerCloneController implements ICloneHandler {
      }
 
      public void cleanTags(NBTTagCompound nbttagcompound) {
-          if (nbttagcompound.func_74764_b("ItemGiverId")) {
-               nbttagcompound.func_74768_a("ItemGiverId", 0);
+          if (nbttagcompound.hasKey("ItemGiverId")) {
+               nbttagcompound.setInteger("ItemGiverId", 0);
           }
 
-          if (nbttagcompound.func_74764_b("TransporterId")) {
-               nbttagcompound.func_74768_a("TransporterId", -1);
+          if (nbttagcompound.hasKey("TransporterId")) {
+               nbttagcompound.setInteger("TransporterId", -1);
           }
 
           nbttagcompound.func_82580_o("StartPosNew");
@@ -203,35 +203,35 @@ public class ServerCloneController implements ICloneHandler {
           nbttagcompound.func_82580_o("UUID");
           nbttagcompound.func_82580_o("UUIDMost");
           nbttagcompound.func_82580_o("UUIDLeast");
-          if (!nbttagcompound.func_74764_b("ModRev")) {
-               nbttagcompound.func_74768_a("ModRev", 1);
+          if (!nbttagcompound.hasKey("ModRev")) {
+               nbttagcompound.setInteger("ModRev", 1);
           }
 
           NBTTagCompound adv;
-          if (nbttagcompound.func_74764_b("TransformRole")) {
-               adv = nbttagcompound.func_74775_l("TransformRole");
-               adv.func_74768_a("TransporterId", -1);
-               nbttagcompound.func_74782_a("TransformRole", adv);
+          if (nbttagcompound.hasKey("TransformRole")) {
+               adv = nbttagcompound.getCompoundTag("TransformRole");
+               adv.setInteger("TransporterId", -1);
+               nbttagcompound.setTag("TransformRole", adv);
           }
 
-          if (nbttagcompound.func_74764_b("TransformJob")) {
-               adv = nbttagcompound.func_74775_l("TransformJob");
-               adv.func_74768_a("ItemGiverId", 0);
-               nbttagcompound.func_74782_a("TransformJob", adv);
+          if (nbttagcompound.hasKey("TransformJob")) {
+               adv = nbttagcompound.getCompoundTag("TransformJob");
+               adv.setInteger("ItemGiverId", 0);
+               nbttagcompound.setTag("TransformJob", adv);
           }
 
-          if (nbttagcompound.func_74764_b("TransformAI")) {
-               adv = nbttagcompound.func_74775_l("TransformAI");
+          if (nbttagcompound.hasKey("TransformAI")) {
+               adv = nbttagcompound.getCompoundTag("TransformAI");
                adv.func_82580_o("StartPosNew");
                adv.func_82580_o("StartPos");
                adv.func_82580_o("MovingPathNew");
-               nbttagcompound.func_74782_a("TransformAI", adv);
+               nbttagcompound.setTag("TransformAI", adv);
           }
 
-          if (nbttagcompound.func_74764_b("id")) {
-               String id = nbttagcompound.func_74779_i("id");
+          if (nbttagcompound.hasKey("id")) {
+               String id = nbttagcompound.getString("id");
                id = id.replace("customnpcs.", "customnpcs:");
-               nbttagcompound.func_74778_a("id", id);
+               nbttagcompound.setString("id", id);
           }
 
      }

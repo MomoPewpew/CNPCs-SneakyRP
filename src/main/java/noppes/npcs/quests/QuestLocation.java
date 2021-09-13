@@ -17,15 +17,15 @@ public class QuestLocation extends QuestInterface {
      public String location3 = "";
 
      public void readEntityFromNBT(NBTTagCompound compound) {
-          this.location = compound.func_74779_i("QuestLocation");
-          this.location2 = compound.func_74779_i("QuestLocation2");
-          this.location3 = compound.func_74779_i("QuestLocation3");
+          this.location = compound.getString("QuestLocation");
+          this.location2 = compound.getString("QuestLocation2");
+          this.location3 = compound.getString("QuestLocation3");
      }
 
      public void writeEntityToNBT(NBTTagCompound compound) {
-          compound.func_74778_a("QuestLocation", this.location);
-          compound.func_74778_a("QuestLocation2", this.location2);
-          compound.func_74778_a("QuestLocation3", this.location3);
+          compound.setString("QuestLocation", this.location);
+          compound.setString("QuestLocation2", this.location2);
+          compound.setString("QuestLocation3", this.location3);
      }
 
      public boolean isCompleted(EntityPlayer player) {
@@ -39,28 +39,28 @@ public class QuestLocation extends QuestInterface {
 
      public boolean getFound(QuestData data, int i) {
           if (i == 1) {
-               return data.extraData.func_74767_n("LocationFound");
+               return data.extraData.getBoolean("LocationFound");
           } else if (i == 2) {
-               return data.extraData.func_74767_n("Location2Found");
+               return data.extraData.getBoolean("Location2Found");
           } else if (i == 3) {
-               return data.extraData.func_74767_n("Location3Found");
-          } else if (!this.location.isEmpty() && !data.extraData.func_74767_n("LocationFound")) {
+               return data.extraData.getBoolean("Location3Found");
+          } else if (!this.location.isEmpty() && !data.extraData.getBoolean("LocationFound")) {
                return false;
-          } else if (!this.location2.isEmpty() && !data.extraData.func_74767_n("Location2Found")) {
+          } else if (!this.location2.isEmpty() && !data.extraData.getBoolean("Location2Found")) {
                return false;
           } else {
-               return this.location3.isEmpty() || data.extraData.func_74767_n("Location3Found");
+               return this.location3.isEmpty() || data.extraData.getBoolean("Location3Found");
           }
      }
 
      public boolean setFound(QuestData data, String location) {
-          if (location.equalsIgnoreCase(this.location) && !data.extraData.func_74767_n("LocationFound")) {
+          if (location.equalsIgnoreCase(this.location) && !data.extraData.getBoolean("LocationFound")) {
                data.extraData.func_74757_a("LocationFound", true);
                return true;
-          } else if (location.equalsIgnoreCase(this.location2) && !data.extraData.func_74767_n("LocationFound2")) {
+          } else if (location.equalsIgnoreCase(this.location2) && !data.extraData.getBoolean("LocationFound2")) {
                data.extraData.func_74757_a("Location2Found", true);
                return true;
-          } else if (location.equalsIgnoreCase(this.location3) && !data.extraData.func_74767_n("LocationFound3")) {
+          } else if (location.equalsIgnoreCase(this.location3) && !data.extraData.getBoolean("LocationFound3")) {
                data.extraData.func_74757_a("Location3Found", true);
                return true;
           } else {
@@ -104,7 +104,7 @@ public class QuestLocation extends QuestInterface {
                if (progress >= 0 && progress <= 1) {
                     PlayerData data = PlayerData.get(this.player);
                     QuestData questData = (QuestData)data.questData.activeQuests.get(QuestLocation.this.questId);
-                    boolean completed = questData.extraData.func_74767_n(this.nbtName);
+                    boolean completed = questData.extraData.getBoolean(this.nbtName);
                     if ((!completed || progress != 1) && (completed || progress != 0)) {
                          questData.extraData.func_74757_a(this.nbtName, progress == 1);
                          data.questData.checkQuestCompletion(this.player, 3);
@@ -122,7 +122,7 @@ public class QuestLocation extends QuestInterface {
           public boolean isCompleted() {
                PlayerData data = PlayerData.get(this.player);
                QuestData questData = (QuestData)data.questData.activeQuests.get(QuestLocation.this.questId);
-               return questData.extraData.func_74767_n(this.nbtName);
+               return questData.extraData.getBoolean(this.nbtName);
           }
 
           public String getText() {

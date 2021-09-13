@@ -38,7 +38,7 @@ public class TileDoor extends TileNpcEntity implements ITickable {
      }
 
      public void setDoorNBT(NBTTagCompound compound) {
-          this.blockModel = (Block)Block.field_149771_c.func_82594_a(new ResourceLocation(compound.func_74779_i("ScriptDoorBlockModel")));
+          this.blockModel = (Block)Block.REGISTRY.getObject(new ResourceLocation(compound.getString("ScriptDoorBlockModel")));
           if (this.blockModel == null || !(this.blockModel instanceof BlockDoor)) {
                this.blockModel = CustomItems.scriptedDoor;
           }
@@ -54,7 +54,7 @@ public class TileDoor extends TileNpcEntity implements ITickable {
      }
 
      public NBTTagCompound getDoorNBT(NBTTagCompound compound) {
-          compound.func_74778_a("ScriptDoorBlockModel", Block.field_149771_c.func_177774_c(this.blockModel) + "");
+          compound.setString("ScriptDoorBlockModel", Block.REGISTRY.func_177774_c(this.blockModel) + "");
           return compound;
      }
 
@@ -105,9 +105,9 @@ public class TileDoor extends TileNpcEntity implements ITickable {
 
      public NBTTagCompound func_189517_E_() {
           NBTTagCompound compound = new NBTTagCompound();
-          compound.func_74768_a("x", this.field_174879_c.func_177958_n());
-          compound.func_74768_a("y", this.field_174879_c.func_177956_o());
-          compound.func_74768_a("z", this.field_174879_c.func_177952_p());
+          compound.setInteger("x", this.field_174879_c.func_177958_n());
+          compound.setInteger("y", this.field_174879_c.func_177956_o());
+          compound.setInteger("z", this.field_174879_c.func_177952_p());
           this.getDoorNBT(compound);
           return compound;
      }

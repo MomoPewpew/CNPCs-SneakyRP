@@ -116,8 +116,8 @@ public class NoppesUtilServer {
           if (npc.advanced.role != 0) {
                NBTTagCompound comp = new NBTTagCompound();
                npc.roleInterface.writeToNBT(comp);
-               comp.func_74768_a("EntityId", npc.func_145782_y());
-               comp.func_74768_a("Role", npc.advanced.role);
+               comp.setInteger("EntityId", npc.func_145782_y());
+               comp.setInteger("Role", npc.advanced.role);
                Server.sendData((EntityPlayerMP)player, EnumPacketClient.ROLE, comp);
           }
      }
@@ -323,7 +323,7 @@ public class NoppesUtilServer {
      }
 
      public static void spawnParticle(Entity entity, String particle, int dimension) {
-          Server.sendAssociatedData(entity, EnumPacketClient.PARTICLE, entity.field_70165_t, entity.field_70163_u, entity.field_70161_v, entity.field_70131_O, entity.field_70130_N, particle);
+          Server.sendAssociatedData(entity, EnumPacketClient.PARTICLE, entity.field_70165_t, entity.field_70163_u, entity.field_70161_v, entity.height, entity.field_70130_N, particle);
      }
 
      public static void deleteNpc(EntityNPCInterface npc, EntityPlayer player) {
@@ -332,17 +332,17 @@ public class NoppesUtilServer {
 
      public static void createMobSpawner(BlockPos pos, NBTTagCompound comp, EntityPlayer player) {
           ServerCloneController.Instance.cleanTags(comp);
-          if (comp.func_74779_i("id").equalsIgnoreCase("entityhorse")) {
+          if (comp.getString("id").equalsIgnoreCase("entityhorse")) {
                player.func_145747_a(new TextComponentTranslation("Currently you cant create horse spawner, its a minecraft bug", new Object[0]));
           } else {
                player.world.func_175656_a(pos, Blocks.field_150474_ac.func_176223_P());
                TileEntityMobSpawner tile = (TileEntityMobSpawner)player.world.func_175625_s(pos);
                MobSpawnerBaseLogic logic = tile.func_145881_a();
                if (!comp.func_150297_b("id", 8)) {
-                    comp.func_74778_a("id", "Pig");
+                    comp.setString("id", "Pig");
                }
 
-               comp.func_74783_a("StartPosNew", new int[]{pos.func_177958_n(), pos.func_177956_o(), pos.func_177952_p()});
+               comp.setIntArray("StartPosNew", new int[]{pos.func_177958_n(), pos.func_177956_o(), pos.func_177952_p()});
                logic.func_184993_a(new WeightedSpawnerEntity(1, comp));
           }
      }
@@ -587,7 +587,7 @@ public class NoppesUtilServer {
                     DialogOption option = (DialogOption)npc.dialogs.get(pos);
                     if (option != null && option.hasDialog()) {
                          NBTTagCompound compound = option.writeNBT();
-                         compound.func_74768_a("Position", pos);
+                         compound.setInteger("Position", pos);
                          Server.sendData((EntityPlayerMP)player, EnumPacketClient.GUI_DATA, compound);
                     }
                }
@@ -682,7 +682,7 @@ public class NoppesUtilServer {
 
      public static Entity spawnClone(NBTTagCompound compound, double x, double y, double z, World world) {
           ServerCloneController.Instance.cleanTags(compound);
-          compound.func_74782_a("Pos", NBTTags.nbtDoubleList(x, y, z));
+          compound.setTag("Pos", NBTTags.nbtDoubleList(x, y, z));
           Entity entity = EntityList.func_75615_a(compound, world);
           if (entity == null) {
                return null;
@@ -805,7 +805,7 @@ public class NoppesUtilServer {
      public static ItemStack ChangeItemStack(ItemStack is, Item item) {
           NBTTagCompound comp = is.func_77955_b(new NBTTagCompound());
           ResourceLocation resourcelocation = (ResourceLocation)Item.field_150901_e.func_177774_c(item);
-          comp.func_74778_a("id", resourcelocation == null ? "minecraft:air" : resourcelocation.toString());
+          comp.setString("id", resourcelocation == null ? "minecraft:air" : resourcelocation.toString());
           return new ItemStack(comp);
      }
 }

@@ -28,18 +28,18 @@ public class RoleDialog extends RoleInterface implements IRoleDialog {
      }
 
      public NBTTagCompound writeToNBT(NBTTagCompound compound) {
-          compound.func_74768_a("RoleQuestId", this.questId);
-          compound.func_74778_a("RoleDialog", this.dialog);
-          compound.func_74782_a("RoleOptions", NBTTags.nbtIntegerStringMap(this.options));
-          compound.func_74782_a("RoleOptionTexts", NBTTags.nbtIntegerStringMap(this.optionsTexts));
+          compound.setInteger("RoleQuestId", this.questId);
+          compound.setString("RoleDialog", this.dialog);
+          compound.setTag("RoleOptions", NBTTags.nbtIntegerStringMap(this.options));
+          compound.setTag("RoleOptionTexts", NBTTags.nbtIntegerStringMap(this.optionsTexts));
           return compound;
      }
 
      public void readFromNBT(NBTTagCompound compound) {
           this.questId = compound.func_74762_e("RoleQuestId");
-          this.dialog = compound.func_74779_i("RoleDialog");
-          this.options = NBTTags.getIntegerStringMap(compound.func_150295_c("RoleOptions", 10));
-          this.optionsTexts = NBTTags.getIntegerStringMap(compound.func_150295_c("RoleOptionTexts", 10));
+          this.dialog = compound.getString("RoleDialog");
+          this.options = NBTTags.getIntegerStringMap(compound.getTagList("RoleOptions", 10));
+          this.optionsTexts = NBTTags.getIntegerStringMap(compound.getTagList("RoleOptionTexts", 10));
      }
 
      public void interact(EntityPlayer player) {

@@ -35,14 +35,14 @@ public class LayerEyes extends LayerInterface {
                int j = i % 65536;
                int k = i / 65536;
                OpenGlHelper.func_77475_a(OpenGlHelper.field_77476_b, (float)j, (float)k);
-               Minecraft.func_71410_x().field_71460_t.func_191514_d(true);
+               Minecraft.getMinecraft().field_71460_t.func_191514_d(true);
                this.tessellator = Tessellator.func_178181_a().func_178180_c();
                this.tessellator.func_181668_a(7, DefaultVertexFormats.field_181706_f);
                this.drawLeft();
                this.drawRight();
                this.drawBrows();
                Tessellator.func_178181_a().func_78381_a();
-               Minecraft.func_71410_x().field_71460_t.func_191514_d(false);
+               Minecraft.getMinecraft().field_71460_t.func_191514_d(false);
                GlStateManager.func_179132_a(true);
                GlStateManager.func_179084_k();
                GlStateManager.func_179103_j(7424);

@@ -119,11 +119,11 @@ public class QuestController implements IQuestHandler {
           NBTTagCompound nbttagcompound1 = CompressedStreamTools.func_74796_a(new FileInputStream(file));
           this.lastUsedCatID = nbttagcompound1.func_74762_e("lastID");
           this.lastUsedQuestID = nbttagcompound1.func_74762_e("lastQuestID");
-          NBTTagList list = nbttagcompound1.func_150295_c("Data", 10);
+          NBTTagList list = nbttagcompound1.getTagList("Data", 10);
           if (list != null) {
-               for(int i = 0; i < list.func_74745_c(); ++i) {
+               for(int i = 0; i < list.tagCount(); ++i) {
                     QuestCategory category = new QuestCategory();
-                    category.readNBT(list.func_150305_b(i));
+                    category.readNBT(list.getCompoundTagAt(i));
                     this.categories.put(category.id, category);
                     this.saveCategory(category);
                     Iterator ita = category.quests.entrySet().iterator();

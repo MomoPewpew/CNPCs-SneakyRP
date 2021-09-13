@@ -20,25 +20,25 @@ public class PlayerQuestData {
 
      public void loadNBTData(NBTTagCompound mainCompound) {
           if (mainCompound != null) {
-               NBTTagCompound compound = mainCompound.func_74775_l("QuestData");
-               NBTTagList list = compound.func_150295_c("CompletedQuests", 10);
+               NBTTagCompound compound = mainCompound.getCompoundTag("QuestData");
+               NBTTagList list = compound.getTagList("CompletedQuests", 10);
                if (list != null) {
                     HashMap finishedQuests = new HashMap();
 
-                    for(int i = 0; i < list.func_74745_c(); ++i) {
-                         NBTTagCompound nbttagcompound = list.func_150305_b(i);
+                    for(int i = 0; i < list.tagCount(); ++i) {
+                         NBTTagCompound nbttagcompound = list.getCompoundTagAt(i);
                          finishedQuests.put(nbttagcompound.func_74762_e("Quest"), nbttagcompound.func_74763_f("Date"));
                     }
 
                     this.finishedQuests = finishedQuests;
                }
 
-               NBTTagList list2 = compound.func_150295_c("ActiveQuests", 10);
+               NBTTagList list2 = compound.getTagList("ActiveQuests", 10);
                if (list2 != null) {
                     HashMap activeQuests = new HashMap();
 
-                    for(int i = 0; i < list2.func_74745_c(); ++i) {
-                         NBTTagCompound nbttagcompound = list2.func_150305_b(i);
+                    for(int i = 0; i < list2.tagCount(); ++i) {
+                         NBTTagCompound nbttagcompound = list2.getCompoundTagAt(i);
                          int id = nbttagcompound.func_74762_e("Quest");
                          Quest quest = (Quest)QuestController.instance.quests.get(id);
                          if (quest != null) {
@@ -62,25 +62,25 @@ public class PlayerQuestData {
           while(var4.hasNext()) {
                int quest = (Integer)var4.next();
                NBTTagCompound nbttagcompound = new NBTTagCompound();
-               nbttagcompound.func_74768_a("Quest", quest);
+               nbttagcompound.setInteger("Quest", quest);
                nbttagcompound.func_74772_a("Date", (Long)this.finishedQuests.get(quest));
-               list.func_74742_a(nbttagcompound);
+               list.appendTag(nbttagcompound);
           }
 
-          compound.func_74782_a("CompletedQuests", list);
+          compound.setTag("CompletedQuests", list);
           NBTTagList list2 = new NBTTagList();
           Iterator var9 = this.activeQuests.keySet().iterator();
 
           while(var9.hasNext()) {
                int quest = (Integer)var9.next();
                NBTTagCompound nbttagcompound = new NBTTagCompound();
-               nbttagcompound.func_74768_a("Quest", quest);
+               nbttagcompound.setInteger("Quest", quest);
                ((QuestData)this.activeQuests.get(quest)).writeEntityToNBT(nbttagcompound);
-               list2.func_74742_a(nbttagcompound);
+               list2.appendTag(nbttagcompound);
           }
 
-          compound.func_74782_a("ActiveQuests", list2);
-          maincompound.func_74782_a("QuestData", compound);
+          compound.setTag("ActiveQuests", list2);
+          maincompound.setTag("QuestData", compound);
      }
 
      public QuestData getQuestCompletion(EntityPlayer player, EntityNPCInterface npc) {

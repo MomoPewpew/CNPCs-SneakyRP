@@ -84,21 +84,21 @@ public class CustomGuiScrollComponent extends GuiCustomScroll implements IDataHo
 
      public NBTTagCompound toNBT() {
           NBTTagCompound nbt = new NBTTagCompound();
-          nbt.func_74768_a("id", this.id);
+          nbt.setInteger("id", this.id);
           if (!this.getSelectedList().isEmpty()) {
                NBTTagList tagList = new NBTTagList();
                Iterator var3 = this.getSelectedList().iterator();
 
                while(var3.hasNext()) {
                     String s = (String)var3.next();
-                    tagList.func_74742_a(new NBTTagString(s));
+                    tagList.appendTag(new NBTTagString(s));
                }
 
-               nbt.func_74782_a("selectedList", tagList);
+               nbt.setTag("selectedList", tagList);
           } else if (this.getSelected() != null && !this.getSelected().isEmpty()) {
-               nbt.func_74778_a("selected", this.getSelected());
+               nbt.setString("selected", this.getSelected());
           } else {
-               nbt.func_74778_a("selected", "Null");
+               nbt.setString("selected", "Null");
           }
 
           return nbt;

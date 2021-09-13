@@ -55,7 +55,7 @@ public class GuiTextureSelection extends SubGuiInterface implements ICustomScrol
           this.setBackground("menubg.png");
           this.xSize = 366;
           this.ySize = 226;
-          SimpleReloadableResourceManager simplemanager = (SimpleReloadableResourceManager)Minecraft.func_71410_x().func_110442_L();
+          SimpleReloadableResourceManager simplemanager = (SimpleReloadableResourceManager)Minecraft.getMinecraft().func_110442_L();
           Map map = (Map)ObfuscationReflectionHelper.getPrivateValue(SimpleReloadableResourceManager.class, simplemanager, 2);
           HashSet set = new HashSet();
           Iterator var6 = map.keySet().iterator();
@@ -104,7 +104,7 @@ public class GuiTextureSelection extends SubGuiInterface implements ICustomScrol
                }
           }
 
-          ResourcePackRepository repos = Minecraft.func_71410_x().func_110438_M();
+          ResourcePackRepository repos = Minecraft.getMinecraft().func_110438_M();
           repos.func_110611_a();
           List list = repos.func_110613_c();
           File f;

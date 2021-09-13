@@ -67,7 +67,7 @@ public class GuiNpcNaturalSpawns extends GuiNPCInterface2 implements IGuiData, I
      }
 
      private String getTitle(NBTTagCompound compound) {
-          return compound != null && compound.func_74764_b("ClonedName") ? compound.func_74779_i("ClonedName") : "gui.selectnpc";
+          return compound != null && compound.hasKey("ClonedName") ? compound.getString("ClonedName") : "gui.selectnpc";
      }
 
      public void buttonEvent(GuiButton guibutton) {

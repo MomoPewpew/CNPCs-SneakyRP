@@ -737,7 +737,7 @@ public class ModelPony extends ModelBase {
           EntityNpcPony pony = (EntityNpcPony)entity;
           if (pony.textureLocation != pony.checked && pony.textureLocation != null) {
                try {
-                    IResource resource = Minecraft.func_71410_x().func_110442_L().func_110536_a(pony.textureLocation);
+                    IResource resource = Minecraft.getMinecraft().func_110442_L().func_110536_a(pony.textureLocation);
                     BufferedImage bufferedimage = ImageIO.read(resource.func_110527_b());
                     pony.isPegasus = false;
                     pony.isUnicorn = false;

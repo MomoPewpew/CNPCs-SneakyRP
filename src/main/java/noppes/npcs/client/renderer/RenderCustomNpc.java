@@ -109,7 +109,7 @@ public class RenderCustomNpc extends RenderNPCInterface {
      protected void renderModel(EntityCustomNpc npc, float par2, float par3, float par4, float par5, float par6, float par7) {
           if (this.renderEntity != null) {
                boolean flag = !npc.func_82150_aj();
-               boolean flag1 = !flag && !npc.func_98034_c(Minecraft.func_71410_x().player);
+               boolean flag1 = !flag && !npc.func_98034_c(Minecraft.getMinecraft().player);
                if (!flag && !flag1) {
                     return;
                }

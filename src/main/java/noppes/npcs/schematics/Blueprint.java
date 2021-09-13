@@ -68,9 +68,9 @@ public class Blueprint implements ISchematic {
                for(int var12 = 0; var12 < var11; ++var12) {
                     NBTTagCompound tag = var10[var12];
                     TileEntity te = world.func_175625_s(pos.func_177982_a(tag.func_74765_d("x"), tag.func_74765_d("y"), tag.func_74765_d("z")));
-                    tag.func_74768_a("x", pos.func_177958_n() + tag.func_74765_d("x"));
-                    tag.func_74768_a("y", pos.func_177956_o() + tag.func_74765_d("y"));
-                    tag.func_74768_a("z", pos.func_177952_p() + tag.func_74765_d("z"));
+                    tag.setInteger("x", pos.func_177958_n() + tag.func_74765_d("x"));
+                    tag.setInteger("y", pos.func_177956_o() + tag.func_74765_d("y"));
+                    tag.setInteger("z", pos.func_177952_p() + tag.func_74765_d("z"));
                     te.deserializeNBT(tag);
                }
           }

@@ -235,7 +235,7 @@ public class PacketHandlerPlayer {
                          }
 
                          NBTTagCompound comp = new NBTTagCompound();
-                         comp.func_74778_a("username", username);
+                         comp.setString("username", username);
                          NoppesUtilServer.sendGuiClose(player, 1, comp);
                          EntityNPCInterface npc = NoppesUtilServer.getEditingNpc(player);
                          if (npc != null && EventHooks.onNPCRole(npc, new RoleEvent.MailmanEvent(player, npc.wrappedNPC, mail))) {

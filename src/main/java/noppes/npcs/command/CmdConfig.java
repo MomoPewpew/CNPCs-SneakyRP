@@ -37,14 +37,14 @@ public class CmdConfig extends CommandNoppesBase {
           } else {
                CustomNpcs.LeavesDecayEnabled = Boolean.parseBoolean(args[0]);
                CustomNpcs.Config.updateConfig();
-               Set names = Block.field_149771_c.func_148742_b();
+               Set names = Block.REGISTRY.getKeys();
                Iterator var5 = names.iterator();
 
                while(var5.hasNext()) {
                     ResourceLocation name = (ResourceLocation)var5.next();
-                    Block block = (Block)Block.field_149771_c.func_82594_a(name);
+                    Block block = (Block)Block.REGISTRY.getObject(name);
                     if (block instanceof BlockLeaves) {
-                         block.func_149675_a(CustomNpcs.LeavesDecayEnabled);
+                         block.setTickRandomly(CustomNpcs.LeavesDecayEnabled);
                     }
                }
 
@@ -63,14 +63,14 @@ public class CmdConfig extends CommandNoppesBase {
           } else {
                CustomNpcs.VineGrowthEnabled = Boolean.parseBoolean(args[0]);
                CustomNpcs.Config.updateConfig();
-               Set names = Block.field_149771_c.func_148742_b();
+               Set names = Block.REGISTRY.getKeys();
                Iterator var5 = names.iterator();
 
                while(var5.hasNext()) {
                     ResourceLocation name = (ResourceLocation)var5.next();
-                    Block block = (Block)Block.field_149771_c.func_82594_a(name);
+                    Block block = (Block)Block.REGISTRY.getObject(name);
                     if (block instanceof BlockVine) {
-                         block.func_149675_a(CustomNpcs.VineGrowthEnabled);
+                         block.setTickRandomly(CustomNpcs.VineGrowthEnabled);
                     }
                }
 
@@ -89,14 +89,14 @@ public class CmdConfig extends CommandNoppesBase {
           } else {
                CustomNpcs.IceMeltsEnabled = Boolean.parseBoolean(args[0]);
                CustomNpcs.Config.updateConfig();
-               Set names = Block.field_149771_c.func_148742_b();
+               Set names = Block.REGISTRY.getKeys();
                Iterator var5 = names.iterator();
 
                while(var5.hasNext()) {
                     ResourceLocation name = (ResourceLocation)var5.next();
-                    Block block = (Block)Block.field_149771_c.func_82594_a(name);
+                    Block block = (Block)Block.REGISTRY.getObject(name);
                     if (block instanceof BlockIce) {
-                         block.func_149675_a(CustomNpcs.IceMeltsEnabled);
+                         block.setTickRandomly(CustomNpcs.IceMeltsEnabled);
                     }
                }
 

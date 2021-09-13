@@ -86,7 +86,7 @@ public class NoppesUtilPlayer {
           if (player.field_71093_bK != dimension) {
                int dim = player.field_71093_bK;
                MinecraftServer server = player.func_184102_h();
-               WorldServer wor = server.func_71218_a(dimension);
+               WorldServer wor = server.getWorld(dimension);
                if (wor == null) {
                     player.func_145747_a(new TextComponentString("Broken transporter. Dimenion does not exist"));
                     return;

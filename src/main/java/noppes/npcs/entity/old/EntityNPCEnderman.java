@@ -12,22 +12,22 @@ public class EntityNPCEnderman extends EntityNpcEnderchibi {
           this.display.setSkinTexture("customnpcs:textures/entity/enderman/enderman.png");
           this.display.setOverlayTexture("customnpcs:textures/overlays/ender_eyes.png");
           this.field_70130_N = 0.6F;
-          this.field_70131_O = 2.9F;
+          this.height = 2.9F;
      }
 
      public void updateHitbox() {
           if (this.currentAnimation == 2) {
-               this.field_70130_N = this.field_70131_O = 0.2F;
+               this.field_70130_N = this.height = 0.2F;
           } else if (this.currentAnimation == 1) {
                this.field_70130_N = 0.6F;
-               this.field_70131_O = 2.3F;
+               this.height = 2.3F;
           } else {
                this.field_70130_N = 0.6F;
-               this.field_70131_O = 2.9F;
+               this.height = 2.9F;
           }
 
           this.field_70130_N = this.field_70130_N / 5.0F * (float)this.display.getSize();
-          this.field_70131_O = this.field_70131_O / 5.0F * (float)this.display.getSize();
+          this.height = this.height / 5.0F * (float)this.display.getSize();
      }
 
      public void func_70071_h_() {

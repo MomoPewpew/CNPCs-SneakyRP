@@ -26,7 +26,7 @@ public class RenderNPCInterface extends RenderLiving {
      public static int LastTextureTick;
 
      public RenderNPCInterface(ModelBase model, float f) {
-          super(Minecraft.func_71410_x().func_175598_ae(), model, f);
+          super(Minecraft.getMinecraft().func_175598_ae(), model, f);
      }
 
      public void renderName(EntityNPCInterface npc, double d, double d1, double d2) {
@@ -36,13 +36,13 @@ public class RenderNPCInterface extends RenderLiving {
                     float scale;
                     if (npc.messages != null) {
                          scale = npc.baseHeight / 5.0F * (float)npc.display.getSize();
-                         float offset = npc.field_70131_O * (1.2F + (!npc.display.showName() ? 0.0F : (npc.display.getTitle().isEmpty() ? 0.15F : 0.25F)));
+                         float offset = npc.height * (1.2F + (!npc.display.showName() ? 0.0F : (npc.display.getTitle().isEmpty() ? 0.15F : 0.25F)));
                          npc.messages.renderMessages(d, d1 + (double)offset, d2, 0.666667F * scale, npc.isInRange(this.field_76990_c.field_78734_h, 4.0D));
                     }
 
                     scale = npc.baseHeight / 5.0F * (float)npc.display.getSize();
                     if (npc.display.showName()) {
-                         this.renderLivingLabel(npc, (float)d, (float)d1 + npc.field_70131_O - 0.06F * scale, (float)d2, 64, npc.func_70005_c_(), npc.display.getTitle());
+                         this.renderLivingLabel(npc, (float)d, (float)d1 + npc.height - 0.06F * scale, (float)d2, 64, npc.func_70005_c_(), npc.display.getTitle());
                     }
 
                }
@@ -138,7 +138,7 @@ public class RenderNPCInterface extends RenderLiving {
 
      public void doRender(EntityNPCInterface npc, double d, double d1, double d2, float f, float f1) {
           if (!npc.isKilled() || !npc.stats.hideKilledBody || npc.field_70725_aQ <= 20) {
-               if ((npc.display.getBossbar() == 1 || npc.display.getBossbar() == 2 && npc.isAttacking()) && !npc.isKilled() && npc.field_70725_aQ <= 20 && npc.canSee(Minecraft.func_71410_x().player)) {
+               if ((npc.display.getBossbar() == 1 || npc.display.getBossbar() == 2 && npc.isAttacking()) && !npc.isKilled() && npc.field_70725_aQ <= 20 && npc.canSee(Minecraft.getMinecraft().player)) {
                }
 
                if (npc.ais.getStandingType() == 3 && !npc.isWalking() && !npc.isInteracting()) {
@@ -216,7 +216,7 @@ public class RenderNPCInterface extends RenderLiving {
                     }
 
                     if (npc.display.skinType == 1 && npc.display.playerProfile != null) {
-                         Minecraft minecraft = Minecraft.func_71410_x();
+                         Minecraft minecraft = Minecraft.getMinecraft();
                          Map map = minecraft.func_152342_ad().func_152788_a(npc.display.playerProfile);
                          if (map.containsKey(Type.SKIN)) {
                               npc.textureLocation = minecraft.func_152342_ad().func_152792_a((MinecraftProfileTexture)map.get(Type.SKIN), Type.SKIN);
@@ -246,7 +246,7 @@ public class RenderNPCInterface extends RenderLiving {
      }
 
      private void loadSkin(File file, ResourceLocation resource, String par1Str) {
-          TextureManager texturemanager = Minecraft.func_71410_x().func_110434_K();
+          TextureManager texturemanager = Minecraft.getMinecraft().func_110434_K();
           if (texturemanager.func_110581_b(resource) == null) {
                ITextureObject object = new ImageDownloadAlt(file, par1Str, DefaultPlayerSkin.func_177335_a(), new ImageBufferDownloadAlt());
                texturemanager.func_110579_a(resource, object);

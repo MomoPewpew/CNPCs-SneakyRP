@@ -137,7 +137,7 @@ public class GuiNpcAdvanced extends GuiNPCInterface2 implements IGuiData {
      }
 
      public void setGuiData(NBTTagCompound compound) {
-          if (compound.func_74764_b("RoleData")) {
+          if (compound.hasKey("RoleData")) {
                if (this.npc.roleInterface != null) {
                     this.npc.roleInterface.readFromNBT(compound);
                }
@@ -155,7 +155,7 @@ public class GuiNpcAdvanced extends GuiNPCInterface2 implements IGuiData {
                } else if (this.npc.advanced.role == 7) {
                     NoppesUtil.openGUI(this.player, new GuiRoleDialog(this.npc));
                }
-          } else if (compound.func_74764_b("JobData")) {
+          } else if (compound.hasKey("JobData")) {
                if (this.npc.jobInterface != null) {
                     this.npc.jobInterface.readFromNBT(compound);
                }

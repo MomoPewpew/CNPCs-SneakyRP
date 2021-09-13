@@ -71,7 +71,7 @@ public abstract class LayerInterface implements LayerRenderer {
 
      public void func_177141_a(EntityLivingBase entity, float par2, float par3, float par8, float par4, float par5, float par6, float par7) {
           this.npc = (EntityCustomNpc)entity;
-          if (!this.npc.func_98034_c(Minecraft.func_71410_x().player)) {
+          if (!this.npc.func_98034_c(Minecraft.getMinecraft().player)) {
                this.playerdata = this.npc.modelData;
                this.model = (ModelBiped)this.render.func_177087_b();
                this.rotate(par2, par3, par4, par5, par6, par7);

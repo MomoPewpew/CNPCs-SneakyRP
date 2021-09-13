@@ -279,12 +279,12 @@ public class ScriptController {
 
                while(var6.hasNext()) {
                     String script = (String)var6.next();
-                    scripts.func_74742_a(new NBTTagString(script));
+                    scripts.appendTag(new NBTTagString(script));
                }
 
-               compound.func_74782_a("Scripts", scripts);
-               compound.func_74778_a("Language", language);
-               list.func_74742_a(compound);
+               compound.setTag("Scripts", scripts);
+               compound.setString("Language", language);
+               list.appendTag(compound);
           }
 
           return list;

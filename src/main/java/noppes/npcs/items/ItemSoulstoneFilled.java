@@ -39,15 +39,15 @@ public class ItemSoulstoneFilled extends Item {
      public void func_77624_a(ItemStack stack, World world, List list, ITooltipFlag flag) {
           NBTTagCompound compound = stack.func_77978_p();
           if (compound != null && compound.func_150297_b("Entity", 10)) {
-               String name = I18n.func_74838_a(compound.func_74779_i("Name"));
-               if (compound.func_74764_b("DisplayName")) {
-                    name = compound.func_74779_i("DisplayName") + " (" + name + ")";
+               String name = I18n.func_74838_a(compound.getString("Name"));
+               if (compound.hasKey("DisplayName")) {
+                    name = compound.getString("DisplayName") + " (" + name + ")";
                }
 
                list.add(TextFormatting.BLUE + name);
-               if (stack.func_77978_p().func_74764_b("ExtraText")) {
+               if (stack.func_77978_p().hasKey("ExtraText")) {
                     String text = "";
-                    String[] split = compound.func_74779_i("ExtraText").split(",");
+                    String[] split = compound.getString("ExtraText").split(",");
                     String[] var9 = split;
                     int var10 = split.length;
 
@@ -85,7 +85,7 @@ public class ItemSoulstoneFilled extends Item {
           if (world.field_72995_K) {
                return null;
           } else if (stack.func_77978_p() != null && stack.func_77978_p().func_150297_b("Entity", 10)) {
-               NBTTagCompound compound = stack.func_77978_p().func_74775_l("Entity");
+               NBTTagCompound compound = stack.func_77978_p().getCompoundTag("Entity");
                Entity entity = EntityList.func_75615_a(compound, world);
                if (entity == null) {
                     return null;

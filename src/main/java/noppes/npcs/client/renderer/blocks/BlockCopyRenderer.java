@@ -29,7 +29,7 @@ public class BlockCopyRenderer extends BlockRendererInterface {
           GlStateManager.func_179109_b(0.5F, 0.5F, 0.5F);
           GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
           GlStateManager.func_179114_b(180.0F, 0.0F, 1.0F, 0.0F);
-          Minecraft.func_71410_x().getRenderItem().func_181564_a(item, TransformType.NONE);
+          Minecraft.getMinecraft().getRenderItem().func_181564_a(item, TransformType.NONE);
           GlStateManager.func_179121_F();
      }
 

@@ -43,17 +43,17 @@ public class PlayerScriptData implements IScriptHandler {
      }
 
      public void readFromNBT(NBTTagCompound compound) {
-          this.scripts = NBTTags.GetScript(compound.func_150295_c("Scripts", 10), this);
-          this.scriptLanguage = compound.func_74779_i("ScriptLanguage");
-          this.enabled = compound.func_74767_n("ScriptEnabled");
-          console = NBTTags.GetLongStringMap(compound.func_150295_c("ScriptConsole", 10));
+          this.scripts = NBTTags.GetScript(compound.getTagList("Scripts", 10), this);
+          this.scriptLanguage = compound.getString("ScriptLanguage");
+          this.enabled = compound.getBoolean("ScriptEnabled");
+          console = NBTTags.GetLongStringMap(compound.getTagList("ScriptConsole", 10));
      }
 
      public NBTTagCompound writeToNBT(NBTTagCompound compound) {
-          compound.func_74782_a("Scripts", NBTTags.NBTScript(this.scripts));
-          compound.func_74778_a("ScriptLanguage", this.scriptLanguage);
+          compound.setTag("Scripts", NBTTags.NBTScript(this.scripts));
+          compound.setString("ScriptLanguage", this.scriptLanguage);
           compound.func_74757_a("ScriptEnabled", this.enabled);
-          compound.func_74782_a("ScriptConsole", NBTTags.NBTLongStringMap(console));
+          compound.setTag("ScriptConsole", NBTTags.NBTLongStringMap(console));
           return compound;
      }
 

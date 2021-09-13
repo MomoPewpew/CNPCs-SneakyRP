@@ -16,7 +16,7 @@ public class RoleBank extends RoleInterface {
      }
 
      public NBTTagCompound writeToNBT(NBTTagCompound nbttagcompound) {
-          nbttagcompound.func_74768_a("RoleBankID", this.bankId);
+          nbttagcompound.setInteger("RoleBankID", this.bankId);
           return nbttagcompound;
      }
 

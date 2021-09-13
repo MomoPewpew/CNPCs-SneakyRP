@@ -10,13 +10,13 @@ public class PlayerItemGiverData {
      private HashMap chained = new HashMap();
 
      public void loadNBTData(NBTTagCompound compound) {
-          this.chained = NBTTags.getIntegerIntegerMap(compound.func_150295_c("ItemGiverChained", 10));
-          this.itemgivers = NBTTags.getIntegerLongMap(compound.func_150295_c("ItemGiversList", 10));
+          this.chained = NBTTags.getIntegerIntegerMap(compound.getTagList("ItemGiverChained", 10));
+          this.itemgivers = NBTTags.getIntegerLongMap(compound.getTagList("ItemGiversList", 10));
      }
 
      public void saveNBTData(NBTTagCompound compound) {
-          compound.func_74782_a("ItemGiverChained", NBTTags.nbtIntegerIntegerMap(this.chained));
-          compound.func_74782_a("ItemGiversList", NBTTags.nbtIntegerLongMap(this.itemgivers));
+          compound.setTag("ItemGiverChained", NBTTags.nbtIntegerIntegerMap(this.chained));
+          compound.setTag("ItemGiversList", NBTTags.nbtIntegerLongMap(this.itemgivers));
      }
 
      public boolean hasInteractedBefore(JobItemGiver jobItemGiver) {

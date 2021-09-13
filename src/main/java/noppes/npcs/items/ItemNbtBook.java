@@ -37,7 +37,7 @@ public class ItemNbtBook extends Item implements IPermission {
           }
 
           NBTTagCompound compound = new NBTTagCompound();
-          compound.func_74782_a("Data", data);
+          compound.setTag("Data", data);
           Server.sendData((EntityPlayerMP)event.getEntityPlayer(), EnumPacketClient.GUI_DATA, compound);
      }
 
@@ -46,8 +46,8 @@ public class ItemNbtBook extends Item implements IPermission {
           NBTTagCompound data = new NBTTagCompound();
           event.getTarget().func_184198_c(data);
           NBTTagCompound compound = new NBTTagCompound();
-          compound.func_74768_a("EntityId", event.getTarget().func_145782_y());
-          compound.func_74782_a("Data", data);
+          compound.setInteger("EntityId", event.getTarget().func_145782_y());
+          compound.setTag("Data", data);
           Server.sendData((EntityPlayerMP)event.getEntityPlayer(), EnumPacketClient.GUI_DATA, compound);
      }
 

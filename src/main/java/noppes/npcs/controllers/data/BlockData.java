@@ -21,13 +21,13 @@ public class BlockData {
 
      public NBTTagCompound getNBT() {
           NBTTagCompound compound = new NBTTagCompound();
-          compound.func_74768_a("BuildX", this.pos.func_177958_n());
-          compound.func_74768_a("BuildY", this.pos.func_177956_o());
-          compound.func_74768_a("BuildZ", this.pos.func_177952_p());
-          compound.func_74778_a("Block", ((ResourceLocation)Block.field_149771_c.func_177774_c(this.state.func_177230_c())).toString());
-          compound.func_74768_a("Meta", this.state.func_177230_c().func_176201_c(this.state));
+          compound.setInteger("BuildX", this.pos.func_177958_n());
+          compound.setInteger("BuildY", this.pos.func_177956_o());
+          compound.setInteger("BuildZ", this.pos.func_177952_p());
+          compound.setString("Block", ((ResourceLocation)Block.REGISTRY.func_177774_c(this.state.func_177230_c())).toString());
+          compound.setInteger("Meta", this.state.func_177230_c().func_176201_c(this.state));
           if (this.tile != null) {
-               compound.func_74782_a("Tile", this.tile);
+               compound.setTag("Tile", this.tile);
           }
 
           return compound;
@@ -35,14 +35,14 @@ public class BlockData {
 
      public static BlockData getData(NBTTagCompound compound) {
           BlockPos pos = new BlockPos(compound.func_74762_e("BuildX"), compound.func_74762_e("BuildY"), compound.func_74762_e("BuildZ"));
-          Block b = Block.func_149684_b(compound.func_74779_i("Block"));
+          Block b = Block.func_149684_b(compound.getString("Block"));
           if (b == null) {
                return null;
           } else {
                IBlockState state = b.func_176203_a(compound.func_74762_e("Meta"));
                NBTTagCompound tile = null;
-               if (compound.func_74764_b("Tile")) {
-                    tile = compound.func_74775_l("Tile");
+               if (compound.hasKey("Tile")) {
+                    tile = compound.getCompoundTag("Tile");
                }
 
                return new BlockData(pos, state, tile);

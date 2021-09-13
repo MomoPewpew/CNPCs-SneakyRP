@@ -40,7 +40,7 @@ public class BlockScriptedDoorWrapper extends BlockWrapper implements IBlockScri
      }
 
      public String getBlockModel() {
-          return Block.field_149771_c.func_177774_c(this.tile.blockModel) + "";
+          return Block.REGISTRY.func_177774_c(this.tile.blockModel) + "";
      }
 
      public ITimers getTimers() {

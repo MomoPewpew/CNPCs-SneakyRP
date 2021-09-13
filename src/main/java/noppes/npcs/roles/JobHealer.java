@@ -27,17 +27,17 @@ public class JobHealer extends JobInterface {
      }
 
      public NBTTagCompound writeToNBT(NBTTagCompound nbttagcompound) {
-          nbttagcompound.func_74768_a("HealerRange", this.range);
+          nbttagcompound.setInteger("HealerRange", this.range);
           nbttagcompound.func_74774_a("HealerType", this.type);
-          nbttagcompound.func_74782_a("BeaconEffects", NBTTags.nbtIntegerIntegerMap(this.effects));
-          nbttagcompound.func_74768_a("HealerSpeed", this.speed);
+          nbttagcompound.setTag("BeaconEffects", NBTTags.nbtIntegerIntegerMap(this.effects));
+          nbttagcompound.setInteger("HealerSpeed", this.speed);
           return nbttagcompound;
      }
 
      public void readFromNBT(NBTTagCompound nbttagcompound) {
           this.range = nbttagcompound.func_74762_e("HealerRange");
           this.type = nbttagcompound.func_74771_c("HealerType");
-          this.effects = NBTTags.getIntegerIntegerMap(nbttagcompound.func_150295_c("BeaconEffects", 10));
+          this.effects = NBTTags.getIntegerIntegerMap(nbttagcompound.getTagList("BeaconEffects", 10));
           this.speed = ValueUtil.CorrectInt(nbttagcompound.func_74762_e("HealerSpeed"), 10, Integer.MAX_VALUE);
      }
 

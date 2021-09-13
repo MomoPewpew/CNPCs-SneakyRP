@@ -40,15 +40,15 @@ public class TileBuilder extends TileEntity implements ITickable {
 
      public void func_145839_a(NBTTagCompound compound) {
           super.func_145839_a(compound);
-          if (compound.func_74764_b("SchematicName")) {
-               this.schematic = SchematicController.Instance.load(compound.func_74779_i("SchematicName"));
+          if (compound.hasKey("SchematicName")) {
+               this.schematic = SchematicController.Instance.load(compound.getString("SchematicName"));
           }
 
           Stack positions = new Stack();
-          positions.addAll(NBTTags.getIntegerList(compound.func_150295_c("Positions", 10)));
+          positions.addAll(NBTTags.getIntegerList(compound.getTagList("Positions", 10)));
           this.positions = positions;
           positions = new Stack();
-          positions.addAll(NBTTags.getIntegerList(compound.func_150295_c("PositionsSecond", 10)));
+          positions.addAll(NBTTags.getIntegerList(compound.getTagList("PositionsSecond", 10)));
           this.positionsSecond = positions;
           this.readPartNBT(compound);
      }
@@ -56,31 +56,31 @@ public class TileBuilder extends TileEntity implements ITickable {
      public void readPartNBT(NBTTagCompound compound) {
           this.rotation = compound.func_74762_e("Rotation");
           this.yOffest = compound.func_74762_e("YOffset");
-          this.enabled = compound.func_74767_n("Enabled");
-          this.started = compound.func_74767_n("Started");
-          this.finished = compound.func_74767_n("Finished");
-          this.availability.readFromNBT(compound.func_74775_l("Availability"));
+          this.enabled = compound.getBoolean("Enabled");
+          this.started = compound.getBoolean("Started");
+          this.finished = compound.getBoolean("Finished");
+          this.availability.readFromNBT(compound.getCompoundTag("Availability"));
      }
 
      public NBTTagCompound func_189515_b(NBTTagCompound compound) {
           super.func_189515_b(compound);
           if (this.schematic != null) {
-               compound.func_74778_a("SchematicName", this.schematic.schema.getName());
+               compound.setString("SchematicName", this.schematic.schema.getName());
           }
 
-          compound.func_74782_a("Positions", NBTTags.nbtIntegerCollection(new ArrayList(this.positions)));
-          compound.func_74782_a("PositionsSecond", NBTTags.nbtIntegerCollection(new ArrayList(this.positionsSecond)));
+          compound.setTag("Positions", NBTTags.nbtIntegerCollection(new ArrayList(this.positions)));
+          compound.setTag("PositionsSecond", NBTTags.nbtIntegerCollection(new ArrayList(this.positionsSecond)));
           this.writePartNBT(compound);
           return compound;
      }
 
      public NBTTagCompound writePartNBT(NBTTagCompound compound) {
-          compound.func_74768_a("Rotation", this.rotation);
-          compound.func_74768_a("YOffset", this.yOffest);
+          compound.setInteger("Rotation", this.rotation);
+          compound.setInteger("YOffset", this.yOffest);
           compound.func_74757_a("Enabled", this.enabled);
           compound.func_74757_a("Started", this.started);
           compound.func_74757_a("Finished", this.finished);
-          compound.func_74782_a("Availability", this.availability.writeToNBT(new NBTTagCompound()));
+          compound.setTag("Availability", this.availability.writeToNBT(new NBTTagCompound()));
           return compound;
      }
 

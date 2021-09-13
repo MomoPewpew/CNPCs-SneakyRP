@@ -63,13 +63,13 @@ public abstract class GuiNPCInterface extends GuiScreen {
           this.background = null;
           this.closeOnEsc = false;
           this.bgScale = 1.0F;
-          this.player = Minecraft.func_71410_x().player;
+          this.player = Minecraft.getMinecraft().player;
           this.npc = npc;
           this.title = "";
           this.xSize = 200;
           this.ySize = 222;
           this.drawDefaultBackground = false;
-          this.field_146297_k = Minecraft.func_71410_x();
+          this.field_146297_k = Minecraft.getMinecraft();
           this.field_146296_j = this.field_146297_k.getRenderItem();
           this.field_146289_q = this.field_146297_k.fontRenderer;
      }
@@ -493,8 +493,8 @@ public abstract class GuiNPCInterface extends GuiScreen {
           GlStateManager.func_179094_E();
           GlStateManager.func_179109_b((float)(this.guiLeft + x), (float)(this.guiTop + y), 50.0F);
           float scale = 1.0F;
-          if ((double)entity.field_70131_O > 2.4D) {
-               scale = 2.0F / entity.field_70131_O;
+          if ((double)entity.height > 2.4D) {
+               scale = 2.0F / entity.height;
           }
 
           GlStateManager.func_179152_a(-30.0F * scale * zoomed, 30.0F * scale * zoomed, 30.0F * scale * zoomed);

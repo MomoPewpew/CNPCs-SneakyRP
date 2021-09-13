@@ -85,12 +85,12 @@ public class RecipeController implements IRecipeHandler {
      private void loadCategories(File file) throws Exception {
           NBTTagCompound nbttagcompound1 = CompressedStreamTools.func_74796_a(new FileInputStream(file));
           this.nextId = nbttagcompound1.func_74762_e("LastId");
-          NBTTagList list = nbttagcompound1.func_150295_c("Data", 10);
+          NBTTagList list = nbttagcompound1.getTagList("Data", 10);
           HashMap globalRecipes = new HashMap();
           HashMap anvilRecipes = new HashMap();
           if (list != null) {
-               for(int i = 0; i < list.func_74745_c(); ++i) {
-                    RecipeCarpentry recipe = RecipeCarpentry.read(list.func_150305_b(i));
+               for(int i = 0; i < list.tagCount(); ++i) {
+                    RecipeCarpentry recipe = RecipeCarpentry.read(list.getCompoundTagAt(i));
                     if (recipe.isGlobal) {
                          globalRecipes.put(recipe.id, recipe);
                     } else {
@@ -118,7 +118,7 @@ public class RecipeController implements IRecipeHandler {
                while(var3.hasNext()) {
                     recipe = (RecipeCarpentry)var3.next();
                     if (recipe.savesRecipe) {
-                         list.func_74742_a(recipe.writeNBT());
+                         list.appendTag(recipe.writeNBT());
                     }
                }
 
@@ -127,14 +127,14 @@ public class RecipeController implements IRecipeHandler {
                while(var3.hasNext()) {
                     recipe = (RecipeCarpentry)var3.next();
                     if (recipe.savesRecipe) {
-                         list.func_74742_a(recipe.writeNBT());
+                         list.appendTag(recipe.writeNBT());
                     }
                }
 
                NBTTagCompound nbttagcompound = new NBTTagCompound();
-               nbttagcompound.func_74782_a("Data", list);
-               nbttagcompound.func_74768_a("LastId", this.nextId);
-               nbttagcompound.func_74768_a("Version", 1);
+               nbttagcompound.setTag("Data", list);
+               nbttagcompound.setInteger("LastId", this.nextId);
+               nbttagcompound.setInteger("Version", 1);
                File file = new File(saveDir, "recipes.dat_new");
                File file1 = new File(saveDir, "recipes.dat_old");
                File file2 = new File(saveDir, "recipes.dat");

@@ -25,15 +25,15 @@ public abstract class TileNpcContainer extends TileColorable implements IInvento
 
      public void func_145839_a(NBTTagCompound compound) {
           super.func_145839_a(compound);
-          NBTTagList nbttaglist = compound.func_150295_c("Items", 10);
+          NBTTagList nbttaglist = compound.getTagList("Items", 10);
           if (compound.func_150297_b("CustomName", 8)) {
-               this.customName = compound.func_74779_i("CustomName");
+               this.customName = compound.getString("CustomName");
           }
 
           this.inventoryContents.clear();
 
-          for(int i = 0; i < nbttaglist.func_74745_c(); ++i) {
-               NBTTagCompound nbttagcompound1 = nbttaglist.func_150305_b(i);
+          for(int i = 0; i < nbttaglist.tagCount(); ++i) {
+               NBTTagCompound nbttagcompound1 = nbttaglist.getCompoundTagAt(i);
                int j = nbttagcompound1.func_74771_c("Slot") & 255;
                if (j >= 0 && j < this.inventoryContents.size()) {
                     this.inventoryContents.set(j, new ItemStack(nbttagcompound1));
@@ -50,13 +50,13 @@ public abstract class TileNpcContainer extends TileColorable implements IInvento
                     NBTTagCompound tagCompound = new NBTTagCompound();
                     tagCompound.func_74774_a("Slot", (byte)i);
                     ((ItemStack)this.inventoryContents.get(i)).func_77955_b(tagCompound);
-                    nbttaglist.func_74742_a(tagCompound);
+                    nbttaglist.appendTag(tagCompound);
                }
           }
 
-          compound.func_74782_a("Items", nbttaglist);
+          compound.setTag("Items", nbttaglist);
           if (this.func_145818_k_()) {
-               compound.func_74778_a("CustomName", this.customName);
+               compound.setString("CustomName", this.customName);
           }
 
           return super.func_189515_b(compound);

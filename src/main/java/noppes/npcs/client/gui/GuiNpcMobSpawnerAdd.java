@@ -25,7 +25,7 @@ public class GuiNpcMobSpawnerAdd extends GuiNPCInterface implements GuiYesNoCall
      private static int tab = 1;
 
      public GuiNpcMobSpawnerAdd(NBTTagCompound compound) {
-          this.toClone = EntityList.func_75615_a(compound, Minecraft.func_71410_x().field_71441_e);
+          this.toClone = EntityList.func_75615_a(compound, Minecraft.getMinecraft().field_71441_e);
           this.compound = compound;
           this.setBackground("menubg.png");
           this.xSize = 256;
@@ -98,8 +98,8 @@ public class GuiNpcMobSpawnerAdd extends GuiNPCInterface implements GuiYesNoCall
      }
 
      public void setGuiData(NBTTagCompound compound) {
-          if (compound.func_74764_b("NameExists")) {
-               if (compound.func_74767_n("NameExists")) {
+          if (compound.hasKey("NameExists")) {
+               if (compound.getBoolean("NameExists")) {
                     this.displayGuiScreen(new GuiYesNo(this, "", I18n.func_74838_a("clone.overwrite"), 1));
                } else {
                     this.func_73878_a(true, 0);

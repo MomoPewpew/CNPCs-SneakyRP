@@ -22,17 +22,17 @@ public class ModelEyeData extends ModelPartData {
      public NBTTagCompound writeToNBT() {
           NBTTagCompound compound = super.writeToNBT();
           compound.func_74757_a("Glint", this.glint);
-          compound.func_74768_a("SkinColor", this.skinColor);
-          compound.func_74768_a("BrowColor", this.browColor);
-          compound.func_74768_a("PositionY", this.eyePos);
-          compound.func_74768_a("BrowThickness", this.browThickness);
+          compound.setInteger("SkinColor", this.skinColor);
+          compound.setInteger("BrowColor", this.browColor);
+          compound.setInteger("PositionY", this.eyePos);
+          compound.setInteger("BrowThickness", this.browThickness);
           return compound;
      }
 
      public void readFromNBT(NBTTagCompound compound) {
           if (!compound.func_82582_d()) {
                super.readFromNBT(compound);
-               this.glint = compound.func_74767_n("Glint");
+               this.glint = compound.getBoolean("Glint");
                this.skinColor = compound.func_74762_e("SkinColor");
                this.browColor = compound.func_74762_e("BrowColor");
                this.eyePos = compound.func_74762_e("PositionY");

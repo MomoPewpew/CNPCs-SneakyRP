@@ -64,10 +64,10 @@ public class SpawnController {
           ArrayList data = new ArrayList();
           NBTTagCompound nbttagcompound1 = CompressedStreamTools.func_74794_a(stream);
           this.lastUsedID = nbttagcompound1.func_74762_e("lastID");
-          NBTTagList nbtlist = nbttagcompound1.func_150295_c("NPCSpawnData", 10);
+          NBTTagList nbtlist = nbttagcompound1.getTagList("NPCSpawnData", 10);
           if (nbtlist != null) {
-               for(int i = 0; i < nbtlist.func_74745_c(); ++i) {
-                    NBTTagCompound nbttagcompound = nbtlist.func_150305_b(i);
+               for(int i = 0; i < nbtlist.tagCount(); ++i) {
+                    NBTTagCompound nbttagcompound = nbtlist.getCompoundTagAt(i);
                     SpawnData spawn = new SpawnData();
                     spawn.readNBT(nbttagcompound);
                     data.add(spawn);
@@ -86,12 +86,12 @@ public class SpawnController {
                SpawnData spawn = (SpawnData)var2.next();
                NBTTagCompound nbtfactions = new NBTTagCompound();
                spawn.writeNBT(nbtfactions);
-               list.func_74742_a(nbtfactions);
+               list.appendTag(nbtfactions);
           }
 
           NBTTagCompound nbttagcompound = new NBTTagCompound();
-          nbttagcompound.func_74768_a("lastID", this.lastUsedID);
-          nbttagcompound.func_74782_a("NPCSpawnData", list);
+          nbttagcompound.setInteger("lastID", this.lastUsedID);
+          nbttagcompound.setTag("NPCSpawnData", list);
           return nbttagcompound;
      }
 

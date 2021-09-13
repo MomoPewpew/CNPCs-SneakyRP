@@ -21,12 +21,12 @@ public class NpcMiscInventory implements IInventory {
 
      public NBTTagCompound getToNBT() {
           NBTTagCompound nbttagcompound = new NBTTagCompound();
-          nbttagcompound.func_74782_a("NpcMiscInv", NBTTags.nbtItemStackList(this.items));
+          nbttagcompound.setTag("NpcMiscInv", NBTTags.nbtItemStackList(this.items));
           return nbttagcompound;
      }
 
      public void setFromNBT(NBTTagCompound nbttagcompound) {
-          NBTTags.getItemStackList(nbttagcompound.func_150295_c("NpcMiscInv", 10), this.items);
+          NBTTags.getItemStackList(nbttagcompound.getTagList("NpcMiscInv", 10), this.items);
      }
 
      public int func_70302_i_() {

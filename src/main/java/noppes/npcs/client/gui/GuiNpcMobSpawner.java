@@ -155,7 +155,7 @@ public class GuiNpcMobSpawner extends GuiNPCInterface implements IGuiData {
           } else if (showingClones == 0) {
                return ClientCloneController.Instance.getCloneData(this.player, sel, this.activeTab);
           } else {
-               Entity entity = EntityList.func_188429_b(new ResourceLocation(sel), Minecraft.func_71410_x().field_71441_e);
+               Entity entity = EntityList.func_188429_b(new ResourceLocation(sel), Minecraft.getMinecraft().field_71441_e);
                if (entity == null) {
                     return null;
                } else {
@@ -251,10 +251,10 @@ public class GuiNpcMobSpawner extends GuiNPCInterface implements IGuiData {
      }
 
      public void setGuiData(NBTTagCompound compound) {
-          NBTTagList nbtlist = compound.func_150295_c("List", 8);
+          NBTTagList nbtlist = compound.getTagList("List", 8);
           List list = new ArrayList();
 
-          for(int i = 0; i < nbtlist.func_74745_c(); ++i) {
+          for(int i = 0; i < nbtlist.tagCount(); ++i) {
                list.add(nbtlist.func_150307_f(i));
           }
 

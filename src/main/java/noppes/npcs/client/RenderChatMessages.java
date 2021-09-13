@@ -30,7 +30,7 @@ public class RenderChatMessages implements IChatMessages {
                long time = System.currentTimeMillis();
                if (!message.equals(this.lastMessage) || this.lastMessageTime + 5000L <= time) {
                     Map messages = new TreeMap(this.messages);
-                    messages.put(time, new TextBlockClient(message, this.boxLength * 4, true, new Object[]{Minecraft.func_71410_x().player, npc}));
+                    messages.put(time, new TextBlockClient(message, this.boxLength * 4, true, new Object[]{Minecraft.getMinecraft().player, npc}));
                     if (messages.size() > 3) {
                          messages.remove(messages.keySet().iterator().next());
                     }
@@ -54,7 +54,7 @@ public class RenderChatMessages implements IChatMessages {
      }
 
      private void render(double par3, double par5, double par7, float textscale, boolean depth) {
-          FontRenderer font = Minecraft.func_71410_x().fontRenderer;
+          FontRenderer font = Minecraft.getMinecraft().fontRenderer;
           float var13 = 1.6F;
           float var14 = 0.016666668F * var13;
           GlStateManager.func_179094_E();
@@ -65,7 +65,7 @@ public class RenderChatMessages implements IChatMessages {
                block = (TextBlockClient)var13.next();
           }
 
-          Minecraft mc = Minecraft.func_71410_x();
+          Minecraft mc = Minecraft.getMinecraft();
           int textYSize = (int)((float)(size * font.field_78288_b) * this.scale);
           GlStateManager.func_179109_b((float)par3 + 0.0F, (float)par5 + (float)textYSize * textscale * var14, (float)par7);
           GlStateManager.func_179152_a(textscale, textscale, textscale);

@@ -45,7 +45,7 @@ public class CustomNpcResourceListener implements IResourceManagerReloadListener
      }
 
      private void enlargeTexture(String texture) {
-          TextureManager manager = Minecraft.func_71410_x().func_110434_K();
+          TextureManager manager = Minecraft.getMinecraft().func_110434_K();
           if (manager != null) {
                ResourceLocation location = new ResourceLocation("customnpcs:textures/cache/" + texture + ".png");
                ITextureObject ob = manager.func_110581_b(location);

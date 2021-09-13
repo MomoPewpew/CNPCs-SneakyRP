@@ -30,11 +30,11 @@ public class Schematic implements ISchematic {
           this.width = compound.func_74765_d("Width");
           this.height = compound.func_74765_d("Height");
           this.length = compound.func_74765_d("Length");
-          byte[] addId = compound.func_74764_b("AddBlocks") ? compound.func_74770_j("AddBlocks") : new byte[0];
+          byte[] addId = compound.hasKey("AddBlocks") ? compound.func_74770_j("AddBlocks") : new byte[0];
           this.setBlockBytes(compound.func_74770_j("Blocks"), addId);
           this.blockDataArray = compound.func_74770_j("Data");
-          this.entityList = compound.func_150295_c("Entities", 10);
-          this.tileList = compound.func_150295_c("TileEntities", 10);
+          this.entityList = compound.getTagList("Entities", 10);
+          this.tileList = compound.getTagList("TileEntities", 10);
      }
 
      public NBTTagCompound getNBT() {
@@ -49,7 +49,7 @@ public class Schematic implements ISchematic {
           }
 
           compound.func_74773_a("Data", this.blockDataArray);
-          compound.func_74782_a("TileEntities", this.tileList);
+          compound.setTag("TileEntities", this.tileList);
           return compound;
      }
 
@@ -127,11 +127,11 @@ public class Schematic implements ISchematic {
      }
 
      public int getTileEntitySize() {
-          return this.entityList == null ? 0 : this.entityList.func_74745_c();
+          return this.entityList == null ? 0 : this.entityList.tagCount();
      }
 
      public NBTTagCompound getTileEntity(int i) {
-          return this.entityList.func_150305_b(i);
+          return this.entityList.getCompoundTagAt(i);
      }
 
      public String getName() {
@@ -155,16 +155,16 @@ public class Schematic implements ISchematic {
                int y = ((i - x) / width - z) / length;
                IBlockState state = world.func_180495_p(pos.func_177982_a(x, y, z));
                if (state.func_177230_c() != Blocks.field_150350_a && state.func_177230_c() != CustomItems.copy) {
-                    schema.blockArray[i] = (short)Block.field_149771_c.func_148757_b(state.func_177230_c());
+                    schema.blockArray[i] = (short)Block.REGISTRY.func_148757_b(state.func_177230_c());
                     schema.blockDataArray[i] = (byte)state.func_177230_c().func_176201_c(state);
                     if (state.func_177230_c() instanceof ITileEntityProvider) {
                          TileEntity tile = world.func_175625_s(pos.func_177982_a(x, y, z));
                          NBTTagCompound compound = new NBTTagCompound();
                          tile.func_189515_b(compound);
-                         compound.func_74768_a("x", x);
-                         compound.func_74768_a("y", y);
-                         compound.func_74768_a("z", z);
-                         schema.tileList.func_74742_a(compound);
+                         compound.setInteger("x", x);
+                         compound.setInteger("y", y);
+                         compound.setInteger("z", z);
+                         schema.tileList.appendTag(compound);
                     }
                }
           }

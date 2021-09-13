@@ -52,9 +52,9 @@ public class JobFarmer extends JobInterface implements MassBlockController.IMass
      }
 
      public NBTTagCompound writeToNBT(NBTTagCompound compound) {
-          compound.func_74768_a("JobChestMode", this.chestMode);
+          compound.setInteger("JobChestMode", this.chestMode);
           if (!this.holding.func_190926_b()) {
-               compound.func_74782_a("JobHolding", this.holding.func_77955_b(new NBTTagCompound()));
+               compound.setTag("JobHolding", this.holding.func_77955_b(new NBTTagCompound()));
           }
 
           return compound;
@@ -62,7 +62,7 @@ public class JobFarmer extends JobInterface implements MassBlockController.IMass
 
      public void readFromNBT(NBTTagCompound compound) {
           this.chestMode = compound.func_74762_e("JobChestMode");
-          this.holding = new ItemStack(compound.func_74775_l("JobHolding"));
+          this.holding = new ItemStack(compound.getCompoundTag("JobHolding"));
           this.blockTicks = 1100;
      }
 

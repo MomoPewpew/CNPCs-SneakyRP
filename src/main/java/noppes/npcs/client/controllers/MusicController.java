@@ -19,7 +19,7 @@ public class MusicController {
      }
 
      public void stopMusic() {
-          SoundHandler handler = Minecraft.func_71410_x().func_147118_V();
+          SoundHandler handler = Minecraft.getMinecraft().func_147118_V();
           if (this.playing != null) {
                handler.func_147683_b(this.playing);
           }
@@ -37,7 +37,7 @@ public class MusicController {
                this.stopMusic();
                this.playingEntity = entity;
                this.playingResource = new ResourceLocation(music);
-               SoundHandler handler = Minecraft.func_71410_x().func_147118_V();
+               SoundHandler handler = Minecraft.getMinecraft().func_147118_V();
                this.playing = new PositionedSoundRecord(this.playingResource, SoundCategory.RECORDS, 4.0F, 1.0F, false, 0, AttenuationType.LINEAR, (float)entity.field_70165_t, (float)entity.field_70163_u, (float)entity.field_70161_v);
                handler.func_147682_a(this.playing);
           }
@@ -48,7 +48,7 @@ public class MusicController {
                this.stopMusic();
                this.playingResource = new ResourceLocation(music);
                this.playingEntity = entity;
-               SoundHandler handler = Minecraft.func_71410_x().func_147118_V();
+               SoundHandler handler = Minecraft.getMinecraft().func_147118_V();
                this.playing = new PositionedSoundRecord(this.playingResource, SoundCategory.MUSIC, 1.0F, 1.0F, false, 0, AttenuationType.NONE, 0.0F, 0.0F, 0.0F);
                handler.func_147682_a(this.playing);
           }
@@ -56,11 +56,11 @@ public class MusicController {
 
      public boolean isPlaying(String music) {
           ResourceLocation resource = new ResourceLocation(music);
-          return this.playingResource != null && this.playingResource.equals(resource) ? Minecraft.func_71410_x().func_147118_V().func_147692_c(this.playing) : false;
+          return this.playingResource != null && this.playingResource.equals(resource) ? Minecraft.getMinecraft().func_147118_V().func_147692_c(this.playing) : false;
      }
 
      public void playSound(SoundCategory cat, String music, int x, int y, int z, float volumne, float pitch) {
           PositionedSoundRecord rec = new PositionedSoundRecord(new ResourceLocation(music), cat, volumne, pitch, false, 0, AttenuationType.LINEAR, (float)x + 0.5F, (float)y, (float)z + 0.5F);
-          Minecraft.func_71410_x().func_147118_V().func_147682_a(rec);
+          Minecraft.getMinecraft().func_147118_V().func_147682_a(rec);
      }
 }

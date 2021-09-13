@@ -27,16 +27,16 @@ public class VersionCompatibility {
                }
 
                if (npc.npcVersion < 5) {
-                    String texture = compound.func_74779_i("Texture");
+                    String texture = compound.getString("Texture");
                     texture = texture.replace("/mob/customnpcs/", "customnpcs:textures/entity/");
                     texture = texture.replace("/mob/", "customnpcs:textures/entity/");
-                    compound.func_74778_a("Texture", texture);
+                    compound.setString("Texture", texture);
                }
 
                int i;
-               int i;
-               if (npc.npcVersion < 6 && compound.func_74781_a("NpcInteractLines") instanceof NBTTagList) {
-                    List interactLines = NBTTags.getStringList(compound.func_150295_c("NpcInteractLines", 10));
+               int n;
+               if (npc.npcVersion < 6 && compound.getTag("NpcInteractLines") instanceof NBTTagList) {
+                    List interactLines = NBTTags.getStringList(compound.getTagList("NpcInteractLines", 10));
                     Lines lines = new Lines();
 
                     for(i = 0; i < interactLines.size(); ++i) {
@@ -45,69 +45,69 @@ public class VersionCompatibility {
                          lines.lines.put(i, line);
                     }
 
-                    compound.func_74782_a("NpcInteractLines", lines.writeToNBT());
-                    List worldLines = NBTTags.getStringList(compound.func_150295_c("NpcLines", 10));
+                    compound.setTag("NpcInteractLines", lines.writeToNBT());
+                    List worldLines = NBTTags.getStringList(compound.getTagList("NpcLines", 10));
                     lines = new Lines();
 
-                    for(i = 0; i < worldLines.size(); ++i) {
+                    for(n = 0; n < worldLines.size(); ++n) {
                          Line line = new Line();
-                         line.setText((String)worldLines.toArray()[i]);
-                         lines.lines.put(i, line);
+                         line.setText((String)worldLines.toArray()[n]);
+                         lines.lines.put(n, line);
                     }
 
-                    compound.func_74782_a("NpcLines", lines.writeToNBT());
-                    List attackLines = NBTTags.getStringList(compound.func_150295_c("NpcAttackLines", 10));
+                    compound.setTag("NpcLines", lines.writeToNBT());
+                    List attackLines = NBTTags.getStringList(compound.getTagList("NpcAttackLines", 10));
                     lines = new Lines();
 
-                    for(int i = 0; i < attackLines.size(); ++i) {
+                    for(int l = 0; l < attackLines.size(); ++l) {
                          Line line = new Line();
-                         line.setText((String)attackLines.toArray()[i]);
-                         lines.lines.put(i, line);
+                         line.setText((String)attackLines.toArray()[l]);
+                         lines.lines.put(l, line);
                     }
 
-                    compound.func_74782_a("NpcAttackLines", lines.writeToNBT());
-                    List killedLines = NBTTags.getStringList(compound.func_150295_c("NpcKilledLines", 10));
+                    compound.setTag("NpcAttackLines", lines.writeToNBT());
+                    List killedLines = NBTTags.getStringList(compound.getTagList("NpcKilledLines", 10));
                     lines = new Lines();
 
-                    for(int i = 0; i < killedLines.size(); ++i) {
+                    for(int k = 0; k < killedLines.size(); ++k) {
                          Line line = new Line();
-                         line.setText((String)killedLines.toArray()[i]);
-                         lines.lines.put(i, line);
+                         line.setText((String)killedLines.toArray()[k]);
+                         lines.lines.put(k, line);
                     }
 
-                    compound.func_74782_a("NpcKilledLines", lines.writeToNBT());
+                    compound.setTag("NpcKilledLines", lines.writeToNBT());
                }
 
                NBTTagList list;
                if (npc.npcVersion == 12) {
-                    list = compound.func_150295_c("StartPos", 3);
-                    if (list.func_74745_c() == 3) {
-                         int z = ((NBTTagInt)list.func_74744_a(2)).func_150287_d();
-                         i = ((NBTTagInt)list.func_74744_a(1)).func_150287_d();
-                         i = ((NBTTagInt)list.func_74744_a(0)).func_150287_d();
-                         compound.func_74783_a("StartPosNew", new int[]{i, i, z});
+                    list = compound.getTagList("StartPos", 3);
+                    if (list.tagCount() == 3) {
+                         int z = ((NBTTagInt)list.removeTag(2)).getInt();
+                         i = ((NBTTagInt)list.removeTag(1)).getInt();
+                         n = ((NBTTagInt)list.removeTag(0)).getInt();
+                         compound.setIntArray("StartPosNew", new int[]{n, i, z});
                     }
                }
 
                if (npc.npcVersion == 13) {
-                    boolean bo = compound.func_74767_n("HealthRegen");
-                    compound.func_74768_a("HealthRegen", bo ? 1 : 0);
-                    NBTTagCompound comp = compound.func_74775_l("TransformStats");
-                    bo = comp.func_74767_n("HealthRegen");
-                    comp.func_74768_a("HealthRegen", bo ? 1 : 0);
-                    compound.func_74782_a("TransformStats", comp);
+                    boolean bo = compound.getBoolean("HealthRegen");
+                    compound.setInteger("HealthRegen", bo ? 1 : 0);
+                    NBTTagCompound comp = compound.getCompoundTag("TransformStats");
+                    bo = comp.getBoolean("HealthRegen");
+                    comp.setInteger("HealthRegen", bo ? 1 : 0);
+                    compound.setTag("TransformStats", comp);
                }
 
                if (npc.npcVersion == 15) {
-                    list = compound.func_150295_c("ScriptsContainers", 10);
-                    if (list.func_74745_c() > 0) {
+                    list = compound.getTagList("ScriptsContainers", 10);
+                    if (list.tagCount() > 0) {
                          ScriptContainer script = new ScriptContainer(npc.script);
 
-                         for(i = 0; i < list.func_74745_c(); ++i) {
-                              NBTTagCompound scriptOld = list.func_150305_b(i);
+                         for(i = 0; i < list.tagCount(); ++i) {
+                              NBTTagCompound scriptOld = list.getCompoundTagAt(i);
                               EnumScriptType type = EnumScriptType.values()[scriptOld.func_74762_e("Type")];
-                              script.script = script.script + "\nfunction " + type.function + "(event) {\n" + scriptOld.func_74779_i("Script") + "\n}";
-                              Iterator var23 = NBTTags.getStringList(compound.func_150295_c("ScriptList", 10)).iterator();
+                              script.script = script.script + "\nfunction " + type.function + "(event) {\n" + scriptOld.getString("Script") + "\n}";
+                              Iterator var23 = NBTTags.getStringList(compound.getTagList("ScriptList", 10)).iterator();
 
                               while(var23.hasNext()) {
                                    String s = (String)var23.next();
@@ -118,39 +118,39 @@ public class VersionCompatibility {
                          }
                     }
 
-                    if (compound.func_74767_n("CanDespawn")) {
-                         compound.func_74768_a("SpawnCycle", 4);
+                    if (compound.getBoolean("CanDespawn")) {
+                         compound.setInteger("SpawnCycle", 4);
                     }
 
                     if (compound.func_74762_e("RangeAndMelee") <= 0) {
-                         compound.func_74768_a("DistanceToMelee", 0);
+                         compound.setInteger("DistanceToMelee", 0);
                     }
                }
 
                if (npc.npcVersion == 16) {
-                    compound.func_74778_a("HitSound", "random.bowhit");
-                    compound.func_74778_a("GroundSound", "random.break");
+                    compound.setString("HitSound", "random.bowhit");
+                    compound.setString("GroundSound", "random.break");
                }
 
                if (npc.npcVersion == 17) {
-                    if (compound.func_74779_i("NpcHurtSound").equals("minecraft:game.player.hurt")) {
-                         compound.func_74778_a("NpcHurtSound", "minecraft:entity.player.hurt");
+                    if (compound.getString("NpcHurtSound").equals("minecraft:game.player.hurt")) {
+                         compound.setString("NpcHurtSound", "minecraft:entity.player.hurt");
                     }
 
-                    if (compound.func_74779_i("NpcDeathSound").equals("minecraft:game.player.hurt")) {
-                         compound.func_74778_a("NpcDeathSound", "minecraft:entity.player.hurt");
+                    if (compound.getString("NpcDeathSound").equals("minecraft:game.player.hurt")) {
+                         compound.setString("NpcDeathSound", "minecraft:entity.player.hurt");
                     }
 
-                    if (compound.func_74779_i("FiringSound").equals("random.bow")) {
-                         compound.func_74778_a("FiringSound", "minecraft:entity.arrow.shoot");
+                    if (compound.getString("FiringSound").equals("random.bow")) {
+                         compound.setString("FiringSound", "minecraft:entity.arrow.shoot");
                     }
 
-                    if (compound.func_74779_i("HitSound").equals("random.bowhit")) {
-                         compound.func_74778_a("HitSound", "minecraft:entity.arrow.hit");
+                    if (compound.getString("HitSound").equals("random.bowhit")) {
+                         compound.setString("HitSound", "minecraft:entity.arrow.hit");
                     }
 
-                    if (compound.func_74779_i("GroundSound").equals("random.break")) {
-                         compound.func_74778_a("GroundSound", "minecraft:block.stone.break");
+                    if (compound.getString("GroundSound").equals("random.break")) {
+                         compound.setString("GroundSound", "minecraft:block.stone.break");
                     }
                }
 
@@ -166,16 +166,16 @@ public class VersionCompatibility {
      }
 
      private static void CompatabilityFix(NBTTagCompound compound, NBTTagCompound check) {
-          Collection tags = check.func_150296_c();
+          Collection tags = check.getKeySet();
           Iterator var3 = tags.iterator();
 
           while(var3.hasNext()) {
                String name = (String)var3.next();
-               NBTBase nbt = check.func_74781_a(name);
-               if (!compound.func_74764_b(name)) {
-                    compound.func_74782_a(name, nbt);
-               } else if (nbt instanceof NBTTagCompound && compound.func_74781_a(name) instanceof NBTTagCompound) {
-                    CompatabilityFix(compound.func_74775_l(name), (NBTTagCompound)nbt);
+               NBTBase nbt = check.getTag(name);
+               if (!compound.hasKey(name)) {
+                    compound.setTag(name, nbt);
+               } else if (nbt instanceof NBTTagCompound && compound.getTag(name) instanceof NBTTagCompound) {
+                    CompatabilityFix(compound.getCompoundTag(name), (NBTTagCompound)nbt);
                }
           }
 

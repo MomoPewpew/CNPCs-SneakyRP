@@ -35,10 +35,10 @@ public class TileBorder extends TileNpcEntity implements Predicate, ITickable {
      }
 
      public void readExtraNBT(NBTTagCompound compound) {
-          this.availability.readFromNBT(compound.func_74775_l("BorderAvailability"));
+          this.availability.readFromNBT(compound.getCompoundTag("BorderAvailability"));
           this.rotation = compound.func_74762_e("BorderRotation");
           this.height = compound.func_74762_e("BorderHeight");
-          this.message = compound.func_74779_i("BorderMessage");
+          this.message = compound.getString("BorderMessage");
      }
 
      public NBTTagCompound func_189515_b(NBTTagCompound compound) {
@@ -47,10 +47,10 @@ public class TileBorder extends TileNpcEntity implements Predicate, ITickable {
      }
 
      public void writeExtraNBT(NBTTagCompound compound) {
-          compound.func_74782_a("BorderAvailability", this.availability.writeToNBT(new NBTTagCompound()));
-          compound.func_74768_a("BorderRotation", this.rotation);
-          compound.func_74768_a("BorderHeight", this.height);
-          compound.func_74778_a("BorderMessage", this.message);
+          compound.setTag("BorderAvailability", this.availability.writeToNBT(new NBTTagCompound()));
+          compound.setInteger("BorderRotation", this.rotation);
+          compound.setInteger("BorderHeight", this.height);
+          compound.setString("BorderMessage", this.message);
      }
 
      public void func_73660_a() {
@@ -112,10 +112,10 @@ public class TileBorder extends TileNpcEntity implements Predicate, ITickable {
 
      public NBTTagCompound func_189517_E_() {
           NBTTagCompound compound = new NBTTagCompound();
-          compound.func_74768_a("x", this.field_174879_c.func_177958_n());
-          compound.func_74768_a("y", this.field_174879_c.func_177956_o());
-          compound.func_74768_a("z", this.field_174879_c.func_177952_p());
-          compound.func_74768_a("Rotation", this.rotation);
+          compound.setInteger("x", this.field_174879_c.func_177958_n());
+          compound.setInteger("y", this.field_174879_c.func_177956_o());
+          compound.setInteger("z", this.field_174879_c.func_177952_p());
+          compound.setInteger("Rotation", this.rotation);
           return compound;
      }
 

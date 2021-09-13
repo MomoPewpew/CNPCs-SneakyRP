@@ -13,11 +13,11 @@ public class QuestData {
 
      public void writeEntityToNBT(NBTTagCompound nbttagcompound) {
           nbttagcompound.func_74757_a("QuestCompleted", this.isCompleted);
-          nbttagcompound.func_74782_a("ExtraData", this.extraData);
+          nbttagcompound.setTag("ExtraData", this.extraData);
      }
 
      public void readEntityFromNBT(NBTTagCompound nbttagcompound) {
-          this.isCompleted = nbttagcompound.func_74767_n("QuestCompleted");
-          this.extraData = nbttagcompound.func_74775_l("ExtraData");
+          this.isCompleted = nbttagcompound.getBoolean("QuestCompleted");
+          this.extraData = nbttagcompound.getCompoundTag("ExtraData");
      }
 }

@@ -169,7 +169,7 @@ public class GuiNpcCompanionTalents extends GuiNPCInterface {
           }
 
           public void func_73863_a(int i, int j, float f) {
-               Minecraft mc = Minecraft.func_71410_x();
+               Minecraft mc = Minecraft.getMinecraft();
                mc.func_110434_K().bindTexture(resource);
                ItemStack item = this.talent.item;
                if (item.func_77973_b() == null) {

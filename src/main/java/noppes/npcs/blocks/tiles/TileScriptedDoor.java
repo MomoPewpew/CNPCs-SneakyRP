@@ -50,11 +50,11 @@ public class TileScriptedDoor extends TileDoor implements ITickable, IScriptBloc
      }
 
      public void setNBT(NBTTagCompound compound) {
-          this.scripts = NBTTags.GetScript(compound.func_150295_c("Scripts", 10), this);
-          this.scriptLanguage = compound.func_74779_i("ScriptLanguage");
-          this.enabled = compound.func_74767_n("ScriptEnabled");
+          this.scripts = NBTTags.GetScript(compound.getTagList("Scripts", 10), this);
+          this.scriptLanguage = compound.getString("ScriptLanguage");
+          this.enabled = compound.getBoolean("ScriptEnabled");
           this.prevPower = compound.func_74762_e("BlockPrevPower");
-          if (compound.func_74764_b("BlockHardness")) {
+          if (compound.hasKey("BlockHardness")) {
                this.blockHardness = compound.func_74760_g("BlockHardness");
                this.blockResistance = compound.func_74760_g("BlockResistance");
           }
@@ -68,10 +68,10 @@ public class TileScriptedDoor extends TileDoor implements ITickable, IScriptBloc
      }
 
      public NBTTagCompound getNBT(NBTTagCompound compound) {
-          compound.func_74782_a("Scripts", NBTTags.NBTScript(this.scripts));
-          compound.func_74778_a("ScriptLanguage", this.scriptLanguage);
+          compound.setTag("Scripts", NBTTags.NBTScript(this.scripts));
+          compound.setString("ScriptLanguage", this.scriptLanguage);
           compound.func_74757_a("ScriptEnabled", this.enabled);
-          compound.func_74768_a("BlockPrevPower", this.prevPower);
+          compound.setInteger("BlockPrevPower", this.prevPower);
           compound.func_74776_a("BlockHardness", this.blockHardness);
           compound.func_74776_a("BlockResistance", this.blockResistance);
           return compound;

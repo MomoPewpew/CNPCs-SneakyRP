@@ -81,16 +81,16 @@ public class ScriptContainer {
      }
 
      public void readFromNBT(NBTTagCompound compound) {
-          this.script = compound.func_74779_i("Script");
-          this.console = NBTTags.GetLongStringMap(compound.func_150295_c("Console", 10));
-          this.scripts = NBTTags.getStringList(compound.func_150295_c("ScriptList", 10));
+          this.script = compound.getString("Script");
+          this.console = NBTTags.GetLongStringMap(compound.getTagList("Console", 10));
+          this.scripts = NBTTags.getStringList(compound.getTagList("ScriptList", 10));
           this.lastCreated = 0L;
      }
 
      public NBTTagCompound writeToNBT(NBTTagCompound compound) {
-          compound.func_74778_a("Script", this.script);
-          compound.func_74782_a("Console", NBTTags.NBTLongStringMap(this.console));
-          compound.func_74782_a("ScriptList", NBTTags.nbtStringList(this.scripts));
+          compound.setString("Script", this.script);
+          compound.setTag("Console", NBTTags.NBTLongStringMap(this.console));
+          compound.setTag("ScriptList", NBTTags.nbtStringList(this.scripts));
           return compound;
      }
 

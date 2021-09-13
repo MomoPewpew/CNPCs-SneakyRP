@@ -16,11 +16,11 @@ public class QuestCategory implements IQuestCategory {
 
      public void readNBT(NBTTagCompound nbttagcompound) {
           this.id = nbttagcompound.func_74762_e("Slot");
-          this.title = nbttagcompound.func_74779_i("Title");
-          NBTTagList dialogsList = nbttagcompound.func_150295_c("Dialogs", 10);
+          this.title = nbttagcompound.getString("Title");
+          NBTTagList dialogsList = nbttagcompound.getTagList("Dialogs", 10);
           if (dialogsList != null) {
-               for(int ii = 0; ii < dialogsList.func_74745_c(); ++ii) {
-                    NBTTagCompound nbttagcompound2 = dialogsList.func_150305_b(ii);
+               for(int ii = 0; ii < dialogsList.tagCount(); ++ii) {
+                    NBTTagCompound nbttagcompound2 = dialogsList.getCompoundTagAt(ii);
                     Quest quest = new Quest(this);
                     quest.readNBT(nbttagcompound2);
                     this.quests.put(quest.id, quest);
@@ -30,18 +30,18 @@ public class QuestCategory implements IQuestCategory {
      }
 
      public NBTTagCompound writeNBT(NBTTagCompound nbttagcompound) {
-          nbttagcompound.func_74768_a("Slot", this.id);
-          nbttagcompound.func_74778_a("Title", this.title);
+          nbttagcompound.setInteger("Slot", this.id);
+          nbttagcompound.setString("Title", this.title);
           NBTTagList dialogs = new NBTTagList();
           Iterator var3 = this.quests.keySet().iterator();
 
           while(var3.hasNext()) {
                int dialogId = (Integer)var3.next();
                Quest quest = (Quest)this.quests.get(dialogId);
-               dialogs.func_74742_a(quest.writeToNBT(new NBTTagCompound()));
+               dialogs.appendTag(quest.writeToNBT(new NBTTagCompound()));
           }
 
-          nbttagcompound.func_74782_a("Dialogs", dialogs);
+          nbttagcompound.setTag("Dialogs", dialogs);
           return nbttagcompound;
      }
 

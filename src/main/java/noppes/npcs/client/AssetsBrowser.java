@@ -52,7 +52,7 @@ public class AssetsBrowser {
      private void getFiles() {
           this.folders.clear();
           this.files.clear();
-          SimpleReloadableResourceManager simplemanager = (SimpleReloadableResourceManager)Minecraft.func_71410_x().func_110442_L();
+          SimpleReloadableResourceManager simplemanager = (SimpleReloadableResourceManager)Minecraft.getMinecraft().func_110442_L();
           Map map = (Map)ObfuscationReflectionHelper.getPrivateValue(SimpleReloadableResourceManager.class, simplemanager, 2);
           HashSet set = new HashSet();
           Iterator var4 = map.keySet().iterator();
@@ -77,7 +77,7 @@ public class AssetsBrowser {
                               }
                          }
 
-                         ResourcePackRepository repos = Minecraft.func_71410_x().func_110438_M();
+                         ResourcePackRepository repos = Minecraft.getMinecraft().func_110438_M();
                          List list = repos.func_110613_c();
                          Iterator var15 = list.iterator();
 

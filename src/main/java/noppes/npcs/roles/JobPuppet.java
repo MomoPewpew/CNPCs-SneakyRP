@@ -65,43 +65,43 @@ public class JobPuppet extends JobInterface implements IJobPuppet {
      }
 
      public NBTTagCompound writeToNBT(NBTTagCompound compound) {
-          compound.func_74782_a("PuppetHead", this.head.writeNBT());
-          compound.func_74782_a("PuppetLArm", this.larm.writeNBT());
-          compound.func_74782_a("PuppetRArm", this.rarm.writeNBT());
-          compound.func_74782_a("PuppetBody", this.body.writeNBT());
-          compound.func_74782_a("PuppetLLeg", this.lleg.writeNBT());
-          compound.func_74782_a("PuppetRLeg", this.rleg.writeNBT());
-          compound.func_74782_a("PuppetHead2", this.head2.writeNBT());
-          compound.func_74782_a("PuppetLArm2", this.larm2.writeNBT());
-          compound.func_74782_a("PuppetRArm2", this.rarm2.writeNBT());
-          compound.func_74782_a("PuppetBody2", this.body2.writeNBT());
-          compound.func_74782_a("PuppetLLeg2", this.lleg2.writeNBT());
-          compound.func_74782_a("PuppetRLeg2", this.rleg2.writeNBT());
+          compound.setTag("PuppetHead", this.head.writeNBT());
+          compound.setTag("PuppetLArm", this.larm.writeNBT());
+          compound.setTag("PuppetRArm", this.rarm.writeNBT());
+          compound.setTag("PuppetBody", this.body.writeNBT());
+          compound.setTag("PuppetLLeg", this.lleg.writeNBT());
+          compound.setTag("PuppetRLeg", this.rleg.writeNBT());
+          compound.setTag("PuppetHead2", this.head2.writeNBT());
+          compound.setTag("PuppetLArm2", this.larm2.writeNBT());
+          compound.setTag("PuppetRArm2", this.rarm2.writeNBT());
+          compound.setTag("PuppetBody2", this.body2.writeNBT());
+          compound.setTag("PuppetLLeg2", this.lleg2.writeNBT());
+          compound.setTag("PuppetRLeg2", this.rleg2.writeNBT());
           compound.func_74757_a("PuppetStanding", this.whileStanding);
           compound.func_74757_a("PuppetAttacking", this.whileAttacking);
           compound.func_74757_a("PuppetMoving", this.whileMoving);
           compound.func_74757_a("PuppetAnimate", this.animate);
-          compound.func_74768_a("PuppetAnimationSpeed", this.animationSpeed);
+          compound.setInteger("PuppetAnimationSpeed", this.animationSpeed);
           return compound;
      }
 
      public void readFromNBT(NBTTagCompound compound) {
-          this.head.readNBT(compound.func_74775_l("PuppetHead"));
-          this.larm.readNBT(compound.func_74775_l("PuppetLArm"));
-          this.rarm.readNBT(compound.func_74775_l("PuppetRArm"));
-          this.body.readNBT(compound.func_74775_l("PuppetBody"));
-          this.lleg.readNBT(compound.func_74775_l("PuppetLLeg"));
-          this.rleg.readNBT(compound.func_74775_l("PuppetRLeg"));
-          this.head2.readNBT(compound.func_74775_l("PuppetHead2"));
-          this.larm2.readNBT(compound.func_74775_l("PuppetLArm2"));
-          this.rarm2.readNBT(compound.func_74775_l("PuppetRArm2"));
-          this.body2.readNBT(compound.func_74775_l("PuppetBody2"));
-          this.lleg2.readNBT(compound.func_74775_l("PuppetLLeg2"));
-          this.rleg2.readNBT(compound.func_74775_l("PuppetRLeg2"));
-          this.whileStanding = compound.func_74767_n("PuppetStanding");
-          this.whileAttacking = compound.func_74767_n("PuppetAttacking");
-          this.whileMoving = compound.func_74767_n("PuppetMoving");
-          this.setIsAnimated(compound.func_74767_n("PuppetAnimate"));
+          this.head.readNBT(compound.getCompoundTag("PuppetHead"));
+          this.larm.readNBT(compound.getCompoundTag("PuppetLArm"));
+          this.rarm.readNBT(compound.getCompoundTag("PuppetRArm"));
+          this.body.readNBT(compound.getCompoundTag("PuppetBody"));
+          this.lleg.readNBT(compound.getCompoundTag("PuppetLLeg"));
+          this.rleg.readNBT(compound.getCompoundTag("PuppetRLeg"));
+          this.head2.readNBT(compound.getCompoundTag("PuppetHead2"));
+          this.larm2.readNBT(compound.getCompoundTag("PuppetLArm2"));
+          this.rarm2.readNBT(compound.getCompoundTag("PuppetRArm2"));
+          this.body2.readNBT(compound.getCompoundTag("PuppetBody2"));
+          this.lleg2.readNBT(compound.getCompoundTag("PuppetLLeg2"));
+          this.rleg2.readNBT(compound.getCompoundTag("PuppetRLeg2"));
+          this.whileStanding = compound.getBoolean("PuppetStanding");
+          this.whileAttacking = compound.getBoolean("PuppetAttacking");
+          this.whileMoving = compound.getBoolean("PuppetMoving");
+          this.setIsAnimated(compound.getBoolean("PuppetAnimate"));
           this.setAnimationSpeed(compound.func_74762_e("PuppetAnimationSpeed"));
      }
 
@@ -220,7 +220,7 @@ public class JobPuppet extends JobInterface implements IJobPuppet {
                this.rotationX = ValueUtil.correctFloat(compound.func_74760_g("RotationX"), -1.0F, 1.0F);
                this.rotationY = ValueUtil.correctFloat(compound.func_74760_g("RotationY"), -1.0F, 1.0F);
                this.rotationZ = ValueUtil.correctFloat(compound.func_74760_g("RotationZ"), -1.0F, 1.0F);
-               this.disabled = compound.func_74767_n("Disabled");
+               this.disabled = compound.getBoolean("Disabled");
           }
 
           public int getRotationX() {

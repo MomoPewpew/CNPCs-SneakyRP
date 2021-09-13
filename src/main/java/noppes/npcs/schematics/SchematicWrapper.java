@@ -151,9 +151,9 @@ public class SchematicWrapper {
                     return null;
                } else {
                     compound = compound.func_74737_b();
-                    compound.func_74768_a("x", pos.func_177958_n());
-                    compound.func_74768_a("y", pos.func_177956_o());
-                    compound.func_74768_a("z", pos.func_177952_p());
+                    compound.setInteger("x", pos.func_177958_n());
+                    compound.setInteger("y", pos.func_177956_o());
+                    compound.setInteger("z", pos.func_177952_p());
                     return compound;
                }
           } else {
@@ -166,19 +166,19 @@ public class SchematicWrapper {
           compound.func_74777_a("Width", this.schema.getWidth());
           compound.func_74777_a("Height", this.schema.getHeight());
           compound.func_74777_a("Length", this.schema.getLength());
-          compound.func_74778_a("SchematicName", this.schema.getName());
+          compound.setString("SchematicName", this.schema.getName());
           NBTTagList list = new NBTTagList();
 
           for(int i = 0; i < this.size && i < 25000; ++i) {
                IBlockState state = this.schema.getBlockState(i);
                if (state.func_177230_c() != Blocks.field_150350_a && state.func_177230_c() != Blocks.field_189881_dj) {
-                    list.func_74742_a(NBTUtil.func_190009_a(new NBTTagCompound(), this.schema.getBlockState(i)));
+                    list.appendTag(NBTUtil.func_190009_a(new NBTTagCompound(), this.schema.getBlockState(i)));
                } else {
-                    list.func_74742_a(new NBTTagCompound());
+                    list.appendTag(new NBTTagCompound());
                }
           }
 
-          compound.func_74782_a("Data", list);
+          compound.setTag("Data", list);
           return compound;
      }
 

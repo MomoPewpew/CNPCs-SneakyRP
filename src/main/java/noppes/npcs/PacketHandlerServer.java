@@ -339,7 +339,7 @@ public class PacketHandlerServer {
                                                                       DialogOption option = NoppesUtilServer.setNpcDialog(entityId, t, player);
                                                                       if (option != null && option.hasDialog()) {
                                                                            compound = option.writeNBT();
-                                                                           compound.func_74768_a("Position", entityId);
+                                                                           compound.setInteger("Position", entityId);
                                                                            Server.sendData(player, EnumPacketClient.GUI_DATA, compound);
                                                                       }
                                                                  } else if (type == EnumPacketServer.DialogNpcRemove) {
@@ -370,15 +370,15 @@ public class PacketHandlerServer {
                                                                            Dialog quest3 = (Dialog)DialogController.instance.dialogs.get(buffer.readInt());
                                                                            compound = new NBTTagCompound();
                                                                            if (quest != null) {
-                                                                                compound.func_74778_a("1", quest.title);
+                                                                                compound.setString("1", quest.title);
                                                                            }
 
                                                                            if (quest2 != null) {
-                                                                                compound.func_74778_a("2", quest2.title);
+                                                                                compound.setString("2", quest2.title);
                                                                            }
 
                                                                            if (quest3 != null) {
-                                                                                compound.func_74778_a("3", quest3.title);
+                                                                                compound.setString("3", quest3.title);
                                                                            }
 
                                                                            Server.sendData(player, EnumPacketClient.GUI_DATA, compound);
@@ -497,12 +497,12 @@ public class PacketHandlerServer {
                                                                                      } else if (type == EnumPacketServer.JobSave) {
                                                                                           compound = npc.jobInterface.writeToNBT(new NBTTagCompound());
                                                                                           compound = Server.readNBT(buffer);
-                                                                                          Set names = compound.func_150296_c();
+                                                                                          Set names = compound.getKeySet();
                                                                                           Iterator var26 = names.iterator();
 
                                                                                           while(var26.hasNext()) {
                                                                                                String name = (String)var26.next();
-                                                                                               compound.func_74782_a(name, compound.func_74781_a(name));
+                                                                                               compound.setTag(name, compound.getTag(name));
                                                                                           }
 
                                                                                           npc.jobInterface.readFromNBT(compound);
@@ -605,7 +605,7 @@ public class PacketHandlerServer {
                                                                                                } else if (type == EnumPacketServer.MovingPathGet) {
                                                                                                     Server.sendData(player, EnumPacketClient.GUI_DATA, npc.ais.writeToNBT(new NBTTagCompound()));
                                                                                                } else if (type == EnumPacketServer.MovingPathSave) {
-                                                                                                    npc.ais.setMovingPath(NBTTags.getIntegerArraySet(Server.readNBT(buffer).func_150295_c("MovingPathNew", 10)));
+                                                                                                    npc.ais.setMovingPath(NBTTags.getIntegerArraySet(Server.readNBT(buffer).getTagList("MovingPathNew", 10)));
                                                                                                } else if (type == EnumPacketServer.SpawnRider) {
                                                                                                     entity = EntityList.func_75615_a(Server.readNBT(buffer), player.world);
                                                                                                     player.world.func_72838_d(entity);
@@ -667,11 +667,11 @@ public class PacketHandlerServer {
 
                                                                                                          while(var42.hasNext()) {
                                                                                                               String name = (String)var42.next();
-                                                                                                              list.func_74742_a(new NBTTagString(name));
+                                                                                                              list.appendTag(new NBTTagString(name));
                                                                                                          }
 
                                                                                                          compound = new NBTTagCompound();
-                                                                                                         compound.func_74782_a("List", list);
+                                                                                                         compound.setTag("List", list);
                                                                                                          Server.sendData(player, EnumPacketClient.GUI_DATA, compound);
                                                                                                     } else {
                                                                                                          String name;
@@ -681,11 +681,11 @@ public class PacketHandlerServer {
 
                                                                                                               while(var43.hasNext()) {
                                                                                                                    name = (String)var43.next();
-                                                                                                                   list.func_74742_a(new NBTTagString(name));
+                                                                                                                   list.appendTag(new NBTTagString(name));
                                                                                                               }
 
                                                                                                               compound = new NBTTagCompound();
-                                                                                                              compound.func_74782_a("List", list);
+                                                                                                              compound.setTag("List", list);
                                                                                                               Server.sendData(player, EnumPacketClient.GUI_DATA, compound);
                                                                                                          } else if (type == EnumPacketServer.ScriptDataSave) {
                                                                                                               npc.script.readFromNBT(Server.readNBT(buffer));
@@ -693,7 +693,7 @@ public class PacketHandlerServer {
                                                                                                               npc.script.lastInited = -1L;
                                                                                                          } else if (type == EnumPacketServer.ScriptDataGet) {
                                                                                                               compound = npc.script.writeToNBT(new NBTTagCompound());
-                                                                                                              compound.func_74782_a("Languages", ScriptController.Instance.nbtLanguages());
+                                                                                                              compound.setTag("Languages", ScriptController.Instance.nbtLanguages());
                                                                                                               Server.sendData(player, EnumPacketClient.GUI_DATA, compound);
                                                                                                          } else if (type == EnumPacketServer.DimensionsGet) {
                                                                                                               HashMap map = new HashMap();
@@ -709,7 +709,7 @@ public class PacketHandlerServer {
                                                                                                               NoppesUtilServer.sendScrollData(player, map);
                                                                                                          } else if (type == EnumPacketServer.DimensionTeleport) {
                                                                                                               entityId = buffer.readInt();
-                                                                                                              WorldServer world = player.func_184102_h().func_71218_a(entityId);
+                                                                                                              WorldServer world = player.func_184102_h().getWorld(entityId);
                                                                                                               BlockPos coords = world.func_180504_m();
                                                                                                               if (coords == null) {
                                                                                                                    coords = world.func_175694_M();
@@ -736,12 +736,12 @@ public class PacketHandlerServer {
                                                                                                                    }
 
                                                                                                                    compound = ((TileScripted)tile).getNBT(new NBTTagCompound());
-                                                                                                                   compound.func_74782_a("Languages", ScriptController.Instance.nbtLanguages());
+                                                                                                                   compound.setTag("Languages", ScriptController.Instance.nbtLanguages());
                                                                                                                    Server.sendData(player, EnumPacketClient.GUI_DATA, compound);
                                                                                                               } else if (type == EnumPacketServer.ScriptItemDataGet) {
                                                                                                                    ItemScriptedWrapper iw = (ItemScriptedWrapper)NpcAPI.Instance().getIItemStack(player.func_184614_ca());
                                                                                                                    compound = iw.getMCNbt();
-                                                                                                                   compound.func_74782_a("Languages", ScriptController.Instance.nbtLanguages());
+                                                                                                                   compound.setTag("Languages", ScriptController.Instance.nbtLanguages());
                                                                                                                    Server.sendData(player, EnumPacketClient.GUI_DATA, compound);
                                                                                                               } else if (type == EnumPacketServer.ScriptItemDataSave) {
                                                                                                                    if (!player.func_184812_l_()) {
@@ -759,13 +759,13 @@ public class PacketHandlerServer {
                                                                                                               } else if (type == EnumPacketServer.ScriptForgeGet) {
                                                                                                                    ForgeScriptData data = ScriptController.Instance.forgeScripts;
                                                                                                                    compound = data.writeToNBT(new NBTTagCompound());
-                                                                                                                   compound.func_74782_a("Languages", ScriptController.Instance.nbtLanguages());
+                                                                                                                   compound.setTag("Languages", ScriptController.Instance.nbtLanguages());
                                                                                                                    Server.sendData(player, EnumPacketClient.GUI_DATA, compound);
                                                                                                               } else if (type == EnumPacketServer.ScriptForgeSave) {
                                                                                                                    ScriptController.Instance.setForgeScripts(Server.readNBT(buffer));
                                                                                                               } else if (type == EnumPacketServer.ScriptPlayerGet) {
                                                                                                                    compound = ScriptController.Instance.playerScripts.writeToNBT(new NBTTagCompound());
-                                                                                                                   compound.func_74782_a("Languages", ScriptController.Instance.nbtLanguages());
+                                                                                                                   compound.setTag("Languages", ScriptController.Instance.nbtLanguages());
                                                                                                                    Server.sendData(player, EnumPacketClient.GUI_DATA, compound);
                                                                                                               } else if (type == EnumPacketServer.ScriptPlayerSave) {
                                                                                                                    ScriptController.Instance.setPlayerScripts(Server.readNBT(buffer));
@@ -811,7 +811,7 @@ public class PacketHandlerServer {
                                                                                                                         }
 
                                                                                                                         compound = ((TileScriptedDoor)tile).getNBT(new NBTTagCompound());
-                                                                                                                        compound.func_74782_a("Languages", ScriptController.Instance.nbtLanguages());
+                                                                                                                        compound.setTag("Languages", ScriptController.Instance.nbtLanguages());
                                                                                                                         Server.sendData(player, EnumPacketClient.GUI_DATA, compound);
                                                                                                                    } else {
                                                                                                                         TileBuilder tile;

@@ -20,11 +20,11 @@ public class QuestKill extends QuestInterface {
      public TreeMap targets = new TreeMap();
 
      public void readEntityFromNBT(NBTTagCompound compound) {
-          this.targets = new TreeMap(NBTTags.getStringIntegerMap(compound.func_150295_c("QuestDialogs", 10)));
+          this.targets = new TreeMap(NBTTags.getStringIntegerMap(compound.getTagList("QuestDialogs", 10)));
      }
 
      public void writeEntityToNBT(NBTTagCompound compound) {
-          compound.func_74782_a("QuestDialogs", NBTTags.nbtStringIntegerMap(this.targets));
+          compound.setTag("QuestDialogs", NBTTags.nbtStringIntegerMap(this.targets));
      }
 
      public boolean isCompleted(EntityPlayer player) {
@@ -57,11 +57,11 @@ public class QuestKill extends QuestInterface {
      }
 
      public HashMap getKilled(QuestData data) {
-          return NBTTags.getStringIntegerMap(data.extraData.func_150295_c("Killed", 10));
+          return NBTTags.getStringIntegerMap(data.extraData.getTagList("Killed", 10));
      }
 
      public void setKilled(QuestData data, HashMap killed) {
-          data.extraData.func_74782_a("Killed", NBTTags.nbtStringIntegerMap(killed));
+          data.extraData.setTag("Killed", NBTTags.nbtStringIntegerMap(killed));
      }
 
      public IQuestObjective[] getObjectives(EntityPlayer player) {

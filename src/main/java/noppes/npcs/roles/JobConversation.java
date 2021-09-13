@@ -34,11 +34,11 @@ public class JobConversation extends JobInterface {
      }
 
      public NBTTagCompound writeToNBT(NBTTagCompound compound) {
-          compound.func_74782_a("ConversationAvailability", this.availability.writeToNBT(new NBTTagCompound()));
-          compound.func_74768_a("ConversationQuest", this.quest);
-          compound.func_74768_a("ConversationDelay", this.generalDelay);
-          compound.func_74768_a("ConversationRange", this.range);
-          compound.func_74768_a("ConversationMode", this.mode);
+          compound.setTag("ConversationAvailability", this.availability.writeToNBT(new NBTTagCompound()));
+          compound.setInteger("ConversationQuest", this.quest);
+          compound.setInteger("ConversationDelay", this.generalDelay);
+          compound.setInteger("ConversationRange", this.range);
+          compound.setInteger("ConversationMode", this.mode);
           NBTTagList nbttaglist = new NBTTagList();
           Iterator var3 = this.lines.keySet().iterator();
 
@@ -46,14 +46,14 @@ public class JobConversation extends JobInterface {
                int slot = (Integer)var3.next();
                JobConversation.ConversationLine line = (JobConversation.ConversationLine)this.lines.get(slot);
                NBTTagCompound nbttagcompound = new NBTTagCompound();
-               nbttagcompound.func_74768_a("Slot", slot);
+               nbttagcompound.setInteger("Slot", slot);
                line.writeEntityToNBT(nbttagcompound);
-               nbttaglist.func_74742_a(nbttagcompound);
+               nbttaglist.appendTag(nbttagcompound);
           }
 
-          compound.func_74782_a("ConversationLines", nbttaglist);
+          compound.setTag("ConversationLines", nbttaglist);
           if (this.hasQuest()) {
-               compound.func_74778_a("ConversationQuestTitle", this.getQuest().title);
+               compound.setString("ConversationQuestTitle", this.getQuest().title);
           }
 
           return compound;
@@ -61,17 +61,17 @@ public class JobConversation extends JobInterface {
 
      public void readFromNBT(NBTTagCompound compound) {
           this.names.clear();
-          this.availability.readFromNBT(compound.func_74775_l("ConversationAvailability"));
+          this.availability.readFromNBT(compound.getCompoundTag("ConversationAvailability"));
           this.quest = compound.func_74762_e("ConversationQuest");
           this.generalDelay = compound.func_74762_e("ConversationDelay");
-          this.questTitle = compound.func_74779_i("ConversationQuestTitle");
+          this.questTitle = compound.getString("ConversationQuestTitle");
           this.range = compound.func_74762_e("ConversationRange");
           this.mode = compound.func_74762_e("ConversationMode");
-          NBTTagList nbttaglist = compound.func_150295_c("ConversationLines", 10);
+          NBTTagList nbttaglist = compound.getTagList("ConversationLines", 10);
           HashMap map = new HashMap();
 
-          for(int i = 0; i < nbttaglist.func_74745_c(); ++i) {
-               NBTTagCompound nbttagcompound = nbttaglist.func_150305_b(i);
+          for(int i = 0; i < nbttaglist.tagCount(); ++i) {
+               NBTTagCompound nbttagcompound = nbttaglist.getCompoundTagAt(i);
                JobConversation.ConversationLine line = new JobConversation.ConversationLine();
                line.readEntityFromNBT(nbttagcompound);
                if (!line.npc.isEmpty() && !this.names.contains(line.npc.toLowerCase())) {
@@ -254,16 +254,16 @@ public class JobConversation extends JobInterface {
           public int delay = 40;
 
           public void writeEntityToNBT(NBTTagCompound compound) {
-               compound.func_74778_a("Line", this.text);
-               compound.func_74778_a("Npc", this.npc);
-               compound.func_74778_a("Sound", this.sound);
-               compound.func_74768_a("Delay", this.delay);
+               compound.setString("Line", this.text);
+               compound.setString("Npc", this.npc);
+               compound.setString("Sound", this.sound);
+               compound.setInteger("Delay", this.delay);
           }
 
           public void readEntityFromNBT(NBTTagCompound compound) {
-               this.text = compound.func_74779_i("Line");
-               this.npc = compound.func_74779_i("Npc");
-               this.sound = compound.func_74779_i("Sound");
+               this.text = compound.getString("Line");
+               this.npc = compound.getString("Npc");
+               this.sound = compound.getString("Sound");
                this.delay = compound.func_74762_e("Delay");
           }
 

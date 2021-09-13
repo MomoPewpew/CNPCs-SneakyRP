@@ -45,20 +45,20 @@ public class DataScenes {
 
           while(var3.hasNext()) {
                DataScenes.SceneContainer scene = (DataScenes.SceneContainer)var3.next();
-               list.func_74742_a(scene.writeToNBT(new NBTTagCompound()));
+               list.appendTag(scene.writeToNBT(new NBTTagCompound()));
           }
 
-          compound.func_74782_a("Scenes", list);
+          compound.setTag("Scenes", list);
           return compound;
      }
 
      public void readFromNBT(NBTTagCompound compound) {
-          NBTTagList list = compound.func_150295_c("Scenes", 10);
+          NBTTagList list = compound.getTagList("Scenes", 10);
           List scenes = new ArrayList();
 
-          for(int i = 0; i < list.func_74745_c(); ++i) {
+          for(int i = 0; i < list.tagCount(); ++i) {
                DataScenes.SceneContainer scene = new DataScenes.SceneContainer();
-               scene.readFromNBT(list.func_150305_b(i));
+               scene.readFromNBT(list.getCompoundTagAt(i));
                scenes.add(scene);
           }
 
@@ -226,10 +226,10 @@ public class DataScenes {
 
           public NBTTagCompound writeToNBT(NBTTagCompound compound) {
                compound.func_74757_a("Enabled", this.enabled);
-               compound.func_74778_a("Name", this.name);
-               compound.func_74778_a("Lines", this.lines);
-               compound.func_74768_a("Button", this.btn);
-               compound.func_74768_a("Ticks", this.ticks);
+               compound.setString("Name", this.name);
+               compound.setString("Lines", this.lines);
+               compound.setInteger("Button", this.btn);
+               compound.setInteger("Ticks", this.ticks);
                return compound;
           }
 
@@ -259,9 +259,9 @@ public class DataScenes {
           }
 
           public void readFromNBT(NBTTagCompound compound) {
-               this.enabled = compound.func_74767_n("Enabled");
-               this.name = compound.func_74779_i("Name");
-               this.lines = compound.func_74779_i("Lines");
+               this.enabled = compound.getBoolean("Enabled");
+               this.name = compound.getString("Name");
+               this.lines = compound.getString("Lines");
                this.btn = compound.func_74762_e("Button");
                this.ticks = compound.func_74762_e("Ticks");
                ArrayList events = new ArrayList();

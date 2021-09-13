@@ -23,7 +23,7 @@ public class GuiMenuTopIconButton extends GuiMenuTopButton {
           this.width = 28;
           this.height = 28;
           this.item = item;
-          itemRender = Minecraft.func_71410_x().getRenderItem();
+          itemRender = Minecraft.getMinecraft().getRenderItem();
      }
 
      public GuiMenuTopIconButton(int i, GuiButton parent, String s, ItemStack item) {
@@ -55,7 +55,7 @@ public class GuiMenuTopIconButton extends GuiMenuTopButton {
                }
 
                this.hover = i >= this.x && j >= this.y && i < this.x + this.getWidth() && j < this.y + this.height;
-               Minecraft mc = Minecraft.func_71410_x();
+               Minecraft mc = Minecraft.getMinecraft();
                if (this.hover && !this.active) {
                     int x = i + mc.fontRenderer.func_78256_a(this.field_146126_j);
                     GlStateManager.func_179109_b((float)x, (float)(this.y + 2), 0.0F);

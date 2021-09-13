@@ -117,12 +117,12 @@ public class TileScripted extends TileNpcEntity implements ITickable, IScriptBlo
      }
 
      public void setNBT(NBTTagCompound compound) {
-          this.scripts = NBTTags.GetScript(compound.func_150295_c("Scripts", 10), this);
-          this.scriptLanguage = compound.func_74779_i("ScriptLanguage");
-          this.enabled = compound.func_74767_n("ScriptEnabled");
+          this.scripts = NBTTags.GetScript(compound.getTagList("Scripts", 10), this);
+          this.scriptLanguage = compound.getString("ScriptLanguage");
+          this.enabled = compound.getBoolean("ScriptEnabled");
           this.activePowering = this.powering = compound.func_74762_e("BlockPowering");
           this.prevPower = compound.func_74762_e("BlockPrevPower");
-          if (compound.func_74764_b("BlockHardness")) {
+          if (compound.hasKey("BlockHardness")) {
                this.blockHardness = compound.func_74760_g("BlockHardness");
                this.blockResistance = compound.func_74760_g("BlockResistance");
           }
@@ -130,21 +130,21 @@ public class TileScripted extends TileNpcEntity implements ITickable, IScriptBlo
      }
 
      public void setDisplayNBT(NBTTagCompound compound) {
-          this.itemModel = new ItemStack(compound.func_74775_l("ScriptBlockModel"));
+          this.itemModel = new ItemStack(compound.getCompoundTag("ScriptBlockModel"));
           if (this.itemModel.func_190926_b()) {
                this.itemModel = new ItemStack(CustomItems.scripted);
           }
 
-          if (compound.func_74764_b("ScriptBlockModelBlock")) {
-               this.blockModel = Block.func_149684_b(compound.func_74779_i("ScriptBlockModelBlock"));
+          if (compound.hasKey("ScriptBlockModelBlock")) {
+               this.blockModel = Block.func_149684_b(compound.getString("ScriptBlockModelBlock"));
           }
 
           this.renderTileUpdate = null;
           this.renderTile = null;
           this.renderTileErrored = false;
           this.lightValue = compound.func_74762_e("LightValue");
-          this.isLadder = compound.func_74767_n("IsLadder");
-          this.isPassible = compound.func_74767_n("IsPassible");
+          this.isLadder = compound.getBoolean("IsLadder");
+          this.isPassible = compound.getBoolean("IsPassible");
           this.rotationX = compound.func_74762_e("RotationX");
           this.rotationY = compound.func_74762_e("RotationY");
           this.rotationZ = compound.func_74762_e("RotationZ");
@@ -163,13 +163,13 @@ public class TileScripted extends TileNpcEntity implements ITickable, IScriptBlo
                this.scaleZ = 1.0F;
           }
 
-          if (compound.func_74764_b("Text3")) {
-               this.text1.setNBT(compound.func_74775_l("Text1"));
-               this.text2.setNBT(compound.func_74775_l("Text2"));
-               this.text3.setNBT(compound.func_74775_l("Text3"));
-               this.text4.setNBT(compound.func_74775_l("Text4"));
-               this.text5.setNBT(compound.func_74775_l("Text5"));
-               this.text6.setNBT(compound.func_74775_l("Text6"));
+          if (compound.hasKey("Text3")) {
+               this.text1.setNBT(compound.getCompoundTag("Text1"));
+               this.text2.setNBT(compound.getCompoundTag("Text2"));
+               this.text3.setNBT(compound.getCompoundTag("Text3"));
+               this.text4.setNBT(compound.getCompoundTag("Text4"));
+               this.text5.setNBT(compound.getCompoundTag("Text5"));
+               this.text6.setNBT(compound.getCompoundTag("Text6"));
           }
 
      }
@@ -182,11 +182,11 @@ public class TileScripted extends TileNpcEntity implements ITickable, IScriptBlo
      }
 
      public NBTTagCompound getNBT(NBTTagCompound compound) {
-          compound.func_74782_a("Scripts", NBTTags.NBTScript(this.scripts));
-          compound.func_74778_a("ScriptLanguage", this.scriptLanguage);
+          compound.setTag("Scripts", NBTTags.NBTScript(this.scripts));
+          compound.setString("ScriptLanguage", this.scriptLanguage);
           compound.func_74757_a("ScriptEnabled", this.enabled);
-          compound.func_74768_a("BlockPowering", this.powering);
-          compound.func_74768_a("BlockPrevPower", this.prevPower);
+          compound.setInteger("BlockPowering", this.powering);
+          compound.setInteger("BlockPrevPower", this.prevPower);
           compound.func_74776_a("BlockHardness", this.blockHardness);
           compound.func_74776_a("BlockResistance", this.blockResistance);
           return compound;
@@ -196,26 +196,26 @@ public class TileScripted extends TileNpcEntity implements ITickable, IScriptBlo
           NBTTagCompound itemcompound = new NBTTagCompound();
           this.itemModel.func_77955_b(itemcompound);
           if (this.blockModel != null) {
-               ResourceLocation resourcelocation = (ResourceLocation)Block.field_149771_c.func_177774_c(this.blockModel);
-               compound.func_74778_a("ScriptBlockModelBlock", resourcelocation == null ? "" : resourcelocation.toString());
+               ResourceLocation resourcelocation = (ResourceLocation)Block.REGISTRY.func_177774_c(this.blockModel);
+               compound.setString("ScriptBlockModelBlock", resourcelocation == null ? "" : resourcelocation.toString());
           }
 
-          compound.func_74782_a("ScriptBlockModel", itemcompound);
-          compound.func_74768_a("LightValue", this.lightValue);
+          compound.setTag("ScriptBlockModel", itemcompound);
+          compound.setInteger("LightValue", this.lightValue);
           compound.func_74757_a("IsLadder", this.isLadder);
           compound.func_74757_a("IsPassible", this.isPassible);
-          compound.func_74768_a("RotationX", this.rotationX);
-          compound.func_74768_a("RotationY", this.rotationY);
-          compound.func_74768_a("RotationZ", this.rotationZ);
+          compound.setInteger("RotationX", this.rotationX);
+          compound.setInteger("RotationY", this.rotationY);
+          compound.setInteger("RotationZ", this.rotationZ);
           compound.func_74776_a("ScaleX", this.scaleX);
           compound.func_74776_a("ScaleY", this.scaleY);
           compound.func_74776_a("ScaleZ", this.scaleZ);
-          compound.func_74782_a("Text1", this.text1.getNBT());
-          compound.func_74782_a("Text2", this.text2.getNBT());
-          compound.func_74782_a("Text3", this.text3.getNBT());
-          compound.func_74782_a("Text4", this.text4.getNBT());
-          compound.func_74782_a("Text5", this.text5.getNBT());
-          compound.func_74782_a("Text6", this.text6.getNBT());
+          compound.setTag("Text1", this.text1.getNBT());
+          compound.setTag("Text2", this.text2.getNBT());
+          compound.setTag("Text3", this.text3.getNBT());
+          compound.setTag("Text4", this.text4.getNBT());
+          compound.setTag("Text5", this.text5.getNBT());
+          compound.setTag("Text6", this.text6.getNBT());
           return compound;
      }
 
@@ -271,9 +271,9 @@ public class TileScripted extends TileNpcEntity implements ITickable, IScriptBlo
 
      public NBTTagCompound func_189517_E_() {
           NBTTagCompound compound = new NBTTagCompound();
-          compound.func_74768_a("x", this.field_174879_c.func_177958_n());
-          compound.func_74768_a("y", this.field_174879_c.func_177956_o());
-          compound.func_74768_a("z", this.field_174879_c.func_177952_p());
+          compound.setInteger("x", this.field_174879_c.func_177958_n());
+          compound.setInteger("y", this.field_174879_c.func_177956_o());
+          compound.setInteger("z", this.field_174879_c.func_177952_p());
           this.getDisplayNBT(compound);
           return compound;
      }
@@ -515,10 +515,10 @@ public class TileScripted extends TileNpcEntity implements ITickable, IScriptBlo
 
           public NBTTagCompound getNBT() {
                NBTTagCompound compound = new NBTTagCompound();
-               compound.func_74778_a("Text", this.text);
-               compound.func_74768_a("RotationX", this.rotationX);
-               compound.func_74768_a("RotationY", this.rotationY);
-               compound.func_74768_a("RotationZ", this.rotationZ);
+               compound.setString("Text", this.text);
+               compound.setInteger("RotationX", this.rotationX);
+               compound.setInteger("RotationY", this.rotationY);
+               compound.setInteger("RotationZ", this.rotationZ);
                compound.func_74776_a("OffsetX", this.offsetX);
                compound.func_74776_a("OffsetY", this.offsetY);
                compound.func_74776_a("OffsetZ", this.offsetZ);
@@ -527,7 +527,7 @@ public class TileScripted extends TileNpcEntity implements ITickable, IScriptBlo
           }
 
           public void setNBT(NBTTagCompound compound) {
-               this.setText(compound.func_74779_i("Text"));
+               this.setText(compound.getString("Text"));
                this.rotationX = compound.func_74762_e("RotationX");
                this.rotationY = compound.func_74762_e("RotationY");
                this.rotationZ = compound.func_74762_e("RotationZ");

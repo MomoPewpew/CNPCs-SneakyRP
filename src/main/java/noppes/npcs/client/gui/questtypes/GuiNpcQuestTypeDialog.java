@@ -86,16 +86,16 @@ public class GuiNpcQuestTypeDialog extends SubGuiInterface implements GuiSelecti
 
      public void setGuiData(NBTTagCompound compound) {
           this.data.clear();
-          if (compound.func_74764_b("1")) {
-               this.data.put(0, compound.func_74779_i("1"));
+          if (compound.hasKey("1")) {
+               this.data.put(0, compound.getString("1"));
           }
 
-          if (compound.func_74764_b("2")) {
-               this.data.put(1, compound.func_74779_i("2"));
+          if (compound.hasKey("2")) {
+               this.data.put(1, compound.getString("2"));
           }
 
-          if (compound.func_74764_b("3")) {
-               this.data.put(2, compound.func_74779_i("3"));
+          if (compound.hasKey("3")) {
+               this.data.put(2, compound.getString("3"));
           }
 
           this.func_73866_w_();

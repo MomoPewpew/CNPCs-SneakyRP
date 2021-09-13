@@ -456,7 +456,7 @@ public abstract class EntityNPCInterface extends EntityCreature implements IEnti
 
      public void updateClient() {
           NBTTagCompound compound = this.writeSpawnData();
-          compound.func_74768_a("EntityId", this.func_145782_y());
+          compound.setInteger("EntityId", this.func_145782_y());
           Server.sendAssociatedData(this, EnumPacketClient.UPDATE_NPC, compound);
           this.updateClient = false;
      }
@@ -722,7 +722,7 @@ public abstract class EntityNPCInterface extends EntityCreature implements IEnti
      }
 
      public EntityProjectile shoot(EntityLivingBase entity, int accuracy, ItemStack proj, boolean indirect) {
-          return this.shoot(entity.field_70165_t, entity.func_174813_aQ().field_72338_b + (double)(entity.field_70131_O / 2.0F), entity.field_70161_v, accuracy, proj, indirect);
+          return this.shoot(entity.field_70165_t, entity.func_174813_aQ().field_72338_b + (double)(entity.height / 2.0F), entity.field_70161_v, accuracy, proj, indirect);
      }
 
      public EntityProjectile shoot(double x, double y, double z, int accuracy, ItemStack proj, boolean indirect) {
@@ -1048,7 +1048,7 @@ public abstract class EntityNPCInterface extends EntityCreature implements IEnti
           this.transform.readToNBT(compound);
           this.killedtime = compound.func_74763_f("KilledTime");
           this.totalTicksAlive = compound.func_74763_f("TotalTicksAlive");
-          this.linkedName = compound.func_74779_i("LinkedNpcName");
+          this.linkedName = compound.getString("LinkedNpcName");
           if (!this.isRemote()) {
                LinkedNpcController.Instance.loadNpcData(this);
           }
@@ -1077,26 +1077,26 @@ public abstract class EntityNPCInterface extends EntityCreature implements IEnti
           this.transform.writeToNBT(compound);
           compound.func_74772_a("KilledTime", this.killedtime);
           compound.func_74772_a("TotalTicksAlive", this.totalTicksAlive);
-          compound.func_74768_a("ModRev", this.npcVersion);
-          compound.func_74778_a("LinkedNpcName", this.linkedName);
+          compound.setInteger("ModRev", this.npcVersion);
+          compound.setString("LinkedNpcName", this.linkedName);
      }
 
      public void updateHitbox() {
           if (this.currentAnimation != 2 && this.currentAnimation != 7 && this.field_70725_aQ <= 0) {
                if (this.func_184218_aH()) {
                     this.field_70130_N = 0.6F;
-                    this.field_70131_O = this.baseHeight * 0.77F;
+                    this.height = this.baseHeight * 0.77F;
                } else {
                     this.field_70130_N = 0.6F;
-                    this.field_70131_O = this.baseHeight;
+                    this.height = this.baseHeight;
                }
           } else {
                this.field_70130_N = 0.8F;
-               this.field_70131_O = 0.4F;
+               this.height = 0.4F;
           }
 
           this.field_70130_N = this.field_70130_N / 5.0F * (float)this.display.getSize();
-          this.field_70131_O = this.field_70131_O / 5.0F * (float)this.display.getSize();
+          this.height = this.height / 5.0F * (float)this.display.getSize();
           if (!this.display.getHasHitbox() || this.isKilled() && this.stats.hideKilledBody) {
                this.field_70130_N = 1.0E-5F;
           }
@@ -1530,40 +1530,40 @@ public abstract class EntityNPCInterface extends EntityCreature implements IEnti
      public NBTTagCompound writeSpawnData() {
           NBTTagCompound compound = new NBTTagCompound();
           this.display.writeToNBT(compound);
-          compound.func_74768_a("MaxHealth", this.stats.maxHealth);
-          compound.func_74782_a("Armor", NBTTags.nbtIItemStackMap(this.inventory.armor));
-          compound.func_74782_a("Weapons", NBTTags.nbtIItemStackMap(this.inventory.weapons));
-          compound.func_74768_a("Speed", this.ais.getWalkingSpeed());
+          compound.setInteger("MaxHealth", this.stats.maxHealth);
+          compound.setTag("Armor", NBTTags.nbtIItemStackMap(this.inventory.armor));
+          compound.setTag("Weapons", NBTTags.nbtIItemStackMap(this.inventory.weapons));
+          compound.setInteger("Speed", this.ais.getWalkingSpeed());
           compound.func_74757_a("DeadBody", this.stats.hideKilledBody);
-          compound.func_74768_a("StandingState", this.ais.getStandingType());
-          compound.func_74768_a("MovingState", this.ais.getMovingType());
-          compound.func_74768_a("Orientation", this.ais.orientation);
+          compound.setInteger("StandingState", this.ais.getStandingType());
+          compound.setInteger("MovingState", this.ais.getMovingType());
+          compound.setInteger("Orientation", this.ais.orientation);
           compound.func_74776_a("PositionXOffset", this.ais.bodyOffsetX);
           compound.func_74776_a("PositionYOffset", this.ais.bodyOffsetY);
           compound.func_74776_a("PositionZOffset", this.ais.bodyOffsetZ);
-          compound.func_74768_a("Role", this.advanced.role);
-          compound.func_74768_a("Job", this.advanced.job);
+          compound.setInteger("Role", this.advanced.role);
+          compound.setInteger("Job", this.advanced.job);
           NBTTagCompound bard;
           if (this.advanced.job == 1) {
                bard = new NBTTagCompound();
                this.jobInterface.writeToNBT(bard);
-               compound.func_74782_a("Bard", bard);
+               compound.setTag("Bard", bard);
           }
 
           if (this.advanced.job == 9) {
                bard = new NBTTagCompound();
                this.jobInterface.writeToNBT(bard);
-               compound.func_74782_a("Puppet", bard);
+               compound.setTag("Puppet", bard);
           }
 
           if (this.advanced.role == 6) {
                bard = new NBTTagCompound();
                this.roleInterface.writeToNBT(bard);
-               compound.func_74782_a("Companion", bard);
+               compound.setTag("Companion", bard);
           }
 
           if (this instanceof EntityCustomNpc) {
-               compound.func_74782_a("ModelData", ((EntityCustomNpc)this).modelData.writeToNBT());
+               compound.setTag("ModelData", ((EntityCustomNpc)this).modelData.writeToNBT());
           }
 
           return compound;
@@ -1580,35 +1580,35 @@ public abstract class EntityNPCInterface extends EntityCreature implements IEnti
      public void readSpawnData(NBTTagCompound compound) {
           this.stats.setMaxHealth(compound.func_74762_e("MaxHealth"));
           this.ais.setWalkingSpeed(compound.func_74762_e("Speed"));
-          this.stats.hideKilledBody = compound.func_74767_n("DeadBody");
+          this.stats.hideKilledBody = compound.getBoolean("DeadBody");
           this.ais.setStandingType(compound.func_74762_e("StandingState"));
           this.ais.setMovingType(compound.func_74762_e("MovingState"));
           this.ais.orientation = compound.func_74762_e("Orientation");
           this.ais.bodyOffsetX = compound.func_74760_g("PositionXOffset");
           this.ais.bodyOffsetY = compound.func_74760_g("PositionYOffset");
           this.ais.bodyOffsetZ = compound.func_74760_g("PositionZOffset");
-          this.inventory.armor = NBTTags.getIItemStackMap(compound.func_150295_c("Armor", 10));
-          this.inventory.weapons = NBTTags.getIItemStackMap(compound.func_150295_c("Weapons", 10));
+          this.inventory.armor = NBTTags.getIItemStackMap(compound.getTagList("Armor", 10));
+          this.inventory.weapons = NBTTags.getIItemStackMap(compound.getTagList("Weapons", 10));
           this.advanced.setRole(compound.func_74762_e("Role"));
           this.advanced.setJob(compound.func_74762_e("Job"));
           NBTTagCompound puppet;
           if (this.advanced.job == 1) {
-               puppet = compound.func_74775_l("Bard");
+               puppet = compound.getCompoundTag("Bard");
                this.jobInterface.readFromNBT(puppet);
           }
 
           if (this.advanced.job == 9) {
-               puppet = compound.func_74775_l("Puppet");
+               puppet = compound.getCompoundTag("Puppet");
                this.jobInterface.readFromNBT(puppet);
           }
 
           if (this.advanced.role == 6) {
-               puppet = compound.func_74775_l("Companion");
+               puppet = compound.getCompoundTag("Companion");
                this.roleInterface.readFromNBT(puppet);
           }
 
           if (this instanceof EntityCustomNpc) {
-               ((EntityCustomNpc)this).modelData.readFromNBT(compound.func_74775_l("ModelData"));
+               ((EntityCustomNpc)this).modelData.readFromNBT(compound.getCompoundTag("ModelData"));
           }
 
           this.display.readToNBT(compound);
@@ -1815,7 +1815,7 @@ public abstract class EntityNPCInterface extends EntityCreature implements IEnti
           float x = (float)(npcpos.func_177958_n() - pos.func_177958_n());
           float z = (float)(npcpos.func_177952_p() - pos.func_177952_p());
           float y = (float)(npcpos.func_177956_o() - pos.func_177956_o());
-          float height = (float)(MathHelper.func_76123_f(this.field_70131_O + 1.0F) * MathHelper.func_76123_f(this.field_70131_O + 1.0F));
+          float height = (float)(MathHelper.func_76123_f(this.height + 1.0F) * MathHelper.func_76123_f(this.height + 1.0F));
           return (double)(x * x + z * z) < 2.5D && (double)(y * y) < (double)height + 2.5D;
      }
 

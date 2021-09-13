@@ -59,14 +59,14 @@ public class PlayerData implements ICapabilityProvider {
                this.playername = this.player.func_70005_c_();
                this.uuid = this.player.getPersistentID().toString();
           } else {
-               this.playername = data.func_74779_i("PlayerName");
-               this.uuid = data.func_74779_i("UUID");
+               this.playername = data.getString("PlayerName");
+               this.uuid = data.getString("UUID");
           }
 
           this.companionID = data.func_74762_e("PlayerCompanionId");
-          if (data.func_74764_b("PlayerCompanion") && !this.hasCompanion()) {
+          if (data.hasKey("PlayerCompanion") && !this.hasCompanion()) {
                EntityCustomNpc npc = new EntityCustomNpc(this.player.world);
-               npc.func_70037_a(data.func_74775_l("PlayerCompanion"));
+               npc.func_70037_a(data.getCompoundTag("PlayerCompanion"));
                npc.func_70107_b(this.player.field_70165_t, this.player.field_70163_u, this.player.field_70161_v);
                if (npc.advanced.role == 6) {
                     this.setCompanion(npc);
@@ -75,7 +75,7 @@ public class PlayerData implements ICapabilityProvider {
                }
           }
 
-          this.scriptStoreddata = data.func_74775_l("ScriptStoreddata");
+          this.scriptStoreddata = data.getCompoundTag("ScriptStoreddata");
      }
 
      public NBTTagCompound getSyncNBT() {
@@ -101,14 +101,14 @@ public class PlayerData implements ICapabilityProvider {
           this.itemgiverData.saveNBTData(compound);
           this.mailData.saveNBTData(compound);
           this.timers.writeToNBT(compound);
-          compound.func_74778_a("PlayerName", this.playername);
-          compound.func_74778_a("UUID", this.uuid);
-          compound.func_74768_a("PlayerCompanionId", this.companionID);
-          compound.func_74782_a("ScriptStoreddata", this.scriptStoreddata);
+          compound.setString("PlayerName", this.playername);
+          compound.setString("UUID", this.uuid);
+          compound.setInteger("PlayerCompanionId", this.companionID);
+          compound.setTag("ScriptStoreddata", this.scriptStoreddata);
           if (this.hasCompanion()) {
                NBTTagCompound nbt = new NBTTagCompound();
                if (this.activeCompanion.func_184198_c(nbt)) {
-                    compound.func_74782_a("PlayerCompanion", nbt);
+                    compound.setTag("PlayerCompanion", nbt);
                }
           }
 

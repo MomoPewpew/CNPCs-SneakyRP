@@ -70,8 +70,8 @@ public class CompanionFoodStats {
      }
 
      public void writeNBT(NBTTagCompound p_75117_1_) {
-          p_75117_1_.func_74768_a("foodLevel", this.foodLevel);
-          p_75117_1_.func_74768_a("foodTickTimer", this.foodTimer);
+          p_75117_1_.setInteger("foodLevel", this.foodLevel);
+          p_75117_1_.setInteger("foodTickTimer", this.foodTimer);
           p_75117_1_.func_74776_a("foodSaturationLevel", this.foodSaturationLevel);
           p_75117_1_.func_74776_a("foodExhaustionLevel", this.foodExhaustionLevel);
      }

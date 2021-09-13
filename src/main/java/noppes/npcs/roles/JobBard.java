@@ -22,20 +22,20 @@ public class JobBard extends JobInterface implements IJobBard {
      }
 
      public NBTTagCompound writeToNBT(NBTTagCompound nbttagcompound) {
-          nbttagcompound.func_74778_a("BardSong", this.song);
-          nbttagcompound.func_74768_a("BardMinRange", this.minRange);
-          nbttagcompound.func_74768_a("BardMaxRange", this.maxRange);
+          nbttagcompound.setString("BardSong", this.song);
+          nbttagcompound.setInteger("BardMinRange", this.minRange);
+          nbttagcompound.setInteger("BardMaxRange", this.maxRange);
           nbttagcompound.func_74757_a("BardStreamer", this.isStreamer);
           nbttagcompound.func_74757_a("BardHasOff", this.hasOffRange);
           return nbttagcompound;
      }
 
      public void readFromNBT(NBTTagCompound nbttagcompound) {
-          this.song = nbttagcompound.func_74779_i("BardSong");
+          this.song = nbttagcompound.getString("BardSong");
           this.minRange = nbttagcompound.func_74762_e("BardMinRange");
           this.maxRange = nbttagcompound.func_74762_e("BardMaxRange");
-          this.isStreamer = nbttagcompound.func_74767_n("BardStreamer");
-          this.hasOffRange = nbttagcompound.func_74767_n("BardHasOff");
+          this.isStreamer = nbttagcompound.getBoolean("BardStreamer");
+          this.hasOffRange = nbttagcompound.getBoolean("BardHasOff");
      }
 
      public void onLivingUpdate() {
@@ -65,7 +65,7 @@ public class JobBard extends JobInterface implements IJobBard {
                }
 
                if (MusicController.Instance.isPlaying(this.song)) {
-                    Minecraft.func_71410_x().func_181535_r().field_147676_d = 12000;
+                    Minecraft.getMinecraft().func_181535_r().field_147676_d = 12000;
                }
 
           }

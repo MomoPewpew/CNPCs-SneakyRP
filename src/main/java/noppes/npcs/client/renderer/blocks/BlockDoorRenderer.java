@@ -62,7 +62,7 @@ public class BlockDoorRenderer extends BlockRendererInterface {
      private void renderBlock(TileDoor tile, Block b, IBlockState state) {
           this.func_147499_a(TextureMap.field_110575_b);
           GlStateManager.func_179109_b(-0.5F, 0.0F, 0.5F);
-          BlockRendererDispatcher dispatcher = Minecraft.func_71410_x().func_175602_ab();
+          BlockRendererDispatcher dispatcher = Minecraft.getMinecraft().func_175602_ab();
           IBakedModel ibakedmodel = dispatcher.func_175023_a().func_178125_b(state);
           if (ibakedmodel == null) {
                dispatcher.func_175016_a(state, 1.0F);
@@ -73,7 +73,7 @@ public class BlockDoorRenderer extends BlockRendererInterface {
      }
 
      private boolean overrideModel() {
-          ItemStack held = Minecraft.func_71410_x().player.func_184614_ca();
+          ItemStack held = Minecraft.getMinecraft().player.func_184614_ca();
           if (held == null) {
                return false;
           } else {

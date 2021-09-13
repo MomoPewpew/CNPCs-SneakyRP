@@ -270,19 +270,19 @@ public class GuiScriptInterface extends GuiNPCInterface implements IGuiData, ITe
      }
 
      public void setGuiData(NBTTagCompound compound) {
-          NBTTagList data = compound.func_150295_c("Languages", 10);
+          NBTTagList data = compound.getTagList("Languages", 10);
           Map languages = new HashMap();
 
-          for(int i = 0; i < data.func_74745_c(); ++i) {
-               NBTTagCompound comp = data.func_150305_b(i);
+          for(int i = 0; i < data.tagCount(); ++i) {
+               NBTTagCompound comp = data.getCompoundTagAt(i);
                List scripts = new ArrayList();
-               NBTTagList list = comp.func_150295_c("Scripts", 8);
+               NBTTagList list = comp.getTagList("Scripts", 8);
 
-               for(int j = 0; j < list.func_74745_c(); ++j) {
+               for(int j = 0; j < list.tagCount(); ++j) {
                     scripts.add(list.func_150307_f(j));
                }
 
-               languages.put(comp.func_74779_i("Language"), scripts);
+               languages.put(comp.getString("Language"), scripts);
           }
 
           this.languages = languages;

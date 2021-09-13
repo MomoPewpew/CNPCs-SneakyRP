@@ -158,12 +158,12 @@ public class ClientProxy extends CommonProxy {
      public void load() {
           Font = new ClientProxy.FontContainer(CustomNpcs.FontType, CustomNpcs.FontSize);
           this.createFolders();
-          ((IReloadableResourceManager)Minecraft.func_71410_x().func_110442_L()).func_110542_a(new CustomNpcResourceListener());
+          ((IReloadableResourceManager)Minecraft.getMinecraft().func_110442_L()).func_110542_a(new CustomNpcResourceListener());
           CustomNpcs.Channel.register(new PacketHandlerClient());
           CustomNpcs.ChannelPlayer.register(new PacketHandlerPlayer());
           new MusicController();
           MinecraftForge.EVENT_BUS.register(new ClientTickHandler());
-          Minecraft mc = Minecraft.func_71410_x();
+          Minecraft mc = Minecraft.getMinecraft();
           QuestLog = new KeyBinding("Quest Log", 38, "key.categories.gameplay");
           if (CustomNpcs.SceneButtonsEnabled) {
                Scene1 = new KeyBinding("Scene1 start/pause", 79, "key.categories.gameplay");
@@ -188,7 +188,7 @@ public class ClientProxy extends CommonProxy {
      }
 
      public PlayerData getPlayerData(EntityPlayer player) {
-          if (player.func_110124_au() == Minecraft.func_71410_x().player.func_110124_au()) {
+          if (player.func_110124_au() == Minecraft.getMinecraft().player.func_110124_au()) {
                if (playerData.player != player) {
                     playerData.player = player;
                }
@@ -221,10 +221,10 @@ public class ClientProxy extends CommonProxy {
           RenderingRegistry.registerEntityRenderingHandler(EntityNPCGolem.class, new RenderNPCInterface(new ModelNPCGolem(0.0F), 0.0F));
           RenderingRegistry.registerEntityRenderingHandler(EntityNpcAlex.class, new RenderCustomNpc(new ModelPlayerAlt(0.0F, true)));
           RenderingRegistry.registerEntityRenderingHandler(EntityNpcClassicPlayer.class, new RenderCustomNpc(new ModelClassicPlayer(0.0F)));
-          Minecraft.func_71410_x().getItemColors().func_186730_a((stack, tintIndex) -> {
+          Minecraft.getMinecraft().getItemColors().func_186730_a((stack, tintIndex) -> {
                return 9127187;
           }, new Item[]{CustomItems.mount, CustomItems.cloner, CustomItems.moving, CustomItems.scripter, CustomItems.wand, CustomItems.teleporter});
-          Minecraft.func_71410_x().getItemColors().func_186730_a((stack, tintIndex) -> {
+          Minecraft.getMinecraft().getItemColors().func_186730_a((stack, tintIndex) -> {
                IItemStack item = NpcAPI.Instance().getIItemStack(stack);
                return stack.func_77973_b() == CustomItems.scripted_item ? ((IItemScripted)item).getColor() : -1;
           }, new Item[]{CustomItems.scripted_item});
@@ -279,7 +279,7 @@ public class ClientProxy extends CommonProxy {
                          return new GuiNpcDisplay(npc);
                     }
 
-                    Minecraft.func_71410_x().player.func_145747_a(new TextComponentString("Unable to find npc"));
+                    Minecraft.getMinecraft().player.func_145747_a(new TextComponentString("Unable to find npc"));
                } else {
                     if (gui == EnumGuiType.MainMenuStats) {
                          return new GuiNpcStats(npc);
@@ -378,7 +378,7 @@ public class ClientProxy extends CommonProxy {
                     }
 
                     if (gui == EnumGuiType.ScriptItem) {
-                         return new GuiScriptItem(Minecraft.func_71410_x().player);
+                         return new GuiScriptItem(Minecraft.getMinecraft().player);
                     }
 
                     if (gui == EnumGuiType.ScriptDoor) {
@@ -409,7 +409,7 @@ public class ClientProxy extends CommonProxy {
                          return new GuiNpcBankSetup(npc);
                     }
 
-                    if (gui == EnumGuiType.NpcRemote && Minecraft.func_71410_x().field_71462_r == null) {
+                    if (gui == EnumGuiType.NpcRemote && Minecraft.getMinecraft().field_71462_r == null) {
                          return new GuiNpcRemoteEditor();
                     }
 
@@ -479,7 +479,7 @@ public class ClientProxy extends CommonProxy {
      }
 
      public void openGui(int i, int j, int k, EnumGuiType gui, EntityPlayer player) {
-          Minecraft minecraft = Minecraft.func_71410_x();
+          Minecraft minecraft = Minecraft.getMinecraft();
           if (minecraft.player == player) {
                GuiScreen guiscreen = this.getGui((EntityNPCInterface)null, gui, (Container)null, i, j, k);
                if (guiscreen != null) {
@@ -494,7 +494,7 @@ public class ClientProxy extends CommonProxy {
      }
 
      public void openGui(EntityNPCInterface npc, EnumGuiType gui, int x, int y, int z) {
-          Minecraft minecraft = Minecraft.func_71410_x();
+          Minecraft minecraft = Minecraft.getMinecraft();
           Container container = this.getContainer(gui, minecraft.player, x, y, z, npc);
           GuiScreen guiscreen = this.getGui(npc, gui, container, x, y, z);
           if (guiscreen != null) {
@@ -504,7 +504,7 @@ public class ClientProxy extends CommonProxy {
      }
 
      public void openGui(EntityPlayer player, Object guiscreen) {
-          Minecraft minecraft = Minecraft.func_71410_x();
+          Minecraft minecraft = Minecraft.getMinecraft();
           if (player.world.field_72995_K && guiscreen instanceof GuiScreen) {
                if (guiscreen != null) {
                     minecraft.displayGuiScreen((GuiScreen)guiscreen);
@@ -518,17 +518,17 @@ public class ClientProxy extends CommonProxy {
                BlockPos pos = (BlockPos)ob[0];
                int id = (Integer)ob[1];
                Block block = Block.func_149729_e(id & 4095);
-               Minecraft.func_71410_x().field_71452_i.func_180533_a(pos, block.func_176203_a(id >> 12 & 255));
+               Minecraft.getMinecraft().field_71452_i.func_180533_a(pos, block.func_176203_a(id >> 12 & 255));
           } else if (string.equals("ModelData")) {
                ModelData data = (ModelData)ob[0];
                ModelPartData particles = (ModelPartData)ob[1];
                EntityCustomNpc npc = (EntityCustomNpc)player;
-               Minecraft minecraft = Minecraft.func_71410_x();
+               Minecraft minecraft = Minecraft.getMinecraft();
                double height = npc.func_70033_W() + (double)data.getBodyY();
                Random rand = npc.func_70681_au();
 
                for(int i = 0; i < 2; ++i) {
-                    EntityEnderFX fx = new EntityEnderFX(npc, (rand.nextDouble() - 0.5D) * (double)player.field_70130_N, rand.nextDouble() * (double)player.field_70131_O - height - 0.25D, (rand.nextDouble() - 0.5D) * (double)player.field_70130_N, (rand.nextDouble() - 0.5D) * 2.0D, -rand.nextDouble(), (rand.nextDouble() - 0.5D) * 2.0D, particles);
+                    EntityEnderFX fx = new EntityEnderFX(npc, (rand.nextDouble() - 0.5D) * (double)player.field_70130_N, rand.nextDouble() * (double)player.height - height - 0.25D, (rand.nextDouble() - 0.5D) * (double)player.field_70130_N, (rand.nextDouble() - 0.5D) * 2.0D, -rand.nextDouble(), (rand.nextDouble() - 0.5D) * 2.0D, particles);
                     minecraft.field_71452_i.func_78873_a(fx);
                }
           }
@@ -540,7 +540,7 @@ public class ClientProxy extends CommonProxy {
      }
 
      public EntityPlayer getPlayer() {
-          return Minecraft.func_71410_x().player;
+          return Minecraft.getMinecraft().player;
      }
 
      public static void bindTexture(ResourceLocation location) {
@@ -549,7 +549,7 @@ public class ClientProxy extends CommonProxy {
                     return;
                }
 
-               TextureManager manager = Minecraft.func_71410_x().func_110434_K();
+               TextureManager manager = Minecraft.getMinecraft().func_110434_K();
                ITextureObject ob = manager.func_110581_b(location);
                if (ob == null) {
                     ob = new SimpleTexture(location);
@@ -564,7 +564,7 @@ public class ClientProxy extends CommonProxy {
      }
 
      public void spawnParticle(EnumParticleTypes particle, double x, double y, double z, double motionX, double motionY, double motionZ, float scale) {
-          Minecraft mc = Minecraft.func_71410_x();
+          Minecraft mc = Minecraft.getMinecraft();
           double xx = mc.func_175606_aa().field_70165_t - x;
           double yy = mc.func_175606_aa().field_70163_u - y;
           double zz = mc.func_175606_aa().field_70161_v - z;
@@ -603,11 +603,11 @@ public class ClientProxy extends CommonProxy {
           }
 
           public int height(String text) {
-               return this.useCustomFont ? this.textFont.height(text) : Minecraft.func_71410_x().fontRenderer.field_78288_b;
+               return this.useCustomFont ? this.textFont.height(text) : Minecraft.getMinecraft().fontRenderer.field_78288_b;
           }
 
           public int width(String text) {
-               return this.useCustomFont ? this.textFont.width(text) : Minecraft.func_71410_x().fontRenderer.func_78256_a(text);
+               return this.useCustomFont ? this.textFont.width(text) : Minecraft.getMinecraft().fontRenderer.func_78256_a(text);
           }
 
           public ClientProxy.FontContainer copy() {
@@ -621,7 +621,7 @@ public class ClientProxy extends CommonProxy {
                if (this.useCustomFont) {
                     this.textFont.draw(text, (float)x, (float)y, color);
                } else {
-                    Minecraft.func_71410_x().fontRenderer.func_175063_a(text, (float)x, (float)y, color);
+                    Minecraft.getMinecraft().fontRenderer.func_175063_a(text, (float)x, (float)y, color);
                }
 
           }

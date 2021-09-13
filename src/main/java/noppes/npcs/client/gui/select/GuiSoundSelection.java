@@ -33,9 +33,9 @@ public class GuiSoundSelection extends SubGuiInterface implements ICustomScrollL
           this.setBackground("menubg.png");
           this.xSize = 366;
           this.ySize = 226;
-          SoundHandler handler = Minecraft.func_71410_x().func_147118_V();
+          SoundHandler handler = Minecraft.getMinecraft().func_147118_V();
           SoundRegistry registry = (SoundRegistry)ObfuscationReflectionHelper.getPrivateValue(SoundHandler.class, handler, 4);
-          Set set = registry.func_148742_b();
+          Set set = registry.getKeys();
           Iterator var5 = set.iterator();
 
           while(var5.hasNext()) {

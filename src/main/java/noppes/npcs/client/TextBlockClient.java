@@ -38,7 +38,7 @@ public class TextBlockClient extends TextBlock {
           text = text.replace("\n", " \n ");
           text = text.replace("\r", " \r ");
           String[] words = text.split(" ");
-          FontRenderer font = Minecraft.func_71410_x().fontRenderer;
+          FontRenderer font = Minecraft.getMinecraft().fontRenderer;
           String[] var8 = words;
           int var9 = words.length;
 

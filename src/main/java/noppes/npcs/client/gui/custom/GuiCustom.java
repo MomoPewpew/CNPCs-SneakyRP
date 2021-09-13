@@ -204,14 +204,14 @@ public class GuiCustom extends GuiContainer implements ICustomScrollListener, IG
 
                while(var3.hasNext()) {
                     String s = (String)var3.next();
-                    list.func_74742_a(new NBTTagString(s));
+                    list.appendTag(new NBTTagString(s));
                }
           } else {
-               list.func_74742_a(new NBTTagString(scroll.getSelected()));
+               list.appendTag(new NBTTagString(scroll.getSelected()));
           }
 
           NBTTagCompound selection = new NBTTagCompound();
-          selection.func_74782_a("selection", list);
+          selection.setTag("selection", list);
           return selection;
      }
 
@@ -256,7 +256,7 @@ public class GuiCustom extends GuiContainer implements ICustomScrollListener, IG
      }
 
      public void setGuiData(NBTTagCompound compound) {
-          Minecraft mc = Minecraft.func_71410_x();
+          Minecraft mc = Minecraft.getMinecraft();
           CustomGuiWrapper gui = (CustomGuiWrapper)(new CustomGuiWrapper()).fromNBT(compound);
           ((ContainerCustomGui)this.field_147002_h).setGui(gui, mc.player);
           this.gui = gui;

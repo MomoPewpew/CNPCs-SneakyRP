@@ -31,7 +31,7 @@ public class ClientTickHandler {
      )
      public void onClientTick(ClientTickEvent event) {
           if (event.phase != Phase.END) {
-               Minecraft mc = Minecraft.func_71410_x();
+               Minecraft mc = Minecraft.getMinecraft();
                if (mc.player != null && mc.player.openContainer instanceof ContainerPlayer) {
                     if (this.otherContainer) {
                          NoppesUtilPlayer.sendData(EnumPlayerPacket.CheckQuestCompletion);
@@ -71,7 +71,7 @@ public class ClientTickHandler {
                }
           }
 
-          Minecraft mc = Minecraft.func_71410_x();
+          Minecraft mc = Minecraft.getMinecraft();
           if (ClientProxy.QuestLog.func_151468_f()) {
                if (mc.field_71462_r == null) {
                     NoppesUtil.openGUI(mc.player, new GuiQuestLog(mc.player));

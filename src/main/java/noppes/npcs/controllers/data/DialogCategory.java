@@ -16,12 +16,12 @@ public class DialogCategory implements IDialogCategory {
 
      public void readNBT(NBTTagCompound compound) {
           this.id = compound.func_74762_e("Slot");
-          this.title = compound.func_74779_i("Title");
-          NBTTagList dialogsList = compound.func_150295_c("Dialogs", 10);
+          this.title = compound.getString("Title");
+          NBTTagList dialogsList = compound.getTagList("Dialogs", 10);
           if (dialogsList != null) {
-               for(int ii = 0; ii < dialogsList.func_74745_c(); ++ii) {
+               for(int ii = 0; ii < dialogsList.tagCount(); ++ii) {
                     Dialog dialog = new Dialog(this);
-                    NBTTagCompound comp = dialogsList.func_150305_b(ii);
+                    NBTTagCompound comp = dialogsList.getCompoundTagAt(ii);
                     dialog.readNBT(comp);
                     dialog.id = comp.func_74762_e("DialogId");
                     this.dialogs.put(dialog.id, dialog);
@@ -31,17 +31,17 @@ public class DialogCategory implements IDialogCategory {
      }
 
      public NBTTagCompound writeNBT(NBTTagCompound nbtfactions) {
-          nbtfactions.func_74768_a("Slot", this.id);
-          nbtfactions.func_74778_a("Title", this.title);
+          nbtfactions.setInteger("Slot", this.id);
+          nbtfactions.setString("Title", this.title);
           NBTTagList dialogs = new NBTTagList();
           Iterator var3 = this.dialogs.values().iterator();
 
           while(var3.hasNext()) {
                Dialog dialog = (Dialog)var3.next();
-               dialogs.func_74742_a(dialog.writeToNBT(new NBTTagCompound()));
+               dialogs.appendTag(dialog.writeToNBT(new NBTTagCompound()));
           }
 
-          nbtfactions.func_74782_a("Dialogs", dialogs);
+          nbtfactions.setTag("Dialogs", dialogs);
           return nbtfactions;
      }
 

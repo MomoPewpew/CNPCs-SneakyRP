@@ -10,11 +10,11 @@ public class PlayerMailData {
 
      public void loadNBTData(NBTTagCompound compound) {
           ArrayList newmail = new ArrayList();
-          NBTTagList list = compound.func_150295_c("MailData", 10);
+          NBTTagList list = compound.getTagList("MailData", 10);
           if (list != null) {
-               for(int i = 0; i < list.func_74745_c(); ++i) {
+               for(int i = 0; i < list.tagCount(); ++i) {
                     PlayerMail mail = new PlayerMail();
-                    mail.readNBT(list.func_150305_b(i));
+                    mail.readNBT(list.getCompoundTagAt(i));
                     newmail.add(mail);
                }
 
@@ -28,10 +28,10 @@ public class PlayerMailData {
 
           while(var3.hasNext()) {
                PlayerMail mail = (PlayerMail)var3.next();
-               list.func_74742_a(mail.writeNBT());
+               list.appendTag(mail.writeNBT());
           }
 
-          compound.func_74782_a("MailData", list);
+          compound.setTag("MailData", list);
           return compound;
      }
 

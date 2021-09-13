@@ -46,7 +46,7 @@ public class GlobalDataController {
           try {
                File saveDir = CustomNpcs.getWorldSaveDirectory();
                NBTTagCompound nbttagcompound = new NBTTagCompound();
-               nbttagcompound.func_74768_a("itemGiverId", this.itemGiverId);
+               nbttagcompound.setInteger("itemGiverId", this.itemGiverId);
                File file = new File(saveDir, "global.dat_new");
                File file1 = new File(saveDir, "global.dat_old");
                File file2 = new File(saveDir, "global.dat");

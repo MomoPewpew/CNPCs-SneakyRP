@@ -15,7 +15,7 @@ public class CustomGuiSlot extends Slot {
 
      public void func_75218_e() {
           if (this.clientSide) {
-               ((GuiCustom)Minecraft.func_71410_x().field_71462_r).slotChange(this);
+               ((GuiCustom)Minecraft.getMinecraft().field_71462_r).slotChange(this);
           }
 
           super.func_75218_e();

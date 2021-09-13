@@ -77,7 +77,7 @@ public class BlockWrapper implements IBlock {
                     if (value instanceof Number) {
                          compound.func_74780_a(key, ((Number)value).doubleValue());
                     } else if (value instanceof String) {
-                         compound.func_74778_a(key, (String)value);
+                         compound.setString(key, (String)value);
                     }
 
                }
@@ -87,10 +87,10 @@ public class BlockWrapper implements IBlock {
                NBTTagCompound compound = this.getNBT();
                if (compound == null) {
                     return null;
-               } else if (!compound.func_74764_b(key)) {
+               } else if (!compound.hasKey(key)) {
                     return null;
                } else {
-                    NBTBase base = compound.func_74781_a(key);
+                    NBTBase base = compound.getTag(key);
                     return base instanceof NBTPrimitive ? ((NBTPrimitive)base).func_150286_g() : ((NBTTagString)base).func_150285_a_();
                }
           }
@@ -104,12 +104,12 @@ public class BlockWrapper implements IBlock {
 
           public boolean has(String key) {
                NBTTagCompound compound = this.getNBT();
-               return compound == null ? false : compound.func_74764_b(key);
+               return compound == null ? false : compound.hasKey(key);
           }
 
           public void clear() {
                if (BlockWrapper.this.tile != null) {
-                    BlockWrapper.this.tile.getTileData().func_74782_a("CustomNPCsData", new NBTTagCompound());
+                    BlockWrapper.this.tile.getTileData().setTag("CustomNPCsData", new NBTTagCompound());
                }
           }
 
@@ -117,9 +117,9 @@ public class BlockWrapper implements IBlock {
                if (BlockWrapper.this.tile == null) {
                     return null;
                } else {
-                    NBTTagCompound compound = BlockWrapper.this.tile.getTileData().func_74775_l("CustomNPCsData");
-                    if (compound.func_82582_d() && !BlockWrapper.this.tile.getTileData().func_74764_b("CustomNPCsData")) {
-                         BlockWrapper.this.tile.getTileData().func_74782_a("CustomNPCsData", compound);
+                    NBTTagCompound compound = BlockWrapper.this.tile.getTileData().getCompoundTag("CustomNPCsData");
+                    if (compound.func_82582_d() && !BlockWrapper.this.tile.getTileData().hasKey("CustomNPCsData")) {
+                         BlockWrapper.this.tile.getTileData().setTag("CustomNPCsData", compound);
                     }
 
                     return compound;
@@ -128,7 +128,7 @@ public class BlockWrapper implements IBlock {
 
           public String[] getKeys() {
                NBTTagCompound compound = this.getNBT();
-               return compound == null ? new String[0] : (String[])compound.func_150296_c().toArray(new String[compound.func_150296_c().size()]);
+               return compound == null ? new String[0] : (String[])compound.getKeySet().toArray(new String[compound.getKeySet().size()]);
           }
      };
 
@@ -182,7 +182,7 @@ public class BlockWrapper implements IBlock {
      }
 
      public BlockWrapper setBlock(String name) {
-          Block block = (Block)Block.field_149771_c.func_82594_a(new ResourceLocation(name));
+          Block block = (Block)Block.REGISTRY.getObject(new ResourceLocation(name));
           if (block == null) {
                return this;
           } else {
@@ -221,7 +221,7 @@ public class BlockWrapper implements IBlock {
      }
 
      public String getName() {
-          return Block.field_149771_c.func_177774_c(this.block) + "";
+          return Block.REGISTRY.func_177774_c(this.block) + "";
      }
 
      public String getDisplayName() {

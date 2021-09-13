@@ -15,11 +15,11 @@ public class DialogOption implements IDialogOption {
 
      public void readNBT(NBTTagCompound compound) {
           if (compound != null) {
-               this.title = compound.func_74779_i("Title");
+               this.title = compound.getString("Title");
                this.dialogId = compound.func_74762_e("Dialog");
                this.optionColor = compound.func_74762_e("DialogColor");
                this.optionType = compound.func_74762_e("OptionType");
-               this.command = compound.func_74779_i("DialogCommand");
+               this.command = compound.getString("DialogCommand");
                if (this.optionColor == 0) {
                     this.optionColor = 14737632;
                }
@@ -29,11 +29,11 @@ public class DialogOption implements IDialogOption {
 
      public NBTTagCompound writeNBT() {
           NBTTagCompound compound = new NBTTagCompound();
-          compound.func_74778_a("Title", this.title);
-          compound.func_74768_a("OptionType", this.optionType);
-          compound.func_74768_a("Dialog", this.dialogId);
-          compound.func_74768_a("DialogColor", this.optionColor);
-          compound.func_74778_a("DialogCommand", this.command);
+          compound.setString("Title", this.title);
+          compound.setInteger("OptionType", this.optionType);
+          compound.setInteger("Dialog", this.dialogId);
+          compound.setInteger("DialogColor", this.optionColor);
+          compound.setString("DialogCommand", this.command);
           return compound;
      }
 

@@ -18,7 +18,7 @@ public class AniBow {
                ticks2 = 1.0F;
           }
 
-          ticks += (ticks2 - ticks) * Minecraft.func_71410_x().func_184121_ak();
+          ticks += (ticks2 - ticks) * Minecraft.getMinecraft().func_184121_ak();
           model.field_78115_e.field_78795_f = ticks;
           model.field_78116_c.field_78795_f = ticks;
           model.field_178724_i.field_78795_f = ticks;

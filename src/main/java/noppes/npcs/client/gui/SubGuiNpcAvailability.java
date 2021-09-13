@@ -156,7 +156,7 @@ public class SubGuiNpcAvailability extends SubGuiInterface implements ITextfield
      }
 
      public void setGuiData(NBTTagCompound compound) {
-          if (compound.func_74764_b("Slot")) {
+          if (compound.hasKey("Slot")) {
                Faction faction = new Faction();
                faction.readNBT(compound);
                if (this.availabitily.factionId == faction.id) {

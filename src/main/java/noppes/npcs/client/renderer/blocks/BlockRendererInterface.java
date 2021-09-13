@@ -21,7 +21,7 @@ public abstract class BlockRendererInterface extends TileEntitySpecialRenderer {
      public static float[][] colorTable = new float[][]{{1.0F, 1.0F, 1.0F}, {0.95F, 0.7F, 0.2F}, {0.9F, 0.5F, 0.85F}, {0.6F, 0.7F, 0.95F}, {0.9F, 0.9F, 0.2F}, {0.5F, 0.8F, 0.1F}, {0.95F, 0.7F, 0.8F}, {0.3F, 0.3F, 0.3F}, {0.6F, 0.6F, 0.6F}, {0.3F, 0.6F, 0.7F}, {0.7F, 0.4F, 0.9F}, {0.2F, 0.4F, 0.8F}, {0.5F, 0.4F, 0.3F}, {0.4F, 0.5F, 0.2F}, {0.8F, 0.3F, 0.3F}, {0.1F, 0.1F, 0.1F}};
 
      public boolean playerTooFar(TileEntity tile) {
-          Minecraft mc = Minecraft.func_71410_x();
+          Minecraft mc = Minecraft.getMinecraft();
           double d6 = mc.func_175606_aa().field_70165_t - (double)tile.func_174877_v().func_177958_n();
           double d7 = mc.func_175606_aa().field_70163_u - (double)tile.func_174877_v().func_177956_o();
           double d8 = mc.func_175606_aa().field_70161_v - (double)tile.func_174877_v().func_177952_p();
@@ -33,7 +33,7 @@ public abstract class BlockRendererInterface extends TileEntitySpecialRenderer {
      }
 
      public void setWoodTexture(int meta) {
-          TextureManager manager = Minecraft.func_71410_x().func_110434_K();
+          TextureManager manager = Minecraft.getMinecraft().func_110434_K();
           if (meta == 1) {
                manager.bindTexture(PlanksSpruce);
           } else if (meta == 2) {
@@ -51,7 +51,7 @@ public abstract class BlockRendererInterface extends TileEntitySpecialRenderer {
      }
 
      public static void setMaterialTexture(int meta) {
-          TextureManager manager = Minecraft.func_71410_x().func_110434_K();
+          TextureManager manager = Minecraft.getMinecraft().func_110434_K();
           if (meta == 1) {
                manager.bindTexture(Stone);
           } else if (meta == 2) {

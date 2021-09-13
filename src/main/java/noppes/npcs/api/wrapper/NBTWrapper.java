@@ -26,11 +26,11 @@ public class NBTWrapper implements INbt {
      }
 
      public boolean has(String key) {
-          return this.compound.func_74764_b(key);
+          return this.compound.hasKey(key);
      }
 
      public boolean getBoolean(String key) {
-          return this.compound.func_74767_n(key);
+          return this.compound.getBoolean(key);
      }
 
      public void setBoolean(String key, boolean value) {
@@ -50,7 +50,7 @@ public class NBTWrapper implements INbt {
      }
 
      public void setInteger(String key, int value) {
-          this.compound.func_74768_a(key, value);
+          this.compound.setInteger(key, value);
      }
 
      public byte getByte(String key) {
@@ -86,11 +86,11 @@ public class NBTWrapper implements INbt {
      }
 
      public String getString(String key) {
-          return this.compound.func_74779_i(key);
+          return this.compound.getString(key);
      }
 
      public void setString(String key, String value) {
-          this.compound.func_74778_a(key, value);
+          this.compound.setString(key, value);
      }
 
      public byte[] getByteArray(String key) {
@@ -106,16 +106,16 @@ public class NBTWrapper implements INbt {
      }
 
      public void setIntegerArray(String key, int[] value) {
-          this.compound.func_74783_a(key, value);
+          this.compound.setIntArray(key, value);
      }
 
      public Object[] getList(String key, int type) {
-          NBTTagList list = this.compound.func_150295_c(key, type);
-          Object[] nbts = new Object[list.func_74745_c()];
+          NBTTagList list = this.compound.getTagList(key, type);
+          Object[] nbts = new Object[list.tagCount()];
 
-          for(int i = 0; i < list.func_74745_c(); ++i) {
+          for(int i = 0; i < list.tagCount(); ++i) {
                if (list.func_150303_d() == 10) {
-                    nbts[i] = NpcAPI.Instance().getINbt(list.func_150305_b(i));
+                    nbts[i] = NpcAPI.Instance().getINbt(list.getCompoundTagAt(i));
                } else if (list.func_150303_d() == 8) {
                     nbts[i] = list.func_150307_f(i);
                } else if (list.func_150303_d() == 6) {
@@ -133,7 +133,7 @@ public class NBTWrapper implements INbt {
      }
 
      public int getListType(String key) {
-          NBTBase b = this.compound.func_74781_a(key);
+          NBTBase b = this.compound.getTag(key);
           if (b == null) {
                return 0;
           } else if (b.func_74732_a() != 9) {
@@ -151,37 +151,37 @@ public class NBTWrapper implements INbt {
           for(int var6 = 0; var6 < var5; ++var6) {
                Object nbt = var4[var6];
                if (nbt instanceof INbt) {
-                    list.func_74742_a(((INbt)nbt).getMCNBT());
+                    list.appendTag(((INbt)nbt).getMCNBT());
                } else if (nbt instanceof String) {
-                    list.func_74742_a(new NBTTagString((String)nbt));
+                    list.appendTag(new NBTTagString((String)nbt));
                } else if (nbt instanceof Double) {
-                    list.func_74742_a(new NBTTagDouble((Double)nbt));
+                    list.appendTag(new NBTTagDouble((Double)nbt));
                } else if (nbt instanceof Float) {
-                    list.func_74742_a(new NBTTagFloat((Float)nbt));
+                    list.appendTag(new NBTTagFloat((Float)nbt));
                } else if (nbt instanceof Integer) {
-                    list.func_74742_a(new NBTTagInt((Integer)nbt));
+                    list.appendTag(new NBTTagInt((Integer)nbt));
                } else if (nbt instanceof int[]) {
-                    list.func_74742_a(new NBTTagIntArray((int[])((int[])nbt)));
+                    list.appendTag(new NBTTagIntArray((int[])((int[])nbt)));
                }
           }
 
-          this.compound.func_74782_a(key, list);
+          this.compound.setTag(key, list);
      }
 
      public INbt getCompound(String key) {
-          return NpcAPI.Instance().getINbt(this.compound.func_74775_l(key));
+          return NpcAPI.Instance().getINbt(this.compound.getCompoundTag(key));
      }
 
      public void setCompound(String key, INbt value) {
           if (value == null) {
                throw new CustomNPCsException("Value cant be null", new Object[0]);
           } else {
-               this.compound.func_74782_a(key, value.getMCNBT());
+               this.compound.setTag(key, value.getMCNBT());
           }
      }
 
      public String[] getKeys() {
-          return (String[])this.compound.func_150296_c().toArray(new String[this.compound.func_150296_c().size()]);
+          return (String[])this.compound.getKeySet().toArray(new String[this.compound.getKeySet().size()]);
      }
 
      public int getType(String key) {
@@ -201,7 +201,7 @@ public class NBTWrapper implements INbt {
      }
 
      public void clear() {
-          Iterator var1 = this.compound.func_150296_c().iterator();
+          Iterator var1 = this.compound.getKeySet().iterator();
 
           while(var1.hasNext()) {
                String name = (String)var1.next();

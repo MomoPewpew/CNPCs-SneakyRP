@@ -128,7 +128,7 @@ public class GuiNpcMobSpawnerSelector extends SubGuiInterface implements IGuiDat
 
           for(int j = 0; j < i; ++j) {
                double d1 = adouble[j];
-               nbttaglist.func_74742_a(new NBTTagDouble(d1));
+               nbttaglist.appendTag(new NBTTagDouble(d1));
           }
 
           return nbttaglist;
@@ -138,10 +138,10 @@ public class GuiNpcMobSpawnerSelector extends SubGuiInterface implements IGuiDat
      }
 
      public void setGuiData(NBTTagCompound compound) {
-          NBTTagList nbtlist = compound.func_150295_c("List", 8);
+          NBTTagList nbtlist = compound.getTagList("List", 8);
           List list = new ArrayList();
 
-          for(int i = 0; i < nbtlist.func_74745_c(); ++i) {
+          for(int i = 0; i < nbtlist.tagCount(); ++i) {
                list.add(nbtlist.func_150307_f(i));
           }
 

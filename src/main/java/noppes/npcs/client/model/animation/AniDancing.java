@@ -9,7 +9,7 @@ public class AniDancing {
      public static void setRotationAngles(float par1, float par2, float par3, float par4, float par5, float par6, Entity entity, ModelBiped model) {
           float dancing = (float)entity.field_70173_aa / 4.0F;
           float dancing2 = (float)(entity.field_70173_aa + 1) / 4.0F;
-          dancing += (dancing2 - dancing) * Minecraft.func_71410_x().func_184121_ak();
+          dancing += (dancing2 - dancing) * Minecraft.getMinecraft().func_184121_ak();
           float x = (float)Math.sin((double)dancing);
           float y = (float)Math.abs(Math.cos((double)dancing));
           model.field_178720_f.field_78800_c = model.field_78116_c.field_78800_c = x * 0.75F;

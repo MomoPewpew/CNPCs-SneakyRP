@@ -20,11 +20,11 @@ public class QuestManual extends QuestInterface {
      public TreeMap manuals = new TreeMap();
 
      public void readEntityFromNBT(NBTTagCompound compound) {
-          this.manuals = new TreeMap(NBTTags.getStringIntegerMap(compound.func_150295_c("QuestManual", 10)));
+          this.manuals = new TreeMap(NBTTags.getStringIntegerMap(compound.getTagList("QuestManual", 10)));
      }
 
      public void writeEntityToNBT(NBTTagCompound compound) {
-          compound.func_74782_a("QuestManual", NBTTags.nbtStringIntegerMap(this.manuals));
+          compound.setTag("QuestManual", NBTTags.nbtStringIntegerMap(this.manuals));
      }
 
      public boolean isCompleted(EntityPlayer player) {
@@ -57,11 +57,11 @@ public class QuestManual extends QuestInterface {
      }
 
      public HashMap getManual(QuestData data) {
-          return NBTTags.getStringIntegerMap(data.extraData.func_150295_c("Manual", 10));
+          return NBTTags.getStringIntegerMap(data.extraData.getTagList("Manual", 10));
      }
 
      public void setManual(QuestData data, HashMap manual) {
-          data.extraData.func_74782_a("Manual", NBTTags.nbtStringIntegerMap(manual));
+          data.extraData.setTag("Manual", NBTTags.nbtStringIntegerMap(manual));
      }
 
      public IQuestObjective[] getObjectives(EntityPlayer player) {

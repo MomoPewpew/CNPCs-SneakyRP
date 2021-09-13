@@ -49,7 +49,7 @@ public class GuiNbtBook extends GuiNPCInterface implements IGuiData {
           super.func_73866_w_();
           if (this.state != null) {
                this.addLabel(new GuiNpcLabel(11, "x: " + this.x + ", y: " + this.y + ", z: " + this.z, this.guiLeft + 60, this.guiTop + 6));
-               this.addLabel(new GuiNpcLabel(12, "id: " + Block.field_149771_c.func_177774_c(this.state.func_177230_c()), this.guiLeft + 60, this.guiTop + 16));
+               this.addLabel(new GuiNpcLabel(12, "id: " + Block.REGISTRY.func_177774_c(this.state.func_177230_c()), this.guiLeft + 60, this.guiTop + 16));
           }
 
           if (this.entity != null) {
@@ -152,7 +152,7 @@ public class GuiNbtBook extends GuiNPCInterface implements IGuiData {
      }
 
      public void setGuiData(NBTTagCompound compound) {
-          if (compound.func_74764_b("EntityId")) {
+          if (compound.hasKey("EntityId")) {
                this.entityId = compound.func_74762_e("EntityId");
                this.entity = this.player.world.func_73045_a(this.entityId);
           } else {
@@ -161,7 +161,7 @@ public class GuiNbtBook extends GuiNPCInterface implements IGuiData {
                this.blockStack = this.state.func_177230_c().func_185473_a(this.player.world, new BlockPos(this.x, this.y, this.z), this.state);
           }
 
-          this.originalCompound = compound.func_74775_l("Data");
+          this.originalCompound = compound.getCompoundTag("Data");
           this.compound = this.originalCompound.func_74737_b();
           this.func_73866_w_();
      }
