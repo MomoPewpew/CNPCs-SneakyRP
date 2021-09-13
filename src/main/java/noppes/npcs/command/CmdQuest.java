@@ -178,7 +178,7 @@ public class CmdQuest extends CommandNoppesBase {
           permission = 2
      )
      public void objective(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
-          EntityPlayerMP player = CommandBase.func_184888_a(server, sender, args[0]);
+          EntityPlayerMP player = CommandBase.getPlayer(server, sender, args[0]);
 
           int questid;
           try {

@@ -27,27 +27,27 @@ public class EntityAIZigZagTarget extends EntityAIBase {
           this.npc = par1EntityCreature;
           this.speed = par2;
           this.ticks = 0;
-          this.func_75248_a(AiMutex.PASSIVE + AiMutex.LOOK);
+          this.setMutexBits(AiMutex.PASSIVE + AiMutex.LOOK);
      }
 
-     public boolean func_75250_a() {
-          this.targetEntity = this.npc.func_70638_az();
-          if (this.targetEntity != null && this.targetEntity.func_70089_S()) {
+     public boolean shouldExecute() {
+          this.targetEntity = this.npc.getAttackTarget();
+          if (this.targetEntity != null && this.targetEntity.isEntityAlive()) {
                return !this.npc.isInRange(this.targetEntity, (double)this.npc.ais.getTacticalRange());
           } else {
                return false;
           }
      }
 
-     public void func_75251_c() {
-          this.npc.func_70661_as().func_75499_g();
+     public void resetTask() {
+          this.npc.getNavigator().clearPath();
           this.ticks = 0;
      }
 
-     public void func_75246_d() {
-          this.npc.func_70671_ap().func_75651_a(this.targetEntity, 30.0F, 30.0F);
+     public void updateTask() {
+          this.npc.getLookHelper().setLookPositionWithEntity(this.targetEntity, 30.0F, 30.0F);
           if (this.ticks-- <= 0) {
-               Path pathentity = this.npc.func_70661_as().func_75494_a(this.targetEntity);
+               Path pathentity = this.npc.getNavigator().getPathToEntityLiving(this.targetEntity);
                if (pathentity != null && pathentity.func_75874_d() >= this.npc.ais.getTacticalRange()) {
                     PathPoint pathpoint = pathentity.func_75877_a(MathHelper.floor((double)this.npc.ais.getTacticalRange() / 2.0D));
                     this.entityPosX = pathpoint.field_75839_a;
@@ -66,7 +66,7 @@ public class EntityAIZigZagTarget extends EntityAIBase {
                          this.movePosZ = (double)pathpoint.field_75838_c;
                     }
 
-                    this.npc.func_70661_as().func_75492_a(this.movePosX, this.movePosY, this.movePosZ, this.speed);
+                    this.npc.getNavigator().tryMoveToXYZ(this.movePosX, this.movePosY, this.movePosZ, this.speed);
                } else {
                     this.ticks = 10;
                }

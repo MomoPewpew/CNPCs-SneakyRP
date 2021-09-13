@@ -14,7 +14,7 @@ public class EntityAIAbilities extends EntityAIBase {
           this.npc = npc;
      }
 
-     public boolean func_75250_a() {
+     public boolean shouldExecute() {
           if (!this.npc.isAttacking()) {
                return false;
           } else {
@@ -23,15 +23,15 @@ public class EntityAIAbilities extends EntityAIBase {
           }
      }
 
-     public boolean func_75253_b() {
+     public boolean shouldContinueExecuting() {
           return this.npc.isAttacking() && this.ability.isActive();
      }
 
-     public void func_75246_d() {
+     public void updateTask() {
           this.ability.update();
      }
 
-     public void func_75251_c() {
+     public void resetTask() {
           ((AbstractAbility)this.ability).endAbility();
           this.ability = null;
      }

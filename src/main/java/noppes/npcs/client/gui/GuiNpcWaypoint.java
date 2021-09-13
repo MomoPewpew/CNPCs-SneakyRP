@@ -48,7 +48,7 @@ public class GuiNpcWaypoint extends GuiNPCInterface implements IGuiData {
           this.tile.name = this.getTextField(0).func_146179_b();
           this.tile.range = this.getTextField(1).getInteger();
           NBTTagCompound compound = new NBTTagCompound();
-          this.tile.func_189515_b(compound);
+          this.tile.writeToNBT(compound);
           Client.sendData(EnumPacketServer.SaveTileEntity, compound);
      }
 

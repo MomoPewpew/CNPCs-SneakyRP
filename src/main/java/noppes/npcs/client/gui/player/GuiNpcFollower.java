@@ -55,7 +55,7 @@ public class GuiNpcFollower extends GuiContainerNPCInterface implements IGuiData
      }
 
      protected void func_146979_b(int par1, int par2) {
-          this.field_146289_q.func_78276_b(I18n.translateToLocal("follower.health") + ": " + this.npc.func_110143_aJ() + "/" + this.npc.getMaxHealth(), 62, 70, CustomNpcResourceListener.DefaultTextColor);
+          this.field_146289_q.func_78276_b(I18n.translateToLocal("follower.health") + ": " + this.npc.getHealth() + "/" + this.npc.getMaxHealth(), 62, 70, CustomNpcResourceListener.DefaultTextColor);
           if (!this.role.infiniteDays) {
                if (this.role.getDays() <= 1) {
                     this.field_146289_q.func_78276_b(I18n.translateToLocal("follower.daysleft") + ": " + I18n.translateToLocal("follower.lastday"), 62, 94, CustomNpcResourceListener.DefaultTextColor);

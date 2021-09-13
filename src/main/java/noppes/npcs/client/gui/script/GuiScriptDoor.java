@@ -21,7 +21,7 @@ public class GuiScriptDoor extends GuiScriptInterface {
 
      public void save() {
           super.save();
-          BlockPos pos = this.script.func_174877_v();
+          BlockPos pos = this.script.getPos();
           Client.sendData(EnumPacketServer.ScriptDoorDataSave, pos.getX(), pos.getY(), pos.getZ(), this.script.getNBT(new NBTTagCompound()));
      }
 }

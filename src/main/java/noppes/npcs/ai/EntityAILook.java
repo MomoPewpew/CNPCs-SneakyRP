@@ -18,14 +18,14 @@ public class EntityAILook extends EntityAIBase {
 
      public EntityAILook(EntityNPCInterface npc) {
           this.npc = npc;
-          this.func_75248_a(AiMutex.LOOK);
+          this.setMutexBits(AiMutex.LOOK);
      }
 
-     public boolean func_75250_a() {
-          return !this.npc.isAttacking() && this.npc.func_70661_as().func_75500_f() && !this.npc.func_70608_bn() && this.npc.func_70089_S();
+     public boolean shouldExecute() {
+          return !this.npc.isAttacking() && this.npc.getNavigator().noPath() && !this.npc.func_70608_bn() && this.npc.isEntityAlive();
      }
 
-     public void func_75249_e() {
+     public void startExecuting() {
           this.rotatebody = this.npc.ais.getStandingType() == 0 || this.npc.ais.getStandingType() == 3;
      }
 
@@ -39,13 +39,13 @@ public class EntityAILook extends EntityAIBase {
           this.npc.field_70759_as = this.npc.field_70177_z = this.npc.field_70761_aq = (float)degrees;
      }
 
-     public void func_75251_c() {
+     public void resetTask() {
           this.rotatebody = false;
           this.forced = false;
           this.forcedEntity = null;
      }
 
-     public void func_75246_d() {
+     public void updateTask() {
           Entity lookat = null;
           if (this.forced && this.forcedEntity != null) {
                lookat = this.forcedEntity;
@@ -55,20 +55,20 @@ public class EntityAILook extends EntityAIBase {
 
                while(ita.hasNext()) {
                     EntityLivingBase entity = (EntityLivingBase)ita.next();
-                    double distance = entity.func_70068_e(this.npc);
+                    double distance = entity.getDistanceSq(this.npc);
                     if (distance < closestDistance) {
-                         closestDistance = entity.func_70068_e(this.npc);
+                         closestDistance = entity.getDistanceSq(this.npc);
                          lookat = entity;
                     } else if (distance > 12.0D) {
                          ita.remove();
                     }
                }
           } else if (this.npc.ais.getStandingType() == 2) {
-               lookat = this.npc.world.func_72890_a(this.npc, 16.0D);
+               lookat = this.npc.world.getClosestPlayerToEntity(this.npc, 16.0D);
           }
 
           if (lookat != null) {
-               this.npc.func_70671_ap().func_75651_a((Entity)lookat, 10.0F, (float)this.npc.func_70646_bf());
+               this.npc.getLookHelper().setLookPositionWithEntity((Entity)lookat, 10.0F, (float)this.npc.getVerticalFaceSpeed());
           } else {
                if (this.rotatebody) {
                     if (this.idle == 0 && this.npc.getRNG().nextFloat() < 0.004F) {
@@ -84,7 +84,7 @@ public class EntityAILook extends EntityAIBase {
 
                     if (this.idle > 0) {
                          --this.idle;
-                         this.npc.func_70671_ap().func_75650_a(this.npc.field_70165_t + this.lookX, this.npc.field_70163_u + (double)this.npc.func_70047_e(), this.npc.field_70161_v + this.lookZ, 10.0F, (float)this.npc.func_70646_bf());
+                         this.npc.getLookHelper().func_75650_a(this.npc.field_70165_t + this.lookX, this.npc.field_70163_u + (double)this.npc.getEyeHeight(), this.npc.field_70161_v + this.lookZ, 10.0F, (float)this.npc.getVerticalFaceSpeed());
                     }
                }
 

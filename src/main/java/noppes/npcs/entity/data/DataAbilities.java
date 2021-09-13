@@ -25,7 +25,7 @@ public class DataAbilities {
      }
 
      public AbstractAbility getAbility(EnumAbilityType type) {
-          EntityLivingBase target = this.npc.func_70638_az();
+          EntityLivingBase target = this.npc.getAttackTarget();
           Iterator var3 = this.abilities.iterator();
 
           AbstractAbility ability;

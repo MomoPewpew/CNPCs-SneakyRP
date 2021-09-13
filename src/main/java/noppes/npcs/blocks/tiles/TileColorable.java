@@ -15,10 +15,10 @@ public class TileColorable extends TileNpcEntity {
           this.rotation = compound.getInteger("BannerRotation");
      }
 
-     public NBTTagCompound func_189515_b(NBTTagCompound compound) {
+     public NBTTagCompound writeToNBT(NBTTagCompound compound) {
           compound.setInteger("BannerColor", this.color);
           compound.setInteger("BannerRotation", this.rotation);
-          return super.func_189515_b(compound);
+          return super.writeToNBT(compound);
      }
 
      public boolean canUpdate() {
@@ -36,7 +36,7 @@ public class TileColorable extends TileNpcEntity {
 
      public NBTTagCompound func_189517_E_() {
           NBTTagCompound compound = new NBTTagCompound();
-          this.func_189515_b(compound);
+          this.writeToNBT(compound);
           compound.func_82580_o("Items");
           compound.func_82580_o("ExtraData");
           return compound;

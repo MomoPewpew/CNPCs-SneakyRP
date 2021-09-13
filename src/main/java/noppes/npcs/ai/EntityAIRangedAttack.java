@@ -23,34 +23,34 @@ public class EntityAIRangedAttack extends EntityAIBase {
           } else {
                this.npc = (EntityNPCInterface)par1IRangedAttackMob;
                this.rangedAttackTime = this.npc.stats.ranged.getDelayMin() / 2;
-               this.func_75248_a(this.navOverride ? AiMutex.PATHING : AiMutex.LOOK + AiMutex.PASSIVE);
+               this.setMutexBits(this.navOverride ? AiMutex.PATHING : AiMutex.LOOK + AiMutex.PASSIVE);
           }
      }
 
-     public boolean func_75250_a() {
-          this.attackTarget = this.npc.func_70638_az();
-          if (this.attackTarget != null && this.attackTarget.func_70089_S() && this.npc.isInRange(this.attackTarget, (double)this.npc.stats.aggroRange) && this.npc.inventory.getProjectile() != null) {
+     public boolean shouldExecute() {
+          this.attackTarget = this.npc.getAttackTarget();
+          if (this.attackTarget != null && this.attackTarget.isEntityAlive() && this.npc.isInRange(this.attackTarget, (double)this.npc.stats.aggroRange) && this.npc.inventory.getProjectile() != null) {
                return this.npc.stats.ranged.getMeleeRange() < 1 || !this.npc.isInRange(this.attackTarget, (double)this.npc.stats.ranged.getMeleeRange());
           } else {
                return false;
           }
      }
 
-     public void func_75251_c() {
+     public void resetTask() {
           this.attackTarget = null;
-          this.npc.func_70624_b((EntityLivingBase)null);
-          this.npc.func_70661_as().func_75499_g();
+          this.npc.setAttackTarget((EntityLivingBase)null);
+          this.npc.getNavigator().clearPath();
           this.moveTries = 0;
           this.hasFired = false;
           this.rangedAttackTime = this.npc.stats.ranged.getDelayMin() / 2;
      }
 
-     public void func_75246_d() {
-          this.npc.func_70671_ap().func_75651_a(this.attackTarget, 30.0F, 30.0F);
+     public void updateTask() {
+          this.npc.getLookHelper().setLookPositionWithEntity(this.attackTarget, 30.0F, 30.0F);
           double var1 = this.npc.getDistanceSq(this.attackTarget.field_70165_t, this.attackTarget.getEntityBoundingBox().field_72338_b, this.attackTarget.field_70161_v);
           float range = (float)(this.npc.stats.ranged.getRange() * this.npc.stats.ranged.getRange());
           if (!this.navOverride && this.npc.ais.directLOS) {
-               if (this.npc.func_70635_at().func_75522_a(this.attackTarget)) {
+               if (this.npc.getEntitySenses().canSee(this.attackTarget)) {
                     ++this.moveTries;
                } else {
                     this.moveTries = 0;
@@ -58,13 +58,13 @@ public class EntityAIRangedAttack extends EntityAIBase {
 
                int v = this.npc.ais.tacticalVariant == 0 ? 20 : 5;
                if (var1 <= (double)range && this.moveTries >= v) {
-                    this.npc.func_70661_as().func_75499_g();
+                    this.npc.getNavigator().clearPath();
                } else {
-                    this.npc.func_70661_as().func_75497_a(this.attackTarget, 1.0D);
+                    this.npc.getNavigator().tryMoveToEntityLiving(this.attackTarget, 1.0D);
                }
           }
 
-          if (this.rangedAttackTime-- <= 0 && var1 <= (double)range && (this.npc.func_70635_at().func_75522_a(this.attackTarget) || this.npc.stats.ranged.getFireType() == 2)) {
+          if (this.rangedAttackTime-- <= 0 && var1 <= (double)range && (this.npc.getEntitySenses().canSee(this.attackTarget) || this.npc.stats.ranged.getFireType() == 2)) {
                if (this.burstCount++ <= this.npc.stats.ranged.getBurst()) {
                     this.rangedAttackTime = this.npc.stats.ranged.getBurstDelay();
                } else {
@@ -80,12 +80,12 @@ public class EntityAIRangedAttack extends EntityAIBase {
                          indirect = var1 > (double)range / 2.0D;
                          break;
                     case 2:
-                         indirect = !this.npc.func_70635_at().func_75522_a(this.attackTarget);
+                         indirect = !this.npc.getEntitySenses().canSee(this.attackTarget);
                     }
 
                     this.npc.func_82196_d(this.attackTarget, indirect ? 1.0F : 0.0F);
                     if (this.npc.currentAnimation != 6) {
-                         this.npc.func_184609_a(EnumHand.MAIN_HAND);
+                         this.npc.swingArm(EnumHand.MAIN_HAND);
                     }
                }
           }
@@ -98,6 +98,6 @@ public class EntityAIRangedAttack extends EntityAIBase {
 
      public void navOverride(boolean nav) {
           this.navOverride = nav;
-          this.func_75248_a(this.navOverride ? AiMutex.PATHING : AiMutex.LOOK + AiMutex.PASSIVE);
+          this.setMutexBits(this.navOverride ? AiMutex.PATHING : AiMutex.LOOK + AiMutex.PASSIVE);
      }
 }

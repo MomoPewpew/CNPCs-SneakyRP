@@ -15,43 +15,43 @@ public class EntityAIBustDoor extends EntityAIDoorInteract {
           super(par1EntityLiving);
      }
 
-     public boolean func_75250_a() {
-          return !super.func_75250_a() ? false : !BlockDoor.func_176514_f(this.field_75356_a.world, this.field_179507_b);
+     public boolean shouldExecute() {
+          return !super.shouldExecute() ? false : !BlockDoor.isOpen(this.field_75356_a.world, this.field_179507_b);
      }
 
-     public void func_75249_e() {
-          super.func_75249_e();
+     public void startExecuting() {
+          super.startExecuting();
           this.breakingTime = 0;
      }
 
-     public boolean func_75253_b() {
-          double var1 = this.field_75356_a.func_174818_b(this.field_179507_b);
-          return this.breakingTime <= 240 && !BlockDoor.func_176514_f(this.field_75356_a.world, this.field_179507_b) && var1 < 4.0D;
+     public boolean shouldContinueExecuting() {
+          double var1 = this.field_75356_a.getDistanceSq(this.field_179507_b);
+          return this.breakingTime <= 240 && !BlockDoor.isOpen(this.field_75356_a.world, this.field_179507_b) && var1 < 4.0D;
      }
 
-     public void func_75251_c() {
-          super.func_75251_c();
-          this.field_75356_a.world.func_175715_c(this.field_75356_a.getEntityId(), this.field_179507_b, -1);
+     public void resetTask() {
+          super.resetTask();
+          this.field_75356_a.world.sendBlockBreakProgress(this.field_75356_a.getEntityId(), this.field_179507_b, -1);
      }
 
-     public void func_75246_d() {
-          super.func_75246_d();
+     public void updateTask() {
+          super.updateTask();
           if (this.field_75356_a.getRNG().nextInt(20) == 0) {
-               this.field_75356_a.world.func_180498_a((EntityPlayer)null, 1010, this.field_179507_b, 0);
-               this.field_75356_a.func_184609_a(EnumHand.MAIN_HAND);
+               this.field_75356_a.world.playEvent((EntityPlayer)null, 1010, this.field_179507_b, 0);
+               this.field_75356_a.swingArm(EnumHand.MAIN_HAND);
           }
 
           ++this.breakingTime;
           int var1 = (int)((float)this.breakingTime / 240.0F * 10.0F);
           if (var1 != this.field_75358_j) {
-               this.field_75356_a.world.func_175715_c(this.field_75356_a.getEntityId(), this.field_179507_b, var1);
+               this.field_75356_a.world.sendBlockBreakProgress(this.field_75356_a.getEntityId(), this.field_179507_b, var1);
                this.field_75358_j = var1;
           }
 
           if (this.breakingTime == 240) {
-               this.field_75356_a.world.func_175698_g(this.field_179507_b);
-               this.field_75356_a.world.func_180498_a((EntityPlayer)null, 1012, this.field_179507_b, 0);
-               this.field_75356_a.world.func_180498_a((EntityPlayer)null, 2001, this.field_179507_b, Block.func_149682_b(this.field_151504_e));
+               this.field_75356_a.world.setBlockToAir(this.field_179507_b);
+               this.field_75356_a.world.playEvent((EntityPlayer)null, 1012, this.field_179507_b, 0);
+               this.field_75356_a.world.playEvent((EntityPlayer)null, 2001, this.field_179507_b, Block.getIdFromBlock(this.field_151504_e));
           }
 
      }

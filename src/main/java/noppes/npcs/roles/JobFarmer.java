@@ -115,14 +115,14 @@ public class JobFarmer extends JobInterface implements MassBlockController.IMass
 
      private void chest() {
           BlockPos pos = this.chest;
-          this.npc.func_70661_as().func_75492_a((double)pos.getX(), (double)pos.getY(), (double)pos.getZ(), 1.0D);
-          this.npc.func_70671_ap().func_75650_a((double)pos.getX(), (double)pos.getY(), (double)pos.getZ(), 10.0F, (float)this.npc.func_70646_bf());
+          this.npc.getNavigator().tryMoveToXYZ((double)pos.getX(), (double)pos.getY(), (double)pos.getZ(), 1.0D);
+          this.npc.getLookHelper().func_75650_a((double)pos.getX(), (double)pos.getY(), (double)pos.getZ(), 10.0F, (float)this.npc.getVerticalFaceSpeed());
           if (this.npc.nearPosition(pos) || this.walkTicks++ > 400) {
                if (this.walkTicks < 400) {
-                    this.npc.func_184609_a(EnumHand.MAIN_HAND);
+                    this.npc.swingArm(EnumHand.MAIN_HAND);
                }
 
-               this.npc.func_70661_as().func_75499_g();
+               this.npc.getNavigator().clearPath();
                this.ticks = 100;
                this.walkTicks = 0;
                IBlockState state = this.npc.world.getBlockState(pos);
@@ -174,8 +174,8 @@ public class JobFarmer extends JobInterface implements MassBlockController.IMass
 
      private void pluck() {
           BlockPos pos = this.ripe;
-          this.npc.func_70661_as().func_75492_a((double)pos.getX(), (double)pos.getY(), (double)pos.getZ(), 1.0D);
-          this.npc.func_70671_ap().func_75650_a((double)pos.getX(), (double)pos.getY(), (double)pos.getZ(), 10.0F, (float)this.npc.func_70646_bf());
+          this.npc.getNavigator().tryMoveToXYZ((double)pos.getX(), (double)pos.getY(), (double)pos.getZ(), 1.0D);
+          this.npc.getLookHelper().func_75650_a((double)pos.getX(), (double)pos.getY(), (double)pos.getZ(), 10.0F, (float)this.npc.getVerticalFaceSpeed());
           if (this.npc.nearPosition(pos) || this.walkTicks++ > 400) {
                if (this.walkTicks > 400) {
                     pos = NoppesUtilServer.GetClosePos(pos, this.npc.world);
@@ -183,10 +183,10 @@ public class JobFarmer extends JobInterface implements MassBlockController.IMass
                }
 
                this.ripe = null;
-               this.npc.func_70661_as().func_75499_g();
+               this.npc.getNavigator().clearPath();
                this.ticks = 90;
                this.walkTicks = 0;
-               this.npc.func_184609_a(EnumHand.MAIN_HAND);
+               this.npc.swingArm(EnumHand.MAIN_HAND);
                IBlockState state = this.npc.world.getBlockState(pos);
                Block b = state.getBlock();
                if (b instanceof BlockCrops && ((BlockCrops)b).func_185525_y(state)) {
@@ -204,7 +204,7 @@ public class JobFarmer extends JobInterface implements MassBlockController.IMass
 
                     pos = pos.func_177971_a(facing.func_176730_m());
                     b = this.npc.world.getBlockState(pos).getBlock();
-                    this.npc.world.func_175698_g(pos);
+                    this.npc.world.setBlockToAir(pos);
                     if (b != Blocks.field_150350_a) {
                          this.holding = new ItemStack(b);
                     }
@@ -243,8 +243,8 @@ public class JobFarmer extends JobInterface implements MassBlockController.IMass
 
           this.npc.ais.returnToStart = this.ripe == null;
           if (this.ripe != null) {
-               this.npc.func_70661_as().func_75499_g();
-               this.npc.func_70671_ap().func_75650_a((double)this.ripe.getX(), (double)this.ripe.getY(), (double)this.ripe.getZ(), 10.0F, (float)this.npc.func_70646_bf());
+               this.npc.getNavigator().clearPath();
+               this.npc.getLookHelper().func_75650_a((double)this.ripe.getX(), (double)this.ripe.getY(), (double)this.ripe.getZ(), 10.0F, (float)this.npc.getVerticalFaceSpeed());
           }
 
      }
@@ -286,13 +286,13 @@ public class JobFarmer extends JobInterface implements MassBlockController.IMass
                     this.trackedBlocks = trackedBlocks;
                     this.waitingForBlocks = false;
                     return;
-               } while(chest != null && this.npc.func_174818_b(chest) <= this.npc.func_174818_b(data.pos));
+               } while(chest != null && this.npc.getDistanceSq(chest) <= this.npc.getDistanceSq(data.pos));
 
                chest = data.pos;
           }
      }
 
      public int getMutexBits() {
-          return this.npc.func_70661_as().func_75500_f() ? 0 : AiMutex.LOOK;
+          return this.npc.getNavigator().noPath() ? 0 : AiMutex.LOOK;
      }
 }

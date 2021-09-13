@@ -103,7 +103,7 @@ public class WrapperNpcAPI extends NpcAPI {
                EntityCustomNpc npc = new EntityCustomNpc(world);
                npc.func_70080_a((double)x + 0.5D, (double)y, (double)z + 0.5D, 0.0F, 0.0F);
                npc.ais.setStartPos((double)x, (double)y, (double)z);
-               npc.func_70606_j(npc.getMaxHealth());
+               npc.setHealth(npc.getMaxHealth());
                world.spawnEntity(npc);
                return npc.wrappedNPC;
           }

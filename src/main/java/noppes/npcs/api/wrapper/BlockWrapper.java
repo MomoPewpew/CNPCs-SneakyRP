@@ -165,7 +165,7 @@ public class BlockWrapper implements IBlock {
      }
 
      public void remove() {
-          this.world.getMCWorld().func_175698_g(this.pos);
+          this.world.getMCWorld().setBlockToAir(this.pos);
      }
 
      public boolean isRemoved() {
@@ -280,7 +280,7 @@ public class BlockWrapper implements IBlock {
 
      public INbt getTileEntityNBT() {
           NBTTagCompound compound = new NBTTagCompound();
-          this.tile.func_189515_b(compound);
+          this.tile.writeToNBT(compound);
           return NpcAPI.Instance().getINbt(compound);
      }
 

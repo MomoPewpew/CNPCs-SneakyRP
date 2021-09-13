@@ -15,18 +15,18 @@ public class EntityAIDodgeShoot extends EntityAIBase {
 
      public EntityAIDodgeShoot(EntityNPCInterface iNpc) {
           this.entity = iNpc;
-          this.func_75248_a(AiMutex.PASSIVE);
+          this.setMutexBits(AiMutex.PASSIVE);
      }
 
-     public boolean func_75250_a() {
-          EntityLivingBase var1 = this.entity.func_70638_az();
-          if (var1 != null && var1.func_70089_S()) {
+     public boolean shouldExecute() {
+          EntityLivingBase var1 = this.entity.getAttackTarget();
+          if (var1 != null && var1.isEntityAlive()) {
                if (this.entity.inventory.getProjectile() == null) {
                     return false;
                } else if (this.entity.getRangedTask() == null) {
                     return false;
                } else {
-                    Vec3d vec = this.entity.getRangedTask().hasFired() ? RandomPositionGenerator.func_75463_a(this.entity, 4, 1) : null;
+                    Vec3d vec = this.entity.getRangedTask().hasFired() ? RandomPositionGenerator.findRandomTarget(this.entity, 4, 1) : null;
                     if (vec == null) {
                          return false;
                     } else {
@@ -41,17 +41,17 @@ public class EntityAIDodgeShoot extends EntityAIBase {
           }
      }
 
-     public boolean func_75253_b() {
-          return !this.entity.func_70661_as().func_75500_f();
+     public boolean shouldContinueExecuting() {
+          return !this.entity.getNavigator().noPath();
      }
 
-     public void func_75249_e() {
-          this.entity.func_70661_as().func_75492_a(this.x, this.y, this.zPosition, 1.2D);
+     public void startExecuting() {
+          this.entity.getNavigator().tryMoveToXYZ(this.x, this.y, this.zPosition, 1.2D);
      }
 
-     public void func_75246_d() {
-          if (this.entity.func_70638_az() != null) {
-               this.entity.func_70671_ap().func_75651_a(this.entity.func_70638_az(), 30.0F, 30.0F);
+     public void updateTask() {
+          if (this.entity.getAttackTarget() != null) {
+               this.entity.getLookHelper().setLookPositionWithEntity(this.entity.getAttackTarget(), 30.0F, 30.0F);
           }
 
      }

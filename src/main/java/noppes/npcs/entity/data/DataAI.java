@@ -443,7 +443,7 @@ public class DataAI implements INPCAi {
      }
 
      public void setAvoidsWater(boolean enabled) {
-          if (this.npc.func_70661_as() instanceof PathNavigateGround) {
+          if (this.npc.getNavigator() instanceof PathNavigateGround) {
                this.npc.func_184644_a(PathNodeType.WATER, enabled ? PathNodeType.WATER.func_186289_a() : 0.0F);
           }
 

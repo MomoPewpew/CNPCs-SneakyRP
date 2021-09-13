@@ -168,7 +168,7 @@ public class JobPuppet extends JobInterface implements IJobPuppet {
      }
 
      public boolean isActive() {
-          if (!this.npc.func_70089_S()) {
+          if (!this.npc.isEntityAlive()) {
                return false;
           } else {
                return this.whileAttacking && this.npc.isAttacking() || this.whileMoving && this.npc.isWalking() || this.whileStanding && !this.npc.isWalking();

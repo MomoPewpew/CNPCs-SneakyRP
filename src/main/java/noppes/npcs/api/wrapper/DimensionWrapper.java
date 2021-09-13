@@ -17,7 +17,7 @@ public class DimensionWrapper implements IDimension {
      }
 
      public String getName() {
-          return this.type.func_186065_b();
+          return this.type.getName();
      }
 
      public String getSuffix() {

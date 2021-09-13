@@ -193,7 +193,7 @@ public class EntityWrapper implements IEntity {
      }
 
      public boolean isAlive() {
-          return this.entity.func_70089_S();
+          return this.entity.isEntityAlive();
      }
 
      public IData getTempdata() {
@@ -309,8 +309,8 @@ public class EntityWrapper implements IEntity {
           }
 
           result.sort((o1, o2) -> {
-               double d1 = this.entity.func_70068_e(o1.getMCEntity());
-               double d2 = this.entity.func_70068_e(o2.getMCEntity());
+               double d1 = this.entity.getDistanceSq(o1.getMCEntity());
+               double d2 = this.entity.getDistanceSq(o2.getMCEntity());
                if (d1 == d2) {
                     return 0;
                } else {
@@ -333,7 +333,7 @@ public class EntityWrapper implements IEntity {
 
      public void addRider(IEntity entity) {
           if (entity != null) {
-               entity.getMCEntity().func_184205_a(this.entity, true);
+               entity.getMCEntity().startRiding(this.entity, true);
           }
 
      }
@@ -350,7 +350,7 @@ public class EntityWrapper implements IEntity {
           if (entity == null) {
                this.entity.func_184210_p();
           } else {
-               this.entity.func_184205_a(entity.getMCEntity(), true);
+               this.entity.startRiding(entity.getMCEntity(), true);
           }
 
      }
@@ -382,11 +382,11 @@ public class EntityWrapper implements IEntity {
      }
 
      public boolean isSneaking() {
-          return this.entity.func_70093_af();
+          return this.entity.isSneaking();
      }
 
      public boolean isSprinting() {
-          return this.entity.func_70051_ag();
+          return this.entity.isSprinting();
      }
 
      public Entity getMCEntity() {
@@ -417,7 +417,7 @@ public class EntityWrapper implements IEntity {
 
      public void storeAsClone(int tab, String name) {
           NBTTagCompound compound = new NBTTagCompound();
-          if (!this.entity.func_184198_c(compound)) {
+          if (!this.entity.writeToNBTAtomically(compound)) {
                throw new CustomNPCsException("Cannot store dead entities", new Object[0]);
           } else {
                ServerCloneController.Instance.addClone(compound, name, tab);
@@ -440,7 +440,7 @@ public class EntityWrapper implements IEntity {
      }
 
      public void setEntityNbt(INbt nbt) {
-          this.entity.func_70020_e(nbt.getMCNBT());
+          this.entity.readFromNBT(nbt.getMCNBT());
      }
 
      public void playAnimation(int type) {
@@ -452,7 +452,7 @@ public class EntityWrapper implements IEntity {
      }
 
      public float getEyeHeight() {
-          return this.entity.func_70047_e();
+          return this.entity.getEyeHeight();
      }
 
      public float getWidth() {

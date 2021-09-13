@@ -21,11 +21,11 @@ public class EntityLivingBaseWrapper extends EntityWrapper implements IEntityLiv
      }
 
      public float getHealth() {
-          return ((EntityLivingBase)this.entity).func_110143_aJ();
+          return ((EntityLivingBase)this.entity).getHealth();
      }
 
      public void setHealth(float health) {
-          ((EntityLivingBase)this.entity).func_70606_j(health);
+          ((EntityLivingBase)this.entity).setHealth(health);
      }
 
      public float getMaxHealth() {
@@ -39,7 +39,7 @@ public class EntityLivingBaseWrapper extends EntityWrapper implements IEntityLiv
      }
 
      public boolean isAttacking() {
-          return ((EntityLivingBase)this.entity).func_70643_av() != null;
+          return ((EntityLivingBase)this.entity).getRevengeTarget() != null;
      }
 
      public void setAttackTarget(IEntityLivingBase living) {
@@ -52,7 +52,7 @@ public class EntityLivingBaseWrapper extends EntityWrapper implements IEntityLiv
      }
 
      public IEntityLivingBase getAttackTarget() {
-          return (IEntityLivingBase)NpcAPI.Instance().getIEntity(((EntityLivingBase)this.entity).func_70643_av());
+          return (IEntityLivingBase)NpcAPI.Instance().getIEntity(((EntityLivingBase)this.entity).getRevengeTarget());
      }
 
      public IEntityLivingBase getLastAttacked() {
@@ -64,15 +64,15 @@ public class EntityLivingBaseWrapper extends EntityWrapper implements IEntityLiv
      }
 
      public boolean canSeeEntity(IEntity entity) {
-          return ((EntityLivingBase)this.entity).func_70685_l(entity.getMCEntity());
+          return ((EntityLivingBase)this.entity).canEntityBeSeen(entity.getMCEntity());
      }
 
      public void swingMainhand() {
-          ((EntityLivingBase)this.entity).func_184609_a(EnumHand.MAIN_HAND);
+          ((EntityLivingBase)this.entity).swingArm(EnumHand.MAIN_HAND);
      }
 
      public void swingOffhand() {
-          ((EntityLivingBase)this.entity).func_184609_a(EnumHand.OFF_HAND);
+          ((EntityLivingBase)this.entity).swingArm(EnumHand.OFF_HAND);
      }
 
      public void addPotionEffect(int effect, int duration, int strength, boolean hideParticles) {
@@ -113,7 +113,7 @@ public class EntityLivingBaseWrapper extends EntityWrapper implements IEntityLiv
      }
 
      public IItemStack getMainhandItem() {
-          return NpcAPI.Instance().getIItemStack(((EntityLivingBase)this.entity).func_184614_ca());
+          return NpcAPI.Instance().getIItemStack(((EntityLivingBase)this.entity).getHeldItemMainhand());
      }
 
      public void setMainhandItem(IItemStack item) {

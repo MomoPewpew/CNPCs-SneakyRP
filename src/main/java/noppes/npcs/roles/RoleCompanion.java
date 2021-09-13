@@ -352,8 +352,8 @@ public class RoleCompanion extends RoleInterface {
                ((CompanionTrader)this.jobInterface).interact(player);
           }
 
-          if (player == this.owner && this.npc.func_70089_S() && !this.npc.isAttacking()) {
-               if (!player.func_70093_af() && !openGui) {
+          if (player == this.owner && this.npc.isEntityAlive() && !this.npc.isAttacking()) {
+               if (!player.isSneaking() && !openGui) {
                     this.setSitting(!this.isSitting());
                } else {
                     this.openGui(player);
@@ -602,7 +602,7 @@ public class RoleCompanion extends RoleInterface {
                this.npc.ais.animationType = 1;
                this.npc.ais.onAttack = 3;
                this.npc.ais.setStartPos(new BlockPos(this.npc));
-               this.npc.func_70661_as().func_75499_g();
+               this.npc.getNavigator().clearPath();
                this.npc.func_70634_a((double)this.npc.getStartXPos(), this.npc.field_70163_u, (double)this.npc.getStartZPos());
           } else {
                this.npc.ais.animationType = this.stage.animation;

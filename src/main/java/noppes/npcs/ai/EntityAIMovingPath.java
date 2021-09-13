@@ -12,11 +12,11 @@ public class EntityAIMovingPath extends EntityAIBase {
 
      public EntityAIMovingPath(EntityNPCInterface iNpc) {
           this.npc = iNpc;
-          this.func_75248_a(AiMutex.PASSIVE);
+          this.setMutexBits(AiMutex.PASSIVE);
      }
 
-     public boolean func_75250_a() {
-          if (!this.npc.isAttacking() && !this.npc.isInteracting() && (this.npc.getRNG().nextInt(40) == 0 || !this.npc.ais.movingPause) && this.npc.func_70661_as().func_75500_f()) {
+     public boolean shouldExecute() {
+          if (!this.npc.isAttacking() && !this.npc.isInteracting() && (this.npc.getRNG().nextInt(40) == 0 || !this.npc.ais.movingPause) && this.npc.getNavigator().noPath()) {
                List list = this.npc.ais.getMovingPath();
                if (list.size() < 2) {
                     return false;
@@ -31,14 +31,14 @@ public class EntityAIMovingPath extends EntityAIBase {
           }
      }
 
-     public boolean func_75253_b() {
+     public boolean shouldContinueExecuting() {
           if (!this.npc.isAttacking() && !this.npc.isInteracting()) {
-               if (this.npc.func_70661_as().func_75500_f()) {
-                    this.npc.func_70661_as().func_75499_g();
+               if (this.npc.getNavigator().noPath()) {
+                    this.npc.getNavigator().clearPath();
                     if (this.npc.getDistanceSq((double)this.pos[0], (double)this.pos[1], (double)this.pos[2]) < 3.0D) {
                          return false;
                     } else if (this.retries++ < 3) {
-                         this.func_75249_e();
+                         this.startExecuting();
                          return true;
                     } else {
                          return false;
@@ -52,7 +52,7 @@ public class EntityAIMovingPath extends EntityAIBase {
           }
      }
 
-     public void func_75249_e() {
-          this.npc.func_70661_as().func_75492_a((double)this.pos[0] + 0.5D, (double)this.pos[1], (double)this.pos[2] + 0.5D, 1.0D);
+     public void startExecuting() {
+          this.npc.getNavigator().tryMoveToXYZ((double)this.pos[0] + 0.5D, (double)this.pos[1], (double)this.pos[2] + 0.5D, 1.0D);
      }
 }

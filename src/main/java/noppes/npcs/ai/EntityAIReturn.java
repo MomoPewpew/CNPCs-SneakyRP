@@ -22,20 +22,20 @@ public class EntityAIReturn extends EntityAIBase {
 
      public EntityAIReturn(EntityNPCInterface npc) {
           this.npc = npc;
-          this.func_75248_a(AiMutex.PASSIVE);
+          this.setMutexBits(AiMutex.PASSIVE);
      }
 
-     public boolean func_75250_a() {
-          if (!this.npc.hasOwner() && !this.npc.func_184218_aH() && this.npc.ais.shouldReturnHome() && !this.npc.isKilled() && this.npc.func_70661_as().func_75500_f() && !this.npc.isInteracting()) {
+     public boolean shouldExecute() {
+          if (!this.npc.hasOwner() && !this.npc.func_184218_aH() && this.npc.ais.shouldReturnHome() && !this.npc.isKilled() && this.npc.getNavigator().noPath() && !this.npc.isInteracting()) {
                BlockPos pos;
-               if (this.npc.ais.findShelter == 0 && (!this.npc.world.func_72935_r() || this.npc.world.func_72896_J()) && !this.npc.world.field_73011_w.func_191066_m()) {
+               if (this.npc.ais.findShelter == 0 && (!this.npc.world.isDaytime() || this.npc.world.func_72896_J()) && !this.npc.world.field_73011_w.func_191066_m()) {
                     pos = new BlockPos((double)this.npc.getStartXPos(), this.npc.getStartYPos(), (double)this.npc.getStartZPos());
-                    if (this.npc.world.func_175678_i(pos) || this.npc.world.getLight(pos) <= 8) {
+                    if (this.npc.world.canSeeSky(pos) || this.npc.world.getLight(pos) <= 8) {
                          return false;
                     }
-               } else if (this.npc.ais.findShelter == 1 && this.npc.world.func_72935_r()) {
+               } else if (this.npc.ais.findShelter == 1 && this.npc.world.isDaytime()) {
                     pos = new BlockPos((double)this.npc.getStartXPos(), this.npc.getStartYPos(), (double)this.npc.getStartZPos());
-                    if (this.npc.world.func_175678_i(pos)) {
+                    if (this.npc.world.canSeeSky(pos)) {
                          return false;
                     }
                }
@@ -65,9 +65,9 @@ public class EntityAIReturn extends EntityAIBase {
           }
      }
 
-     public boolean func_75253_b() {
+     public boolean shouldContinueExecuting() {
           if (!this.npc.isFollower() && !this.npc.isKilled() && !this.npc.isAttacking() && !this.npc.isVeryNearAssignedPlace() && !this.npc.isInteracting() && !this.npc.func_184218_aH()) {
-               if (this.npc.func_70661_as().func_75500_f() && this.wasAttacked && !this.isTooFar()) {
+               if (this.npc.getNavigator().noPath() && this.wasAttacked && !this.isTooFar()) {
                     return false;
                } else {
                     return this.totalTicks <= 600;
@@ -77,22 +77,22 @@ public class EntityAIReturn extends EntityAIBase {
           }
      }
 
-     public void func_75246_d() {
+     public void updateTask() {
           ++this.totalTicks;
           if (this.totalTicks > 600) {
                this.npc.func_70107_b(this.endPosX, this.endPosY, this.endPosZ);
-               this.npc.func_70661_as().func_75499_g();
+               this.npc.getNavigator().clearPath();
           } else {
                if (this.stuckTicks > 0) {
                     --this.stuckTicks;
-               } else if (this.npc.func_70661_as().func_75500_f()) {
+               } else if (this.npc.getNavigator().noPath()) {
                     ++this.stuckCount;
                     this.stuckTicks = 10;
                     if ((this.totalTicks <= 30 || !this.wasAttacked || !this.isTooFar()) && this.stuckCount <= 5) {
                          this.navigate(this.stuckCount % 2 == 1);
                     } else {
                          this.npc.func_70107_b(this.endPosX, this.endPosY, this.endPosZ);
-                         this.npc.func_70661_as().func_75499_g();
+                         this.npc.getNavigator().clearPath();
                     }
                } else {
                     this.stuckCount = 0;
@@ -112,7 +112,7 @@ public class EntityAIReturn extends EntityAIBase {
           return x * x + z * z > (double)(allowedDistance * allowedDistance);
      }
 
-     public void func_75249_e() {
+     public void startExecuting() {
           this.stuckTicks = 0;
           this.totalTicks = 0;
           this.stuckCount = 0;
@@ -153,12 +153,12 @@ public class EntityAIReturn extends EntityAIBase {
                }
           }
 
-          this.npc.func_70661_as().func_75499_g();
-          this.npc.func_70661_as().func_75492_a(posX, posY, posZ, 1.0D);
+          this.npc.getNavigator().clearPath();
+          this.npc.getNavigator().tryMoveToXYZ(posX, posY, posZ, 1.0D);
      }
 
-     public void func_75251_c() {
+     public void resetTask() {
           this.wasAttacked = false;
-          this.npc.func_70661_as().func_75499_g();
+          this.npc.getNavigator().clearPath();
      }
 }

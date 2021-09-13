@@ -12,7 +12,7 @@ public class ModelClassicPlayer extends ModelPlayerAlt {
      public void func_78087_a(float par1, float par2, float par3, float par4, float par5, float par6, Entity entity) {
           super.func_78087_a(par1, par2, par3, par4, par5, par6, entity);
           float j = 2.0F;
-          if (entity.func_70051_ag()) {
+          if (entity.isSprinting()) {
                j = 1.0F;
           }
 

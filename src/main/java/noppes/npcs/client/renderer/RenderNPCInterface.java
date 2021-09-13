@@ -31,7 +31,7 @@ public class RenderNPCInterface extends RenderLiving {
 
      public void renderName(EntityNPCInterface npc, double d, double d1, double d2) {
           if (npc != null && this.func_177070_b(npc) && this.field_76990_c.field_78734_h != null) {
-               double d0 = npc.func_70068_e(this.field_76990_c.field_78734_h);
+               double d0 = npc.getDistanceSq(this.field_76990_c.field_78734_h);
                if (d0 <= 512.0D) {
                     float scale;
                     if (npc.messages != null) {
@@ -114,11 +114,11 @@ public class RenderNPCInterface extends RenderLiving {
      }
 
      protected void applyRotations(EntityNPCInterface npc, float f, float f1, float f2) {
-          if (npc.func_70089_S() && npc.func_70608_bn()) {
+          if (npc.isEntityAlive() && npc.func_70608_bn()) {
                GlStateManager.func_179114_b((float)npc.ais.orientation, 0.0F, 1.0F, 0.0F);
                GlStateManager.func_179114_b(this.func_77037_a(npc), 0.0F, 0.0F, 1.0F);
                GlStateManager.func_179114_b(270.0F, 0.0F, 1.0F, 0.0F);
-          } else if (npc.func_70089_S() && npc.currentAnimation == 7) {
+          } else if (npc.isEntityAlive() && npc.currentAnimation == 7) {
                GlStateManager.func_179114_b(270.0F - f1, 0.0F, 1.0F, 0.0F);
                float scale = (float)((EntityCustomNpc)npc).display.getSize() / 5.0F;
                GlStateManager.translate(-scale + ((EntityCustomNpc)npc).modelData.getLegsY() * scale, 0.14F, 0.0F);
@@ -190,7 +190,7 @@ public class RenderNPCInterface extends RenderLiving {
           float xOffset = 0.0F;
           float yOffset = npc.currentAnimation == 0 ? npc.ais.bodyOffsetY / 10.0F - 0.5F : 0.0F;
           float zOffset = 0.0F;
-          if (npc.func_70089_S()) {
+          if (npc.isEntityAlive()) {
                if (npc.func_70608_bn()) {
                     xOffset = (float)(-Math.cos(Math.toRadians((double)(180 - npc.ais.orientation))));
                     zOffset = (float)(-Math.sin(Math.toRadians((double)npc.ais.orientation)));

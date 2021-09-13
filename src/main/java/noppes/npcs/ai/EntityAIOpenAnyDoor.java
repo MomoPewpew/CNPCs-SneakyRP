@@ -29,11 +29,11 @@ public class EntityAIOpenAnyDoor extends EntityAIBase {
           this.npc = npc;
      }
 
-     public boolean func_75250_a() {
+     public boolean shouldExecute() {
           if (!this.npc.field_70123_F) {
                return false;
           } else {
-               Path pathentity = this.npc.func_70661_as().func_75505_d();
+               Path pathentity = this.npc.getNavigator().func_75505_d();
                if (pathentity != null && !pathentity.func_75879_b()) {
                     for(int i = 0; i < Math.min(pathentity.func_75873_e() + 2, pathentity.func_75874_d()); ++i) {
                          PathPoint pathpoint = pathentity.func_75877_a(i);
@@ -55,11 +55,11 @@ public class EntityAIOpenAnyDoor extends EntityAIBase {
           }
      }
 
-     public boolean func_75253_b() {
+     public boolean shouldContinueExecuting() {
           return this.closeDoorTemporisation > 0 && !this.hasStoppedDoorInteraction;
      }
 
-     public void func_75249_e() {
+     public void startExecuting() {
           this.hasStoppedDoorInteraction = false;
           this.entityX = (float)((double)((float)this.position.getX() + 0.5F) - this.npc.field_70165_t);
           this.entityZ = (float)((double)((float)this.position.getZ() + 0.5F) - this.npc.field_70161_v);
@@ -67,11 +67,11 @@ public class EntityAIOpenAnyDoor extends EntityAIBase {
           this.setDoorState(this.door, this.position, true);
      }
 
-     public void func_75251_c() {
+     public void resetTask() {
           this.setDoorState(this.door, this.position, false);
      }
 
-     public void func_75246_d() {
+     public void updateTask() {
           --this.closeDoorTemporisation;
           float f = (float)((double)((float)this.position.getX() + 0.5F) - this.npc.field_70165_t);
           float f1 = (float)((double)((float)this.position.getZ() + 0.5F) - this.npc.field_70161_v);
@@ -119,7 +119,7 @@ public class EntityAIOpenAnyDoor extends EntityAIBase {
                }
 
                this.npc.world.setBlockState(position, state.func_177226_a(this.property, open));
-               this.npc.world.func_180498_a((EntityPlayer)null, open ? 1003 : 1006, position, 0);
+               this.npc.world.playEvent((EntityPlayer)null, open ? 1003 : 1006, position, 0);
           }
 
      }

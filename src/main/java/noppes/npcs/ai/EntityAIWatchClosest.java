@@ -19,17 +19,17 @@ public class EntityAIWatchClosest extends EntityAIBase {
           this.watchedClass = par2Class;
           this.field_75333_c = par3;
           this.field_75331_e = 0.002F;
-          this.func_75248_a(AiMutex.LOOK);
+          this.setMutexBits(AiMutex.LOOK);
      }
 
-     public boolean func_75250_a() {
+     public boolean shouldExecute() {
           if (this.npc.getRNG().nextFloat() < this.field_75331_e && !this.npc.isInteracting()) {
-               if (this.npc.func_70638_az() != null) {
-                    this.closestEntity = this.npc.func_70638_az();
+               if (this.npc.getAttackTarget() != null) {
+                    this.closestEntity = this.npc.getAttackTarget();
                }
 
                if (this.watchedClass == EntityPlayer.class) {
-                    this.closestEntity = this.npc.world.func_72890_a(this.npc, (double)this.field_75333_c);
+                    this.closestEntity = this.npc.world.getClosestPlayerToEntity(this.npc, (double)this.field_75333_c);
                } else {
                     this.closestEntity = this.npc.world.func_72857_a(this.watchedClass, this.npc.getEntityBoundingBox().expand((double)this.field_75333_c, 3.0D, (double)this.field_75333_c), this.npc);
                     if (this.closestEntity != null) {
@@ -43,24 +43,24 @@ public class EntityAIWatchClosest extends EntityAIBase {
           }
      }
 
-     public boolean func_75253_b() {
-          if (!this.npc.isInteracting() && !this.npc.isAttacking() && this.closestEntity.func_70089_S() && this.npc.func_70089_S()) {
+     public boolean shouldContinueExecuting() {
+          if (!this.npc.isInteracting() && !this.npc.isAttacking() && this.closestEntity.isEntityAlive() && this.npc.isEntityAlive()) {
                return !this.npc.isInRange(this.closestEntity, (double)this.field_75333_c) ? false : this.lookTime > 0;
           } else {
                return false;
           }
      }
 
-     public void func_75249_e() {
+     public void startExecuting() {
           this.lookTime = 60 + this.npc.getRNG().nextInt(60);
      }
 
-     public void func_75251_c() {
+     public void resetTask() {
           this.closestEntity = null;
      }
 
-     public void func_75246_d() {
-          this.npc.func_70671_ap().func_75650_a(this.closestEntity.field_70165_t, this.closestEntity.field_70163_u + (double)this.closestEntity.func_70047_e(), this.closestEntity.field_70161_v, 10.0F, (float)this.npc.func_70646_bf());
+     public void updateTask() {
+          this.npc.getLookHelper().func_75650_a(this.closestEntity.field_70165_t, this.closestEntity.field_70163_u + (double)this.closestEntity.getEyeHeight(), this.closestEntity.field_70161_v, 10.0F, (float)this.npc.getVerticalFaceSpeed());
           --this.lookTime;
      }
 }

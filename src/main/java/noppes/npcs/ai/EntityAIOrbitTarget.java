@@ -28,15 +28,15 @@ public class EntityAIOrbitTarget extends EntityAIBase {
           this.npc = par1EntityCreature;
           this.speed = par2;
           this.decay = par5;
-          this.func_75248_a(AiMutex.PASSIVE + AiMutex.LOOK);
+          this.setMutexBits(AiMutex.PASSIVE + AiMutex.LOOK);
      }
 
-     public boolean func_75250_a() {
+     public boolean shouldExecute() {
           if (--this.delay > 0) {
                return false;
           } else {
                this.delay = 10;
-               this.targetEntity = this.npc.func_70638_az();
+               this.targetEntity = this.npc.getAttackTarget();
                if (this.targetEntity == null) {
                     return false;
                } else {
@@ -51,12 +51,12 @@ public class EntityAIOrbitTarget extends EntityAIBase {
           }
      }
 
-     public boolean func_75253_b() {
-          return this.targetEntity.func_70089_S() && !this.npc.isInRange(this.targetEntity, (double)(this.distance / 2.0F)) && this.npc.isInRange(this.targetEntity, (double)this.distance * 1.5D) && !this.npc.func_70090_H() && this.canNavigate;
+     public boolean shouldContinueExecuting() {
+          return this.targetEntity.isEntityAlive() && !this.npc.isInRange(this.targetEntity, (double)(this.distance / 2.0F)) && this.npc.isInRange(this.targetEntity, (double)this.distance * 1.5D) && !this.npc.func_70090_H() && this.canNavigate;
      }
 
-     public void func_75251_c() {
-          this.npc.func_70661_as().func_75499_g();
+     public void resetTask() {
+          this.npc.getNavigator().clearPath();
           this.delay = 60;
           if (this.npc.getRangedTask() != null) {
                this.npc.getRangedTask().navOverride(false);
@@ -64,7 +64,7 @@ public class EntityAIOrbitTarget extends EntityAIBase {
 
      }
 
-     public void func_75249_e() {
+     public void startExecuting() {
           this.canNavigate = true;
           Random random = this.npc.getRNG();
           this.direction = random.nextInt(10) > 5 ? 1 : -1;
@@ -79,15 +79,15 @@ public class EntityAIOrbitTarget extends EntityAIBase {
 
      }
 
-     public void func_75246_d() {
-          this.npc.func_70671_ap().func_75651_a(this.targetEntity, 30.0F, 30.0F);
-          if (this.npc.func_70661_as().func_75500_f() && this.tick >= 0 && this.npc.field_70122_E && !this.npc.func_70090_H()) {
+     public void updateTask() {
+          this.npc.getLookHelper().setLookPositionWithEntity(this.targetEntity, 30.0F, 30.0F);
+          if (this.npc.getNavigator().noPath() && this.tick >= 0 && this.npc.field_70122_E && !this.npc.func_70090_H()) {
                double d0 = (double)this.targetDistance * (double)MathHelper.func_76134_b(this.angle / 180.0F * 3.1415927F);
                double d1 = (double)this.targetDistance * (double)MathHelper.func_76126_a(this.angle / 180.0F * 3.1415927F);
                this.movePosX = this.targetEntity.field_70165_t + d0;
                this.movePosY = this.targetEntity.getEntityBoundingBox().field_72337_e;
                this.movePosZ = this.targetEntity.field_70161_v + d1;
-               this.npc.func_70661_as().func_75492_a(this.movePosX, this.movePosY, this.movePosZ, this.speed);
+               this.npc.getNavigator().tryMoveToXYZ(this.movePosX, this.movePosY, this.movePosZ, this.speed);
                this.angle += 15.0F * (float)this.direction;
                this.tick = MathHelper.func_76143_f(this.npc.func_70011_f(this.movePosX, this.movePosY, this.movePosZ) / (double)(this.npc.getSpeed() / 20.0F));
                if (this.decay) {

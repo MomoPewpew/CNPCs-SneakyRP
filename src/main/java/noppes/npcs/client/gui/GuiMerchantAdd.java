@@ -58,7 +58,7 @@ public class GuiMerchantAdd extends GuiContainer {
      public void func_73876_c() {
           super.func_73876_c();
           Minecraft mc = Minecraft.getMinecraft();
-          MerchantRecipeList merchantrecipelist = this.theIMerchant.func_70934_b(mc.player);
+          MerchantRecipeList merchantrecipelist = this.theIMerchant.getRecipes(mc.player);
           if (merchantrecipelist != null) {
                this.nextRecipeButtonIndex.enabled = this.currentRecipeIndex < merchantrecipelist.size() - 1;
                this.previousRecipeButtonIndex.enabled = this.currentRecipeIndex > 0;
@@ -78,7 +78,7 @@ public class GuiMerchantAdd extends GuiContainer {
           }
 
           if (par1GuiButton.id == 4) {
-               MerchantRecipeList merchantrecipelist = this.theIMerchant.func_70934_b(mc.player);
+               MerchantRecipeList merchantrecipelist = this.theIMerchant.getRecipes(mc.player);
                if (this.currentRecipeIndex < merchantrecipelist.size()) {
                     merchantrecipelist.remove(this.currentRecipeIndex);
                     if (this.currentRecipeIndex > 0) {
@@ -107,7 +107,7 @@ public class GuiMerchantAdd extends GuiContainer {
 
                     MerchantRecipe recipe = new MerchantRecipe(item1, item2, sold);
                     recipe.func_82783_a(2147483639);
-                    MerchantRecipeList merchantrecipelist = this.theIMerchant.func_70934_b(mc.player);
+                    MerchantRecipeList merchantrecipelist = this.theIMerchant.getRecipes(mc.player);
                     merchantrecipelist.add(recipe);
                     Client.sendData(EnumPacketServer.MerchantUpdate, ServerEventsHandler.Merchant.getEntityId(), merchantrecipelist);
                }
@@ -129,7 +129,7 @@ public class GuiMerchantAdd extends GuiContainer {
           int k = (this.width - this.field_146999_f) / 2;
           int l = (this.height - this.field_147000_g) / 2;
           this.drawTexturedModalRect(k, l, 0, 0, this.field_146999_f, this.field_147000_g);
-          MerchantRecipeList merchantrecipelist = this.theIMerchant.func_70934_b(mc.player);
+          MerchantRecipeList merchantrecipelist = this.theIMerchant.getRecipes(mc.player);
           if (merchantrecipelist != null && !merchantrecipelist.isEmpty()) {
                int i1 = this.currentRecipeIndex;
                MerchantRecipe merchantrecipe = (MerchantRecipe)merchantrecipelist.get(i1);
@@ -147,7 +147,7 @@ public class GuiMerchantAdd extends GuiContainer {
      public void func_73863_a(int par1, int par2, float par3) {
           super.func_73863_a(par1, par2, par3);
           Minecraft mc = Minecraft.getMinecraft();
-          MerchantRecipeList merchantrecipelist = this.theIMerchant.func_70934_b(mc.player);
+          MerchantRecipeList merchantrecipelist = this.theIMerchant.getRecipes(mc.player);
           if (merchantrecipelist != null && !merchantrecipelist.isEmpty()) {
                int k = (this.width - this.field_146999_f) / 2;
                int l = (this.height - this.field_147000_g) / 2;

@@ -59,7 +59,7 @@ public class EntityNpcDragon extends EntityNPCInterface {
                NBTTagCompound compound = new NBTTagCompound();
                this.func_189511_e(compound);
                EntityCustomNpc npc = new EntityCustomNpc(this.world);
-               npc.func_70020_e(compound);
+               npc.readFromNBT(compound);
                ModelData data = npc.modelData;
                data.setEntityClass(EntityNpcDragon.class);
                this.world.spawnEntity(npc);
@@ -71,7 +71,7 @@ public class EntityNpcDragon extends EntityNPCInterface {
      public void func_70636_d() {
           this.field_40173_aw = this.field_40172_ax;
           float f;
-          if (this.world.isRemote && this.func_110143_aJ() <= 0.0F) {
+          if (this.world.isRemote && this.getHealth() <= 0.0F) {
                if (!this.exploded) {
                     this.exploded = true;
                     f = (this.field_70146_Z.nextFloat() - 0.5F) * 8.0F;

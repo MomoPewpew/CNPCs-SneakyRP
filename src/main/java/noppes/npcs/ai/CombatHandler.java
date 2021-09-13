@@ -29,7 +29,7 @@ public class CombatHandler {
                }
 
           } else {
-               if (this.npc.func_70638_az() != null && !this.npc.isAttacking()) {
+               if (this.npc.getAttackTarget() != null && !this.npc.isAttacking()) {
                     this.start();
                }
 
@@ -45,7 +45,7 @@ public class CombatHandler {
      }
 
      private boolean shouldCombatContinue() {
-          return this.npc.func_70638_az() == null ? false : this.isValidTarget(this.npc.func_70638_az());
+          return this.npc.getAttackTarget() == null ? false : this.isValidTarget(this.npc.getAttackTarget());
      }
 
      public void damage(DamageSource source, float damageAmount) {
@@ -66,7 +66,7 @@ public class CombatHandler {
      public void start() {
           this.combatResetTimer = 0;
           this.startTime = this.npc.world.getWorldInfo().getWorldTotalTime();
-          this.npc.func_184212_Q().func_187227_b(EntityNPCInterface.Attacking, true);
+          this.npc.getDataManager().set(EntityNPCInterface.Attacking, true);
           Iterator var1 = this.npc.abilities.abilities.iterator();
 
           while(var1.hasNext()) {
@@ -79,12 +79,12 @@ public class CombatHandler {
      public void reset() {
           this.combatResetTimer = 0;
           this.aggressors.clear();
-          this.npc.func_184212_Q().func_187227_b(EntityNPCInterface.Attacking, false);
+          this.npc.getDataManager().set(EntityNPCInterface.Attacking, false);
      }
 
      public boolean checkTarget() {
           if (!this.aggressors.isEmpty() && this.npc.field_70173_aa % 10 == 0) {
-               EntityLivingBase target = this.npc.func_70638_az();
+               EntityLivingBase target = this.npc.getAttackTarget();
                Float current = 0.0F;
                if (this.isValidTarget(target)) {
                     current = (Float)this.aggressors.get(target);
@@ -112,7 +112,7 @@ public class CombatHandler {
      }
 
      public boolean isValidTarget(EntityLivingBase target) {
-          if (target != null && target.func_70089_S()) {
+          if (target != null && target.isEntityAlive()) {
                return target instanceof EntityPlayer && ((EntityPlayer)target).field_71075_bZ.field_75102_a ? false : this.npc.isInRange(target, (double)this.npc.stats.aggroRange);
           } else {
                return false;

@@ -42,7 +42,7 @@ public abstract class TileNpcContainer extends TileColorable implements IInvento
 
      }
 
-     public NBTTagCompound func_189515_b(NBTTagCompound compound) {
+     public NBTTagCompound writeToNBT(NBTTagCompound compound) {
           NBTTagList nbttaglist = new NBTTagList();
 
           for(int i = 0; i < this.inventoryContents.size(); ++i) {
@@ -59,7 +59,7 @@ public abstract class TileNpcContainer extends TileColorable implements IInvento
                compound.setString("CustomName", this.customName);
           }
 
-          return super.func_189515_b(compound);
+          return super.writeToNBT(compound);
      }
 
      @Override

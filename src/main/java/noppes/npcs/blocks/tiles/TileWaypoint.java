@@ -72,12 +72,12 @@ public class TileWaypoint extends TileNpcEntity implements ITickable {
 
      }
 
-     public NBTTagCompound func_189515_b(NBTTagCompound compound) {
+     public NBTTagCompound writeToNBT(NBTTagCompound compound) {
           if (!this.name.isEmpty()) {
                compound.setString("LocationName", this.name);
           }
 
           compound.setInteger("LocationRange", this.range);
-          return super.func_189515_b(compound);
+          return super.writeToNBT(compound);
      }
 }

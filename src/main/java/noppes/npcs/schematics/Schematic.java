@@ -160,7 +160,7 @@ public class Schematic implements ISchematic {
                     if (state.getBlock() instanceof ITileEntityProvider) {
                          TileEntity tile = world.getTileEntity(pos.add(x, y, z));
                          NBTTagCompound compound = new NBTTagCompound();
-                         tile.func_189515_b(compound);
+                         tile.writeToNBT(compound);
                          compound.setInteger("x", x);
                          compound.setInteger("y", y);
                          compound.setInteger("z", z);

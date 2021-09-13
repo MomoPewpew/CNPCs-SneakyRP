@@ -107,7 +107,7 @@ public class ModelPlayerAlt extends ModelPlayer {
                this.field_187076_m = ArmPose.BOW_AND_ARROW;
           }
 
-          this.field_78117_n = player.func_70093_af();
+          this.field_78117_n = player.isSneaking();
           this.field_78115_e.field_78800_c = this.field_78115_e.field_78797_d = this.field_78115_e.field_78798_e = 0.0F;
           this.field_78115_e.field_78795_f = this.field_78115_e.field_78796_g = this.field_78115_e.field_78808_h = 0.0F;
           this.field_178720_f.field_78795_f = this.field_78116_c.field_78795_f = 0.0F;
@@ -227,7 +227,7 @@ public class ModelPlayerAlt extends ModelPlayer {
      public void func_78088_a(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
           try {
                GlStateManager.func_179094_E();
-               if (entityIn.func_70093_af()) {
+               if (entityIn.isSneaking()) {
                     GlStateManager.translate(0.0F, 0.2F, 0.0F);
                }
 

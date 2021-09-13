@@ -26,7 +26,7 @@ public class LayerNpcCloak extends LayerInterface {
           this.render.func_110776_a(this.npc.textureCloakLocation);
           GlStateManager.func_179094_E();
           ModelPartConfig config = this.playerdata.getPartConfig(EnumParts.BODY);
-          if (this.npc.func_70093_af()) {
+          if (this.npc.isSneaking()) {
                GlStateManager.translate(0.0F, 0.2F, 0.0F);
           }
 
@@ -46,7 +46,7 @@ public class LayerNpcCloak extends LayerInterface {
 
           float var10000 = this.npc.field_70126_B + (this.npc.field_70177_z - this.npc.field_70126_B) * par7;
           float f13 = 5.0F;
-          if (this.npc.func_70093_af()) {
+          if (this.npc.isSneaking()) {
                f13 += 25.0F;
           }
 

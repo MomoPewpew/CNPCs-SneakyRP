@@ -12,15 +12,15 @@ public class EntityAIPounceTarget extends EntityAIBase {
 
      public EntityAIPounceTarget(EntityNPCInterface leapingEntity) {
           this.npc = leapingEntity;
-          this.func_75248_a(4);
+          this.setMutexBits(4);
      }
 
-     public boolean func_75250_a() {
+     public boolean shouldExecute() {
           if (!this.npc.field_70122_E) {
                return false;
           } else {
-               this.leapTarget = this.npc.func_70638_az();
-               if (this.leapTarget != null && this.npc.func_70635_at().func_75522_a(this.leapTarget)) {
+               this.leapTarget = this.npc.getAttackTarget();
+               if (this.leapTarget != null && this.npc.getEntitySenses().canSee(this.leapTarget)) {
                     return !this.npc.isInRange(this.leapTarget, 4.0D) && this.npc.isInRange(this.leapTarget, 8.0D) ? this.npc.getRNG().nextInt(5) == 0 : false;
                } else {
                     return false;
@@ -28,11 +28,11 @@ public class EntityAIPounceTarget extends EntityAIBase {
           }
      }
 
-     public boolean func_75253_b() {
+     public boolean shouldContinueExecuting() {
           return !this.npc.field_70122_E;
      }
 
-     public void func_75249_e() {
+     public void startExecuting() {
           double varX = this.leapTarget.field_70165_t - this.npc.field_70165_t;
           double varY = this.leapTarget.getEntityBoundingBox().field_72338_b - this.npc.getEntityBoundingBox().field_72338_b;
           double varZ = this.leapTarget.field_70161_v - this.npc.field_70161_v;

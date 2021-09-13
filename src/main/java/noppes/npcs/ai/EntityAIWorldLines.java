@@ -10,10 +10,10 @@ public class EntityAIWorldLines extends EntityAIBase {
 
      public EntityAIWorldLines(EntityNPCInterface npc) {
           this.npc = npc;
-          this.func_75248_a(AiMutex.PASSIVE);
+          this.setMutexBits(AiMutex.PASSIVE);
      }
 
-     public boolean func_75250_a() {
+     public boolean shouldExecute() {
           if (this.cooldown > 0) {
                --this.cooldown;
           }
@@ -21,7 +21,7 @@ public class EntityAIWorldLines extends EntityAIBase {
           return !this.npc.isAttacking() && !this.npc.isKilled() && this.npc.advanced.hasWorldLines() && this.npc.getRNG().nextInt(1800) == 1;
      }
 
-     public void func_75249_e() {
+     public void startExecuting() {
           this.cooldown = 100;
           this.npc.saySurrounding(this.npc.advanced.getWorldLine());
      }

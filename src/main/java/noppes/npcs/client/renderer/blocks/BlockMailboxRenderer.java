@@ -24,7 +24,7 @@ public class BlockMailboxRenderer extends TileEntitySpecialRenderer {
      public void func_192841_a(TileEntity te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
           int meta = 0;
           int type = this.type;
-          if (te != null && te.func_174877_v() != BlockPos.field_177992_a) {
+          if (te != null && te.getPos() != BlockPos.field_177992_a) {
                meta = te.func_145832_p() | 4;
                type = te.func_145832_p() >> 2;
           }

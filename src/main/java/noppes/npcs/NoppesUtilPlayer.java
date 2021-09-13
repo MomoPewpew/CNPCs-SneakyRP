@@ -94,12 +94,12 @@ public class NoppesUtilPlayer {
 
                player.setLocationAndAngles(x, y, z, player.field_70177_z, player.field_70125_A);
                server.getPlayerList().transferPlayerToDimension(player, dimension, new CustomTeleporter(wor));
-               player.field_71135_a.func_147364_a(x, y, z, player.field_70177_z, player.field_70125_A);
+               player.field_71135_a.setPlayerLocation(x, y, z, player.field_70177_z, player.field_70125_A);
                if (!wor.field_73010_i.contains(player)) {
                     wor.spawnEntity(player);
                }
           } else {
-               player.field_71135_a.func_147364_a(x, y, z, player.field_70177_z, player.field_70125_A);
+               player.field_71135_a.setPlayerLocation(x, y, z, player.field_70177_z, player.field_70125_A);
           }
 
           player.world.updateEntityWithOptionalForce(player, false);

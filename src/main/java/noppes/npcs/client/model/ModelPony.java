@@ -770,8 +770,8 @@ public class ModelPony extends ModelBase {
           this.isSleeping = pony.func_70608_bn();
           this.isUnicorn = pony.isUnicorn;
           this.isPegasus = pony.isPegasus;
-          this.isSneak = pony.func_70093_af();
-          this.heldItemRight = pony.func_184614_ca() == null ? 0 : 1;
+          this.isSneak = pony.isSneaking();
+          this.heldItemRight = pony.getHeldItemMainhand() == null ? 0 : 1;
           this.func_78087_a(f, f1, f2, f3, f4, f5, entity);
           GlStateManager.func_179094_E();
           if (this.isSleeping) {

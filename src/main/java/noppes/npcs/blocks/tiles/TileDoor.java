@@ -48,9 +48,9 @@ public class TileDoor extends TileNpcEntity implements ITickable {
           this.renderTileErrored = false;
      }
 
-     public NBTTagCompound func_189515_b(NBTTagCompound compound) {
+     public NBTTagCompound writeToNBT(NBTTagCompound compound) {
           this.getDoorNBT(compound);
-          return super.func_189515_b(compound);
+          return super.writeToNBT(compound);
      }
 
      public NBTTagCompound getDoorNBT(NBTTagCompound compound) {

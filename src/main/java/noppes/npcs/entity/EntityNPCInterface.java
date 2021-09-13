@@ -276,8 +276,8 @@ public abstract class EntityNPCInterface extends EntityCreature implements IEnti
           this.field_70180_af.func_187214_a(Attacking, false);
      }
 
-     public boolean func_70089_S() {
-          return super.func_70089_S() && !this.isKilled();
+     public boolean isEntityAlive() {
+          return super.isEntityAlive() && !this.isKilled();
      }
 
      public void func_70071_h_() {
@@ -361,7 +361,7 @@ public abstract class EntityNPCInterface extends EntityCreature implements IEnti
                     if (!this.world.isRemote) {
                          if (!this.isKilled() && this.field_70173_aa % 20 == 0) {
                               this.advanced.scenes.update();
-                              if (this.func_110143_aJ() < this.getMaxHealth()) {
+                              if (this.getHealth() < this.getMaxHealth()) {
                                    if (this.stats.healthRegen > 0 && !this.isAttacking()) {
                                         this.func_70691_i((float)this.stats.healthRegen);
                                    }
@@ -377,8 +377,8 @@ public abstract class EntityNPCInterface extends EntityCreature implements IEnti
 
                                    while(var2.hasNext()) {
                                         EntityMob mob = (EntityMob)var2.next();
-                                        if (mob.func_70638_az() == null && this.canSee(mob)) {
-                                             mob.func_70624_b(this);
+                                        if (mob.getAttackTarget() == null && this.canSee(mob)) {
+                                             mob.setAttackTarget(this);
                                         }
                                    }
                               }
@@ -397,19 +397,19 @@ public abstract class EntityNPCInterface extends EntityCreature implements IEnti
                               }
                          }
 
-                         if (this.func_110143_aJ() <= 0.0F && !this.isKilled()) {
+                         if (this.getHealth() <= 0.0F && !this.isKilled()) {
                               this.func_70674_bp();
-                              this.field_70180_af.func_187227_b(IsDead, true);
+                              this.field_70180_af.set(IsDead, true);
                               this.updateTasks();
                               this.updateHitbox();
                          }
 
                          if (this.display.getBossbar() == 2) {
-                              this.bossInfo.func_186758_d(this.func_70638_az() != null);
+                              this.bossInfo.func_186758_d(this.getAttackTarget() != null);
                          }
 
-                         this.field_70180_af.func_187227_b(Walking, !this.func_70661_as().func_75500_f());
-                         this.field_70180_af.func_187227_b(Interacting, this.isInteracting());
+                         this.field_70180_af.set(Walking, !this.getNavigator().noPath());
+                         this.field_70180_af.set(Interacting, this.isInteracting());
                          this.combatHandler.update();
                          this.onCollide();
                     }
@@ -418,7 +418,7 @@ public abstract class EntityNPCInterface extends EntityCreature implements IEnti
                          this.reset();
                     }
 
-                    if (this.world.func_72935_r() && !this.world.isRemote && this.stats.burnInSun) {
+                    if (this.world.isDaytime() && !this.world.isRemote && this.stats.burnInSun) {
                          float f = this.func_70013_c();
                          if (f > 0.5F && this.field_70146_Z.nextFloat() * 30.0F < (f - 0.4F) * 2.0F && this.world.func_175710_j(new BlockPos(this))) {
                               this.func_70015_d(8);
@@ -447,7 +447,7 @@ public abstract class EntityNPCInterface extends EntityCreature implements IEnti
                     }
 
                     if (this.display.getBossbar() > 0) {
-                         this.bossInfo.func_186735_a(this.func_110143_aJ() / this.getMaxHealth());
+                         this.bossInfo.func_186735_a(this.getHealth() / this.getMaxHealth());
                     }
 
                }
@@ -476,13 +476,13 @@ public abstract class EntityNPCInterface extends EntityCreature implements IEnti
                if (stack != null) {
                     Item item = stack.getItem();
                     if (item == CustomItems.cloner || item == CustomItems.wand || item == CustomItems.mount || item == CustomItems.scripter) {
-                         this.func_70624_b((EntityLivingBase)null);
+                         this.setAttackTarget((EntityLivingBase)null);
                          this.func_70604_c((EntityLivingBase)null);
                          return true;
                     }
 
                     if (item == CustomItems.moving) {
-                         this.func_70624_b((EntityLivingBase)null);
+                         this.setAttackTarget((EntityLivingBase)null);
                          stack.func_77983_a("NPCID", new NBTTagInt(this.getEntityId()));
                          player.sendMessage(new TextComponentTranslation("Registered " + this.getName() + " to your NPC Pather", new Object[0]));
                          return true;
@@ -513,12 +513,12 @@ public abstract class EntityNPCInterface extends EntityCreature implements IEnti
      }
 
      public void addInteract(EntityLivingBase entity) {
-          if (this.ais.stopAndInteract && !this.isAttacking() && entity.func_70089_S() && !this.func_175446_cd()) {
+          if (this.ais.stopAndInteract && !this.isAttacking() && entity.isEntityAlive() && !this.func_175446_cd()) {
                if (this.field_70173_aa - this.lastInteract < 180) {
                     this.interactingEntities.clear();
                }
 
-               this.func_70661_as().func_75499_g();
+               this.getNavigator().clearPath();
                this.lastInteract = this.field_70173_aa;
                if (!this.interactingEntities.contains(entity)) {
                     this.interactingEntities.add(entity);
@@ -604,7 +604,7 @@ public abstract class EntityNPCInterface extends EntityCreature implements IEnti
 
                                                   while(true) {
                                                        if (!var7.hasNext()) {
-                                                            this.func_70624_b(attackingEntity);
+                                                            this.setAttackTarget(attackingEntity);
                                                             break;
                                                        }
 
@@ -619,14 +619,14 @@ public abstract class EntityNPCInterface extends EntityCreature implements IEnti
                                              return var6;
                                         }
 
-                                        if (this.func_70638_az() != null && attackingEntity != null && this.func_70068_e(this.func_70638_az()) > this.func_70068_e(attackingEntity)) {
-                                             this.func_70624_b(attackingEntity);
+                                        if (this.getAttackTarget() != null && attackingEntity != null && this.getDistanceSq(this.getAttackTarget()) > this.getDistanceSq(attackingEntity)) {
+                                             this.setAttackTarget(attackingEntity);
                                         }
 
                                         var6 = super.func_70097_a(damagesource, i);
                                    } finally {
                                         if (event.clearTarget) {
-                                             this.func_70624_b((EntityLivingBase)null);
+                                             this.setAttackTarget((EntityLivingBase)null);
                                              this.func_70604_c((EntityLivingBase)null);
                                         }
 
@@ -644,12 +644,12 @@ public abstract class EntityNPCInterface extends EntityCreature implements IEnti
 
      public void onAttack(EntityLivingBase entity) {
           if (entity != null && entity != this && !this.isAttacking() && this.ais.onAttack != 3 && entity != this.getOwner()) {
-               super.func_70624_b(entity);
+               super.setAttackTarget(entity);
           }
      }
 
-     public void func_70624_b(EntityLivingBase entity) {
-          if ((!(entity instanceof EntityPlayer) || !((EntityPlayer)entity).field_71075_bZ.field_75102_a) && (entity == null || entity != this.getOwner()) && this.func_70638_az() != entity) {
+     public void setAttackTarget(EntityLivingBase entity) {
+          if ((!(entity instanceof EntityPlayer) || !((EntityPlayer)entity).field_71075_bZ.field_75102_a) && (entity == null || entity != this.getOwner()) && this.getAttackTarget() != entity) {
                if (entity != null) {
                     NpcEvent.TargetEvent event = new NpcEvent.TargetEvent(this.wrappedNPC, entity);
                     if (EventHooks.onNPCTarget(this, event)) {
@@ -668,11 +668,11 @@ public abstract class EntityNPCInterface extends EntityCreature implements IEnti
                          EntityAITaskEntry en = (EntityAITaskEntry)var4.next();
                          if (en.field_188524_c) {
                               en.field_188524_c = false;
-                              en.field_75733_a.func_75251_c();
+                              en.field_75733_a.resetTask();
                          }
                     }
 
-                    if (EventHooks.onNPCTargetLost(this, this.func_70638_az())) {
+                    if (EventHooks.onNPCTargetLost(this, this.getAttackTarget())) {
                          return;
                     }
                }
@@ -684,7 +684,7 @@ public abstract class EntityNPCInterface extends EntityCreature implements IEnti
                     }
                }
 
-               super.func_70624_b(entity);
+               super.setAttackTarget(entity);
           }
      }
 
@@ -703,7 +703,7 @@ public abstract class EntityNPCInterface extends EntityCreature implements IEnti
                               Entity e = ItemSoulstoneFilled.Spawn((EntityPlayer)null, proj, this.world, pos);
                               if (e instanceof EntityLivingBase && entity1 instanceof EntityLivingBase) {
                                    if (e instanceof EntityLiving) {
-                                        ((EntityLiving)e).func_70624_b((EntityLivingBase)entity1);
+                                        ((EntityLiving)e).setAttackTarget((EntityLivingBase)entity1);
                                    } else {
                                         ((EntityLivingBase)e).func_70604_c((EntityLivingBase)entity1);
                                    }
@@ -728,7 +728,7 @@ public abstract class EntityNPCInterface extends EntityCreature implements IEnti
      public EntityProjectile shoot(double x, double y, double z, int accuracy, ItemStack proj, boolean indirect) {
           EntityProjectile projectile = new EntityProjectile(this.world, this, proj.copy(), true);
           double varX = x - this.field_70165_t;
-          double varY = y - (this.field_70163_u + (double)this.func_70047_e());
+          double varY = y - (this.field_70163_u + (double)this.getEyeHeight());
           double varZ = z - this.field_70161_v;
           float varF = projectile.hasGravity() ? MathHelper.func_76133_a(varX * varX + varZ * varZ) : 0.0F;
           float angle = projectile.getAngleForXYZ(varX, varY, varZ, (double)varF, indirect);
@@ -872,8 +872,8 @@ public abstract class EntityNPCInterface extends EntityCreature implements IEnti
                     this.field_70714_bg.func_75776_a(this.taskCount++, (EntityAIBase)(aiDoor = new EntityAIBustDoor(this)));
                }
 
-               if (this.func_70661_as() instanceof PathNavigateGround) {
-                    ((PathNavigateGround)this.func_70661_as()).func_179688_b(aiDoor != null);
+               if (this.getNavigator() instanceof PathNavigateGround) {
+                    ((PathNavigateGround)this.getNavigator()).func_179688_b(aiDoor != null);
                }
 
           }
@@ -914,12 +914,12 @@ public abstract class EntityNPCInterface extends EntityCreature implements IEnti
           return (float)this.ais.getWalkingSpeed() / 20.0F;
      }
 
-     public float func_180484_a(BlockPos pos) {
+     public float getBlockPathWeight(BlockPos pos) {
           if (this.ais.movementType == 2) {
                return this.world.getBlockState(pos).getMaterial() == Material.field_151586_h ? 10.0F : 0.0F;
           } else {
                float weight = this.world.func_175724_o(pos) - 0.5F;
-               if (this.world.getBlockState(pos).func_185914_p()) {
+               if (this.world.getBlockState(pos).isOpaqueCube()) {
                     weight += 10.0F;
                }
 
@@ -940,8 +940,8 @@ public abstract class EntityNPCInterface extends EntityCreature implements IEnti
      }
 
      public void func_70642_aH() {
-          if (this.func_70089_S()) {
-               this.advanced.playSound(this.func_70638_az() != null ? 1 : 0, this.func_70599_aP(), this.func_70647_i());
+          if (this.isEntityAlive()) {
+               this.advanced.playSound(this.getAttackTarget() != null ? 1 : 0, this.func_70599_aP(), this.func_70647_i());
           }
      }
 
@@ -1119,7 +1119,7 @@ public abstract class EntityNPCInterface extends EntityCreature implements IEnti
                          this.setDead();
                     }
 
-                    if (this.killedtime < System.currentTimeMillis() && (this.stats.spawnCycle == 0 || this.world.func_72935_r() && this.stats.spawnCycle == 1 || !this.world.func_72935_r() && this.stats.spawnCycle == 2)) {
+                    if (this.killedtime < System.currentTimeMillis() && (this.stats.spawnCycle == 0 || this.world.isDaytime() && this.stats.spawnCycle == 1 || !this.world.isDaytime() && this.stats.spawnCycle == 2)) {
                          this.reset();
                     }
 
@@ -1134,14 +1134,14 @@ public abstract class EntityNPCInterface extends EntityCreature implements IEnti
           this.field_70128_L = false;
           this.wasKilled = false;
           this.func_70031_b(false);
-          this.func_70606_j(this.getMaxHealth());
-          this.field_70180_af.func_187227_b(Animation, 0);
-          this.field_70180_af.func_187227_b(Walking, false);
-          this.field_70180_af.func_187227_b(IsDead, false);
-          this.field_70180_af.func_187227_b(Interacting, false);
+          this.setHealth(this.getMaxHealth());
+          this.field_70180_af.set(Animation, 0);
+          this.field_70180_af.set(Walking, false);
+          this.field_70180_af.set(IsDead, false);
+          this.field_70180_af.set(Interacting, false);
           this.interactingEntities.clear();
           this.combatHandler.reset();
-          this.func_70624_b((EntityLivingBase)null);
+          this.setAttackTarget((EntityLivingBase)null);
           this.func_70604_c((EntityLivingBase)null);
           this.field_70725_aQ = 0;
           if (this.ais.returnToStart && !this.hasOwner() && !this.isRemote() && !this.func_184218_aH()) {
@@ -1153,7 +1153,7 @@ public abstract class EntityNPCInterface extends EntityCreature implements IEnti
           this.func_70674_bp();
           this.func_191986_a(0.0F, 0.0F, 0.0F);
           this.field_70140_Q = 0.0F;
-          this.func_70661_as().func_75499_g();
+          this.getNavigator().clearPath();
           this.currentAnimation = 0;
           this.updateHitbox();
           this.updateAI = true;
@@ -1171,9 +1171,9 @@ public abstract class EntityNPCInterface extends EntityCreature implements IEnti
      }
 
      public void onCollide() {
-          if (this.func_70089_S() && this.field_70173_aa % 4 == 0 && !this.world.isRemote) {
+          if (this.isEntityAlive() && this.field_70173_aa % 4 == 0 && !this.world.isRemote) {
                AxisAlignedBB axisalignedbb = null;
-               if (this.func_184187_bx() != null && this.func_184187_bx().func_70089_S()) {
+               if (this.func_184187_bx() != null && this.func_184187_bx().isEntityAlive()) {
                     axisalignedbb = this.getEntityBoundingBox().func_111270_a(this.func_184187_bx().getEntityBoundingBox()).expand(1.0D, 0.0D, 1.0D);
                } else {
                     axisalignedbb = this.getEntityBoundingBox().expand(1.0D, 0.5D, 1.0D);
@@ -1183,7 +1183,7 @@ public abstract class EntityNPCInterface extends EntityCreature implements IEnti
                if (list != null) {
                     for(int i = 0; i < list.size(); ++i) {
                          Entity entity = (Entity)list.get(i);
-                         if (entity != this && entity.func_70089_S()) {
+                         if (entity != this && entity.isEntityAlive()) {
                               EventHooks.onNPCCollide(this, entity);
                          }
                     }
@@ -1236,7 +1236,7 @@ public abstract class EntityNPCInterface extends EntityCreature implements IEnti
           return this.stats.spawnCycle == 4;
      }
 
-     public ItemStack func_184614_ca() {
+     public ItemStack getHeldItemMainhand() {
           IItemStack item = null;
           if (this.isAttacking()) {
                item = this.inventory.getRightHand();
@@ -1266,7 +1266,7 @@ public abstract class EntityNPCInterface extends EntityCreature implements IEnti
 
      public ItemStack func_184582_a(EntityEquipmentSlot slot) {
           if (slot == EntityEquipmentSlot.MAINHAND) {
-               return this.func_184614_ca();
+               return this.getHeldItemMainhand();
           } else {
                return slot == EntityEquipmentSlot.OFFHAND ? this.func_184592_cb() : ItemStackWrapper.MCItem(this.inventory.getArmor(3 - slot.func_188454_b()));
           }
@@ -1308,7 +1308,7 @@ public abstract class EntityNPCInterface extends EntityCreature implements IEnti
 
      public void func_70645_a(DamageSource damagesource) {
           this.func_70031_b(false);
-          this.func_70661_as().func_75499_g();
+          this.getNavigator().clearPath();
           this.func_70066_B();
           this.func_70674_bp();
           if (!this.isRemote()) {
@@ -1344,9 +1344,9 @@ public abstract class EntityNPCInterface extends EntityCreature implements IEnti
           this.func_184226_ay();
           this.func_184210_p();
           if (!this.world.isRemote && this.stats.spawnCycle != 3 && this.stats.spawnCycle != 4) {
-               this.func_70606_j(-1.0F);
+               this.setHealth(-1.0F);
                this.func_70031_b(false);
-               this.func_70661_as().func_75499_g();
+               this.getNavigator().clearPath();
                this.setCurrentAnimation(2);
                this.updateHitbox();
                if (this.killedtime <= 0L) {
@@ -1479,7 +1479,7 @@ public abstract class EntityNPCInterface extends EntityCreature implements IEnti
           return this.ais.getMovingType() != 0 || this.isAttacking() || this.isFollower() || (Boolean)this.field_70180_af.func_187225_a(Walking);
      }
 
-     public boolean func_70093_af() {
+     public boolean isSneaking() {
           return this.currentAnimation == 4;
      }
 
@@ -1498,7 +1498,7 @@ public abstract class EntityNPCInterface extends EntityCreature implements IEnti
 
      public void setFaction(int id) {
           if (id >= 0 && !this.isRemote()) {
-               this.field_70180_af.func_187227_b(FactionData, id);
+               this.field_70180_af.set(FactionData, id);
           }
      }
 
@@ -1681,7 +1681,7 @@ public abstract class EntityNPCInterface extends EntityCreature implements IEnti
      }
 
      public void setRoleData(String s) {
-          this.field_70180_af.func_187227_b(RoleData, s);
+          this.field_70180_af.set(RoleData, s);
      }
 
      public String getJobData() {
@@ -1689,7 +1689,7 @@ public abstract class EntityNPCInterface extends EntityCreature implements IEnti
      }
 
      public void setJobData(String s) {
-          this.field_70180_af.func_187227_b(RoleData, s);
+          this.field_70180_af.set(RoleData, s);
      }
 
      public World getEntityWorld() {
@@ -1697,7 +1697,7 @@ public abstract class EntityNPCInterface extends EntityCreature implements IEnti
      }
 
      public boolean func_98034_c(EntityPlayer player) {
-          return this.display.getVisible() == 1 && (player.func_184614_ca().isEmpty() || player.func_184614_ca().getItem() != CustomItems.wand);
+          return this.display.getVisible() == 1 && (player.getHeldItemMainhand().isEmpty() || player.getHeldItemMainhand().getItem() != CustomItems.wand);
      }
 
      public boolean func_82150_aj() {
@@ -1709,11 +1709,11 @@ public abstract class EntityNPCInterface extends EntityCreature implements IEnti
 
      public void setCurrentAnimation(int animation) {
           this.currentAnimation = animation;
-          this.field_70180_af.func_187227_b(Animation, animation);
+          this.field_70180_af.set(Animation, animation);
      }
 
      public boolean canSee(Entity entity) {
-          return this.func_70635_at().func_75522_a(entity);
+          return this.getEntitySenses().canSee(entity);
      }
 
      public boolean isFollower() {
@@ -1838,7 +1838,7 @@ public abstract class EntityNPCInterface extends EntityCreature implements IEnti
                          check = this.calculateTopPos(check);
                          if (!this.world.getBlockState(check).func_185913_b() && !this.world.getBlockState(check.up()).func_185913_b()) {
                               this.setLocationAndAngles((double)((float)check.getX() + 0.5F), (double)check.getY(), (double)((float)check.getZ() + 0.5F), this.field_70177_z, this.field_70125_A);
-                              this.func_70661_as().func_75499_g();
+                              this.getNavigator().clearPath();
                               break;
                          }
                     }
@@ -1855,7 +1855,7 @@ public abstract class EntityNPCInterface extends EntityCreature implements IEnti
      }
 
      public boolean getCanSpawnHere() {
-          return this.func_180484_a(new BlockPos(this.field_70165_t, this.getEntityBoundingBox().field_72338_b, this.field_70161_v)) >= 0.0F && this.world.getBlockState((new BlockPos(this)).down()).func_189884_a(this);
+          return this.getBlockPathWeight(new BlockPos(this.field_70165_t, this.getEntityBoundingBox().field_72338_b, this.field_70161_v)) >= 0.0F && this.world.getBlockState((new BlockPos(this)).down()).func_189884_a(this);
      }
 
      public boolean shouldDismountInWater(Entity rider) {

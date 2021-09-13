@@ -52,7 +52,7 @@ public class ServerEventsHandler {
 
      @SubscribeEvent
      public void invoke(EntityInteract event) {
-          ItemStack item = event.getEntityPlayer().func_184614_ca();
+          ItemStack item = event.getEntityPlayer().getHeldItemMainhand();
           if (item != null) {
                boolean isRemote = event.getEntityPlayer().world.isRemote;
                boolean npcInteracted = event.getTarget() instanceof EntityNPCInterface;
@@ -72,7 +72,7 @@ public class ServerEventsHandler {
                          NoppesUtilServer.sendOpenGui(event.getEntityPlayer(), EnumGuiType.MainMenuDisplay, (EntityNPCInterface)event.getTarget());
                     } else if (item.getItem() == CustomItems.cloner && !isRemote && !(event.getTarget() instanceof EntityPlayer)) {
                          NBTTagCompound compound = new NBTTagCompound();
-                         if (!event.getTarget().func_184198_c(compound)) {
+                         if (!event.getTarget().writeToNBTAtomically(compound)) {
                               return;
                          }
 
@@ -115,7 +115,7 @@ public class ServerEventsHandler {
                          if (!isRemote) {
                               EntityPlayerMP player = (EntityPlayerMP)event.getEntityPlayer();
                               player.openGui(CustomNpcs.instance, EnumGuiType.MerchantAdd.ordinal(), player.world, 0, 0, 0);
-                              MerchantRecipeList merchantrecipelist = Merchant.func_70934_b(player);
+                              MerchantRecipeList merchantrecipelist = Merchant.getRecipes(player);
                               if (merchantrecipelist != null) {
                                    Server.sendData(player, EnumPacketClient.VILLAGER_LIST, merchantrecipelist);
                               }
@@ -241,7 +241,7 @@ public class ServerEventsHandler {
      public void commandGive(CommandEvent event) {
           if (event.getSender().getEntityWorld() instanceof WorldServer && event.getCommand() instanceof CommandGive) {
                try {
-                    EntityPlayer player = CommandBase.func_184888_a(event.getSender().getServer(), event.getSender(), event.getParameters()[0]);
+                    EntityPlayer player = CommandBase.getPlayer(event.getSender().getServer(), event.getSender(), event.getParameters()[0]);
                     player.getServer().field_175589_i.add(ListenableFutureTask.create(Executors.callable(() -> {
                          PlayerQuestData playerdata = PlayerData.get(player).questData;
                          playerdata.checkQuestCompletion(player, 0);
@@ -295,7 +295,7 @@ public class ServerEventsHandler {
 
      @SubscribeEvent
      public void saveChunk(Save event) {
-          ClassInheritanceMultiMap[] var2 = event.getChunk().func_177429_s();
+          ClassInheritanceMultiMap[] var2 = event.getChunk().getEntityLists();
           int var3 = var2.length;
 
           for(int var4 = 0; var4 < var3; ++var4) {

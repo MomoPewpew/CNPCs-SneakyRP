@@ -213,17 +213,17 @@ public class JobSpawner extends JobInterface implements IJobSpawner {
      public void checkTarget(EntityLivingBase entity) {
           if (entity instanceof EntityLiving) {
                EntityLiving liv = (EntityLiving)entity;
-               if (liv.func_70638_az() == null || this.npc.getRNG().nextInt(100) == 1) {
-                    liv.func_70624_b(this.target);
+               if (liv.getAttackTarget() == null || this.npc.getRNG().nextInt(100) == 1) {
+                    liv.setAttackTarget(this.target);
                }
-          } else if (entity.func_70643_av() == null || this.npc.getRNG().nextInt(100) == 1) {
+          } else if (entity.getRevengeTarget() == null || this.npc.getRNG().nextInt(100) == 1) {
                entity.func_70604_c(this.target);
           }
 
      }
 
      public boolean shouldDelete(EntityLivingBase entity) {
-          return !this.npc.isInRange(entity, 60.0D) || entity.field_70128_L || entity.func_110143_aJ() <= 0.0F || this.despawnOnTargetLost && this.target == null;
+          return !this.npc.isInRange(entity, 60.0D) || entity.field_70128_L || entity.getHealth() <= 0.0F || this.despawnOnTargetLost && this.target == null;
      }
 
      private EntityLivingBase getTarget() {
@@ -248,14 +248,14 @@ public class JobSpawner extends JobInterface implements IJobSpawner {
 
      private EntityLivingBase getTarget(EntityLivingBase entity) {
           if (entity instanceof EntityLiving) {
-               this.target = ((EntityLiving)entity).func_70638_az();
-               if (this.target != null && !this.target.field_70128_L && this.target.func_110143_aJ() > 0.0F) {
+               this.target = ((EntityLiving)entity).getAttackTarget();
+               if (this.target != null && !this.target.field_70128_L && this.target.getHealth() > 0.0F) {
                     return this.target;
                }
           }
 
-          this.target = entity.func_70643_av();
-          return this.target != null && !this.target.field_70128_L && this.target.func_110143_aJ() > 0.0F ? this.target : null;
+          this.target = entity.getRevengeTarget();
+          return this.target != null && !this.target.field_70128_L && this.target.getHealth() > 0.0F ? this.target : null;
      }
 
      private boolean isEmpty() {
@@ -276,7 +276,7 @@ public class JobSpawner extends JobInterface implements IJobSpawner {
 
      private void setTarget(EntityLivingBase base, EntityLivingBase target) {
           if (base instanceof EntityLiving) {
-               ((EntityLiving)base).func_70624_b(target);
+               ((EntityLiving)base).setAttackTarget(target);
           } else {
                base.func_70604_c(target);
           }
@@ -312,7 +312,7 @@ public class JobSpawner extends JobInterface implements IJobSpawner {
           this.number = 0;
 
           EntityLivingBase entity;
-          for(Iterator var1 = this.spawned.iterator(); var1.hasNext(); this.setTarget(entity, this.npc.func_70638_az())) {
+          for(Iterator var1 = this.spawned.iterator(); var1.hasNext(); this.setTarget(entity, this.npc.getAttackTarget())) {
                entity = (EntityLivingBase)var1.next();
                int i = entity.getEntityData().getInteger("NpcSpawnerNr");
                if (i > this.number) {
@@ -346,7 +346,7 @@ public class JobSpawner extends JobInterface implements IJobSpawner {
                     EntityLivingBase living = (EntityLivingBase)entity;
                     living.getEntityData().setString("NpcSpawnerId", this.id);
                     living.getEntityData().setInteger("NpcSpawnerNr", this.number);
-                    this.setTarget(living, this.npc.func_70638_az());
+                    this.setTarget(living, this.npc.getAttackTarget());
                     living.func_70107_b(x, y, z);
                     if (living instanceof EntityNPCInterface) {
                          EntityNPCInterface snpc = (EntityNPCInterface)living;

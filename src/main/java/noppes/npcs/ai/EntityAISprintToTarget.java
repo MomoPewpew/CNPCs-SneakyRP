@@ -10,12 +10,12 @@ public class EntityAISprintToTarget extends EntityAIBase {
 
      public EntityAISprintToTarget(EntityNPCInterface par1EntityLiving) {
           this.npc = par1EntityLiving;
-          this.func_75248_a(AiMutex.PASSIVE);
+          this.setMutexBits(AiMutex.PASSIVE);
      }
 
-     public boolean func_75250_a() {
-          EntityLivingBase runTarget = this.npc.func_70638_az();
-          if (runTarget != null && !this.npc.func_70661_as().func_75500_f()) {
+     public boolean shouldExecute() {
+          EntityLivingBase runTarget = this.npc.getAttackTarget();
+          if (runTarget != null && !this.npc.getNavigator().noPath()) {
                switch(this.npc.ais.onAttack) {
                case 0:
                     return !this.npc.isInRange(runTarget, 8.0D) ? this.npc.field_70122_E : false;
@@ -29,15 +29,15 @@ public class EntityAISprintToTarget extends EntityAIBase {
           }
      }
 
-     public boolean func_75253_b() {
-          return this.npc.func_70089_S() && this.npc.field_70122_E && this.npc.field_70737_aN <= 0 && this.npc.motionX != 0.0D && this.npc.motionZ != 0.0D;
+     public boolean shouldContinueExecuting() {
+          return this.npc.isEntityAlive() && this.npc.field_70122_E && this.npc.field_70737_aN <= 0 && this.npc.motionX != 0.0D && this.npc.motionZ != 0.0D;
      }
 
-     public void func_75249_e() {
+     public void startExecuting() {
           this.npc.func_70031_b(true);
      }
 
-     public void func_75251_c() {
+     public void resetTask() {
           this.npc.func_70031_b(false);
      }
 }

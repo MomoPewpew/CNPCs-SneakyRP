@@ -26,7 +26,7 @@ public class Resistances {
      }
 
      public float applyResistance(DamageSource source, float damage) {
-          if (!source.field_76373_n.equals("arrow") && !source.field_76373_n.equals("thrown") && !source.func_76352_a()) {
+          if (!source.field_76373_n.equals("arrow") && !source.field_76373_n.equals("thrown") && !source.isProjectile()) {
                if (!source.field_76373_n.equals("player") && !source.field_76373_n.equals("mob")) {
                     if (source.field_76373_n.equals("explosion") || source.field_76373_n.equals("explosion.player")) {
                          damage *= 2.0F - this.explosion;

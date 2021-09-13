@@ -37,7 +37,7 @@ public class CompanionFoodStats {
                }
           }
 
-          if (npc.world.getGameRules().getBoolean("naturalRegeneration") && this.foodLevel >= 18 && npc.func_110143_aJ() > 0.0F && npc.func_110143_aJ() < npc.getMaxHealth()) {
+          if (npc.world.getGameRules().getBoolean("naturalRegeneration") && this.foodLevel >= 18 && npc.getHealth() > 0.0F && npc.getHealth() < npc.getMaxHealth()) {
                ++this.foodTimer;
                if (this.foodTimer >= 80) {
                     npc.func_70691_i(1.0F);
@@ -47,7 +47,7 @@ public class CompanionFoodStats {
           } else if (this.foodLevel <= 0) {
                ++this.foodTimer;
                if (this.foodTimer >= 80) {
-                    if (npc.func_110143_aJ() > 10.0F || enumdifficulty == EnumDifficulty.HARD || npc.func_110143_aJ() > 1.0F && enumdifficulty == EnumDifficulty.NORMAL) {
+                    if (npc.getHealth() > 10.0F || enumdifficulty == EnumDifficulty.HARD || npc.getHealth() > 1.0F && enumdifficulty == EnumDifficulty.NORMAL) {
                          npc.func_70097_a(DamageSource.field_76366_f, 1.0F);
                     }
 

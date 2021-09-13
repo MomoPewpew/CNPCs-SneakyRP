@@ -62,8 +62,8 @@ public class TileBuilder extends TileEntity implements ITickable {
           this.availability.readFromNBT(compound.getCompoundTag("Availability"));
      }
 
-     public NBTTagCompound func_189515_b(NBTTagCompound compound) {
-          super.func_189515_b(compound);
+     public NBTTagCompound writeToNBT(NBTTagCompound compound) {
+          super.writeToNBT(compound);
           if (this.schematic != null) {
                compound.setString("SchematicName", this.schematic.schema.getName());
           }
@@ -166,7 +166,7 @@ public class TileBuilder extends TileEntity implements ITickable {
                               }
                          }
 
-                         List list = this.field_145850_b.getEntitiesWithinAABB(EntityNPCInterface.class, (new AxisAlignedBB(this.func_174877_v(), this.func_174877_v())).expand(32.0D, 32.0D, 32.0D));
+                         List list = this.field_145850_b.getEntitiesWithinAABB(EntityNPCInterface.class, (new AxisAlignedBB(this.getPos(), this.getPos())).expand(32.0D, 32.0D, 32.0D));
                          Iterator var6 = list.iterator();
 
                          while(var6.hasNext()) {
@@ -211,7 +211,7 @@ public class TileBuilder extends TileEntity implements ITickable {
                          if (!state.func_185913_b() && !bo && state.getBlock() != Blocks.field_150350_a) {
                               this.positionsSecond.add(0, pos);
                          } else {
-                              BlockPos blockPos = this.func_174877_v().add(1, this.yOffest, 1).func_177971_a(this.schematic.rotatePos(x, y, z, this.rotation));
+                              BlockPos blockPos = this.getPos().add(1, this.yOffest, 1).func_177971_a(this.schematic.rotatePos(x, y, z, this.rotation));
                               IBlockState original = this.field_145850_b.getBlockState(blockPos);
                               if (Block.func_176210_f(state) != Block.func_176210_f(original)) {
                                    state = this.schematic.rotationState(state, this.rotation);

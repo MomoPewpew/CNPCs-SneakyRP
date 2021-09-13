@@ -50,7 +50,7 @@ public class GuiBorderBlock extends GuiNPCInterface implements IGuiData {
                this.tile.height = this.getTextField(0).getInteger();
                this.tile.message = this.getTextField(1).func_146179_b();
                NBTTagCompound compound = new NBTTagCompound();
-               this.tile.func_189515_b(compound);
+               this.tile.writeToNBT(compound);
                Client.sendData(EnumPacketServer.SaveTileEntity, compound);
           }
      }

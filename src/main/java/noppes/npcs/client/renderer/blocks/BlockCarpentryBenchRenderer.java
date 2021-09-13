@@ -14,7 +14,7 @@ public class BlockCarpentryBenchRenderer extends TileEntitySpecialRenderer {
 
      public void func_192841_a(TileEntity te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
           int rotation = 0;
-          if (te != null && te.func_174877_v() != BlockPos.field_177992_a) {
+          if (te != null && te.getPos() != BlockPos.field_177992_a) {
                rotation = te.func_145832_p() % 4;
           }
 

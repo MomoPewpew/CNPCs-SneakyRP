@@ -22,9 +22,9 @@ public abstract class BlockRendererInterface extends TileEntitySpecialRenderer {
 
      public boolean playerTooFar(TileEntity tile) {
           Minecraft mc = Minecraft.getMinecraft();
-          double d6 = mc.func_175606_aa().field_70165_t - (double)tile.func_174877_v().getX();
-          double d7 = mc.func_175606_aa().field_70163_u - (double)tile.func_174877_v().getY();
-          double d8 = mc.func_175606_aa().field_70161_v - (double)tile.func_174877_v().getZ();
+          double d6 = mc.func_175606_aa().field_70165_t - (double)tile.getPos().getX();
+          double d7 = mc.func_175606_aa().field_70163_u - (double)tile.getPos().getY();
+          double d8 = mc.func_175606_aa().field_70161_v - (double)tile.getPos().getZ();
           return d6 * d6 + d7 * d7 + d8 * d8 > (double)(this.specialRenderDistance() * this.specialRenderDistance());
      }
 

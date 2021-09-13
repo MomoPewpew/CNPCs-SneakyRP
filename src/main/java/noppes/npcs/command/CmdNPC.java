@@ -69,7 +69,7 @@ public class CmdNPC extends CommandNoppesBase {
                               npc = (EntityNPCInterface)var7.next();
                               name = npc.display.getName().replace(" ", "_");
                          } while(!name.equalsIgnoreCase(npcname));
-                    } while(this.selectedNpc != null && this.selectedNpc.func_174818_b(sender.getPosition()) <= npc.func_174818_b(sender.getPosition()));
+                    } while(this.selectedNpc != null && this.selectedNpc.getDistanceSq(sender.getPosition()) <= npc.getDistanceSq(sender.getPosition()));
 
                     this.selectedNpc = npc;
                }
@@ -146,7 +146,7 @@ public class CmdNPC extends CommandNoppesBase {
                EntityPlayerMP player = null;
 
                try {
-                    player = CommandBase.func_184888_a(server, sender, args[0]);
+                    player = CommandBase.getPlayer(server, sender, args[0]);
                } catch (PlayerNotFoundException var6) {
                } catch (CommandException var7) {
                }
@@ -207,7 +207,7 @@ public class CmdNPC extends CommandNoppesBase {
           npc.func_70080_a((double)pos.getX(), (double)pos.getY(), (double)pos.getZ(), 0.0F, 0.0F);
           npc.ais.setStartPos(pos);
           pw.spawnEntity(npc);
-          npc.func_70606_j(npc.getMaxHealth());
+          npc.setHealth(npc.getMaxHealth());
      }
 
      public List func_184883_a(MinecraftServer server, ICommandSender par1, String[] args, BlockPos pos) {

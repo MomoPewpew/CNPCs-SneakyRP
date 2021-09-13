@@ -34,9 +34,9 @@ public class JobBuilder extends JobInterface implements IJobBuilder {
 
      public NBTTagCompound writeToNBT(NBTTagCompound compound) {
           if (this.build != null) {
-               compound.setInteger("BuildX", this.build.func_174877_v().getX());
-               compound.setInteger("BuildY", this.build.func_174877_v().getY());
-               compound.setInteger("BuildZ", this.build.func_174877_v().getZ());
+               compound.setInteger("BuildX", this.build.getPos().getX());
+               compound.setInteger("BuildY", this.build.getPos().getY());
+               compound.setInteger("BuildZ", this.build.getPos().getZ());
                if (this.placingList != null && !this.placingList.isEmpty()) {
                     NBTTagList list = new NBTTagList();
                     Iterator var3 = this.placingList.iterator();
@@ -119,7 +119,7 @@ public class JobBuilder extends JobInterface implements IJobBuilder {
                               this.npc.setJobData(this.blockToString(this.placing));
                          }
 
-                         this.npc.func_70661_as().func_75492_a((double)this.placing.pos.getX(), (double)(this.placing.pos.getY() + 1), (double)this.placing.pos.getZ(), 1.0D);
+                         this.npc.getNavigator().tryMoveToXYZ((double)this.placing.pos.getX(), (double)(this.placing.pos.getY() + 1), (double)this.placing.pos.getZ(), 1.0D);
                          if (this.tryTicks++ > 40 || this.npc.nearPosition(this.placing.pos)) {
                               BlockPos blockPos = this.placing.pos;
                               this.placeBlock();
@@ -133,7 +133,7 @@ public class JobBuilder extends JobInterface implements IJobBuilder {
                }
           } else {
                this.build = null;
-               this.npc.func_70661_as().func_75492_a((double)this.npc.getStartXPos(), this.npc.getStartYPos(), (double)this.npc.getStartZPos(), 1.0D);
+               this.npc.getNavigator().tryMoveToXYZ((double)this.npc.getStartXPos(), this.npc.getStartYPos(), (double)this.npc.getStartZPos(), 1.0D);
           }
      }
 
@@ -152,8 +152,8 @@ public class JobBuilder extends JobInterface implements IJobBuilder {
 
      public void placeBlock() {
           if (this.placing != null) {
-               this.npc.func_70661_as().func_75499_g();
-               this.npc.func_184609_a(EnumHand.MAIN_HAND);
+               this.npc.getNavigator().clearPath();
+               this.npc.swingArm(EnumHand.MAIN_HAND);
                this.npc.world.func_180501_a(this.placing.pos, this.placing.state, 2);
                if (this.placing.state.getBlock() instanceof ITileEntityProvider && this.placing.tile != null) {
                     TileEntity tile = this.npc.world.getTileEntity(this.placing.pos);

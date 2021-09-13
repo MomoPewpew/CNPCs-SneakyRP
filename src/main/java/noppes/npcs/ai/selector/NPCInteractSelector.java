@@ -11,7 +11,7 @@ public class NPCInteractSelector implements Predicate {
      }
 
      public boolean isEntityApplicable(EntityNPCInterface entity) {
-          if (entity != this.npc && this.npc.func_70089_S()) {
+          if (entity != this.npc && this.npc.isEntityAlive()) {
                return !entity.isAttacking() && !this.npc.getFaction().isAggressiveToNpc(entity) && this.npc.ais.stopAndInteract;
           } else {
                return false;

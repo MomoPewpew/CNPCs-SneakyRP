@@ -107,7 +107,7 @@ public class PlayerData implements ICapabilityProvider {
           compound.setTag("ScriptStoreddata", this.scriptStoreddata);
           if (this.hasCompanion()) {
                NBTTagCompound nbt = new NBTTagCompound();
-               if (this.activeCompanion.func_184198_c(nbt)) {
+               if (this.activeCompanion.writeToNBTAtomically(nbt)) {
                     compound.setTag("PlayerCompanion", nbt);
                }
           }
@@ -137,7 +137,7 @@ public class PlayerData implements ICapabilityProvider {
                role.owner = this.player;
                if (role.isFollowing()) {
                     NBTTagCompound nbt = new NBTTagCompound();
-                    this.activeCompanion.func_184198_c(nbt);
+                    this.activeCompanion.writeToNBTAtomically(nbt);
                     this.activeCompanion.field_70128_L = true;
                     EntityCustomNpc npc = new EntityCustomNpc(world);
                     npc.readEntityFromNBT(nbt);

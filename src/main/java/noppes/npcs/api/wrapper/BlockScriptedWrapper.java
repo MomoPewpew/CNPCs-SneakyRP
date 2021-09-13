@@ -140,7 +140,7 @@ public class BlockScriptedWrapper extends BlockWrapper implements IBlockScripted
                FakePlayer player = EntityNPCInterface.CommandPlayer;
                player.setWorld(this.tile.func_145831_w());
                player.func_70107_b((double)this.getX(), (double)this.getY(), (double)this.getZ());
-               return NoppesUtilServer.runCommand(this.tile.func_145831_w(), this.tile.func_174877_v(), "ScriptBlock: " + this.tile.func_174877_v(), command, (EntityPlayer)null, player);
+               return NoppesUtilServer.runCommand(this.tile.func_145831_w(), this.tile.getPos(), "ScriptBlock: " + this.tile.getPos(), command, (EntityPlayer)null, player);
           }
      }
 

@@ -22,7 +22,7 @@ public class EntityNPCFurryFemale extends EntityNPCInterface {
                NBTTagCompound compound = new NBTTagCompound();
                this.func_189511_e(compound);
                EntityCustomNpc npc = new EntityCustomNpc(this.world);
-               npc.func_70020_e(compound);
+               npc.readFromNBT(compound);
                ModelData data = npc.modelData;
                ModelPartData ears = data.getOrCreatePart(EnumParts.EARS);
                ears.type = 0;

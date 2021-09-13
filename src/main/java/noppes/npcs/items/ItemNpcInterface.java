@@ -47,7 +47,7 @@ public class ItemNpcInterface extends Item {
      }
 
      public boolean func_77644_a(ItemStack par1ItemStack, EntityLivingBase par2EntityLiving, EntityLivingBase par3EntityLiving) {
-          if (par2EntityLiving.func_110143_aJ() <= 0.0F) {
+          if (par2EntityLiving.getHealth() <= 0.0F) {
                return false;
           } else {
                if (this.damageAble) {

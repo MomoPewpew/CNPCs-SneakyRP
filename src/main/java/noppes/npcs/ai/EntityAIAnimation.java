@@ -16,14 +16,14 @@ public class EntityAIAnimation extends EntityAIBase {
           this.npc = npc;
      }
 
-     public boolean func_75250_a() {
-          this.isDead = !this.npc.func_70089_S();
+     public boolean shouldExecute() {
+          this.isDead = !this.npc.isEntityAlive();
           if (this.isDead) {
                return this.npc.currentAnimation != 2;
           } else if (this.npc.stats.ranged.getHasAimAnimation() && this.npc.isAttacking()) {
                return this.npc.currentAnimation != 6;
           } else {
-               this.hasPath = !this.npc.func_70661_as().func_75500_f();
+               this.hasPath = !this.npc.getNavigator().noPath();
                this.isAttacking = this.npc.isAttacking();
                this.isAtStartpoint = this.npc.ais.shouldReturnHome() && this.npc.isVeryNearAssignedPlace();
                if (this.temp != 0) {
@@ -42,7 +42,7 @@ public class EntityAIAnimation extends EntityAIBase {
           }
      }
 
-     public void func_75246_d() {
+     public void updateTask() {
           if (this.npc.stats.ranged.getHasAimAnimation() && this.npc.isAttacking()) {
                this.setAnimation(6);
           } else {
@@ -63,7 +63,7 @@ public class EntityAIAnimation extends EntityAIBase {
           }
      }
 
-     public void func_75251_c() {
+     public void resetTask() {
      }
 
      public static int getWalkingAnimationGuiIndex(int animation) {

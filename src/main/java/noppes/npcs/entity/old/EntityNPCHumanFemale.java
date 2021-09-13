@@ -21,7 +21,7 @@ public class EntityNPCHumanFemale extends EntityNPCInterface {
                NBTTagCompound compound = new NBTTagCompound();
                this.func_189511_e(compound);
                EntityCustomNpc npc = new EntityCustomNpc(this.world);
-               npc.func_70020_e(compound);
+               npc.readFromNBT(compound);
                ModelData data = npc.modelData;
                data.getOrCreatePart(EnumParts.BREASTS).type = 2;
                data.getPartConfig(EnumParts.LEG_LEFT).setScale(0.92F, 0.92F);

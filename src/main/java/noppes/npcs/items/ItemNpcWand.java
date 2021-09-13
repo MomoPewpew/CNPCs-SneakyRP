@@ -53,7 +53,7 @@ public class ItemNpcWand extends Item implements IPermission {
                     npc.ais.setStartPos(bpos.up());
                     npc.setLocationAndAngles((double)((float)bpos.getX() + 0.5F), npc.getStartYPos(), (double)((float)bpos.getZ() + 0.5F), player.field_70177_z, player.field_70125_A);
                     world.spawnEntity(npc);
-                    npc.func_70606_j(npc.getMaxHealth());
+                    npc.setHealth(npc.getMaxHealth());
                     CustomNPCsScheduler.runTack(() -> {
                          NoppesUtilServer.sendOpenGui(player, EnumGuiType.MainMenuDisplay, npc);
                     }, 100);

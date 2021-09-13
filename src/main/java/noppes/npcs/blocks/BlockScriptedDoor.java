@@ -65,7 +65,7 @@ public class BlockScriptedDoor extends BlockNpcDoorInterface implements IPermiss
                blockpos2 = pos.down();
                iblockstate2 = worldIn.getBlockState(blockpos2);
                if (iblockstate2.getBlock() != this) {
-                    worldIn.func_175698_g(pos);
+                    worldIn.setBlockToAir(pos);
                } else if (neighborBlock != this) {
                     this.func_189540_a(iblockstate2, worldIn, blockpos2, neighborBlock, blockpos2);
                }
@@ -73,7 +73,7 @@ public class BlockScriptedDoor extends BlockNpcDoorInterface implements IPermiss
                blockpos2 = pos.up();
                iblockstate2 = worldIn.getBlockState(blockpos2);
                if (iblockstate2.getBlock() != this) {
-                    worldIn.func_175698_g(pos);
+                    worldIn.setBlockToAir(pos);
                } else {
                     TileScriptedDoor tile = (TileScriptedDoor)worldIn.getTileEntity(pos);
                     if (!worldIn.isRemote) {
@@ -158,7 +158,7 @@ public class BlockScriptedDoor extends BlockNpcDoorInterface implements IPermiss
           BlockPos blockpos1 = state.getValue(field_176523_O) == EnumDoorHalf.LOWER ? pos : pos.down();
           IBlockState iblockstate1 = pos.equals(blockpos1) ? state : world.getBlockState(blockpos1);
           if (player.field_71075_bZ.field_75098_d && iblockstate1.getValue(field_176523_O) == EnumDoorHalf.LOWER && iblockstate1.getBlock() == this) {
-               world.func_175698_g(blockpos1);
+               world.setBlockToAir(blockpos1);
           }
 
      }

@@ -23,12 +23,12 @@ public class EntityAIWander extends EntityAIBase {
 
      public EntityAIWander(EntityNPCInterface npc) {
           this.entity = npc;
-          this.func_75248_a(AiMutex.PASSIVE);
+          this.setMutexBits(AiMutex.PASSIVE);
           this.selector = new NPCInteractSelector(npc);
      }
 
-     public boolean func_75250_a() {
-          if (this.entity.func_70654_ax() >= 100 || !this.entity.func_70661_as().func_75500_f() || this.entity.isInteracting() || this.entity.func_184218_aH() || this.entity.ais.movingPause && this.entity.getRNG().nextInt(80) != 0) {
+     public boolean shouldExecute() {
+          if (this.entity.func_70654_ax() >= 100 || !this.entity.getNavigator().noPath() || this.entity.isInteracting() || this.entity.func_184218_aH() || this.entity.ais.movingPause && this.entity.getRNG().nextInt(80) != 0) {
                return false;
           } else {
                if (this.entity.ais.npcInteracting && this.entity.getRNG().nextInt(this.entity.ais.movingPause ? 6 : 16) == 1) {
@@ -59,9 +59,9 @@ public class EntityAIWander extends EntityAIBase {
           }
      }
 
-     public void func_75246_d() {
+     public void updateTask() {
           if (this.nearbyNPC != null) {
-               this.nearbyNPC.func_70661_as().func_75499_g();
+               this.nearbyNPC.getNavigator().clearPath();
           }
 
      }
@@ -82,7 +82,7 @@ public class EntityAIWander extends EntityAIBase {
                     }
 
                     npc = (EntityNPCInterface)ita.next();
-               } while(npc.ais.stopAndInteract && !npc.isAttacking() && npc.func_70089_S() && !this.entity.faction.isAggressiveToNpc(npc));
+               } while(npc.ais.stopAndInteract && !npc.isAttacking() && npc.isEntityAlive() && !this.entity.faction.isAggressiveToNpc(npc));
 
                ita.remove();
           }
@@ -91,7 +91,7 @@ public class EntityAIWander extends EntityAIBase {
      private Vec3d getVec() {
           if (this.entity.ais.walkingRange > 0) {
                BlockPos start = new BlockPos((double)this.entity.getStartXPos(), this.entity.getStartYPos(), (double)this.entity.getStartZPos());
-               int distance = (int)MathHelper.func_76133_a(this.entity.func_174818_b(start));
+               int distance = (int)MathHelper.func_76133_a(this.entity.getDistanceSq(start));
                int range = this.entity.ais.walkingRange - distance;
                if (range > CustomNpcs.NpcNavRange) {
                     range = CustomNpcs.NpcNavRange;
@@ -106,26 +106,26 @@ public class EntityAIWander extends EntityAIBase {
                     Vec3d pos2 = new Vec3d((this.entity.field_70165_t + (double)start.getX()) / 2.0D, (this.entity.field_70163_u + (double)start.getY()) / 2.0D, (this.entity.field_70161_v + (double)start.getZ()) / 2.0D);
                     return RandomPositionGenerator.func_75464_a(this.entity, distance / 2, distance / 2 > 7 ? 7 : distance / 2, pos2);
                } else {
-                    return RandomPositionGenerator.func_75463_a(this.entity, range / 2, range / 2 > 7 ? 7 : range / 2);
+                    return RandomPositionGenerator.findRandomTarget(this.entity, range / 2, range / 2 > 7 ? 7 : range / 2);
                }
           } else {
-               return RandomPositionGenerator.func_75463_a(this.entity, CustomNpcs.NpcNavRange, 7);
+               return RandomPositionGenerator.findRandomTarget(this.entity, CustomNpcs.NpcNavRange, 7);
           }
      }
 
-     public boolean func_75253_b() {
+     public boolean shouldContinueExecuting() {
           if (this.nearbyNPC != null && (!this.selector.apply(this.nearbyNPC) || this.entity.isInRange(this.nearbyNPC, (double)this.entity.field_70130_N))) {
                return false;
           } else {
-               return !this.entity.func_70661_as().func_75500_f() && this.entity.func_70089_S() && !this.entity.isInteracting();
+               return !this.entity.getNavigator().noPath() && this.entity.isEntityAlive() && !this.entity.isInteracting();
           }
      }
 
-     public void func_75249_e() {
-          this.entity.func_70661_as().func_75492_a(this.x, this.y, this.zPosition, 1.0D);
+     public void startExecuting() {
+          this.entity.getNavigator().tryMoveToXYZ(this.x, this.y, this.zPosition, 1.0D);
      }
 
-     public void func_75251_c() {
+     public void resetTask() {
           if (this.nearbyNPC != null && this.entity.isInRange(this.nearbyNPC, 3.5D)) {
                EntityNPCInterface talk = this.entity;
                if (this.entity.getRNG().nextBoolean()) {

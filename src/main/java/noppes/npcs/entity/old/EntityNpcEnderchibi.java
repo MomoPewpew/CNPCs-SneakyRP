@@ -21,7 +21,7 @@ public class EntityNpcEnderchibi extends EntityNPCInterface {
                NBTTagCompound compound = new NBTTagCompound();
                this.func_189511_e(compound);
                EntityCustomNpc npc = new EntityCustomNpc(this.world);
-               npc.func_70020_e(compound);
+               npc.readFromNBT(compound);
                ModelData data = npc.modelData;
                data.getPartConfig(EnumParts.LEG_LEFT).setScale(0.65F, 0.75F);
                data.getPartConfig(EnumParts.ARM_LEFT).setScale(0.5F, 1.45F);

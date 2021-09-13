@@ -155,9 +155,9 @@ public class EntityProjectile extends EntityThrowable {
           }
 
           this.setThrownItem(item);
-          this.field_70180_af.func_187227_b(Arrow, this.getItem() == Items.field_151032_g);
+          this.field_70180_af.set(Arrow, this.getItem() == Items.field_151032_g);
           this.func_70105_a((float)this.getSize() / 10.0F, (float)this.getSize() / 10.0F);
-          this.setLocationAndAngles(par2EntityLiving.field_70165_t, par2EntityLiving.field_70163_u + (double)par2EntityLiving.func_70047_e(), par2EntityLiving.field_70161_v, par2EntityLiving.field_70177_z, par2EntityLiving.field_70125_A);
+          this.setLocationAndAngles(par2EntityLiving.field_70165_t, par2EntityLiving.field_70163_u + (double)par2EntityLiving.getEyeHeight(), par2EntityLiving.field_70161_v, par2EntityLiving.field_70177_z, par2EntityLiving.field_70125_A);
           this.field_70165_t -= (double)(MathHelper.func_76134_b(this.field_70177_z / 180.0F * 3.1415927F) * 0.1F);
           this.field_70163_u -= 0.10000000149011612D;
           this.field_70161_v -= (double)(MathHelper.func_76126_a(this.field_70177_z / 180.0F * 3.1415927F) * 0.1F);
@@ -170,7 +170,7 @@ public class EntityProjectile extends EntityThrowable {
      }
 
      public void setThrownItem(ItemStack item) {
-          this.field_70180_af.func_187227_b(ItemStackThrown, item);
+          this.field_70180_af.set(ItemStackThrown, item);
      }
 
      public int getSize() {
@@ -337,7 +337,7 @@ public class EntityProjectile extends EntityThrowable {
                     if (movingobjectposition.field_72313_a == Type.BLOCK && this.world.getBlockState(movingobjectposition.func_178782_a()).getBlock() == Blocks.field_150427_aO) {
                          this.func_181015_d(movingobjectposition.func_178782_a());
                     } else {
-                         this.field_70180_af.func_187227_b(Rotating, false);
+                         this.field_70180_af.set(Rotating, false);
                          this.func_70184_a(movingobjectposition);
                     }
                }
@@ -463,7 +463,7 @@ public class EntityProjectile extends EntityThrowable {
                     }
 
                     if (this.isBlock()) {
-                         this.world.func_180498_a((EntityPlayer)null, 2001, movingobjectposition.field_72308_g.getPosition(), Item.func_150891_b(this.getItem()));
+                         this.world.playEvent((EntityPlayer)null, 2001, movingobjectposition.field_72308_g.getPosition(), Item.func_150891_b(this.getItem()));
                     } else if (!this.isArrow() && !this.sticksToWalls()) {
                          int[] intArr = new int[]{Item.func_150891_b(this.getItem())};
                          if (this.getItem().func_77614_k()) {
@@ -500,7 +500,7 @@ public class EntityProjectile extends EntityThrowable {
                }
           } else if (!this.isArrow() && !this.sticksToWalls()) {
                if (this.isBlock()) {
-                    this.world.func_180498_a((EntityPlayer)null, 2001, this.getPosition(), Item.func_150891_b(this.getItem()));
+                    this.world.playEvent((EntityPlayer)null, 2001, this.getPosition(), Item.func_150891_b(this.getItem()));
                } else {
                     int[] intArr = new int[]{Item.func_150891_b(this.getItem())};
                     if (this.getItem().func_77614_k()) {
@@ -526,7 +526,7 @@ public class EntityProjectile extends EntityThrowable {
                this.field_174854_a = true;
                this.arrowShake = 7;
                if (!this.hasGravity()) {
-                    this.field_70180_af.func_187227_b(Gravity, true);
+                    this.field_70180_af.set(Gravity, true);
                }
 
                if (this.inTile != null) {
@@ -554,7 +554,7 @@ public class EntityProjectile extends EntityThrowable {
                          }
                     }
 
-                    this.world.func_180498_a((EntityPlayer)null, 2002, this.getPosition(), this.getPotionColor(this.effect));
+                    this.world.playEvent((EntityPlayer)null, 2002, this.getPosition(), this.getPotionColor(this.effect));
                }
 
                this.setDead();
@@ -573,7 +573,7 @@ public class EntityProjectile extends EntityThrowable {
           par1NBTTagCompound.func_74777_a("xTile", (short)this.tilePos.getX());
           par1NBTTagCompound.func_74777_a("yTile", (short)this.tilePos.getY());
           par1NBTTagCompound.func_74777_a("zTile", (short)this.tilePos.getZ());
-          par1NBTTagCompound.setByte("inTile", (byte)Block.func_149682_b(this.inTile));
+          par1NBTTagCompound.setByte("inTile", (byte)Block.getIdFromBlock(this.inTile));
           par1NBTTagCompound.setByte("inData", (byte)this.inData);
           par1NBTTagCompound.setByte("shake", (byte)this.field_70191_b);
           par1NBTTagCompound.setBoolean("inGround", this.field_174854_a);
@@ -609,7 +609,7 @@ public class EntityProjectile extends EntityThrowable {
           this.inData = compound.getByte("inData") & 255;
           this.field_70191_b = compound.getByte("shake") & 255;
           this.field_174854_a = compound.getByte("inGround") == 1;
-          this.field_70180_af.func_187227_b(Arrow, compound.getBoolean("isArrow"));
+          this.field_70180_af.set(Arrow, compound.getBoolean("isArrow"));
           this.throwerName = compound.getString("ownerName");
           this.canBePickedUp = compound.getBoolean("canBePickedUp");
           this.damage = compound.getFloat("damagev2");
@@ -619,14 +619,14 @@ public class EntityProjectile extends EntityThrowable {
           this.accelerate = compound.getBoolean("accelerate");
           this.effect = compound.getInteger("PotionEffect");
           this.accuracy = compound.getInteger("accuracy");
-          this.field_70180_af.func_187227_b(Particle, compound.getInteger("trailenum"));
-          this.field_70180_af.func_187227_b(Size, compound.getInteger("size"));
-          this.field_70180_af.func_187227_b(Glows, compound.getBoolean("glows"));
-          this.field_70180_af.func_187227_b(Velocity, compound.getInteger("velocity"));
-          this.field_70180_af.func_187227_b(Gravity, compound.getBoolean("gravity"));
-          this.field_70180_af.func_187227_b(Is3d, compound.getBoolean("Render3D"));
-          this.field_70180_af.func_187227_b(Rotating, compound.getBoolean("Spins"));
-          this.field_70180_af.func_187227_b(Sticks, compound.getBoolean("Sticks"));
+          this.field_70180_af.set(Particle, compound.getInteger("trailenum"));
+          this.field_70180_af.set(Size, compound.getInteger("size"));
+          this.field_70180_af.set(Glows, compound.getBoolean("glows"));
+          this.field_70180_af.set(Velocity, compound.getInteger("velocity"));
+          this.field_70180_af.set(Gravity, compound.getBoolean("gravity"));
+          this.field_70180_af.set(Is3d, compound.getBoolean("Render3D"));
+          this.field_70180_af.set(Rotating, compound.getBoolean("Spins"));
+          this.field_70180_af.set(Sticks, compound.getBoolean("Sticks"));
           if (this.throwerName != null && this.throwerName.length() == 0) {
                this.throwerName = null;
           }
@@ -643,7 +643,7 @@ public class EntityProjectile extends EntityThrowable {
           if (item.isEmpty()) {
                this.setDead();
           } else {
-               this.field_70180_af.func_187227_b(ItemStackThrown, item);
+               this.field_70180_af.set(ItemStackThrown, item);
           }
 
      }
@@ -694,8 +694,8 @@ public class EntityProjectile extends EntityThrowable {
           this.duration = stats.getEffectTime();
           this.amplify = stats.getEffectStrength();
           this.setParticleEffect(stats.getParticle());
-          this.field_70180_af.func_187227_b(Size, stats.getSize());
-          this.field_70180_af.func_187227_b(Glows, stats.getGlows());
+          this.field_70180_af.set(Size, stats.getSize());
+          this.field_70180_af.set(Glows, stats.getGlows());
           this.setSpeed(stats.getSpeed());
           this.setHasGravity(stats.getHasGravity());
           this.setIs3D(stats.getRender3D());
@@ -704,19 +704,19 @@ public class EntityProjectile extends EntityThrowable {
      }
 
      public void setParticleEffect(int type) {
-          this.field_70180_af.func_187227_b(Particle, type);
+          this.field_70180_af.set(Particle, type);
      }
 
      public void setHasGravity(boolean bo) {
-          this.field_70180_af.func_187227_b(Gravity, bo);
+          this.field_70180_af.set(Gravity, bo);
      }
 
      public void setIs3D(boolean bo) {
-          this.field_70180_af.func_187227_b(Is3d, bo);
+          this.field_70180_af.set(Is3d, bo);
      }
 
      public void setStickInWall(boolean bo) {
-          this.field_70180_af.func_187227_b(Sticks, bo);
+          this.field_70180_af.set(Sticks, bo);
      }
 
      public ItemStack getItemDisplay() {
@@ -737,7 +737,7 @@ public class EntityProjectile extends EntityThrowable {
      }
 
      public void setSpeed(int speed) {
-          this.field_70180_af.func_187227_b(Velocity, speed);
+          this.field_70180_af.set(Velocity, speed);
      }
 
      public float getSpeed() {
@@ -749,7 +749,7 @@ public class EntityProjectile extends EntityThrowable {
      }
 
      public void setRotating(boolean bo) {
-          this.field_70180_af.func_187227_b(Rotating, bo);
+          this.field_70180_af.set(Rotating, bo);
      }
 
      public boolean isRotating() {

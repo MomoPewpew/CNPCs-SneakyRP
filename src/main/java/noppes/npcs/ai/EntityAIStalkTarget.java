@@ -24,11 +24,11 @@ public class EntityAIStalkTarget extends EntityAIBase {
           this.world = par1EntityCreature.world;
           this.overRide = false;
           this.delay = 0;
-          this.func_75248_a(AiMutex.PASSIVE + AiMutex.LOOK);
+          this.setMutexBits(AiMutex.PASSIVE + AiMutex.LOOK);
      }
 
-     public boolean func_75250_a() {
-          this.targetEntity = this.npc.func_70638_az();
+     public boolean shouldExecute() {
+          this.targetEntity = this.npc.getAttackTarget();
           if (this.targetEntity != null && this.tick-- <= 0) {
                return !this.npc.isInRange(this.targetEntity, (double)this.npc.ais.getTacticalRange());
           } else {
@@ -36,10 +36,10 @@ public class EntityAIStalkTarget extends EntityAIBase {
           }
      }
 
-     public void func_75251_c() {
-          this.npc.func_70661_as().func_75499_g();
-          if (this.npc.func_70638_az() == null && this.targetEntity != null) {
-               this.npc.func_70624_b(this.targetEntity);
+     public void resetTask() {
+          this.npc.getNavigator().clearPath();
+          if (this.npc.getAttackTarget() == null && this.targetEntity != null) {
+               this.npc.setAttackTarget(this.targetEntity);
           }
 
           if (this.npc.getRangedTask() != null) {
@@ -48,20 +48,20 @@ public class EntityAIStalkTarget extends EntityAIBase {
 
      }
 
-     public void func_75249_e() {
+     public void startExecuting() {
           if (this.npc.getRangedTask() != null) {
                this.npc.getRangedTask().navOverride(true);
           }
 
      }
 
-     public void func_75246_d() {
-          this.npc.func_70671_ap().func_75651_a(this.targetEntity, 30.0F, 30.0F);
-          if (this.npc.func_70661_as().func_75500_f() || this.overRide) {
+     public void updateTask() {
+          this.npc.getLookHelper().setLookPositionWithEntity(this.targetEntity, 30.0F, 30.0F);
+          if (this.npc.getNavigator().noPath() || this.overRide) {
                if (this.isLookingAway()) {
                     this.movePosition = this.stalkTarget();
                     if (this.movePosition != null) {
-                         this.npc.func_70661_as().func_75492_a(this.movePosition.field_72450_a, this.movePosition.field_72448_b, this.movePosition.field_72449_c, 1.0D);
+                         this.npc.getNavigator().tryMoveToXYZ(this.movePosition.field_72450_a, this.movePosition.field_72448_b, this.movePosition.field_72449_c, 1.0D);
                          this.overRide = false;
                     } else {
                          this.tick = 100;
@@ -69,7 +69,7 @@ public class EntityAIStalkTarget extends EntityAIBase {
                } else if (this.npc.canSee(this.targetEntity)) {
                     this.movePosition = this.hideFromTarget();
                     if (this.movePosition != null) {
-                         this.npc.func_70661_as().func_75492_a(this.movePosition.field_72450_a, this.movePosition.field_72448_b, this.movePosition.field_72449_c, 1.33D);
+                         this.npc.getNavigator().tryMoveToXYZ(this.movePosition.field_72450_a, this.movePosition.field_72448_b, this.movePosition.field_72449_c, 1.33D);
                          this.overRide = false;
                     } else {
                          this.tick = 100;
@@ -112,7 +112,7 @@ public class EntityAIStalkTarget extends EntityAIBase {
 
      private Vec3d findSecludedXYZ(int radius, boolean nearest) {
           Vec3d idealPos = null;
-          double dist = this.targetEntity.func_70068_e(this.npc);
+          double dist = this.targetEntity.getDistanceSq(this.npc);
           double u = 0.0D;
           double v = 0.0D;
           double w = 0.0D;
@@ -132,9 +132,9 @@ public class EntityAIStalkTarget extends EntityAIBase {
                          double l = (double)MathHelper.floor(this.npc.field_70161_v + (double)z) + 0.5D;
                          BlockPos pos = new BlockPos(j, k, l);
                          if (this.isOpaque(pos) && !this.isOpaque(pos.up()) && !this.isOpaque(pos.up(2))) {
-                              Vec3d vec1 = new Vec3d(this.targetEntity.field_70165_t, this.targetEntity.field_70163_u + (double)this.targetEntity.func_70047_e(), this.targetEntity.field_70161_v);
-                              Vec3d vec2 = new Vec3d(j, k + (double)this.npc.func_70047_e(), l);
-                              RayTraceResult movingobjectposition = this.world.func_72933_a(vec1, vec2);
+                              Vec3d vec1 = new Vec3d(this.targetEntity.field_70165_t, this.targetEntity.field_70163_u + (double)this.targetEntity.getEyeHeight(), this.targetEntity.field_70161_v);
+                              Vec3d vec2 = new Vec3d(j, k + (double)this.npc.getEyeHeight(), l);
+                              RayTraceResult movingobjectposition = this.world.rayTraceBlocks(vec1, vec2);
                               if (movingobjectposition != null) {
                                    boolean weight = nearest ? this.targetEntity.getDistanceSq(j, k, l) <= dist : true;
                                    if (weight && (j != u || k != v || l != w)) {
@@ -153,12 +153,12 @@ public class EntityAIStalkTarget extends EntityAIBase {
      }
 
      private boolean isOpaque(BlockPos pos) {
-          return this.world.getBlockState(pos).func_185914_p();
+          return this.world.getBlockState(pos).isOpaqueCube();
      }
 
      private boolean isLookingAway() {
           Vec3d vec3 = this.targetEntity.func_70676_i(1.0F).func_72432_b();
-          Vec3d vec31 = new Vec3d(this.npc.field_70165_t - this.targetEntity.field_70165_t, this.npc.getEntityBoundingBox().field_72338_b + (double)(this.npc.height / 2.0F) - (this.targetEntity.field_70163_u + (double)this.targetEntity.func_70047_e()), this.npc.field_70161_v - this.targetEntity.field_70161_v);
+          Vec3d vec31 = new Vec3d(this.npc.field_70165_t - this.targetEntity.field_70165_t, this.npc.getEntityBoundingBox().field_72338_b + (double)(this.npc.height / 2.0F) - (this.targetEntity.field_70163_u + (double)this.targetEntity.getEyeHeight()), this.npc.field_70161_v - this.targetEntity.field_70161_v);
           double d0 = vec31.func_72433_c();
           vec31 = vec31.func_72432_b();
           double d1 = vec3.func_72430_b(vec31);

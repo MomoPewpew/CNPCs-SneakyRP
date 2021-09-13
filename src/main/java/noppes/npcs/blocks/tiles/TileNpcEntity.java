@@ -17,7 +17,7 @@ public class TileNpcEntity extends TileEntity {
 
      }
 
-     public NBTTagCompound func_189515_b(NBTTagCompound compound) {
-          return super.func_189515_b(compound);
+     public NBTTagCompound writeToNBT(NBTTagCompound compound) {
+          return super.writeToNBT(compound);
      }
 }

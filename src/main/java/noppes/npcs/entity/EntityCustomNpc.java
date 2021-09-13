@@ -35,7 +35,7 @@ public class EntityCustomNpc extends EntityNPCFlying {
      }
 
      public boolean func_70039_c(NBTTagCompound compound) {
-          boolean bo = super.func_184198_c(compound);
+          boolean bo = super.writeToNBTAtomically(compound);
           if (bo) {
                String s = this.func_70022_Q();
                if (s.equals("minecraft:customnpcs.customnpc")) {
@@ -68,8 +68,8 @@ public class EntityCustomNpc extends EntityNPCFlying {
           this.modelData.eyes.update(this);
      }
 
-     public boolean func_184205_a(Entity par1Entity, boolean force) {
-          boolean b = super.func_184205_a(par1Entity, force);
+     public boolean startRiding(Entity par1Entity, boolean force) {
+          boolean b = super.startRiding(par1Entity, force);
           this.updateHitbox();
           return b;
      }

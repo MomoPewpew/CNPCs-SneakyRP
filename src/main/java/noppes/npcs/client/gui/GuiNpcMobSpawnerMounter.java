@@ -158,7 +158,7 @@ public class GuiNpcMobSpawnerMounter extends GuiNPCInterface implements IGuiData
                     return null;
                } else {
                     NBTTagCompound compound = new NBTTagCompound();
-                    entity.func_184198_c(compound);
+                    entity.writeToNBTAtomically(compound);
                     return compound;
                }
           }

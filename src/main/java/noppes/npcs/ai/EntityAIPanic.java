@@ -16,14 +16,14 @@ public class EntityAIPanic extends EntityAIBase {
      public EntityAIPanic(EntityCreature par1EntityCreature, float par2) {
           this.entityCreature = par1EntityCreature;
           this.speed = par2;
-          this.func_75248_a(AiMutex.PASSIVE);
+          this.setMutexBits(AiMutex.PASSIVE);
      }
 
-     public boolean func_75250_a() {
-          if (this.entityCreature.func_70638_az() == null && !this.entityCreature.func_70027_ad()) {
+     public boolean shouldExecute() {
+          if (this.entityCreature.getAttackTarget() == null && !this.entityCreature.func_70027_ad()) {
                return false;
           } else {
-               Vec3d var1 = RandomPositionGenerator.func_75463_a(this.entityCreature, 5, 4);
+               Vec3d var1 = RandomPositionGenerator.findRandomTarget(this.entityCreature, 5, 4);
                if (var1 == null) {
                     return false;
                } else {
@@ -35,15 +35,15 @@ public class EntityAIPanic extends EntityAIBase {
           }
      }
 
-     public void func_75249_e() {
-          this.entityCreature.func_70661_as().func_75492_a(this.randPosX, this.randPosY, this.randPosZ, (double)this.speed);
+     public void startExecuting() {
+          this.entityCreature.getNavigator().tryMoveToXYZ(this.randPosX, this.randPosY, this.randPosZ, (double)this.speed);
      }
 
-     public boolean func_75253_b() {
-          if (this.entityCreature.func_70638_az() == null) {
+     public boolean shouldContinueExecuting() {
+          if (this.entityCreature.getAttackTarget() == null) {
                return false;
           } else {
-               return !this.entityCreature.func_70661_as().func_75500_f();
+               return !this.entityCreature.getNavigator().noPath();
           }
      }
 }

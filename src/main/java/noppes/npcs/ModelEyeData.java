@@ -45,7 +45,7 @@ public class ModelEyeData extends ModelPartData {
      }
 
      public void update(EntityNPCInterface npc) {
-          if (this.isEnabled() && npc.func_70089_S() && npc.isServerWorld()) {
+          if (this.isEnabled() && npc.isEntityAlive() && npc.isServerWorld()) {
                if (this.blinkStart < 0L) {
                     ++this.blinkStart;
                } else if (this.blinkStart == 0L) {

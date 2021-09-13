@@ -24,9 +24,9 @@ public class BlockDoorRenderer extends BlockRendererInterface {
      public void func_192841_a(TileEntity te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
           TileDoor tile = (TileDoor)te;
           IBlockState original = CustomItems.scriptedDoor.func_176203_a(tile.func_145832_p());
-          BlockPos lowerPos = tile.func_174877_v();
+          BlockPos lowerPos = tile.getPos();
           if (original.getValue(BlockDoor.field_176523_O) == EnumDoorHalf.UPPER) {
-               lowerPos = tile.func_174877_v().down();
+               lowerPos = tile.getPos().down();
           }
 
           BlockPos upperPos = lowerPos.up();
@@ -35,7 +35,7 @@ public class BlockDoorRenderer extends BlockRendererInterface {
           if (lowerTile != null && upperTile != null) {
                IBlockState lowerState = CustomItems.scriptedDoor.func_176203_a(lowerTile.func_145832_p());
                IBlockState upperState = CustomItems.scriptedDoor.func_176203_a(upperTile.func_145832_p());
-               int meta = BlockNpcDoorInterface.func_176515_e(this.func_178459_a(), tile.func_174877_v());
+               int meta = BlockNpcDoorInterface.func_176515_e(this.func_178459_a(), tile.getPos());
                Block b = lowerTile.blockModel;
                if (this.overrideModel()) {
                     b = CustomItems.scriptedDoor;
@@ -73,7 +73,7 @@ public class BlockDoorRenderer extends BlockRendererInterface {
      }
 
      private boolean overrideModel() {
-          ItemStack held = Minecraft.getMinecraft().player.func_184614_ca();
+          ItemStack held = Minecraft.getMinecraft().player.getHeldItemMainhand();
           if (held == null) {
                return false;
           } else {

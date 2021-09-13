@@ -292,8 +292,8 @@ public class PacketHandlerClient extends PacketHandlerServer {
                                                             mc.displayGuiScreen((GuiScreen)null);
                                                             mc.func_71381_h();
                                                        } else if (type == EnumPacketClient.VILLAGER_LIST) {
-                                                            MerchantRecipeList merchantrecipelist = MerchantRecipeList.func_151390_b(new PacketBuffer(buffer));
-                                                            ServerEventsHandler.Merchant.func_70930_a(merchantrecipelist);
+                                                            MerchantRecipeList merchantrecipelist = MerchantRecipeList.readFromBuf(new PacketBuffer(buffer));
+                                                            ServerEventsHandler.Merchant.setRecipes(merchantrecipelist);
                                                        } else if (type == EnumPacketClient.CONFIG) {
                                                             config = buffer.readInt();
                                                             if (config == 0) {

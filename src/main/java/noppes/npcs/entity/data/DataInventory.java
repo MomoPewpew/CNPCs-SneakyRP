@@ -221,7 +221,7 @@ public class DataInventory implements IInventory, INPCInventory {
 
      public EntityItem getEntityItem(ItemStack itemstack) {
           if (itemstack != null && !itemstack.isEmpty()) {
-               EntityItem entityitem = new EntityItem(this.npc.world, this.npc.field_70165_t, this.npc.field_70163_u - 0.30000001192092896D + (double)this.npc.func_70047_e(), this.npc.field_70161_v, itemstack);
+               EntityItem entityitem = new EntityItem(this.npc.world, this.npc.field_70165_t, this.npc.field_70163_u - 0.30000001192092896D + (double)this.npc.getEyeHeight(), this.npc.field_70161_v, itemstack);
                entityitem.setPickupDelay(40);
                float f2 = this.npc.getRNG().nextFloat() * 0.5F;
                float f4 = this.npc.getRNG().nextFloat() * 3.141593F * 2.0F;

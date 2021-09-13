@@ -65,7 +65,7 @@ public class GuiBlockBuilder extends GuiNPCInterface implements IGuiData, ICusto
           if (this.selected != null) {
                int y = this.guiTop + 4;
                int size = this.selected.getWidth() * this.selected.getHeight() * this.selected.getLength();
-               this.addButton(new GuiNpcButtonYesNo(3, this.guiLeft + 200, y, TileBuilder.DrawPos != null && this.tile.func_174877_v().equals(TileBuilder.DrawPos)));
+               this.addButton(new GuiNpcButtonYesNo(3, this.guiLeft + 200, y, TileBuilder.DrawPos != null && this.tile.getPos().equals(TileBuilder.DrawPos)));
                this.addLabel(new GuiNpcLabel(3, "schematic.preview", this.guiLeft + 130, y + 5));
                String var10004 = I18n.translateToLocal("schematic.width") + ": " + this.selected.getWidth();
                int var10005 = this.guiLeft + 130;
@@ -207,7 +207,7 @@ public class GuiBlockBuilder extends GuiNPCInterface implements IGuiData, ICusto
                          return null;
                     }
                };
-               if (TileBuilder.DrawPos != null && TileBuilder.DrawPos.equals(this.tile.func_174877_v())) {
+               if (TileBuilder.DrawPos != null && TileBuilder.DrawPos.equals(this.tile.getPos())) {
                     SchematicWrapper wrapper = new SchematicWrapper(this.selected);
                     wrapper.rotation = this.tile.rotation;
                     this.tile.setDrawSchematic(wrapper);

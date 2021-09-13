@@ -112,7 +112,7 @@ public class GuiNpcRedstoneBlock extends GuiNPCInterface implements IGuiData {
                }
 
                NBTTagCompound compound = new NBTTagCompound();
-               this.tile.func_189515_b(compound);
+               this.tile.writeToNBT(compound);
                compound.func_82580_o("BlockActivated");
                Client.sendData(EnumPacketServer.SaveTileEntity, compound);
           }

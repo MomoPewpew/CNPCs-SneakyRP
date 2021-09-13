@@ -21,7 +21,7 @@ public class DamageSourceWrapper implements IDamageSource {
      }
 
      public boolean isProjectile() {
-          return this.source.func_76352_a();
+          return this.source.isProjectile();
      }
 
      public DamageSource getMCDamageSource() {

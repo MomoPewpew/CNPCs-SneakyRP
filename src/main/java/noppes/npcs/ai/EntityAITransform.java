@@ -9,10 +9,10 @@ public class EntityAITransform extends EntityAIBase {
 
      public EntityAITransform(EntityNPCInterface npc) {
           this.npc = npc;
-          this.func_75248_a(AiMutex.PASSIVE);
+          this.setMutexBits(AiMutex.PASSIVE);
      }
 
-     public boolean func_75250_a() {
+     public boolean shouldExecute() {
           if (!this.npc.isKilled() && !this.npc.isAttacking() && !this.npc.transform.editingModus) {
                return this.npc.world.func_72820_D() % 24000L < 12000L ? this.npc.transform.isActive : !this.npc.transform.isActive;
           } else {
@@ -20,7 +20,7 @@ public class EntityAITransform extends EntityAIBase {
           }
      }
 
-     public void func_75249_e() {
+     public void startExecuting() {
           this.npc.transform.transform(!this.npc.transform.isActive);
      }
 }

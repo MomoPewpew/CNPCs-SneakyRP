@@ -20,12 +20,12 @@ public class TileCopy extends TileEntity {
           this.name = compound.getString("Name");
      }
 
-     public NBTTagCompound func_189515_b(NBTTagCompound compound) {
+     public NBTTagCompound writeToNBT(NBTTagCompound compound) {
           compound.func_74777_a("Length", this.length);
           compound.func_74777_a("Width", this.width);
           compound.func_74777_a("Height", this.height);
           compound.setString("Name", this.name);
-          return super.func_189515_b(compound);
+          return super.writeToNBT(compound);
      }
 
      public void handleUpdateTag(NBTTagCompound compound) {

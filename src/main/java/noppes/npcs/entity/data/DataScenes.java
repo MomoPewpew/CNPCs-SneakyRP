@@ -334,10 +334,10 @@ public class DataScenes {
 
                          if (pos != null) {
                               DataScenes.this.npc.ais.setStartPos(pos);
-                              DataScenes.this.npc.func_70661_as().func_75499_g();
+                              DataScenes.this.npc.getNavigator().clearPath();
                               if (move) {
-                                   Path pathentity = DataScenes.this.npc.func_70661_as().func_179680_a(pos);
-                                   DataScenes.this.npc.func_70661_as().func_75484_a(pathentity, 1.0D);
+                                   Path pathentity = DataScenes.this.npc.getNavigator().func_179680_a(pos);
+                                   DataScenes.this.npc.getNavigator().setPath(pathentity, 1.0D);
                               } else if (!DataScenes.this.npc.isInRange((double)pos.getX() + 0.5D, (double)pos.getY(), (double)pos.getZ() + 0.5D, 2.0D)) {
                                    DataScenes.this.npc.func_70107_b((double)pos.getX() + 0.5D, (double)pos.getY(), (double)pos.getZ() + 0.5D);
                               }
@@ -348,10 +348,10 @@ public class DataScenes {
                } else {
                     EntityLivingBase entity;
                     if (event.type == DataScenes.SceneType.ROTATE) {
-                         DataScenes.this.npc.lookAi.func_75251_c();
+                         DataScenes.this.npc.lookAi.resetTask();
                          if (event.param.startsWith("@")) {
                               entity = (EntityLivingBase)CommandBase.func_184884_a(DataScenes.this.npc.getServer(), DataScenes.this.npc, event.param, EntityLivingBase.class);
-                              DataScenes.this.npc.lookAi.rotate(DataScenes.this.npc.world.func_72890_a(entity, 30.0D));
+                              DataScenes.this.npc.lookAi.rotate(DataScenes.this.npc.world.getClosestPlayerToEntity(entity, 30.0D));
                          } else {
                               DataScenes.this.npc.lookAi.rotate(Integer.parseInt(event.param));
                          }
@@ -386,11 +386,11 @@ public class DataScenes {
                          }
                     } else if (event.type == DataScenes.SceneType.ATTACK) {
                          if (event.param.equals("none")) {
-                              DataScenes.this.npc.func_70624_b((EntityLivingBase)null);
+                              DataScenes.this.npc.setAttackTarget((EntityLivingBase)null);
                          } else {
                               entity = (EntityLivingBase)CommandBase.func_184884_a(DataScenes.this.npc.getServer(), DataScenes.this.npc, event.param, EntityLivingBase.class);
                               if (entity != null) {
-                                   DataScenes.this.npc.func_70624_b(entity);
+                                   DataScenes.this.npc.setAttackTarget(entity);
                               }
                          }
                     } else if (event.type == DataScenes.SceneType.THROW) {

@@ -53,7 +53,7 @@ public class CmdClone extends CommandNoppesBase {
                     }
 
                     NBTTagCompound compound = new NBTTagCompound();
-                    if (!npc.func_184198_c(compound)) {
+                    if (!npc.writeToNBTAtomically(compound)) {
                          return;
                     }
 

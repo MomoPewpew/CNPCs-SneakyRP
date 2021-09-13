@@ -33,7 +33,7 @@ public class ItemNbtBook extends Item implements IPermission {
           NBTTagCompound data = new NBTTagCompound();
           TileEntity tile = event.getWorld().getTileEntity(event.getPos());
           if (tile != null) {
-               tile.func_189515_b(data);
+               tile.writeToNBT(data);
           }
 
           NBTTagCompound compound = new NBTTagCompound();
@@ -44,7 +44,7 @@ public class ItemNbtBook extends Item implements IPermission {
      public void entityEvent(EntityInteract event) {
           Server.sendData((EntityPlayerMP)event.getEntityPlayer(), EnumPacketClient.GUI, EnumGuiType.NbtBook, 0, 0, 0);
           NBTTagCompound data = new NBTTagCompound();
-          event.getTarget().func_184198_c(data);
+          event.getTarget().writeToNBTAtomically(data);
           NBTTagCompound compound = new NBTTagCompound();
           compound.setInteger("EntityId", event.getTarget().getEntityId());
           compound.setTag("Data", data);

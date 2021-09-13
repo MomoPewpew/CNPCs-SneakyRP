@@ -37,7 +37,7 @@ public class TileScriptedDoor extends TileDoor implements ITickable, IScriptBloc
 
      public IBlock getBlock() {
           if (this.blockDummy == null) {
-               this.blockDummy = new BlockScriptedDoorWrapper(this.func_145831_w(), this.func_145838_q(), this.func_174877_v());
+               this.blockDummy = new BlockScriptedDoorWrapper(this.func_145831_w(), this.func_145838_q(), this.getPos());
           }
 
           return this.blockDummy;
@@ -61,10 +61,10 @@ public class TileScriptedDoor extends TileDoor implements ITickable, IScriptBloc
 
      }
 
-     public NBTTagCompound func_189515_b(NBTTagCompound compound) {
+     public NBTTagCompound writeToNBT(NBTTagCompound compound) {
           this.getNBT(compound);
           this.timers.writeToNBT(compound);
-          return super.func_189515_b(compound);
+          return super.writeToNBT(compound);
      }
 
      public NBTTagCompound getNBT(NBTTagCompound compound) {
@@ -141,7 +141,7 @@ public class TileScriptedDoor extends TileDoor implements ITickable, IScriptBloc
      }
 
      public String noticeString() {
-          BlockPos pos = this.func_174877_v();
+          BlockPos pos = this.getPos();
           return MoreObjects.toStringHelper(this).add("x", pos.getX()).add("y", pos.getY()).add("z", pos.getZ()).toString();
      }
 

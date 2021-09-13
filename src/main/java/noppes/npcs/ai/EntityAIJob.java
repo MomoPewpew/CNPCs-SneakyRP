@@ -10,26 +10,26 @@ public class EntityAIJob extends EntityAIBase {
           this.npc = npc;
      }
 
-     public boolean func_75250_a() {
+     public boolean shouldExecute() {
           return !this.npc.isKilled() && this.npc.jobInterface != null ? this.npc.jobInterface.aiShouldExecute() : false;
      }
 
-     public void func_75249_e() {
+     public void startExecuting() {
           this.npc.jobInterface.aiStartExecuting();
      }
 
-     public boolean func_75253_b() {
+     public boolean shouldContinueExecuting() {
           return !this.npc.isKilled() && this.npc.jobInterface != null ? this.npc.jobInterface.aiContinueExecute() : false;
      }
 
-     public void func_75246_d() {
+     public void updateTask() {
           if (this.npc.jobInterface != null) {
                this.npc.jobInterface.aiUpdateTask();
           }
 
      }
 
-     public void func_75251_c() {
+     public void resetTask() {
           if (this.npc.jobInterface != null) {
                this.npc.jobInterface.resetTask();
           }

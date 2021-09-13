@@ -127,7 +127,7 @@ public class TileRedstoneBlock extends TileNpcEntity implements ITickable {
           this.availability.readFromNBT(compound);
      }
 
-     public NBTTagCompound func_189515_b(NBTTagCompound compound) {
+     public NBTTagCompound writeToNBT(NBTTagCompound compound) {
           compound.setInteger("BlockOnRange", this.onRange);
           compound.setInteger("BlockOffRange", this.offRange);
           compound.setBoolean("BlockActivated", this.isActivated);
@@ -142,6 +142,6 @@ public class TileRedstoneBlock extends TileNpcEntity implements ITickable {
           }
 
           this.availability.writeToNBT(compound);
-          return super.func_189515_b(compound);
+          return super.writeToNBT(compound);
      }
 }

@@ -123,7 +123,7 @@ public class WorldWrapper implements IWorld {
 
      private WorldWrapper(World world) {
           this.world = (WorldServer)world;
-          this.dimension = new DimensionWrapper(world.field_73011_w.getDimension(), world.field_73011_w.func_186058_p());
+          this.dimension = new DimensionWrapper(world.field_73011_w.getDimension(), world.field_73011_w.getDimensionType());
      }
 
      public WorldServer getMCWorld() {
@@ -285,7 +285,7 @@ public class WorldWrapper implements IWorld {
      }
 
      public void removeBlock(int x, int y, int z) {
-          this.world.func_175698_g(new BlockPos(x, y, z));
+          this.world.setBlockToAir(new BlockPos(x, y, z));
      }
 
      public float getLightValue(int x, int y, int z) {
@@ -293,9 +293,9 @@ public class WorldWrapper implements IWorld {
      }
 
      public IBlock getSpawnPoint() {
-          BlockPos pos = this.world.func_180504_m();
+          BlockPos pos = this.world.getSpawnCoordinate();
           if (pos == null) {
-               pos = this.world.func_175694_M();
+               pos = this.world.getSpawnPoint();
           }
 
           return NpcAPI.Instance().getIBlock(this.world, pos);

@@ -58,7 +58,7 @@ public class PacketHandlerPlayer {
 
      private void player(ByteBuf buffer, EntityPlayerMP player, EnumPlayerPacket type) throws Exception {
           if (type == EnumPlayerPacket.MarkData) {
-               Entity entity = player.getServer().func_175576_a(Server.readUUID(buffer));
+               Entity entity = player.getServer().getEntityFromUuid(Server.readUUID(buffer));
                if (entity == null || !(entity instanceof EntityLivingBase)) {
                     return;
                }
@@ -75,7 +75,7 @@ public class PacketHandlerPlayer {
                     return;
                }
 
-               ItemStack item = player.func_184614_ca();
+               ItemStack item = player.getHeldItemMainhand();
                PlayerScriptData handler = PlayerData.get(player).scriptData;
                PlayerEvent.AttackEvent ev = new PlayerEvent.AttackEvent(handler.getPlayer(), 0, (Object)null);
                EventHooks.onPlayerAttack(handler, ev);

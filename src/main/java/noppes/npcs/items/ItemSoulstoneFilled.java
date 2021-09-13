@@ -94,7 +94,7 @@ public class ItemSoulstoneFilled extends Item {
                     if (entity instanceof EntityNPCInterface) {
                          EntityNPCInterface npc = (EntityNPCInterface)entity;
                          npc.ais.setStartPos(pos);
-                         npc.func_70606_j(npc.getMaxHealth());
+                         npc.setHealth(npc.getMaxHealth());
                          npc.func_70107_b((double)((float)pos.getX() + 0.5F), npc.getStartYPos(), (double)((float)pos.getZ() + 0.5F));
                          if (npc.advanced.role == 6 && player != null) {
                               PlayerData data = PlayerData.get(player);

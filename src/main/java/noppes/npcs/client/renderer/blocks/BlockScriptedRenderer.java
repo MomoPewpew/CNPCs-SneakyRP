@@ -52,7 +52,7 @@ public class BlockScriptedRenderer extends BlockRendererInterface {
                               try {
                                    if (tile.renderTile == null) {
                                         TileEntity entity = b.createTileEntity(this.func_178459_a(), state);
-                                        entity.func_174878_a(tile.func_174877_v());
+                                        entity.func_174878_a(tile.getPos());
                                         entity.func_145834_a(this.func_178459_a());
                                         ObfuscationReflectionHelper.setPrivateValue(TileEntity.class, entity, tile.itemModel.getItemDamage(), 5);
                                         ObfuscationReflectionHelper.setPrivateValue(TileEntity.class, entity, b, 6);
@@ -157,14 +157,14 @@ public class BlockScriptedRenderer extends BlockRendererInterface {
           GlStateManager.translate(-0.5F, 0.0F, 0.5F);
           Minecraft.getMinecraft().func_175602_ab().func_175016_a(state, 1.0F);
           if (b.func_149653_t() && random.nextInt(12) == 1) {
-               b.func_180655_c(state, tile.func_145831_w(), tile.func_174877_v(), random);
+               b.func_180655_c(state, tile.func_145831_w(), tile.getPos(), random);
           }
 
           GlStateManager.func_179121_F();
      }
 
      private boolean overrideModel() {
-          ItemStack held = Minecraft.getMinecraft().player.func_184614_ca();
+          ItemStack held = Minecraft.getMinecraft().player.getHeldItemMainhand();
           if (held == null) {
                return false;
           } else {

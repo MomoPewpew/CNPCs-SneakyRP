@@ -13,10 +13,10 @@ public class EntityAIOwnerHurtTarget extends EntityAITarget {
      public EntityAIOwnerHurtTarget(EntityNPCInterface npc) {
           super(npc, false);
           this.npc = npc;
-          this.func_75248_a(AiMutex.PASSIVE);
+          this.setMutexBits(AiMutex.PASSIVE);
      }
 
-     public boolean func_75250_a() {
+     public boolean shouldExecute() {
           if (this.npc.isFollower() && this.npc.roleInterface != null && this.npc.roleInterface.defendOwner()) {
                EntityLivingBase entitylivingbase = this.npc.getOwner();
                if (entitylivingbase == null) {
@@ -31,13 +31,13 @@ public class EntityAIOwnerHurtTarget extends EntityAITarget {
           }
      }
 
-     public void func_75249_e() {
-          this.field_75299_d.func_70624_b(this.theTarget);
+     public void startExecuting() {
+          this.field_75299_d.setAttackTarget(this.theTarget);
           EntityLivingBase entitylivingbase = this.npc.getOwner();
           if (entitylivingbase != null) {
                this.field_142050_e = entitylivingbase.func_142013_aG();
           }
 
-          super.func_75249_e();
+          super.startExecuting();
      }
 }

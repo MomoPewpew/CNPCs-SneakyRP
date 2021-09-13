@@ -34,7 +34,7 @@ public class ItemSoulstoneEmpty extends Item {
           if (this.hasPermission(entity, player) && !(entity instanceof EntityPlayer)) {
                ItemStack stone = new ItemStack(CustomItems.soulstoneFull);
                NBTTagCompound compound = new NBTTagCompound();
-               if (!entity.func_184198_c(compound)) {
+               if (!entity.writeToNBTAtomically(compound)) {
                     return false;
                } else {
                     ServerCloneController.Instance.cleanTags(compound);

@@ -161,7 +161,7 @@ public class ScriptPlayerEventHandler {
      @SubscribeEvent
      public void invoke(RightClickItem event) {
           if (!event.getEntityPlayer().world.isRemote && event.getHand() == EnumHand.MAIN_HAND && event.getWorld() instanceof WorldServer) {
-               if (event.getEntityPlayer().func_184812_l_() && event.getEntityPlayer().func_70093_af() && event.getItemStack().getItem() == CustomItems.scripted_item) {
+               if (event.getEntityPlayer().isCreative() && event.getEntityPlayer().isSneaking() && event.getItemStack().getItem() == CustomItems.scripted_item) {
                     NoppesUtilServer.sendOpenGui(event.getEntityPlayer(), EnumGuiType.ScriptItem, (EntityNPCInterface)null);
                } else {
                     PlayerScriptData handler = PlayerData.get(event.getEntityPlayer()).scriptData;
@@ -278,7 +278,7 @@ public class ScriptPlayerEventHandler {
                Entity source = NoppesUtilServer.GetDamageSourcee(event.getSource());
                if (source instanceof EntityPlayer) {
                     PlayerScriptData handler = PlayerData.get((EntityPlayer)source).scriptData;
-                    ItemStack item = ((EntityPlayer)source).func_184614_ca();
+                    ItemStack item = ((EntityPlayer)source).getHeldItemMainhand();
                     IEntity target = NpcAPI.Instance().getIEntity(event.getEntityLiving());
                     PlayerEvent.AttackEvent ev = new PlayerEvent.AttackEvent(handler.getPlayer(), 1, target);
                     event.setCanceled(EventHooks.onPlayerAttack(handler, ev));

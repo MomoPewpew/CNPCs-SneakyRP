@@ -10,19 +10,19 @@ public class EntityAIRole extends EntityAIBase {
           this.npc = npc;
      }
 
-     public boolean func_75250_a() {
+     public boolean shouldExecute() {
           return !this.npc.isKilled() && this.npc.roleInterface != null ? this.npc.roleInterface.aiShouldExecute() : false;
      }
 
-     public void func_75249_e() {
+     public void startExecuting() {
           this.npc.roleInterface.aiStartExecuting();
      }
 
-     public boolean func_75253_b() {
+     public boolean shouldContinueExecuting() {
           return !this.npc.isKilled() && this.npc.roleInterface != null ? this.npc.roleInterface.aiContinueExecute() : false;
      }
 
-     public void func_75246_d() {
+     public void updateTask() {
           if (this.npc.roleInterface != null) {
                this.npc.roleInterface.aiUpdateTask();
           }

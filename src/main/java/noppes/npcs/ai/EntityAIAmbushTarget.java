@@ -27,11 +27,11 @@ public class EntityAIAmbushTarget extends EntityAIBase {
           this.npc = par1EntityCreature;
           this.movementSpeed = par2;
           this.world = par1EntityCreature.world;
-          this.func_75248_a(AiMutex.PASSIVE + AiMutex.LOOK);
+          this.setMutexBits(AiMutex.PASSIVE + AiMutex.LOOK);
      }
 
-     public boolean func_75250_a() {
-          this.targetEntity = this.npc.func_70638_az();
+     public boolean shouldExecute() {
+          this.targetEntity = this.npc.getAttackTarget();
           this.distance = (double)this.npc.ais.getTacticalRange();
           if (this.targetEntity != null && !this.npc.isInRange(this.targetEntity, this.distance) && this.npc.canSee(this.targetEntity) && this.delay-- <= 0) {
                Vec3d vec3 = this.findHidingSpot();
@@ -49,20 +49,20 @@ public class EntityAIAmbushTarget extends EntityAIBase {
           }
      }
 
-     public boolean func_75253_b() {
+     public boolean shouldContinueExecuting() {
           boolean shouldHide = !this.npc.isInRange(this.targetEntity, this.distance);
           boolean isSeen = this.npc.canSee(this.targetEntity);
-          return !this.npc.func_70661_as().func_75500_f() && shouldHide || !isSeen && (shouldHide || this.npc.ais.directLOS);
+          return !this.npc.getNavigator().noPath() && shouldHide || !isSeen && (shouldHide || this.npc.ais.directLOS);
      }
 
-     public void func_75249_e() {
-          this.npc.func_70661_as().func_75492_a(this.shelterX, this.shelterY, this.shelterZ, this.movementSpeed);
+     public void startExecuting() {
+          this.npc.getNavigator().tryMoveToXYZ(this.shelterX, this.shelterY, this.shelterZ, this.movementSpeed);
      }
 
-     public void func_75251_c() {
-          this.npc.func_70661_as().func_75499_g();
-          if (this.npc.func_70638_az() == null && this.targetEntity != null) {
-               this.npc.func_70624_b(this.targetEntity);
+     public void resetTask() {
+          this.npc.getNavigator().clearPath();
+          if (this.npc.getAttackTarget() == null && this.targetEntity != null) {
+               this.npc.setAttackTarget(this.targetEntity);
           }
 
           if (!this.npc.isInRange(this.targetEntity, this.distance)) {
@@ -71,8 +71,8 @@ public class EntityAIAmbushTarget extends EntityAIBase {
 
      }
 
-     public void func_75246_d() {
-          this.npc.func_70671_ap().func_75651_a(this.targetEntity, 30.0F, 30.0F);
+     public void updateTask() {
+          this.npc.getLookHelper().setLookPositionWithEntity(this.targetEntity, 30.0F, 30.0F);
      }
 
      private Vec3d findHidingSpot() {
@@ -89,9 +89,9 @@ public class EntityAIAmbushTarget extends EntityAIBase {
                          for(int z = -i; z <= i; ++z) {
                               double l = (double)MathHelper.floor(this.npc.field_70161_v + (double)z) + 0.5D;
                               if (this.isOpaque((int)j, (int)k, (int)l) && !this.isOpaque((int)j, (int)k + 1, (int)l) && this.isOpaque((int)j, (int)k + 2, (int)l)) {
-                                   Vec3d vec1 = new Vec3d(this.targetEntity.field_70165_t, this.targetEntity.field_70163_u + (double)this.targetEntity.func_70047_e(), this.targetEntity.field_70161_v);
-                                   Vec3d vec2 = new Vec3d(j, k + (double)this.npc.func_70047_e(), l);
-                                   RayTraceResult movingobjectposition = this.world.func_72933_a(vec1, vec2);
+                                   Vec3d vec1 = new Vec3d(this.targetEntity.field_70165_t, this.targetEntity.field_70163_u + (double)this.targetEntity.getEyeHeight(), this.targetEntity.field_70161_v);
+                                   Vec3d vec2 = new Vec3d(j, k + (double)this.npc.getEyeHeight(), l);
+                                   RayTraceResult movingobjectposition = this.world.rayTraceBlocks(vec1, vec2);
                                    if (movingobjectposition != null && this.shelterX != j && this.shelterY != k && this.shelterZ != l) {
                                         idealPos = new Vec3d(j, k, l);
                                    }
@@ -110,6 +110,6 @@ public class EntityAIAmbushTarget extends EntityAIBase {
      }
 
      private boolean isOpaque(int x, int y, int z) {
-          return this.world.getBlockState(new BlockPos(x, y, z)).func_185914_p();
+          return this.world.getBlockState(new BlockPos(x, y, z)).isOpaqueCube();
      }
 }

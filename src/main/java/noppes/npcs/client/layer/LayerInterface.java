@@ -88,7 +88,7 @@ public abstract class LayerInterface implements LayerRenderer {
                     GlStateManager.color(1.0F, 0.0F, 0.0F, 0.3F);
                }
 
-               if (this.npc.func_70093_af()) {
+               if (this.npc.isSneaking()) {
                     GlStateManager.translate(0.0F, 0.2F, 0.0F);
                }
 

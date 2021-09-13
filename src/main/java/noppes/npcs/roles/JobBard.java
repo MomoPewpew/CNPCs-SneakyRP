@@ -54,7 +54,7 @@ public class JobBard extends JobInterface implements IJobBard {
                     }
                } else if (MusicController.Instance.playingEntity != this.npc) {
                     EntityPlayer player = CustomNpcs.proxy.getPlayer();
-                    if (this.npc.func_70068_e(player) < MusicController.Instance.playingEntity.func_70068_e(player)) {
+                    if (this.npc.getDistanceSq(player) < MusicController.Instance.playingEntity.getDistanceSq(player)) {
                          MusicController.Instance.playingEntity = this.npc;
                     }
                } else if (this.hasOffRange) {

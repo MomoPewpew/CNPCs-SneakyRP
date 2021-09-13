@@ -29,7 +29,7 @@ public class TileBorder extends TileNpcEntity implements Predicate, ITickable {
           super.readFromNBT(compound);
           this.readExtraNBT(compound);
           if (this.func_145831_w() != null) {
-               this.func_145831_w().setBlockState(this.func_174877_v(), CustomItems.border.getDefaultState().func_177226_a(BlockBorder.ROTATION, this.rotation));
+               this.func_145831_w().setBlockState(this.getPos(), CustomItems.border.getDefaultState().func_177226_a(BlockBorder.ROTATION, this.rotation));
           }
 
      }
@@ -41,9 +41,9 @@ public class TileBorder extends TileNpcEntity implements Predicate, ITickable {
           this.message = compound.getString("BorderMessage");
      }
 
-     public NBTTagCompound func_189515_b(NBTTagCompound compound) {
+     public NBTTagCompound writeToNBT(NBTTagCompound compound) {
           this.writeExtraNBT(compound);
-          return super.func_189515_b(compound);
+          return super.writeToNBT(compound);
      }
 
      public void writeExtraNBT(NBTTagCompound compound) {

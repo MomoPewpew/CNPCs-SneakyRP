@@ -46,7 +46,7 @@ public class EntityUtil {
           entity.field_70732_aI = copied.field_70732_aI;
           entity.field_82175_bq = copied.field_82175_bq;
           entity.field_110158_av = copied.field_110158_av;
-          entity.func_70606_j(Math.min(copied.func_110143_aJ(), entity.getMaxHealth()));
+          entity.setHealth(Math.min(copied.getHealth(), entity.getMaxHealth()));
           entity.field_70128_L = copied.field_70128_L;
           entity.field_70725_aQ = copied.field_70725_aQ;
           entity.field_70173_aa = copied.field_70173_aa;
@@ -89,7 +89,7 @@ public class EntityUtil {
                target.display = npc.display;
                target.inventory = npc.inventory;
                target.currentAnimation = npc.currentAnimation;
-               target.setDataWatcher(npc.func_184212_Q());
+               target.setDataWatcher(npc.getDataManager());
           }
 
           if (entity instanceof EntityCustomNpc && copied instanceof EntityCustomNpc) {

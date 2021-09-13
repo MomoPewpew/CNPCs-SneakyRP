@@ -18,13 +18,13 @@ public class EntityAIFindShade extends EntityAIBase {
      public EntityAIFindShade(EntityCreature par1EntityCreature) {
           this.theCreature = par1EntityCreature;
           this.world = par1EntityCreature.world;
-          this.func_75248_a(AiMutex.PASSIVE);
+          this.setMutexBits(AiMutex.PASSIVE);
      }
 
-     public boolean func_75250_a() {
-          if (!this.world.func_72935_r()) {
+     public boolean shouldExecute() {
+          if (!this.world.isDaytime()) {
                return false;
-          } else if (!this.world.func_175678_i(new BlockPos(this.theCreature.field_70165_t, this.theCreature.getEntityBoundingBox().field_72338_b, this.theCreature.field_70161_v))) {
+          } else if (!this.world.canSeeSky(new BlockPos(this.theCreature.field_70165_t, this.theCreature.getEntityBoundingBox().field_72338_b, this.theCreature.field_70161_v))) {
                return false;
           } else {
                Vec3d var1 = this.findPossibleShelter();
@@ -39,12 +39,12 @@ public class EntityAIFindShade extends EntityAIBase {
           }
      }
 
-     public boolean func_75253_b() {
-          return !this.theCreature.func_70661_as().func_75500_f();
+     public boolean shouldContinueExecuting() {
+          return !this.theCreature.getNavigator().noPath();
      }
 
-     public void func_75249_e() {
-          this.theCreature.func_70661_as().func_75492_a(this.shelterX, this.shelterY, this.shelterZ, 1.0D);
+     public void startExecuting() {
+          this.theCreature.getNavigator().tryMoveToXYZ(this.shelterX, this.shelterY, this.shelterZ, 1.0D);
      }
 
      private Vec3d findPossibleShelter() {
@@ -53,7 +53,7 @@ public class EntityAIFindShade extends EntityAIBase {
 
           for(int i = 0; i < 10; ++i) {
                BlockPos blockpos1 = blockpos.add(random.nextInt(20) - 10, random.nextInt(6) - 3, random.nextInt(20) - 10);
-               if (!this.world.func_175678_i(blockpos1) && this.theCreature.func_180484_a(blockpos1) < 0.0F) {
+               if (!this.world.canSeeSky(blockpos1) && this.theCreature.getBlockPathWeight(blockpos1) < 0.0F) {
                     return new Vec3d((double)blockpos1.getX(), (double)blockpos1.getY(), (double)blockpos1.getZ());
                }
           }

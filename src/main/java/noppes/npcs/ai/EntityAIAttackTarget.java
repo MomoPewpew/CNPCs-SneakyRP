@@ -21,18 +21,18 @@ public class EntityAIAttackTarget extends EntityAIBase {
      public EntityAIAttackTarget(EntityNPCInterface par1EntityLiving) {
           this.npc = par1EntityLiving;
           this.world = par1EntityLiving.world;
-          this.func_75248_a(this.navOverride ? AiMutex.PATHING : AiMutex.LOOK + AiMutex.PASSIVE);
+          this.setMutexBits(this.navOverride ? AiMutex.PATHING : AiMutex.LOOK + AiMutex.PASSIVE);
      }
 
-     public boolean func_75250_a() {
-          EntityLivingBase entitylivingbase = this.npc.func_70638_az();
-          if (entitylivingbase != null && entitylivingbase.func_70089_S()) {
+     public boolean shouldExecute() {
+          EntityLivingBase entitylivingbase = this.npc.getAttackTarget();
+          if (entitylivingbase != null && entitylivingbase.isEntityAlive()) {
                int melee = this.npc.stats.ranged.getMeleeRange();
                if (this.npc.inventory.getProjectile() != null && (melee <= 0 || !this.npc.isInRange(entitylivingbase, (double)melee))) {
                     return false;
                } else {
                     this.entityTarget = entitylivingbase;
-                    this.entityPathEntity = this.npc.func_70661_as().func_75494_a(entitylivingbase);
+                    this.entityPathEntity = this.npc.getNavigator().getPathToEntityLiving(entitylivingbase);
                     return this.entityPathEntity != null;
                }
           } else {
@@ -40,43 +40,43 @@ public class EntityAIAttackTarget extends EntityAIBase {
           }
      }
 
-     public boolean func_75253_b() {
-          this.entityTarget = this.npc.func_70638_az();
+     public boolean shouldContinueExecuting() {
+          this.entityTarget = this.npc.getAttackTarget();
           if (this.entityTarget == null) {
-               this.entityTarget = this.npc.func_70643_av();
+               this.entityTarget = this.npc.getRevengeTarget();
           }
 
-          if (this.entityTarget != null && this.entityTarget.func_70089_S()) {
+          if (this.entityTarget != null && this.entityTarget.isEntityAlive()) {
                if (!this.npc.isInRange(this.entityTarget, (double)this.npc.stats.aggroRange)) {
                     return false;
                } else {
                     int melee = this.npc.stats.ranged.getMeleeRange();
-                    return melee > 0 && !this.npc.isInRange(this.entityTarget, (double)melee) ? false : this.npc.func_180485_d(new BlockPos(this.entityTarget));
+                    return melee > 0 && !this.npc.isInRange(this.entityTarget, (double)melee) ? false : this.npc.isWithinHomeDistanceFromPosition(new BlockPos(this.entityTarget));
                }
           } else {
                return false;
           }
      }
 
-     public void func_75249_e() {
+     public void startExecuting() {
           if (!this.navOverride) {
-               this.npc.func_70661_as().func_75484_a(this.entityPathEntity, 1.3D);
+               this.npc.getNavigator().setPath(this.entityPathEntity, 1.3D);
           }
 
           this.field_75445_i = 0;
      }
 
-     public void func_75251_c() {
+     public void resetTask() {
           this.entityPathEntity = null;
           this.entityTarget = null;
-          this.npc.func_70661_as().func_75499_g();
+          this.npc.getNavigator().clearPath();
      }
 
-     public void func_75246_d() {
-          this.npc.func_70671_ap().func_75651_a(this.entityTarget, 30.0F, 30.0F);
+     public void updateTask() {
+          this.npc.getLookHelper().setLookPositionWithEntity(this.entityTarget, 30.0F, 30.0F);
           if (!this.navOverride && --this.field_75445_i <= 0) {
                this.field_75445_i = 4 + this.npc.getRNG().nextInt(7);
-               this.npc.func_70661_as().func_75497_a(this.entityTarget, 1.2999999523162842D);
+               this.npc.getNavigator().tryMoveToEntityLiving(this.entityTarget, 1.2999999523162842D);
           }
 
           this.attackTick = Math.max(this.attackTick - 1, 0);
@@ -94,7 +94,7 @@ public class EntityAIAttackTarget extends EntityAIBase {
 
           if (distance <= range && (this.npc.canSee(this.entityTarget) || distance < minRange) && this.attackTick <= 0) {
                this.attackTick = this.npc.stats.melee.getDelay();
-               this.npc.func_184609_a(EnumHand.MAIN_HAND);
+               this.npc.swingArm(EnumHand.MAIN_HAND);
                this.npc.func_70652_k(this.entityTarget);
           }
 
@@ -102,6 +102,6 @@ public class EntityAIAttackTarget extends EntityAIBase {
 
      public void navOverride(boolean nav) {
           this.navOverride = nav;
-          this.func_75248_a(this.navOverride ? AiMutex.PATHING : AiMutex.LOOK + AiMutex.PASSIVE);
+          this.setMutexBits(this.navOverride ? AiMutex.PATHING : AiMutex.LOOK + AiMutex.PASSIVE);
      }
 }

@@ -16,48 +16,48 @@ public class EntityLivingWrapper extends EntityLivingBaseWrapper implements IEnt
      }
 
      public void navigateTo(double x, double y, double z, double speed) {
-          ((EntityLiving)this.entity).func_70661_as().func_75499_g();
-          ((EntityLiving)this.entity).func_70661_as().func_75492_a(x, y, z, speed * 0.7D);
+          ((EntityLiving)this.entity).getNavigator().clearPath();
+          ((EntityLiving)this.entity).getNavigator().tryMoveToXYZ(x, y, z, speed * 0.7D);
      }
 
      public void clearNavigation() {
-          ((EntityLiving)this.entity).func_70661_as().func_75499_g();
+          ((EntityLiving)this.entity).getNavigator().clearPath();
      }
 
      public IPos getNavigationPath() {
           if (!this.isNavigating()) {
                return null;
           } else {
-               PathPoint point = ((EntityLiving)this.entity).func_70661_as().func_75505_d().func_75870_c();
+               PathPoint point = ((EntityLiving)this.entity).getNavigator().func_75505_d().func_75870_c();
                return point == null ? null : new BlockPosWrapper(new BlockPos(point.field_75839_a, point.field_75837_b, point.field_75838_c));
           }
      }
 
      public boolean isNavigating() {
-          return !((EntityLiving)this.entity).func_70661_as().func_75500_f();
+          return !((EntityLiving)this.entity).getNavigator().noPath();
      }
 
      public boolean isAttacking() {
-          return super.isAttacking() || ((EntityLiving)this.entity).func_70638_az() != null;
+          return super.isAttacking() || ((EntityLiving)this.entity).getAttackTarget() != null;
      }
 
      public void setAttackTarget(IEntityLivingBase living) {
           if (living == null) {
-               ((EntityLiving)this.entity).func_70624_b((EntityLivingBase)null);
+               ((EntityLiving)this.entity).setAttackTarget((EntityLivingBase)null);
           } else {
-               ((EntityLiving)this.entity).func_70624_b(living.getMCEntity());
+               ((EntityLiving)this.entity).setAttackTarget(living.getMCEntity());
           }
 
           super.setAttackTarget(living);
      }
 
      public IEntityLivingBase getAttackTarget() {
-          IEntityLivingBase base = (IEntityLivingBase)NpcAPI.Instance().getIEntity(((EntityLiving)this.entity).func_70638_az());
+          IEntityLivingBase base = (IEntityLivingBase)NpcAPI.Instance().getIEntity(((EntityLiving)this.entity).getAttackTarget());
           return base != null ? base : super.getAttackTarget();
      }
 
      public boolean canSeeEntity(IEntity entity) {
-          return ((EntityLiving)this.entity).func_70635_at().func_75522_a(entity.getMCEntity());
+          return ((EntityLiving)this.entity).getEntitySenses().canSee(entity.getMCEntity());
      }
 
      public void jump() {

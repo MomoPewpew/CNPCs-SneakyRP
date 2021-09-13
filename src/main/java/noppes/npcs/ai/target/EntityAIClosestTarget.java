@@ -23,12 +23,12 @@ public class EntityAIClosestTarget extends EntityAITarget {
           this.targetClass = par2Class;
           this.targetChance = par3;
           this.theNearestAttackableTargetSorter = new Sorter(npc);
-          this.func_75248_a(1);
+          this.setMutexBits(1);
           this.field_82643_g = par6IEntitySelector;
           this.npc = npc;
      }
 
-     public boolean func_75250_a() {
+     public boolean shouldExecute() {
           if (this.targetChance > 0 && this.field_75299_d.getRNG().nextInt(this.targetChance) != 0) {
                return false;
           } else {
@@ -44,12 +44,12 @@ public class EntityAIClosestTarget extends EntityAITarget {
           }
      }
 
-     public void func_75249_e() {
-          this.field_75299_d.func_70624_b(this.targetEntity);
-          if (this.targetEntity instanceof EntityMob && ((EntityMob)this.targetEntity).func_70638_az() == null) {
-               ((EntityMob)this.targetEntity).func_70624_b(this.field_75299_d);
+     public void startExecuting() {
+          this.field_75299_d.setAttackTarget(this.targetEntity);
+          if (this.targetEntity instanceof EntityMob && ((EntityMob)this.targetEntity).getAttackTarget() == null) {
+               ((EntityMob)this.targetEntity).setAttackTarget(this.field_75299_d);
           }
 
-          super.func_75249_e();
+          super.startExecuting();
      }
 }

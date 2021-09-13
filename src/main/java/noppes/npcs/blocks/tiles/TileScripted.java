@@ -103,7 +103,7 @@ public class TileScripted extends TileNpcEntity implements ITickable, IScriptBlo
 
      public IBlock getBlock() {
           if (this.blockDummy == null) {
-               this.blockDummy = new BlockScriptedWrapper(this.func_145831_w(), this.func_145838_q(), this.func_174877_v());
+               this.blockDummy = new BlockScriptedWrapper(this.func_145831_w(), this.func_145838_q(), this.getPos());
           }
 
           return this.blockDummy;
@@ -174,11 +174,11 @@ public class TileScripted extends TileNpcEntity implements ITickable, IScriptBlo
 
      }
 
-     public NBTTagCompound func_189515_b(NBTTagCompound compound) {
+     public NBTTagCompound writeToNBT(NBTTagCompound compound) {
           this.getNBT(compound);
           this.getDisplayNBT(compound);
           this.timers.writeToNBT(compound);
-          return super.func_189515_b(compound);
+          return super.writeToNBT(compound);
      }
 
      public NBTTagCompound getNBT(NBTTagCompound compound) {
@@ -355,7 +355,7 @@ public class TileScripted extends TileNpcEntity implements ITickable, IScriptBlo
      }
 
      public String noticeString() {
-          BlockPos pos = this.func_174877_v();
+          BlockPos pos = this.getPos();
           return MoreObjects.toStringHelper(this).add("x", pos.getX()).add("y", pos.getY()).add("z", pos.getZ()).toString();
      }
 
@@ -402,7 +402,7 @@ public class TileScripted extends TileNpcEntity implements ITickable, IScriptBlo
 
      @SideOnly(Side.CLIENT)
      public AxisAlignedBB getRenderBoundingBox() {
-          return Block.field_185505_j.func_186670_a(this.func_174877_v());
+          return Block.field_185505_j.func_186670_a(this.getPos());
      }
 
      public class TextPlane implements ITextPlane {

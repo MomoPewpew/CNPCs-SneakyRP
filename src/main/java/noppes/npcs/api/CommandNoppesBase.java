@@ -94,7 +94,7 @@ public abstract class CommandNoppesBase extends CommandBase {
                }
 
                if (command.equals("<player>") && args.length > i) {
-                    CommandBase.func_184888_a(server, sender, args[i]);
+                    CommandBase.getPlayer(server, sender, args[i]);
                }
           }
 

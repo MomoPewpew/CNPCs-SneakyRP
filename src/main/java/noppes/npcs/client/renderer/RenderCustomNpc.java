@@ -82,7 +82,7 @@ public class RenderCustomNpc extends RenderNPCInterface {
                }
           }
 
-          this.npcmodel.field_187076_m = this.getPose(npc, npc.func_184614_ca());
+          this.npcmodel.field_187076_m = this.getPose(npc, npc.getHeldItemMainhand());
           this.npcmodel.field_187075_l = this.getPose(npc, npc.func_184592_cb());
           super.doRender(npc, d, d1, d2, f, partialTicks);
      }
