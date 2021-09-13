@@ -17,12 +17,12 @@ public class EntityAIMoveIndoors extends EntityAIBase {
 
      public EntityAIMoveIndoors(EntityCreature par1EntityCreature) {
           this.theCreature = par1EntityCreature;
-          this.world = par1EntityCreature.field_70170_p;
+          this.world = par1EntityCreature.world;
           this.func_75248_a(AiMutex.PASSIVE);
      }
 
      public boolean func_75250_a() {
-          if ((!this.theCreature.field_70170_p.func_72935_r() || this.theCreature.field_70170_p.func_72896_J()) && !this.theCreature.field_70170_p.field_73011_w.func_191066_m()) {
+          if ((!this.theCreature.world.func_72935_r() || this.theCreature.world.func_72896_J()) && !this.theCreature.world.field_73011_w.func_191066_m()) {
                BlockPos pos = new BlockPos(this.theCreature.field_70165_t, this.theCreature.func_174813_aQ().field_72338_b, this.theCreature.field_70161_v);
                if (!this.world.func_175678_i(pos) && this.world.func_175699_k(pos) > 8) {
                     return false;

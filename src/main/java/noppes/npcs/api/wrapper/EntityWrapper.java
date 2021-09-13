@@ -120,7 +120,7 @@ public class EntityWrapper implements IEntity {
 
      public EntityWrapper(Entity entity) {
           this.entity = entity;
-          this.worldWrapper = NpcAPI.Instance().getIWorld((WorldServer)entity.field_70170_p);
+          this.worldWrapper = NpcAPI.Instance().getIWorld((WorldServer)entity.world);
      }
 
      public double getX() {
@@ -185,8 +185,8 @@ public class EntityWrapper implements IEntity {
      }
 
      public IWorld getWorld() {
-          if (this.entity.field_70170_p != this.worldWrapper.getMCWorld()) {
-               this.worldWrapper = NpcAPI.Instance().getIWorld((WorldServer)this.entity.field_70170_p);
+          if (this.entity.world != this.worldWrapper.getMCWorld()) {
+               this.worldWrapper = NpcAPI.Instance().getIWorld((WorldServer)this.entity.world);
           }
 
           return this.worldWrapper;
@@ -276,15 +276,15 @@ public class EntityWrapper implements IEntity {
           Vec3d vec3d = this.entity.func_174824_e(1.0F);
           Vec3d vec3d1 = this.entity.func_70676_i(1.0F);
           Vec3d vec3d2 = vec3d.func_72441_c(vec3d1.field_72450_a * distance, vec3d1.field_72448_b * distance, vec3d1.field_72449_c * distance);
-          RayTraceResult result = this.entity.field_70170_p.func_147447_a(vec3d, vec3d2, stopOnLiquid, ignoreBlockWithoutBoundingBox, true);
-          return result == null ? null : new RayTraceWrapper(NpcAPI.Instance().getIBlock(this.entity.field_70170_p, result.func_178782_a()), result.field_178784_b.func_176745_a());
+          RayTraceResult result = this.entity.world.func_147447_a(vec3d, vec3d2, stopOnLiquid, ignoreBlockWithoutBoundingBox, true);
+          return result == null ? null : new RayTraceWrapper(NpcAPI.Instance().getIBlock(this.entity.world, result.func_178782_a()), result.field_178784_b.func_176745_a());
      }
 
      public IEntity[] rayTraceEntities(double distance, boolean stopOnLiquid, boolean ignoreBlockWithoutBoundingBox) {
           Vec3d vec3d = this.entity.func_174824_e(1.0F);
           Vec3d vec3d1 = this.entity.func_70676_i(1.0F);
           Vec3d vec3d2 = vec3d.func_72441_c(vec3d1.field_72450_a * distance, vec3d1.field_72448_b * distance, vec3d1.field_72449_c * distance);
-          RayTraceResult result = this.entity.field_70170_p.func_147447_a(vec3d, vec3d2, stopOnLiquid, ignoreBlockWithoutBoundingBox, false);
+          RayTraceResult result = this.entity.world.func_147447_a(vec3d, vec3d2, stopOnLiquid, ignoreBlockWithoutBoundingBox, false);
           if (result != null) {
                vec3d2 = new Vec3d(result.field_72307_f.field_72450_a, result.field_72307_f.field_72448_b, result.field_72307_f.field_72449_c);
           }
@@ -293,7 +293,7 @@ public class EntityWrapper implements IEntity {
      }
 
      private IEntity[] findEntityOnPath(double distance, Vec3d vec3d, Vec3d vec3d1) {
-          List list = this.entity.field_70170_p.func_72839_b(this.entity, this.entity.func_174813_aQ().func_186662_g(distance));
+          List list = this.entity.world.func_72839_b(this.entity, this.entity.func_174813_aQ().func_186662_g(distance));
           List result = new ArrayList();
           Iterator var7 = list.iterator();
 

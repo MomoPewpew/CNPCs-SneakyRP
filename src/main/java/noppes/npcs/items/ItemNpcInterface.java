@@ -21,7 +21,7 @@ public class ItemNpcInterface extends Item {
 
      public ItemNpcInterface() {
           this.damageAble = true;
-          this.func_77637_a(CustomItems.tab);
+          this.setCreativeTab(CustomItems.tab);
      }
 
      public void setUnDamageable() {
@@ -29,7 +29,7 @@ public class ItemNpcInterface extends Item {
      }
 
      public void playSound(EntityLivingBase entity, SoundEvent sound, float volume, float pitch) {
-          entity.field_70170_p.func_184148_a((EntityPlayer)null, entity.field_70165_t, entity.field_70163_u, entity.field_70161_v, sound, SoundCategory.NEUTRAL, volume, pitch);
+          entity.world.func_184148_a((EntityPlayer)null, entity.field_70165_t, entity.field_70163_u, entity.field_70161_v, sound, SoundCategory.NEUTRAL, volume, pitch);
      }
 
      public void func_150895_a(CreativeTabs tab, NonNullList subItems) {
@@ -40,8 +40,8 @@ public class ItemNpcInterface extends Item {
           return super.func_77619_b();
      }
 
-     public Item func_77655_b(String name) {
-          super.func_77655_b(name);
+     public Item setUnlocalizedName(String name) {
+          super.setUnlocalizedName(name);
           this.setRegistryName(new ResourceLocation("customnpcs", name));
           return this;
      }
@@ -69,7 +69,7 @@ public class ItemNpcInterface extends Item {
           } else {
                itemstack.func_190918_g(1);
                if (itemstack.func_190916_E() == 0) {
-                    player.field_71071_by.func_184437_d(itemstack);
+                    player.inventory.func_184437_d(itemstack);
                }
 
                return true;
@@ -82,8 +82,8 @@ public class ItemNpcInterface extends Item {
           } else if (player.func_184586_b(EnumHand.MAIN_HAND) != null && player.func_184586_b(EnumHand.MAIN_HAND).func_77973_b() == item) {
                return player.func_184586_b(EnumHand.MAIN_HAND);
           } else {
-               for(int i = 0; i < player.field_71071_by.func_70302_i_(); ++i) {
-                    ItemStack itemstack = player.field_71071_by.func_70301_a(i);
+               for(int i = 0; i < player.inventory.func_70302_i_(); ++i) {
+                    ItemStack itemstack = player.inventory.func_70301_a(i);
                     if (itemstack != null && itemstack.func_77973_b() == item) {
                          return itemstack;
                     }

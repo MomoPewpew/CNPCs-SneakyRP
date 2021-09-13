@@ -351,7 +351,7 @@ public class DataScenes {
                          DataScenes.this.npc.lookAi.func_75251_c();
                          if (event.param.startsWith("@")) {
                               entity = (EntityLivingBase)CommandBase.func_184884_a(DataScenes.this.npc.func_184102_h(), DataScenes.this.npc, event.param, EntityLivingBase.class);
-                              DataScenes.this.npc.lookAi.rotate(DataScenes.this.npc.field_70170_p.func_72890_a(entity, 30.0D));
+                              DataScenes.this.npc.lookAi.rotate(DataScenes.this.npc.world.func_72890_a(entity, 30.0D));
                          } else {
                               DataScenes.this.npc.lookAi.rotate(Integer.parseInt(event.param));
                          }

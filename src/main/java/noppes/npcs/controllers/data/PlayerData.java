@@ -65,13 +65,13 @@ public class PlayerData implements ICapabilityProvider {
 
           this.companionID = data.func_74762_e("PlayerCompanionId");
           if (data.func_74764_b("PlayerCompanion") && !this.hasCompanion()) {
-               EntityCustomNpc npc = new EntityCustomNpc(this.player.field_70170_p);
+               EntityCustomNpc npc = new EntityCustomNpc(this.player.world);
                npc.func_70037_a(data.func_74775_l("PlayerCompanion"));
                npc.func_70107_b(this.player.field_70165_t, this.player.field_70163_u, this.player.field_70161_v);
                if (npc.advanced.role == 6) {
                     this.setCompanion(npc);
                     ((RoleCompanion)npc.roleInterface).setSitting(false);
-                    this.player.field_70170_p.func_72838_d(npc);
+                    this.player.world.func_72838_d(npc);
                }
           }
 
@@ -132,7 +132,7 @@ public class PlayerData implements ICapabilityProvider {
      }
 
      public void updateCompanion(World world) {
-          if (this.hasCompanion() && world != this.activeCompanion.field_70170_p) {
+          if (this.hasCompanion() && world != this.activeCompanion.world) {
                RoleCompanion role = (RoleCompanion)this.activeCompanion.roleInterface;
                role.owner = this.player;
                if (role.isFollowing()) {
@@ -250,7 +250,7 @@ public class PlayerData implements ICapabilityProvider {
      }
 
      public static PlayerData get(EntityPlayer player) {
-          if (player.field_70170_p.field_72995_K) {
+          if (player.world.field_72995_K) {
                return CustomNpcs.proxy.getPlayerData(player);
           } else {
                PlayerData data = (PlayerData)player.getCapability(PLAYERDATA_CAPABILITY, (EnumFacing)null);

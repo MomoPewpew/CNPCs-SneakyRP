@@ -33,7 +33,7 @@ public class ChunkController implements LoadingCallback {
           } else if (this.size() >= CustomNpcs.ChuckLoaders) {
                return null;
           } else {
-               ticket = ForgeChunkManager.requestTicket(CustomNpcs.instance, npc.field_70170_p, Type.ENTITY);
+               ticket = ForgeChunkManager.requestTicket(CustomNpcs.instance, npc.world, Type.ENTITY);
                if (ticket == null) {
                     return null;
                } else {

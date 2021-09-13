@@ -63,7 +63,7 @@ public class WrapperNpcAPI extends NpcAPI {
      }
 
      public IEntity getIEntity(Entity entity) {
-          if (entity != null && !entity.field_70170_p.field_72995_K) {
+          if (entity != null && !entity.world.field_72995_K) {
                return (IEntity)(entity instanceof EntityNPCInterface ? ((EntityNPCInterface)entity).wrappedNPC : WrapperEntityData.get(entity));
           } else {
                return null;

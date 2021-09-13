@@ -45,7 +45,7 @@ public class GuiBlockBuilder extends GuiNPCInterface implements IGuiData, ICusto
           this.xSize = 256;
           this.ySize = 216;
           this.closeOnEsc = true;
-          this.tile = (TileBuilder)this.player.field_70170_p.func_175625_s(new BlockPos(x, y, z));
+          this.tile = (TileBuilder)this.player.world.func_175625_s(new BlockPos(x, y, z));
      }
 
      public void initPacket() {

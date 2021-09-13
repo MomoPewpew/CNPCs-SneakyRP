@@ -11,11 +11,12 @@ public class CreativeTabNpcs extends CreativeTabs {
 
      public CreativeTabNpcs(String label) {
           super(label);
-          this.item = Items.field_151054_z;
+          this.item = Items.BOWL;
           this.meta = 0;
      }
 
-     public ItemStack func_78016_d() {
+     @Override
+     public ItemStack getTabIconItem() {
           return new ItemStack(this.item, 1, this.meta);
      }
 }

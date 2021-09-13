@@ -23,7 +23,7 @@ public class EntityChairMount extends Entity {
 
      public void func_70030_z() {
           super.func_70030_z();
-          if (this.field_70170_p != null && !this.field_70170_p.field_72995_K && this.func_184188_bt().isEmpty()) {
+          if (this.world != null && !this.world.field_72995_K && this.func_184188_bt().isEmpty()) {
                this.field_70128_L = true;
           }
 

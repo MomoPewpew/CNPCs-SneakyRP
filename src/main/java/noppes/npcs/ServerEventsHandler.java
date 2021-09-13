@@ -54,7 +54,7 @@ public class ServerEventsHandler {
      public void invoke(EntityInteract event) {
           ItemStack item = event.getEntityPlayer().func_184614_ca();
           if (item != null) {
-               boolean isRemote = event.getEntityPlayer().field_70170_p.field_72995_K;
+               boolean isRemote = event.getEntityPlayer().world.field_72995_K;
                boolean npcInteracted = event.getTarget() instanceof EntityNPCInterface;
                if (isRemote || !CustomNpcs.OpsOnly || event.getEntityPlayer().func_184102_h().func_184103_al().func_152596_g(event.getEntityPlayer().func_146103_bH())) {
                     if (!isRemote && item.func_77973_b() == CustomItems.soulstoneEmpty && event.getTarget() instanceof EntityLivingBase) {
@@ -114,7 +114,7 @@ public class ServerEventsHandler {
                          Merchant = (EntityVillager)event.getTarget();
                          if (!isRemote) {
                               EntityPlayerMP player = (EntityPlayerMP)event.getEntityPlayer();
-                              player.openGui(CustomNpcs.instance, EnumGuiType.MerchantAdd.ordinal(), player.field_70170_p, 0, 0, 0);
+                              player.openGui(CustomNpcs.instance, EnumGuiType.MerchantAdd.ordinal(), player.world, 0, 0, 0);
                               MerchantRecipeList merchantrecipelist = Merchant.func_70934_b(player);
                               if (merchantrecipelist != null) {
                                    Server.sendData(player, EnumPacketClient.VILLAGER_LIST, merchantrecipelist);
@@ -128,7 +128,7 @@ public class ServerEventsHandler {
 
      @SubscribeEvent
      public void invoke(LivingDeathEvent event) {
-          if (!event.getEntityLiving().field_70170_p.field_72995_K) {
+          if (!event.getEntityLiving().world.field_72995_K) {
                Entity source = NoppesUtilServer.GetDamageSourcee(event.getSource());
                if (source != null) {
                     if (source instanceof EntityNPCInterface && event.getEntityLiving() != null) {
@@ -196,7 +196,7 @@ public class ServerEventsHandler {
                          } while(data.quest.type != 2 && data.quest.type != 4);
 
                          if (data.quest.type == 4 && all) {
-                              List list = player.field_70170_p.func_72872_a(EntityPlayer.class, entity.func_174813_aQ().func_72314_b(10.0D, 10.0D, 10.0D));
+                              List list = player.world.func_72872_a(EntityPlayer.class, entity.func_174813_aQ().func_72314_b(10.0D, 10.0D, 10.0D));
                               Iterator var10 = list.iterator();
 
                               while(var10.hasNext()) {
@@ -231,7 +231,7 @@ public class ServerEventsHandler {
 
      @SubscribeEvent
      public void pickUp(EntityItemPickupEvent event) {
-          if (!event.getEntityPlayer().field_70170_p.field_72995_K) {
+          if (!event.getEntityPlayer().world.field_72995_K) {
                PlayerQuestData playerdata = PlayerData.get(event.getEntityPlayer()).questData;
                playerdata.checkQuestCompletion(event.getEntityPlayer(), 0);
           }
@@ -277,7 +277,7 @@ public class ServerEventsHandler {
                MarkData.register(event);
           }
 
-          if (((Entity)event.getObject()).field_70170_p != null && !((Entity)event.getObject()).field_70170_p.field_72995_K && ((Entity)event.getObject()).field_70170_p instanceof WorldServer) {
+          if (((Entity)event.getObject()).world != null && !((Entity)event.getObject()).world.field_72995_K && ((Entity)event.getObject()).world instanceof WorldServer) {
                WrapperEntityData.register(event);
           }
 
@@ -314,7 +314,7 @@ public class ServerEventsHandler {
 
      @SubscribeEvent
      public void playerTracking(StartTracking event) {
-          if (event.getTarget() instanceof EntityLivingBase && !event.getTarget().field_70170_p.field_72995_K) {
+          if (event.getTarget() instanceof EntityLivingBase && !event.getTarget().world.field_72995_K) {
                MarkData data = MarkData.get((EntityLivingBase)event.getTarget());
                if (!data.marks.isEmpty()) {
                     Server.sendData((EntityPlayerMP)event.getEntityPlayer(), EnumPacketClient.MARK_DATA, event.getTarget().func_145782_y(), data.getNBT());

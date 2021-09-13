@@ -108,9 +108,9 @@ public class JobFarmer extends JobInterface implements MassBlockController.IMass
      }
 
      private void dropItem(ItemStack item) {
-          EntityItem entityitem = new EntityItem(this.npc.field_70170_p, this.npc.field_70165_t, this.npc.field_70163_u, this.npc.field_70161_v, item);
+          EntityItem entityitem = new EntityItem(this.npc.world, this.npc.field_70165_t, this.npc.field_70163_u, this.npc.field_70161_v, item);
           entityitem.func_174869_p();
-          this.npc.field_70170_p.func_72838_d(entityitem);
+          this.npc.world.func_72838_d(entityitem);
      }
 
      private void chest() {
@@ -125,11 +125,11 @@ public class JobFarmer extends JobInterface implements MassBlockController.IMass
                this.npc.func_70661_as().func_75499_g();
                this.ticks = 100;
                this.walkTicks = 0;
-               IBlockState state = this.npc.field_70170_p.func_180495_p(pos);
+               IBlockState state = this.npc.world.func_180495_p(pos);
                if (!(state.func_177230_c() instanceof BlockChest)) {
                     this.chest = null;
                } else {
-                    TileEntityChest tile = (TileEntityChest)this.npc.field_70170_p.func_175625_s(pos);
+                    TileEntityChest tile = (TileEntityChest)this.npc.world.func_175625_s(pos);
 
                     int i;
                     for(i = 0; !this.holding.func_190926_b() && i < tile.func_70302_i_(); ++i) {
@@ -178,7 +178,7 @@ public class JobFarmer extends JobInterface implements MassBlockController.IMass
           this.npc.func_70671_ap().func_75650_a((double)pos.func_177958_n(), (double)pos.func_177956_o(), (double)pos.func_177952_p(), 10.0F, (float)this.npc.func_70646_bf());
           if (this.npc.nearPosition(pos) || this.walkTicks++ > 400) {
                if (this.walkTicks > 400) {
-                    pos = NoppesUtilServer.GetClosePos(pos, this.npc.field_70170_p);
+                    pos = NoppesUtilServer.GetClosePos(pos, this.npc.world);
                     this.npc.func_70634_a((double)pos.func_177958_n() + 0.5D, (double)pos.func_177956_o(), (double)pos.func_177952_p() + 0.5D);
                }
 
@@ -187,24 +187,24 @@ public class JobFarmer extends JobInterface implements MassBlockController.IMass
                this.ticks = 90;
                this.walkTicks = 0;
                this.npc.func_184609_a(EnumHand.MAIN_HAND);
-               IBlockState state = this.npc.field_70170_p.func_180495_p(pos);
+               IBlockState state = this.npc.world.func_180495_p(pos);
                Block b = state.func_177230_c();
                if (b instanceof BlockCrops && ((BlockCrops)b).func_185525_y(state)) {
                     BlockCrops crop = (BlockCrops)b;
-                    this.npc.field_70170_p.func_175656_a(pos, crop.func_185528_e(0));
+                    this.npc.world.func_175656_a(pos, crop.func_185528_e(0));
                     this.holding = new ItemStack(NpcBlockHelper.getCrop((BlockCrops)b));
                }
 
                if (b instanceof BlockStem) {
-                    state = b.func_176221_a(state, this.npc.field_70170_p, pos);
+                    state = b.func_176221_a(state, this.npc.world, pos);
                     EnumFacing facing = (EnumFacing)state.func_177229_b(BlockStem.field_176483_b);
                     if (facing == EnumFacing.UP || facing == EnumFacing.DOWN) {
                          return;
                     }
 
                     pos = pos.func_177971_a(facing.func_176730_m());
-                    b = this.npc.field_70170_p.func_180495_p(pos).func_177230_c();
-                    this.npc.field_70170_p.func_175698_g(pos);
+                    b = this.npc.world.func_180495_p(pos).func_177230_c();
+                    this.npc.world.func_175698_g(pos);
                     if (b != Blocks.field_150350_a) {
                          this.holding = new ItemStack(b);
                     }
@@ -224,14 +224,14 @@ public class JobFarmer extends JobInterface implements MassBlockController.IMass
 
           while(ite.hasNext() && this.ripe == null) {
                BlockPos pos = (BlockPos)ite.next();
-               IBlockState state = this.npc.field_70170_p.func_180495_p(pos);
+               IBlockState state = this.npc.world.func_180495_p(pos);
                Block b = state.func_177230_c();
                if (b instanceof BlockCrops) {
                     if (((BlockCrops)b).func_185525_y(state)) {
                          this.ripe = pos;
                     }
                } else if (b instanceof BlockStem) {
-                    state = b.func_176221_a(state, this.npc.field_70170_p, pos);
+                    state = b.func_176221_a(state, this.npc.world, pos);
                     EnumFacing facing = (EnumFacing)state.func_177229_b(BlockStem.field_176483_b);
                     if (facing != EnumFacing.UP) {
                          this.ripe = pos;

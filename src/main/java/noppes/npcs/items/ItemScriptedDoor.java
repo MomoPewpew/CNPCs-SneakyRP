@@ -23,7 +23,7 @@ public class ItemScriptedDoor extends ItemDoor implements IPermission {
      public ItemScriptedDoor(Block block) {
           super(block);
           this.field_77777_bU = 1;
-          this.func_77637_a(CustomItems.tab);
+          this.setCreativeTab(CustomItems.tab);
      }
 
      public EnumActionResult func_180614_a(EntityPlayer playerIn, World worldIn, BlockPos pos, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
@@ -41,9 +41,9 @@ public class ItemScriptedDoor extends ItemDoor implements IPermission {
           return stack;
      }
 
-     public Item func_77655_b(String name) {
+     public Item setUnlocalizedName(String name) {
           this.setRegistryName(new ResourceLocation("customnpcs", name));
-          return super.func_77655_b(name);
+          return super.setUnlocalizedName(name);
      }
 
      public boolean isAllowed(EnumPacketServer e) {

@@ -127,7 +127,7 @@ public class PacketHandlerClient extends PacketHandlerServer {
                          if (type == EnumPacketClient.UPDATE_ITEM) {
                               config = buffer.readInt();
                               compound = Server.readNBT(buffer);
-                              ItemStack stack = player.field_71071_by.func_70301_a(config);
+                              ItemStack stack = player.inventory.func_70301_a(config);
                               if (!stack.func_190926_b()) {
                                    ((ItemStackWrapper)NpcAPI.Instance().getIItemStack(stack)).setMCNbt(compound);
                               }
@@ -168,7 +168,7 @@ public class PacketHandlerClient extends PacketHandlerServer {
                                                   dialog = (Dialog)DialogController.instance.dialogs.get(buffer.readInt());
                                                   NoppesUtil.openDialog(dialog, (EntityNPCInterface)entity, player);
                                              } else if (type == EnumPacketClient.DIALOG_DUMMY) {
-                                                  EntityDialogNpc npc = new EntityDialogNpc(player.field_70170_p);
+                                                  EntityDialogNpc npc = new EntityDialogNpc(player.world);
                                                   npc.display.setName(Server.readString(buffer));
                                                   EntityUtil.Copy(player, npc);
                                                   dialog = new Dialog((DialogCategory)null);

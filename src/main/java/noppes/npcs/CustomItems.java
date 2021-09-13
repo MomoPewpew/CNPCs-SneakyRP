@@ -123,41 +123,41 @@ public class CustomItems {
           GameRegistry.registerTileEntity(TileBuilder.class, "TileNPCBuilder");
           GameRegistry.registerTileEntity(TileCopy.class, "TileNPCCopy");
           GameRegistry.registerTileEntity(TileBorder.class, "TileNPCBorder");
-          Block redstoneBlock = (new BlockNpcRedstone()).func_149711_c(50.0F).func_149752_b(2000.0F).func_149663_c("npcredstoneblock").func_149647_a(tab);
-          Block mailbox = (new BlockMailbox()).func_149663_c("npcmailbox").func_149711_c(5.0F).func_149752_b(10.0F).func_149647_a(tab);
-          Block waypoint = (new BlockWaypoint()).func_149663_c("npcwaypoint").func_149711_c(5.0F).func_149752_b(10.0F).func_149647_a(tab);
-          Block border = (new BlockBorder()).func_149663_c("npcborder").func_149711_c(5.0F).func_149752_b(10.0F).func_149647_a(tab);
-          Block scripted = (new BlockScripted()).func_149663_c("npcscripted").func_149711_c(5.0F).func_149752_b(10.0F).func_149647_a(tab);
-          Block scriptedDoor = (new BlockScriptedDoor()).func_149663_c("npcscripteddoor").func_149711_c(5.0F).func_149752_b(10.0F);
-          Block builder = (new BlockBuilder()).func_149663_c("npcbuilderblock").func_149711_c(5.0F).func_149752_b(10.0F).func_149647_a(tab);
-          Block copy = (new BlockCopy()).func_149663_c("npccopyblock").func_149711_c(5.0F).func_149752_b(10.0F).func_149647_a(tab);
-          Block carpentyBench = (new BlockCarpentryBench()).func_149663_c("npccarpentybench").func_149711_c(5.0F).func_149752_b(10.0F).func_149647_a(tab);
+          Block redstoneBlock = (new BlockNpcRedstone()).setHardness(50.0F).setResistance(2000.0F).setUnlocalizedName("npcredstoneblock").setCreativeTab(tab);
+          Block mailbox = (new BlockMailbox()).setUnlocalizedName("npcmailbox").setHardness(5.0F).setResistance(10.0F).setCreativeTab(tab);
+          Block waypoint = (new BlockWaypoint()).setUnlocalizedName("npcwaypoint").setHardness(5.0F).setResistance(10.0F).setCreativeTab(tab);
+          Block border = (new BlockBorder()).setUnlocalizedName("npcborder").setHardness(5.0F).setResistance(10.0F).setCreativeTab(tab);
+          Block scripted = (new BlockScripted()).setUnlocalizedName("npcscripted").setHardness(5.0F).setResistance(10.0F).setCreativeTab(tab);
+          Block scriptedDoor = (new BlockScriptedDoor()).setUnlocalizedName("npcscripteddoor").setHardness(5.0F).setResistance(10.0F);
+          Block builder = (new BlockBuilder()).setUnlocalizedName("npcbuilderblock").setHardness(5.0F).setResistance(10.0F).setCreativeTab(tab);
+          Block copy = (new BlockCopy()).setUnlocalizedName("npccopyblock").setHardness(5.0F).setResistance(10.0F).setCreativeTab(tab);
+          Block carpentyBench = (new BlockCarpentryBench()).setUnlocalizedName("npccarpentybench").setHardness(5.0F).setResistance(10.0F).setCreativeTab(tab);
           event.getRegistry().registerAll(new Block[]{redstoneBlock, carpentyBench, mailbox, waypoint, border, scripted, scriptedDoor, builder, copy});
      }
 
      @SubscribeEvent
      public void registerItems(Register event) {
-          Item wand = (new ItemNpcWand()).func_77655_b("npcwand").func_77664_n();
-          Item cloner = (new ItemNpcCloner()).func_77655_b("npcmobcloner").func_77664_n();
-          Item scripter = (new ItemNpcScripter()).func_77655_b("npcscripter").func_77664_n();
-          Item moving = (new ItemNpcMovingPath()).func_77655_b("npcmovingpath").func_77664_n();
-          Item mount = (new ItemMounter()).func_77655_b("npcmounter").func_77664_n();
-          Item teleporter = (new ItemTeleporter()).func_77655_b("npcteleporter").func_77664_n();
-          Item scriptedDoorTool = (new ItemScriptedDoor(scriptedDoor)).func_77655_b("npcscripteddoortool").func_77664_n();
-          Item soulstoneEmpty = (new ItemSoulstoneEmpty()).func_77655_b("npcsoulstoneempty").func_77637_a(tab);
-          Item soulstoneFull = (new ItemSoulstoneFilled()).func_77655_b("npcsoulstonefilled");
-          Item scripted_item = (new ItemScripted()).func_77655_b("scripted_item");
-          Item nbt_book = (new ItemNbtBook()).func_77655_b("nbt_book");
+          Item wand = (new ItemNpcWand()).setUnlocalizedName("npcwand").setFull3D();
+          Item cloner = (new ItemNpcCloner()).setUnlocalizedName("npcmobcloner").setFull3D();
+          Item scripter = (new ItemNpcScripter()).setUnlocalizedName("npcscripter").setFull3D();
+          Item moving = (new ItemNpcMovingPath()).setUnlocalizedName("npcmovingpath").setFull3D();
+          Item mount = (new ItemMounter()).setUnlocalizedName("npcmounter").setFull3D();
+          Item teleporter = (new ItemTeleporter()).setUnlocalizedName("npcteleporter").setFull3D();
+          Item scriptedDoorTool = (new ItemScriptedDoor(scriptedDoor)).setUnlocalizedName("npcscripteddoortool").setFull3D();
+          Item soulstoneEmpty = (new ItemSoulstoneEmpty()).setUnlocalizedName("npcsoulstoneempty").setCreativeTab(tab);
+          Item soulstoneFull = (new ItemSoulstoneFilled()).setUnlocalizedName("npcsoulstonefilled");
+          Item scripted_item = (new ItemScripted()).setUnlocalizedName("scripted_item");
+          Item nbt_book = (new ItemNbtBook()).setUnlocalizedName("nbt_book");
           event.getRegistry().registerAll(new Item[]{wand, cloner, scripter, moving, mount, teleporter, scriptedDoorTool, soulstoneEmpty, soulstoneFull, scripted_item, nbt_book});
           event.getRegistry().registerAll(new Item[]{new ItemNpcBlock(redstoneBlock), new ItemNpcBlock(carpentyBench), (new ItemNpcBlock(mailbox)).func_77627_a(true), new ItemNpcBlock(waypoint), new ItemNpcBlock(border), new ItemNpcBlock(scripted), new ItemNpcBlock(scriptedDoor), new ItemNpcBlock(builder), new ItemNpcBlock(copy)});
           tab.item = wand;
-          BlockDispenser.field_149943_a.func_82595_a(soulstoneFull, new BehaviorDefaultDispenseItem() {
+          BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(soulstoneFull, new BehaviorDefaultDispenseItem() {
                public ItemStack func_82487_b(IBlockSource source, ItemStack item) {
-                    EnumFacing enumfacing = (EnumFacing)source.func_189992_e().func_177229_b(BlockDispenser.field_176441_a);
-                    double x = source.func_82615_a() + (double)enumfacing.func_82601_c();
-                    double z = source.func_82616_c() + (double)enumfacing.func_82599_e();
-                    ItemSoulstoneFilled.Spawn((EntityPlayer)null, item, source.func_82618_k(), new BlockPos(x, source.func_82617_b(), z));
-                    item.func_77979_a(1);
+                    EnumFacing enumfacing = (EnumFacing)source.func_189992_e().func_177229_b(BlockDispenser.FACING);
+                    double x = source.getX() + (double)enumfacing.getFrontOffsetX();
+                    double z = source.getZ() + (double)enumfacing.getFrontOffsetZ();
+                    ItemSoulstoneFilled.Spawn((EntityPlayer)null, item, source.getWorld(), new BlockPos(x, source.getY(), z));
+                    item.splitStack(1);
                     return item;
                }
           });

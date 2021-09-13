@@ -20,7 +20,7 @@ public class EntityAIAttackTarget extends EntityAIBase {
 
      public EntityAIAttackTarget(EntityNPCInterface par1EntityLiving) {
           this.npc = par1EntityLiving;
-          this.world = par1EntityLiving.field_70170_p;
+          this.world = par1EntityLiving.world;
           this.func_75248_a(this.navOverride ? AiMutex.PATHING : AiMutex.LOOK + AiMutex.PASSIVE);
      }
 

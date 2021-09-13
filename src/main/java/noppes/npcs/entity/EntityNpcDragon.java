@@ -55,14 +55,14 @@ public class EntityNpcDragon extends EntityNPCInterface {
      public void func_70071_h_() {
           this.field_70128_L = true;
           this.func_94061_f(true);
-          if (!this.field_70170_p.field_72995_K) {
+          if (!this.world.field_72995_K) {
                NBTTagCompound compound = new NBTTagCompound();
                this.func_189511_e(compound);
-               EntityCustomNpc npc = new EntityCustomNpc(this.field_70170_p);
+               EntityCustomNpc npc = new EntityCustomNpc(this.world);
                npc.func_70020_e(compound);
                ModelData data = npc.modelData;
                data.setEntityClass(EntityNpcDragon.class);
-               this.field_70170_p.func_72838_d(npc);
+               this.world.func_72838_d(npc);
           }
 
           super.func_70071_h_();
@@ -71,13 +71,13 @@ public class EntityNpcDragon extends EntityNPCInterface {
      public void func_70636_d() {
           this.field_40173_aw = this.field_40172_ax;
           float f;
-          if (this.field_70170_p.field_72995_K && this.func_110143_aJ() <= 0.0F) {
+          if (this.world.field_72995_K && this.func_110143_aJ() <= 0.0F) {
                if (!this.exploded) {
                     this.exploded = true;
                     f = (this.field_70146_Z.nextFloat() - 0.5F) * 8.0F;
                     float f2 = (this.field_70146_Z.nextFloat() - 0.5F) * 4.0F;
                     float f4 = (this.field_70146_Z.nextFloat() - 0.5F) * 8.0F;
-                    this.field_70170_p.func_175688_a(EnumParticleTypes.EXPLOSION_LARGE, this.field_70165_t + (double)f, this.field_70163_u + 2.0D + (double)f2, this.field_70161_v + (double)f4, 0.0D, 0.0D, 0.0D, new int[0]);
+                    this.world.func_175688_a(EnumParticleTypes.EXPLOSION_LARGE, this.field_70165_t + (double)f, this.field_70163_u + 2.0D + (double)f2, this.field_70161_v + (double)f4, 0.0D, 0.0D, 0.0D, new int[0]);
                }
           } else {
                this.exploded = false;

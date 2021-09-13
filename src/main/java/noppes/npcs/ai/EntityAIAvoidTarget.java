@@ -36,12 +36,12 @@ public class EntityAIAvoidTarget extends EntityAIBase {
           } else {
                this.targetEntityClass = target.getClass();
                if (this.targetEntityClass == EntityPlayer.class) {
-                    this.closestLivingEntity = this.npc.field_70170_p.func_72890_a(this.npc, (double)this.distanceFromEntity);
+                    this.closestLivingEntity = this.npc.world.func_72890_a(this.npc, (double)this.distanceFromEntity);
                     if (this.closestLivingEntity == null) {
                          return false;
                     }
                } else {
-                    List var1 = this.npc.field_70170_p.func_72872_a(this.targetEntityClass, this.npc.func_174813_aQ().func_72314_b((double)this.distanceFromEntity, 3.0D, (double)this.distanceFromEntity));
+                    List var1 = this.npc.world.func_72872_a(this.targetEntityClass, this.npc.func_174813_aQ().func_72314_b((double)this.distanceFromEntity, 3.0D, (double)this.distanceFromEntity));
                     if (var1.isEmpty()) {
                          return false;
                     }

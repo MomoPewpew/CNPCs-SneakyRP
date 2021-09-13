@@ -45,7 +45,7 @@ public class NpcMiscInventory implements IInventory {
           for(int slot = 0; slot < this.items.size(); ++slot) {
                ItemStack item = (ItemStack)this.items.get(slot);
                if (!item.func_190926_b() && eating == item && item.func_190916_E() >= decrease) {
-                    item.func_77979_a(decrease);
+                    item.splitStack(decrease);
                     if (item.func_190916_E() <= 0) {
                          this.items.set(slot, ItemStack.field_190927_a);
                     }

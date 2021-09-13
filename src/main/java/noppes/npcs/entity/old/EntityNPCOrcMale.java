@@ -18,17 +18,17 @@ public class EntityNPCOrcMale extends EntityNPCInterface {
      public void func_70071_h_() {
           this.field_70128_L = true;
           this.func_94061_f(true);
-          if (!this.field_70170_p.field_72995_K) {
+          if (!this.world.field_72995_K) {
                NBTTagCompound compound = new NBTTagCompound();
                this.func_189511_e(compound);
-               EntityCustomNpc npc = new EntityCustomNpc(this.field_70170_p);
+               EntityCustomNpc npc = new EntityCustomNpc(this.world);
                npc.func_70020_e(compound);
                ModelData data = npc.modelData;
                data.getPartConfig(EnumParts.LEG_LEFT).setScale(1.2F, 1.05F);
                data.getPartConfig(EnumParts.ARM_LEFT).setScale(1.2F, 1.05F);
                data.getPartConfig(EnumParts.BODY).setScale(1.4F, 1.1F, 1.5F);
                data.getPartConfig(EnumParts.HEAD).setScale(1.2F, 1.1F);
-               this.field_70170_p.func_72838_d(npc);
+               this.world.func_72838_d(npc);
           }
 
           super.func_70071_h_();

@@ -61,7 +61,7 @@ public class CommonProxy implements IGuiHandler {
           } else if (gui == EnumGuiType.MainMenuInv) {
                return new ContainerNPCInv(npc, player);
           } else if (gui == EnumGuiType.PlayerAnvil) {
-               return new ContainerCarpentryBench(player.field_71071_by, player.field_70170_p, new BlockPos(x, y, z));
+               return new ContainerCarpentryBench(player.inventory, player.world, new BlockPos(x, y, z));
           } else if (gui == EnumGuiType.PlayerBankSmall) {
                return new ContainerNPCBankSmall(player, x, y);
           } else if (gui == EnumGuiType.PlayerBankUnlock) {
@@ -91,7 +91,7 @@ public class CommonProxy implements IGuiHandler {
           } else if (gui == EnumGuiType.ManageBanks) {
                return new ContainerManageBanks(player);
           } else if (gui == EnumGuiType.MerchantAdd) {
-               return new ContainerMerchantAdd(player, ServerEventsHandler.Merchant, player.field_70170_p);
+               return new ContainerMerchantAdd(player, ServerEventsHandler.Merchant, player.world);
           } else if (gui == EnumGuiType.PlayerMailman) {
                return new ContainerMail(player, x == 1, y == 1);
           } else if (gui == EnumGuiType.CompanionInv) {

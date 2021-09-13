@@ -79,7 +79,7 @@ public class MarkData implements ICapabilityProvider {
           MarkData.Mark m = new MarkData.Mark();
           m.type = type;
           this.marks.add(m);
-          if (!this.entity.field_70170_p.field_72995_K) {
+          if (!this.entity.world.field_72995_K) {
                this.syncClients();
           }
 
@@ -91,7 +91,7 @@ public class MarkData implements ICapabilityProvider {
           m.type = type;
           m.color = color;
           this.marks.add(m);
-          if (!this.entity.field_70170_p.field_72995_K) {
+          if (!this.entity.world.field_72995_K) {
                this.syncClients();
           }
 

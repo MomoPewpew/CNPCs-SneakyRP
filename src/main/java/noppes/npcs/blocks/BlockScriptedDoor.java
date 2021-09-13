@@ -41,7 +41,7 @@ public class BlockScriptedDoor extends BlockNpcDoorInterface implements IPermiss
                if (iblockstate1.func_177230_c() != this) {
                     return false;
                } else {
-                    ItemStack currentItem = player.field_71071_by.func_70448_g();
+                    ItemStack currentItem = player.inventory.func_70448_g();
                     if (currentItem != null && (currentItem.func_77973_b() == CustomItems.wand || currentItem.func_77973_b() == CustomItems.scripter || currentItem.func_77973_b() == CustomItems.scriptedDoorTool)) {
                          NoppesUtilServer.sendOpenGui(player, EnumGuiType.ScriptDoor, (EntityNPCInterface)null, blockpos1.func_177958_n(), blockpos1.func_177956_o(), blockpos1.func_177952_p());
                          return true;

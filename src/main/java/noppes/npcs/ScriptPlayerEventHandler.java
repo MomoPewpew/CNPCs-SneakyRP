@@ -79,8 +79,8 @@ public class ScriptPlayerEventHandler {
                if (player.field_70173_aa % 10 == 0) {
                     EventHooks.onPlayerTick(data.scriptData);
 
-                    for(int i = 0; i < player.field_71071_by.func_70302_i_(); ++i) {
-                         ItemStack item = player.field_71071_by.func_70301_a(i);
+                    for(int i = 0; i < player.inventory.func_70302_i_(); ++i) {
+                         ItemStack item = player.inventory.func_70301_a(i);
                          if (!item.func_190926_b() && item.func_77973_b() == CustomItems.scripted_item) {
                               ItemScriptedWrapper isw = (ItemScriptedWrapper)NpcAPI.Instance().getIItemStack(item);
                               EventHooks.onScriptItemUpdate(isw, player);
@@ -103,7 +103,7 @@ public class ScriptPlayerEventHandler {
 
      @SubscribeEvent
      public void invoke(LeftClickBlock event) {
-          if (!event.getEntityPlayer().field_70170_p.field_72995_K && event.getHand() == EnumHand.MAIN_HAND && event.getWorld() instanceof WorldServer) {
+          if (!event.getEntityPlayer().world.field_72995_K && event.getHand() == EnumHand.MAIN_HAND && event.getWorld() instanceof WorldServer) {
                PlayerScriptData handler = PlayerData.get(event.getEntityPlayer()).scriptData;
                PlayerEvent.AttackEvent ev = new PlayerEvent.AttackEvent(handler.getPlayer(), 2, NpcAPI.Instance().getIBlock(event.getWorld(), event.getPos()));
                event.setCanceled(EventHooks.onPlayerAttack(handler, ev));
@@ -119,7 +119,7 @@ public class ScriptPlayerEventHandler {
 
      @SubscribeEvent
      public void invoke(RightClickBlock event) {
-          if (!event.getEntityPlayer().field_70170_p.field_72995_K && event.getHand() == EnumHand.MAIN_HAND && event.getWorld() instanceof WorldServer) {
+          if (!event.getEntityPlayer().world.field_72995_K && event.getHand() == EnumHand.MAIN_HAND && event.getWorld() instanceof WorldServer) {
                if (event.getItemStack().func_77973_b() == CustomItems.nbt_book) {
                     ((ItemNbtBook)event.getItemStack().func_77973_b()).blockEvent(event);
                     event.setCanceled(true);
@@ -140,7 +140,7 @@ public class ScriptPlayerEventHandler {
 
      @SubscribeEvent
      public void invoke(EntityInteract event) {
-          if (!event.getEntityPlayer().field_70170_p.field_72995_K && event.getHand() == EnumHand.MAIN_HAND && event.getWorld() instanceof WorldServer) {
+          if (!event.getEntityPlayer().world.field_72995_K && event.getHand() == EnumHand.MAIN_HAND && event.getWorld() instanceof WorldServer) {
                if (event.getItemStack().func_77973_b() == CustomItems.nbt_book) {
                     ((ItemNbtBook)event.getItemStack().func_77973_b()).entityEvent(event);
                     event.setCanceled(true);
@@ -160,7 +160,7 @@ public class ScriptPlayerEventHandler {
 
      @SubscribeEvent
      public void invoke(RightClickItem event) {
-          if (!event.getEntityPlayer().field_70170_p.field_72995_K && event.getHand() == EnumHand.MAIN_HAND && event.getWorld() instanceof WorldServer) {
+          if (!event.getEntityPlayer().world.field_72995_K && event.getHand() == EnumHand.MAIN_HAND && event.getWorld() instanceof WorldServer) {
                if (event.getEntityPlayer().func_184812_l_() && event.getEntityPlayer().func_70093_af() && event.getItemStack().func_77973_b() == CustomItems.scripted_item) {
                     NoppesUtilServer.sendOpenGui(event.getEntityPlayer(), EnumGuiType.ScriptItem, (EntityNPCInterface)null);
                } else {
@@ -183,7 +183,7 @@ public class ScriptPlayerEventHandler {
 
      @SubscribeEvent
      public void invoke(ArrowLooseEvent event) {
-          if (!event.getEntityPlayer().field_70170_p.field_72995_K && event.getWorld() instanceof WorldServer) {
+          if (!event.getEntityPlayer().world.field_72995_K && event.getWorld() instanceof WorldServer) {
                PlayerScriptData handler = PlayerData.get(event.getEntityPlayer()).scriptData;
                PlayerEvent.RangedLaunchedEvent ev = new PlayerEvent.RangedLaunchedEvent(handler.getPlayer());
                event.setCanceled(EventHooks.onPlayerRanged(handler, ev));
@@ -192,7 +192,7 @@ public class ScriptPlayerEventHandler {
 
      @SubscribeEvent
      public void invoke(BreakEvent event) {
-          if (!event.getPlayer().field_70170_p.field_72995_K && event.getWorld() instanceof WorldServer) {
+          if (!event.getPlayer().world.field_72995_K && event.getWorld() instanceof WorldServer) {
                PlayerScriptData handler = PlayerData.get(event.getPlayer()).scriptData;
                PlayerEvent.BreakEvent ev = new PlayerEvent.BreakEvent(handler.getPlayer(), NpcAPI.Instance().getIBlock(event.getWorld(), event.getPos()), event.getExpToDrop());
                event.setCanceled(EventHooks.onPlayerBreak(handler, ev));
@@ -202,7 +202,7 @@ public class ScriptPlayerEventHandler {
 
      @SubscribeEvent
      public void invoke(ItemTossEvent event) {
-          if (event.getPlayer().field_70170_p instanceof WorldServer) {
+          if (event.getPlayer().world instanceof WorldServer) {
                PlayerScriptData handler = PlayerData.get(event.getPlayer()).scriptData;
                event.setCanceled(EventHooks.onPlayerToss(handler, event.getEntityItem()));
           }
@@ -210,7 +210,7 @@ public class ScriptPlayerEventHandler {
 
      @SubscribeEvent
      public void invoke(EntityItemPickupEvent event) {
-          if (event.getEntityPlayer().field_70170_p instanceof WorldServer) {
+          if (event.getEntityPlayer().world instanceof WorldServer) {
                PlayerScriptData handler = PlayerData.get(event.getEntityPlayer()).scriptData;
                event.setCanceled(EventHooks.onPlayerPickUp(handler, event.getItem()));
           }
@@ -218,7 +218,7 @@ public class ScriptPlayerEventHandler {
 
      @SubscribeEvent
      public void invoke(Open event) {
-          if (event.getEntityPlayer().field_70170_p instanceof WorldServer) {
+          if (event.getEntityPlayer().world instanceof WorldServer) {
                PlayerScriptData handler = PlayerData.get(event.getEntityPlayer()).scriptData;
                EventHooks.onPlayerContainerOpen(handler, event.getContainer());
           }
@@ -226,7 +226,7 @@ public class ScriptPlayerEventHandler {
 
      @SubscribeEvent
      public void invoke(Close event) {
-          if (event.getEntityPlayer().field_70170_p instanceof WorldServer) {
+          if (event.getEntityPlayer().world instanceof WorldServer) {
                PlayerScriptData handler = PlayerData.get(event.getEntityPlayer()).scriptData;
                EventHooks.onPlayerContainerClose(handler, event.getContainer());
           }
@@ -234,7 +234,7 @@ public class ScriptPlayerEventHandler {
 
      @SubscribeEvent
      public void invoke(LivingDeathEvent event) {
-          if (event.getEntityLiving().field_70170_p instanceof WorldServer) {
+          if (event.getEntityLiving().world instanceof WorldServer) {
                Entity source = NoppesUtilServer.GetDamageSourcee(event.getSource());
                PlayerScriptData handler;
                if (event.getEntityLiving() instanceof EntityPlayer) {
@@ -252,7 +252,7 @@ public class ScriptPlayerEventHandler {
 
      @SubscribeEvent
      public void invoke(LivingHurtEvent event) {
-          if (event.getEntityLiving().field_70170_p instanceof WorldServer) {
+          if (event.getEntityLiving().world instanceof WorldServer) {
                Entity source = NoppesUtilServer.GetDamageSourcee(event.getSource());
                PlayerScriptData handler;
                if (event.getEntityLiving() instanceof EntityPlayer) {
@@ -274,7 +274,7 @@ public class ScriptPlayerEventHandler {
 
      @SubscribeEvent
      public void invoke(LivingAttackEvent event) {
-          if (event.getEntityLiving().field_70170_p instanceof WorldServer) {
+          if (event.getEntityLiving().world instanceof WorldServer) {
                Entity source = NoppesUtilServer.GetDamageSourcee(event.getSource());
                if (source instanceof EntityPlayer) {
                     PlayerScriptData handler = PlayerData.get((EntityPlayer)source).scriptData;
@@ -295,7 +295,7 @@ public class ScriptPlayerEventHandler {
 
      @SubscribeEvent
      public void invoke(PlayerLoggedInEvent event) {
-          if (event.player.field_70170_p instanceof WorldServer) {
+          if (event.player.world instanceof WorldServer) {
                PlayerScriptData handler = PlayerData.get(event.player).scriptData;
                EventHooks.onPlayerLogin(handler);
           }
@@ -303,7 +303,7 @@ public class ScriptPlayerEventHandler {
 
      @SubscribeEvent
      public void invoke(PlayerLoggedOutEvent event) {
-          if (event.player.field_70170_p instanceof WorldServer) {
+          if (event.player.world instanceof WorldServer) {
                PlayerScriptData handler = PlayerData.get(event.player).scriptData;
                EventHooks.onPlayerLogout(handler);
           }
@@ -313,7 +313,7 @@ public class ScriptPlayerEventHandler {
           priority = EventPriority.HIGHEST
      )
      public void invoke(ServerChatEvent event) {
-          if (event.getPlayer().field_70170_p instanceof WorldServer && event.getPlayer() != EntityNPCInterface.ChatEventPlayer) {
+          if (event.getPlayer().world instanceof WorldServer && event.getPlayer() != EntityNPCInterface.ChatEventPlayer) {
                PlayerScriptData handler = PlayerData.get(event.getPlayer()).scriptData;
                String message = event.getMessage();
                PlayerEvent.ChatEvent ev = new PlayerEvent.ChatEvent(handler.getPlayer(), event.getMessage());
@@ -399,7 +399,7 @@ public class ScriptPlayerEventHandler {
                if (CustomNpcs.Server != null && ScriptController.Instance.forgeScripts.isEnabled()) {
                     if (event instanceof EntityEvent) {
                          EntityEvent evx = (EntityEvent)event;
-                         if (evx.getEntity() != null && evx.getEntity().field_70170_p instanceof WorldServer) {
+                         if (evx.getEntity() != null && evx.getEntity().world instanceof WorldServer) {
                               EventHooks.onForgeEntityEvent(evx);
                          }
                     } else if (event instanceof WorldEvent) {
@@ -410,7 +410,7 @@ public class ScriptPlayerEventHandler {
                     } else if (!(event instanceof TickEvent) || ((TickEvent)event).side != Side.CLIENT) {
                          if (event instanceof net.minecraftforge.fml.common.gameevent.PlayerEvent) {
                               net.minecraftforge.fml.common.gameevent.PlayerEvent evxx = (net.minecraftforge.fml.common.gameevent.PlayerEvent)event;
-                              if (!(evxx.player.field_70170_p instanceof WorldServer)) {
+                              if (!(evxx.player.world instanceof WorldServer)) {
                                    return;
                               }
                          }

@@ -254,7 +254,7 @@ public class PacketHandlerPlayer {
                               mail = (PlayerMail)it.next();
                               if (mail.time == time && mail.sender.equals(username)) {
                                    ContainerMail.staticmail = mail;
-                                   player.openGui(CustomNpcs.instance, EnumGuiType.PlayerMailman.ordinal(), player.field_70170_p, 0, 0, 0);
+                                   player.openGui(CustomNpcs.instance, EnumGuiType.PlayerMailman.ordinal(), player.world, 0, 0, 0);
                                    break;
                               }
                          }

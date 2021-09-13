@@ -27,7 +27,7 @@ public class GuiBlockCopy extends GuiNPCInterface implements IGuiData, ITextfiel
           this.xSize = 256;
           this.ySize = 216;
           this.closeOnEsc = true;
-          this.tile = (TileCopy)this.player.field_70170_p.func_175625_s(new BlockPos(x, y, z));
+          this.tile = (TileCopy)this.player.world.func_175625_s(new BlockPos(x, y, z));
           Client.sendData(EnumPacketServer.GetTileEntity, x, y, z);
      }
 

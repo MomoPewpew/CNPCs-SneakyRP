@@ -223,7 +223,7 @@ public class EntityProjectile extends EntityThrowable {
 
      @SideOnly(Side.CLIENT)
      public void func_180426_a(double par1, double par3, double par5, float par7, float par8, int par9, boolean bo) {
-          if (!this.field_70170_p.field_72995_K || !this.field_174854_a) {
+          if (!this.world.field_72995_K || !this.field_174854_a) {
                this.func_70107_b(par1, par3, par5);
                this.func_70101_b(par7, par8);
           }
@@ -239,10 +239,10 @@ public class EntityProjectile extends EntityThrowable {
                this.func_70015_d(1);
           }
 
-          IBlockState state = this.field_70170_p.func_180495_p(this.tilePos);
+          IBlockState state = this.world.func_180495_p(this.tilePos);
           Block block = state.func_177230_c();
           if ((this.isArrow() || this.sticksToWalls()) && this.tilePos != BlockPos.field_177992_a) {
-               AxisAlignedBB axisalignedbb = state.func_185890_d(this.field_70170_p, this.tilePos);
+               AxisAlignedBB axisalignedbb = state.func_185890_d(this.world, this.tilePos);
                if (axisalignedbb != null && axisalignedbb.func_72318_a(new Vec3d(this.field_70165_t, this.field_70163_u, this.field_70161_v))) {
                     this.field_174854_a = true;
                }
@@ -275,16 +275,16 @@ public class EntityProjectile extends EntityThrowable {
 
                Vec3d vec3 = new Vec3d(this.field_70165_t, this.field_70163_u, this.field_70161_v);
                Vec3d vec31 = new Vec3d(this.field_70165_t + this.field_70159_w, this.field_70163_u + this.field_70181_x, this.field_70161_v + this.field_70179_y);
-               RayTraceResult movingobjectposition = this.field_70170_p.func_147447_a(vec3, vec31, false, true, false);
+               RayTraceResult movingobjectposition = this.world.func_147447_a(vec3, vec31, false, true, false);
                vec3 = new Vec3d(this.field_70165_t, this.field_70163_u, this.field_70161_v);
                vec31 = new Vec3d(this.field_70165_t + this.field_70159_w, this.field_70163_u + this.field_70181_x, this.field_70161_v + this.field_70179_y);
                if (movingobjectposition != null) {
                     vec31 = new Vec3d(movingobjectposition.field_72307_f.field_72450_a, movingobjectposition.field_72307_f.field_72448_b, movingobjectposition.field_72307_f.field_72449_c);
                }
 
-               if (!this.field_70170_p.field_72995_K) {
+               if (!this.world.field_72995_K) {
                     Entity entity = null;
-                    List list = this.field_70170_p.func_72839_b(this, this.func_174813_aQ().func_72314_b(this.field_70159_w, this.field_70181_x, this.field_70179_y).func_72314_b(1.0D, 1.0D, 1.0D));
+                    List list = this.world.func_72839_b(this, this.func_174813_aQ().func_72314_b(this.field_70159_w, this.field_70181_x, this.field_70179_y).func_72314_b(1.0D, 1.0D, 1.0D));
                     double d0 = 0.0D;
                     EntityLivingBase entityliving = this.func_85052_h();
                     int k = 0;
@@ -334,7 +334,7 @@ public class EntityProjectile extends EntityThrowable {
                }
 
                if (movingobjectposition != null) {
-                    if (movingobjectposition.field_72313_a == Type.BLOCK && this.field_70170_p.func_180495_p(movingobjectposition.func_178782_a()).func_177230_c() == Blocks.field_150427_aO) {
+                    if (movingobjectposition.field_72313_a == Type.BLOCK && this.world.func_180495_p(movingobjectposition.func_178782_a()).func_177230_c() == Blocks.field_150427_aO) {
                          this.func_181015_d(movingobjectposition.func_178782_a());
                     } else {
                          this.field_70180_af.func_187227_b(Rotating, false);
@@ -373,10 +373,10 @@ public class EntityProjectile extends EntityThrowable {
                float f2 = this.getMotionFactor();
                float f3 = this.func_70185_h();
                if (this.func_70090_H()) {
-                    if (this.field_70170_p.field_72995_K) {
+                    if (this.world.field_72995_K) {
                          for(int k = 0; k < 4; ++k) {
                               float f4 = 0.25F;
-                              this.field_70170_p.func_175688_a(EnumParticleTypes.WATER_BUBBLE, this.field_70165_t - this.field_70159_w * (double)f4, this.field_70163_u - this.field_70181_x * (double)f4, this.field_70161_v - this.field_70179_y * (double)f4, this.field_70159_w, this.field_70181_x, this.field_70179_y, new int[0]);
+                              this.world.func_175688_a(EnumParticleTypes.WATER_BUBBLE, this.field_70165_t - this.field_70159_w * (double)f4, this.field_70163_u - this.field_70181_x * (double)f4, this.field_70161_v - this.field_70179_y * (double)f4, this.field_70159_w, this.field_70181_x, this.field_70179_y, new int[0]);
                          }
                     }
 
@@ -396,8 +396,8 @@ public class EntityProjectile extends EntityThrowable {
                     this.field_70179_y += this.accelerationZ;
                }
 
-               if (this.field_70170_p.field_72995_K && (Integer)this.field_70180_af.func_187225_a(Particle) > 0) {
-                    this.field_70170_p.func_175688_a(ParticleType.getMCType((Integer)this.field_70180_af.func_187225_a(Particle)), this.field_70165_t, this.field_70163_u, this.field_70161_v, 0.0D, 0.0D, 0.0D, new int[0]);
+               if (this.world.field_72995_K && (Integer)this.field_70180_af.func_187225_a(Particle) > 0) {
+                    this.world.func_175688_a(ParticleType.getMCType((Integer)this.field_70180_af.func_187225_a(Particle)), this.field_70165_t, this.field_70163_u, this.field_70161_v, 0.0D, 0.0D, 0.0D, new int[0]);
                }
 
                this.func_70107_b(this.field_70165_t, this.field_70163_u, this.field_70161_v);
@@ -421,7 +421,7 @@ public class EntityProjectile extends EntityThrowable {
      }
 
      protected void func_70184_a(RayTraceResult movingobjectposition) {
-          if (!this.field_70170_p.field_72995_K) {
+          if (!this.world.field_72995_K) {
                BlockPos pos = null;
                ProjectileEvent.ImpactEvent event;
                if (movingobjectposition.field_72308_g != null) {
@@ -429,7 +429,7 @@ public class EntityProjectile extends EntityThrowable {
                     event = new ProjectileEvent.ImpactEvent((IProjectile)NpcAPI.Instance().getIEntity(this), 0, movingobjectposition.field_72308_g);
                } else {
                     pos = movingobjectposition.func_178782_a();
-                    event = new ProjectileEvent.ImpactEvent((IProjectile)NpcAPI.Instance().getIEntity(this), 1, NpcAPI.Instance().getIBlock(this.field_70170_p, pos));
+                    event = new ProjectileEvent.ImpactEvent((IProjectile)NpcAPI.Instance().getIEntity(this), 1, NpcAPI.Instance().getIBlock(this.world, pos));
                }
 
                if (pos == BlockPos.field_177992_a) {
@@ -453,7 +453,7 @@ public class EntityProjectile extends EntityThrowable {
                if (movingobjectposition.field_72308_g.func_70097_a(DamageSource.func_76356_a(this, this.func_85052_h()), damage)) {
                     if (movingobjectposition.field_72308_g instanceof EntityLivingBase && (this.isArrow() || this.sticksToWalls())) {
                          EntityLivingBase entityliving = (EntityLivingBase)movingobjectposition.field_72308_g;
-                         if (!this.field_70170_p.field_72995_K) {
+                         if (!this.world.field_72995_K) {
                               entityliving.func_85034_r(entityliving.func_85035_bI() + 1);
                          }
 
@@ -463,7 +463,7 @@ public class EntityProjectile extends EntityThrowable {
                     }
 
                     if (this.isBlock()) {
-                         this.field_70170_p.func_180498_a((EntityPlayer)null, 2001, movingobjectposition.field_72308_g.func_180425_c(), Item.func_150891_b(this.getItem()));
+                         this.world.func_180498_a((EntityPlayer)null, 2001, movingobjectposition.field_72308_g.func_180425_c(), Item.func_150891_b(this.getItem()));
                     } else if (!this.isArrow() && !this.sticksToWalls()) {
                          int[] intArr = new int[]{Item.func_150891_b(this.getItem())};
                          if (this.getItem().func_77614_k()) {
@@ -471,7 +471,7 @@ public class EntityProjectile extends EntityThrowable {
                          }
 
                          for(int i = 0; i < 8; ++i) {
-                              this.field_70170_p.func_175688_a(EnumParticleTypes.ITEM_CRACK, this.field_70165_t, this.field_70163_u, this.field_70161_v, this.field_70146_Z.nextGaussian() * 0.15D, this.field_70146_Z.nextGaussian() * 0.2D, this.field_70146_Z.nextGaussian() * 0.15D, intArr);
+                              this.world.func_175688_a(EnumParticleTypes.ITEM_CRACK, this.field_70165_t, this.field_70163_u, this.field_70161_v, this.field_70146_Z.nextGaussian() * 0.15D, this.field_70146_Z.nextGaussian() * 0.2D, this.field_70146_Z.nextGaussian() * 0.15D, intArr);
                          }
                     }
 
@@ -500,7 +500,7 @@ public class EntityProjectile extends EntityThrowable {
                }
           } else if (!this.isArrow() && !this.sticksToWalls()) {
                if (this.isBlock()) {
-                    this.field_70170_p.func_180498_a((EntityPlayer)null, 2001, this.func_180425_c(), Item.func_150891_b(this.getItem()));
+                    this.world.func_180498_a((EntityPlayer)null, 2001, this.func_180425_c(), Item.func_150891_b(this.getItem()));
                } else {
                     int[] intArr = new int[]{Item.func_150891_b(this.getItem())};
                     if (this.getItem().func_77614_k()) {
@@ -508,12 +508,12 @@ public class EntityProjectile extends EntityThrowable {
                     }
 
                     for(int i = 0; i < 8; ++i) {
-                         this.field_70170_p.func_175688_a(EnumParticleTypes.ITEM_CRACK, this.field_70165_t, this.field_70163_u, this.field_70161_v, this.field_70146_Z.nextGaussian() * 0.15D, this.field_70146_Z.nextGaussian() * 0.2D, this.field_70146_Z.nextGaussian() * 0.15D, intArr);
+                         this.world.func_175688_a(EnumParticleTypes.ITEM_CRACK, this.field_70165_t, this.field_70163_u, this.field_70161_v, this.field_70146_Z.nextGaussian() * 0.15D, this.field_70146_Z.nextGaussian() * 0.2D, this.field_70146_Z.nextGaussian() * 0.15D, intArr);
                     }
                }
           } else {
                this.tilePos = movingobjectposition.func_178782_a();
-               IBlockState state = this.field_70170_p.func_180495_p(this.tilePos);
+               IBlockState state = this.world.func_180495_p(this.tilePos);
                this.inTile = state.func_177230_c();
                this.inData = this.inTile.func_176201_c(state);
                this.field_70159_w = (double)((float)(movingobjectposition.field_72307_f.field_72450_a - this.field_70165_t));
@@ -530,16 +530,16 @@ public class EntityProjectile extends EntityThrowable {
                }
 
                if (this.inTile != null) {
-                    this.inTile.func_180634_a(this.field_70170_p, this.tilePos, state, this);
+                    this.inTile.func_180634_a(this.world, this.tilePos, state, this);
                }
           }
 
           if (this.explosiveRadius > 0) {
-               boolean terraindamage = this.field_70170_p.func_82736_K().func_82766_b("mobGriefing") && this.explosiveDamage;
-               this.field_70170_p.func_72885_a((Entity)(this.func_85052_h() == null ? this : this.func_85052_h()), this.field_70165_t, this.field_70163_u, this.field_70161_v, (float)this.explosiveRadius, this.effect == 1, terraindamage);
+               boolean terraindamage = this.world.func_82736_K().func_82766_b("mobGriefing") && this.explosiveDamage;
+               this.world.func_72885_a((Entity)(this.func_85052_h() == null ? this : this.func_85052_h()), this.field_70165_t, this.field_70163_u, this.field_70161_v, (float)this.explosiveRadius, this.effect == 1, terraindamage);
                if (this.effect != 0) {
                     AxisAlignedBB axisalignedbb = this.func_174813_aQ().func_72314_b((double)(this.explosiveRadius * 2), (double)(this.explosiveRadius * 2), (double)(this.explosiveRadius * 2));
-                    List list1 = this.field_70170_p.func_72872_a(EntityLivingBase.class, axisalignedbb);
+                    List list1 = this.world.func_72872_a(EntityLivingBase.class, axisalignedbb);
                     Iterator var5 = list1.iterator();
 
                     while(var5.hasNext()) {
@@ -554,13 +554,13 @@ public class EntityProjectile extends EntityThrowable {
                          }
                     }
 
-                    this.field_70170_p.func_180498_a((EntityPlayer)null, 2002, this.func_180425_c(), this.getPotionColor(this.effect));
+                    this.world.func_180498_a((EntityPlayer)null, 2002, this.func_180425_c(), this.getPotionColor(this.effect));
                }
 
                this.func_70106_y();
           }
 
-          if (!this.field_70170_p.field_72995_K && !this.isArrow() && !this.sticksToWalls()) {
+          if (!this.world.field_72995_K && !this.isArrow() && !this.sticksToWalls()) {
                this.func_70106_y();
           }
 
@@ -653,7 +653,7 @@ public class EntityProjectile extends EntityThrowable {
                try {
                     UUID uuid = UUID.fromString(this.throwerName);
                     if (this.thrower == null && uuid != null) {
-                         this.thrower = this.field_70170_p.func_152378_a(uuid);
+                         this.thrower = this.world.func_152378_a(uuid);
                     }
                } catch (IllegalArgumentException var2) {
                }
@@ -769,8 +769,8 @@ public class EntityProjectile extends EntityThrowable {
      }
 
      public void func_70100_b_(EntityPlayer par1EntityPlayer) {
-          if (!this.field_70170_p.field_72995_K && this.canBePickedUp && this.field_174854_a && this.arrowShake <= 0) {
-               if (par1EntityPlayer.field_71071_by.func_70441_a(this.getItemDisplay())) {
+          if (!this.world.field_72995_K && this.canBePickedUp && this.field_174854_a && this.arrowShake <= 0) {
+               if (par1EntityPlayer.inventory.func_70441_a(this.getItemDisplay())) {
                     this.field_174854_a = false;
                     this.func_184185_a(SoundEvents.field_187638_cR, 0.2F, ((this.field_70146_Z.nextFloat() - this.field_70146_Z.nextFloat()) * 0.7F + 1.0F) * 2.0F);
                     par1EntityPlayer.func_71001_a(this, 1);

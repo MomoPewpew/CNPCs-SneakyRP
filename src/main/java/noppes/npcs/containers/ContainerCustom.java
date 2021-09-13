@@ -29,12 +29,12 @@ public class ContainerCustom extends ContainerNpcInterface {
 
           for(j = 0; j < 3; ++j) {
                for(k = 0; k < 9; ++k) {
-                    this.func_75146_a(new Slot(player.field_71071_by, k + j * 9 + 9, 28 + k * 18, 175 + j * 18));
+                    this.func_75146_a(new Slot(player.inventory, k + j * 9 + 9, 28 + k * 18, 175 + j * 18));
                }
           }
 
           for(j = 0; j < 9; ++j) {
-               this.func_75146_a(new Slot(player.field_71071_by, j, 28 + j * 18, 230));
+               this.func_75146_a(new Slot(player.inventory, j, 28 + j * 18, 230));
           }
 
      }
@@ -65,7 +65,7 @@ public class ContainerCustom extends ContainerNpcInterface {
 
      public void func_75134_a(EntityPlayer player) {
           super.func_75134_a(player);
-          if (!player.field_70170_p.field_72995_K) {
+          if (!player.world.field_72995_K) {
                PlayerMailData data = PlayerData.get(player).mailData;
 
                PlayerMail var4;

@@ -341,7 +341,7 @@ public class JobSpawner extends JobInterface implements IJobSpawner {
                double x = this.npc.field_70165_t + (double)this.xOffset - 0.5D + (double)this.npc.func_70681_au().nextFloat();
                double y = this.npc.field_70163_u + (double)this.yOffset;
                double z = this.npc.field_70161_v + (double)this.zOffset - 0.5D + (double)this.npc.func_70681_au().nextFloat();
-               Entity entity = NoppesUtilServer.spawnClone(compound, x, y, z, this.npc.field_70170_p);
+               Entity entity = NoppesUtilServer.spawnClone(compound, x, y, z, this.npc.world);
                if (entity != null && entity instanceof EntityLivingBase) {
                     EntityLivingBase living = (EntityLivingBase)entity;
                     living.getEntityData().func_74778_a("NpcSpawnerId", this.id);
@@ -391,7 +391,7 @@ public class JobSpawner extends JobInterface implements IJobSpawner {
 
      private List getNearbySpawned() {
           List spawnList = new ArrayList();
-          List list = this.npc.field_70170_p.func_72872_a(EntityLivingBase.class, this.npc.func_174813_aQ().func_72314_b(40.0D, 40.0D, 40.0D));
+          List list = this.npc.world.func_72872_a(EntityLivingBase.class, this.npc.func_174813_aQ().func_72314_b(40.0D, 40.0D, 40.0D));
           Iterator var3 = list.iterator();
 
           while(var3.hasNext()) {

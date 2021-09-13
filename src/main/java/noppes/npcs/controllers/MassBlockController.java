@@ -23,7 +23,7 @@ public class MassBlockController {
           MassBlockController var10000 = Instance;
           if (!queue.isEmpty()) {
                MassBlockController.IMassBlock imb = (MassBlockController.IMassBlock)queue.remove();
-               World world = imb.getNpc().field_70170_p;
+               World world = imb.getNpc().world;
                BlockPos pos = imb.getNpc().func_180425_c();
                int range = imb.getRange();
                List list = new ArrayList();

@@ -47,7 +47,7 @@ public class JobHealer extends JobInterface {
                return false;
           } else {
                this.healTicks = 0;
-               this.affected = this.npc.field_70170_p.func_72872_a(EntityLivingBase.class, this.npc.func_174813_aQ().func_72314_b((double)this.range, (double)this.range / 2.0D, (double)this.range));
+               this.affected = this.npc.world.func_72872_a(EntityLivingBase.class, this.npc.func_174813_aQ().func_72314_b((double)this.range, (double)this.range / 2.0D, (double)this.range));
                return !this.affected.isEmpty();
           }
      }

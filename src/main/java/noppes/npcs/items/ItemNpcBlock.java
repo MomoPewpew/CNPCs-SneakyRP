@@ -8,6 +8,6 @@ public class ItemNpcBlock extends ItemBlock {
           super(block);
           String name = block.func_149739_a().substring(5);
           this.setRegistryName(name);
-          this.func_77655_b(name);
+          this.setUnlocalizedName(name);
      }
 }

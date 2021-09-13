@@ -32,7 +32,7 @@ public class ClientEventHandler {
      public void onRenderTick(RenderWorldLastEvent event) {
           EntityPlayer player = Minecraft.func_71410_x().player;
           if (TileBuilder.DrawPos != null && TileBuilder.DrawPos.func_177951_i(player.func_180425_c()) <= 1000000.0D) {
-               TileEntity te = player.field_70170_p.func_175625_s(TileBuilder.DrawPos);
+               TileEntity te = player.world.func_175625_s(TileBuilder.DrawPos);
                if (te != null && te instanceof TileBuilder) {
                     TileBuilder tile = (TileBuilder)te;
                     SchematicWrapper schem = tile.getSchematic();

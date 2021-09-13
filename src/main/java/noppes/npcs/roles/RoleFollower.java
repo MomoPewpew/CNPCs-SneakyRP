@@ -85,12 +85,12 @@ public class RoleFollower extends RoleInterface implements IRoleFollower {
                try {
                     UUID uuid = UUID.fromString(this.ownerUUID);
                     if (uuid != null) {
-                         return this.npc.field_70170_p.func_152378_a(uuid);
+                         return this.npc.world.func_152378_a(uuid);
                     }
                } catch (IllegalArgumentException var2) {
                }
 
-               return this.npc.field_70170_p.func_72924_a(this.ownerUUID);
+               return this.npc.world.func_72924_a(this.ownerUUID);
           } else {
                return null;
           }
@@ -153,14 +153,14 @@ public class RoleFollower extends RoleInterface implements IRoleFollower {
           } else if (this.daysHired <= 0) {
                return 0;
           } else {
-               int days = (int)((this.npc.field_70170_p.func_82737_E() - this.hiredTime) / 24000L);
+               int days = (int)((this.npc.world.func_82737_E() - this.hiredTime) / 24000L);
                return this.daysHired - days;
           }
      }
 
      public void addDays(int days) {
           this.daysHired = days + this.getDays();
-          this.hiredTime = this.npc.field_70170_p.func_82737_E();
+          this.hiredTime = this.npc.world.func_82737_E();
      }
 
      public boolean getInfinite() {

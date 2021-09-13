@@ -50,7 +50,7 @@ public class PlayerFactionData {
                return 0;
           } else {
                if (!this.factionData.containsKey(factionId)) {
-                    if (player.field_70170_p.field_72995_K) {
+                    if (player.world.field_72995_K) {
                          return faction.defaultPoints;
                     }
 
@@ -67,7 +67,7 @@ public class PlayerFactionData {
 
      public void increasePoints(EntityPlayer player, int factionId, int points) {
           Faction faction = FactionController.instance.getFaction(factionId);
-          if (faction != null && player != null && !player.field_70170_p.field_72995_K) {
+          if (faction != null && player != null && !player.world.field_72995_K) {
                PlayerScriptData handler = PlayerData.get(player).scriptData;
                PlayerWrapper wrapper = (PlayerWrapper)NpcAPI.Instance().getIEntity(player);
                PlayerEvent.FactionUpdateEvent event;

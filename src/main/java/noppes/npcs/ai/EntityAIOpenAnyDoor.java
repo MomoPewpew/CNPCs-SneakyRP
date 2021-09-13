@@ -83,7 +83,7 @@ public class EntityAIOpenAnyDoor extends EntityAIBase {
      }
 
      public Block getDoor(BlockPos pos) {
-          IBlockState state = this.npc.field_70170_p.func_180495_p(pos);
+          IBlockState state = this.npc.world.func_180495_p(pos);
           Block block = state.func_177230_c();
           if (!state.func_185913_b() && block != Blocks.field_150454_av) {
                if (block instanceof BlockDoor) {
@@ -111,15 +111,15 @@ public class EntityAIOpenAnyDoor extends EntityAIBase {
 
      public void setDoorState(Block block, BlockPos position, boolean open) {
           if (block instanceof BlockDoor) {
-               ((BlockDoor)block).func_176512_a(this.npc.field_70170_p, position, open);
+               ((BlockDoor)block).func_176512_a(this.npc.world, position, open);
           } else {
-               IBlockState state = this.npc.field_70170_p.func_180495_p(position);
+               IBlockState state = this.npc.world.func_180495_p(position);
                if (state.func_177230_c() != block) {
                     return;
                }
 
-               this.npc.field_70170_p.func_175656_a(position, state.func_177226_a(this.property, open));
-               this.npc.field_70170_p.func_180498_a((EntityPlayer)null, open ? 1003 : 1006, position, 0);
+               this.npc.world.func_175656_a(position, state.func_177226_a(this.property, open));
+               this.npc.world.func_180498_a((EntityPlayer)null, open ? 1003 : 1006, position, 0);
           }
 
      }

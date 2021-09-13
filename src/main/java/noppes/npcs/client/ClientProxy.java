@@ -505,7 +505,7 @@ public class ClientProxy extends CommonProxy {
 
      public void openGui(EntityPlayer player, Object guiscreen) {
           Minecraft minecraft = Minecraft.func_71410_x();
-          if (player.field_70170_p.field_72995_K && guiscreen instanceof GuiScreen) {
+          if (player.world.field_72995_K && guiscreen instanceof GuiScreen) {
                if (guiscreen != null) {
                     minecraft.displayGuiScreen((GuiScreen)guiscreen);
                }

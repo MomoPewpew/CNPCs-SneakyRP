@@ -35,7 +35,7 @@ public class BlockNpcRedstone extends BlockInterface implements IPermission {
           if (par1World.field_72995_K) {
                return false;
           } else {
-               ItemStack currentItem = player.field_71071_by.func_70448_g();
+               ItemStack currentItem = player.inventory.func_70448_g();
                if (currentItem != null && currentItem.func_77973_b() == CustomItems.wand && CustomNpcsPermissions.hasPermission(player, CustomNpcsPermissions.EDIT_BLOCKS)) {
                     NoppesUtilServer.sendOpenGui(player, EnumGuiType.RedstoneBlock, (EntityNPCInterface)null, pos.func_177958_n(), pos.func_177956_o(), pos.func_177952_p());
                     return true;

@@ -170,7 +170,7 @@ public class RoleTrader extends RoleInterface implements IRoleTrader {
      }
 
      public static void load(RoleTrader role, String name) {
-          if (!role.npc.field_70170_p.field_72995_K) {
+          if (!role.npc.world.field_72995_K) {
                File file = getFile(name);
                if (file.exists()) {
                     try {

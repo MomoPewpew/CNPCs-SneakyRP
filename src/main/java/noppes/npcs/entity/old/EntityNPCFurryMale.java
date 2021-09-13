@@ -17,10 +17,10 @@ public class EntityNPCFurryMale extends EntityNPCInterface {
      public void func_70071_h_() {
           this.field_70128_L = true;
           this.func_94061_f(true);
-          if (!this.field_70170_p.field_72995_K) {
+          if (!this.world.field_72995_K) {
                NBTTagCompound compound = new NBTTagCompound();
                this.func_189511_e(compound);
-               EntityCustomNpc npc = new EntityCustomNpc(this.field_70170_p);
+               EntityCustomNpc npc = new EntityCustomNpc(this.world);
                npc.func_70020_e(compound);
                ModelData data = npc.modelData;
                ModelPartData ears = data.getOrCreatePart(EnumParts.EARS);
@@ -32,7 +32,7 @@ public class EntityNPCFurryMale extends EntityNPCInterface {
                ModelPartData tail = data.getOrCreatePart(EnumParts.TAIL);
                tail.type = 0;
                tail.color = 6182997;
-               this.field_70170_p.func_72838_d(npc);
+               this.world.func_72838_d(npc);
           }
 
           super.func_70071_h_();

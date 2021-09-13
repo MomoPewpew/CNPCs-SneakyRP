@@ -24,8 +24,8 @@ public class ItemSoulstoneEmpty extends Item {
           this.func_77625_d(64);
      }
 
-     public Item func_77655_b(String name) {
-          super.func_77655_b(name);
+     public Item setUnlocalizedName(String name) {
+          super.setUnlocalizedName(name);
           this.setRegistryName(new ResourceLocation("customnpcs", name));
           return this;
      }
@@ -58,9 +58,9 @@ public class ItemSoulstoneEmpty extends Item {
 
                     NoppesUtilServer.GivePlayerItem(player, player, stone);
                     if (!player.field_71075_bZ.field_75098_d) {
-                         stack.func_77979_a(1);
+                         stack.splitStack(1);
                          if (stack.func_190916_E() <= 0) {
-                              player.field_71071_by.func_184437_d(stack);
+                              player.inventory.func_184437_d(stack);
                          }
                     }
 

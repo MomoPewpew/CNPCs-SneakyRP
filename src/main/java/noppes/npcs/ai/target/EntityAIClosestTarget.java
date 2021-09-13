@@ -33,7 +33,7 @@ public class EntityAIClosestTarget extends EntityAITarget {
                return false;
           } else {
                double d0 = this.func_111175_f();
-               List list = this.field_75299_d.field_70170_p.func_175647_a(this.targetClass, this.field_75299_d.func_174813_aQ().func_72314_b(d0, (double)MathHelper.func_76143_f(d0 / 2.0D), d0), this.field_82643_g);
+               List list = this.field_75299_d.world.func_175647_a(this.targetClass, this.field_75299_d.func_174813_aQ().func_72314_b(d0, (double)MathHelper.func_76143_f(d0 / 2.0D), d0), this.field_82643_g);
                Collections.sort(list, this.theNearestAttackableTargetSorter);
                if (list.isEmpty()) {
                     return false;

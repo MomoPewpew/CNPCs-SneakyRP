@@ -30,9 +30,9 @@ public class ContainerCustomGui extends Container {
           while(var3.hasNext()) {
                IItemSlot slot = (IItemSlot)var3.next();
                if (slot.hasStack()) {
-                    this.addSlot(slot.getPosX(), slot.getPosY(), slot.getStack().getMCItemStack(), player.field_70170_p.field_72995_K);
+                    this.addSlot(slot.getPosX(), slot.getPosY(), slot.getStack().getMCItemStack(), player.world.field_72995_K);
                } else {
-                    this.addSlot(slot.getPosX(), slot.getPosY(), player.field_70170_p.field_72995_K);
+                    this.addSlot(slot.getPosX(), slot.getPosY(), player.world.field_72995_K);
                }
           }
 
@@ -81,12 +81,12 @@ public class ContainerCustomGui extends Container {
           int row;
           for(row = 0; row < 3; ++row) {
                for(int col = 0; col < 9; ++col) {
-                    this.func_75146_a(new Slot(player.field_71071_by, col + row * 9 + 9, x + col * 18, y + row * 18));
+                    this.func_75146_a(new Slot(player.inventory, col + row * 9 + 9, x + col * 18, y + row * 18));
                }
           }
 
           for(row = 0; row < 9; ++row) {
-               this.func_75146_a(new Slot(player.field_71071_by, row, x + row * 18, y + 58));
+               this.func_75146_a(new Slot(player.inventory, row, x + row * 18, y + 58));
           }
 
      }

@@ -62,7 +62,7 @@ public class DataScript implements IScriptHandler {
      }
 
      public boolean isEnabled() {
-          return this.enabled && ScriptController.HasStart && !this.npc.field_70170_p.field_72995_K;
+          return this.enabled && ScriptController.HasStart && !this.npc.world.field_72995_K;
      }
 
      public boolean isClient() {

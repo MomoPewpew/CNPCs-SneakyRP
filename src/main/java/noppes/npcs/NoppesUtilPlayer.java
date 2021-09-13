@@ -102,7 +102,7 @@ public class NoppesUtilPlayer {
                player.field_71135_a.func_147364_a(x, y, z, player.field_70177_z, player.field_70125_A);
           }
 
-          player.field_70170_p.func_72866_a(player, false);
+          player.world.func_72866_a(player, false);
      }
 
      private static void followerBuy(RoleFollower role, IInventory currencyInv, EntityPlayerMP player, EntityNPCInterface npc) {
@@ -162,7 +162,7 @@ public class NoppesUtilPlayer {
                               if (stackSize <= 0) {
                                    currencyInv.func_70299_a(0, ItemStack.field_190927_a);
                               } else {
-                                   currencyInv.func_70299_a(0, currency.func_77979_a(stackSize));
+                                   currencyInv.func_70299_a(0, currency.splitStack(stackSize));
                               }
 
                               npc.say(player, new Line(NoppesStringUtils.formatText(role.dialogHire.replace("{days}", days + ""), player, npc)));
@@ -193,7 +193,7 @@ public class NoppesUtilPlayer {
                               if (currency.func_190916_E() - price == 0) {
                                    container.currencyMatrix.func_70299_a(0, ItemStack.field_190927_a);
                               } else {
-                                   currency.func_77979_a(price);
+                                   currency.splitStack(price);
                               }
 
                               player.func_71128_l();
@@ -223,7 +223,7 @@ public class NoppesUtilPlayer {
                               if (currency.func_190916_E() - price == 0) {
                                    container.currencyMatrix.func_70299_a(0, ItemStack.field_190927_a);
                               } else {
-                                   currency.func_77979_a(price);
+                                   currency.splitStack(price);
                               }
 
                               player.func_71128_l();
@@ -353,7 +353,7 @@ public class NoppesUtilPlayer {
 
                     quest.questInterface.handleComplete(player);
                     if (event.expReward > 0) {
-                         NoppesUtilServer.playSound(player, SoundEvents.field_187604_bf, 0.1F, 0.5F * ((player.field_70170_p.field_73012_v.nextFloat() - player.field_70170_p.field_73012_v.nextFloat()) * 0.7F + 1.8F));
+                         NoppesUtilServer.playSound(player, SoundEvents.field_187604_bf, 0.1F, 0.5F * ((player.world.field_73012_v.nextFloat() - player.world.field_73012_v.nextFloat()) * 0.7F + 1.8F));
                          player.func_71023_q(event.expReward);
                     }
 
@@ -364,7 +364,7 @@ public class NoppesUtilPlayer {
 
                     if (!quest.command.isEmpty()) {
                          FakePlayer cplayer = EntityNPCInterface.CommandPlayer;
-                         cplayer.func_70029_a(player.field_70170_p);
+                         cplayer.func_70029_a(player.world);
                          cplayer.func_70107_b(player.field_70165_t, player.field_70163_u, player.field_70161_v);
                          NoppesUtilServer.runCommand(cplayer, "QuestCompletion", quest.command, player);
                     }
@@ -431,8 +431,8 @@ public class NoppesUtilPlayer {
      public static boolean compareItems(EntityPlayer player, ItemStack item, boolean ignoreDamage, boolean ignoreNBT) {
           int size = 0;
 
-          for(int i = 0; i < player.field_71071_by.func_70302_i_(); ++i) {
-               ItemStack is = player.field_71071_by.func_70301_a(i);
+          for(int i = 0; i < player.inventory.func_70302_i_(); ++i) {
+               ItemStack is = player.inventory.func_70301_a(i);
                if (!NoppesUtilServer.IsItemStackNull(is) && compareItems(item, is, ignoreDamage, ignoreNBT)) {
                     size += is.func_190916_E();
                }
@@ -445,16 +445,16 @@ public class NoppesUtilPlayer {
           if (!NoppesUtilServer.IsItemStackNull(item)) {
                int size = item.func_190916_E();
 
-               for(int i = 0; i < player.field_71071_by.func_70302_i_(); ++i) {
-                    ItemStack is = player.field_71071_by.func_70301_a(i);
+               for(int i = 0; i < player.inventory.func_70302_i_(); ++i) {
+                    ItemStack is = player.inventory.func_70301_a(i);
                     if (!NoppesUtilServer.IsItemStackNull(is) && compareItems(item, is, ignoreDamage, ignoreNBT)) {
                          if (size < is.func_190916_E()) {
-                              is.func_77979_a(size);
+                              is.splitStack(size);
                               break;
                          }
 
                          size -= is.func_190916_E();
-                         player.field_71071_by.func_70299_a(i, ItemStack.field_190927_a);
+                         player.inventory.func_70299_a(i, ItemStack.field_190927_a);
                     }
                }
 

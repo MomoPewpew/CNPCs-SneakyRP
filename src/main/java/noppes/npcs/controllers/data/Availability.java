@@ -203,14 +203,14 @@ public class Availability implements ICompatibilty, IAvailability {
      public boolean isAvailable(EntityPlayer player) {
           long time;
           if (this.daytime == EnumDayTime.Day) {
-               time = player.field_70170_p.func_72820_D() % 24000L;
+               time = player.world.func_72820_D() % 24000L;
                if (time > 12000L) {
                     return false;
                }
           }
 
           if (this.daytime == EnumDayTime.Night) {
-               time = player.field_70170_p.func_72820_D() % 24000L;
+               time = player.world.func_72820_D() % 24000L;
                if (time < 12000L) {
                     return false;
                }

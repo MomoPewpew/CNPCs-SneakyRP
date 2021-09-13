@@ -26,7 +26,7 @@ public class SlotNpcCrafting extends SlotCrafting {
                     this.craftMatrix.func_70298_a(i, 1);
                     if (itemstack1.func_77973_b().hasContainerItem(itemstack1)) {
                          ItemStack itemstack2 = itemstack1.func_77973_b().getContainerItem(itemstack1);
-                         if ((NoppesUtilServer.IsItemStackNull(itemstack2) || !itemstack2.func_77984_f() || itemstack2.func_77952_i() <= itemstack2.func_77958_k()) && !player.field_71071_by.func_70441_a(itemstack2)) {
+                         if ((NoppesUtilServer.IsItemStackNull(itemstack2) || !itemstack2.func_77984_f() || itemstack2.func_77952_i() <= itemstack2.func_77958_k()) && !player.inventory.func_70441_a(itemstack2)) {
                               if (NoppesUtilServer.IsItemStackNull(this.craftMatrix.func_70301_a(i))) {
                                    this.craftMatrix.func_70299_a(i, itemstack2);
                               } else {

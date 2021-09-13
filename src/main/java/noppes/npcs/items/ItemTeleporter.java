@@ -28,7 +28,7 @@ import noppes.npcs.util.IPermission;
 public class ItemTeleporter extends Item implements IPermission {
      public ItemTeleporter() {
           this.field_77777_bU = 1;
-          this.func_77637_a(CustomItems.tab);
+          this.setCreativeTab(CustomItems.tab);
      }
 
      public ActionResult func_77659_a(World world, EntityPlayer player, EnumHand hand) {
@@ -42,7 +42,7 @@ public class ItemTeleporter extends Item implements IPermission {
      }
 
      public boolean onEntitySwing(EntityLivingBase par3EntityPlayer, ItemStack stack) {
-          if (par3EntityPlayer.field_70170_p.field_72995_K) {
+          if (par3EntityPlayer.world.field_72995_K) {
                return false;
           } else {
                float f = 1.0F;
@@ -60,14 +60,14 @@ public class ItemTeleporter extends Item implements IPermission {
                float f8 = f3 * f5;
                double d3 = 80.0D;
                Vec3d vec31 = vec3.func_72441_c((double)f7 * d3, (double)f6 * d3, (double)f8 * d3);
-               RayTraceResult movingobjectposition = par3EntityPlayer.field_70170_p.func_72901_a(vec3, vec31, true);
+               RayTraceResult movingobjectposition = par3EntityPlayer.world.func_72901_a(vec3, vec31, true);
                if (movingobjectposition == null) {
                     return false;
                } else {
                     Vec3d vec32 = par3EntityPlayer.func_70676_i(f);
                     boolean flag = false;
                     float f9 = 1.0F;
-                    List list = par3EntityPlayer.field_70170_p.func_72839_b(par3EntityPlayer, par3EntityPlayer.func_174813_aQ().func_72314_b(vec32.field_72450_a * d3, vec32.field_72448_b * d3, vec32.field_72449_c * d3).func_72314_b((double)f9, (double)f9, (double)f9));
+                    List list = par3EntityPlayer.world.func_72839_b(par3EntityPlayer, par3EntityPlayer.func_174813_aQ().func_72314_b(vec32.field_72450_a * d3, vec32.field_72448_b * d3, vec32.field_72449_c * d3).func_72314_b((double)f9, (double)f9, (double)f9));
 
                     for(int i = 0; i < list.size(); ++i) {
                          Entity entity = (Entity)list.get(i);
@@ -85,7 +85,7 @@ public class ItemTeleporter extends Item implements IPermission {
                     } else {
                          if (movingobjectposition.field_72313_a == Type.BLOCK) {
                               BlockPos pos;
-                              for(pos = movingobjectposition.func_178782_a(); par3EntityPlayer.field_70170_p.func_180495_p(pos).func_177230_c() != Blocks.field_150350_a; pos = pos.func_177984_a()) {
+                              for(pos = movingobjectposition.func_178782_a(); par3EntityPlayer.world.func_180495_p(pos).func_177230_c() != Blocks.field_150350_a; pos = pos.func_177984_a()) {
                               }
 
                               par3EntityPlayer.func_70634_a((double)((float)pos.func_177958_n() + 0.5F), (double)((float)pos.func_177956_o() + 1.0F), (double)((float)pos.func_177952_p() + 0.5F));
@@ -97,9 +97,9 @@ public class ItemTeleporter extends Item implements IPermission {
           }
      }
 
-     public Item func_77655_b(String name) {
+     public Item setUnlocalizedName(String name) {
           this.setRegistryName(new ResourceLocation("customnpcs", name));
-          return super.func_77655_b(name);
+          return super.setUnlocalizedName(name);
      }
 
      public boolean isAllowed(EnumPacketServer e) {

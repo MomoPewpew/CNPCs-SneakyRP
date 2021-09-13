@@ -20,12 +20,12 @@ public class ContainerNPCCompanion extends ContainerNpcInterface {
           int i;
           for(size = 0; size < 3; ++size) {
                for(i = 0; i < 9; ++i) {
-                    this.func_75146_a(new Slot(player.field_71071_by, i + size * 9 + 9, 6 + i * 18, 87 + size * 18));
+                    this.func_75146_a(new Slot(player.inventory, i + size * 9 + 9, 6 + i * 18, 87 + size * 18));
                }
           }
 
           for(size = 0; size < 9; ++size) {
-               this.func_75146_a(new Slot(player.field_71071_by, size, 6 + size * 18, 145));
+               this.func_75146_a(new Slot(player.inventory, size, 6 + size * 18, 145));
           }
 
           if (this.role.talents.containsKey(EnumCompanionTalent.INVENTORY)) {

@@ -22,7 +22,7 @@ public class ContainerCustomChest extends ContainerNpcInterface {
      public ContainerCustomChest(EntityPlayer player, int rows) {
           super(player);
           this.rows = rows;
-          if (!player.field_70170_p.field_72995_K) {
+          if (!player.world.field_72995_K) {
                this.container = NpcAPI.Instance().getIContainer((Container)this);
           }
 
@@ -30,13 +30,13 @@ public class ContainerCustomChest extends ContainerNpcInterface {
 
           int j;
           for(j = 0; j < 9; ++j) {
-               this.func_75146_a(new Slot(player.field_71071_by, j, j * 18 + 8, 89 + rows * 18));
+               this.func_75146_a(new Slot(player.inventory, j, j * 18 + 8, 89 + rows * 18));
           }
 
           int k;
           for(j = 0; j < 3; ++j) {
                for(k = 0; k < 9; ++k) {
-                    this.func_75146_a(new Slot(player.field_71071_by, k + j * 9 + 9, k * 18 + 8, 31 + rows * 18 + j * 18));
+                    this.func_75146_a(new Slot(player.inventory, k + j * 9 + 9, k * 18 + 8, 31 + rows * 18 + j * 18));
                }
           }
 
@@ -64,10 +64,10 @@ public class ContainerCustomChest extends ContainerNpcInterface {
                } else {
                     PlayerData data = PlayerData.get(player);
                     IItemStack item = NpcAPI.Instance().getIItemStack(slot.func_75211_c());
-                    IItemStack heldItem = NpcAPI.Instance().getIItemStack(player.field_71071_by.func_70445_o());
+                    IItemStack heldItem = NpcAPI.Instance().getIItemStack(player.inventory.func_70445_o());
                     CustomContainerEvent.SlotClickedEvent event = new CustomContainerEvent.SlotClickedEvent(data.scriptData.getPlayer(), this.container, slotId, item, heldItem);
                     EventHooks.onCustomChestClicked(event);
-                    player.field_71071_by.func_70437_b(event.heldItem == null ? ItemStack.field_190927_a : event.heldItem.getMCItemStack());
+                    player.inventory.func_70437_b(event.heldItem == null ? ItemStack.field_190927_a : event.heldItem.getMCItemStack());
                     ((EntityPlayerMP)player).func_71113_k();
                     this.func_75141_a(slotId, event.slotItem == null ? ItemStack.field_190927_a : event.slotItem.getMCItemStack());
                     this.func_75142_b();
@@ -79,12 +79,12 @@ public class ContainerCustomChest extends ContainerNpcInterface {
      }
 
      public boolean func_94530_a(ItemStack stack, Slot slotId) {
-          return slotId.field_75224_c == this.player.field_71071_by;
+          return slotId.field_75224_c == this.player.inventory;
      }
 
      public void func_75134_a(EntityPlayer player) {
           super.func_75134_a(player);
-          if (!player.field_70170_p.field_72995_K) {
+          if (!player.world.field_72995_K) {
                PlayerData data = PlayerData.get(player);
                CustomContainerEvent.CloseEvent event = new CustomContainerEvent.CloseEvent(data.scriptData.getPlayer(), this.container);
                EventHooks.onCustomChestClosed(event);

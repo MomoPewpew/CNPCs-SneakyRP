@@ -154,11 +154,11 @@ public class GuiNbtBook extends GuiNPCInterface implements IGuiData {
      public void setGuiData(NBTTagCompound compound) {
           if (compound.func_74764_b("EntityId")) {
                this.entityId = compound.func_74762_e("EntityId");
-               this.entity = this.player.field_70170_p.func_73045_a(this.entityId);
+               this.entity = this.player.world.func_73045_a(this.entityId);
           } else {
-               this.tile = this.player.field_70170_p.func_175625_s(new BlockPos(this.x, this.y, this.z));
-               this.state = this.player.field_70170_p.func_180495_p(new BlockPos(this.x, this.y, this.z));
-               this.blockStack = this.state.func_177230_c().func_185473_a(this.player.field_70170_p, new BlockPos(this.x, this.y, this.z), this.state);
+               this.tile = this.player.world.func_175625_s(new BlockPos(this.x, this.y, this.z));
+               this.state = this.player.world.func_180495_p(new BlockPos(this.x, this.y, this.z));
+               this.blockStack = this.state.func_177230_c().func_185473_a(this.player.world, new BlockPos(this.x, this.y, this.z), this.state);
           }
 
           this.originalCompound = compound.func_74775_l("Data");

@@ -18,7 +18,7 @@ public class ContainerNPCFollower extends ContainerNpcInterface {
           this.func_75146_a(new SlotNpcMercenaryCurrency(this.role, this.currencyMatrix, 0, 26, 9));
 
           for(int j1 = 0; j1 < 9; ++j1) {
-               this.func_75146_a(new Slot(player.field_71071_by, j1, 8 + j1 * 18, 142));
+               this.func_75146_a(new Slot(player.inventory, j1, 8 + j1 * 18, 142));
           }
 
      }
@@ -29,9 +29,9 @@ public class ContainerNPCFollower extends ContainerNpcInterface {
 
      public void func_75134_a(EntityPlayer entityplayer) {
           super.func_75134_a(entityplayer);
-          if (!entityplayer.field_70170_p.field_72995_K) {
+          if (!entityplayer.world.field_72995_K) {
                ItemStack itemstack = this.currencyMatrix.func_70304_b(0);
-               if (!NoppesUtilServer.IsItemStackNull(itemstack) && !entityplayer.field_70170_p.field_72995_K) {
+               if (!NoppesUtilServer.IsItemStackNull(itemstack) && !entityplayer.world.field_72995_K) {
                     entityplayer.func_70099_a(itemstack, 0.0F);
                }
           }

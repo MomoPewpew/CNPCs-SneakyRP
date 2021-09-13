@@ -64,7 +64,7 @@ public class EntityAILook extends EntityAIBase {
                     }
                }
           } else if (this.npc.ais.getStandingType() == 2) {
-               lookat = this.npc.field_70170_p.func_72890_a(this.npc, 16.0D);
+               lookat = this.npc.world.func_72890_a(this.npc, 16.0D);
           }
 
           if (lookat != null) {

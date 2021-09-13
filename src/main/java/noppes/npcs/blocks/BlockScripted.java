@@ -54,7 +54,7 @@ public class BlockScripted extends BlockInterface implements IPermission {
           if (world.field_72995_K) {
                return true;
           } else {
-               ItemStack currentItem = player.field_71071_by.func_70448_g();
+               ItemStack currentItem = player.inventory.func_70448_g();
                if (currentItem == null || currentItem.func_77973_b() != CustomItems.wand && currentItem.func_77973_b() != CustomItems.scripter) {
                     TileScripted tile = (TileScripted)world.func_175625_s(pos);
                     return !EventHooks.onScriptBlockInteract(tile, player, side.func_176745_a(), hitX, hitY, hitZ);

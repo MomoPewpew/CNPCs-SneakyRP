@@ -21,7 +21,7 @@ public class EntityAIStalkTarget extends EntityAIBase {
 
      public EntityAIStalkTarget(EntityNPCInterface par1EntityCreature) {
           this.npc = par1EntityCreature;
-          this.world = par1EntityCreature.field_70170_p;
+          this.world = par1EntityCreature.world;
           this.overRide = false;
           this.delay = 0;
           this.func_75248_a(AiMutex.PASSIVE + AiMutex.LOOK);

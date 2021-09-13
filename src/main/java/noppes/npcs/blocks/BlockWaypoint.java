@@ -25,14 +25,14 @@ public class BlockWaypoint extends BlockInterface implements IPermission {
      public BlockWaypoint() {
           super(Material.field_151573_f);
           this.func_149672_a(SoundType.field_185852_e);
-          this.func_149647_a(CustomItems.tab);
+          this.setCreativeTab(CustomItems.tab);
      }
 
      public boolean func_180639_a(World par1World, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
           if (par1World.field_72995_K) {
                return false;
           } else {
-               ItemStack currentItem = player.field_71071_by.func_70448_g();
+               ItemStack currentItem = player.inventory.func_70448_g();
                if (currentItem != null && currentItem.func_77973_b() == CustomItems.wand && CustomNpcsPermissions.hasPermission(player, CustomNpcsPermissions.EDIT_BLOCKS)) {
                     NoppesUtilServer.sendOpenGui(player, EnumGuiType.Waypoint, (EntityNPCInterface)null, pos.func_177958_n(), pos.func_177956_o(), pos.func_177952_p());
                     return true;

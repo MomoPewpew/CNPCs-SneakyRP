@@ -17,7 +17,7 @@ public class EntityAIFindShade extends EntityAIBase {
 
      public EntityAIFindShade(EntityCreature par1EntityCreature) {
           this.theCreature = par1EntityCreature;
-          this.world = par1EntityCreature.field_70170_p;
+          this.world = par1EntityCreature.world;
           this.func_75248_a(AiMutex.PASSIVE);
      }
 

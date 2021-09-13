@@ -26,7 +26,7 @@ public class CompanionFoodStats {
      }
 
      public void onUpdate(EntityNPCInterface npc) {
-          EnumDifficulty enumdifficulty = npc.field_70170_p.func_175659_aa();
+          EnumDifficulty enumdifficulty = npc.world.func_175659_aa();
           this.prevFoodLevel = this.foodLevel;
           if (this.foodExhaustionLevel > 4.0F) {
                this.foodExhaustionLevel -= 4.0F;
@@ -37,7 +37,7 @@ public class CompanionFoodStats {
                }
           }
 
-          if (npc.field_70170_p.func_82736_K().func_82766_b("naturalRegeneration") && this.foodLevel >= 18 && npc.func_110143_aJ() > 0.0F && npc.func_110143_aJ() < npc.func_110138_aP()) {
+          if (npc.world.func_82736_K().func_82766_b("naturalRegeneration") && this.foodLevel >= 18 && npc.func_110143_aJ() > 0.0F && npc.func_110143_aJ() < npc.func_110138_aP()) {
                ++this.foodTimer;
                if (this.foodTimer >= 80) {
                     npc.func_70691_i(1.0F);

@@ -10,7 +10,7 @@ import noppes.npcs.entity.EntityNPCInterface;
 
 public class EntityUtil {
      public static void Copy(EntityLivingBase copied, EntityLivingBase entity) {
-          entity.field_70170_p = copied.field_70170_p;
+          entity.world = copied.world;
           entity.field_70725_aQ = copied.field_70725_aQ;
           entity.field_70140_Q = copied.field_70140_Q;
           entity.field_70141_P = copied.field_70140_Q;

@@ -87,7 +87,7 @@ public class JobBuilder extends JobInterface implements IJobBuilder {
 
      public boolean aiShouldExecute() {
           if (this.possibleBuildPos != null) {
-               TileEntity tile = this.npc.field_70170_p.func_175625_s(this.possibleBuildPos);
+               TileEntity tile = this.npc.world.func_175625_s(this.possibleBuildPos);
                if (tile instanceof TileBuilder) {
                     this.build = (TileBuilder)tile;
                } else {
@@ -124,7 +124,7 @@ public class JobBuilder extends JobInterface implements IJobBuilder {
                               BlockPos blockPos = this.placing.pos;
                               this.placeBlock();
                               if (this.tryTicks > 40) {
-                                   blockPos = NoppesUtilServer.GetClosePos(blockPos, this.npc.field_70170_p);
+                                   blockPos = NoppesUtilServer.GetClosePos(blockPos, this.npc.world);
                                    this.npc.func_70634_a((double)blockPos.func_177958_n() + 0.5D, (double)blockPos.func_177956_o(), (double)blockPos.func_177952_p() + 0.5D);
                               }
                          }
@@ -154,9 +154,9 @@ public class JobBuilder extends JobInterface implements IJobBuilder {
           if (this.placing != null) {
                this.npc.func_70661_as().func_75499_g();
                this.npc.func_184609_a(EnumHand.MAIN_HAND);
-               this.npc.field_70170_p.func_180501_a(this.placing.pos, this.placing.state, 2);
+               this.npc.world.func_180501_a(this.placing.pos, this.placing.state, 2);
                if (this.placing.state.func_177230_c() instanceof ITileEntityProvider && this.placing.tile != null) {
-                    TileEntity tile = this.npc.field_70170_p.func_175625_s(this.placing.pos);
+                    TileEntity tile = this.npc.world.func_175625_s(this.placing.pos);
                     if (tile != null) {
                          try {
                               tile.func_145839_a(this.placing.tile);

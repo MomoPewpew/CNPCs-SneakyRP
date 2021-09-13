@@ -29,8 +29,8 @@ public class ItemSoulstoneFilled extends Item {
           this.func_77625_d(1);
      }
 
-     public Item func_77655_b(String name) {
-          super.func_77655_b(name);
+     public Item setUnlocalizedName(String name) {
+          super.setUnlocalizedName(name);
           this.setRegistryName(new ResourceLocation("customnpcs", name));
           return this;
      }
@@ -73,7 +73,7 @@ public class ItemSoulstoneFilled extends Item {
                     return EnumActionResult.FAIL;
                } else {
                     if (!player.field_71075_bZ.field_75098_d) {
-                         stack.func_77979_a(1);
+                         stack.splitStack(1);
                     }
 
                     return EnumActionResult.SUCCESS;

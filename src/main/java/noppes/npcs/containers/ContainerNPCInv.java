@@ -24,12 +24,12 @@ public class ContainerNPCInv extends Container {
 
           for(j1 = 0; j1 < 3; ++j1) {
                for(int l1 = 0; l1 < 9; ++l1) {
-                    this.func_75146_a(new Slot(player.field_71071_by, l1 + j1 * 9 + 9, l1 * 18 + 8, 113 + j1 * 18));
+                    this.func_75146_a(new Slot(player.inventory, l1 + j1 * 9 + 9, l1 * 18 + 8, 113 + j1 * 18));
                }
           }
 
           for(j1 = 0; j1 < 9; ++j1) {
-               this.func_75146_a(new Slot(player.field_71071_by, j1, j1 * 18 + 8, 171));
+               this.func_75146_a(new Slot(player.inventory, j1, j1 * 18 + 8, 171));
           }
 
      }

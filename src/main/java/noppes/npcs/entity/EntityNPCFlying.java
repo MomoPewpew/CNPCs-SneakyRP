@@ -52,14 +52,14 @@ public abstract class EntityNPCFlying extends EntityNPCInterface {
                } else {
                     float f2 = 0.91F;
                     if (this.field_70122_E) {
-                         f2 = this.field_70170_p.func_180495_p(new BlockPos(this.field_70165_t, this.func_174813_aQ().field_72338_b - 1.0D, this.field_70161_v)).func_177230_c().field_149765_K * 0.91F;
+                         f2 = this.world.func_180495_p(new BlockPos(this.field_70165_t, this.func_174813_aQ().field_72338_b - 1.0D, this.field_70161_v)).func_177230_c().field_149765_K * 0.91F;
                     }
 
                     float f3 = 0.16277136F / (f2 * f2 * f2);
                     this.func_191958_b(par1, par2, par3, this.field_70122_E ? 0.1F * f3 : 0.02F);
                     f2 = 0.91F;
                     if (this.field_70122_E) {
-                         f2 = this.field_70170_p.func_180495_p(new BlockPos(this.field_70165_t, this.func_174813_aQ().field_72338_b - 1.0D, this.field_70161_v)).func_177230_c().field_149765_K * 0.91F;
+                         f2 = this.world.func_180495_p(new BlockPos(this.field_70165_t, this.func_174813_aQ().field_72338_b - 1.0D, this.field_70161_v)).func_177230_c().field_149765_K * 0.91F;
                     }
 
                     this.func_70091_d(MoverType.SELF, this.field_70159_w, this.field_70181_x, this.field_70179_y);

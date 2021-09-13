@@ -27,12 +27,12 @@ public class ContainerNPCTraderSetup extends Container {
 
           for(j1 = 0; j1 < 3; ++j1) {
                for(l1 = 0; l1 < 9; ++l1) {
-                    this.func_75146_a(new Slot(player.field_71071_by, l1 + j1 * 9 + 9, 48 + l1 * 18, 147 + j1 * 18));
+                    this.func_75146_a(new Slot(player.inventory, l1 + j1 * 9 + 9, 48 + l1 * 18, 147 + j1 * 18));
                }
           }
 
           for(j1 = 0; j1 < 9; ++j1) {
-               this.func_75146_a(new Slot(player.field_71071_by, j1, 48 + j1 * 18, 205));
+               this.func_75146_a(new Slot(player.inventory, j1, 48 + j1 * 18, 205));
           }
 
      }

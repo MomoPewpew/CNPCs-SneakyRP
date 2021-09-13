@@ -25,9 +25,9 @@ public class RolePostman extends RoleInterface {
           if (this.npc.field_70173_aa % 20 != 0) {
                return false;
           } else {
-               this.toCheck = this.npc.field_70170_p.func_72872_a(EntityPlayer.class, this.npc.func_174813_aQ().func_72314_b(10.0D, 10.0D, 10.0D));
+               this.toCheck = this.npc.world.func_72872_a(EntityPlayer.class, this.npc.func_174813_aQ().func_72314_b(10.0D, 10.0D, 10.0D));
                this.toCheck.removeAll(this.recentlyChecked);
-               List listMax = this.npc.field_70170_p.func_72872_a(EntityPlayer.class, this.npc.func_174813_aQ().func_72314_b(20.0D, 20.0D, 20.0D));
+               List listMax = this.npc.world.func_72872_a(EntityPlayer.class, this.npc.func_174813_aQ().func_72314_b(20.0D, 20.0D, 20.0D));
                this.recentlyChecked.retainAll(listMax);
                this.recentlyChecked.addAll(this.toCheck);
                Iterator var2 = this.toCheck.iterator();
@@ -57,6 +57,6 @@ public class RolePostman extends RoleInterface {
      }
 
      public void interact(EntityPlayer player) {
-          player.openGui(CustomNpcs.instance, EnumGuiType.PlayerMailman.ordinal(), player.field_70170_p, 1, 1, 0);
+          player.openGui(CustomNpcs.instance, EnumGuiType.PlayerMailman.ordinal(), player.world, 1, 1, 0);
      }
 }

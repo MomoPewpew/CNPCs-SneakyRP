@@ -72,7 +72,7 @@ public class Server {
      }
 
      public static void sendAssociatedData(Entity entity, EnumPacketClient type, Object... obs) {
-          List list = entity.field_70170_p.func_72872_a(EntityPlayerMP.class, entity.func_174813_aQ().func_72314_b(160.0D, 160.0D, 160.0D));
+          List list = entity.world.func_72872_a(EntityPlayerMP.class, entity.func_174813_aQ().func_72314_b(160.0D, 160.0D, 160.0D));
           if (!list.isEmpty()) {
                CustomNPCsScheduler.runTack(() -> {
                     ByteBuf buffer = Unpooled.buffer();
@@ -100,7 +100,7 @@ public class Server {
      }
 
      public static void sendRangedData(Entity entity, int range, EnumPacketClient type, Object... obs) {
-          List list = entity.field_70170_p.func_72872_a(EntityPlayerMP.class, entity.func_174813_aQ().func_72314_b((double)range, (double)range, (double)range));
+          List list = entity.world.func_72872_a(EntityPlayerMP.class, entity.func_174813_aQ().func_72314_b((double)range, (double)range, (double)range));
           if (!list.isEmpty()) {
                CustomNPCsScheduler.runTack(() -> {
                     ByteBuf buffer = Unpooled.buffer();

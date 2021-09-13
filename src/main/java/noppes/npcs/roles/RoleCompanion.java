@@ -173,7 +173,7 @@ public class RoleCompanion extends RoleInterface {
           if (this.eating != null && !this.eating.isEmpty()) {
                ItemStack eating = this.eating.getMCItemStack();
                Random rand;
-               if (this.npc.field_70170_p.field_72995_K) {
+               if (this.npc.world.field_72995_K) {
                     rand = this.npc.func_70681_au();
 
                     for(int j = 0; j < 2; ++j) {
@@ -186,9 +186,9 @@ public class RoleCompanion extends RoleInterface {
                          vec31 = vec31.func_72441_c(this.npc.field_70165_t, this.npc.field_70163_u + (double)this.npc.field_70131_O + 0.1D, this.npc.field_70161_v);
                          (new StringBuilder()).append("iconcrack_").append(Item.func_150891_b(eating.func_77973_b())).toString();
                          if (eating.func_77981_g()) {
-                              this.npc.field_70170_p.func_175688_a(EnumParticleTypes.ITEM_CRACK, vec31.field_72450_a, vec31.field_72448_b, vec31.field_72449_c, vec3.field_72450_a, vec3.field_72448_b + 0.05D, vec3.field_72449_c, new int[]{Item.func_150891_b(eating.func_77973_b()), eating.func_77960_j()});
+                              this.npc.world.func_175688_a(EnumParticleTypes.ITEM_CRACK, vec31.field_72450_a, vec31.field_72448_b, vec31.field_72449_c, vec3.field_72450_a, vec3.field_72448_b + 0.05D, vec3.field_72449_c, new int[]{Item.func_150891_b(eating.func_77973_b()), eating.func_77960_j()});
                          } else {
-                              this.npc.field_70170_p.func_175688_a(EnumParticleTypes.ITEM_CRACK, vec31.field_72450_a, vec31.field_72448_b, vec31.field_72449_c, vec3.field_72450_a, vec3.field_72448_b + 0.05D, vec3.field_72449_c, new int[]{Item.func_150891_b(eating.func_77973_b())});
+                              this.npc.world.func_175688_a(EnumParticleTypes.ITEM_CRACK, vec31.field_72450_a, vec31.field_72448_b, vec31.field_72449_c, vec3.field_72450_a, vec3.field_72448_b + 0.05D, vec3.field_72449_c, new int[]{Item.func_150891_b(eating.func_77973_b())});
                          }
                     }
                } else {

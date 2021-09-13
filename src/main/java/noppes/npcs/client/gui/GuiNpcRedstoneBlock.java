@@ -17,7 +17,7 @@ public class GuiNpcRedstoneBlock extends GuiNPCInterface implements IGuiData {
      private TileRedstoneBlock tile;
 
      public GuiNpcRedstoneBlock(int x, int y, int z) {
-          this.tile = (TileRedstoneBlock)this.player.field_70170_p.func_175625_s(new BlockPos(x, y, z));
+          this.tile = (TileRedstoneBlock)this.player.world.func_175625_s(new BlockPos(x, y, z));
           Client.sendData(EnumPacketServer.GetTileEntity, x, y, z);
      }
 

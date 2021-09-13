@@ -17,8 +17,8 @@ public class ModelData extends ModelDataShared {
           } else {
                if (this.entity == null) {
                     try {
-                         this.entity = (EntityLivingBase)this.entityClass.getConstructor(World.class).newInstance(npc.field_70170_p);
-                         if (PixelmonHelper.isPixelmon(this.entity) && npc.field_70170_p.field_72995_K && !this.extra.func_74764_b("Name")) {
+                         this.entity = (EntityLivingBase)this.entityClass.getConstructor(World.class).newInstance(npc.world);
+                         if (PixelmonHelper.isPixelmon(this.entity) && npc.world.field_72995_K && !this.extra.func_74764_b("Name")) {
                               this.extra.func_74778_a("Name", "Abra");
                          }
 

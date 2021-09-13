@@ -67,7 +67,7 @@ public class EntityAIWander extends EntityAIBase {
      }
 
      private EntityNPCInterface getNearbyNPC() {
-          List list = this.entity.field_70170_p.func_175674_a(this.entity, this.entity.func_174813_aQ().func_72314_b((double)this.entity.ais.walkingRange, this.entity.ais.walkingRange > 7 ? 7.0D : (double)this.entity.ais.walkingRange, (double)this.entity.ais.walkingRange), this.selector);
+          List list = this.entity.world.func_175674_a(this.entity, this.entity.func_174813_aQ().func_72314_b((double)this.entity.ais.walkingRange, this.entity.ais.walkingRange > 7 ? 7.0D : (double)this.entity.ais.walkingRange, (double)this.entity.ais.walkingRange), this.selector);
           Iterator ita = list.iterator();
 
           while(true) {

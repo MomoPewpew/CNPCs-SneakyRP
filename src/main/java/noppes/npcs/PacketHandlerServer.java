@@ -93,7 +93,7 @@ public class PacketHandlerServer {
                     try {
                          type = EnumPacketServer.values()[buffer.readInt()];
                          LogWriter.debug("Received: " + type);
-                         ItemStack item = player.field_71071_by.func_70448_g();
+                         ItemStack item = player.inventory.func_70448_g();
                          EntityNPCInterface npc = NoppesUtilServer.getEditingNpc(player);
                          if ((!type.needsNpc || npc != null) && (!type.hasPermission() || CustomNpcsPermissions.hasPermission(player, type.permission))) {
                               if (!type.isExempt() && !this.allowItem(item, type)) {
@@ -209,14 +209,14 @@ public class PacketHandlerServer {
                     } else {
                          Entity entity;
                          if (type == EnumPacketServer.RemoteMainMenu) {
-                              entity = player.field_70170_p.func_73045_a(buffer.readInt());
+                              entity = player.world.func_73045_a(buffer.readInt());
                               if (entity == null || !(entity instanceof EntityNPCInterface)) {
                                    return;
                               }
 
                               NoppesUtilServer.sendOpenGui(player, EnumGuiType.MainMenuDisplay, (EntityNPCInterface)entity);
                          } else if (type == EnumPacketServer.RemoteDelete) {
-                              entity = player.field_70170_p.func_73045_a(buffer.readInt());
+                              entity = player.world.func_73045_a(buffer.readInt());
                               if (entity == null || !(entity instanceof EntityNPCInterface)) {
                                    return;
                               }
@@ -232,7 +232,7 @@ public class PacketHandlerServer {
                               CustomNpcs.FreezeNPCs = !CustomNpcs.FreezeNPCs;
                               Server.sendData(player, EnumPacketClient.SCROLL_SELECTED, CustomNpcs.FreezeNPCs ? "Unfreeze Npcs" : "Freeze Npcs");
                          } else if (type == EnumPacketServer.RemoteReset) {
-                              entity = player.field_70170_p.func_73045_a(buffer.readInt());
+                              entity = player.world.func_73045_a(buffer.readInt());
                               if (entity == null || !(entity instanceof EntityNPCInterface)) {
                                    return;
                               }
@@ -240,7 +240,7 @@ public class PacketHandlerServer {
                               npc = (EntityNPCInterface)entity;
                               npc.reset();
                          } else if (type == EnumPacketServer.RemoteTpToNpc) {
-                              entity = player.field_70170_p.func_73045_a(buffer.readInt());
+                              entity = player.world.func_73045_a(buffer.readInt());
                               if (entity == null || !(entity instanceof EntityNPCInterface)) {
                                    return;
                               }
@@ -327,7 +327,7 @@ public class PacketHandlerServer {
                                                                  t = buffer.readInt();
                                                                  quest.readNBT(Server.readNBT(buffer));
                                                                  NoppesUtilServer.setEditingQuest(player, quest);
-                                                                 player.openGui(CustomNpcs.instance, t, player.field_70170_p, 0, 0, 0);
+                                                                 player.openGui(CustomNpcs.instance, t, player.world, 0, 0, 0);
                                                             } else if (type == EnumPacketServer.DialogNpcGet) {
                                                                  NoppesUtilServer.sendNpcDialogs(player);
                                                             } else {
@@ -560,7 +560,7 @@ public class PacketHandlerServer {
                                                                                           compound.func_74757_a("RoleData", true);
                                                                                           Server.sendData(player, EnumPacketClient.GUI_DATA, npc.roleInterface.writeToNBT(compound));
                                                                                      } else if (type == EnumPacketServer.MerchantUpdate) {
-                                                                                          entity = player.field_70170_p.func_73045_a(buffer.readInt());
+                                                                                          entity = player.world.func_73045_a(buffer.readInt());
                                                                                           if (entity == null || !(entity instanceof EntityVillager)) {
                                                                                                return;
                                                                                           }
@@ -575,7 +575,7 @@ public class PacketHandlerServer {
                                                                                           PlayerMail mail = new PlayerMail();
                                                                                           mail.readNBT(Server.readNBT(buffer));
                                                                                           ContainerMail.staticmail = mail;
-                                                                                          player.openGui(CustomNpcs.instance, EnumGuiType.PlayerMailman.ordinal(), player.field_70170_p, 1, 0, 0);
+                                                                                          player.openGui(CustomNpcs.instance, EnumGuiType.PlayerMailman.ordinal(), player.world, 1, 0, 0);
                                                                                      } else {
                                                                                           boolean bo;
                                                                                           if (type == EnumPacketServer.TransformSave) {
@@ -607,8 +607,8 @@ public class PacketHandlerServer {
                                                                                                } else if (type == EnumPacketServer.MovingPathSave) {
                                                                                                     npc.ais.setMovingPath(NBTTags.getIntegerArraySet(Server.readNBT(buffer).func_150295_c("MovingPathNew", 10)));
                                                                                                } else if (type == EnumPacketServer.SpawnRider) {
-                                                                                                    entity = EntityList.func_75615_a(Server.readNBT(buffer), player.field_70170_p);
-                                                                                                    player.field_70170_p.func_72838_d(entity);
+                                                                                                    entity = EntityList.func_75615_a(Server.readNBT(buffer), player.world);
+                                                                                                    player.world.func_72838_d(entity);
                                                                                                     entity.func_184205_a(ServerEventsHandler.mounted, true);
                                                                                                } else if (type == EnumPacketServer.PlayerRider) {
                                                                                                     player.func_184205_a(ServerEventsHandler.mounted, true);
@@ -628,7 +628,7 @@ public class PacketHandlerServer {
                                                                                                          return;
                                                                                                     }
 
-                                                                                                    Entity entity = NoppesUtilServer.spawnClone(compound, (double)t + 0.5D, (double)(y + 1), (double)z + 0.5D, player.field_70170_p);
+                                                                                                    Entity entity = NoppesUtilServer.spawnClone(compound, (double)t + 0.5D, (double)(y + 1), (double)z + 0.5D, player.world);
                                                                                                     if (entity == null) {
                                                                                                          player.func_145747_a(new TextComponentString("Failed to create an entity out of your clone"));
                                                                                                          return;
@@ -730,7 +730,7 @@ public class PacketHandlerServer {
                                                                                                          } else {
                                                                                                               TileEntity tile;
                                                                                                               if (type == EnumPacketServer.ScriptBlockDataGet) {
-                                                                                                                   tile = player.field_70170_p.func_175625_s(new BlockPos(buffer.readInt(), buffer.readInt(), buffer.readInt()));
+                                                                                                                   tile = player.world.func_175625_s(new BlockPos(buffer.readInt(), buffer.readInt(), buffer.readInt()));
                                                                                                                    if (!(tile instanceof TileScripted)) {
                                                                                                                         return;
                                                                                                                    }
@@ -782,12 +782,12 @@ public class PacketHandlerServer {
                                                                                                                    BlockPos pos;
                                                                                                                    if (type == EnumPacketServer.GetTileEntity) {
                                                                                                                         pos = new BlockPos(buffer.readInt(), buffer.readInt(), buffer.readInt());
-                                                                                                                        TileEntity tile = player.field_70170_p.func_175625_s(pos);
+                                                                                                                        TileEntity tile = player.world.func_175625_s(pos);
                                                                                                                         compound = new NBTTagCompound();
                                                                                                                         tile.func_189515_b(compound);
                                                                                                                         Server.sendData(player, EnumPacketClient.GUI_DATA, compound);
                                                                                                                    } else if (type == EnumPacketServer.ScriptBlockDataSave) {
-                                                                                                                        tile = player.field_70170_p.func_175625_s(new BlockPos(buffer.readInt(), buffer.readInt(), buffer.readInt()));
+                                                                                                                        tile = player.world.func_175625_s(new BlockPos(buffer.readInt(), buffer.readInt(), buffer.readInt()));
                                                                                                                         if (!(tile instanceof TileScripted)) {
                                                                                                                              return;
                                                                                                                         }
@@ -796,7 +796,7 @@ public class PacketHandlerServer {
                                                                                                                         script.setNBT(Server.readNBT(buffer));
                                                                                                                         script.lastInited = -1L;
                                                                                                                    } else if (type == EnumPacketServer.ScriptDoorDataSave) {
-                                                                                                                        tile = player.field_70170_p.func_175625_s(new BlockPos(buffer.readInt(), buffer.readInt(), buffer.readInt()));
+                                                                                                                        tile = player.world.func_175625_s(new BlockPos(buffer.readInt(), buffer.readInt(), buffer.readInt()));
                                                                                                                         if (!(tile instanceof TileScriptedDoor)) {
                                                                                                                              return;
                                                                                                                         }
@@ -805,7 +805,7 @@ public class PacketHandlerServer {
                                                                                                                         script.setNBT(Server.readNBT(buffer));
                                                                                                                         script.lastInited = -1L;
                                                                                                                    } else if (type == EnumPacketServer.ScriptDoorDataGet) {
-                                                                                                                        tile = player.field_70170_p.func_175625_s(new BlockPos(buffer.readInt(), buffer.readInt(), buffer.readInt()));
+                                                                                                                        tile = player.world.func_175625_s(new BlockPos(buffer.readInt(), buffer.readInt(), buffer.readInt()));
                                                                                                                         if (!(tile instanceof TileScriptedDoor)) {
                                                                                                                              return;
                                                                                                                         }
@@ -817,7 +817,7 @@ public class PacketHandlerServer {
                                                                                                                         TileBuilder tile;
                                                                                                                         if (type == EnumPacketServer.SchematicsTile) {
                                                                                                                              pos = new BlockPos(buffer.readInt(), buffer.readInt(), buffer.readInt());
-                                                                                                                             tile = (TileBuilder)player.field_70170_p.func_175625_s(pos);
+                                                                                                                             tile = (TileBuilder)player.world.func_175625_s(pos);
                                                                                                                              if (tile == null) {
                                                                                                                                   return;
                                                                                                                              }
@@ -829,7 +829,7 @@ public class PacketHandlerServer {
                                                                                                                              }
                                                                                                                         } else if (type == EnumPacketServer.SchematicsSet) {
                                                                                                                              pos = new BlockPos(buffer.readInt(), buffer.readInt(), buffer.readInt());
-                                                                                                                             tile = (TileBuilder)player.field_70170_p.func_175625_s(pos);
+                                                                                                                             tile = (TileBuilder)player.world.func_175625_s(pos);
                                                                                                                              name = Server.readString(buffer);
                                                                                                                              tile.setSchematic(SchematicController.Instance.load(name));
                                                                                                                              if (tile.hasSchematic()) {
@@ -837,14 +837,14 @@ public class PacketHandlerServer {
                                                                                                                              }
                                                                                                                         } else if (type == EnumPacketServer.SchematicsBuild) {
                                                                                                                              pos = new BlockPos(buffer.readInt(), buffer.readInt(), buffer.readInt());
-                                                                                                                             tile = (TileBuilder)player.field_70170_p.func_175625_s(pos);
+                                                                                                                             tile = (TileBuilder)player.world.func_175625_s(pos);
                                                                                                                              SchematicWrapper schem = tile.getSchematic();
-                                                                                                                             schem.init(pos.func_177982_a(1, tile.yOffest, 1), player.field_70170_p, tile.rotation * 90);
+                                                                                                                             schem.init(pos.func_177982_a(1, tile.yOffest, 1), player.world, tile.rotation * 90);
                                                                                                                              SchematicController.Instance.build(tile.getSchematic(), player);
-                                                                                                                             player.field_70170_p.func_175698_g(pos);
+                                                                                                                             player.world.func_175698_g(pos);
                                                                                                                         } else if (type == EnumPacketServer.SchematicsTileSave) {
                                                                                                                              pos = new BlockPos(buffer.readInt(), buffer.readInt(), buffer.readInt());
-                                                                                                                             tile = (TileBuilder)player.field_70170_p.func_175625_s(pos);
+                                                                                                                             tile = (TileBuilder)player.world.func_175625_s(pos);
                                                                                                                              if (tile != null) {
                                                                                                                                   tile.readPartNBT(Server.readNBT(buffer));
                                                                                                                              }
@@ -860,7 +860,7 @@ public class PacketHandlerServer {
                                                                                                                         } else if (type == EnumPacketServer.NbtBookSaveBlock) {
                                                                                                                              pos = new BlockPos(buffer.readInt(), buffer.readInt(), buffer.readInt());
                                                                                                                              compound = Server.readNBT(buffer);
-                                                                                                                             TileEntity tile = player.field_70170_p.func_175625_s(pos);
+                                                                                                                             TileEntity tile = player.world.func_175625_s(pos);
                                                                                                                              if (tile != null) {
                                                                                                                                   tile.func_145839_a(compound);
                                                                                                                                   tile.func_70296_d();
@@ -868,7 +868,7 @@ public class PacketHandlerServer {
                                                                                                                         } else if (type == EnumPacketServer.NbtBookSaveEntity) {
                                                                                                                              entityId = buffer.readInt();
                                                                                                                              compound = Server.readNBT(buffer);
-                                                                                                                             Entity entity = player.field_70170_p.func_73045_a(entityId);
+                                                                                                                             Entity entity = player.world.func_73045_a(entityId);
                                                                                                                              if (entity != null) {
                                                                                                                                   entity.func_70020_e(compound);
                                                                                                                              }

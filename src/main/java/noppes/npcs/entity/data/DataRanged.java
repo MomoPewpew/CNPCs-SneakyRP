@@ -246,7 +246,7 @@ public class DataRanged implements INPCRanged {
      public int getDelayRNG() {
           int delay = this.minDelay;
           if (this.maxDelay - this.minDelay > 0) {
-               delay += this.npc.field_70170_p.field_73012_v.nextInt(this.maxDelay - this.minDelay);
+               delay += this.npc.world.field_73012_v.nextInt(this.maxDelay - this.minDelay);
           }
 
           return delay;

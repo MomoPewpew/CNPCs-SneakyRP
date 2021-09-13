@@ -65,7 +65,7 @@ public class CombatHandler {
 
      public void start() {
           this.combatResetTimer = 0;
-          this.startTime = this.npc.field_70170_p.func_72912_H().func_82573_f();
+          this.startTime = this.npc.world.func_72912_H().func_82573_f();
           this.npc.func_184212_Q().func_187227_b(EntityNPCInterface.Attacking, true);
           Iterator var1 = this.npc.abilities.abilities.iterator();
 

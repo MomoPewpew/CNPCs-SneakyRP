@@ -106,7 +106,7 @@ public class PlayerScriptData implements IScriptHandler {
      }
 
      public boolean isEnabled() {
-          return ScriptController.Instance.playerScripts.enabled && ScriptController.HasStart && (this.player == null || !this.player.field_70170_p.field_72995_K);
+          return ScriptController.Instance.playerScripts.enabled && ScriptController.HasStart && (this.player == null || !this.player.world.field_72995_K);
      }
 
      public boolean isClient() {

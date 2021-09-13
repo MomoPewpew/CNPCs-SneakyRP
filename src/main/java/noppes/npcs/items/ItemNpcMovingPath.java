@@ -26,7 +26,7 @@ import noppes.npcs.util.IPermission;
 public class ItemNpcMovingPath extends Item implements IPermission {
      public ItemNpcMovingPath() {
           this.field_77777_bU = 1;
-          this.func_77637_a(CustomItems.tab);
+          this.setCreativeTab(CustomItems.tab);
      }
 
      public ActionResult func_77659_a(World world, EntityPlayer player, EnumHand hand) {
@@ -87,9 +87,9 @@ public class ItemNpcMovingPath extends Item implements IPermission {
           }
      }
 
-     public Item func_77655_b(String name) {
+     public Item setUnlocalizedName(String name) {
           this.setRegistryName(new ResourceLocation("customnpcs", name));
-          return super.func_77655_b(name);
+          return super.setUnlocalizedName(name);
      }
 
      public boolean isAllowed(EnumPacketServer e) {

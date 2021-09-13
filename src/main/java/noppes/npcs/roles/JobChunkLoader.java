@@ -36,7 +36,7 @@ public class JobChunkLoader extends JobInterface {
                return false;
           } else {
                this.ticks = 20;
-               List players = this.npc.field_70170_p.func_72872_a(EntityPlayer.class, this.npc.func_174813_aQ().func_72314_b(48.0D, 48.0D, 48.0D));
+               List players = this.npc.world.func_72872_a(EntityPlayer.class, this.npc.func_174813_aQ().func_72314_b(48.0D, 48.0D, 48.0D));
                if (!players.isEmpty()) {
                     this.playerLastSeen = System.currentTimeMillis();
                }

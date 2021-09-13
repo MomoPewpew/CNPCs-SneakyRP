@@ -60,8 +60,8 @@ public abstract class BlockNpcDoorInterface extends BlockDoor implements ITileEn
           return state;
      }
 
-     public Block func_149663_c(String name) {
+     public Block setUnlocalizedName(String name) {
           this.setRegistryName(name);
-          return super.func_149663_c(name);
+          return super.setUnlocalizedName(name);
      }
 }

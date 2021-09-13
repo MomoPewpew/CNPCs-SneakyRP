@@ -28,14 +28,14 @@ public class EntityAIReturn extends EntityAIBase {
      public boolean func_75250_a() {
           if (!this.npc.hasOwner() && !this.npc.func_184218_aH() && this.npc.ais.shouldReturnHome() && !this.npc.isKilled() && this.npc.func_70661_as().func_75500_f() && !this.npc.isInteracting()) {
                BlockPos pos;
-               if (this.npc.ais.findShelter == 0 && (!this.npc.field_70170_p.func_72935_r() || this.npc.field_70170_p.func_72896_J()) && !this.npc.field_70170_p.field_73011_w.func_191066_m()) {
+               if (this.npc.ais.findShelter == 0 && (!this.npc.world.func_72935_r() || this.npc.world.func_72896_J()) && !this.npc.world.field_73011_w.func_191066_m()) {
                     pos = new BlockPos((double)this.npc.getStartXPos(), this.npc.getStartYPos(), (double)this.npc.getStartZPos());
-                    if (this.npc.field_70170_p.func_175678_i(pos) || this.npc.field_70170_p.func_175699_k(pos) <= 8) {
+                    if (this.npc.world.func_175678_i(pos) || this.npc.world.func_175699_k(pos) <= 8) {
                          return false;
                     }
-               } else if (this.npc.ais.findShelter == 1 && this.npc.field_70170_p.func_72935_r()) {
+               } else if (this.npc.ais.findShelter == 1 && this.npc.world.func_72935_r()) {
                     pos = new BlockPos((double)this.npc.getStartXPos(), this.npc.getStartYPos(), (double)this.npc.getStartZPos());
-                    if (this.npc.field_70170_p.func_175678_i(pos)) {
+                    if (this.npc.world.func_175678_i(pos)) {
                          return false;
                     }
                }

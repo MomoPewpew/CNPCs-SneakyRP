@@ -130,7 +130,7 @@ public class GuiCreationExtra extends GuiCreationScreenInterface implements ICus
 
      private NBTTagCompound getExtras(EntityLivingBase entity) {
           NBTTagCompound fake = new NBTTagCompound();
-          (new EntityFakeLiving(entity.field_70170_p)).func_70014_b(fake);
+          (new EntityFakeLiving(entity.world)).func_70014_b(fake);
           NBTTagCompound compound = new NBTTagCompound();
 
           try {

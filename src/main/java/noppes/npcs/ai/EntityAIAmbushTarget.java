@@ -26,7 +26,7 @@ public class EntityAIAmbushTarget extends EntityAIBase {
      public EntityAIAmbushTarget(EntityNPCInterface par1EntityCreature, double par2) {
           this.npc = par1EntityCreature;
           this.movementSpeed = par2;
-          this.world = par1EntityCreature.field_70170_p;
+          this.world = par1EntityCreature.world;
           this.func_75248_a(AiMutex.PASSIVE + AiMutex.LOOK);
      }
 

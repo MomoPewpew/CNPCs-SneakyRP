@@ -282,8 +282,8 @@ public class PlayerWrapper extends EntityLivingBaseWrapper implements IPlayer {
      public int inventoryItemCount(IItemStack item) {
           int count = 0;
 
-          for(int i = 0; i < ((EntityPlayerMP)this.entity).field_71071_by.func_70302_i_(); ++i) {
-               ItemStack is = ((EntityPlayerMP)this.entity).field_71071_by.func_70301_a(i);
+          for(int i = 0; i < ((EntityPlayerMP)this.entity).inventory.func_70302_i_(); ++i) {
+               ItemStack is = ((EntityPlayerMP)this.entity).inventory.func_70301_a(i);
                if (is != null && this.isItemEqual(item.getMCItemStack(), is)) {
                     count += is.func_190916_E();
                }
@@ -315,7 +315,7 @@ public class PlayerWrapper extends EntityLivingBaseWrapper implements IPlayer {
 
      public IContainer getInventory() {
           if (this.inventory == null) {
-               this.inventory = new ContainerWrapper(((EntityPlayerMP)this.entity).field_71071_by);
+               this.inventory = new ContainerWrapper(((EntityPlayerMP)this.entity).inventory);
           }
 
           return this.inventory;
@@ -329,15 +329,15 @@ public class PlayerWrapper extends EntityLivingBaseWrapper implements IPlayer {
                if (count == amount) {
                     this.removeAllItems(item);
                } else {
-                    for(int i = 0; i < ((EntityPlayerMP)this.entity).field_71071_by.func_70302_i_(); ++i) {
-                         ItemStack is = ((EntityPlayerMP)this.entity).field_71071_by.func_70301_a(i);
+                    for(int i = 0; i < ((EntityPlayerMP)this.entity).inventory.func_70302_i_(); ++i) {
+                         ItemStack is = ((EntityPlayerMP)this.entity).inventory.func_70301_a(i);
                          if (is != null && this.isItemEqual(item.getMCItemStack(), is)) {
                               if (amount < is.func_190916_E()) {
-                                   is.func_77979_a(amount);
+                                   is.splitStack(amount);
                                    break;
                               }
 
-                              ((EntityPlayerMP)this.entity).field_71071_by.func_70299_a(i, ItemStack.field_190927_a);
+                              ((EntityPlayerMP)this.entity).inventory.func_70299_a(i, ItemStack.field_190927_a);
                               amount -= is.func_190916_E();
                          }
                     }
@@ -362,7 +362,7 @@ public class PlayerWrapper extends EntityLivingBaseWrapper implements IPlayer {
           if (mcItem.func_190926_b()) {
                return false;
           } else {
-               boolean bo = ((EntityPlayerMP)this.entity).field_71071_by.func_70441_a(mcItem.func_77946_l());
+               boolean bo = ((EntityPlayerMP)this.entity).inventory.func_70441_a(mcItem.func_77946_l());
                if (bo) {
                     NoppesUtilServer.playSound((EntityLivingBase)this.entity, SoundEvents.field_187638_cR, 0.2F, ((((EntityPlayerMP)this.entity).func_70681_au().nextFloat() - ((EntityPlayerMP)this.entity).func_70681_au().nextFloat()) * 0.7F + 1.0F) * 2.0F);
                     this.updatePlayerInventory();
@@ -393,7 +393,7 @@ public class PlayerWrapper extends EntityLivingBaseWrapper implements IPlayer {
 
      public IBlock getSpawnPoint() {
           BlockPos pos = ((EntityPlayerMP)this.entity).func_180470_cg();
-          return pos == null ? this.getWorld().getSpawnPoint() : NpcAPI.Instance().getIBlock(((EntityPlayerMP)this.entity).field_70170_p, pos);
+          return pos == null ? this.getWorld().getSpawnPoint() : NpcAPI.Instance().getIBlock(((EntityPlayerMP)this.entity).world, pos);
      }
 
      public void setSpawnPoint(IBlock block) {
@@ -412,10 +412,10 @@ public class PlayerWrapper extends EntityLivingBaseWrapper implements IPlayer {
      }
 
      public void removeAllItems(IItemStack item) {
-          for(int i = 0; i < ((EntityPlayerMP)this.entity).field_71071_by.func_70302_i_(); ++i) {
-               ItemStack is = ((EntityPlayerMP)this.entity).field_71071_by.func_70301_a(i);
+          for(int i = 0; i < ((EntityPlayerMP)this.entity).inventory.func_70302_i_(); ++i) {
+               ItemStack is = ((EntityPlayerMP)this.entity).inventory.func_70301_a(i);
                if (is != null && is.func_77969_a(item.getMCItemStack())) {
-                    ((EntityPlayerMP)this.entity).field_71071_by.func_70299_a(i, ItemStack.field_190927_a);
+                    ((EntityPlayerMP)this.entity).inventory.func_70299_a(i, ItemStack.field_190927_a);
                }
           }
 
@@ -542,7 +542,7 @@ public class PlayerWrapper extends EntityLivingBaseWrapper implements IPlayer {
      public IContainer showChestGui(int rows) {
           ScriptContainer current = ScriptContainer.Current;
           ((EntityPlayerMP)this.entity).func_71053_j();
-          ((EntityPlayerMP)this.entity).openGui(CustomNpcs.instance, EnumGuiType.CustomChest.ordinal(), ((EntityPlayerMP)this.entity).field_70170_p, rows, 0, 0);
+          ((EntityPlayerMP)this.entity).openGui(CustomNpcs.instance, EnumGuiType.CustomChest.ordinal(), ((EntityPlayerMP)this.entity).world, rows, 0, 0);
           ContainerCustomChestWrapper container = (ContainerCustomChestWrapper)NpcAPI.Instance().getIContainer(((EntityPlayerMP)this.entity).openContainer);
           container.script = current;
           return container;

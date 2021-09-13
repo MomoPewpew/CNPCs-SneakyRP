@@ -100,7 +100,7 @@ public class NoppesUtilServer {
      }
 
      public static void setEditingQuest(EntityPlayer player, Quest quest) {
-          if (player.field_70170_p.field_72995_K) {
+          if (player.world.field_72995_K) {
                editingQuestsClient.put(player.func_110124_au(), quest);
           } else {
                editingQuests.put(player.func_110124_au(), quest);
@@ -109,7 +109,7 @@ public class NoppesUtilServer {
      }
 
      public static Quest getEditingQuest(EntityPlayer player) {
-          return player.field_70170_p.field_72995_K ? (Quest)editingQuestsClient.get(player.func_110124_au()) : (Quest)editingQuests.get(player.func_110124_au());
+          return player.world.field_72995_K ? (Quest)editingQuestsClient.get(player.func_110124_au()) : (Quest)editingQuests.get(player.func_110124_au());
      }
 
      public static void sendRoleData(EntityPlayer player, EntityNPCInterface npc) {
@@ -246,7 +246,7 @@ public class NoppesUtilServer {
      }
 
      public static void consumeItemStack(int i, EntityPlayer player) {
-          ItemStack item = player.field_71071_by.func_70448_g();
+          ItemStack item = player.inventory.func_70448_g();
           if (!player.field_71075_bZ.field_75098_d && item != null && !item.func_190926_b()) {
                item.func_190918_g(1);
                if (item.func_190916_E() <= 0) {
@@ -269,8 +269,8 @@ public class NoppesUtilServer {
                setEditingNpc(player, npc);
                sendExtraData(player, npc, gui, i, j, k);
                CustomNPCsScheduler.runTack(() -> {
-                    if (CustomNpcs.proxy.getServerGuiElement(gui.ordinal(), player, player.field_70170_p, i, j, k) != null) {
-                         player.openGui(CustomNpcs.instance, gui.ordinal(), player.field_70170_p, i, j, k);
+                    if (CustomNpcs.proxy.getServerGuiElement(gui.ordinal(), player, player.world, i, j, k) != null) {
+                         player.openGui(CustomNpcs.instance, gui.ordinal(), player.world, i, j, k);
                     } else {
                          Server.sendDataChecked((EntityPlayerMP)player, EnumPacketClient.GUI, gui.ordinal(), i, j, k);
                          ArrayList list = getScrollData(player, gui, npc);
@@ -335,8 +335,8 @@ public class NoppesUtilServer {
           if (comp.func_74779_i("id").equalsIgnoreCase("entityhorse")) {
                player.func_145747_a(new TextComponentTranslation("Currently you cant create horse spawner, its a minecraft bug", new Object[0]));
           } else {
-               player.field_70170_p.func_175656_a(pos, Blocks.field_150474_ac.func_176223_P());
-               TileEntityMobSpawner tile = (TileEntityMobSpawner)player.field_70170_p.func_175625_s(pos);
+               player.world.func_175656_a(pos, Blocks.field_150474_ac.func_176223_P());
+               TileEntityMobSpawner tile = (TileEntityMobSpawner)player.world.func_175625_s(pos);
                MobSpawnerBaseLogic logic = tile.func_145881_a();
                if (!comp.func_150297_b("id", 8)) {
                     comp.func_74778_a("id", "Pig");
@@ -619,7 +619,7 @@ public class NoppesUtilServer {
           int x = compound.func_74762_e("x");
           int y = compound.func_74762_e("y");
           int z = compound.func_74762_e("z");
-          TileEntity tile = player.field_70170_p.func_175625_s(new BlockPos(x, y, z));
+          TileEntity tile = player.world.func_175625_s(new BlockPos(x, y, z));
           if (tile != null) {
                tile.func_145839_a(compound);
           }
@@ -650,7 +650,7 @@ public class NoppesUtilServer {
 
      public static void sendNearbyNpcs(EntityPlayerMP player) {
           HashMap map = new HashMap();
-          Iterator var2 = player.field_70170_p.field_72996_f.iterator();
+          Iterator var2 = player.world.field_72996_f.iterator();
 
           while(var2.hasNext()) {
                Entity entity = (Entity)var2.next();
@@ -702,18 +702,18 @@ public class NoppesUtilServer {
      }
 
      public static void GivePlayerItem(Entity entity, EntityPlayer player, ItemStack item) {
-          if (!entity.field_70170_p.field_72995_K && item != null && !item.func_190926_b()) {
+          if (!entity.world.field_72995_K && item != null && !item.func_190926_b()) {
                item = item.func_77946_l();
                float f = 0.7F;
-               double d = (double)(entity.field_70170_p.field_73012_v.nextFloat() * f) + (double)(1.0F - f);
-               double d1 = (double)(entity.field_70170_p.field_73012_v.nextFloat() * f) + (double)(1.0F - f);
-               double d2 = (double)(entity.field_70170_p.field_73012_v.nextFloat() * f) + (double)(1.0F - f);
-               EntityItem entityitem = new EntityItem(entity.field_70170_p, entity.field_70165_t + d, entity.field_70163_u + d1, entity.field_70161_v + d2, item);
+               double d = (double)(entity.world.field_73012_v.nextFloat() * f) + (double)(1.0F - f);
+               double d1 = (double)(entity.world.field_73012_v.nextFloat() * f) + (double)(1.0F - f);
+               double d2 = (double)(entity.world.field_73012_v.nextFloat() * f) + (double)(1.0F - f);
+               EntityItem entityitem = new EntityItem(entity.world, entity.field_70165_t + d, entity.field_70163_u + d1, entity.field_70161_v + d2, item);
                entityitem.func_174867_a(2);
-               entity.field_70170_p.func_72838_d(entityitem);
+               entity.world.func_72838_d(entityitem);
                int i = item.func_190916_E();
-               if (player.field_71071_by.func_70441_a(item)) {
-                    entity.field_70170_p.func_184148_a((EntityPlayer)null, player.field_70165_t, player.field_70163_u, player.field_70161_v, SoundEvents.field_187638_cR, SoundCategory.PLAYERS, 0.2F, ((player.func_70681_au().nextFloat() - player.func_70681_au().nextFloat()) * 0.7F + 1.0F) * 2.0F);
+               if (player.inventory.func_70441_a(item)) {
+                    entity.world.func_184148_a((EntityPlayer)null, player.field_70165_t, player.field_70163_u, player.field_70161_v, SoundEvents.field_187638_cR, SoundCategory.PLAYERS, 0.2F, ((player.func_70681_au().nextFloat() - player.func_70681_au().nextFloat()) * 0.7F + 1.0F) * 2.0F);
                     player.func_71001_a(entityitem, i);
                     PlayerQuestData playerdata = PlayerData.get(player).questData;
                     playerdata.checkQuestCompletion(player, 0);
@@ -760,7 +760,7 @@ public class NoppesUtilServer {
      }
 
      public static void playSound(EntityLivingBase entity, SoundEvent sound, float volume, float pitch) {
-          entity.field_70170_p.func_184148_a((EntityPlayer)null, entity.field_70165_t, entity.field_70163_u, entity.field_70161_v, sound, SoundCategory.NEUTRAL, volume, pitch);
+          entity.world.func_184148_a((EntityPlayer)null, entity.field_70165_t, entity.field_70163_u, entity.field_70161_v, sound, SoundCategory.NEUTRAL, volume, pitch);
      }
 
      public static void playSound(World world, BlockPos pos, SoundEvent sound, SoundCategory cat, float volume, float pitch) {

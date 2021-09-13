@@ -35,7 +35,7 @@ public class BlockBorder extends BlockInterface implements IPermission {
      }
 
      public boolean func_180639_a(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
-          ItemStack currentItem = player.field_71071_by.func_70448_g();
+          ItemStack currentItem = player.inventory.func_70448_g();
           if (!world.field_72995_K && currentItem != null && currentItem.func_77973_b() == CustomItems.wand) {
                NoppesUtilServer.sendOpenGui(player, EnumGuiType.Border, (EntityNPCInterface)null, pos.func_177958_n(), pos.func_177956_o(), pos.func_177952_p());
                return true;

@@ -9,8 +9,8 @@ public abstract class BlockInterface extends BlockContainer {
           super(materialIn);
      }
 
-     public Block func_149663_c(String name) {
+     public Block setUnlocalizedName(String name) {
           this.setRegistryName("customnpcs", name);
-          return super.func_149663_c(name);
+          return super.setUnlocalizedName(name);
      }
 }

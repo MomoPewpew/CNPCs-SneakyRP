@@ -292,7 +292,7 @@ public abstract class EntityNPCInterface extends EntityCreature implements IEnti
           }
 
           this.timers.update();
-          if (this.field_70170_p.field_72995_K && this.wasKilled != this.isKilled()) {
+          if (this.world.field_72995_K && this.wasKilled != this.isKilled()) {
                this.field_70725_aQ = 0;
                this.updateHitbox();
           }
@@ -358,7 +358,7 @@ public abstract class EntityNPCInterface extends EntityCreature implements IEnti
                          this.faction = this.getFaction();
                     }
 
-                    if (!this.field_70170_p.field_72995_K) {
+                    if (!this.world.field_72995_K) {
                          if (!this.isKilled() && this.field_70173_aa % 20 == 0) {
                               this.advanced.scenes.update();
                               if (this.func_110143_aJ() < this.func_110138_aP()) {
@@ -372,7 +372,7 @@ public abstract class EntityNPCInterface extends EntityCreature implements IEnti
                               }
 
                               if (this.faction.getsAttacked && !this.isAttacking()) {
-                                   List list = this.field_70170_p.func_72872_a(EntityMob.class, this.func_174813_aQ().func_72314_b(16.0D, 16.0D, 16.0D));
+                                   List list = this.world.func_72872_a(EntityMob.class, this.func_174813_aQ().func_72314_b(16.0D, 16.0D, 16.0D));
                                    Iterator var2 = list.iterator();
 
                                    while(var2.hasNext()) {
@@ -418,15 +418,15 @@ public abstract class EntityNPCInterface extends EntityCreature implements IEnti
                          this.reset();
                     }
 
-                    if (this.field_70170_p.func_72935_r() && !this.field_70170_p.field_72995_K && this.stats.burnInSun) {
+                    if (this.world.func_72935_r() && !this.world.field_72995_K && this.stats.burnInSun) {
                          float f = this.func_70013_c();
-                         if (f > 0.5F && this.field_70146_Z.nextFloat() * 30.0F < (f - 0.4F) * 2.0F && this.field_70170_p.func_175710_j(new BlockPos(this))) {
+                         if (f > 0.5F && this.field_70146_Z.nextFloat() * 30.0F < (f - 0.4F) * 2.0F && this.world.func_175710_j(new BlockPos(this))) {
                               this.func_70015_d(8);
                          }
                     }
 
                     super.func_70636_d();
-                    if (this.field_70170_p.field_72995_K) {
+                    if (this.world.field_72995_K) {
                          if (this.roleInterface != null) {
                               this.roleInterface.clientUpdate();
                          }
@@ -467,7 +467,7 @@ public abstract class EntityNPCInterface extends EntityCreature implements IEnti
      }
 
      public boolean func_184645_a(EntityPlayer player, EnumHand hand) {
-          if (this.field_70170_p.field_72995_K) {
+          if (this.world.field_72995_K) {
                return !this.isAttacking();
           } else if (hand != EnumHand.MAIN_HAND) {
                return true;
@@ -552,7 +552,7 @@ public abstract class EntityNPCInterface extends EntityCreature implements IEnti
      }
 
      public boolean func_70097_a(DamageSource damagesource, float i) {
-          if (!this.field_70170_p.field_72995_K && !CustomNpcs.FreezeNPCs && !damagesource.field_76373_n.equals("inWall")) {
+          if (!this.world.field_72995_K && !CustomNpcs.FreezeNPCs && !damagesource.field_76373_n.equals("inWall")) {
                if (damagesource.field_76373_n.equals("outOfWorld") && this.isKilled()) {
                     this.reset();
                }
@@ -599,7 +599,7 @@ public abstract class EntityNPCInterface extends EntityCreature implements IEnti
                                    try {
                                         if (!this.isAttacking()) {
                                              if (i > 0.0F) {
-                                                  List inRange = this.field_70170_p.func_72872_a(EntityNPCInterface.class, this.func_174813_aQ().func_72314_b(32.0D, 16.0D, 32.0D));
+                                                  List inRange = this.world.func_72872_a(EntityNPCInterface.class, this.func_174813_aQ().func_72314_b(32.0D, 16.0D, 32.0D));
                                                   Iterator var7 = inRange.iterator();
 
                                                   while(true) {
@@ -700,7 +700,7 @@ public abstract class EntityNPCInterface extends EntityCreature implements IEnti
                     projectile.damage = event.damage;
                     projectile.callback = (projectile1, pos, entity1) -> {
                          if (proj.func_77973_b() == CustomItems.soulstoneFull) {
-                              Entity e = ItemSoulstoneFilled.Spawn((EntityPlayer)null, proj, this.field_70170_p, pos);
+                              Entity e = ItemSoulstoneFilled.Spawn((EntityPlayer)null, proj, this.world, pos);
                               if (e instanceof EntityLivingBase && entity1 instanceof EntityLivingBase) {
                                    if (e instanceof EntityLiving) {
                                         ((EntityLiving)e).func_70624_b((EntityLivingBase)entity1);
@@ -726,7 +726,7 @@ public abstract class EntityNPCInterface extends EntityCreature implements IEnti
      }
 
      public EntityProjectile shoot(double x, double y, double z, int accuracy, ItemStack proj, boolean indirect) {
-          EntityProjectile projectile = new EntityProjectile(this.field_70170_p, this, proj.func_77946_l(), true);
+          EntityProjectile projectile = new EntityProjectile(this.world, this, proj.func_77946_l(), true);
           double varX = x - this.field_70165_t;
           double varY = y - (this.field_70163_u + (double)this.func_70047_e());
           double varZ = z - this.field_70161_v;
@@ -734,7 +734,7 @@ public abstract class EntityNPCInterface extends EntityCreature implements IEnti
           float angle = projectile.getAngleForXYZ(varX, varY, varZ, (double)varF, indirect);
           float acc = 20.0F - (float)MathHelper.func_76141_d((float)accuracy / 5.0F);
           projectile.func_70186_c(varX, varY, varZ, angle, acc);
-          this.field_70170_p.func_72838_d(projectile);
+          this.world.func_72838_d(projectile);
           return projectile;
      }
 
@@ -752,7 +752,7 @@ public abstract class EntityNPCInterface extends EntityCreature implements IEnti
      }
 
      private void updateTasks() {
-          if (this.field_70170_p != null && !this.field_70170_p.field_72995_K) {
+          if (this.world != null && !this.world.field_72995_K) {
                this.clearTasks(this.field_70714_bg);
                this.clearTasks(this.field_70715_bh);
                if (!this.isKilled()) {
@@ -762,20 +762,20 @@ public abstract class EntityNPCInterface extends EntityCreature implements IEnti
                     this.field_70715_bh.func_75776_a(2, new EntityAIClosestTarget(this, EntityLivingBase.class, 4, this.ais.directLOS, false, attackEntitySelector));
                     this.field_70715_bh.func_75776_a(3, new EntityAIOwnerHurtByTarget(this));
                     this.field_70715_bh.func_75776_a(4, new EntityAIOwnerHurtTarget(this));
-                    this.field_70170_p.field_184152_t.func_72709_b(this);
+                    this.world.field_184152_t.func_72709_b(this);
                     if (this.ais.movementType == 1) {
                          this.field_70765_h = new FlyingMoveHelper(this);
-                         this.field_70699_by = new PathNavigateFlying(this, this.field_70170_p);
+                         this.field_70699_by = new PathNavigateFlying(this, this.world);
                     } else if (this.ais.movementType == 2) {
                          this.field_70765_h = new FlyingMoveHelper(this);
-                         this.field_70699_by = new PathNavigateSwimmer(this, this.field_70170_p);
+                         this.field_70699_by = new PathNavigateSwimmer(this, this.world);
                     } else {
                          this.field_70765_h = new EntityMoveHelper(this);
-                         this.field_70699_by = new PathNavigateGround(this, this.field_70170_p);
+                         this.field_70699_by = new PathNavigateGround(this, this.world);
                          this.field_70714_bg.func_75776_a(0, new EntityAIWaterNav(this));
                     }
 
-                    this.field_70170_p.field_184152_t.func_72703_a(this);
+                    this.world.field_184152_t.func_72703_a(this);
                     this.taskCount = 1;
                     this.addRegularEntries();
                     this.doorInteractType();
@@ -916,10 +916,10 @@ public abstract class EntityNPCInterface extends EntityCreature implements IEnti
 
      public float func_180484_a(BlockPos pos) {
           if (this.ais.movementType == 2) {
-               return this.field_70170_p.func_180495_p(pos).func_185904_a() == Material.field_151586_h ? 10.0F : 0.0F;
+               return this.world.func_180495_p(pos).func_185904_a() == Material.field_151586_h ? 10.0F : 0.0F;
           } else {
-               float weight = this.field_70170_p.func_175724_o(pos) - 0.5F;
-               if (this.field_70170_p.func_180495_p(pos).func_185914_p()) {
+               float weight = this.world.func_175724_o(pos) - 0.5F;
+               if (this.world.func_180495_p(pos).func_185914_p()) {
                     weight += 10.0F;
                }
 
@@ -967,13 +967,13 @@ public abstract class EntityNPCInterface extends EntityCreature implements IEnti
      }
 
      public EntityPlayerMP getFakeChatPlayer() {
-          if (this.field_70170_p.field_72995_K) {
+          if (this.world.field_72995_K) {
                return null;
           } else {
                EntityUtil.Copy(this, ChatEventPlayer);
                ChatEventProfile.npc = this;
                ChatEventPlayer.refreshDisplayName();
-               ChatEventPlayer.func_70029_a(this.field_70170_p);
+               ChatEventPlayer.func_70029_a(this.world);
                ChatEventPlayer.func_70107_b(this.field_70165_t, this.field_70163_u, this.field_70161_v);
                return ChatEventPlayer;
           }
@@ -990,7 +990,7 @@ public abstract class EntityNPCInterface extends EntityCreature implements IEnti
                     line.setText(event.getComponent().func_150260_c().replace("%%", "%"));
                }
 
-               List inRange = this.field_70170_p.func_72872_a(EntityPlayer.class, this.func_174813_aQ().func_72314_b(20.0D, 20.0D, 20.0D));
+               List inRange = this.world.func_72872_a(EntityPlayer.class, this.func_174813_aQ().func_72314_b(20.0D, 20.0D, 20.0D));
                Iterator var3 = inRange.iterator();
 
                while(var3.hasNext()) {
@@ -1102,9 +1102,9 @@ public abstract class EntityNPCInterface extends EntityCreature implements IEnti
           }
 
           double var10000 = (double)(this.field_70130_N / 2.0F);
-          World var10001 = this.field_70170_p;
+          World var10001 = this.world;
           if (var10000 > World.MAX_ENTITY_RADIUS) {
-               World var1 = this.field_70170_p;
+               World var1 = this.world;
                World.MAX_ENTITY_RADIUS = (double)(this.field_70130_N / 2.0F);
           }
 
@@ -1114,12 +1114,12 @@ public abstract class EntityNPCInterface extends EntityCreature implements IEnti
      public void func_70609_aI() {
           if (this.stats.spawnCycle != 3 && this.stats.spawnCycle != 4) {
                ++this.field_70725_aQ;
-               if (!this.field_70170_p.field_72995_K) {
+               if (!this.world.field_72995_K) {
                     if (!this.hasDied) {
                          this.func_70106_y();
                     }
 
-                    if (this.killedtime < System.currentTimeMillis() && (this.stats.spawnCycle == 0 || this.field_70170_p.func_72935_r() && this.stats.spawnCycle == 1 || !this.field_70170_p.func_72935_r() && this.stats.spawnCycle == 2)) {
+                    if (this.killedtime < System.currentTimeMillis() && (this.stats.spawnCycle == 0 || this.world.func_72935_r() && this.stats.spawnCycle == 1 || !this.world.func_72935_r() && this.stats.spawnCycle == 2)) {
                          this.reset();
                     }
 
@@ -1171,7 +1171,7 @@ public abstract class EntityNPCInterface extends EntityCreature implements IEnti
      }
 
      public void onCollide() {
-          if (this.func_70089_S() && this.field_70173_aa % 4 == 0 && !this.field_70170_p.field_72995_K) {
+          if (this.func_70089_S() && this.field_70173_aa % 4 == 0 && !this.world.field_72995_K) {
                AxisAlignedBB axisalignedbb = null;
                if (this.func_184187_bx() != null && this.func_184187_bx().func_70089_S()) {
                     axisalignedbb = this.func_174813_aQ().func_111270_a(this.func_184187_bx().func_174813_aQ()).func_72314_b(1.0D, 0.0D, 1.0D);
@@ -1179,7 +1179,7 @@ public abstract class EntityNPCInterface extends EntityCreature implements IEnti
                     axisalignedbb = this.func_174813_aQ().func_72314_b(1.0D, 0.5D, 1.0D);
                }
 
-               List list = this.field_70170_p.func_72872_a(EntityLivingBase.class, axisalignedbb);
+               List list = this.world.func_72872_a(EntityLivingBase.class, axisalignedbb);
                if (list != null) {
                     for(int i = 0; i < list.size(); ++i) {
                          Entity entity = (Entity)list.get(i);
@@ -1343,7 +1343,7 @@ public abstract class EntityNPCInterface extends EntityCreature implements IEnti
           this.hasDied = true;
           this.func_184226_ay();
           this.func_184210_p();
-          if (!this.field_70170_p.field_72995_K && this.stats.spawnCycle != 3 && this.stats.spawnCycle != 4) {
+          if (!this.world.field_72995_K && this.stats.spawnCycle != 3 && this.stats.spawnCycle != 4) {
                this.func_70606_j(-1.0F);
                this.func_70031_b(false);
                this.func_70661_as().func_75499_g();
@@ -1405,8 +1405,8 @@ public abstract class EntityNPCInterface extends EntityCreature implements IEnti
 
           while(true) {
                while(pos.func_177956_o() > 0) {
-                    IBlockState state = this.field_70170_p.func_180495_p(pos);
-                    AxisAlignedBB bb = state.func_185900_c(this.field_70170_p, pos).func_186670_a(pos);
+                    IBlockState state = this.world.func_180495_p(pos);
+                    AxisAlignedBB bb = state.func_185900_c(this.world, pos).func_186670_a(pos);
                     if (bb != null) {
                          if (this.ais.movementType != 2 || startPos.func_177956_o() > pos.func_177956_o() || state.func_185904_a() != Material.field_151586_h) {
                               return bb.field_72337_e;
@@ -1424,8 +1424,8 @@ public abstract class EntityNPCInterface extends EntityCreature implements IEnti
 
      private BlockPos calculateTopPos(BlockPos pos) {
           for(BlockPos check = pos; check.func_177956_o() > 0; check = check.func_177977_b()) {
-               IBlockState state = this.field_70170_p.func_180495_p(pos);
-               AxisAlignedBB bb = state.func_185900_c(this.field_70170_p, pos).func_186670_a(pos);
+               IBlockState state = this.world.func_180495_p(pos);
+               AxisAlignedBB bb = state.func_185900_c(this.world, pos).func_186670_a(pos);
                if (bb != null) {
                     return check;
                }
@@ -1450,18 +1450,18 @@ public abstract class EntityNPCInterface extends EntityCreature implements IEnti
      }
 
      public void givePlayerItem(EntityPlayer player, ItemStack item) {
-          if (!this.field_70170_p.field_72995_K) {
+          if (!this.world.field_72995_K) {
                item = item.func_77946_l();
                float f = 0.7F;
-               double d = (double)(this.field_70170_p.field_73012_v.nextFloat() * f) + (double)(1.0F - f);
-               double d1 = (double)(this.field_70170_p.field_73012_v.nextFloat() * f) + (double)(1.0F - f);
-               double d2 = (double)(this.field_70170_p.field_73012_v.nextFloat() * f) + (double)(1.0F - f);
-               EntityItem entityitem = new EntityItem(this.field_70170_p, this.field_70165_t + d, this.field_70163_u + d1, this.field_70161_v + d2, item);
+               double d = (double)(this.world.field_73012_v.nextFloat() * f) + (double)(1.0F - f);
+               double d1 = (double)(this.world.field_73012_v.nextFloat() * f) + (double)(1.0F - f);
+               double d2 = (double)(this.world.field_73012_v.nextFloat() * f) + (double)(1.0F - f);
+               EntityItem entityitem = new EntityItem(this.world, this.field_70165_t + d, this.field_70163_u + d1, this.field_70161_v + d2, item);
                entityitem.func_174867_a(2);
-               this.field_70170_p.func_72838_d(entityitem);
+               this.world.func_72838_d(entityitem);
                int i = item.func_190916_E();
-               if (player.field_71071_by.func_70441_a(item)) {
-                    this.field_70170_p.func_184148_a((EntityPlayer)null, this.field_70165_t, this.field_70163_u, this.field_70161_v, SoundEvents.field_187638_cR, SoundCategory.PLAYERS, 0.2F, ((this.field_70146_Z.nextFloat() - this.field_70146_Z.nextFloat()) * 0.7F + 1.0F) * 2.0F);
+               if (player.inventory.func_70441_a(item)) {
+                    this.world.func_184148_a((EntityPlayer)null, this.field_70165_t, this.field_70163_u, this.field_70161_v, SoundEvents.field_187638_cR, SoundCategory.PLAYERS, 0.2F, ((this.field_70146_Z.nextFloat() - this.field_70146_Z.nextFloat()) * 0.7F + 1.0F) * 2.0F);
                     player.func_71001_a(entityitem, i);
                     if (item.func_190916_E() <= 0) {
                          entityitem.func_70106_y();
@@ -1493,7 +1493,7 @@ public abstract class EntityNPCInterface extends EntityCreature implements IEnti
      }
 
      public boolean isRemote() {
-          return this.field_70170_p == null || this.field_70170_p.field_72995_K;
+          return this.world == null || this.world.field_72995_K;
      }
 
      public void setFaction(int id) {
@@ -1615,11 +1615,11 @@ public abstract class EntityNPCInterface extends EntityCreature implements IEnti
      }
 
      public Entity func_174793_f() {
-          if (this.field_70170_p.field_72995_K) {
+          if (this.world.field_72995_K) {
                return this;
           } else {
                EntityUtil.Copy(this, CommandPlayer);
-               CommandPlayer.func_70029_a(this.field_70170_p);
+               CommandPlayer.func_70029_a(this.world);
                CommandPlayer.func_70107_b(this.field_70165_t, this.field_70163_u, this.field_70161_v);
                return CommandPlayer;
           }
@@ -1693,7 +1693,7 @@ public abstract class EntityNPCInterface extends EntityCreature implements IEnti
      }
 
      public World func_130014_f_() {
-          return this.field_70170_p;
+          return this.world;
      }
 
      public boolean func_98034_c(EntityPlayer player) {
@@ -1823,20 +1823,20 @@ public abstract class EntityNPCInterface extends EntityCreature implements IEnti
           if (owner != null) {
                EnumFacing facing = owner.func_174811_aO().func_176734_d();
                BlockPos pos = new BlockPos(owner.field_70165_t, owner.func_174813_aQ().field_72338_b, owner.field_70161_v);
-               pos = pos.func_177982_a(facing.func_82601_c(), 0, facing.func_82599_e());
+               pos = pos.func_177982_a(facing.getFrontOffsetX(), 0, facing.getFrontOffsetZ());
                pos = this.calculateTopPos(pos);
 
                for(int i = -1; i < 2; ++i) {
                     for(int j = 0; j < 3; ++j) {
                          BlockPos check;
-                         if (facing.func_82601_c() == 0) {
-                              check = pos.func_177982_a(i, 0, j * facing.func_82599_e());
+                         if (facing.getFrontOffsetX() == 0) {
+                              check = pos.func_177982_a(i, 0, j * facing.getFrontOffsetZ());
                          } else {
-                              check = pos.func_177982_a(j * facing.func_82601_c(), 0, i);
+                              check = pos.func_177982_a(j * facing.getFrontOffsetX(), 0, i);
                          }
 
                          check = this.calculateTopPos(check);
-                         if (!this.field_70170_p.func_180495_p(check).func_185913_b() && !this.field_70170_p.func_180495_p(check.func_177984_a()).func_185913_b()) {
+                         if (!this.world.func_180495_p(check).func_185913_b() && !this.world.func_180495_p(check.func_177984_a()).func_185913_b()) {
                               this.func_70012_b((double)((float)check.func_177958_n() + 0.5F), (double)check.func_177956_o(), (double)((float)check.func_177952_p() + 0.5F), this.field_70177_z, this.field_70125_A);
                               this.func_70661_as().func_75499_g();
                               break;
@@ -1855,7 +1855,7 @@ public abstract class EntityNPCInterface extends EntityCreature implements IEnti
      }
 
      public boolean func_70601_bi() {
-          return this.func_180484_a(new BlockPos(this.field_70165_t, this.func_174813_aQ().field_72338_b, this.field_70161_v)) >= 0.0F && this.field_70170_p.func_180495_p((new BlockPos(this)).func_177977_b()).func_189884_a(this);
+          return this.func_180484_a(new BlockPos(this.field_70165_t, this.func_174813_aQ().field_72338_b, this.field_70161_v)) >= 0.0F && this.world.func_180495_p((new BlockPos(this)).func_177977_b()).func_189884_a(this);
      }
 
      public boolean shouldDismountInWater(Entity rider) {

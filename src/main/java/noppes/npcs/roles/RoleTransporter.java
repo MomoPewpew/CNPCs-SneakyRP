@@ -54,7 +54,7 @@ public class RoleTransporter extends RoleInterface implements IRoleTransporter {
                     if (loc.type != 0) {
                          return false;
                     } else {
-                         List inRange = this.npc.field_70170_p.func_72872_a(EntityPlayer.class, this.npc.func_174813_aQ().func_72314_b(6.0D, 6.0D, 6.0D));
+                         List inRange = this.npc.world.func_72872_a(EntityPlayer.class, this.npc.func_174813_aQ().func_72314_b(6.0D, 6.0D, 6.0D));
                          Iterator var3 = inRange.iterator();
 
                          while(var3.hasNext()) {

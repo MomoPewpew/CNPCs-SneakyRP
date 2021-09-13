@@ -29,7 +29,7 @@ public class ContainerNPCBankInterface extends ContainerNpcInterface {
           }
 
           NpcMiscInventory items = new NpcMiscInventory(54);
-          if (!player.field_70170_p.field_72995_K) {
+          if (!player.world.field_72995_K) {
                this.data = PlayerDataController.instance.getBankData(player, bankid);
                items = (NpcMiscInventory)this.data.getBankOrDefault(bankid).itemSlots.get(slot);
           }
@@ -51,12 +51,12 @@ public class ContainerNPCBankInterface extends ContainerNpcInterface {
 
           for(l = 0; l < 3; ++l) {
                for(j1 = 0; j1 < 9; ++j1) {
-                    this.func_75146_a(new Slot(player.field_71071_by, j1 + l * 9 + 9, 8 + j1 * 18, 86 + xOffset + l * 18));
+                    this.func_75146_a(new Slot(player.inventory, j1 + l * 9 + 9, 8 + j1 * 18, 86 + xOffset + l * 18));
                }
           }
 
           for(l = 0; l < 9; ++l) {
-               this.func_75146_a(new Slot(player.field_71071_by, l, 8 + l * 18, 144 + xOffset));
+               this.func_75146_a(new Slot(player.inventory, l, 8 + l * 18, 144 + xOffset));
           }
 
      }
@@ -94,7 +94,7 @@ public class ContainerNPCBankInterface extends ContainerNpcInterface {
 
      public void func_75134_a(EntityPlayer entityplayer) {
           super.func_75134_a(entityplayer);
-          if (!entityplayer.field_70170_p.field_72995_K) {
+          if (!entityplayer.world.field_72995_K) {
                ItemStack var3 = this.currencyMatrix.func_70301_a(0);
                this.currencyMatrix.func_70299_a(0, ItemStack.field_190927_a);
                if (!NoppesUtilServer.IsItemStackNull(var3)) {

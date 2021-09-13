@@ -65,8 +65,8 @@ public class QuestItem extends QuestInterface {
                }
           }
 
-          for(int i = 0; i < player.field_71071_by.func_70302_i_(); ++i) {
-               item = player.field_71071_by.func_70301_a(i);
+          for(int i = 0; i < player.inventory.func_70302_i_(); ++i) {
+               item = player.inventory.func_70301_a(i);
                if (!NoppesUtilServer.IsItemStackNull(item)) {
                     Iterator var6 = map.entrySet().iterator();
 
@@ -98,15 +98,15 @@ public class QuestItem extends QuestInterface {
 
                     int stacksize = questitem.func_190916_E();
 
-                    for(int i = 0; i < player.field_71071_by.func_70302_i_(); ++i) {
-                         ItemStack item = player.field_71071_by.func_70301_a(i);
+                    for(int i = 0; i < player.inventory.func_70302_i_(); ++i) {
+                         ItemStack item = player.inventory.func_70301_a(i);
                          if (!NoppesUtilServer.IsItemStackNull(item) && NoppesUtilPlayer.compareItems(item, questitem, this.ignoreDamage, this.ignoreNBT)) {
                               int size = item.func_190916_E();
                               if (stacksize - size >= 0) {
-                                   player.field_71071_by.func_70299_a(i, ItemStack.field_190927_a);
-                                   item.func_77979_a(size);
+                                   player.inventory.func_70299_a(i, ItemStack.field_190927_a);
+                                   item.splitStack(size);
                               } else {
-                                   item.func_77979_a(stacksize);
+                                   item.splitStack(stacksize);
                               }
 
                               stacksize -= size;
@@ -146,8 +146,8 @@ public class QuestItem extends QuestInterface {
           public int getProgress() {
                int count = 0;
 
-               for(int i = 0; i < this.player.field_71071_by.func_70302_i_(); ++i) {
-                    ItemStack item = this.player.field_71071_by.func_70301_a(i);
+               for(int i = 0; i < this.player.inventory.func_70302_i_(); ++i) {
+                    ItemStack item = this.player.inventory.func_70301_a(i);
                     if (!NoppesUtilServer.IsItemStackNull(item) && NoppesUtilPlayer.compareItems(this.questItem, item, QuestItem.this.ignoreDamage, QuestItem.this.ignoreNBT)) {
                          count += item.func_190916_E();
                     }

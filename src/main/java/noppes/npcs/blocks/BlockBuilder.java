@@ -53,7 +53,7 @@ public class BlockBuilder extends BlockInterface implements IPermission {
           if (par1World.field_72995_K) {
                return true;
           } else {
-               ItemStack currentItem = player.field_71071_by.func_70448_g();
+               ItemStack currentItem = player.inventory.func_70448_g();
                if (currentItem.func_77973_b() == CustomItems.wand || currentItem.func_77973_b() == Item.func_150898_a(CustomItems.builder)) {
                     NoppesUtilServer.sendOpenGui(player, EnumGuiType.BuilderBlock, (EntityNPCInterface)null, pos.func_177958_n(), pos.func_177956_o(), pos.func_177952_p());
                }

@@ -277,7 +277,7 @@ public class DataAdvanced implements INPCAdvanced {
      }
 
      public void setJob(int i) {
-          if (this.npc.jobInterface != null && !this.npc.field_70170_p.field_72995_K) {
+          if (this.npc.jobInterface != null && !this.npc.world.field_72995_K) {
                this.npc.jobInterface.reset();
           }
 

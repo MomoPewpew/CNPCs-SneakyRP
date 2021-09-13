@@ -52,7 +52,7 @@ public class FlyingMoveHelper extends EntityMoveHelper {
 
           for(int i = 1; (double)i < p_179926_7_; ++i) {
                axisalignedbb = axisalignedbb.func_72317_d(d4, d5, d6);
-               if (!this.entity.field_70170_p.func_184144_a(this.entity, axisalignedbb).isEmpty()) {
+               if (!this.entity.world.func_184144_a(this.entity, axisalignedbb).isEmpty()) {
                     return false;
                }
           }

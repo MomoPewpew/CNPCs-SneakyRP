@@ -16,7 +16,7 @@ public class GuiNpcWaypoint extends GuiNPCInterface implements IGuiData {
      private TileWaypoint tile;
 
      public GuiNpcWaypoint(int x, int y, int z) {
-          this.tile = (TileWaypoint)this.player.field_70170_p.func_175625_s(new BlockPos(x, y, z));
+          this.tile = (TileWaypoint)this.player.world.func_175625_s(new BlockPos(x, y, z));
           Client.sendData(EnumPacketServer.GetTileEntity, x, y, z);
           this.xSize = 265;
      }

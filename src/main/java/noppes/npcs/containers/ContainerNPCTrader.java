@@ -38,12 +38,12 @@ public class ContainerNPCTrader extends ContainerNpcInterface {
 
           for(j1 = 0; j1 < 3; ++j1) {
                for(l1 = 0; l1 < 9; ++l1) {
-                    this.func_75146_a(new Slot(player.field_71071_by, l1 + j1 * 9 + 9, 32 + l1 * 18, 140 + j1 * 18));
+                    this.func_75146_a(new Slot(player.inventory, l1 + j1 * 9 + 9, 32 + l1 * 18, 140 + j1 * 18));
                }
           }
 
           for(j1 = 0; j1 < 9; ++j1) {
-               this.func_75146_a(new Slot(player.field_71071_by, j1, 32 + j1 * 18, 198));
+               this.func_75146_a(new Slot(player.inventory, j1, 32 + j1 * 18, 198));
           }
 
      }
@@ -133,7 +133,7 @@ public class ContainerNPCTrader extends ContainerNpcInterface {
      }
 
      private boolean canGivePlayer(ItemStack item, EntityPlayer entityplayer) {
-          ItemStack itemstack3 = entityplayer.field_71071_by.func_70445_o();
+          ItemStack itemstack3 = entityplayer.inventory.func_70445_o();
           if (NoppesUtilServer.IsItemStackNull(itemstack3)) {
                return true;
           } else {
@@ -149,9 +149,9 @@ public class ContainerNPCTrader extends ContainerNpcInterface {
      }
 
      private void givePlayer(ItemStack item, EntityPlayer entityplayer) {
-          ItemStack itemstack3 = entityplayer.field_71071_by.func_70445_o();
+          ItemStack itemstack3 = entityplayer.inventory.func_70445_o();
           if (NoppesUtilServer.IsItemStackNull(itemstack3)) {
-               entityplayer.field_71071_by.func_70437_b(item);
+               entityplayer.inventory.func_70437_b(item);
           } else if (NoppesUtilPlayer.compareItems(itemstack3, item, false, false)) {
                int k1 = item.func_190916_E();
                if (k1 > 0 && k1 + itemstack3.func_190916_E() <= itemstack3.func_77976_d()) {

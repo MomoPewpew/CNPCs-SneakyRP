@@ -42,7 +42,7 @@ public class JobBard extends JobInterface implements IJobBard {
           if (this.npc.isRemote() && !this.song.isEmpty()) {
                List list;
                if (!MusicController.Instance.isPlaying(this.song)) {
-                    list = this.npc.field_70170_p.func_72872_a(EntityPlayer.class, this.npc.func_174813_aQ().func_72314_b((double)this.minRange, (double)(this.minRange / 2), (double)this.minRange));
+                    list = this.npc.world.func_72872_a(EntityPlayer.class, this.npc.func_174813_aQ().func_72314_b((double)this.minRange, (double)(this.minRange / 2), (double)this.minRange));
                     if (!list.contains(CustomNpcs.proxy.getPlayer())) {
                          return;
                     }
@@ -58,7 +58,7 @@ public class JobBard extends JobInterface implements IJobBard {
                          MusicController.Instance.playingEntity = this.npc;
                     }
                } else if (this.hasOffRange) {
-                    list = this.npc.field_70170_p.func_72872_a(EntityPlayer.class, this.npc.func_174813_aQ().func_72314_b((double)this.maxRange, (double)(this.maxRange / 2), (double)this.maxRange));
+                    list = this.npc.world.func_72872_a(EntityPlayer.class, this.npc.func_174813_aQ().func_72314_b((double)this.maxRange, (double)(this.maxRange / 2), (double)this.maxRange));
                     if (!list.contains(CustomNpcs.proxy.getPlayer())) {
                          MusicController.Instance.stopMusic();
                     }
@@ -76,7 +76,7 @@ public class JobBard extends JobInterface implements IJobBard {
      }
 
      public void delete() {
-          if (this.npc.field_70170_p.field_72995_K && this.hasOffRange && MusicController.Instance.isPlaying(this.song)) {
+          if (this.npc.world.field_72995_K && this.hasOffRange && MusicController.Instance.isPlaying(this.song)) {
                MusicController.Instance.stopMusic();
           }
 

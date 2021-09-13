@@ -119,7 +119,7 @@ public class JobConversation extends JobInterface {
                if (this.nextLine != null) {
                     this.ticks = this.nextLine.delay;
                } else if (this.hasQuest()) {
-                    List inRange = this.npc.field_70170_p.func_72872_a(EntityPlayer.class, this.npc.func_174813_aQ().func_72314_b((double)this.range, (double)this.range, (double)this.range));
+                    List inRange = this.npc.world.func_72872_a(EntityPlayer.class, this.npc.func_174813_aQ().func_72314_b((double)this.range, (double)this.range, (double)this.range));
                     Iterator var7 = inRange.iterator();
 
                     while(var7.hasNext()) {
@@ -141,7 +141,7 @@ public class JobConversation extends JobInterface {
                     }
 
                     this.startedTicks = 10;
-                    if (this.npc.field_70170_p.func_72872_a(EntityPlayer.class, this.npc.func_174813_aQ().func_72314_b((double)this.range, (double)this.range, (double)this.range)).isEmpty()) {
+                    if (this.npc.world.func_72872_a(EntityPlayer.class, this.npc.func_174813_aQ().func_72314_b((double)this.range, (double)this.range, (double)this.range)).isEmpty()) {
                          return false;
                     }
                }
@@ -168,7 +168,7 @@ public class JobConversation extends JobInterface {
                return false;
           } else {
                this.npcs.clear();
-               List list = this.npc.field_70170_p.func_72872_a(EntityNPCInterface.class, this.npc.func_174813_aQ().func_72314_b(10.0D, 10.0D, 10.0D));
+               List list = this.npc.world.func_72872_a(EntityNPCInterface.class, this.npc.func_174813_aQ().func_72314_b(10.0D, 10.0D, 10.0D));
                Iterator var2 = list.iterator();
 
                while(var2.hasNext()) {
@@ -214,7 +214,7 @@ public class JobConversation extends JobInterface {
      }
 
      private void say(JobConversation.ConversationLine line) {
-          List inRange = this.npc.field_70170_p.func_72872_a(EntityPlayer.class, this.npc.func_174813_aQ().func_72314_b((double)this.range, (double)this.range, (double)this.range));
+          List inRange = this.npc.world.func_72872_a(EntityPlayer.class, this.npc.func_174813_aQ().func_72314_b((double)this.range, (double)this.range, (double)this.range));
           EntityNPCInterface npc = (EntityNPCInterface)this.npcs.get(line.npc.toLowerCase());
           if (npc != null) {
                Iterator var4 = inRange.iterator();

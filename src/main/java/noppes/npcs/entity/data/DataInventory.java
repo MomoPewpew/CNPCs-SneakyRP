@@ -139,7 +139,7 @@ public class DataInventory implements IInventory, INPCInventory {
                          dchance = (Integer)this.dropchance.get(i);
                     }
 
-                    int chance = this.npc.field_70170_p.field_73012_v.nextInt(100) + dchance;
+                    int chance = this.npc.world.field_73012_v.nextInt(100) + dchance;
                     if (chance >= 100) {
                          list.add(item);
                     }
@@ -185,18 +185,18 @@ public class DataInventory implements IInventory, INPCInventory {
                          if (this.lootMode == 1 && entity instanceof EntityPlayer) {
                               EntityPlayer player = (EntityPlayer)entity;
                               item.func_174867_a(2);
-                              this.npc.field_70170_p.func_72838_d(item);
+                              this.npc.world.func_72838_d(item);
                               ItemStack stack = item.func_92059_d();
                               int i = stack.func_190916_E();
-                              if (player.field_71071_by.func_70441_a(stack)) {
-                                   entity.field_70170_p.func_184148_a((EntityPlayer)null, player.field_70165_t, player.field_70163_u, player.field_70161_v, SoundEvents.field_187638_cR, SoundCategory.PLAYERS, 0.2F, ((player.func_70681_au().nextFloat() - player.func_70681_au().nextFloat()) * 0.7F + 1.0F) * 2.0F);
+                              if (player.inventory.func_70441_a(stack)) {
+                                   entity.world.func_184148_a((EntityPlayer)null, player.field_70165_t, player.field_70163_u, player.field_70161_v, SoundEvents.field_187638_cR, SoundCategory.PLAYERS, 0.2F, ((player.func_70681_au().nextFloat() - player.func_70681_au().nextFloat()) * 0.7F + 1.0F) * 2.0F);
                                    player.func_71001_a(item, i);
                                    if (stack.func_190916_E() <= 0) {
                                         item.func_70106_y();
                                    }
                               }
                          } else {
-                              this.npc.field_70170_p.func_72838_d(item);
+                              this.npc.world.func_72838_d(item);
                          }
                     }
                }
@@ -209,9 +209,9 @@ public class DataInventory implements IInventory, INPCInventory {
                     var2 = EntityXPOrb.func_70527_a(exp);
                     exp -= var2;
                     if (this.lootMode == 1 && entity instanceof EntityPlayer) {
-                         this.npc.field_70170_p.func_72838_d(new EntityXPOrb(entity.field_70170_p, entity.field_70165_t, entity.field_70163_u, entity.field_70161_v, var2));
+                         this.npc.world.func_72838_d(new EntityXPOrb(entity.world, entity.field_70165_t, entity.field_70163_u, entity.field_70161_v, var2));
                     } else {
-                         this.npc.field_70170_p.func_72838_d(new EntityXPOrb(this.npc.field_70170_p, this.npc.field_70165_t, this.npc.field_70163_u, this.npc.field_70161_v, var2));
+                         this.npc.world.func_72838_d(new EntityXPOrb(this.npc.world, this.npc.field_70165_t, this.npc.field_70163_u, this.npc.field_70161_v, var2));
                     }
                }
 
@@ -221,7 +221,7 @@ public class DataInventory implements IInventory, INPCInventory {
 
      public EntityItem getEntityItem(ItemStack itemstack) {
           if (itemstack != null && !itemstack.func_190926_b()) {
-               EntityItem entityitem = new EntityItem(this.npc.field_70170_p, this.npc.field_70165_t, this.npc.field_70163_u - 0.30000001192092896D + (double)this.npc.func_70047_e(), this.npc.field_70161_v, itemstack);
+               EntityItem entityitem = new EntityItem(this.npc.world, this.npc.field_70165_t, this.npc.field_70163_u - 0.30000001192092896D + (double)this.npc.func_70047_e(), this.npc.field_70161_v, itemstack);
                entityitem.func_174867_a(40);
                float f2 = this.npc.func_70681_au().nextFloat() * 0.5F;
                float f4 = this.npc.func_70681_au().nextFloat() * 3.141593F * 2.0F;
@@ -267,7 +267,7 @@ public class DataInventory implements IInventory, INPCInventory {
                     var4 = ((IItemStack)var3.get(par1)).getMCItemStack();
                     var3.put(par1, (Object)null);
                } else {
-                    var4 = ((IItemStack)var3.get(par1)).getMCItemStack().func_77979_a(par2);
+                    var4 = ((IItemStack)var3.get(par1)).getMCItemStack().splitStack(par2);
                     if (((IItemStack)var3.get(par1)).getMCItemStack().func_190916_E() == 0) {
                          var3.put(par1, (Object)null);
                     }
@@ -401,7 +401,7 @@ public class DataInventory implements IInventory, INPCInventory {
      public int getExpRNG() {
           int exp = this.minExp;
           if (this.maxExp - this.minExp > 0) {
-               exp += this.npc.field_70170_p.field_73012_v.nextInt(this.maxExp - this.minExp);
+               exp += this.npc.world.field_73012_v.nextInt(this.maxExp - this.minExp);
           }
 
           return exp;

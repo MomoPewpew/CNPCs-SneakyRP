@@ -28,7 +28,7 @@ public class ContainerManageBanks extends Container {
           }
 
           for(j1 = 0; j1 < 9; ++j1) {
-               this.func_75146_a(new Slot(player.field_71071_by, j1, 8 + j1 * 18, 171));
+               this.func_75146_a(new Slot(player.inventory, j1, 8 + j1 * 18, 171));
           }
 
      }
