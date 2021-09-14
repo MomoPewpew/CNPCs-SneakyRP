@@ -4,7 +4,7 @@ import java.util.List;
 import noppes.npcs.api.handler.data.IQuest;
 
 public interface IQuestHandler {
-     List categories();
+	List categories();
 
-     IQuest get(int var1);
+	IQuest get(int var1);
 }

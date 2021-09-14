@@ -3,35 +3,35 @@ package noppes.npcs.api.handler.data;
 import net.minecraft.item.ItemStack;
 
 public interface IRecipe {
-     String getName();
+	String getName();
 
-     boolean isGlobal();
+	boolean isGlobal();
 
-     void setIsGlobal(boolean var1);
+	void setIsGlobal(boolean var1);
 
-     boolean getIgnoreNBT();
+	boolean getIgnoreNBT();
 
-     void setIgnoreNBT(boolean var1);
+	void setIgnoreNBT(boolean var1);
 
-     boolean getIgnoreDamage();
+	boolean getIgnoreDamage();
 
-     void setIgnoreDamage(boolean var1);
+	void setIgnoreDamage(boolean var1);
 
-     int getWidth();
+	int getWidth();
 
-     int getHeight();
+	int getHeight();
 
-     ItemStack getResult();
+	ItemStack getResult();
 
-     ItemStack[] getRecipe();
+	ItemStack[] getRecipe();
 
-     void saves(boolean var1);
+	void saves(boolean var1);
 
-     boolean saves();
+	boolean saves();
 
-     void save();
+	void save();
 
-     void delete();
+	void delete();
 
-     int getId();
+	int getId();
 }

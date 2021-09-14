@@ -5,67 +5,67 @@ import noppes.npcs.api.entity.data.IMark;
 import noppes.npcs.api.item.IItemStack;
 
 public interface IEntityLivingBase extends IEntity {
-     float getHealth();
+	float getHealth();
 
-     void setHealth(float var1);
+	void setHealth(float var1);
 
-     float getMaxHealth();
+	float getMaxHealth();
 
-     void setMaxHealth(float var1);
+	void setMaxHealth(float var1);
 
-     boolean isAttacking();
+	boolean isAttacking();
 
-     void setAttackTarget(IEntityLivingBase var1);
+	void setAttackTarget(IEntityLivingBase var1);
 
-     IEntityLivingBase getAttackTarget();
+	IEntityLivingBase getAttackTarget();
 
-     IEntityLivingBase getLastAttacked();
+	IEntityLivingBase getLastAttacked();
 
-     int getLastAttackedTime();
+	int getLastAttackedTime();
 
-     boolean canSeeEntity(IEntity var1);
+	boolean canSeeEntity(IEntity var1);
 
-     void swingMainhand();
+	void swingMainhand();
 
-     void swingOffhand();
+	void swingOffhand();
 
-     IItemStack getMainhandItem();
+	IItemStack getMainhandItem();
 
-     void setMainhandItem(IItemStack var1);
+	void setMainhandItem(IItemStack var1);
 
-     IItemStack getOffhandItem();
+	IItemStack getOffhandItem();
 
-     void setOffhandItem(IItemStack var1);
+	void setOffhandItem(IItemStack var1);
 
-     IItemStack getArmor(int var1);
+	IItemStack getArmor(int var1);
 
-     void setArmor(int var1, IItemStack var2);
+	void setArmor(int var1, IItemStack var2);
 
-     void addPotionEffect(int var1, int var2, int var3, boolean var4);
+	void addPotionEffect(int var1, int var2, int var3, boolean var4);
 
-     void clearPotionEffects();
+	void clearPotionEffects();
 
-     int getPotionEffect(int var1);
+	int getPotionEffect(int var1);
 
-     IMark addMark(int var1);
+	IMark addMark(int var1);
 
-     void removeMark(IMark var1);
+	void removeMark(IMark var1);
 
-     IMark[] getMarks();
+	IMark[] getMarks();
 
-     boolean isChild();
+	boolean isChild();
 
-     EntityLivingBase getMCEntity();
+	EntityLivingBase getMCEntity();
 
-     float getMoveForward();
+	float getMoveForward();
 
-     void setMoveForward(float var1);
+	void setMoveForward(float var1);
 
-     float getMoveStrafing();
+	float getMoveStrafing();
 
-     void setMoveStrafing(float var1);
+	void setMoveStrafing(float var1);
 
-     float getMoveVertical();
+	float getMoveVertical();
 
-     void setMoveVertical(float var1);
+	void setMoveVertical(float var1);
 }

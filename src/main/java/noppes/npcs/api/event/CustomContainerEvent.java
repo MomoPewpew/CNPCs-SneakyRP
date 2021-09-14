@@ -5,30 +5,31 @@ import noppes.npcs.api.entity.IPlayer;
 import noppes.npcs.api.item.IItemStack;
 
 public class CustomContainerEvent extends CustomNPCsEvent {
-     public final IContainer container;
-     public final IPlayer player;
+	public final IContainer container;
+	public final IPlayer player;
 
-     public CustomContainerEvent(IPlayer player, IContainer container) {
-          this.container = container;
-          this.player = player;
-     }
+	public CustomContainerEvent(IPlayer player, IContainer container) {
+		this.container = container;
+		this.player = player;
+	}
 
-     public static class SlotClickedEvent extends CustomContainerEvent {
-          public IItemStack slotItem;
-          public IItemStack heldItem;
-          public final int slot;
+	public static class SlotClickedEvent extends CustomContainerEvent {
+		public IItemStack slotItem;
+		public IItemStack heldItem;
+		public final int slot;
 
-          public SlotClickedEvent(IPlayer player, IContainer container, int slotId, IItemStack slotItem, IItemStack heldItem) {
-               super(player, container);
-               this.slotItem = slotItem;
-               this.heldItem = heldItem;
-               this.slot = slotId;
-          }
-     }
+		public SlotClickedEvent(IPlayer player, IContainer container, int slotId, IItemStack slotItem,
+				IItemStack heldItem) {
+			super(player, container);
+			this.slotItem = slotItem;
+			this.heldItem = heldItem;
+			this.slot = slotId;
+		}
+	}
 
-     public static class CloseEvent extends CustomContainerEvent {
-          public CloseEvent(IPlayer player, IContainer container) {
-               super(player, container);
-          }
-     }
+	public static class CloseEvent extends CustomContainerEvent {
+		public CloseEvent(IPlayer player, IContainer container) {
+			super(player, container);
+		}
+	}
 }

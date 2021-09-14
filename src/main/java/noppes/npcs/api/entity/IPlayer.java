@@ -10,110 +10,110 @@ import noppes.npcs.api.handler.data.IQuest;
 import noppes.npcs.api.item.IItemStack;
 
 public interface IPlayer extends IEntityLivingBase {
-     String getDisplayName();
+	String getDisplayName();
 
-     boolean hasFinishedQuest(int var1);
+	boolean hasFinishedQuest(int var1);
 
-     boolean hasActiveQuest(int var1);
+	boolean hasActiveQuest(int var1);
 
-     void startQuest(int var1);
+	void startQuest(int var1);
 
-     int factionStatus(int var1);
+	int factionStatus(int var1);
 
-     void finishQuest(int var1);
+	void finishQuest(int var1);
 
-     void stopQuest(int var1);
+	void stopQuest(int var1);
 
-     void removeQuest(int var1);
+	void removeQuest(int var1);
 
-     boolean hasReadDialog(int var1);
+	boolean hasReadDialog(int var1);
 
-     void showDialog(int var1, String var2);
+	void showDialog(int var1, String var2);
 
-     void removeDialog(int var1);
+	void removeDialog(int var1);
 
-     void addDialog(int var1);
+	void addDialog(int var1);
 
-     void addFactionPoints(int var1, int var2);
+	void addFactionPoints(int var1, int var2);
 
-     int getFactionPoints(int var1);
+	int getFactionPoints(int var1);
 
-     void message(String var1);
+	void message(String var1);
 
-     int getGamemode();
+	int getGamemode();
 
-     void setGamemode(int var1);
+	void setGamemode(int var1);
 
-     /** @deprecated */
-     int inventoryItemCount(IItemStack var1);
+	/** @deprecated */
+	int inventoryItemCount(IItemStack var1);
 
-     /** @deprecated */
-     int inventoryItemCount(String var1, int var2);
+	/** @deprecated */
+	int inventoryItemCount(String var1, int var2);
 
-     IContainer getInventory();
+	IContainer getInventory();
 
-     boolean removeItem(IItemStack var1, int var2);
+	boolean removeItem(IItemStack var1, int var2);
 
-     boolean removeItem(String var1, int var2, int var3);
+	boolean removeItem(String var1, int var2, int var3);
 
-     void removeAllItems(IItemStack var1);
+	void removeAllItems(IItemStack var1);
 
-     boolean giveItem(IItemStack var1);
+	boolean giveItem(IItemStack var1);
 
-     boolean giveItem(String var1, int var2, int var3);
+	boolean giveItem(String var1, int var2, int var3);
 
-     void setSpawnpoint(int var1, int var2, int var3);
+	void setSpawnpoint(int var1, int var2, int var3);
 
-     void resetSpawnpoint();
+	void resetSpawnpoint();
 
-     boolean hasAchievement(String var1);
+	boolean hasAchievement(String var1);
 
-     int getExpLevel();
+	int getExpLevel();
 
-     void setExpLevel(int var1);
+	void setExpLevel(int var1);
 
-     boolean hasPermission(String var1);
+	boolean hasPermission(String var1);
 
-     Object getPixelmonData();
+	Object getPixelmonData();
 
-     ITimers getTimers();
+	ITimers getTimers();
 
-     void closeGui();
+	void closeGui();
 
-     EntityPlayerMP getMCEntity();
+	EntityPlayerMP getMCEntity();
 
-     IBlock getSpawnPoint();
+	IBlock getSpawnPoint();
 
-     void setSpawnPoint(IBlock var1);
+	void setSpawnPoint(IBlock var1);
 
-     int getHunger();
+	int getHunger();
 
-     void setHunger(int var1);
+	void setHunger(int var1);
 
-     void kick(String var1);
+	void kick(String var1);
 
-     void sendNotification(String var1, String var2, int var3);
+	void sendNotification(String var1, String var2, int var3);
 
-     void sendMail(IPlayerMail var1);
+	void sendMail(IPlayerMail var1);
 
-     void clearData();
+	void clearData();
 
-     IQuest[] getActiveQuests();
+	IQuest[] getActiveQuests();
 
-     IQuest[] getFinishedQuests();
+	IQuest[] getFinishedQuests();
 
-     void updatePlayerInventory();
+	void updatePlayerInventory();
 
-     void playSound(String var1, float var2, float var3);
+	void playSound(String var1, float var2, float var3);
 
-     /** @deprecated */
-     IContainer showChestGui(int var1);
+	/** @deprecated */
+	IContainer showChestGui(int var1);
 
-     IContainer getOpenContainer();
+	IContainer getOpenContainer();
 
-     boolean canQuestBeAccepted(int var1);
+	boolean canQuestBeAccepted(int var1);
 
-     void showCustomGui(ICustomGui var1);
+	void showCustomGui(ICustomGui var1);
 
-     ICustomGui getCustomGui();
+	ICustomGui getCustomGui();
 }

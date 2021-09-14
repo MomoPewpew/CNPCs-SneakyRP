@@ -3,23 +3,23 @@ package noppes.npcs.api.entity;
 import noppes.npcs.api.item.IItemStack;
 
 public interface IProjectile extends IThrowable {
-     IItemStack getItem();
+	IItemStack getItem();
 
-     void setItem(IItemStack var1);
+	void setItem(IItemStack var1);
 
-     boolean getHasGravity();
+	boolean getHasGravity();
 
-     void setHasGravity(boolean var1);
+	void setHasGravity(boolean var1);
 
-     int getAccuracy();
+	int getAccuracy();
 
-     void setAccuracy(int var1);
+	void setAccuracy(int var1);
 
-     void setHeading(IEntity var1);
+	void setHeading(IEntity var1);
 
-     void setHeading(double var1, double var3, double var5);
+	void setHeading(double var1, double var3, double var5);
 
-     void setHeading(float var1, float var2);
+	void setHeading(float var1, float var2);
 
-     void enableEvents();
+	void enableEvents();
 }

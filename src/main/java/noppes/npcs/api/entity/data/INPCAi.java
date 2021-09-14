@@ -1,87 +1,87 @@
 package noppes.npcs.api.entity.data;
 
 public interface INPCAi {
-     int getAnimation();
+	int getAnimation();
 
-     void setAnimation(int var1);
+	void setAnimation(int var1);
 
-     int getCurrentAnimation();
+	int getCurrentAnimation();
 
-     void setReturnsHome(boolean var1);
+	void setReturnsHome(boolean var1);
 
-     boolean getReturnsHome();
+	boolean getReturnsHome();
 
-     int getRetaliateType();
+	int getRetaliateType();
 
-     void setRetaliateType(int var1);
+	void setRetaliateType(int var1);
 
-     int getMovingType();
+	int getMovingType();
 
-     void setMovingType(int var1);
+	void setMovingType(int var1);
 
-     int getNavigationType();
+	int getNavigationType();
 
-     void setNavigationType(int var1);
+	void setNavigationType(int var1);
 
-     int getStandingType();
+	int getStandingType();
 
-     void setStandingType(int var1);
+	void setStandingType(int var1);
 
-     boolean getAttackInvisible();
+	boolean getAttackInvisible();
 
-     void setAttackInvisible(boolean var1);
+	void setAttackInvisible(boolean var1);
 
-     int getWanderingRange();
+	int getWanderingRange();
 
-     void setWanderingRange(int var1);
+	void setWanderingRange(int var1);
 
-     boolean getInteractWithNPCs();
+	boolean getInteractWithNPCs();
 
-     void setInteractWithNPCs(boolean var1);
+	void setInteractWithNPCs(boolean var1);
 
-     boolean getStopOnInteract();
+	boolean getStopOnInteract();
 
-     void setStopOnInteract(boolean var1);
+	void setStopOnInteract(boolean var1);
 
-     int getWalkingSpeed();
+	int getWalkingSpeed();
 
-     void setWalkingSpeed(int var1);
+	void setWalkingSpeed(int var1);
 
-     int getMovingPathType();
+	int getMovingPathType();
 
-     boolean getMovingPathPauses();
+	boolean getMovingPathPauses();
 
-     void setMovingPathType(int var1, boolean var2);
+	void setMovingPathType(int var1, boolean var2);
 
-     int getDoorInteract();
+	int getDoorInteract();
 
-     void setDoorInteract(int var1);
+	void setDoorInteract(int var1);
 
-     boolean getCanSwim();
+	boolean getCanSwim();
 
-     void setCanSwim(boolean var1);
+	void setCanSwim(boolean var1);
 
-     int getSheltersFrom();
+	int getSheltersFrom();
 
-     void setSheltersFrom(int var1);
+	void setSheltersFrom(int var1);
 
-     boolean getAttackLOS();
+	boolean getAttackLOS();
 
-     void setAttackLOS(boolean var1);
+	void setAttackLOS(boolean var1);
 
-     boolean getAvoidsWater();
+	boolean getAvoidsWater();
 
-     void setAvoidsWater(boolean var1);
+	void setAvoidsWater(boolean var1);
 
-     boolean getLeapAtTarget();
+	boolean getLeapAtTarget();
 
-     void setLeapAtTarget(boolean var1);
+	void setLeapAtTarget(boolean var1);
 
-     int getTacticalType();
+	int getTacticalType();
 
-     void setTacticalType(int var1);
+	void setTacticalType(int var1);
 
-     int getTacticalRange();
+	int getTacticalRange();
 
-     void setTacticalRange(int var1);
+	void setTacticalRange(int var1);
 }

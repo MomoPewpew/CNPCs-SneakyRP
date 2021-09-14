@@ -7,51 +7,51 @@ import noppes.npcs.api.entity.data.INPCRole;
 import noppes.npcs.entity.EntityNPCInterface;
 
 public abstract class RoleInterface implements INPCRole {
-     public EntityNPCInterface npc;
-     public HashMap dataString = new HashMap();
+	public EntityNPCInterface npc;
+	public HashMap dataString = new HashMap();
 
-     public RoleInterface(EntityNPCInterface npc) {
-          this.npc = npc;
-     }
+	public RoleInterface(EntityNPCInterface npc) {
+		this.npc = npc;
+	}
 
-     public abstract NBTTagCompound writeToNBT(NBTTagCompound var1);
+	public abstract NBTTagCompound writeToNBT(NBTTagCompound var1);
 
-     public abstract void readFromNBT(NBTTagCompound var1);
+	public abstract void readFromNBT(NBTTagCompound var1);
 
-     public abstract void interact(EntityPlayer var1);
+	public abstract void interact(EntityPlayer var1);
 
-     public void killed() {
-     }
+	public void killed() {
+	}
 
-     public void delete() {
-     }
+	public void delete() {
+	}
 
-     public boolean aiShouldExecute() {
-          return false;
-     }
+	public boolean aiShouldExecute() {
+		return false;
+	}
 
-     public boolean aiContinueExecute() {
-          return false;
-     }
+	public boolean aiContinueExecute() {
+		return false;
+	}
 
-     public void aiStartExecuting() {
-     }
+	public void aiStartExecuting() {
+	}
 
-     public void aiUpdateTask() {
-     }
+	public void aiUpdateTask() {
+	}
 
-     public boolean defendOwner() {
-          return false;
-     }
+	public boolean defendOwner() {
+		return false;
+	}
 
-     public boolean isFollowing() {
-          return false;
-     }
+	public boolean isFollowing() {
+		return false;
+	}
 
-     public void clientUpdate() {
-     }
+	public void clientUpdate() {
+	}
 
-     public int getType() {
-          return this.npc.advanced.role;
-     }
+	public int getType() {
+		return this.npc.advanced.role;
+	}
 }

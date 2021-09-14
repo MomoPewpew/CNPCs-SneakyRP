@@ -1,23 +1,23 @@
 package noppes.npcs.api;
 
 public interface IScoreboardObjective {
-     String getName();
+	String getName();
 
-     String getDisplayName();
+	String getDisplayName();
 
-     void setDisplayName(String var1);
+	void setDisplayName(String var1);
 
-     String getCriteria();
+	String getCriteria();
 
-     boolean isReadyOnly();
+	boolean isReadyOnly();
 
-     IScoreboardScore[] getScores();
+	IScoreboardScore[] getScores();
 
-     IScoreboardScore getScore(String var1);
+	IScoreboardScore getScore(String var1);
 
-     boolean hasScore(String var1);
+	boolean hasScore(String var1);
 
-     IScoreboardScore createScore(String var1);
+	IScoreboardScore createScore(String var1);
 
-     void removeScore(String var1);
+	void removeScore(String var1);
 }

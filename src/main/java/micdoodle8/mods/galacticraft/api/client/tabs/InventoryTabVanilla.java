@@ -4,15 +4,15 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 
 public class InventoryTabVanilla extends AbstractTab {
-     public InventoryTabVanilla() {
-          super(0, 0, 0, new ItemStack(Blocks.CRAFTING_TABLE));
-     }
+	public InventoryTabVanilla() {
+		super(0, 0, 0, new ItemStack(Blocks.CRAFTING_TABLE));
+	}
 
-     public void onTabClicked() {
-          TabRegistry.openInventoryGui();
-     }
+	public void onTabClicked() {
+		TabRegistry.openInventoryGui();
+	}
 
-     public boolean shouldAddToList() {
-          return true;
-     }
+	public boolean shouldAddToList() {
+		return true;
+	}
 }

@@ -1,21 +1,21 @@
 package noppes.npcs.api.gui;
 
 public interface ICustomGuiComponent {
-     int getID();
+	int getID();
 
-     ICustomGuiComponent setID(int var1);
+	ICustomGuiComponent setID(int var1);
 
-     int getPosX();
+	int getPosX();
 
-     int getPosY();
+	int getPosY();
 
-     ICustomGuiComponent setPos(int var1, int var2);
+	ICustomGuiComponent setPos(int var1, int var2);
 
-     boolean hasHoverText();
+	boolean hasHoverText();
 
-     String[] getHoverText();
+	String[] getHoverText();
 
-     ICustomGuiComponent setHoverText(String var1);
+	ICustomGuiComponent setHoverText(String var1);
 
-     ICustomGuiComponent setHoverText(String[] var1);
+	ICustomGuiComponent setHoverText(String[] var1);
 }

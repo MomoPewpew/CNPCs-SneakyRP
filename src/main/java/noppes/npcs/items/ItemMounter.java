@@ -7,17 +7,17 @@ import noppes.npcs.constants.EnumPacketServer;
 import noppes.npcs.util.IPermission;
 
 public class ItemMounter extends Item implements IPermission {
-     public ItemMounter() {
-          this.maxStackSize = 1;
-          this.setCreativeTab(CustomItems.tab);
-     }
+	public ItemMounter() {
+		this.maxStackSize = 1;
+		this.setCreativeTab(CustomItems.tab);
+	}
 
-     public Item setTranslationKey(String name) {
-          this.setRegistryName(new ResourceLocation("customnpcs", name));
-          return super.setTranslationKey(name);
-     }
+	public Item setTranslationKey(String name) {
+		this.setRegistryName(new ResourceLocation("customnpcs", name));
+		return super.setTranslationKey(name);
+	}
 
-     public boolean isAllowed(EnumPacketServer e) {
-          return e == EnumPacketServer.SpawnRider || e == EnumPacketServer.PlayerRider || e == EnumPacketServer.CloneList;
-     }
+	public boolean isAllowed(EnumPacketServer e) {
+		return e == EnumPacketServer.SpawnRider || e == EnumPacketServer.PlayerRider || e == EnumPacketServer.CloneList;
+	}
 }

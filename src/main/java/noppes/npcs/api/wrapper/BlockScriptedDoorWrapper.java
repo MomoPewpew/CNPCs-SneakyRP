@@ -11,60 +11,60 @@ import noppes.npcs.api.block.IBlockScriptedDoor;
 import noppes.npcs.blocks.tiles.TileScriptedDoor;
 
 public class BlockScriptedDoorWrapper extends BlockWrapper implements IBlockScriptedDoor {
-     private TileScriptedDoor tile;
+	private TileScriptedDoor tile;
 
-     public BlockScriptedDoorWrapper(World world, Block block, BlockPos pos) {
-          super(world, block, pos);
-          this.tile = (TileScriptedDoor)super.tile;
-     }
+	public BlockScriptedDoorWrapper(World world, Block block, BlockPos pos) {
+		super(world, block, pos);
+		this.tile = (TileScriptedDoor) super.tile;
+	}
 
-     public boolean getOpen() {
-          IBlockState state = this.world.getMCWorld().getBlockState(this.pos);
-          return ((Boolean)state.getValue(BlockDoor.OPEN)).equals(true);
-     }
+	public boolean getOpen() {
+		IBlockState state = this.world.getMCWorld().getBlockState(this.pos);
+		return ((Boolean) state.getValue(BlockDoor.OPEN)).equals(true);
+	}
 
-     public void setOpen(boolean open) {
-          if (this.getOpen() != open && !this.isRemoved()) {
-               IBlockState state = this.world.getMCWorld().getBlockState(this.pos);
-               ((BlockDoor)this.block).toggleDoor(this.world.getMCWorld(), this.pos, open);
-          }
-     }
+	public void setOpen(boolean open) {
+		if (this.getOpen() != open && !this.isRemoved()) {
+			IBlockState state = this.world.getMCWorld().getBlockState(this.pos);
+			((BlockDoor) this.block).toggleDoor(this.world.getMCWorld(), this.pos, open);
+		}
+	}
 
-     public void setBlockModel(String name) {
-          Block b = null;
-          if (name != null) {
-               b = Block.getBlockFromName(name);
-          }
+	public void setBlockModel(String name) {
+		Block b = null;
+		if (name != null) {
+			b = Block.getBlockFromName(name);
+		}
 
-          this.tile.setItemModel(b);
-     }
+		this.tile.setItemModel(b);
+	}
 
-     public String getBlockModel() {
-          return Block.REGISTRY.getNameForObject(this.tile.blockModel) + "";
-     }
+	public String getBlockModel() {
+		return Block.REGISTRY.getNameForObject(this.tile.blockModel) + "";
+	}
 
-     public ITimers getTimers() {
-          return this.tile.timers;
-     }
+	public ITimers getTimers() {
+		return this.tile.timers;
+	}
 
-     public float getHardness() {
-          return this.tile.blockHardness;
-     }
+	public float getHardness() {
+		return this.tile.blockHardness;
+	}
 
-     public void setHardness(float hardness) {
-          this.tile.blockHardness = hardness;
-     }
+	public void setHardness(float hardness) {
+		this.tile.blockHardness = hardness;
+	}
 
-     public float getResistance() {
-          return this.tile.blockResistance;
-     }
+	public float getResistance() {
+		return this.tile.blockResistance;
+	}
 
-     public void setResistance(float resistance) {
-          this.tile.blockResistance = resistance;
-     }
+	public void setResistance(float resistance) {
+		this.tile.blockResistance = resistance;
+	}
 
-     protected void setTile(TileEntity tile) {
-          this.tile = (TileScriptedDoor)tile;
-          super.setTile(tile);
-     }
+	protected void setTile(TileEntity tile) {
+		this.tile = (TileScriptedDoor) tile;
+		super.setTile(tile);
+	}
 }

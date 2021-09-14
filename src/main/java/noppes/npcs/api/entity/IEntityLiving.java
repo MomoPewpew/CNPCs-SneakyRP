@@ -4,15 +4,15 @@ import net.minecraft.entity.EntityLiving;
 import noppes.npcs.api.IPos;
 
 public interface IEntityLiving extends IEntityLivingBase {
-     boolean isNavigating();
+	boolean isNavigating();
 
-     void clearNavigation();
+	void clearNavigation();
 
-     void navigateTo(double var1, double var3, double var5, double var7);
+	void navigateTo(double var1, double var3, double var5, double var7);
 
-     void jump();
+	void jump();
 
-     EntityLiving getMCEntity();
+	EntityLiving getMCEntity();
 
-     IPos getNavigationPath();
+	IPos getNavigationPath();
 }

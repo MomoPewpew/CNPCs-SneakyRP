@@ -23,70 +23,70 @@ import noppes.npcs.controllers.data.PlayerData;
 import noppes.npcs.entity.data.DataScenes;
 
 public class ServerTickHandler {
-     public int ticks = 0;
+	public int ticks = 0;
 
-     @SubscribeEvent
-     public void onServerTick(PlayerTickEvent event) {
-          if (event.side == Side.SERVER && event.phase == Phase.START) {
-               EntityPlayer player = event.player;
-               PlayerData data = PlayerData.get(player);
-               if (data.updateClient) {
-                    Server.sendData((EntityPlayerMP)player, EnumPacketClient.SYNC_END, 8, data.getSyncNBT());
-                    data.updateClient = false;
-               }
+	@SubscribeEvent
+	public void onServerTick(PlayerTickEvent event) {
+		if (event.side == Side.SERVER && event.phase == Phase.START) {
+			EntityPlayer player = event.player;
+			PlayerData data = PlayerData.get(player);
+			if (data.updateClient) {
+				Server.sendData((EntityPlayerMP) player, EnumPacketClient.SYNC_END, 8, data.getSyncNBT());
+				data.updateClient = false;
+			}
 
-          }
-     }
+		}
+	}
 
-     @SubscribeEvent
-     public void onServerTick(WorldTickEvent event) {
-          if (event.side == Side.SERVER && event.phase == Phase.START) {
-               NPCSpawning.findChunksForSpawning((WorldServer)event.world);
-          }
+	@SubscribeEvent
+	public void onServerTick(WorldTickEvent event) {
+		if (event.side == Side.SERVER && event.phase == Phase.START) {
+			NPCSpawning.findChunksForSpawning((WorldServer) event.world);
+		}
 
-     }
+	}
 
-     @SubscribeEvent
-     public void onServerTick(ServerTickEvent event) {
-          if (event.side == Side.SERVER && event.phase == Phase.START && this.ticks++ >= 20) {
-               SchematicController.Instance.updateBuilding();
-               MassBlockController.Update();
-               this.ticks = 0;
-               Iterator var2 = DataScenes.StartedScenes.values().iterator();
+	@SubscribeEvent
+	public void onServerTick(ServerTickEvent event) {
+		if (event.side == Side.SERVER && event.phase == Phase.START && this.ticks++ >= 20) {
+			SchematicController.Instance.updateBuilding();
+			MassBlockController.Update();
+			this.ticks = 0;
+			Iterator var2 = DataScenes.StartedScenes.values().iterator();
 
-               while(var2.hasNext()) {
-                    DataScenes.SceneState state = (DataScenes.SceneState)var2.next();
-                    if (!state.paused) {
-                         ++state.ticks;
-                    }
-               }
+			while (var2.hasNext()) {
+				DataScenes.SceneState state = (DataScenes.SceneState) var2.next();
+				if (!state.paused) {
+					++state.ticks;
+				}
+			}
 
-               var2 = DataScenes.ScenesToRun.iterator();
+			var2 = DataScenes.ScenesToRun.iterator();
 
-               while(var2.hasNext()) {
-                    DataScenes.SceneContainer entry = (DataScenes.SceneContainer)var2.next();
-                    entry.update();
-               }
+			while (var2.hasNext()) {
+				DataScenes.SceneContainer entry = (DataScenes.SceneContainer) var2.next();
+				entry.update();
+			}
 
-               DataScenes.ScenesToRun = new ArrayList();
-          }
+			DataScenes.ScenesToRun = new ArrayList();
+		}
 
-     }
+	}
 
-     @SubscribeEvent
-     public void playerLogin(PlayerLoggedInEvent event) {
-          MinecraftServer server = event.player.getServer();
-          if (server.isSnooperEnabled()) {
-               String serverName = null;
-               if (server.isDedicatedServer()) {
-                    serverName = "server";
-               } else {
-                    serverName = ((IntegratedServer)server).getPublic() ? "lan" : "local";
-               }
+	@SubscribeEvent
+	public void playerLogin(PlayerLoggedInEvent event) {
+		MinecraftServer server = event.player.getServer();
+		if (server.isSnooperEnabled()) {
+			String serverName = null;
+			if (server.isDedicatedServer()) {
+				serverName = "server";
+			} else {
+				serverName = ((IntegratedServer) server).getPublic() ? "lan" : "local";
+			}
 
-               AnalyticsTracking.sendData(event.player, "join", serverName);
-          }
+			AnalyticsTracking.sendData(event.player, "join", serverName);
+		}
 
-          SyncController.syncPlayer((EntityPlayerMP)event.player);
-     }
+		SyncController.syncPlayer((EntityPlayerMP) event.player);
+	}
 }

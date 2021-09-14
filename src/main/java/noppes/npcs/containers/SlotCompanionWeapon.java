@@ -8,18 +8,19 @@ import noppes.npcs.api.NpcAPI;
 import noppes.npcs.roles.RoleCompanion;
 
 class SlotCompanionWeapon extends Slot {
-     final RoleCompanion role;
+	final RoleCompanion role;
 
-     public SlotCompanionWeapon(RoleCompanion role, IInventory iinventory, int id, int x, int y) {
-          super(iinventory, id, x, y);
-          this.role = role;
-     }
+	public SlotCompanionWeapon(RoleCompanion role, IInventory iinventory, int id, int x, int y) {
+		super(iinventory, id, x, y);
+		this.role = role;
+	}
 
-     public int getSlotStackLimit() {
-          return 1;
-     }
+	public int getSlotStackLimit() {
+		return 1;
+	}
 
-     public boolean isItemValid(ItemStack itemstack) {
-          return NoppesUtilServer.IsItemStackNull(itemstack) ? false : this.role.canWearSword(NpcAPI.Instance().getIItemStack(itemstack));
-     }
+	public boolean isItemValid(ItemStack itemstack) {
+		return NoppesUtilServer.IsItemStackNull(itemstack) ? false
+				: this.role.canWearSword(NpcAPI.Instance().getIItemStack(itemstack));
+	}
 }

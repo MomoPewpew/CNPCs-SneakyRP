@@ -3,21 +3,21 @@ package noppes.npcs.api.block;
 import noppes.npcs.api.ITimers;
 
 public interface IBlockScriptedDoor extends IBlock {
-     ITimers getTimers();
+	ITimers getTimers();
 
-     boolean getOpen();
+	boolean getOpen();
 
-     void setOpen(boolean var1);
+	void setOpen(boolean var1);
 
-     void setBlockModel(String var1);
+	void setBlockModel(String var1);
 
-     String getBlockModel();
+	String getBlockModel();
 
-     float getHardness();
+	float getHardness();
 
-     void setHardness(float var1);
+	void setHardness(float var1);
 
-     float getResistance();
+	float getResistance();
 
-     void setResistance(float var1);
+	void setResistance(float var1);
 }

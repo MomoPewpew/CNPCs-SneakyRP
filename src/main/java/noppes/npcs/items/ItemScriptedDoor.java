@@ -20,33 +20,35 @@ import noppes.npcs.entity.EntityNPCInterface;
 import noppes.npcs.util.IPermission;
 
 public class ItemScriptedDoor extends ItemDoor implements IPermission {
-     public ItemScriptedDoor(Block block) {
-          super(block);
-          this.maxStackSize = 1;
-          this.setCreativeTab(CustomItems.tab);
-     }
+	public ItemScriptedDoor(Block block) {
+		super(block);
+		this.maxStackSize = 1;
+		this.setCreativeTab(CustomItems.tab);
+	}
 
-     public EnumActionResult onItemUse(EntityPlayer playerIn, World worldIn, BlockPos pos, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
-          EnumActionResult res = super.onItemUse(playerIn, worldIn, pos, hand, side, hitX, hitY, hitZ);
-          if (res == EnumActionResult.SUCCESS && !worldIn.isRemote) {
-               BlockPos newPos = pos.up();
-               NoppesUtilServer.sendOpenGui(playerIn, EnumGuiType.ScriptDoor, (EntityNPCInterface)null, newPos.getX(), newPos.getY(), newPos.getZ());
-               return EnumActionResult.SUCCESS;
-          } else {
-               return res;
-          }
-     }
+	public EnumActionResult onItemUse(EntityPlayer playerIn, World worldIn, BlockPos pos, EnumHand hand,
+			EnumFacing side, float hitX, float hitY, float hitZ) {
+		EnumActionResult res = super.onItemUse(playerIn, worldIn, pos, hand, side, hitX, hitY, hitZ);
+		if (res == EnumActionResult.SUCCESS && !worldIn.isRemote) {
+			BlockPos newPos = pos.up();
+			NoppesUtilServer.sendOpenGui(playerIn, EnumGuiType.ScriptDoor, (EntityNPCInterface) null, newPos.getX(),
+					newPos.getY(), newPos.getZ());
+			return EnumActionResult.SUCCESS;
+		} else {
+			return res;
+		}
+	}
 
-     public ItemStack onItemUseFinish(ItemStack stack, World worldIn, EntityLivingBase playerIn) {
-          return stack;
-     }
+	public ItemStack onItemUseFinish(ItemStack stack, World worldIn, EntityLivingBase playerIn) {
+		return stack;
+	}
 
-     public Item setTranslationKey(String name) {
-          this.setRegistryName(new ResourceLocation("customnpcs", name));
-          return super.setTranslationKey(name);
-     }
+	public Item setTranslationKey(String name) {
+		this.setRegistryName(new ResourceLocation("customnpcs", name));
+		return super.setTranslationKey(name);
+	}
 
-     public boolean isAllowed(EnumPacketServer e) {
-          return e == EnumPacketServer.ScriptDoorDataSave;
-     }
+	public boolean isAllowed(EnumPacketServer e) {
+		return e == EnumPacketServer.ScriptDoorDataSave;
+	}
 }

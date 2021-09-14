@@ -1,15 +1,15 @@
 package noppes.npcs.api.entity.data;
 
 public interface ILine {
-     String getText();
+	String getText();
 
-     void setText(String var1);
+	void setText(String var1);
 
-     String getSound();
+	String getSound();
 
-     void setSound(String var1);
+	void setSound(String var1);
 
-     boolean getShowText();
+	boolean getShowText();
 
-     void setShowText(boolean var1);
+	void setShowText(boolean var1);
 }

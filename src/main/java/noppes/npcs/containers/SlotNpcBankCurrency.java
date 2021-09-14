@@ -6,22 +6,23 @@ import net.minecraft.item.ItemStack;
 import noppes.npcs.NoppesUtilServer;
 
 public class SlotNpcBankCurrency extends Slot {
-     public ItemStack item;
+	public ItemStack item;
 
-     public SlotNpcBankCurrency(ContainerNPCBankInterface containerplayer, IInventory iinventory, int i, int j, int k) {
-          super(iinventory, i, j, k);
-          this.item = ItemStack.EMPTY;
-     }
+	public SlotNpcBankCurrency(ContainerNPCBankInterface containerplayer, IInventory iinventory, int i, int j, int k) {
+		super(iinventory, i, j, k);
+		this.item = ItemStack.EMPTY;
+	}
 
-     public int getSlotStackLimit() {
-          return 64;
-     }
+	public int getSlotStackLimit() {
+		return 64;
+	}
 
-     public boolean isItemValid(ItemStack itemstack) {
-          if (NoppesUtilServer.IsItemStackNull(itemstack)) {
-               return false;
-          } else {
-               return this.item.getItem() == itemstack.getItem() && (!this.item.getHasSubtypes() || this.item.getItemDamage() == itemstack.getItemDamage());
-          }
-     }
+	public boolean isItemValid(ItemStack itemstack) {
+		if (NoppesUtilServer.IsItemStackNull(itemstack)) {
+			return false;
+		} else {
+			return this.item.getItem() == itemstack.getItem()
+					&& (!this.item.getHasSubtypes() || this.item.getItemDamage() == itemstack.getItemDamage());
+		}
+	}
 }

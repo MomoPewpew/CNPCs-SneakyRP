@@ -11,100 +11,102 @@ import noppes.npcs.api.entity.data.role.IRoleTransporter;
 import noppes.npcs.api.item.IItemStack;
 
 public class RoleEvent extends CustomNPCsEvent {
-     public final ICustomNpc npc;
-     public final IPlayer player;
+	public final ICustomNpc npc;
+	public final IPlayer player;
 
-     public RoleEvent(EntityPlayer player, ICustomNpc npc) {
-          this.npc = npc;
-          this.player = (IPlayer)NpcAPI.Instance().getIEntity(player);
-     }
+	public RoleEvent(EntityPlayer player, ICustomNpc npc) {
+		this.npc = npc;
+		this.player = (IPlayer) NpcAPI.Instance().getIEntity(player);
+	}
 
-     public static class BankUpgradedEvent extends RoleEvent {
-          public final int slot;
+	public static class BankUpgradedEvent extends RoleEvent {
+		public final int slot;
 
-          public BankUpgradedEvent(EntityPlayer player, ICustomNpc npc, int slot) {
-               super(player, npc);
-               this.slot = slot;
-          }
-     }
+		public BankUpgradedEvent(EntityPlayer player, ICustomNpc npc, int slot) {
+			super(player, npc);
+			this.slot = slot;
+		}
+	}
 
-     public static class BankUnlockedEvent extends RoleEvent {
-          public final int slot;
+	public static class BankUnlockedEvent extends RoleEvent {
+		public final int slot;
 
-          public BankUnlockedEvent(EntityPlayer player, ICustomNpc npc, int slot) {
-               super(player, npc);
-               this.slot = slot;
-          }
-     }
+		public BankUnlockedEvent(EntityPlayer player, ICustomNpc npc, int slot) {
+			super(player, npc);
+			this.slot = slot;
+		}
+	}
 
-     public static class TradeFailedEvent extends RoleEvent {
-          public final IItemStack sold;
-          public final IItemStack currency1;
-          public final IItemStack currency2;
-          public IItemStack receiving;
+	public static class TradeFailedEvent extends RoleEvent {
+		public final IItemStack sold;
+		public final IItemStack currency1;
+		public final IItemStack currency2;
+		public IItemStack receiving;
 
-          public TradeFailedEvent(EntityPlayer player, ICustomNpc npc, ItemStack sold, ItemStack currency1, ItemStack currency2) {
-               super(player, npc);
-               this.currency1 = currency1.isEmpty() ? null : NpcAPI.Instance().getIItemStack(currency1.copy());
-               this.currency2 = currency2.isEmpty() ? null : NpcAPI.Instance().getIItemStack(currency2.copy());
-               this.sold = NpcAPI.Instance().getIItemStack(sold.copy());
-          }
-     }
+		public TradeFailedEvent(EntityPlayer player, ICustomNpc npc, ItemStack sold, ItemStack currency1,
+				ItemStack currency2) {
+			super(player, npc);
+			this.currency1 = currency1.isEmpty() ? null : NpcAPI.Instance().getIItemStack(currency1.copy());
+			this.currency2 = currency2.isEmpty() ? null : NpcAPI.Instance().getIItemStack(currency2.copy());
+			this.sold = NpcAPI.Instance().getIItemStack(sold.copy());
+		}
+	}
 
-     @Cancelable
-     public static class TraderEvent extends RoleEvent {
-          public IItemStack sold;
-          public IItemStack currency1;
-          public IItemStack currency2;
+	@Cancelable
+	public static class TraderEvent extends RoleEvent {
+		public IItemStack sold;
+		public IItemStack currency1;
+		public IItemStack currency2;
 
-          public TraderEvent(EntityPlayer player, ICustomNpc npc, ItemStack sold, ItemStack currency1, ItemStack currency2) {
-               super(player, npc);
-               this.currency1 = currency1.isEmpty() ? null : NpcAPI.Instance().getIItemStack(currency1.copy());
-               this.currency2 = currency2.isEmpty() ? null : NpcAPI.Instance().getIItemStack(currency2.copy());
-               this.sold = NpcAPI.Instance().getIItemStack(sold.copy());
-          }
-     }
+		public TraderEvent(EntityPlayer player, ICustomNpc npc, ItemStack sold, ItemStack currency1,
+				ItemStack currency2) {
+			super(player, npc);
+			this.currency1 = currency1.isEmpty() ? null : NpcAPI.Instance().getIItemStack(currency1.copy());
+			this.currency2 = currency2.isEmpty() ? null : NpcAPI.Instance().getIItemStack(currency2.copy());
+			this.sold = NpcAPI.Instance().getIItemStack(sold.copy());
+		}
+	}
 
-     public static class FollowerFinishedEvent extends RoleEvent {
-          public FollowerFinishedEvent(EntityPlayer player, ICustomNpc npc) {
-               super(player, npc);
-          }
-     }
+	public static class FollowerFinishedEvent extends RoleEvent {
+		public FollowerFinishedEvent(EntityPlayer player, ICustomNpc npc) {
+			super(player, npc);
+		}
+	}
 
-     @Cancelable
-     public static class FollowerHireEvent extends RoleEvent {
-          public int days;
+	@Cancelable
+	public static class FollowerHireEvent extends RoleEvent {
+		public int days;
 
-          public FollowerHireEvent(EntityPlayer player, ICustomNpc npc, int days) {
-               super(player, npc);
-               this.days = days;
-          }
-     }
+		public FollowerHireEvent(EntityPlayer player, ICustomNpc npc, int days) {
+			super(player, npc);
+			this.days = days;
+		}
+	}
 
-     @Cancelable
-     public static class MailmanEvent extends RoleEvent {
-          public final IPlayerMail mail;
+	@Cancelable
+	public static class MailmanEvent extends RoleEvent {
+		public final IPlayerMail mail;
 
-          public MailmanEvent(EntityPlayer player, ICustomNpc npc, IPlayerMail mail) {
-               super(player, npc);
-               this.mail = mail;
-          }
-     }
+		public MailmanEvent(EntityPlayer player, ICustomNpc npc, IPlayerMail mail) {
+			super(player, npc);
+			this.mail = mail;
+		}
+	}
 
-     @Cancelable
-     public static class TransporterUnlockedEvent extends RoleEvent {
-          public TransporterUnlockedEvent(EntityPlayer player, ICustomNpc npc) {
-               super(player, npc);
-          }
-     }
+	@Cancelable
+	public static class TransporterUnlockedEvent extends RoleEvent {
+		public TransporterUnlockedEvent(EntityPlayer player, ICustomNpc npc) {
+			super(player, npc);
+		}
+	}
 
-     @Cancelable
-     public static class TransporterUseEvent extends RoleEvent {
-          public final IRoleTransporter.ITransportLocation location;
+	@Cancelable
+	public static class TransporterUseEvent extends RoleEvent {
+		public final IRoleTransporter.ITransportLocation location;
 
-          public TransporterUseEvent(EntityPlayer player, ICustomNpc npc, IRoleTransporter.ITransportLocation location) {
-               super(player, npc);
-               this.location = location;
-          }
-     }
+		public TransporterUseEvent(EntityPlayer player, ICustomNpc npc, IRoleTransporter.ITransportLocation location) {
+			super(player, npc);
+			this.location = location;
+		}
+	}
 }

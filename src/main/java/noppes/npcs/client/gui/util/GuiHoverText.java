@@ -7,33 +7,33 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.util.ResourceLocation;
 
 public class GuiHoverText extends GuiScreen {
-     private int x;
-     private int y;
-     public int id;
-     protected static final ResourceLocation buttonTextures = new ResourceLocation("customnpcs:textures/gui/info.png");
-     private String text;
+	private int x;
+	private int y;
+	public int id;
+	protected static final ResourceLocation buttonTextures = new ResourceLocation("customnpcs:textures/gui/info.png");
+	private String text;
 
-     public GuiHoverText(int id, String text, int x, int y) {
-          this.text = text;
-          this.id = id;
-          this.x = x;
-          this.y = y;
-     }
+	public GuiHoverText(int id, String text, int x, int y) {
+		this.text = text;
+		this.id = id;
+		this.x = x;
+		this.y = y;
+	}
 
-     public void drawScreen(int par1, int par2, float par3) {
-          GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-          this.mc.getTextureManager().bindTexture(buttonTextures);
-          this.drawTexturedModalRect(this.x, this.y, 0, 0, 12, 12);
-          if (this.inArea(this.x, this.y, 12, 12, par1, par2)) {
-               List lines = new ArrayList();
-               lines.add(this.text);
-               this.drawHoveringText(lines, this.x + 8, this.y + 6, this.fontRenderer);
-               GlStateManager.disableLighting();
-          }
+	public void drawScreen(int par1, int par2, float par3) {
+		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+		this.mc.getTextureManager().bindTexture(buttonTextures);
+		this.drawTexturedModalRect(this.x, this.y, 0, 0, 12, 12);
+		if (this.inArea(this.x, this.y, 12, 12, par1, par2)) {
+			List lines = new ArrayList();
+			lines.add(this.text);
+			this.drawHoveringText(lines, this.x + 8, this.y + 6, this.fontRenderer);
+			GlStateManager.disableLighting();
+		}
 
-     }
+	}
 
-     public boolean inArea(int x, int y, int width, int height, int mouseX, int mouseY) {
-          return mouseX >= x && mouseX <= x + width && mouseY >= y && mouseY <= y + height;
-     }
+	public boolean inArea(int x, int y, int width, int height, int mouseX, int mouseY) {
+		return mouseX >= x && mouseX <= x + width && mouseY >= y && mouseY <= y + height;
+	}
 }

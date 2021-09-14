@@ -1,71 +1,71 @@
 package noppes.npcs.api.entity.data;
 
 public interface INPCDisplay {
-     String getName();
+	String getName();
 
-     void setName(String var1);
+	void setName(String var1);
 
-     String getTitle();
+	String getTitle();
 
-     void setTitle(String var1);
+	void setTitle(String var1);
 
-     String getSkinUrl();
+	String getSkinUrl();
 
-     void setSkinUrl(String var1);
+	void setSkinUrl(String var1);
 
-     String getSkinPlayer();
+	String getSkinPlayer();
 
-     void setSkinPlayer(String var1);
+	void setSkinPlayer(String var1);
 
-     String getSkinTexture();
+	String getSkinTexture();
 
-     void setSkinTexture(String var1);
+	void setSkinTexture(String var1);
 
-     boolean getHasLivingAnimation();
+	boolean getHasLivingAnimation();
 
-     void setHasLivingAnimation(boolean var1);
+	void setHasLivingAnimation(boolean var1);
 
-     int getVisible();
+	int getVisible();
 
-     void setVisible(int var1);
+	void setVisible(int var1);
 
-     int getBossbar();
+	int getBossbar();
 
-     void setBossbar(int var1);
+	void setBossbar(int var1);
 
-     int getSize();
+	int getSize();
 
-     void setSize(int var1);
+	void setSize(int var1);
 
-     int getTint();
+	int getTint();
 
-     void setTint(int var1);
+	void setTint(int var1);
 
-     int getShowName();
+	int getShowName();
 
-     void setShowName(int var1);
+	void setShowName(int var1);
 
-     void setCapeTexture(String var1);
+	void setCapeTexture(String var1);
 
-     String getCapeTexture();
+	String getCapeTexture();
 
-     void setOverlayTexture(String var1);
+	void setOverlayTexture(String var1);
 
-     String getOverlayTexture();
+	String getOverlayTexture();
 
-     void setModelScale(int var1, float var2, float var3, float var4);
+	void setModelScale(int var1, float var2, float var3, float var4);
 
-     float[] getModelScale(int var1);
+	float[] getModelScale(int var1);
 
-     int getBossColor();
+	int getBossColor();
 
-     void setBossColor(int var1);
+	void setBossColor(int var1);
 
-     void setModel(String var1);
+	void setModel(String var1);
 
-     String getModel();
+	String getModel();
 
-     void setHasHitbox(boolean var1);
+	void setHasHitbox(boolean var1);
 
-     boolean getHasHitbox();
+	boolean getHasHitbox();
 }

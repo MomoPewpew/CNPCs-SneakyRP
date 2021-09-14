@@ -1,27 +1,27 @@
 package noppes.npcs.api.item;
 
 public interface IItemScripted extends IItemStack {
-     boolean hasTexture(int var1);
+	boolean hasTexture(int var1);
 
-     String getTexture(int var1);
+	String getTexture(int var1);
 
-     void setTexture(int var1, String var2);
+	void setTexture(int var1, String var2);
 
-     void setMaxStackSize(int var1);
+	void setMaxStackSize(int var1);
 
-     double getDurabilityValue();
+	double getDurabilityValue();
 
-     void setDurabilityValue(float var1);
+	void setDurabilityValue(float var1);
 
-     boolean getDurabilityShow();
+	boolean getDurabilityShow();
 
-     void setDurabilityShow(boolean var1);
+	void setDurabilityShow(boolean var1);
 
-     int getDurabilityColor();
+	int getDurabilityColor();
 
-     void setDurabilityColor(int var1);
+	void setDurabilityColor(int var1);
 
-     int getColor();
+	int getColor();
 
-     void setColor(int var1);
+	void setColor(int var1);
 }

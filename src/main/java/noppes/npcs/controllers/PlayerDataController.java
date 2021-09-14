@@ -22,103 +22,104 @@ import noppes.npcs.controllers.data.PlayerMail;
 import noppes.npcs.util.NBTJsonUtil;
 
 public class PlayerDataController {
-     public static PlayerDataController instance;
-     public Map nameUUIDs;
+	public static PlayerDataController instance;
+	public Map nameUUIDs;
 
-     public PlayerDataController() {
-          instance = this;
-          File dir = CustomNpcs.getWorldSaveDirectory("playerdata");
-          Map map = new HashMap();
-          File[] var3 = dir.listFiles();
-          int var4 = var3.length;
+	public PlayerDataController() {
+		instance = this;
+		File dir = CustomNpcs.getWorldSaveDirectory("playerdata");
+		Map map = new HashMap();
+		File[] var3 = dir.listFiles();
+		int var4 = var3.length;
 
-          for(int var5 = 0; var5 < var4; ++var5) {
-               File file = var3[var5];
-               if (!file.isDirectory() && file.getName().endsWith(".json")) {
-                    try {
-                         NBTTagCompound compound = NBTJsonUtil.LoadFile(file);
-                         if (compound.hasKey("PlayerName")) {
-                              map.put(compound.getString("PlayerName"), file.getName().substring(0, file.getName().length() - 5));
-                         }
-                    } catch (Exception var8) {
-                         LogWriter.error("Error loading: " + file.getAbsolutePath(), var8);
-                    }
-               }
-          }
+		for (int var5 = 0; var5 < var4; ++var5) {
+			File file = var3[var5];
+			if (!file.isDirectory() && file.getName().endsWith(".json")) {
+				try {
+					NBTTagCompound compound = NBTJsonUtil.LoadFile(file);
+					if (compound.hasKey("PlayerName")) {
+						map.put(compound.getString("PlayerName"),
+								file.getName().substring(0, file.getName().length() - 5));
+					}
+				} catch (Exception var8) {
+					LogWriter.error("Error loading: " + file.getAbsolutePath(), var8);
+				}
+			}
+		}
 
-          this.nameUUIDs = map;
-     }
+		this.nameUUIDs = map;
+	}
 
-     public PlayerBankData getBankData(EntityPlayer player, int bankId) {
-          Bank bank = BankController.getInstance().getBank(bankId);
-          PlayerBankData data = PlayerData.get(player).bankData;
-          if (!data.hasBank(bank.id)) {
-               data.loadNew(bank.id);
-          }
+	public PlayerBankData getBankData(EntityPlayer player, int bankId) {
+		Bank bank = BankController.getInstance().getBank(bankId);
+		PlayerBankData data = PlayerData.get(player).bankData;
+		if (!data.hasBank(bank.id)) {
+			data.loadNew(bank.id);
+		}
 
-          return data;
-     }
+		return data;
+	}
 
-     public String hasPlayer(String username) {
-          Iterator var2 = this.nameUUIDs.keySet().iterator();
+	public String hasPlayer(String username) {
+		Iterator var2 = this.nameUUIDs.keySet().iterator();
 
-          String name;
-          do {
-               if (!var2.hasNext()) {
-                    return "";
-               }
+		String name;
+		do {
+			if (!var2.hasNext()) {
+				return "";
+			}
 
-               name = (String)var2.next();
-          } while(!name.equalsIgnoreCase(username));
+			name = (String) var2.next();
+		} while (!name.equalsIgnoreCase(username));
 
-          return name;
-     }
+		return name;
+	}
 
-     public PlayerData getDataFromUsername(MinecraftServer server, String username) {
-          EntityPlayer player = server.getPlayerList().getPlayerByUsername(username);
-          PlayerData data = null;
-          if (player == null) {
-               Iterator var5 = this.nameUUIDs.keySet().iterator();
+	public PlayerData getDataFromUsername(MinecraftServer server, String username) {
+		EntityPlayer player = server.getPlayerList().getPlayerByUsername(username);
+		PlayerData data = null;
+		if (player == null) {
+			Iterator var5 = this.nameUUIDs.keySet().iterator();
 
-               while(var5.hasNext()) {
-                    String name = (String)var5.next();
-                    if (name.equalsIgnoreCase(username)) {
-                         data = new PlayerData();
-                         data.setNBT(PlayerData.loadPlayerData((String)this.nameUUIDs.get(name)));
-                         break;
-                    }
-               }
-          } else {
-               data = PlayerData.get(player);
-          }
+			while (var5.hasNext()) {
+				String name = (String) var5.next();
+				if (name.equalsIgnoreCase(username)) {
+					data = new PlayerData();
+					data.setNBT(PlayerData.loadPlayerData((String) this.nameUUIDs.get(name)));
+					break;
+				}
+			}
+		} else {
+			data = PlayerData.get(player);
+		}
 
-          return data;
-     }
+		return data;
+	}
 
-     public void addPlayerMessage(MinecraftServer server, String username, PlayerMail mail) {
-          mail.time = System.currentTimeMillis();
-          PlayerData data = this.getDataFromUsername(server, username);
-          data.mailData.playermail.add(mail.copy());
-          data.save(false);
-     }
+	public void addPlayerMessage(MinecraftServer server, String username, PlayerMail mail) {
+		mail.time = System.currentTimeMillis();
+		PlayerData data = this.getDataFromUsername(server, username);
+		data.mailData.playermail.add(mail.copy());
+		data.save(false);
+	}
 
-     public List getPlayersData(ICommandSender sender, String username) throws CommandException {
-          ArrayList list = new ArrayList();
-          List players = EntitySelector.matchEntities(sender, username, EntityPlayerMP.class);
-          if (players.isEmpty()) {
-               PlayerData data = this.getDataFromUsername(sender.getServer(), username);
-               if (data != null) {
-                    list.add(data);
-               }
-          } else {
-               Iterator var7 = players.iterator();
+	public List getPlayersData(ICommandSender sender, String username) throws CommandException {
+		ArrayList list = new ArrayList();
+		List players = EntitySelector.matchEntities(sender, username, EntityPlayerMP.class);
+		if (players.isEmpty()) {
+			PlayerData data = this.getDataFromUsername(sender.getServer(), username);
+			if (data != null) {
+				list.add(data);
+			}
+		} else {
+			Iterator var7 = players.iterator();
 
-               while(var7.hasNext()) {
-                    EntityPlayer player = (EntityPlayer)var7.next();
-                    list.add(PlayerData.get(player));
-               }
-          }
+			while (var7.hasNext()) {
+				EntityPlayer player = (EntityPlayer) var7.next();
+				list.add(PlayerData.get(player));
+			}
+		}
 
-          return list;
-     }
+		return list;
+	}
 }

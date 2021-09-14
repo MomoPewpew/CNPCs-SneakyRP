@@ -3,9 +3,9 @@ package noppes.npcs.api.handler.data;
 import java.util.List;
 
 public interface IQuestCategory {
-     List quests();
+	List quests();
 
-     String getName();
+	String getName();
 
-     IQuest create();
+	IQuest create();
 }

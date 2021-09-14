@@ -4,65 +4,65 @@ import noppes.npcs.api.ITimers;
 import noppes.npcs.api.item.IItemStack;
 
 public interface IBlockScripted extends IBlock {
-     void setModel(IItemStack var1);
+	void setModel(IItemStack var1);
 
-     void setModel(String var1);
+	void setModel(String var1);
 
-     IItemStack getModel();
+	IItemStack getModel();
 
-     ITimers getTimers();
+	ITimers getTimers();
 
-     void setRedstonePower(int var1);
+	void setRedstonePower(int var1);
 
-     int getRedstonePower();
+	int getRedstonePower();
 
-     void setIsLadder(boolean var1);
+	void setIsLadder(boolean var1);
 
-     boolean getIsLadder();
+	boolean getIsLadder();
 
-     void setLight(int var1);
+	void setLight(int var1);
 
-     int getLight();
+	int getLight();
 
-     void setScale(float var1, float var2, float var3);
+	void setScale(float var1, float var2, float var3);
 
-     float getScaleX();
+	float getScaleX();
 
-     float getScaleY();
+	float getScaleY();
 
-     float getScaleZ();
+	float getScaleZ();
 
-     void setRotation(int var1, int var2, int var3);
+	void setRotation(int var1, int var2, int var3);
 
-     int getRotationX();
+	int getRotationX();
 
-     int getRotationY();
+	int getRotationY();
 
-     int getRotationZ();
+	int getRotationZ();
 
-     String executeCommand(String var1);
+	String executeCommand(String var1);
 
-     boolean getIsPassible();
+	boolean getIsPassible();
 
-     void setIsPassible(boolean var1);
+	void setIsPassible(boolean var1);
 
-     float getHardness();
+	float getHardness();
 
-     void setHardness(float var1);
+	void setHardness(float var1);
 
-     float getResistance();
+	float getResistance();
 
-     void setResistance(float var1);
+	void setResistance(float var1);
 
-     ITextPlane getTextPlane();
+	ITextPlane getTextPlane();
 
-     ITextPlane getTextPlane2();
+	ITextPlane getTextPlane2();
 
-     ITextPlane getTextPlane3();
+	ITextPlane getTextPlane3();
 
-     ITextPlane getTextPlane4();
+	ITextPlane getTextPlane4();
 
-     ITextPlane getTextPlane5();
+	ITextPlane getTextPlane5();
 
-     ITextPlane getTextPlane6();
+	ITextPlane getTextPlane6();
 }

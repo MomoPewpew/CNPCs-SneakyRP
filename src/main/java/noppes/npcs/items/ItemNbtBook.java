@@ -16,42 +16,43 @@ import noppes.npcs.constants.EnumPacketServer;
 import noppes.npcs.util.IPermission;
 
 public class ItemNbtBook extends Item implements IPermission {
-     public ItemNbtBook() {
-          this.maxStackSize = 1;
-          this.setCreativeTab(CustomItems.tab);
-     }
+	public ItemNbtBook() {
+		this.maxStackSize = 1;
+		this.setCreativeTab(CustomItems.tab);
+	}
 
-     public Item setTranslationKey(String name) {
-          super.setTranslationKey(name);
-          this.setRegistryName(new ResourceLocation("customnpcs", name));
-          return this;
-     }
+	public Item setTranslationKey(String name) {
+		super.setTranslationKey(name);
+		this.setRegistryName(new ResourceLocation("customnpcs", name));
+		return this;
+	}
 
-     public void blockEvent(RightClickBlock event) {
-          Server.sendData((EntityPlayerMP)event.getEntityPlayer(), EnumPacketClient.GUI, EnumGuiType.NbtBook, event.getPos().getX(), event.getPos().getY(), event.getPos().getZ());
-          IBlockState state = event.getWorld().getBlockState(event.getPos());
-          NBTTagCompound data = new NBTTagCompound();
-          TileEntity tile = event.getWorld().getTileEntity(event.getPos());
-          if (tile != null) {
-               tile.writeToNBT(data);
-          }
+	public void blockEvent(RightClickBlock event) {
+		Server.sendData((EntityPlayerMP) event.getEntityPlayer(), EnumPacketClient.GUI, EnumGuiType.NbtBook,
+				event.getPos().getX(), event.getPos().getY(), event.getPos().getZ());
+		IBlockState state = event.getWorld().getBlockState(event.getPos());
+		NBTTagCompound data = new NBTTagCompound();
+		TileEntity tile = event.getWorld().getTileEntity(event.getPos());
+		if (tile != null) {
+			tile.writeToNBT(data);
+		}
 
-          NBTTagCompound compound = new NBTTagCompound();
-          compound.setTag("Data", data);
-          Server.sendData((EntityPlayerMP)event.getEntityPlayer(), EnumPacketClient.GUI_DATA, compound);
-     }
+		NBTTagCompound compound = new NBTTagCompound();
+		compound.setTag("Data", data);
+		Server.sendData((EntityPlayerMP) event.getEntityPlayer(), EnumPacketClient.GUI_DATA, compound);
+	}
 
-     public void entityEvent(EntityInteract event) {
-          Server.sendData((EntityPlayerMP)event.getEntityPlayer(), EnumPacketClient.GUI, EnumGuiType.NbtBook, 0, 0, 0);
-          NBTTagCompound data = new NBTTagCompound();
-          event.getTarget().writeToNBTAtomically(data);
-          NBTTagCompound compound = new NBTTagCompound();
-          compound.setInteger("EntityId", event.getTarget().getEntityId());
-          compound.setTag("Data", data);
-          Server.sendData((EntityPlayerMP)event.getEntityPlayer(), EnumPacketClient.GUI_DATA, compound);
-     }
+	public void entityEvent(EntityInteract event) {
+		Server.sendData((EntityPlayerMP) event.getEntityPlayer(), EnumPacketClient.GUI, EnumGuiType.NbtBook, 0, 0, 0);
+		NBTTagCompound data = new NBTTagCompound();
+		event.getTarget().writeToNBTAtomically(data);
+		NBTTagCompound compound = new NBTTagCompound();
+		compound.setInteger("EntityId", event.getTarget().getEntityId());
+		compound.setTag("Data", data);
+		Server.sendData((EntityPlayerMP) event.getEntityPlayer(), EnumPacketClient.GUI_DATA, compound);
+	}
 
-     public boolean isAllowed(EnumPacketServer e) {
-          return e == EnumPacketServer.NbtBookSaveEntity || e == EnumPacketServer.NbtBookSaveBlock;
-     }
+	public boolean isAllowed(EnumPacketServer e) {
+		return e == EnumPacketServer.NbtBookSaveEntity || e == EnumPacketServer.NbtBookSaveBlock;
+	}
 }

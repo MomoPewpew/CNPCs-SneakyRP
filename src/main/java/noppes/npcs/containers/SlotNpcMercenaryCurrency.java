@@ -8,32 +8,32 @@ import net.minecraft.item.ItemStack;
 import noppes.npcs.roles.RoleFollower;
 
 class SlotNpcMercenaryCurrency extends Slot {
-     RoleFollower role;
+	RoleFollower role;
 
-     public SlotNpcMercenaryCurrency(RoleFollower role, IInventory inv, int i, int j, int k) {
-          super(inv, i, j, k);
-          this.role = role;
-     }
+	public SlotNpcMercenaryCurrency(RoleFollower role, IInventory inv, int i, int j, int k) {
+		super(inv, i, j, k);
+		this.role = role;
+	}
 
-     public int getSlotStackLimit() {
-          return 64;
-     }
+	public int getSlotStackLimit() {
+		return 64;
+	}
 
-     public boolean isItemValid(ItemStack itemstack) {
-          Item item = itemstack.getItem();
-          Iterator var3 = this.role.inventory.items.iterator();
+	public boolean isItemValid(ItemStack itemstack) {
+		Item item = itemstack.getItem();
+		Iterator var3 = this.role.inventory.items.iterator();
 
-          ItemStack is;
-          do {
-               do {
-                    if (!var3.hasNext()) {
-                         return false;
-                    }
+		ItemStack is;
+		do {
+			do {
+				if (!var3.hasNext()) {
+					return false;
+				}
 
-                    is = (ItemStack)var3.next();
-               } while(item != is.getItem());
-          } while(itemstack.getHasSubtypes() && itemstack.getItemDamage() != is.getItemDamage());
+				is = (ItemStack) var3.next();
+			} while (item != is.getItem());
+		} while (itemstack.getHasSubtypes() && itemstack.getItemDamage() != is.getItemDamage());
 
-          return true;
-     }
+		return true;
+	}
 }

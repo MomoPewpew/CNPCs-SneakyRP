@@ -11,116 +11,116 @@ import net.minecraft.nbt.NBTTagList;
 import noppes.npcs.LogWriter;
 
 public class PresetController {
-     public HashMap presets = new HashMap();
-     private File dir;
-     public static PresetController instance;
+	public HashMap presets = new HashMap();
+	private File dir;
+	public static PresetController instance;
 
-     public PresetController(File dir) {
-          instance = this;
-          this.dir = dir;
-          this.load();
-     }
+	public PresetController(File dir) {
+		instance = this;
+		this.dir = dir;
+		this.load();
+	}
 
-     public Preset getPreset(String username) {
-          if (this.presets.isEmpty()) {
-               this.load();
-          }
+	public Preset getPreset(String username) {
+		if (this.presets.isEmpty()) {
+			this.load();
+		}
 
-          return (Preset)this.presets.get(username.toLowerCase());
-     }
+		return (Preset) this.presets.get(username.toLowerCase());
+	}
 
-     public void load() {
-          NBTTagCompound compound = this.loadPreset();
-          HashMap presets = new HashMap();
-          if (compound != null) {
-               NBTTagList list = compound.getTagList("Presets", 10);
+	public void load() {
+		NBTTagCompound compound = this.loadPreset();
+		HashMap presets = new HashMap();
+		if (compound != null) {
+			NBTTagList list = compound.getTagList("Presets", 10);
 
-               for(int i = 0; i < list.tagCount(); ++i) {
-                    NBTTagCompound comp = list.getCompoundTagAt(i);
-                    Preset preset = new Preset();
-                    preset.readFromNBT(comp);
-                    presets.put(preset.name.toLowerCase(), preset);
-               }
-          }
+			for (int i = 0; i < list.tagCount(); ++i) {
+				NBTTagCompound comp = list.getCompoundTagAt(i);
+				Preset preset = new Preset();
+				preset.readFromNBT(comp);
+				presets.put(preset.name.toLowerCase(), preset);
+			}
+		}
 
-          Preset.FillDefault(presets);
-          this.presets = presets;
-     }
+		Preset.FillDefault(presets);
+		this.presets = presets;
+	}
 
-     private NBTTagCompound loadPreset() {
-          String filename = "presets.dat";
+	private NBTTagCompound loadPreset() {
+		String filename = "presets.dat";
 
-          File file;
-          try {
-               file = new File(this.dir, filename);
-               return !file.exists() ? null : CompressedStreamTools.readCompressed(new FileInputStream(file));
-          } catch (Exception var4) {
-               LogWriter.except(var4);
+		File file;
+		try {
+			file = new File(this.dir, filename);
+			return !file.exists() ? null : CompressedStreamTools.readCompressed(new FileInputStream(file));
+		} catch (Exception var4) {
+			LogWriter.except(var4);
 
-               try {
-                    file = new File(this.dir, filename + "_old");
-                    return !file.exists() ? null : CompressedStreamTools.readCompressed(new FileInputStream(file));
-               } catch (Exception var3) {
-                    LogWriter.except(var3);
-                    return null;
-               }
-          }
-     }
+			try {
+				file = new File(this.dir, filename + "_old");
+				return !file.exists() ? null : CompressedStreamTools.readCompressed(new FileInputStream(file));
+			} catch (Exception var3) {
+				LogWriter.except(var3);
+				return null;
+			}
+		}
+	}
 
-     public void save() {
-          NBTTagCompound compound = new NBTTagCompound();
-          NBTTagList list = new NBTTagList();
-          Iterator var3 = this.presets.values().iterator();
+	public void save() {
+		NBTTagCompound compound = new NBTTagCompound();
+		NBTTagList list = new NBTTagList();
+		Iterator var3 = this.presets.values().iterator();
 
-          while(var3.hasNext()) {
-               Preset preset = (Preset)var3.next();
-               list.appendTag(preset.writeToNBT());
-          }
+		while (var3.hasNext()) {
+			Preset preset = (Preset) var3.next();
+			list.appendTag(preset.writeToNBT());
+		}
 
-          compound.setTag("Presets", list);
-          this.savePreset(compound);
-     }
+		compound.setTag("Presets", list);
+		this.savePreset(compound);
+	}
 
-     private void savePreset(NBTTagCompound compound) {
-          String filename = "presets.dat";
+	private void savePreset(NBTTagCompound compound) {
+		String filename = "presets.dat";
 
-          try {
-               File file = new File(this.dir, filename + "_new");
-               File file1 = new File(this.dir, filename + "_old");
-               File file2 = new File(this.dir, filename);
-               CompressedStreamTools.writeCompressed(compound, new FileOutputStream(file));
-               if (file1.exists()) {
-                    file1.delete();
-               }
+		try {
+			File file = new File(this.dir, filename + "_new");
+			File file1 = new File(this.dir, filename + "_old");
+			File file2 = new File(this.dir, filename);
+			CompressedStreamTools.writeCompressed(compound, new FileOutputStream(file));
+			if (file1.exists()) {
+				file1.delete();
+			}
 
-               file2.renameTo(file1);
-               if (file2.exists()) {
-                    file2.delete();
-               }
+			file2.renameTo(file1);
+			if (file2.exists()) {
+				file2.delete();
+			}
 
-               file.renameTo(file2);
-               if (file.exists()) {
-                    file.delete();
-               }
-          } catch (Exception var6) {
-               LogWriter.except(var6);
-          }
+			file.renameTo(file2);
+			if (file.exists()) {
+				file.delete();
+			}
+		} catch (Exception var6) {
+			LogWriter.except(var6);
+		}
 
-     }
+	}
 
-     public void addPreset(Preset preset) {
-          while(this.presets.containsKey(preset.name.toLowerCase())) {
-               preset.name = preset.name + "_";
-          }
+	public void addPreset(Preset preset) {
+		while (this.presets.containsKey(preset.name.toLowerCase())) {
+			preset.name = preset.name + "_";
+		}
 
-          this.presets.put(preset.name.toLowerCase(), preset);
-          this.save();
-     }
+		this.presets.put(preset.name.toLowerCase(), preset);
+		this.save();
+	}
 
-     public void removePreset(String preset) {
-          if (preset != null) {
-               this.presets.remove(preset.toLowerCase());
-               this.save();
-          }
-     }
+	public void removePreset(String preset) {
+		if (preset != null) {
+			this.presets.remove(preset.toLowerCase());
+			this.save();
+		}
+	}
 }

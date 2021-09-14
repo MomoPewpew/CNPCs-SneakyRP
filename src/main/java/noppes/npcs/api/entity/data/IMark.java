@@ -3,15 +3,15 @@ package noppes.npcs.api.entity.data;
 import noppes.npcs.api.handler.data.IAvailability;
 
 public interface IMark {
-     IAvailability getAvailability();
+	IAvailability getAvailability();
 
-     int getColor();
+	int getColor();
 
-     void setColor(int var1);
+	void setColor(int var1);
 
-     int getType();
+	int getType();
 
-     void setType(int var1);
+	void setType(int var1);
 
-     void update();
+	void update();
 }

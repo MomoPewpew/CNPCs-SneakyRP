@@ -9,145 +9,145 @@ import noppes.npcs.api.entity.data.IData;
 import noppes.npcs.api.item.IItemStack;
 
 public interface IEntity {
-     double getX();
+	double getX();
 
-     void setX(double var1);
+	void setX(double var1);
 
-     double getY();
+	double getY();
 
-     void setY(double var1);
+	void setY(double var1);
 
-     double getZ();
+	double getZ();
 
-     void setZ(double var1);
+	void setZ(double var1);
 
-     int getBlockX();
+	int getBlockX();
 
-     int getBlockY();
+	int getBlockY();
 
-     int getBlockZ();
+	int getBlockZ();
 
-     IPos getPos();
+	IPos getPos();
 
-     void setPos(IPos var1);
+	void setPos(IPos var1);
 
-     void setPosition(double var1, double var3, double var5);
+	void setPosition(double var1, double var3, double var5);
 
-     void setRotation(float var1);
+	void setRotation(float var1);
 
-     float getRotation();
+	float getRotation();
 
-     float getHeight();
+	float getHeight();
 
-     float getEyeHeight();
+	float getEyeHeight();
 
-     float getWidth();
+	float getWidth();
 
-     void setPitch(float var1);
+	void setPitch(float var1);
 
-     float getPitch();
+	float getPitch();
 
-     IEntity getMount();
+	IEntity getMount();
 
-     void setMount(IEntity var1);
+	void setMount(IEntity var1);
 
-     IEntity[] getRiders();
+	IEntity[] getRiders();
 
-     IEntity[] getAllRiders();
+	IEntity[] getAllRiders();
 
-     void addRider(IEntity var1);
+	void addRider(IEntity var1);
 
-     void clearRiders();
+	void clearRiders();
 
-     void knockback(int var1, float var2);
+	void knockback(int var1, float var2);
 
-     boolean isSneaking();
+	boolean isSneaking();
 
-     boolean isSprinting();
+	boolean isSprinting();
 
-     IEntityItem dropItem(IItemStack var1);
+	IEntityItem dropItem(IItemStack var1);
 
-     boolean inWater();
+	boolean inWater();
 
-     boolean inFire();
+	boolean inFire();
 
-     boolean inLava();
+	boolean inLava();
 
-     IData getTempdata();
+	IData getTempdata();
 
-     IData getStoreddata();
+	IData getStoreddata();
 
-     INbt getNbt();
+	INbt getNbt();
 
-     boolean isAlive();
+	boolean isAlive();
 
-     long getAge();
+	long getAge();
 
-     void despawn();
+	void despawn();
 
-     void spawn();
+	void spawn();
 
-     void kill();
+	void kill();
 
-     boolean isBurning();
+	boolean isBurning();
 
-     void setBurning(int var1);
+	void setBurning(int var1);
 
-     void extinguish();
+	void extinguish();
 
-     IWorld getWorld();
+	IWorld getWorld();
 
-     String getTypeName();
+	String getTypeName();
 
-     int getType();
+	int getType();
 
-     boolean typeOf(int var1);
+	boolean typeOf(int var1);
 
-     Entity getMCEntity();
+	Entity getMCEntity();
 
-     String getUUID();
+	String getUUID();
 
-     String generateNewUUID();
+	String generateNewUUID();
 
-     void storeAsClone(int var1, String var2);
+	void storeAsClone(int var1, String var2);
 
-     INbt getEntityNbt();
+	INbt getEntityNbt();
 
-     void setEntityNbt(INbt var1);
+	void setEntityNbt(INbt var1);
 
-     IRayTrace rayTraceBlock(double var1, boolean var3, boolean var4);
+	IRayTrace rayTraceBlock(double var1, boolean var3, boolean var4);
 
-     IEntity[] rayTraceEntities(double var1, boolean var3, boolean var4);
+	IEntity[] rayTraceEntities(double var1, boolean var3, boolean var4);
 
-     String[] getTags();
+	String[] getTags();
 
-     void addTag(String var1);
+	void addTag(String var1);
 
-     boolean hasTag(String var1);
+	boolean hasTag(String var1);
 
-     void removeTag(String var1);
+	void removeTag(String var1);
 
-     void playAnimation(int var1);
+	void playAnimation(int var1);
 
-     void damage(float var1);
+	void damage(float var1);
 
-     double getMotionX();
+	double getMotionX();
 
-     double getMotionY();
+	double getMotionY();
 
-     double getMotionZ();
+	double getMotionZ();
 
-     void setMotionX(double var1);
+	void setMotionX(double var1);
 
-     void setMotionY(double var1);
+	void setMotionY(double var1);
 
-     void setMotionZ(double var1);
+	void setMotionZ(double var1);
 
-     String getName();
+	String getName();
 
-     void setName(String var1);
+	void setName(String var1);
 
-     boolean hasCustomName();
+	boolean hasCustomName();
 
-     String getEntityName();
+	String getEntityName();
 }

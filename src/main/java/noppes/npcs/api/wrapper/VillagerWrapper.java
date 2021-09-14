@@ -4,23 +4,24 @@ import net.minecraft.entity.passive.EntityVillager;
 import noppes.npcs.api.entity.IVillager;
 
 public class VillagerWrapper extends EntityLivingWrapper implements IVillager {
-     public VillagerWrapper(EntityVillager entity) {
-          super(entity);
-     }
+	public VillagerWrapper(EntityVillager entity) {
+		super(entity);
+	}
 
-     public int getProfession() {
-          return ((EntityVillager)this.entity).getProfession();
-     }
+	public int getProfession() {
+		return ((EntityVillager) this.entity).getProfession();
+	}
 
-     public String getCareer() {
-          return ((EntityVillager)this.entity).getProfessionForge().getCareer(((EntityVillager)this.entity).careerId).getName();
-     }
+	public String getCareer() {
+		return ((EntityVillager) this.entity).getProfessionForge().getCareer(((EntityVillager) this.entity).careerId)
+				.getName();
+	}
 
-     public int getType() {
-          return 9;
-     }
+	public int getType() {
+		return 9;
+	}
 
-     public boolean typeOf(int type) {
-          return type == 9 ? true : super.typeOf(type);
-     }
+	public boolean typeOf(int type) {
+		return type == 9 ? true : super.typeOf(type);
+	}
 }

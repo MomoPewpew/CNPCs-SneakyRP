@@ -1,47 +1,47 @@
 package noppes.npcs.api.entity.data;
 
 public interface INPCStats {
-     int getMaxHealth();
+	int getMaxHealth();
 
-     void setMaxHealth(int var1);
+	void setMaxHealth(int var1);
 
-     float getResistance(int var1);
+	float getResistance(int var1);
 
-     void setResistance(int var1, float var2);
+	void setResistance(int var1, float var2);
 
-     int getCombatRegen();
+	int getCombatRegen();
 
-     void setCombatRegen(int var1);
+	void setCombatRegen(int var1);
 
-     int getHealthRegen();
+	int getHealthRegen();
 
-     void setHealthRegen(int var1);
+	void setHealthRegen(int var1);
 
-     INPCMelee getMelee();
+	INPCMelee getMelee();
 
-     INPCRanged getRanged();
+	INPCRanged getRanged();
 
-     boolean getImmune(int var1);
+	boolean getImmune(int var1);
 
-     void setImmune(int var1, boolean var2);
+	void setImmune(int var1, boolean var2);
 
-     void setCreatureType(int var1);
+	void setCreatureType(int var1);
 
-     int getCreatureType();
+	int getCreatureType();
 
-     int getRespawnType();
+	int getRespawnType();
 
-     void setRespawnType(int var1);
+	void setRespawnType(int var1);
 
-     int getRespawnTime();
+	int getRespawnTime();
 
-     void setRespawnTime(int var1);
+	void setRespawnTime(int var1);
 
-     boolean getHideDeadBody();
+	boolean getHideDeadBody();
 
-     void setHideDeadBody(boolean var1);
+	void setHideDeadBody(boolean var1);
 
-     int getAggroRange();
+	int getAggroRange();
 
-     void setAggroRange(int var1);
+	void setAggroRange(int var1);
 }

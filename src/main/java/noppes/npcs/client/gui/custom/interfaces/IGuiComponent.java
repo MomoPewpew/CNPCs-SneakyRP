@@ -4,9 +4,9 @@ import net.minecraft.client.Minecraft;
 import noppes.npcs.api.gui.ICustomGuiComponent;
 
 public interface IGuiComponent {
-     int getID();
+	int getID();
 
-     void onRender(Minecraft var1, int var2, int var3, int var4, float var5);
+	void onRender(Minecraft var1, int var2, int var3, int var4, float var5);
 
-     ICustomGuiComponent toComponent();
+	ICustomGuiComponent toComponent();
 }

@@ -10,29 +10,29 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 class SlotNPCArmor extends Slot {
-     final EntityEquipmentSlot armorType;
+	final EntityEquipmentSlot armorType;
 
-     SlotNPCArmor(IInventory iinventory, int i, int j, int k, EntityEquipmentSlot l) {
-          super(iinventory, i, j, k);
-          this.armorType = l;
-     }
+	SlotNPCArmor(IInventory iinventory, int i, int j, int k, EntityEquipmentSlot l) {
+		super(iinventory, i, j, k);
+		this.armorType = l;
+	}
 
-     public int getSlotStackLimit() {
-          return 1;
-     }
+	public int getSlotStackLimit() {
+		return 1;
+	}
 
-     @SideOnly(Side.CLIENT)
-     public String getSlotTexture() {
-          return ItemArmor.EMPTY_SLOT_NAMES[this.armorType.getIndex()];
-     }
+	@SideOnly(Side.CLIENT)
+	public String getSlotTexture() {
+		return ItemArmor.EMPTY_SLOT_NAMES[this.armorType.getIndex()];
+	}
 
-     public boolean isItemValid(ItemStack itemstack) {
-          if (itemstack.getItem() instanceof ItemArmor) {
-               return ((ItemArmor)itemstack.getItem()).armorType == this.armorType;
-          } else if (itemstack.getItem() instanceof ItemBlock) {
-               return this.armorType == EntityEquipmentSlot.HEAD;
-          } else {
-               return false;
-          }
-     }
+	public boolean isItemValid(ItemStack itemstack) {
+		if (itemstack.getItem() instanceof ItemArmor) {
+			return ((ItemArmor) itemstack.getItem()).armorType == this.armorType;
+		} else if (itemstack.getItem() instanceof ItemBlock) {
+			return this.armorType == EntityEquipmentSlot.HEAD;
+		} else {
+			return false;
+		}
+	}
 }

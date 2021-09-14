@@ -23,15 +23,15 @@ import noppes.npcs.entity.EntityNPCInterface;
 import noppes.npcs.entity.data.DataDisplay;
 
 public class GuiNpcDisplay extends GuiNPCInterface2 implements ITextfieldListener, IGuiData {
-     private DataDisplay display;
+	private DataDisplay display;
 
-     public GuiNpcDisplay(EntityNPCInterface npc) {
-          super(npc, 1);
-          this.display = npc.display;
-          Client.sendData(EnumPacketServer.MainmenuDisplayGet);
-     }
+	public GuiNpcDisplay(EntityNPCInterface npc) {
+		super(npc, 1);
+		this.display = npc.display;
+		Client.sendData(EnumPacketServer.MainmenuDisplayGet);
+	}
 
-     public void initGui() {
+	public void initGui() {
           super.initGui();
           int y = this.guiTop + 4;
           this.addLabel(new GuiNpcLabel(0, "gui.name", this.guiLeft + 5, y + 5));
@@ -91,104 +91,104 @@ public class GuiNpcDisplay extends GuiNPCInterface2 implements ITextfieldListene
           this.addButton(new GuiNpcButton(12, this.guiLeft + 220, y, 110, 20, this.display.getBossColor(), new String[]{"color.pink", "color.blue", "color.red", "color.green", "color.yellow", "color.purple", "color.white"}));
      }
 
-     public void unFocused(GuiNpcTextField textfield) {
-          if (textfield.id == 0) {
-               if (!textfield.isEmpty()) {
-                    this.display.setName(textfield.getText());
-               } else {
-                    textfield.setText(this.display.getName());
-               }
-          } else if (textfield.id == 2) {
-               this.display.setSize(textfield.getInteger());
-          } else if (textfield.id == 3) {
-               if (this.display.skinType == 2) {
-                    this.display.setSkinUrl(textfield.getText());
-               } else if (this.display.skinType == 1) {
-                    this.display.setSkinPlayer(textfield.getText());
-               } else {
-                    this.display.setSkinTexture(textfield.getText());
-               }
-          } else if (textfield.id == 6) {
-               boolean var2 = false;
+	public void unFocused(GuiNpcTextField textfield) {
+		if (textfield.id == 0) {
+			if (!textfield.isEmpty()) {
+				this.display.setName(textfield.getText());
+			} else {
+				textfield.setText(this.display.getName());
+			}
+		} else if (textfield.id == 2) {
+			this.display.setSize(textfield.getInteger());
+		} else if (textfield.id == 3) {
+			if (this.display.skinType == 2) {
+				this.display.setSkinUrl(textfield.getText());
+			} else if (this.display.skinType == 1) {
+				this.display.setSkinPlayer(textfield.getText());
+			} else {
+				this.display.setSkinTexture(textfield.getText());
+			}
+		} else if (textfield.id == 6) {
+			boolean var2 = false;
 
-               int color;
-               try {
-                    color = Integer.parseInt(textfield.getText(), 16);
-               } catch (NumberFormatException var4) {
-                    color = 16777215;
-               }
+			int color;
+			try {
+				color = Integer.parseInt(textfield.getText(), 16);
+			} catch (NumberFormatException var4) {
+				color = 16777215;
+			}
 
-               this.display.setTint(color);
-               textfield.setTextColor(this.display.getTint());
-          } else if (textfield.id == 8) {
-               this.display.setCapeTexture(textfield.getText());
-          } else if (textfield.id == 9) {
-               this.display.setOverlayTexture(textfield.getText());
-          } else if (textfield.id == 11) {
-               this.display.setTitle(textfield.getText());
-          }
+			this.display.setTint(color);
+			textfield.setTextColor(this.display.getTint());
+		} else if (textfield.id == 8) {
+			this.display.setCapeTexture(textfield.getText());
+		} else if (textfield.id == 9) {
+			this.display.setOverlayTexture(textfield.getText());
+		} else if (textfield.id == 11) {
+			this.display.setTitle(textfield.getText());
+		}
 
-     }
+	}
 
-     protected void actionPerformed(GuiButton guibutton) {
-          GuiNpcButton button = (GuiNpcButton)guibutton;
-          if (button.id == 0) {
-               this.display.setShowName(button.getValue());
-          }
+	protected void actionPerformed(GuiButton guibutton) {
+		GuiNpcButton button = (GuiNpcButton) guibutton;
+		if (button.id == 0) {
+			this.display.setShowName(button.getValue());
+		}
 
-          if (button.id == 1) {
-               NoppesUtil.openGUI(this.player, new GuiCreationParts((EntityCustomNpc)this.npc));
-          }
+		if (button.id == 1) {
+			NoppesUtil.openGUI(this.player, new GuiCreationParts((EntityCustomNpc) this.npc));
+		}
 
-          if (button.id == 2) {
-               this.display.setSkinUrl("");
-               this.display.setSkinPlayer((String)null);
-               this.display.skinType = (byte)button.getValue();
-               this.initGui();
-          } else if (button.id == 3) {
-               this.setSubGui(new GuiTextureSelection(this.npc, this.npc.display.getSkinTexture()));
-          } else if (button.id == 5) {
-               this.display.setHasLivingAnimation(button.getValue() == 0);
-          } else if (button.id == 7) {
-               this.display.setVisible(button.getValue());
-          } else if (button.id == 8) {
-               NoppesUtil.openGUI(this.player, new GuiNpcTextureCloaks(this.npc, this));
-          } else if (button.id == 9) {
-               NoppesUtil.openGUI(this.player, new GuiNpcTextureOverlays(this.npc, this));
-          } else if (button.id == 10) {
-               this.display.setBossbar(button.getValue());
-          } else if (button.id == 12) {
-               this.display.setBossColor(button.getValue());
-          } else if (button.id == 13) {
-               this.display.setHasHitbox(((GuiNpcButtonYesNo)button).getBoolean());
-          } else if (button.id == 14) {
-               String name = this.display.getRandomName();
-               this.display.setName(name);
-               this.getTextField(0).setText(name);
-          } else if (button.id == 15) {
-               this.setSubGui(new SubGuiNpcName(this.display));
-          }
+		if (button.id == 2) {
+			this.display.setSkinUrl("");
+			this.display.setSkinPlayer((String) null);
+			this.display.skinType = (byte) button.getValue();
+			this.initGui();
+		} else if (button.id == 3) {
+			this.setSubGui(new GuiTextureSelection(this.npc, this.npc.display.getSkinTexture()));
+		} else if (button.id == 5) {
+			this.display.setHasLivingAnimation(button.getValue() == 0);
+		} else if (button.id == 7) {
+			this.display.setVisible(button.getValue());
+		} else if (button.id == 8) {
+			NoppesUtil.openGUI(this.player, new GuiNpcTextureCloaks(this.npc, this));
+		} else if (button.id == 9) {
+			NoppesUtil.openGUI(this.player, new GuiNpcTextureOverlays(this.npc, this));
+		} else if (button.id == 10) {
+			this.display.setBossbar(button.getValue());
+		} else if (button.id == 12) {
+			this.display.setBossColor(button.getValue());
+		} else if (button.id == 13) {
+			this.display.setHasHitbox(((GuiNpcButtonYesNo) button).getBoolean());
+		} else if (button.id == 14) {
+			String name = this.display.getRandomName();
+			this.display.setName(name);
+			this.getTextField(0).setText(name);
+		} else if (button.id == 15) {
+			this.setSubGui(new SubGuiNpcName(this.display));
+		}
 
-     }
+	}
 
-     public void closeSubGui(SubGuiInterface subgui) {
-          super.closeSubGui(subgui);
-          this.initGui();
-     }
+	public void closeSubGui(SubGuiInterface subgui) {
+		super.closeSubGui(subgui);
+		this.initGui();
+	}
 
-     public void save() {
-          if (this.display.skinType == 1) {
-               this.display.loadProfile();
-          }
+	public void save() {
+		if (this.display.skinType == 1) {
+			this.display.loadProfile();
+		}
 
-          this.npc.textureLocation = null;
-          this.mc.renderGlobal.onEntityRemoved(this.npc);
-          this.mc.renderGlobal.onEntityAdded(this.npc);
-          Client.sendData(EnumPacketServer.MainmenuDisplaySave, this.display.writeToNBT(new NBTTagCompound()));
-     }
+		this.npc.textureLocation = null;
+		this.mc.renderGlobal.onEntityRemoved(this.npc);
+		this.mc.renderGlobal.onEntityAdded(this.npc);
+		Client.sendData(EnumPacketServer.MainmenuDisplaySave, this.display.writeToNBT(new NBTTagCompound()));
+	}
 
-     public void setGuiData(NBTTagCompound compound) {
-          this.display.readToNBT(compound);
-          this.initGui();
-     }
+	public void setGuiData(NBTTagCompound compound) {
+		this.display.readToNBT(compound);
+		this.initGui();
+	}
 }

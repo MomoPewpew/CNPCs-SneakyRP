@@ -4,15 +4,15 @@ import net.minecraft.util.DamageSource;
 import noppes.npcs.api.entity.IEntity;
 
 public interface IDamageSource {
-     String getType();
+	String getType();
 
-     boolean isUnblockable();
+	boolean isUnblockable();
 
-     boolean isProjectile();
+	boolean isProjectile();
 
-     IEntity getTrueSource();
+	IEntity getTrueSource();
 
-     IEntity getImmediateSource();
+	IEntity getImmediateSource();
 
-     DamageSource getMCDamageSource();
+	DamageSource getMCDamageSource();
 }

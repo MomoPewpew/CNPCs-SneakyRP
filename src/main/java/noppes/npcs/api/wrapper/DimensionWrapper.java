@@ -4,23 +4,23 @@ import net.minecraft.world.DimensionType;
 import noppes.npcs.api.IDimension;
 
 public class DimensionWrapper implements IDimension {
-     private int id;
-     private DimensionType type;
+	private int id;
+	private DimensionType type;
 
-     public DimensionWrapper(int id, DimensionType type) {
-          this.id = id;
-          this.type = type;
-     }
+	public DimensionWrapper(int id, DimensionType type) {
+		this.id = id;
+		this.type = type;
+	}
 
-     public int getId() {
-          return this.id;
-     }
+	public int getId() {
+		return this.id;
+	}
 
-     public String getName() {
-          return this.type.getName();
-     }
+	public String getName() {
+		return this.type.getName();
+	}
 
-     public String getSuffix() {
-          return this.type.getSuffix();
-     }
+	public String getSuffix() {
+		return this.type.getSuffix();
+	}
 }

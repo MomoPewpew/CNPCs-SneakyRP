@@ -16,25 +16,29 @@ import noppes.npcs.entity.EntityNPCInterface;
 import noppes.npcs.util.IPermission;
 
 public class ItemNpcCloner extends Item implements IPermission {
-     public ItemNpcCloner() {
-          this.maxStackSize = 1;
-          this.setCreativeTab(CustomItems.tab);
-     }
+	public ItemNpcCloner() {
+		this.maxStackSize = 1;
+		this.setCreativeTab(CustomItems.tab);
+	}
 
-     public EnumActionResult onItemUse(EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
-          if (!world.isRemote) {
-               NoppesUtilServer.sendOpenGui(player, EnumGuiType.MobSpawner, (EntityNPCInterface)null, pos.getX(), pos.getY(), pos.getZ());
-          }
+	public EnumActionResult onItemUse(EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side,
+			float hitX, float hitY, float hitZ) {
+		if (!world.isRemote) {
+			NoppesUtilServer.sendOpenGui(player, EnumGuiType.MobSpawner, (EntityNPCInterface) null, pos.getX(),
+					pos.getY(), pos.getZ());
+		}
 
-          return EnumActionResult.SUCCESS;
-     }
+		return EnumActionResult.SUCCESS;
+	}
 
-     public Item setTranslationKey(String name) {
-          this.setRegistryName(new ResourceLocation("customnpcs", name));
-          return super.setTranslationKey(name);
-     }
+	public Item setTranslationKey(String name) {
+		this.setRegistryName(new ResourceLocation("customnpcs", name));
+		return super.setTranslationKey(name);
+	}
 
-     public boolean isAllowed(EnumPacketServer e) {
-          return e == EnumPacketServer.CloneList || e == EnumPacketServer.SpawnMob || e == EnumPacketServer.MobSpawner || e == EnumPacketServer.ClonePreSave || e == EnumPacketServer.CloneRemove || e == EnumPacketServer.CloneSave;
-     }
+	public boolean isAllowed(EnumPacketServer e) {
+		return e == EnumPacketServer.CloneList || e == EnumPacketServer.SpawnMob || e == EnumPacketServer.MobSpawner
+				|| e == EnumPacketServer.ClonePreSave || e == EnumPacketServer.CloneRemove
+				|| e == EnumPacketServer.CloneSave;
+	}
 }

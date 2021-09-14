@@ -10,29 +10,30 @@ import noppes.npcs.containers.ContainerNpcInterface;
 import noppes.npcs.controllers.ScriptContainer;
 
 public class ContainerCustomChestWrapper extends ContainerWrapper implements IContainerCustomChest {
-     public ScriptContainer script = null;
-     public String name = "";
+	public ScriptContainer script = null;
+	public String name = "";
 
-     public ContainerCustomChestWrapper(IInventory inventory) {
-          super(inventory);
-     }
+	public ContainerCustomChestWrapper(IInventory inventory) {
+		super(inventory);
+	}
 
-     public ContainerCustomChestWrapper(Container container) {
-          super(container);
-     }
+	public ContainerCustomChestWrapper(Container container) {
+		super(container);
+	}
 
-     public void setName(String name) {
-          if (name == null) {
-               name = "";
-          }
+	public void setName(String name) {
+		if (name == null) {
+			name = "";
+		}
 
-          if (!this.name.equals(name)) {
-               this.name = name;
-               Server.sendDataDelayed((EntityPlayerMP)((ContainerNpcInterface)this.getMCContainer()).player, EnumPacketClient.CHEST_NAME, 10, name);
-          }
-     }
+		if (!this.name.equals(name)) {
+			this.name = name;
+			Server.sendDataDelayed((EntityPlayerMP) ((ContainerNpcInterface) this.getMCContainer()).player,
+					EnumPacketClient.CHEST_NAME, 10, name);
+		}
+	}
 
-     public String getName() {
-          return this.name;
-     }
+	public String getName() {
+		return this.name;
+	}
 }

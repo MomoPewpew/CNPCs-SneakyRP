@@ -53,214 +53,220 @@ import noppes.npcs.util.LRUHashMap;
 import noppes.npcs.util.NBTJsonUtil;
 
 public class WrapperNpcAPI extends NpcAPI {
-     private static final Map worldCache = new LRUHashMap(10);
-     public static final EventBus EVENT_BUS = new EventBus();
-     private static NpcAPI instance = null;
+	private static final Map worldCache = new LRUHashMap(10);
+	public static final EventBus EVENT_BUS = new EventBus();
+	private static NpcAPI instance = null;
 
-     public static void clearCache() {
-          worldCache.clear();
-          BlockWrapper.clearCache();
-     }
+	public static void clearCache() {
+		worldCache.clear();
+		BlockWrapper.clearCache();
+	}
 
-     public IEntity getIEntity(Entity entity) {
-          if (entity != null && !entity.world.isRemote) {
-               return (IEntity)(entity instanceof EntityNPCInterface ? ((EntityNPCInterface)entity).wrappedNPC : WrapperEntityData.get(entity));
-          } else {
-               return null;
-          }
-     }
+	public IEntity getIEntity(Entity entity) {
+		if (entity != null && !entity.world.isRemote) {
+			return (IEntity) (entity instanceof EntityNPCInterface ? ((EntityNPCInterface) entity).wrappedNPC
+					: WrapperEntityData.get(entity));
+		} else {
+			return null;
+		}
+	}
 
-     public ICustomNpc createNPC(World world) {
-          if (world.isRemote) {
-               return null;
-          } else {
-               EntityCustomNpc npc = new EntityCustomNpc(world);
-               return npc.wrappedNPC;
-          }
-     }
+	public ICustomNpc createNPC(World world) {
+		if (world.isRemote) {
+			return null;
+		} else {
+			EntityCustomNpc npc = new EntityCustomNpc(world);
+			return npc.wrappedNPC;
+		}
+	}
 
-     public void registerPermissionNode(String permission, int defaultType) {
-          if (defaultType >= 0 && defaultType <= 2) {
-               if (this.hasPermissionNode(permission)) {
-                    throw new CustomNPCsException("Permission already exists", new Object[0]);
-               } else {
-                    DefaultPermissionLevel level = DefaultPermissionLevel.values()[defaultType];
-                    PermissionAPI.registerNode(permission, level, permission);
-               }
-          } else {
-               throw new CustomNPCsException("Default type cant be smaller than 0 or larger than 2", new Object[0]);
-          }
-     }
+	public void registerPermissionNode(String permission, int defaultType) {
+		if (defaultType >= 0 && defaultType <= 2) {
+			if (this.hasPermissionNode(permission)) {
+				throw new CustomNPCsException("Permission already exists", new Object[0]);
+			} else {
+				DefaultPermissionLevel level = DefaultPermissionLevel.values()[defaultType];
+				PermissionAPI.registerNode(permission, level, permission);
+			}
+		} else {
+			throw new CustomNPCsException("Default type cant be smaller than 0 or larger than 2", new Object[0]);
+		}
+	}
 
-     public boolean hasPermissionNode(String permission) {
-          return PermissionAPI.getPermissionHandler().getRegisteredNodes().contains(permission);
-     }
+	public boolean hasPermissionNode(String permission) {
+		return PermissionAPI.getPermissionHandler().getRegisteredNodes().contains(permission);
+	}
 
-     public ICustomNpc spawnNPC(World world, int x, int y, int z) {
-          if (world.isRemote) {
-               return null;
-          } else {
-               EntityCustomNpc npc = new EntityCustomNpc(world);
-               npc.setPositionAndRotation((double)x + 0.5D, (double)y, (double)z + 0.5D, 0.0F, 0.0F);
-               npc.ais.setStartPos((double)x, (double)y, (double)z);
-               npc.setHealth(npc.getMaxHealth());
-               world.spawnEntity(npc);
-               return npc.wrappedNPC;
-          }
-     }
+	public ICustomNpc spawnNPC(World world, int x, int y, int z) {
+		if (world.isRemote) {
+			return null;
+		} else {
+			EntityCustomNpc npc = new EntityCustomNpc(world);
+			npc.setPositionAndRotation((double) x + 0.5D, (double) y, (double) z + 0.5D, 0.0F, 0.0F);
+			npc.ais.setStartPos((double) x, (double) y, (double) z);
+			npc.setHealth(npc.getMaxHealth());
+			world.spawnEntity(npc);
+			return npc.wrappedNPC;
+		}
+	}
 
-     public static NpcAPI Instance() {
-          if (instance == null) {
-               instance = new WrapperNpcAPI();
-          }
+	public static NpcAPI Instance() {
+		if (instance == null) {
+			instance = new WrapperNpcAPI();
+		}
 
-          return instance;
-     }
+		return instance;
+	}
 
-     public EventBus events() {
-          return EVENT_BUS;
-     }
+	public EventBus events() {
+		return EVENT_BUS;
+	}
 
-     public IBlock getIBlock(World world, BlockPos pos) {
-          return BlockWrapper.createNew(world, pos, world.getBlockState(pos));
-     }
+	public IBlock getIBlock(World world, BlockPos pos) {
+		return BlockWrapper.createNew(world, pos, world.getBlockState(pos));
+	}
 
-     public IItemStack getIItemStack(ItemStack itemstack) {
-          return (IItemStack)(itemstack != null && !itemstack.isEmpty() ? (IItemStack)itemstack.getCapability(ItemStackWrapper.ITEMSCRIPTEDDATA_CAPABILITY, (EnumFacing)null) : ItemStackWrapper.AIR);
-     }
+	public IItemStack getIItemStack(ItemStack itemstack) {
+		return (IItemStack) (itemstack != null && !itemstack.isEmpty()
+				? (IItemStack) itemstack.getCapability(ItemStackWrapper.ITEMSCRIPTEDDATA_CAPABILITY, (EnumFacing) null)
+				: ItemStackWrapper.AIR);
+	}
 
-     public IWorld getIWorld(WorldServer world) {
-          WorldWrapper w = (WorldWrapper)worldCache.get(world.provider.getDimension());
-          if (w != null) {
-               w.world = world;
-               return w;
-          } else {
-               worldCache.put(world.provider.getDimension(), w = WorldWrapper.createNew(world));
-               return w;
-          }
-     }
+	public IWorld getIWorld(WorldServer world) {
+		WorldWrapper w = (WorldWrapper) worldCache.get(world.provider.getDimension());
+		if (w != null) {
+			w.world = world;
+			return w;
+		} else {
+			worldCache.put(world.provider.getDimension(), w = WorldWrapper.createNew(world));
+			return w;
+		}
+	}
 
-     public IWorld getIWorld(int dimensionId) {
-          WorldServer[] var2 = CustomNpcs.Server.worlds;
-          int var3 = var2.length;
+	public IWorld getIWorld(int dimensionId) {
+		WorldServer[] var2 = CustomNpcs.Server.worlds;
+		int var3 = var2.length;
 
-          for(int var4 = 0; var4 < var3; ++var4) {
-               WorldServer world = var2[var4];
-               if (world.provider.getDimension() == dimensionId) {
-                    return this.getIWorld(world);
-               }
-          }
+		for (int var4 = 0; var4 < var3; ++var4) {
+			WorldServer world = var2[var4];
+			if (world.provider.getDimension() == dimensionId) {
+				return this.getIWorld(world);
+			}
+		}
 
-          throw new CustomNPCsException("Unknown dimension id: " + dimensionId, new Object[0]);
-     }
+		throw new CustomNPCsException("Unknown dimension id: " + dimensionId, new Object[0]);
+	}
 
-     public IContainer getIContainer(IInventory inventory) {
-          return new ContainerWrapper(inventory);
-     }
+	public IContainer getIContainer(IInventory inventory) {
+		return new ContainerWrapper(inventory);
+	}
 
-     public IContainer getIContainer(Container container) {
-          return (IContainer)(container instanceof ContainerNpcInterface ? ContainerNpcInterface.getOrCreateIContainer((ContainerNpcInterface)container) : new ContainerWrapper(container));
-     }
+	public IContainer getIContainer(Container container) {
+		return (IContainer) (container instanceof ContainerNpcInterface
+				? ContainerNpcInterface.getOrCreateIContainer((ContainerNpcInterface) container)
+				: new ContainerWrapper(container));
+	}
 
-     public IFactionHandler getFactions() {
-          this.checkWorld();
-          return FactionController.instance;
-     }
+	public IFactionHandler getFactions() {
+		this.checkWorld();
+		return FactionController.instance;
+	}
 
-     private void checkWorld() {
-          if (CustomNpcs.Server == null || CustomNpcs.Server.isServerStopped()) {
-               throw new CustomNPCsException("No world is loaded right now", new Object[0]);
-          }
-     }
+	private void checkWorld() {
+		if (CustomNpcs.Server == null || CustomNpcs.Server.isServerStopped()) {
+			throw new CustomNPCsException("No world is loaded right now", new Object[0]);
+		}
+	}
 
-     public IRecipeHandler getRecipes() {
-          this.checkWorld();
-          return RecipeController.instance;
-     }
+	public IRecipeHandler getRecipes() {
+		this.checkWorld();
+		return RecipeController.instance;
+	}
 
-     public IQuestHandler getQuests() {
-          this.checkWorld();
-          return QuestController.instance;
-     }
+	public IQuestHandler getQuests() {
+		this.checkWorld();
+		return QuestController.instance;
+	}
 
-     public IWorld[] getIWorlds() {
-          this.checkWorld();
-          IWorld[] worlds = new IWorld[CustomNpcs.Server.worlds.length];
+	public IWorld[] getIWorlds() {
+		this.checkWorld();
+		IWorld[] worlds = new IWorld[CustomNpcs.Server.worlds.length];
 
-          for(int i = 0; i < CustomNpcs.Server.worlds.length; ++i) {
-               worlds[i] = this.getIWorld(CustomNpcs.Server.worlds[i]);
-          }
+		for (int i = 0; i < CustomNpcs.Server.worlds.length; ++i) {
+			worlds[i] = this.getIWorld(CustomNpcs.Server.worlds[i]);
+		}
 
-          return worlds;
-     }
+		return worlds;
+	}
 
-     public IPos getIPos(double x, double y, double z) {
-          return new BlockPosWrapper(new BlockPos(x, y, z));
-     }
+	public IPos getIPos(double x, double y, double z) {
+		return new BlockPosWrapper(new BlockPos(x, y, z));
+	}
 
-     public File getGlobalDir() {
-          return CustomNpcs.Dir;
-     }
+	public File getGlobalDir() {
+		return CustomNpcs.Dir;
+	}
 
-     public File getWorldDir() {
-          return CustomNpcs.getWorldSaveDirectory();
-     }
+	public File getWorldDir() {
+		return CustomNpcs.getWorldSaveDirectory();
+	}
 
-     public void registerCommand(CommandNoppesBase command) {
-          CustomNpcs.NoppesCommand.registerCommand(command);
-     }
+	public void registerCommand(CommandNoppesBase command) {
+		CustomNpcs.NoppesCommand.registerCommand(command);
+	}
 
-     public INbt getINbt(NBTTagCompound compound) {
-          return compound == null ? new NBTWrapper(new NBTTagCompound()) : new NBTWrapper(compound);
-     }
+	public INbt getINbt(NBTTagCompound compound) {
+		return compound == null ? new NBTWrapper(new NBTTagCompound()) : new NBTWrapper(compound);
+	}
 
-     public INbt stringToNbt(String str) {
-          if (str != null && !str.isEmpty()) {
-               try {
-                    return this.getINbt(NBTJsonUtil.Convert(str));
-               } catch (NBTJsonUtil.JsonException var3) {
-                    throw new CustomNPCsException(var3, "Failed converting " + str, new Object[0]);
-               }
-          } else {
-               throw new CustomNPCsException("Cant cast empty string to nbt", new Object[0]);
-          }
-     }
+	public INbt stringToNbt(String str) {
+		if (str != null && !str.isEmpty()) {
+			try {
+				return this.getINbt(NBTJsonUtil.Convert(str));
+			} catch (NBTJsonUtil.JsonException var3) {
+				throw new CustomNPCsException(var3, "Failed converting " + str, new Object[0]);
+			}
+		} else {
+			throw new CustomNPCsException("Cant cast empty string to nbt", new Object[0]);
+		}
+	}
 
-     public IDamageSource getIDamageSource(DamageSource damagesource) {
-          return new DamageSourceWrapper(damagesource);
-     }
+	public IDamageSource getIDamageSource(DamageSource damagesource) {
+		return new DamageSourceWrapper(damagesource);
+	}
 
-     public IDialogHandler getDialogs() {
-          return DialogController.instance;
-     }
+	public IDialogHandler getDialogs() {
+		return DialogController.instance;
+	}
 
-     public ICloneHandler getClones() {
-          return ServerCloneController.Instance;
-     }
+	public ICloneHandler getClones() {
+		return ServerCloneController.Instance;
+	}
 
-     public String executeCommand(IWorld world, String command) {
-          FakePlayer player = EntityNPCInterface.CommandPlayer;
-          player.setWorld(world.getMCWorld());
-          player.setPosition(0.0D, 0.0D, 0.0D);
-          return NoppesUtilServer.runCommand(world.getMCWorld(), BlockPos.ORIGIN, "API", command, (EntityPlayer)null, player);
-     }
+	public String executeCommand(IWorld world, String command) {
+		FakePlayer player = EntityNPCInterface.CommandPlayer;
+		player.setWorld(world.getMCWorld());
+		player.setPosition(0.0D, 0.0D, 0.0D);
+		return NoppesUtilServer.runCommand(world.getMCWorld(), BlockPos.ORIGIN, "API", command, (EntityPlayer) null,
+				player);
+	}
 
-     public INbt getRawPlayerData(String uuid) {
-          return this.getINbt(PlayerData.loadPlayerData(uuid));
-     }
+	public INbt getRawPlayerData(String uuid) {
+		return this.getINbt(PlayerData.loadPlayerData(uuid));
+	}
 
-     public IPlayerMail createMail(String sender, String subject) {
-          PlayerMail mail = new PlayerMail();
-          mail.sender = sender;
-          mail.subject = subject;
-          return mail;
-     }
+	public IPlayerMail createMail(String sender, String subject) {
+		PlayerMail mail = new PlayerMail();
+		mail.sender = sender;
+		mail.subject = subject;
+		return mail;
+	}
 
-     public ICustomGui createCustomGui(int id, int width, int height, boolean pauseGame) {
-          return new CustomGuiWrapper(id, width, height, pauseGame);
-     }
+	public ICustomGui createCustomGui(int id, int width, int height, boolean pauseGame) {
+		return new CustomGuiWrapper(id, width, height, pauseGame);
+	}
 
-     public String getRandomName(int dictionary, int gender) {
-          return CustomNpcs.MARKOV_GENERATOR[dictionary].fetch(gender);
-     }
+	public String getRandomName(int dictionary, int gender) {
+		return CustomNpcs.MARKOV_GENERATOR[dictionary].fetch(gender);
+	}
 }

@@ -13,53 +13,53 @@ import noppes.npcs.api.handler.data.IFaction;
 import noppes.npcs.api.item.IItemStack;
 
 public interface ICustomNpc extends IEntityLiving {
-     INPCDisplay getDisplay();
+	INPCDisplay getDisplay();
 
-     INPCInventory getInventory();
+	INPCInventory getInventory();
 
-     INPCStats getStats();
+	INPCStats getStats();
 
-     INPCAi getAi();
+	INPCAi getAi();
 
-     INPCAdvanced getAdvanced();
+	INPCAdvanced getAdvanced();
 
-     IFaction getFaction();
+	IFaction getFaction();
 
-     void setFaction(int var1);
+	void setFaction(int var1);
 
-     INPCRole getRole();
+	INPCRole getRole();
 
-     INPCJob getJob();
+	INPCJob getJob();
 
-     ITimers getTimers();
+	ITimers getTimers();
 
-     int getHomeX();
+	int getHomeX();
 
-     int getHomeY();
+	int getHomeY();
 
-     int getHomeZ();
+	int getHomeZ();
 
-     IEntityLivingBase getOwner();
+	IEntityLivingBase getOwner();
 
-     void setHome(int var1, int var2, int var3);
+	void setHome(int var1, int var2, int var3);
 
-     void reset();
+	void reset();
 
-     void say(String var1);
+	void say(String var1);
 
-     void sayTo(IPlayer var1, String var2);
+	void sayTo(IPlayer var1, String var2);
 
-     IProjectile shootItem(IEntityLivingBase var1, IItemStack var2, int var3);
+	IProjectile shootItem(IEntityLivingBase var1, IItemStack var2, int var3);
 
-     IProjectile shootItem(double var1, double var3, double var5, IItemStack var7, int var8);
+	IProjectile shootItem(double var1, double var3, double var5, IItemStack var7, int var8);
 
-     void giveItem(IPlayer var1, IItemStack var2);
+	void giveItem(IPlayer var1, IItemStack var2);
 
-     void setDialog(int var1, IDialog var2);
+	void setDialog(int var1, IDialog var2);
 
-     IDialog getDialog(int var1);
+	IDialog getDialog(int var1);
 
-     void updateClient();
+	void updateClient();
 
-     String executeCommand(String var1);
+	String executeCommand(String var1);
 }

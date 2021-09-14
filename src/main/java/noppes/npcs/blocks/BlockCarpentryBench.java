@@ -20,47 +20,50 @@ import noppes.npcs.blocks.tiles.TileBlockAnvil;
 import noppes.npcs.constants.EnumGuiType;
 
 public class BlockCarpentryBench extends BlockInterface {
-     public static final PropertyInteger ROTATION = PropertyInteger.create("rotation", 0, 3);
+	public static final PropertyInteger ROTATION = PropertyInteger.create("rotation", 0, 3);
 
-     public BlockCarpentryBench() {
-          super(Material.WOOD);
-          this.setSoundType(SoundType.WOOD);
-     }
+	public BlockCarpentryBench() {
+		super(Material.WOOD);
+		this.setSoundType(SoundType.WOOD);
+	}
 
-     public boolean onBlockActivated(World par1World, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
-          if (!par1World.isRemote) {
-               player.openGui(CustomNpcs.instance, EnumGuiType.PlayerAnvil.ordinal(), par1World, pos.getX(), pos.getY(), pos.getZ());
-          }
+	public boolean onBlockActivated(World par1World, BlockPos pos, IBlockState state, EntityPlayer player,
+			EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
+		if (!par1World.isRemote) {
+			player.openGui(CustomNpcs.instance, EnumGuiType.PlayerAnvil.ordinal(), par1World, pos.getX(), pos.getY(),
+					pos.getZ());
+		}
 
-          return true;
-     }
+		return true;
+	}
 
-     public boolean isOpaqueCube(IBlockState state) {
-          return false;
-     }
+	public boolean isOpaqueCube(IBlockState state) {
+		return false;
+	}
 
-     public boolean isFullCube(IBlockState state) {
-          return false;
-     }
+	public boolean isFullCube(IBlockState state) {
+		return false;
+	}
 
-     public int getMetaFromState(IBlockState state) {
-          return (Integer)state.getValue(ROTATION);
-     }
+	public int getMetaFromState(IBlockState state) {
+		return (Integer) state.getValue(ROTATION);
+	}
 
-     public IBlockState getStateFromMeta(int meta) {
-          return this.getDefaultState().withProperty(ROTATION, meta % 4);
-     }
+	public IBlockState getStateFromMeta(int meta) {
+		return this.getDefaultState().withProperty(ROTATION, meta % 4);
+	}
 
-     protected BlockStateContainer createBlockState() {
-          return new BlockStateContainer(this, new IProperty[]{ROTATION});
-     }
+	protected BlockStateContainer createBlockState() {
+		return new BlockStateContainer(this, new IProperty[] { ROTATION });
+	}
 
-     public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase entity, ItemStack stack) {
-          int var6 = MathHelper.floor((double)(entity.rotationYaw / 90.0F) + 0.5D) & 3;
-          world.setBlockState(pos, state.withProperty(ROTATION, var6), 2);
-     }
+	public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase entity,
+			ItemStack stack) {
+		int var6 = MathHelper.floor((double) (entity.rotationYaw / 90.0F) + 0.5D) & 3;
+		world.setBlockState(pos, state.withProperty(ROTATION, var6), 2);
+	}
 
-     public TileEntity createNewTileEntity(World var1, int var2) {
-          return new TileBlockAnvil();
-     }
+	public TileEntity createNewTileEntity(World var1, int var2) {
+		return new TileBlockAnvil();
+	}
 }

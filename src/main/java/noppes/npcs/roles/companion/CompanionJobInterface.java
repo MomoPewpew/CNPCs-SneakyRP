@@ -4,16 +4,16 @@ import net.minecraft.nbt.NBTTagCompound;
 import noppes.npcs.entity.EntityNPCInterface;
 
 public abstract class CompanionJobInterface {
-     public EntityNPCInterface npc;
+	public EntityNPCInterface npc;
 
-     public abstract NBTTagCompound getNBT();
+	public abstract NBTTagCompound getNBT();
 
-     public abstract void setNBT(NBTTagCompound var1);
+	public abstract void setNBT(NBTTagCompound var1);
 
-     public void onUpdate() {
-     }
+	public void onUpdate() {
+	}
 
-     public boolean isSelfSufficient() {
-          return false;
-     }
+	public boolean isSelfSufficient() {
+		return false;
+	}
 }

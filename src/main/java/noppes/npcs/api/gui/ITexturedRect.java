@@ -1,23 +1,23 @@
 package noppes.npcs.api.gui;
 
 public interface ITexturedRect extends ICustomGuiComponent {
-     String getTexture();
+	String getTexture();
 
-     ITexturedRect setTexture(String var1);
+	ITexturedRect setTexture(String var1);
 
-     int getWidth();
+	int getWidth();
 
-     int getHeight();
+	int getHeight();
 
-     ITexturedRect setSize(int var1, int var2);
+	ITexturedRect setSize(int var1, int var2);
 
-     float getScale();
+	float getScale();
 
-     ITexturedRect setScale(float var1);
+	ITexturedRect setScale(float var1);
 
-     int getTextureX();
+	int getTextureX();
 
-     int getTextureY();
+	int getTextureY();
 
-     ITexturedRect setTextureOffset(int var1, int var2);
+	ITexturedRect setTextureOffset(int var1, int var2);
 }

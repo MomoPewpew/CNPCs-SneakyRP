@@ -1,7 +1,7 @@
 package noppes.npcs.ability;
 
 public interface IAbilityUpdate extends IAbility {
-     boolean isActive();
+	boolean isActive();
 
-     void update();
+	void update();
 }

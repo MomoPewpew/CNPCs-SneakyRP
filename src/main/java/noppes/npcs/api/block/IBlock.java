@@ -10,55 +10,55 @@ import noppes.npcs.api.IWorld;
 import noppes.npcs.api.entity.data.IData;
 
 public interface IBlock {
-     int getX();
+	int getX();
 
-     int getY();
+	int getY();
 
-     int getZ();
+	int getZ();
 
-     IPos getPos();
+	IPos getPos();
 
-     int getMetadata();
+	int getMetadata();
 
-     void setMetadata(int var1);
+	void setMetadata(int var1);
 
-     String getName();
+	String getName();
 
-     void remove();
+	void remove();
 
-     boolean isRemoved();
+	boolean isRemoved();
 
-     boolean isAir();
+	boolean isAir();
 
-     IBlock setBlock(String var1);
+	IBlock setBlock(String var1);
 
-     IBlock setBlock(IBlock var1);
+	IBlock setBlock(IBlock var1);
 
-     boolean hasTileEntity();
+	boolean hasTileEntity();
 
-     boolean isContainer();
+	boolean isContainer();
 
-     IContainer getContainer();
+	IContainer getContainer();
 
-     IData getTempdata();
+	IData getTempdata();
 
-     IData getStoreddata();
+	IData getStoreddata();
 
-     IWorld getWorld();
+	IWorld getWorld();
 
-     INbt getTileEntityNBT();
+	INbt getTileEntityNBT();
 
-     void setTileEntityNBT(INbt var1);
+	void setTileEntityNBT(INbt var1);
 
-     TileEntity getMCTileEntity();
+	TileEntity getMCTileEntity();
 
-     Block getMCBlock();
+	Block getMCBlock();
 
-     void blockEvent(int var1, int var2);
+	void blockEvent(int var1, int var2);
 
-     String getDisplayName();
+	String getDisplayName();
 
-     IBlockState getMCBlockState();
+	IBlockState getMCBlockState();
 
-     void interact(int var1);
+	void interact(int var1);
 }

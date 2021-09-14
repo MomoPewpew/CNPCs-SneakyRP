@@ -6,23 +6,23 @@ import net.minecraftforge.fml.common.eventhandler.Event;
 import noppes.npcs.constants.EnumScriptType;
 
 public interface IScriptHandler {
-     void runScript(EnumScriptType var1, Event var2);
+	void runScript(EnumScriptType var1, Event var2);
 
-     boolean isClient();
+	boolean isClient();
 
-     boolean getEnabled();
+	boolean getEnabled();
 
-     void setEnabled(boolean var1);
+	void setEnabled(boolean var1);
 
-     String getLanguage();
+	String getLanguage();
 
-     void setLanguage(String var1);
+	void setLanguage(String var1);
 
-     List getScripts();
+	List getScripts();
 
-     String noticeString();
+	String noticeString();
 
-     Map getConsoleText();
+	Map getConsoleText();
 
-     void clearConsole();
+	void clearConsole();
 }

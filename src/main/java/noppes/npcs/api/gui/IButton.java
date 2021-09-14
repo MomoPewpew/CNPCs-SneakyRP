@@ -1,25 +1,25 @@
 package noppes.npcs.api.gui;
 
 public interface IButton extends ICustomGuiComponent {
-     int getWidth();
+	int getWidth();
 
-     int getHeight();
+	int getHeight();
 
-     IButton setSize(int var1, int var2);
+	IButton setSize(int var1, int var2);
 
-     String getLabel();
+	String getLabel();
 
-     IButton setLabel(String var1);
+	IButton setLabel(String var1);
 
-     String getTexture();
+	String getTexture();
 
-     boolean hasTexture();
+	boolean hasTexture();
 
-     IButton setTexture(String var1);
+	IButton setTexture(String var1);
 
-     int getTextureX();
+	int getTextureX();
 
-     int getTextureY();
+	int getTextureY();
 
-     IButton setTextureOffset(int var1, int var2);
+	IButton setTextureOffset(int var1, int var2);
 }

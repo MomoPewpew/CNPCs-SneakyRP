@@ -1,13 +1,13 @@
 package noppes.npcs.api.handler.data;
 
 public interface IQuestObjective {
-     int getProgress();
+	int getProgress();
 
-     void setProgress(int var1);
+	void setProgress(int var1);
 
-     int getMaxProgress();
+	int getMaxProgress();
 
-     boolean isCompleted();
+	boolean isCompleted();
 
-     String getText();
+	String getText();
 }

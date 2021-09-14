@@ -1,31 +1,31 @@
 package noppes.npcs.api;
 
 public interface IScoreboardTeam {
-     String getName();
+	String getName();
 
-     String getDisplayName();
+	String getDisplayName();
 
-     void setDisplayName(String var1);
+	void setDisplayName(String var1);
 
-     void addPlayer(String var1);
+	void addPlayer(String var1);
 
-     boolean hasPlayer(String var1);
+	boolean hasPlayer(String var1);
 
-     void removePlayer(String var1);
+	void removePlayer(String var1);
 
-     String[] getPlayers();
+	String[] getPlayers();
 
-     void clearPlayers();
+	void clearPlayers();
 
-     boolean getFriendlyFire();
+	boolean getFriendlyFire();
 
-     void setFriendlyFire(boolean var1);
+	void setFriendlyFire(boolean var1);
 
-     void setColor(String var1);
+	void setColor(String var1);
 
-     String getColor();
+	String getColor();
 
-     void setSeeInvisibleTeamPlayers(boolean var1);
+	void setSeeInvisibleTeamPlayers(boolean var1);
 
-     boolean getSeeInvisibleTeamPlayers();
+	boolean getSeeInvisibleTeamPlayers();
 }

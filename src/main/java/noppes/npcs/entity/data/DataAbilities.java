@@ -10,33 +10,33 @@ import noppes.npcs.constants.EnumAbilityType;
 import noppes.npcs.entity.EntityNPCInterface;
 
 public class DataAbilities {
-     public List abilities = new ArrayList();
-     public EntityNPCInterface npc;
+	public List abilities = new ArrayList();
+	public EntityNPCInterface npc;
 
-     public DataAbilities(EntityNPCInterface npc) {
-          this.npc = npc;
-     }
+	public DataAbilities(EntityNPCInterface npc) {
+		this.npc = npc;
+	}
 
-     public NBTTagCompound writeToNBT(NBTTagCompound compound) {
-          return compound;
-     }
+	public NBTTagCompound writeToNBT(NBTTagCompound compound) {
+		return compound;
+	}
 
-     public void readToNBT(NBTTagCompound compound) {
-     }
+	public void readToNBT(NBTTagCompound compound) {
+	}
 
-     public AbstractAbility getAbility(EnumAbilityType type) {
-          EntityLivingBase target = this.npc.getAttackTarget();
-          Iterator var3 = this.abilities.iterator();
+	public AbstractAbility getAbility(EnumAbilityType type) {
+		EntityLivingBase target = this.npc.getAttackTarget();
+		Iterator var3 = this.abilities.iterator();
 
-          AbstractAbility ability;
-          do {
-               if (!var3.hasNext()) {
-                    return null;
-               }
+		AbstractAbility ability;
+		do {
+			if (!var3.hasNext()) {
+				return null;
+			}
 
-               ability = (AbstractAbility)var3.next();
-          } while(!ability.isType(type) || !ability.canRun(target));
+			ability = (AbstractAbility) var3.next();
+		} while (!ability.isType(type) || !ability.canRun(target));
 
-          return ability;
-     }
+		return ability;
+	}
 }

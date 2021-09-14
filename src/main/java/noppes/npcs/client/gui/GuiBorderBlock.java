@@ -13,50 +13,52 @@ import noppes.npcs.client.gui.util.IGuiData;
 import noppes.npcs.constants.EnumPacketServer;
 
 public class GuiBorderBlock extends GuiNPCInterface implements IGuiData {
-     private TileBorder tile;
+	private TileBorder tile;
 
-     public GuiBorderBlock(int x, int y, int z) {
-          this.tile = (TileBorder)this.player.world.getTileEntity(new BlockPos(x, y, z));
-          Client.sendData(EnumPacketServer.GetTileEntity, x, y, z);
-     }
+	public GuiBorderBlock(int x, int y, int z) {
+		this.tile = (TileBorder) this.player.world.getTileEntity(new BlockPos(x, y, z));
+		Client.sendData(EnumPacketServer.GetTileEntity, x, y, z);
+	}
 
-     public void initGui() {
-          super.initGui();
-          this.addButton(new GuiNpcButton(4, this.guiLeft + 40, this.guiTop + 40, 120, 20, "Availability Options"));
-          this.addLabel(new GuiNpcLabel(0, "Height", this.guiLeft + 1, this.guiTop + 76, 16777215));
-          this.addTextField(new GuiNpcTextField(0, this, this.fontRenderer, this.guiLeft + 60, this.guiTop + 71, 40, 20, this.tile.height + ""));
-          this.getTextField(0).numbersOnly = true;
-          this.getTextField(0).setMinMaxDefault(0, 500, 6);
-          this.addLabel(new GuiNpcLabel(1, "Message", this.guiLeft + 1, this.guiTop + 100, 16777215));
-          this.addTextField(new GuiNpcTextField(1, this, this.fontRenderer, this.guiLeft + 60, this.guiTop + 95, 200, 20, this.tile.message));
-          this.addButton(new GuiNpcButton(0, this.guiLeft + 40, this.guiTop + 190, 120, 20, "Done"));
-     }
+	public void initGui() {
+		super.initGui();
+		this.addButton(new GuiNpcButton(4, this.guiLeft + 40, this.guiTop + 40, 120, 20, "Availability Options"));
+		this.addLabel(new GuiNpcLabel(0, "Height", this.guiLeft + 1, this.guiTop + 76, 16777215));
+		this.addTextField(new GuiNpcTextField(0, this, this.fontRenderer, this.guiLeft + 60, this.guiTop + 71, 40, 20,
+				this.tile.height + ""));
+		this.getTextField(0).numbersOnly = true;
+		this.getTextField(0).setMinMaxDefault(0, 500, 6);
+		this.addLabel(new GuiNpcLabel(1, "Message", this.guiLeft + 1, this.guiTop + 100, 16777215));
+		this.addTextField(new GuiNpcTextField(1, this, this.fontRenderer, this.guiLeft + 60, this.guiTop + 95, 200, 20,
+				this.tile.message));
+		this.addButton(new GuiNpcButton(0, this.guiLeft + 40, this.guiTop + 190, 120, 20, "Done"));
+	}
 
-     protected void actionPerformed(GuiButton guibutton) {
-          int id = guibutton.id;
-          if (id == 0) {
-               this.close();
-          }
+	protected void actionPerformed(GuiButton guibutton) {
+		int id = guibutton.id;
+		if (id == 0) {
+			this.close();
+		}
 
-          if (id == 4) {
-               this.save();
-               this.setSubGui(new SubGuiNpcAvailability(this.tile.availability));
-          }
+		if (id == 4) {
+			this.save();
+			this.setSubGui(new SubGuiNpcAvailability(this.tile.availability));
+		}
 
-     }
+	}
 
-     public void save() {
-          if (this.tile != null) {
-               this.tile.height = this.getTextField(0).getInteger();
-               this.tile.message = this.getTextField(1).getText();
-               NBTTagCompound compound = new NBTTagCompound();
-               this.tile.writeToNBT(compound);
-               Client.sendData(EnumPacketServer.SaveTileEntity, compound);
-          }
-     }
+	public void save() {
+		if (this.tile != null) {
+			this.tile.height = this.getTextField(0).getInteger();
+			this.tile.message = this.getTextField(1).getText();
+			NBTTagCompound compound = new NBTTagCompound();
+			this.tile.writeToNBT(compound);
+			Client.sendData(EnumPacketServer.SaveTileEntity, compound);
+		}
+	}
 
-     public void setGuiData(NBTTagCompound compound) {
-          this.tile.readFromNBT(compound);
-          this.initGui();
-     }
+	public void setGuiData(NBTTagCompound compound) {
+		this.tile.readFromNBT(compound);
+		this.initGui();
+	}
 }

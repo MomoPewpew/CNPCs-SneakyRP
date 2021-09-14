@@ -7,50 +7,50 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 
 public class TransportCategory {
-     public int id = -1;
-     public String title = "";
-     public HashMap locations = new HashMap();
+	public int id = -1;
+	public String title = "";
+	public HashMap locations = new HashMap();
 
-     public Vector getDefaultLocations() {
-          Vector list = new Vector();
-          Iterator var2 = this.locations.values().iterator();
+	public Vector getDefaultLocations() {
+		Vector list = new Vector();
+		Iterator var2 = this.locations.values().iterator();
 
-          while(var2.hasNext()) {
-               TransportLocation loc = (TransportLocation)var2.next();
-               if (loc.isDefault()) {
-                    list.add(loc);
-               }
-          }
+		while (var2.hasNext()) {
+			TransportLocation loc = (TransportLocation) var2.next();
+			if (loc.isDefault()) {
+				list.add(loc);
+			}
+		}
 
-          return list;
-     }
+		return list;
+	}
 
-     public void readNBT(NBTTagCompound compound) {
-          this.id = compound.getInteger("CategoryId");
-          this.title = compound.getString("CategoryTitle");
-          NBTTagList locs = compound.getTagList("CategoryLocations", 10);
-          if (locs != null && locs.tagCount() != 0) {
-               for(int ii = 0; ii < locs.tagCount(); ++ii) {
-                    TransportLocation location = new TransportLocation();
-                    location.readNBT(locs.getCompoundTagAt(ii));
-                    location.category = this;
-                    this.locations.put(location.id, location);
-               }
+	public void readNBT(NBTTagCompound compound) {
+		this.id = compound.getInteger("CategoryId");
+		this.title = compound.getString("CategoryTitle");
+		NBTTagList locs = compound.getTagList("CategoryLocations", 10);
+		if (locs != null && locs.tagCount() != 0) {
+			for (int ii = 0; ii < locs.tagCount(); ++ii) {
+				TransportLocation location = new TransportLocation();
+				location.readNBT(locs.getCompoundTagAt(ii));
+				location.category = this;
+				this.locations.put(location.id, location);
+			}
 
-          }
-     }
+		}
+	}
 
-     public void writeNBT(NBTTagCompound compound) {
-          compound.setInteger("CategoryId", this.id);
-          compound.setString("CategoryTitle", this.title);
-          NBTTagList locs = new NBTTagList();
-          Iterator var3 = this.locations.values().iterator();
+	public void writeNBT(NBTTagCompound compound) {
+		compound.setInteger("CategoryId", this.id);
+		compound.setString("CategoryTitle", this.title);
+		NBTTagList locs = new NBTTagList();
+		Iterator var3 = this.locations.values().iterator();
 
-          while(var3.hasNext()) {
-               TransportLocation location = (TransportLocation)var3.next();
-               locs.appendTag(location.writeNBT());
-          }
+		while (var3.hasNext()) {
+			TransportLocation location = (TransportLocation) var3.next();
+			locs.appendTag(location.writeNBT());
+		}
 
-          compound.setTag("CategoryLocations", locs);
-     }
+		compound.setTag("CategoryLocations", locs);
+	}
 }

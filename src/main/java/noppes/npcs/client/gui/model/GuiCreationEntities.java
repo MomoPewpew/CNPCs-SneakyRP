@@ -27,97 +27,102 @@ import noppes.npcs.entity.EntityNpcAlex;
 import noppes.npcs.entity.EntityNpcClassicPlayer;
 
 public class GuiCreationEntities extends GuiCreationScreenInterface implements ICustomScrollListener {
-     public HashMap data = new HashMap();
-     private List list;
-     private GuiCustomScroll scroll;
-     private boolean resetToSelected = true;
+	public HashMap data = new HashMap();
+	private List list;
+	private GuiCustomScroll scroll;
+	private boolean resetToSelected = true;
 
-     public GuiCreationEntities(EntityNPCInterface npc) {
-          super(npc);
-          Iterator var2 = ForgeRegistries.ENTITIES.getValues().iterator();
+	public GuiCreationEntities(EntityNPCInterface npc) {
+		super(npc);
+		Iterator var2 = ForgeRegistries.ENTITIES.getValues().iterator();
 
-          while(var2.hasNext()) {
-               EntityEntry ent = (EntityEntry)var2.next();
-               String name = ent.getName();
-               Class c = ent.getEntityClass();
+		while (var2.hasNext()) {
+			EntityEntry ent = (EntityEntry) var2.next();
+			String name = ent.getName();
+			Class c = ent.getEntityClass();
 
-               try {
-                    if (EntityLiving.class.isAssignableFrom(c) && c.getConstructor(World.class) != null && !Modifier.isAbstract(c.getModifiers()) && Minecraft.getMinecraft().getRenderManager().getEntityClassRenderObject(c) instanceof RenderLivingBase && !name.toLowerCase().contains("customnpc")) {
-                         this.data.put(name, c.asSubclass(EntityLivingBase.class));
-                    }
-               } catch (SecurityException var7) {
-                    var7.printStackTrace();
-               } catch (NoSuchMethodException var8) {
-               }
-          }
+			try {
+				if (EntityLiving.class.isAssignableFrom(c) && c.getConstructor(World.class) != null
+						&& !Modifier.isAbstract(c.getModifiers())
+						&& Minecraft.getMinecraft().getRenderManager()
+								.getEntityClassRenderObject(c) instanceof RenderLivingBase
+						&& !name.toLowerCase().contains("customnpc")) {
+					this.data.put(name, c.asSubclass(EntityLivingBase.class));
+				}
+			} catch (SecurityException var7) {
+				var7.printStackTrace();
+			} catch (NoSuchMethodException var8) {
+			}
+		}
 
-          this.data.put("NPC 64x32", EntityNPC64x32.class);
-          this.data.put("NPC Alex Arms", EntityNpcAlex.class);
-          this.data.put("NPC Classic Player", EntityNpcClassicPlayer.class);
-          this.list = new ArrayList(this.data.keySet());
-          this.list.add("NPC");
-          Collections.sort(this.list, String.CASE_INSENSITIVE_ORDER);
-          this.active = 1;
-          this.xOffset = 60;
-     }
+		this.data.put("NPC 64x32", EntityNPC64x32.class);
+		this.data.put("NPC Alex Arms", EntityNpcAlex.class);
+		this.data.put("NPC Classic Player", EntityNpcClassicPlayer.class);
+		this.list = new ArrayList(this.data.keySet());
+		this.list.add("NPC");
+		Collections.sort(this.list, String.CASE_INSENSITIVE_ORDER);
+		this.active = 1;
+		this.xOffset = 60;
+	}
 
-     public void initGui() {
-          super.initGui();
-          this.addButton(new GuiNpcButton(10, this.guiLeft, this.guiTop + 46, 120, 20, "Reset To NPC"));
-          if (this.scroll == null) {
-               this.scroll = new GuiCustomScroll(this, 0);
-               this.scroll.setUnsortedList(this.list);
-          }
+	public void initGui() {
+		super.initGui();
+		this.addButton(new GuiNpcButton(10, this.guiLeft, this.guiTop + 46, 120, 20, "Reset To NPC"));
+		if (this.scroll == null) {
+			this.scroll = new GuiCustomScroll(this, 0);
+			this.scroll.setUnsortedList(this.list);
+		}
 
-          this.scroll.guiLeft = this.guiLeft;
-          this.scroll.guiTop = this.guiTop + 68;
-          this.scroll.setSize(100, this.ySize - 96);
-          String selected = "NPC";
-          if (this.entity != null) {
-               Iterator var2 = this.data.entrySet().iterator();
+		this.scroll.guiLeft = this.guiLeft;
+		this.scroll.guiTop = this.guiTop + 68;
+		this.scroll.setSize(100, this.ySize - 96);
+		String selected = "NPC";
+		if (this.entity != null) {
+			Iterator var2 = this.data.entrySet().iterator();
 
-               while(var2.hasNext()) {
-                    Entry en = (Entry)var2.next();
-                    if (((Class)en.getValue()).toString().equals(this.entity.getClass().toString())) {
-                         selected = (String)en.getKey();
-                    }
-               }
-          }
+			while (var2.hasNext()) {
+				Entry en = (Entry) var2.next();
+				if (((Class) en.getValue()).toString().equals(this.entity.getClass().toString())) {
+					selected = (String) en.getKey();
+				}
+			}
+		}
 
-          this.scroll.setSelected(selected);
-          if (this.resetToSelected) {
-               this.scroll.scrollTo(this.scroll.getSelected());
-               this.resetToSelected = false;
-          }
+		this.scroll.setSelected(selected);
+		if (this.resetToSelected) {
+			this.scroll.scrollTo(this.scroll.getSelected());
+			this.resetToSelected = false;
+		}
 
-          this.addScroll(this.scroll);
-     }
+		this.addScroll(this.scroll);
+	}
 
-     protected void actionPerformed(GuiButton btn) {
-          super.actionPerformed(btn);
-          if (btn.id == 10) {
-               this.playerdata.setEntityClass((Class)null);
-               this.resetToSelected = true;
-               this.initGui();
-          }
+	protected void actionPerformed(GuiButton btn) {
+		super.actionPerformed(btn);
+		if (btn.id == 10) {
+			this.playerdata.setEntityClass((Class) null);
+			this.resetToSelected = true;
+			this.initGui();
+		}
 
-     }
+	}
 
-     public void scrollClicked(int i, int j, int k, GuiCustomScroll scroll) {
-          this.playerdata.setEntityClass((Class)this.data.get(scroll.getSelected()));
-          Entity entity = this.playerdata.getEntity(this.npc);
-          if (entity != null) {
-               RenderLivingBase render = (RenderLivingBase)this.mc.getRenderManager().getEntityClassRenderObject(entity.getClass());
-               if (!NPCRendererHelper.getTexture(render, entity).equals(TextureMap.LOCATION_MISSING_TEXTURE.toString())) {
-                    this.npc.display.setSkinTexture(NPCRendererHelper.getTexture(render, entity));
-               }
-          } else {
-               this.npc.display.setSkinTexture("customnpcs:textures/entity/humanmale/steve.png");
-          }
+	public void scrollClicked(int i, int j, int k, GuiCustomScroll scroll) {
+		this.playerdata.setEntityClass((Class) this.data.get(scroll.getSelected()));
+		Entity entity = this.playerdata.getEntity(this.npc);
+		if (entity != null) {
+			RenderLivingBase render = (RenderLivingBase) this.mc.getRenderManager()
+					.getEntityClassRenderObject(entity.getClass());
+			if (!NPCRendererHelper.getTexture(render, entity).equals(TextureMap.LOCATION_MISSING_TEXTURE.toString())) {
+				this.npc.display.setSkinTexture(NPCRendererHelper.getTexture(render, entity));
+			}
+		} else {
+			this.npc.display.setSkinTexture("customnpcs:textures/entity/humanmale/steve.png");
+		}
 
-          this.initGui();
-     }
+		this.initGui();
+	}
 
-     public void scrollDoubleClicked(String selection, GuiCustomScroll scroll) {
-     }
+	public void scrollDoubleClicked(String selection, GuiCustomScroll scroll) {
+	}
 }

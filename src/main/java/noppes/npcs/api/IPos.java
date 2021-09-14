@@ -3,51 +3,51 @@ package noppes.npcs.api;
 import net.minecraft.util.math.BlockPos;
 
 public interface IPos {
-     int getX();
+	int getX();
 
-     int getY();
+	int getY();
 
-     int getZ();
+	int getZ();
 
-     IPos up();
+	IPos up();
 
-     IPos up(int var1);
+	IPos up(int var1);
 
-     IPos down();
+	IPos down();
 
-     IPos down(int var1);
+	IPos down(int var1);
 
-     IPos north();
+	IPos north();
 
-     IPos north(int var1);
+	IPos north(int var1);
 
-     IPos east();
+	IPos east();
 
-     IPos east(int var1);
+	IPos east(int var1);
 
-     IPos south();
+	IPos south();
 
-     IPos south(int var1);
+	IPos south(int var1);
 
-     IPos west();
+	IPos west();
 
-     IPos west(int var1);
+	IPos west(int var1);
 
-     IPos add(int var1, int var2, int var3);
+	IPos add(int var1, int var2, int var3);
 
-     IPos add(IPos var1);
+	IPos add(IPos var1);
 
-     IPos subtract(int var1, int var2, int var3);
+	IPos subtract(int var1, int var2, int var3);
 
-     IPos subtract(IPos var1);
+	IPos subtract(IPos var1);
 
-     double[] normalize();
+	double[] normalize();
 
-     BlockPos getMCBlockPos();
+	BlockPos getMCBlockPos();
 
-     IPos offset(int var1);
+	IPos offset(int var1);
 
-     IPos offset(int var1, int var2);
+	IPos offset(int var1, int var2);
 
-     double distanceTo(IPos var1);
+	double distanceTo(IPos var1);
 }

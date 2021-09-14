@@ -4,103 +4,104 @@ import net.minecraft.nbt.NBTTagCompound;
 import noppes.npcs.api.gui.ITexturedRect;
 
 public class CustomGuiTexturedRectWrapper extends CustomGuiComponentWrapper implements ITexturedRect {
-     int width;
-     int height;
-     int textureX;
-     int textureY;
-     float scale;
-     String texture;
+	int width;
+	int height;
+	int textureX;
+	int textureY;
+	float scale;
+	String texture;
 
-     public CustomGuiTexturedRectWrapper() {
-          this.textureY = -1;
-          this.scale = 1.0F;
-     }
+	public CustomGuiTexturedRectWrapper() {
+		this.textureY = -1;
+		this.scale = 1.0F;
+	}
 
-     public CustomGuiTexturedRectWrapper(int id, String texture, int x, int y, int width, int height) {
-          this.textureY = -1;
-          this.scale = 1.0F;
-          this.setID(id);
-          this.setTexture(texture);
-          this.setPos(x, y);
-          this.setSize(width, height);
-     }
+	public CustomGuiTexturedRectWrapper(int id, String texture, int x, int y, int width, int height) {
+		this.textureY = -1;
+		this.scale = 1.0F;
+		this.setID(id);
+		this.setTexture(texture);
+		this.setPos(x, y);
+		this.setSize(width, height);
+	}
 
-     public CustomGuiTexturedRectWrapper(int id, String texture, int x, int y, int width, int height, int textureX, int textureY) {
-          this(id, texture, x, y, width, height);
-          this.setTextureOffset(textureX, textureY);
-     }
+	public CustomGuiTexturedRectWrapper(int id, String texture, int x, int y, int width, int height, int textureX,
+			int textureY) {
+		this(id, texture, x, y, width, height);
+		this.setTextureOffset(textureX, textureY);
+	}
 
-     public String getTexture() {
-          return this.texture;
-     }
+	public String getTexture() {
+		return this.texture;
+	}
 
-     public ITexturedRect setTexture(String texture) {
-          this.texture = texture;
-          return this;
-     }
+	public ITexturedRect setTexture(String texture) {
+		this.texture = texture;
+		return this;
+	}
 
-     public int getWidth() {
-          return this.width;
-     }
+	public int getWidth() {
+		return this.width;
+	}
 
-     public int getHeight() {
-          return this.height;
-     }
+	public int getHeight() {
+		return this.height;
+	}
 
-     public ITexturedRect setSize(int width, int height) {
-          this.width = width;
-          this.height = height;
-          return this;
-     }
+	public ITexturedRect setSize(int width, int height) {
+		this.width = width;
+		this.height = height;
+		return this;
+	}
 
-     public float getScale() {
-          return this.scale;
-     }
+	public float getScale() {
+		return this.scale;
+	}
 
-     public ITexturedRect setScale(float scale) {
-          this.scale = scale;
-          return this;
-     }
+	public ITexturedRect setScale(float scale) {
+		this.scale = scale;
+		return this;
+	}
 
-     public int getTextureX() {
-          return this.textureX;
-     }
+	public int getTextureX() {
+		return this.textureX;
+	}
 
-     public int getTextureY() {
-          return this.textureY;
-     }
+	public int getTextureY() {
+		return this.textureY;
+	}
 
-     public ITexturedRect setTextureOffset(int offsetX, int offsetY) {
-          this.textureX = offsetX;
-          this.textureY = offsetY;
-          return this;
-     }
+	public ITexturedRect setTextureOffset(int offsetX, int offsetY) {
+		this.textureX = offsetX;
+		this.textureY = offsetY;
+		return this;
+	}
 
-     public int getType() {
-          return 2;
-     }
+	public int getType() {
+		return 2;
+	}
 
-     public NBTTagCompound toNBT(NBTTagCompound nbt) {
-          super.toNBT(nbt);
-          nbt.setIntArray("size", new int[]{this.width, this.height});
-          nbt.setFloat("scale", this.scale);
-          nbt.setString("texture", this.texture);
-          if (this.textureX >= 0 && this.textureY >= 0) {
-               nbt.setIntArray("texPos", new int[]{this.textureX, this.textureY});
-          }
+	public NBTTagCompound toNBT(NBTTagCompound nbt) {
+		super.toNBT(nbt);
+		nbt.setIntArray("size", new int[] { this.width, this.height });
+		nbt.setFloat("scale", this.scale);
+		nbt.setString("texture", this.texture);
+		if (this.textureX >= 0 && this.textureY >= 0) {
+			nbt.setIntArray("texPos", new int[] { this.textureX, this.textureY });
+		}
 
-          return nbt;
-     }
+		return nbt;
+	}
 
-     public CustomGuiComponentWrapper fromNBT(NBTTagCompound nbt) {
-          super.fromNBT(nbt);
-          this.setSize(nbt.getIntArray("size")[0], nbt.getIntArray("size")[1]);
-          this.setScale(nbt.getFloat("scale"));
-          this.setTexture(nbt.getString("texture"));
-          if (nbt.hasKey("texPos")) {
-               this.setTextureOffset(nbt.getIntArray("texPos")[0], nbt.getIntArray("texPos")[1]);
-          }
+	public CustomGuiComponentWrapper fromNBT(NBTTagCompound nbt) {
+		super.fromNBT(nbt);
+		this.setSize(nbt.getIntArray("size")[0], nbt.getIntArray("size")[1]);
+		this.setScale(nbt.getFloat("scale"));
+		this.setTexture(nbt.getString("texture"));
+		if (nbt.hasKey("texPos")) {
+			this.setTextureOffset(nbt.getIntArray("texPos")[0], nbt.getIntArray("texPos")[1]);
+		}
 
-          return this;
-     }
+		return this;
+	}
 }

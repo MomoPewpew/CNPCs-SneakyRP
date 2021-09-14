@@ -1,5 +1,5 @@
 package noppes.npcs.client.gui.util;
 
 public interface ISubGuiListener {
-     void subGuiClosed(SubGuiInterface var1);
+	void subGuiClosed(SubGuiInterface var1);
 }

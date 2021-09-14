@@ -3,23 +3,23 @@ package noppes.npcs.api.entity;
 import noppes.npcs.api.item.IItemStack;
 
 public interface IEntityItem extends IEntity {
-     String getOwner();
+	String getOwner();
 
-     void setOwner(String var1);
+	void setOwner(String var1);
 
-     int getPickupDelay();
+	int getPickupDelay();
 
-     void setPickupDelay(int var1);
+	void setPickupDelay(int var1);
 
-     long getAge();
+	long getAge();
 
-     void setAge(long var1);
+	void setAge(long var1);
 
-     int getLifeSpawn();
+	int getLifeSpawn();
 
-     void setLifeSpawn(int var1);
+	void setLifeSpawn(int var1);
 
-     IItemStack getItem();
+	IItemStack getItem();
 
-     void setItem(IItemStack var1);
+	void setItem(IItemStack var1);
 }

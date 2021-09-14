@@ -4,39 +4,39 @@ import noppes.npcs.api.IContainer;
 import noppes.npcs.api.entity.IPlayer;
 
 public interface IQuest {
-     int getId();
+	int getId();
 
-     String getName();
+	String getName();
 
-     void setName(String var1);
+	void setName(String var1);
 
-     int getType();
+	int getType();
 
-     void setType(int var1);
+	void setType(int var1);
 
-     String getLogText();
+	String getLogText();
 
-     void setLogText(String var1);
+	void setLogText(String var1);
 
-     String getCompleteText();
+	String getCompleteText();
 
-     void setCompleteText(String var1);
+	void setCompleteText(String var1);
 
-     IQuest getNextQuest();
+	IQuest getNextQuest();
 
-     void setNextQuest(IQuest var1);
+	void setNextQuest(IQuest var1);
 
-     IQuestObjective[] getObjectives(IPlayer var1);
+	IQuestObjective[] getObjectives(IPlayer var1);
 
-     IQuestCategory getCategory();
+	IQuestCategory getCategory();
 
-     IContainer getRewards();
+	IContainer getRewards();
 
-     String getNpcName();
+	String getNpcName();
 
-     void setNpcName(String var1);
+	void setNpcName(String var1);
 
-     void save();
+	void save();
 
-     boolean getIsRepeatable();
+	boolean getIsRepeatable();
 }

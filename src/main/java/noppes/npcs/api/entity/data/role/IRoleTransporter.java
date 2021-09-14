@@ -3,21 +3,21 @@ package noppes.npcs.api.entity.data.role;
 import noppes.npcs.api.entity.data.INPCRole;
 
 public interface IRoleTransporter extends INPCRole {
-     IRoleTransporter.ITransportLocation getLocation();
+	IRoleTransporter.ITransportLocation getLocation();
 
-     public interface ITransportLocation {
-          int getId();
+	public interface ITransportLocation {
+		int getId();
 
-          int getDimension();
+		int getDimension();
 
-          int getX();
+		int getX();
 
-          int getY();
+		int getY();
 
-          int getZ();
+		int getZ();
 
-          String getName();
+		String getName();
 
-          int getType();
-     }
+		int getType();
+	}
 }

@@ -7,22 +7,22 @@ import noppes.npcs.constants.EnumAbilityType;
 import noppes.npcs.entity.EntityNPCInterface;
 
 public class AbilityBlock extends AbstractAbility implements IAbilityDamaged {
-     public AbilityBlock(EntityNPCInterface npc) {
-          super(npc);
-     }
+	public AbilityBlock(EntityNPCInterface npc) {
+		super(npc);
+	}
 
-     public boolean canRun(EntityLivingBase target) {
-          return super.canRun(target);
-     }
+	public boolean canRun(EntityLivingBase target) {
+		return super.canRun(target);
+	}
 
-     public boolean isType(EnumAbilityType type) {
-          return type == EnumAbilityType.ATTACKED;
-     }
+	public boolean isType(EnumAbilityType type) {
+		return type == EnumAbilityType.ATTACKED;
+	}
 
-     public void handleEvent(NpcEvent.DamagedEvent event) {
-          WorldServer world = (WorldServer)this.npc.getEntityWorld();
-          world.setEntityState(this.npc, (byte)29);
-          event.setCanceled(true);
-          this.endAbility();
-     }
+	public void handleEvent(NpcEvent.DamagedEvent event) {
+		WorldServer world = (WorldServer) this.npc.getEntityWorld();
+		world.setEntityState(this.npc, (byte) 29);
+		event.setCanceled(true);
+		this.endAbility();
+	}
 }

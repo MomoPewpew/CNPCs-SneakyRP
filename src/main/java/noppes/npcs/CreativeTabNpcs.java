@@ -6,18 +6,18 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
 public class CreativeTabNpcs extends CreativeTabs {
-     public Item item;
-     public int meta;
+	public Item item;
+	public int meta;
 
-     public CreativeTabNpcs(String label) {
-          super(label);
-          this.item = Items.BOWL;
-          this.meta = 0;
-     }
+	public CreativeTabNpcs(String label) {
+		super(label);
+		this.item = Items.BOWL;
+		this.meta = 0;
+	}
 
-     public ItemStack createIcon() {
-          return new ItemStack(this.item, 1, this.meta);
-     }
+	public ItemStack createIcon() {
+		return new ItemStack(this.item, 1, this.meta);
+	}
 
 	@Override
 	public ItemStack getTabIconItem() {

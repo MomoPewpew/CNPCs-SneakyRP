@@ -4,27 +4,27 @@ import noppes.npcs.api.entity.IPlayer;
 import noppes.npcs.api.entity.data.INPCRole;
 
 public interface IRoleFollower extends INPCRole {
-     int getDays();
+	int getDays();
 
-     void addDays(int var1);
+	void addDays(int var1);
 
-     boolean getInfinite();
+	boolean getInfinite();
 
-     void setInfinite(boolean var1);
+	void setInfinite(boolean var1);
 
-     boolean getGuiDisabled();
+	boolean getGuiDisabled();
 
-     void setGuiDisabled(boolean var1);
+	void setGuiDisabled(boolean var1);
 
-     IPlayer getFollowing();
+	IPlayer getFollowing();
 
-     void setFollowing(IPlayer var1);
+	void setFollowing(IPlayer var1);
 
-     boolean isFollowing();
+	boolean isFollowing();
 
-     void reset();
+	void reset();
 
-     void setRefuseSoulstone(boolean var1);
+	void setRefuseSoulstone(boolean var1);
 
-     boolean getRefuseSoulstone();
+	boolean getRefuseSoulstone();
 }

@@ -8,51 +8,52 @@ import noppes.npcs.controllers.data.Dialog;
 import noppes.npcs.controllers.data.DialogOption;
 
 public class SubGuiNpcDialogOptions extends SubGuiInterface {
-     private Dialog dialog;
+	private Dialog dialog;
 
-     public SubGuiNpcDialogOptions(Dialog dialog) {
-          this.dialog = dialog;
-          this.setBackground("menubg.png");
-          this.xSize = 256;
-          this.ySize = 216;
-          this.closeOnEsc = true;
-     }
+	public SubGuiNpcDialogOptions(Dialog dialog) {
+		this.dialog = dialog;
+		this.setBackground("menubg.png");
+		this.xSize = 256;
+		this.ySize = 216;
+		this.closeOnEsc = true;
+	}
 
-     public void initGui() {
-          super.initGui();
-          this.addLabel(new GuiNpcLabel(66, "dialog.options", this.guiLeft, this.guiTop + 4));
-          this.getLabel(66).center(this.xSize);
+	public void initGui() {
+		super.initGui();
+		this.addLabel(new GuiNpcLabel(66, "dialog.options", this.guiLeft, this.guiTop + 4));
+		this.getLabel(66).center(this.xSize);
 
-          for(int i = 0; i < 6; ++i) {
-               String optionString = "";
-               DialogOption option = (DialogOption)this.dialog.options.get(i);
-               if (option != null && option.optionType != 2) {
-                    optionString = optionString + option.title;
-               }
+		for (int i = 0; i < 6; ++i) {
+			String optionString = "";
+			DialogOption option = (DialogOption) this.dialog.options.get(i);
+			if (option != null && option.optionType != 2) {
+				optionString = optionString + option.title;
+			}
 
-               this.addLabel(new GuiNpcLabel(i + 10, i + 1 + ": ", this.guiLeft + 4, this.guiTop + 16 + i * 32));
-               this.addLabel(new GuiNpcLabel(i, optionString, this.guiLeft + 14, this.guiTop + 12 + i * 32));
-               this.addButton(new GuiNpcButton(i, this.guiLeft + 13, this.guiTop + 21 + i * 32, 60, 20, "selectServer.edit"));
-          }
+			this.addLabel(new GuiNpcLabel(i + 10, i + 1 + ": ", this.guiLeft + 4, this.guiTop + 16 + i * 32));
+			this.addLabel(new GuiNpcLabel(i, optionString, this.guiLeft + 14, this.guiTop + 12 + i * 32));
+			this.addButton(
+					new GuiNpcButton(i, this.guiLeft + 13, this.guiTop + 21 + i * 32, 60, 20, "selectServer.edit"));
+		}
 
-          this.addButton(new GuiNpcButton(66, this.guiLeft + 82, this.guiTop + 194, 98, 20, "gui.done"));
-     }
+		this.addButton(new GuiNpcButton(66, this.guiLeft + 82, this.guiTop + 194, 98, 20, "gui.done"));
+	}
 
-     protected void actionPerformed(GuiButton guibutton) {
-          int id = guibutton.id;
-          if (id < 6) {
-               DialogOption option = (DialogOption)this.dialog.options.get(id);
-               if (option == null) {
-                    this.dialog.options.put(id, option = new DialogOption());
-                    option.optionColor = SubGuiNpcDialogOption.LastColor;
-               }
+	protected void actionPerformed(GuiButton guibutton) {
+		int id = guibutton.id;
+		if (id < 6) {
+			DialogOption option = (DialogOption) this.dialog.options.get(id);
+			if (option == null) {
+				this.dialog.options.put(id, option = new DialogOption());
+				option.optionColor = SubGuiNpcDialogOption.LastColor;
+			}
 
-               this.setSubGui(new SubGuiNpcDialogOption(option));
-          }
+			this.setSubGui(new SubGuiNpcDialogOption(option));
+		}
 
-          if (id == 66) {
-               this.close();
-          }
+		if (id == 66) {
+			this.close();
+		}
 
-     }
+	}
 }

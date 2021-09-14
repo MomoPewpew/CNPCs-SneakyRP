@@ -3,9 +3,9 @@ package noppes.npcs.api.handler.data;
 import java.util.List;
 
 public interface IDialogCategory {
-     List dialogs();
+	List dialogs();
 
-     String getName();
+	String getName();
 
-     IDialog create();
+	IDialog create();
 }

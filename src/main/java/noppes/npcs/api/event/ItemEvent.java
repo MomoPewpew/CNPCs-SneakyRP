@@ -6,85 +6,85 @@ import noppes.npcs.api.entity.IPlayer;
 import noppes.npcs.api.item.IItemScripted;
 
 public class ItemEvent extends CustomNPCsEvent {
-     public IItemScripted item;
+	public IItemScripted item;
 
-     public ItemEvent(IItemScripted item) {
-          this.item = item;
-     }
+	public ItemEvent(IItemScripted item) {
+		this.item = item;
+	}
 
-     @Cancelable
-     public static class AttackEvent extends ItemEvent {
-          public final int type;
-          public final Object target;
-          public IPlayer player;
+	@Cancelable
+	public static class AttackEvent extends ItemEvent {
+		public final int type;
+		public final Object target;
+		public IPlayer player;
 
-          public AttackEvent(IItemScripted item, IPlayer player, int type, Object target) {
-               super(item);
-               this.type = type;
-               this.target = target;
-               this.player = player;
-          }
-     }
+		public AttackEvent(IItemScripted item, IPlayer player, int type, Object target) {
+			super(item);
+			this.type = type;
+			this.target = target;
+			this.player = player;
+		}
+	}
 
-     @Cancelable
-     public static class InteractEvent extends ItemEvent {
-          public final int type;
-          public final Object target;
-          public IPlayer player;
+	@Cancelable
+	public static class InteractEvent extends ItemEvent {
+		public final int type;
+		public final Object target;
+		public IPlayer player;
 
-          public InteractEvent(IItemScripted item, IPlayer player, int type, Object target) {
-               super(item);
-               this.type = type;
-               this.target = target;
-               this.player = player;
-          }
-     }
+		public InteractEvent(IItemScripted item, IPlayer player, int type, Object target) {
+			super(item);
+			this.type = type;
+			this.target = target;
+			this.player = player;
+		}
+	}
 
-     public static class PickedUpEvent extends ItemEvent {
-          public IEntityItem entity;
-          public IPlayer player;
+	public static class PickedUpEvent extends ItemEvent {
+		public IEntityItem entity;
+		public IPlayer player;
 
-          public PickedUpEvent(IItemScripted item, IPlayer player, IEntityItem entity) {
-               super(item);
-               this.entity = entity;
-               this.player = player;
-          }
-     }
+		public PickedUpEvent(IItemScripted item, IPlayer player, IEntityItem entity) {
+			super(item);
+			this.entity = entity;
+			this.player = player;
+		}
+	}
 
-     @Cancelable
-     public static class TossedEvent extends ItemEvent {
-          public IEntityItem entity;
-          public IPlayer player;
+	@Cancelable
+	public static class TossedEvent extends ItemEvent {
+		public IEntityItem entity;
+		public IPlayer player;
 
-          public TossedEvent(IItemScripted item, IPlayer player, IEntityItem entity) {
-               super(item);
-               this.entity = entity;
-               this.player = player;
-          }
-     }
+		public TossedEvent(IItemScripted item, IPlayer player, IEntityItem entity) {
+			super(item);
+			this.entity = entity;
+			this.player = player;
+		}
+	}
 
-     @Cancelable
-     public static class SpawnEvent extends ItemEvent {
-          public IEntityItem entity;
+	@Cancelable
+	public static class SpawnEvent extends ItemEvent {
+		public IEntityItem entity;
 
-          public SpawnEvent(IItemScripted item, IEntityItem entity) {
-               super(item);
-               this.entity = entity;
-          }
-     }
+		public SpawnEvent(IItemScripted item, IEntityItem entity) {
+			super(item);
+			this.entity = entity;
+		}
+	}
 
-     public static class UpdateEvent extends ItemEvent {
-          public IPlayer player;
+	public static class UpdateEvent extends ItemEvent {
+		public IPlayer player;
 
-          public UpdateEvent(IItemScripted item, IPlayer player) {
-               super(item);
-               this.player = player;
-          }
-     }
+		public UpdateEvent(IItemScripted item, IPlayer player) {
+			super(item);
+			this.player = player;
+		}
+	}
 
-     public static class InitEvent extends ItemEvent {
-          public InitEvent(IItemScripted item) {
-               super(item);
-          }
-     }
+	public static class InitEvent extends ItemEvent {
+		public InitEvent(IItemScripted item) {
+			super(item);
+		}
+	}
 }

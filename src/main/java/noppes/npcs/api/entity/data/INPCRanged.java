@@ -1,103 +1,103 @@
 package noppes.npcs.api.entity.data;
 
 public interface INPCRanged {
-     int getStrength();
+	int getStrength();
 
-     void setStrength(int var1);
+	void setStrength(int var1);
 
-     int getSpeed();
+	int getSpeed();
 
-     void setSpeed(int var1);
+	void setSpeed(int var1);
 
-     int getBurst();
+	int getBurst();
 
-     void setBurst(int var1);
+	void setBurst(int var1);
 
-     int getBurstDelay();
+	int getBurstDelay();
 
-     void setBurstDelay(int var1);
+	void setBurstDelay(int var1);
 
-     int getKnockback();
+	int getKnockback();
 
-     void setKnockback(int var1);
+	void setKnockback(int var1);
 
-     int getSize();
+	int getSize();
 
-     void setSize(int var1);
+	void setSize(int var1);
 
-     boolean getRender3D();
+	boolean getRender3D();
 
-     void setRender3D(boolean var1);
+	void setRender3D(boolean var1);
 
-     boolean getSpins();
+	boolean getSpins();
 
-     void setSpins(boolean var1);
+	void setSpins(boolean var1);
 
-     boolean getSticks();
+	boolean getSticks();
 
-     void setSticks(boolean var1);
+	void setSticks(boolean var1);
 
-     boolean getHasGravity();
+	boolean getHasGravity();
 
-     void setHasGravity(boolean var1);
+	void setHasGravity(boolean var1);
 
-     boolean getAccelerate();
+	boolean getAccelerate();
 
-     void setAccelerate(boolean var1);
+	void setAccelerate(boolean var1);
 
-     int getExplodeSize();
+	int getExplodeSize();
 
-     void setExplodeSize(int var1);
+	void setExplodeSize(int var1);
 
-     int getEffectType();
+	int getEffectType();
 
-     int getEffectTime();
+	int getEffectTime();
 
-     int getEffectStrength();
+	int getEffectStrength();
 
-     void setEffect(int var1, int var2, int var3);
+	void setEffect(int var1, int var2, int var3);
 
-     boolean getGlows();
+	boolean getGlows();
 
-     void setGlows(boolean var1);
+	void setGlows(boolean var1);
 
-     int getParticle();
+	int getParticle();
 
-     void setParticle(int var1);
+	void setParticle(int var1);
 
-     String getSound(int var1);
+	String getSound(int var1);
 
-     void setSound(int var1, String var2);
+	void setSound(int var1, String var2);
 
-     int getShotCount();
+	int getShotCount();
 
-     void setShotCount(int var1);
+	void setShotCount(int var1);
 
-     boolean getHasAimAnimation();
+	boolean getHasAimAnimation();
 
-     void setHasAimAnimation(boolean var1);
+	void setHasAimAnimation(boolean var1);
 
-     int getAccuracy();
+	int getAccuracy();
 
-     void setAccuracy(int var1);
+	void setAccuracy(int var1);
 
-     int getRange();
+	int getRange();
 
-     void setRange(int var1);
+	void setRange(int var1);
 
-     int getDelayMin();
+	int getDelayMin();
 
-     int getDelayMax();
+	int getDelayMax();
 
-     int getDelayRNG();
+	int getDelayRNG();
 
-     void setDelay(int var1, int var2);
+	void setDelay(int var1, int var2);
 
-     int getFireType();
+	int getFireType();
 
-     void setFireType(int var1);
+	void setFireType(int var1);
 
-     int getMeleeRange();
+	int getMeleeRange();
 
-     void setMeleeRange(int var1);
+	void setMeleeRange(int var1);
 }

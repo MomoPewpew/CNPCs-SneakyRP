@@ -4,11 +4,11 @@ import net.minecraft.inventory.Slot;
 import noppes.npcs.api.item.IItemStack;
 
 public interface IItemSlot extends ICustomGuiComponent {
-     boolean hasStack();
+	boolean hasStack();
 
-     IItemStack getStack();
+	IItemStack getStack();
 
-     IItemSlot setStack(IItemStack var1);
+	IItemSlot setStack(IItemStack var1);
 
-     Slot getMCSlot();
+	Slot getMCSlot();
 }

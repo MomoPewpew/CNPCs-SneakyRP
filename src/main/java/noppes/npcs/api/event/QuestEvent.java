@@ -6,33 +6,33 @@ import noppes.npcs.api.handler.data.IQuest;
 import noppes.npcs.api.item.IItemStack;
 
 public class QuestEvent extends CustomNPCsEvent {
-     public final IQuest quest;
-     public final IPlayer player;
+	public final IQuest quest;
+	public final IPlayer player;
 
-     public QuestEvent(IPlayer player, IQuest quest) {
-          this.quest = quest;
-          this.player = player;
-     }
+	public QuestEvent(IPlayer player, IQuest quest) {
+		this.quest = quest;
+		this.player = player;
+	}
 
-     public static class QuestTurnedInEvent extends QuestEvent {
-          public int expReward;
-          public IItemStack[] itemRewards = new IItemStack[0];
+	public static class QuestTurnedInEvent extends QuestEvent {
+		public int expReward;
+		public IItemStack[] itemRewards = new IItemStack[0];
 
-          public QuestTurnedInEvent(IPlayer player, IQuest quest) {
-               super(player, quest);
-          }
-     }
+		public QuestTurnedInEvent(IPlayer player, IQuest quest) {
+			super(player, quest);
+		}
+	}
 
-     public static class QuestCompletedEvent extends QuestEvent {
-          public QuestCompletedEvent(IPlayer player, IQuest quest) {
-               super(player, quest);
-          }
-     }
+	public static class QuestCompletedEvent extends QuestEvent {
+		public QuestCompletedEvent(IPlayer player, IQuest quest) {
+			super(player, quest);
+		}
+	}
 
-     @Cancelable
-     public static class QuestStartEvent extends QuestEvent {
-          public QuestStartEvent(IPlayer player, IQuest quest) {
-               super(player, quest);
-          }
-     }
+	@Cancelable
+	public static class QuestStartEvent extends QuestEvent {
+		public QuestStartEvent(IPlayer player, IQuest quest) {
+			super(player, quest);
+		}
+	}
 }

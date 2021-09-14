@@ -9,35 +9,35 @@ import noppes.npcs.api.handler.data.IDialog;
 import noppes.npcs.api.handler.data.IDialogOption;
 
 public class DialogEvent extends NpcEvent {
-     public final IDialog dialog;
-     public final IPlayer player;
+	public final IDialog dialog;
+	public final IPlayer player;
 
-     public DialogEvent(ICustomNpc npc, EntityPlayer player, IDialog dialog) {
-          super(npc);
-          this.dialog = dialog;
-          this.player = (IPlayer)NpcAPI.Instance().getIEntity(player);
-     }
+	public DialogEvent(ICustomNpc npc, EntityPlayer player, IDialog dialog) {
+		super(npc);
+		this.dialog = dialog;
+		this.player = (IPlayer) NpcAPI.Instance().getIEntity(player);
+	}
 
-     @Cancelable
-     public static class OptionEvent extends DialogEvent {
-          public final IDialogOption option;
+	@Cancelable
+	public static class OptionEvent extends DialogEvent {
+		public final IDialogOption option;
 
-          public OptionEvent(ICustomNpc npc, EntityPlayer player, IDialog dialog, IDialogOption option) {
-               super(npc, player, dialog);
-               this.option = option;
-          }
-     }
+		public OptionEvent(ICustomNpc npc, EntityPlayer player, IDialog dialog, IDialogOption option) {
+			super(npc, player, dialog);
+			this.option = option;
+		}
+	}
 
-     public static class CloseEvent extends DialogEvent {
-          public CloseEvent(ICustomNpc npc, EntityPlayer player, IDialog dialog) {
-               super(npc, player, dialog);
-          }
-     }
+	public static class CloseEvent extends DialogEvent {
+		public CloseEvent(ICustomNpc npc, EntityPlayer player, IDialog dialog) {
+			super(npc, player, dialog);
+		}
+	}
 
-     @Cancelable
-     public static class OpenEvent extends DialogEvent {
-          public OpenEvent(ICustomNpc npc, EntityPlayer player, IDialog dialog) {
-               super(npc, player, dialog);
-          }
-     }
+	@Cancelable
+	public static class OpenEvent extends DialogEvent {
+		public OpenEvent(ICustomNpc npc, EntityPlayer player, IDialog dialog) {
+			super(npc, player, dialog);
+		}
+	}
 }

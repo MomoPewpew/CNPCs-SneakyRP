@@ -4,7 +4,7 @@ import java.util.List;
 import noppes.npcs.api.handler.data.IDialog;
 
 public interface IDialogHandler {
-     List categories();
+	List categories();
 
-     IDialog get(int var1);
+	IDialog get(int var1);
 }

@@ -4,11 +4,11 @@ import noppes.npcs.api.entity.ICustomNpc;
 import noppes.npcs.api.entity.data.INPCJob;
 
 public interface IJobFollower extends INPCJob {
-     String getFollowing();
+	String getFollowing();
 
-     void setFollowing(String var1);
+	void setFollowing(String var1);
 
-     boolean isFollowing();
+	boolean isFollowing();
 
-     ICustomNpc getFollowingNpc();
+	ICustomNpc getFollowingNpc();
 }

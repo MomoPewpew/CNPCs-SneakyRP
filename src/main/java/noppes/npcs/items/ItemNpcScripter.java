@@ -15,27 +15,30 @@ import noppes.npcs.constants.EnumPacketServer;
 import noppes.npcs.util.IPermission;
 
 public class ItemNpcScripter extends Item implements IPermission {
-     public ItemNpcScripter() {
-          this.maxStackSize = 1;
-          this.setCreativeTab(CustomItems.tab);
-     }
+	public ItemNpcScripter() {
+		this.maxStackSize = 1;
+		this.setCreativeTab(CustomItems.tab);
+	}
 
-     public Item setTranslationKey(String name) {
-          this.setRegistryName(new ResourceLocation("customnpcs", name));
-          return super.setTranslationKey(name);
-     }
+	public Item setTranslationKey(String name) {
+		this.setRegistryName(new ResourceLocation("customnpcs", name));
+		return super.setTranslationKey(name);
+	}
 
-     public ActionResult onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
-          ItemStack itemstack = player.getHeldItem(hand);
-          if (world.isRemote && hand == EnumHand.MAIN_HAND) {
-               CustomNpcs.proxy.openGui(0, 0, 0, EnumGuiType.ScriptPlayers, player);
-               return new ActionResult(EnumActionResult.SUCCESS, itemstack);
-          } else {
-               return new ActionResult(EnumActionResult.SUCCESS, itemstack);
-          }
-     }
+	public ActionResult onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
+		ItemStack itemstack = player.getHeldItem(hand);
+		if (world.isRemote && hand == EnumHand.MAIN_HAND) {
+			CustomNpcs.proxy.openGui(0, 0, 0, EnumGuiType.ScriptPlayers, player);
+			return new ActionResult(EnumActionResult.SUCCESS, itemstack);
+		} else {
+			return new ActionResult(EnumActionResult.SUCCESS, itemstack);
+		}
+	}
 
-     public boolean isAllowed(EnumPacketServer e) {
-          return e == EnumPacketServer.ScriptDataGet || e == EnumPacketServer.ScriptDataSave || e == EnumPacketServer.ScriptBlockDataSave || e == EnumPacketServer.ScriptDoorDataSave || e == EnumPacketServer.ScriptPlayerGet || e == EnumPacketServer.ScriptPlayerSave || e == EnumPacketServer.ScriptForgeGet || e == EnumPacketServer.ScriptForgeSave;
-     }
+	public boolean isAllowed(EnumPacketServer e) {
+		return e == EnumPacketServer.ScriptDataGet || e == EnumPacketServer.ScriptDataSave
+				|| e == EnumPacketServer.ScriptBlockDataSave || e == EnumPacketServer.ScriptDoorDataSave
+				|| e == EnumPacketServer.ScriptPlayerGet || e == EnumPacketServer.ScriptPlayerSave
+				|| e == EnumPacketServer.ScriptForgeGet || e == EnumPacketServer.ScriptForgeSave;
+	}
 }

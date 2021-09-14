@@ -1,21 +1,21 @@
 package noppes.npcs.api.gui;
 
 public interface IScroll extends ICustomGuiComponent {
-     int getWidth();
+	int getWidth();
 
-     int getHeight();
+	int getHeight();
 
-     IScroll setSize(int var1, int var2);
+	IScroll setSize(int var1, int var2);
 
-     String[] getList();
+	String[] getList();
 
-     IScroll setList(String[] var1);
+	IScroll setList(String[] var1);
 
-     int getDefaultSelection();
+	int getDefaultSelection();
 
-     IScroll setDefaultSelection(int var1);
+	IScroll setDefaultSelection(int var1);
 
-     boolean isMultiSelect();
+	boolean isMultiSelect();
 
-     IScroll setMultiSelect(boolean var1);
+	IScroll setMultiSelect(boolean var1);
 }

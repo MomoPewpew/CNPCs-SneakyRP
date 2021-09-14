@@ -4,11 +4,11 @@ import java.util.List;
 import noppes.npcs.api.handler.data.IFaction;
 
 public interface IFactionHandler {
-     List list();
+	List list();
 
-     IFaction delete(int var1);
+	IFaction delete(int var1);
 
-     IFaction create(String var1, int var2);
+	IFaction create(String var1, int var2);
 
-     IFaction get(int var1);
+	IFaction get(int var1);
 }

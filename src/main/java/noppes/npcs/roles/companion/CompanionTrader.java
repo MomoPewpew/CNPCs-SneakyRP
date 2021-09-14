@@ -6,15 +6,15 @@ import noppes.npcs.NoppesUtilServer;
 import noppes.npcs.constants.EnumGuiType;
 
 public class CompanionTrader extends CompanionJobInterface {
-     public NBTTagCompound getNBT() {
-          NBTTagCompound compound = new NBTTagCompound();
-          return compound;
-     }
+	public NBTTagCompound getNBT() {
+		NBTTagCompound compound = new NBTTagCompound();
+		return compound;
+	}
 
-     public void setNBT(NBTTagCompound compound) {
-     }
+	public void setNBT(NBTTagCompound compound) {
+	}
 
-     public void interact(EntityPlayer player) {
-          NoppesUtilServer.sendOpenGui(player, EnumGuiType.CompanionTrader, this.npc);
-     }
+	public void interact(EntityPlayer player) {
+		NoppesUtilServer.sendOpenGui(player, EnumGuiType.CompanionTrader, this.npc);
+	}
 }
