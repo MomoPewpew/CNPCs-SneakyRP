@@ -107,29 +107,29 @@ public class SubGuiNpcRangeProperties extends SubGuiInterface implements ITextfi
 	}
 
 	public void unFocused(GuiNpcTextField textfield) {
-		if (textfield.id == 1) {
+		if (textfield.getId() == 1) {
 			this.ranged.setAccuracy(textfield.getInteger());
-		} else if (textfield.id == 2) {
+		} else if (textfield.getId() == 2) {
 			this.ranged.setRange(textfield.getInteger());
-		} else if (textfield.id == 3) {
+		} else if (textfield.getId() == 3) {
 			this.ranged.setDelay(textfield.getInteger(), this.ranged.getDelayMax());
 			this.initGui();
-		} else if (textfield.id == 4) {
+		} else if (textfield.getId() == 4) {
 			this.ranged.setDelay(this.ranged.getDelayMin(), textfield.getInteger());
 			this.initGui();
-		} else if (textfield.id == 5) {
+		} else if (textfield.getId() == 5) {
 			this.ranged.setBurstDelay(textfield.getInteger());
-		} else if (textfield.id == 6) {
+		} else if (textfield.getId() == 6) {
 			this.ranged.setBurst(textfield.getInteger());
-		} else if (textfield.id == 7) {
+		} else if (textfield.getId() == 7) {
 			this.ranged.setSound(0, textfield.getText());
-		} else if (textfield.id == 8) {
+		} else if (textfield.getId() == 8) {
 			this.ranged.setShotCount(textfield.getInteger());
-		} else if (textfield.id == 9) {
+		} else if (textfield.getId() == 9) {
 			this.ranged.setMeleeRange(textfield.getInteger());
-		} else if (textfield.id == 10) {
+		} else if (textfield.getId() == 10) {
 			this.ranged.setSound(2, textfield.getText());
-		} else if (textfield.id == 11) {
+		} else if (textfield.getId() == 11) {
 			this.ranged.setSound(1, textfield.getText());
 		}
 

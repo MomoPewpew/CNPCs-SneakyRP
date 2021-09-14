@@ -94,14 +94,14 @@ public class GuiNpcStats extends GuiNPCInterface2 implements ITextfieldListener,
 	}
 
 	public void unFocused(GuiNpcTextField textfield) {
-		if (textfield.id == 0) {
+		if (textfield.getId() == 0) {
 			this.stats.maxHealth = textfield.getInteger();
 			this.npc.heal((float) this.stats.maxHealth);
-		} else if (textfield.id == 1) {
+		} else if (textfield.getId() == 1) {
 			this.stats.aggroRange = textfield.getInteger();
-		} else if (textfield.id == 14) {
+		} else if (textfield.getId() == 14) {
 			this.stats.healthRegen = textfield.getInteger();
-		} else if (textfield.id == 16) {
+		} else if (textfield.getId() == 16) {
 			this.stats.combatRegen = textfield.getInteger();
 		}
 

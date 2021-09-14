@@ -62,8 +62,8 @@ public abstract class BlockNpcDoorInterface extends BlockDoor implements ITileEn
 		return state;
 	}
 
-	public Block setTranslationKey(String name) {
+	public Block setUnlocalizedName(String name) {
 		this.setRegistryName(name);
-		return super.setTranslationKey(name);
+		return super.setUnlocalizedName(name);
 	}
 }

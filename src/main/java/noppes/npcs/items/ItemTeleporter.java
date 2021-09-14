@@ -62,7 +62,7 @@ public class ItemTeleporter extends Item implements IPermission {
 			float f7 = f4 * f5;
 			float f8 = f3 * f5;
 			double d3 = 80.0D;
-			Vec3d vec31 = vec3.add((double) f7 * d3, (double) f6 * d3, (double) f8 * d3);
+			Vec3d vec31 = vec3.addVector((double) f7 * d3, (double) f6 * d3, (double) f8 * d3);
 			RayTraceResult movingobjectposition = par3EntityPlayer.world.rayTraceBlocks(vec3, vec31, true);
 			if (movingobjectposition == null) {
 				return false;
@@ -105,9 +105,9 @@ public class ItemTeleporter extends Item implements IPermission {
 		}
 	}
 
-	public Item setTranslationKey(String name) {
+	public Item setUnlocalizedName(String name) {
 		this.setRegistryName(new ResourceLocation("customnpcs", name));
-		return super.setTranslationKey(name);
+		return super.setUnlocalizedName(name);
 	}
 
 	public boolean isAllowed(EnumPacketServer e) {

@@ -186,7 +186,7 @@ public class GuiQuestEdit extends SubGuiInterface implements ISubGuiListener, Gu
 	public void unFocused(GuiNpcTextField guiNpcTextField) {
 		StringBuilder var10000;
 		Quest var10002;
-		if (guiNpcTextField.id == 1) {
+		if (guiNpcTextField.getId() == 1) {
 			for (this.quest.title = guiNpcTextField.getText(); QuestController.instance.containsQuestName(
 					this.quest.category,
 					this.quest); var10002.title = var10000.append(var10002.title).append("_").toString()) {
@@ -195,7 +195,7 @@ public class GuiQuestEdit extends SubGuiInterface implements ISubGuiListener, Gu
 			}
 		}
 
-		if (guiNpcTextField.id == 2) {
+		if (guiNpcTextField.getId() == 2) {
 			this.quest.completerNpc = guiNpcTextField.getText();
 		}
 

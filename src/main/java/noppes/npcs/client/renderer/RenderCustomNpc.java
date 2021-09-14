@@ -124,7 +124,7 @@ public class RenderCustomNpc extends RenderNPCInterface {
 				GlStateManager.alphaFunc(516, 0.003921569F);
 			}
 
-			ModelBase model = this.renderEntity.mainModel;
+			ModelBase model = this.renderEntity.getMainModel();
 			if (PixelmonHelper.isPixelmon(this.entity)) {
 				ModelBase pixModel = (ModelBase) PixelmonHelper.getModel(this.entity);
 				if (pixModel != null) {

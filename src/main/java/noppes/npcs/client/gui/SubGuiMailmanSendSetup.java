@@ -90,11 +90,11 @@ public class SubGuiMailmanSendSetup extends SubGuiInterface implements ITextfiel
 	}
 
 	public void unFocused(GuiNpcTextField textField) {
-		if (textField.id == 0) {
+		if (textField.getId() == 0) {
 			this.mail.sender = textField.getText();
 		}
 
-		if (textField.id == 1) {
+		if (textField.getId() == 1) {
 			this.mail.subject = textField.getText();
 		}
 

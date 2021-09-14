@@ -151,7 +151,7 @@ public class GuiDialogEdit extends SubGuiInterface implements ISubGuiListener, I
 	public void unFocused(GuiNpcTextField guiNpcTextField) {
 		StringBuilder var10000;
 		Dialog var10002;
-		if (guiNpcTextField.id == 1) {
+		if (guiNpcTextField.getId() == 1) {
 			for (this.dialog.title = guiNpcTextField.getText(); DialogController.instance.containsDialogName(
 					this.dialog.category,
 					this.dialog); var10002.title = var10000.append(var10002.title).append("_").toString()) {
@@ -160,7 +160,7 @@ public class GuiDialogEdit extends SubGuiInterface implements ISubGuiListener, I
 			}
 		}
 
-		if (guiNpcTextField.id == 2) {
+		if (guiNpcTextField.getId() == 2) {
 			this.dialog.sound = guiNpcTextField.getText();
 		}
 

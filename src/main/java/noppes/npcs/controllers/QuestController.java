@@ -63,9 +63,9 @@ public class QuestController implements IQuestHandler {
 			int var3 = var2.length;
 
 			for (int var4 = 0; var4 < var3; ++var4) {
-				File file = var2[var4];
-				if (file.isDirectory()) {
-					QuestCategory category = this.loadCategoryDir(file);
+				File file1 = var2[var4];
+				if (file1.isDirectory()) {
+					QuestCategory category = this.loadCategoryDir(file1);
 					Iterator ite = category.quests.keySet().iterator();
 
 					while (ite.hasNext()) {

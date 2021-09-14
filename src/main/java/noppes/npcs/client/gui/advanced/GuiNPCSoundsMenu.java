@@ -60,23 +60,23 @@ public class GuiNPCSoundsMenu extends GuiNPCInterface2 implements ITextfieldList
 	}
 
 	public void unFocused(GuiNpcTextField textfield) {
-		if (textfield.id == 0) {
+		if (textfield.getId() == 0) {
 			this.npc.advanced.setSound(0, textfield.getText());
 		}
 
-		if (textfield.id == 2) {
+		if (textfield.getId() == 2) {
 			this.npc.advanced.setSound(1, textfield.getText());
 		}
 
-		if (textfield.id == 3) {
+		if (textfield.getId() == 3) {
 			this.npc.advanced.setSound(2, textfield.getText());
 		}
 
-		if (textfield.id == 4) {
+		if (textfield.getId() == 4) {
 			this.npc.advanced.setSound(3, textfield.getText());
 		}
 
-		if (textfield.id == 5) {
+		if (textfield.getId() == 5) {
 			this.npc.advanced.setSound(4, textfield.getText());
 		}
 

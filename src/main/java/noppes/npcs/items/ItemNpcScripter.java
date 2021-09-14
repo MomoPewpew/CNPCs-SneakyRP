@@ -20,9 +20,9 @@ public class ItemNpcScripter extends Item implements IPermission {
 		this.setCreativeTab(CustomItems.tab);
 	}
 
-	public Item setTranslationKey(String name) {
+	public Item setUnlocalizedName(String name) {
 		this.setRegistryName(new ResourceLocation("customnpcs", name));
-		return super.setTranslationKey(name);
+		return super.setUnlocalizedName(name);
 	}
 
 	public ActionResult onItemRightClick(World world, EntityPlayer player, EnumHand hand) {

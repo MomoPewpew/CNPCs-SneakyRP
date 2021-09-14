@@ -72,9 +72,9 @@ public class DialogController implements IDialogHandler {
 			int var3 = var2.length;
 
 			for (int var4 = 0; var4 < var3; ++var4) {
-				File file = var2[var4];
-				if (file.isDirectory()) {
-					DialogCategory category = this.loadCategoryDir(file);
+				File file1 = var2[var4];
+				if (file1.isDirectory()) {
+					DialogCategory category = this.loadCategoryDir(file1);
 					Iterator ite = category.dialogs.entrySet().iterator();
 
 					while (ite.hasNext()) {

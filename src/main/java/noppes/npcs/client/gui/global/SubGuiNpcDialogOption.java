@@ -90,7 +90,7 @@ public class SubGuiNpcDialogOption extends SubGuiInterface implements ITextfield
 	}
 
 	public void unFocused(GuiNpcTextField textfield) {
-		if (textfield.id == 0) {
+		if (textfield.getId() == 0) {
 			if (textfield.isEmpty()) {
 				textfield.setText(this.option.title);
 			} else {
@@ -98,7 +98,7 @@ public class SubGuiNpcDialogOption extends SubGuiInterface implements ITextfield
 			}
 		}
 
-		if (textfield.id == 4) {
+		if (textfield.getId() == 4) {
 			this.option.command = textfield.getText();
 		}
 

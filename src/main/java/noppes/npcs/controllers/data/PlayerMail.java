@@ -84,7 +84,7 @@ public class PlayerMail implements IInventory, IPlayerMail {
 	}
 
 	public boolean isValid() {
-		return !this.subject.isEmpty() && !this.message.isEmpty() && !this.sender.isEmpty();
+		return !this.subject.isEmpty() && !this.message.hasNoTags() && !this.sender.isEmpty();
 	}
 
 	public boolean hasQuest() {

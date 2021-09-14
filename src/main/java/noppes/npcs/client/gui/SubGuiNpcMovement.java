@@ -195,17 +195,17 @@ public class SubGuiNpcMovement extends SubGuiInterface implements ITextfieldList
 	}
 
 	public void unFocused(GuiNpcTextField textfield) {
-		if (textfield.id == 7) {
+		if (textfield.getId() == 7) {
 			this.ai.bodyOffsetX = (float) textfield.getInteger();
-		} else if (textfield.id == 8) {
+		} else if (textfield.getId() == 8) {
 			this.ai.bodyOffsetY = (float) textfield.getInteger();
-		} else if (textfield.id == 9) {
+		} else if (textfield.getId() == 9) {
 			this.ai.bodyOffsetZ = (float) textfield.getInteger();
-		} else if (textfield.id == 5) {
+		} else if (textfield.getId() == 5) {
 			this.ai.orientation = textfield.getInteger();
-		} else if (textfield.id == 4) {
+		} else if (textfield.getId() == 4) {
 			this.ai.walkingRange = textfield.getInteger();
-		} else if (textfield.id == 14) {
+		} else if (textfield.getId() == 14) {
 			this.ai.setWalkingSpeed(textfield.getInteger());
 		}
 

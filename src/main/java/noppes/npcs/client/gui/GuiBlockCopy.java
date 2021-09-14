@@ -94,15 +94,15 @@ public class GuiBlockCopy extends GuiNPCInterface implements IGuiData, ITextfiel
 	}
 
 	public void unFocused(GuiNpcTextField textfield) {
-		if (textfield.id == 0) {
+		if (textfield.getId() == 0) {
 			this.tile.height = (short) textfield.getInteger();
 		}
 
-		if (textfield.id == 1) {
+		if (textfield.getId() == 1) {
 			this.tile.width = (short) textfield.getInteger();
 		}
 
-		if (textfield.id == 2) {
+		if (textfield.getId() == 2) {
 			this.tile.length = (short) textfield.getInteger();
 		}
 

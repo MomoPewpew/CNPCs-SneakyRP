@@ -277,7 +277,7 @@ public class EntityWrapper implements IEntity {
 	public IRayTrace rayTraceBlock(double distance, boolean stopOnLiquid, boolean ignoreBlockWithoutBoundingBox) {
 		Vec3d vec3d = this.entity.getPositionEyes(1.0F);
 		Vec3d vec3d1 = this.entity.getLook(1.0F);
-		Vec3d vec3d2 = vec3d.add(vec3d1.x * distance, vec3d1.y * distance, vec3d1.z * distance);
+		Vec3d vec3d2 = vec3d.addVector(vec3d1.x * distance, vec3d1.y * distance, vec3d1.z * distance);
 		RayTraceResult result = this.entity.world.rayTraceBlocks(vec3d, vec3d2, stopOnLiquid,
 				ignoreBlockWithoutBoundingBox, true);
 		return result == null ? null
@@ -288,7 +288,7 @@ public class EntityWrapper implements IEntity {
 	public IEntity[] rayTraceEntities(double distance, boolean stopOnLiquid, boolean ignoreBlockWithoutBoundingBox) {
 		Vec3d vec3d = this.entity.getPositionEyes(1.0F);
 		Vec3d vec3d1 = this.entity.getLook(1.0F);
-		Vec3d vec3d2 = vec3d.add(vec3d1.x * distance, vec3d1.y * distance, vec3d1.z * distance);
+		Vec3d vec3d2 = vec3d.addVector(vec3d1.x * distance, vec3d1.y * distance, vec3d1.z * distance);
 		RayTraceResult result = this.entity.world.rayTraceBlocks(vec3d, vec3d2, stopOnLiquid,
 				ignoreBlockWithoutBoundingBox, false);
 		if (result != null) {
@@ -317,8 +317,8 @@ public class EntityWrapper implements IEntity {
 		}
 
 		result.sort((o1, o2) -> {
-			double d1 = this.entity.getDistanceSq(o1.getMCEntity());
-			double d2 = this.entity.getDistanceSq(o2.getMCEntity());
+			double d1 = this.entity.getDistanceSq(((IEntity) o1).getMCEntity());
+			double d2 = this.entity.getDistanceSq(((IEntity) o2).getMCEntity());
 			if (d1 == d2) {
 				return 0;
 			} else {

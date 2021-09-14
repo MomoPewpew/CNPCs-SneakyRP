@@ -90,15 +90,15 @@ public class SubGuiNpcProjectiles extends SubGuiInterface implements ITextfieldL
 	}
 
 	public void unFocused(GuiNpcTextField textfield) {
-		if (textfield.id == 1) {
+		if (textfield.getId() == 1) {
 			this.stats.setStrength(textfield.getInteger());
-		} else if (textfield.id == 2) {
+		} else if (textfield.getId() == 2) {
 			this.stats.setKnockback(textfield.getInteger());
-		} else if (textfield.id == 3) {
+		} else if (textfield.getId() == 3) {
 			this.stats.setSize(textfield.getInteger());
-		} else if (textfield.id == 4) {
+		} else if (textfield.getId() == 4) {
 			this.stats.setSpeed(textfield.getInteger());
-		} else if (textfield.id == 5) {
+		} else if (textfield.getId() == 5) {
 			this.stats.setEffect(this.stats.getEffectType(), this.stats.getEffectStrength(), textfield.getInteger());
 		}
 

@@ -43,9 +43,9 @@ public class ItemScriptedDoor extends ItemDoor implements IPermission {
 		return stack;
 	}
 
-	public Item setTranslationKey(String name) {
+	public Item setUnlocalizedName(String name) {
 		this.setRegistryName(new ResourceLocation("customnpcs", name));
-		return super.setTranslationKey(name);
+		return super.setUnlocalizedName(name);
 	}
 
 	public boolean isAllowed(EnumPacketServer e) {

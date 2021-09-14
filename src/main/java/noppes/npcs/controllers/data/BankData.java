@@ -104,15 +104,18 @@ public class BankData {
 				NoppesUtilServer.sendOpenGui(player, EnumGuiType.PlayerBankSmall, npc, slot, bank.id, 0);
 			}
 
+			final ItemStack currency2 = currency.copy();
+
 			CustomNPCsScheduler.runTack(() -> {
+
 				NBTTagCompound compound = new NBTTagCompound();
 				compound.setInteger("MaxSlots", bank.getMaxSlots());
 				compound.setInteger("UnlockedSlots", this.unlockedSlots);
-				if (currency != null && !currency.isEmpty()) {
-					compound.setTag("Currency", currency.writeToNBT(new NBTTagCompound()));
+				if (currency2 != null && !currency2.isEmpty()) {
+					compound.setTag("Currency", currency2.writeToNBT(new NBTTagCompound()));
 					ContainerNPCBankInterface container = this.getContainer(player);
 					if (container != null) {
-						container.setCurrency(currency);
+						container.setCurrency(currency2);
 					}
 				}
 

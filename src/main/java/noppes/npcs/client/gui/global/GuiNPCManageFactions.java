@@ -191,7 +191,7 @@ public class GuiNPCManageFactions extends GuiNPCInterface2
 
 	public void unFocused(GuiNpcTextField guiNpcTextField) {
 		if (this.faction.id != -1) {
-			if (guiNpcTextField.id == 0) {
+			if (guiNpcTextField.getId() == 0) {
 				String name = guiNpcTextField.getText();
 				if (!name.isEmpty() && !this.data.containsKey(name)) {
 					String old = this.faction.name;
@@ -201,7 +201,7 @@ public class GuiNPCManageFactions extends GuiNPCInterface2
 					this.selected = name;
 					this.scrollFactions.replace(old, this.faction.name);
 				}
-			} else if (guiNpcTextField.id == 1) {
+			} else if (guiNpcTextField.getId() == 1) {
 				boolean var5 = false;
 
 				int color;

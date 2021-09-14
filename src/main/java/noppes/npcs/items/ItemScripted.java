@@ -23,8 +23,8 @@ public class ItemScripted extends Item implements IPermission {
 		this.setHasSubtypes(true);
 	}
 
-	public Item setTranslationKey(String name) {
-		super.setTranslationKey(name);
+	public Item setUnlocalizedName(String name) {
+		super.setUnlocalizedName(name);
 		this.setRegistryName(new ResourceLocation("customnpcs", name));
 		return this;
 	}

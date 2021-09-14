@@ -92,7 +92,7 @@ public class GuiNpcAI extends GuiNPCInterface2 implements ITextfieldListener, IG
 	}
 
 	public void unFocused(GuiNpcTextField textfield) {
-		if (textfield.id == 3) {
+		if (textfield.getId() == 3) {
 			this.ai.setTacticalRange(textfield.getInteger());
 		}
 

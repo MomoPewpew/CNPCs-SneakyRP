@@ -228,17 +228,17 @@ public class SyncController {
 				category.readNBT(compound);
 				DialogController.instance.categories.put(category.id, category);
 			} else {
-				QuestCategory category;
+				QuestCategory category1;
 				if (synctype == 2) {
-					category = (QuestCategory) QuestController.instance.categories.get(buffer.readInt());
-					Quest quest = new Quest(category);
+					category1 = (QuestCategory) QuestController.instance.categories.get(buffer.readInt());
+					Quest quest = new Quest(category1);
 					quest.readNBT(compound);
 					QuestController.instance.quests.put(quest.id, quest);
-					category.quests.put(quest.id, quest);
+					category1.quests.put(quest.id, quest);
 				} else if (synctype == 3) {
-					category = new QuestCategory();
-					category.readNBT(compound);
-					QuestController.instance.categories.put(category.id, category);
+					category1 = new QuestCategory();
+					category1.readNBT(compound);
+					QuestController.instance.categories.put(category1.id, category1);
 				}
 			}
 		}

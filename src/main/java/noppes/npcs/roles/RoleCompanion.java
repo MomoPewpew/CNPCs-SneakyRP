@@ -188,7 +188,7 @@ public class RoleCompanion extends RoleInterface {
 							(double) (-rand.nextFloat()) * 0.6D - 0.3D, (double) (this.npc.width / 2.0F) + 0.1D);
 					vec31.rotateYaw(-this.npc.rotationPitch * 3.1415927F / 180.0F);
 					vec31.rotatePitch(-this.npc.renderYawOffset * 3.1415927F / 180.0F);
-					vec31 = vec31.add(this.npc.posX, this.npc.posY + (double) this.npc.height + 0.1D, this.npc.posZ);
+					vec31 = vec31.addVector(this.npc.posX, this.npc.posY + (double) this.npc.height + 0.1D, this.npc.posZ);
 					(new StringBuilder()).append("iconcrack_").append(Item.getIdFromItem(eating.getItem())).toString();
 					if (eating.getHasSubtypes()) {
 						this.npc.world.spawnParticle(EnumParticleTypes.ITEM_CRACK, vec31.x, vec31.y, vec31.z, vec3.x,

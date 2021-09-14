@@ -222,14 +222,12 @@ public class BlueprintUtil {
 		}
 
 		int[] ints = new int[(int) Math.ceil((double) ((float) oneDimArray.length / 2.0F))];
-		int currentInt = false;
 
 		int currentInt;
 		for (int i = 1; i < oneDimArray.length; i += 2) {
 			z = oneDimArray[i - 1];
 			currentInt = z << 16 | oneDimArray[i];
 			ints[(int) Math.ceil((double) ((float) i / 2.0F)) - 1] = currentInt;
-			currentInt = false;
 		}
 
 		if (oneDimArray.length % 2 == 1) {

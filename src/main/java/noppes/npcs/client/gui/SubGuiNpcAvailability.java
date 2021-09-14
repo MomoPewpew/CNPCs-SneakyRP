@@ -186,7 +186,7 @@ public class SubGuiNpcAvailability extends SubGuiInterface
 	}
 
 	public void unFocused(GuiNpcTextField textfield) {
-		if (textfield.id == 51) {
+		if (textfield.getId() == 51) {
 			this.availabitily.minPlayerLevel = textfield.getInteger();
 		}
 

@@ -23,17 +23,17 @@ public class ContainerNPCTrader extends ContainerNpcInterface {
 		int j1;
 		int l1;
 		for (j1 = 0; j1 < 18; ++j1) {
-			int x = 53;
+			byte x = 53;
 			l1 = x + j1 % 3 * 72;
-			int y = 7;
-			int y = y + j1 / 3 * 21;
+			byte y = 7;
+			int y1 = y + j1 / 3 * 21;
 			ItemStack item = (ItemStack) this.role.inventoryCurrency.items.get(j1);
 			ItemStack item2 = (ItemStack) this.role.inventoryCurrency.items.get(j1 + 18);
 			if (item == null) {
 				item2 = null;
 			}
 
-			this.addSlotToContainer(new Slot(this.role.inventorySold, j1, l1, y));
+			this.addSlotToContainer(new Slot(this.role.inventorySold, j1, l1, y1));
 		}
 
 		for (j1 = 0; j1 < 3; ++j1) {

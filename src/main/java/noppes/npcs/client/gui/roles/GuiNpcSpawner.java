@@ -142,15 +142,15 @@ public class GuiNpcSpawner extends GuiNPCInterface2 implements ITextfieldListene
 	}
 
 	public void unFocused(GuiNpcTextField textfield) {
-		if (textfield.id == 7) {
+		if (textfield.getId() == 7) {
 			this.job.xOffset = textfield.getInteger();
 		}
 
-		if (textfield.id == 8) {
+		if (textfield.getId() == 8) {
 			this.job.yOffset = textfield.getInteger();
 		}
 
-		if (textfield.id == 9) {
+		if (textfield.getId() == 9) {
 			this.job.zOffset = textfield.getInteger();
 		}
 

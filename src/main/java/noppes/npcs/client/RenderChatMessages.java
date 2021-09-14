@@ -62,8 +62,8 @@ public class RenderChatMessages implements IChatMessages {
 		int size = 0;
 
 		TextBlockClient block;
-		for (Iterator var13 = this.messages.values().iterator(); var13.hasNext(); size += block.lines.size()) {
-			block = (TextBlockClient) var13.next();
+		for (Iterator var131 = this.messages.values().iterator(); var131.hasNext(); size += block.lines.size()) {
+			block = (TextBlockClient) var131.next();
 		}
 
 		Minecraft mc = Minecraft.getMinecraft();
@@ -116,9 +116,9 @@ public class RenderChatMessages implements IChatMessages {
 		Iterator var18 = this.messages.values().iterator();
 
 		while (var18.hasNext()) {
-			TextBlockClient block = (TextBlockClient) var18.next();
+			TextBlockClient block1 = (TextBlockClient) var18.next();
 
-			for (Iterator var20 = block.lines.iterator(); var20.hasNext(); ++index) {
+			for (Iterator var20 = block1.lines.iterator(); var20.hasNext(); ++index) {
 				ITextComponent chat = (ITextComponent) var20.next();
 				String message = chat.getFormattedText();
 				font.drawString(message, -font.getStringWidth(message) / 2, index * font.FONT_HEIGHT, black);

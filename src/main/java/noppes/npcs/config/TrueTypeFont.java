@@ -218,17 +218,17 @@ public class TrueTypeFont {
 
 					Iterator var6 = allFonts.iterator();
 
-					Font f;
+					Font f1;
 					do {
 						if (!var6.hasNext()) {
 							return this.font;
 						}
 
-						f = (Font) var6.next();
-					} while (!f.canDisplay(c));
+						f1 = (Font) var6.next();
+					} while (!f1.canDisplay(c));
 
-					this.usedFonts.add(f = f.deriveFont(0, (float) this.font.getSize()));
-					return f;
+					this.usedFonts.add(f1 = f1.deriveFont(0, (float) this.font.getSize()));
+					return f1;
 				}
 
 				f = (Font) var2.next();

@@ -90,7 +90,7 @@ public class GuiCreationParts extends GuiCreationScreenInterface implements ITex
 	}
 
 	public void unFocused(GuiNpcTextField textfield) {
-		if (textfield.id == 23) {
+		if (textfield.getId() == 23) {
 		}
 
 	}

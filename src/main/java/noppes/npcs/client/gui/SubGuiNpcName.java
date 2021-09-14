@@ -47,7 +47,7 @@ public class SubGuiNpcName extends SubGuiInterface implements ITextfieldListener
 	}
 
 	public void unFocused(GuiNpcTextField textfield) {
-		if (textfield.id == 0) {
+		if (textfield.getId() == 0) {
 			if (!textfield.isEmpty()) {
 				this.display.setName(textfield.getText());
 			} else {

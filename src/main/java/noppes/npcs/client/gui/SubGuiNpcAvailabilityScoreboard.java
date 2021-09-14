@@ -65,20 +65,20 @@ public class SubGuiNpcAvailabilityScoreboard extends SubGuiInterface implements 
 	}
 
 	public void unFocused(GuiNpcTextField textfield) {
-		if (textfield.id == 10) {
-			this.availabitily.scoreboardObjective = textfield.text;
+		if (textfield.getId() == 10) {
+			this.availabitily.scoreboardObjective = textfield.getText();
 		}
 
-		if (textfield.id == 11) {
-			this.availabitily.scoreboard2Objective = textfield.text;
+		if (textfield.getId() == 11) {
+			this.availabitily.scoreboard2Objective = textfield.getText();
 		}
 
-		if (textfield.id == 20) {
-			this.availabitily.scoreboardValue = NoppesStringUtils.parseInt(textfield.text, 0);
+		if (textfield.getId() == 20) {
+			this.availabitily.scoreboardValue = NoppesStringUtils.parseInt(textfield.getText(), 0);
 		}
 
-		if (textfield.id == 21) {
-			this.availabitily.scoreboard2Value = NoppesStringUtils.parseInt(textfield.text, 0);
+		if (textfield.getId() == 21) {
+			this.availabitily.scoreboard2Value = NoppesStringUtils.parseInt(textfield.getText(), 0);
 		}
 
 	}

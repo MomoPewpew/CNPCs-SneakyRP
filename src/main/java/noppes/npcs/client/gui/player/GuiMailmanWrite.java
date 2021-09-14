@@ -315,15 +315,15 @@ public class GuiMailmanWrite extends GuiContainerNPCInterface
 	}
 
 	public void unFocused(GuiNpcTextField textField) {
-		if (textField.id == 0) {
+		if (textField.getId() == 0) {
 			this.username = textField.getText();
 		}
 
-		if (textField.id == 1) {
+		if (textField.getId() == 1) {
 			mail.subject = textField.getText();
 		}
 
-		if (textField.id == 2) {
+		if (textField.getId() == 2) {
 			mail.sender = textField.getText();
 		}
 

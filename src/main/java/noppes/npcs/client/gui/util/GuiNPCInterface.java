@@ -301,7 +301,7 @@ public abstract class GuiNPCInterface extends GuiScreen {
 	}
 
 	public void addTextField(GuiNpcTextField tf) {
-		this.textfields.put(tf.id, tf);
+		this.textfields.put(tf.getId(), tf);
 	}
 
 	public GuiNpcTextField getTextField(int i) {

@@ -12,19 +12,19 @@ public class ContainerManageBanks extends Container {
 	public ContainerManageBanks(EntityPlayer player) {
 		int j1;
 		byte y;
-		int y;
+		int y1;
 		for (j1 = 0; j1 < 6; ++j1) {
 			int x = 36;
-			y = 38;
-			y = y + j1 * 22;
-			this.addSlotToContainer(new Slot(this.bank.currencyInventory, j1, x, y));
+			y1 = 38;
+			y1 = y1 + j1 * 22;
+			this.addSlotToContainer(new Slot(this.bank.currencyInventory, j1, x, y1));
 		}
 
 		for (j1 = 0; j1 < 6; ++j1) {
 			int x = 142;
-			y = 38;
-			y = y + j1 * 22;
-			this.addSlotToContainer(new Slot(this.bank.upgradeInventory, j1, x, y));
+			y1 = 38;
+			y1 = y1 + j1 * 22;
+			this.addSlotToContainer(new Slot(this.bank.upgradeInventory, j1, x, y1));
 		}
 
 		for (j1 = 0; j1 < 9; ++j1) {

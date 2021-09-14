@@ -78,9 +78,9 @@ public class GuiTextureSelection extends SubGuiInterface implements ICustomScrol
 
 				if (pack instanceof AbstractResourcePack) {
 					AbstractResourcePack p = (AbstractResourcePack) pack;
-					File file = p.resourcePackFile;
-					if (file != null) {
-						set.add(file.getAbsolutePath());
+					File file1 = p.resourcePackFile;
+					if (file1 != null) {
+						set.add(file1.getAbsolutePath());
 					}
 				}
 			}
@@ -123,9 +123,9 @@ public class GuiTextureSelection extends SubGuiInterface implements ICustomScrol
 
 		while (var19.hasNext()) {
 			Entry entry = (Entry) var19.next();
-			File file = new File(repos.getDirResourcepacks(), entry.getResourcePackName());
-			if (file.exists()) {
-				this.progressFile(file);
+			File file1 = new File(repos.getDirResourcepacks(), entry.getResourcePackName());
+			if (file1.exists()) {
+				this.progressFile(file1);
 			}
 		}
 

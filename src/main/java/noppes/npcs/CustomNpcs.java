@@ -182,18 +182,6 @@ public class CustomNpcs {
 
 			public void readNBT(Capability capability, ItemStackWrapper instance, EnumFacing side, NBTBase nbt) {
 			}
-
-			@Override
-			public void readNBT(Capability arg0, Object arg1, EnumFacing arg2, NBTBase arg3) {
-				// TODO Auto-generated method stub
-
-			}
-
-			@Override
-			public NBTBase writeNBT(Capability arg0, Object arg1, EnumFacing arg2) {
-				// TODO Auto-generated method stub
-				return null;
-			}
 		}, () -> {
 			return null;
 		});

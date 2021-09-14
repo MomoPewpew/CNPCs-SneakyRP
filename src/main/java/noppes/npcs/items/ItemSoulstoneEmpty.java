@@ -24,8 +24,8 @@ public class ItemSoulstoneEmpty extends Item {
 		this.setMaxStackSize(64);
 	}
 
-	public Item setTranslationKey(String name) {
-		super.setTranslationKey(name);
+	public Item setUnlocalizedName(String name) {
+		super.setUnlocalizedName(name);
 		this.setRegistryName(new ResourceLocation("customnpcs", name));
 		return this;
 	}

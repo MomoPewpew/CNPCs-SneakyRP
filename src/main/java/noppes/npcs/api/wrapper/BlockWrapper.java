@@ -249,19 +249,19 @@ public class BlockWrapper implements IBlock {
 			b.setTile(world.getTileEntity(pos));
 			return b;
 		} else {
-			Object b;
+			Object b1;
 			if (block instanceof BlockScripted) {
-				b = new BlockScriptedWrapper(world, block, pos);
+				b1 = new BlockScriptedWrapper(world, block, pos);
 			} else if (block instanceof BlockScriptedDoor) {
-				b = new BlockScriptedDoorWrapper(world, block, pos);
+				b1 = new BlockScriptedDoorWrapper(world, block, pos);
 			} else if (block instanceof BlockFluidBase) {
-				b = new BlockFluidContainerWrapper(world, block, pos);
+				b1 = new BlockFluidContainerWrapper(world, block, pos);
 			} else {
-				b = new BlockWrapper(world, block, pos);
+				b1 = new BlockWrapper(world, block, pos);
 			}
 
-			blockCache.put(key, b);
-			return (IBlock) b;
+			blockCache.put(key, b1);
+			return (IBlock) b1;
 		}
 	}
 

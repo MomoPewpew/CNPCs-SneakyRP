@@ -87,22 +87,22 @@ public class GuiRecipes extends GuiNPCInterface {
 
 			irecipe = (IRecipe) this.recipes.get(index);
 			if (!irecipe.getRecipeOutput().isEmpty()) {
-				int x = this.guiLeft + 5 + i / 2 * 126;
-				x = this.guiTop + 15 + i % 2 * 76;
-				this.drawItem(irecipe.getRecipeOutput(), x + 98, x + 28, xMouse, yMouse);
+				int x1 = this.guiLeft + 5 + i / 2 * 126;
+				x1 = this.guiTop + 15 + i % 2 * 76;
+				this.drawItem(irecipe.getRecipeOutput(), x1 + 98, x1 + 28, xMouse, yMouse);
 				if (irecipe instanceof RecipeCarpentry) {
 					RecipeCarpentry recipe = (RecipeCarpentry) irecipe;
-					x += (72 - recipe.recipeWidth * 18) / 2;
-					x += (72 - recipe.recipeHeight * 18) / 2;
+					x1 += (72 - recipe.recipeWidth * 18) / 2;
+					x1 += (72 - recipe.recipeHeight * 18) / 2;
 
 					for (j = 0; j < recipe.recipeWidth; ++j) {
 						for (k = 0; k < recipe.recipeHeight; ++k) {
 							this.mc.renderEngine.bindTexture(resource);
 							GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-							this.drawTexturedModalRect(x + j * 18, x + k * 18, 0, 0, 18, 18);
+							this.drawTexturedModalRect(x1 + j * 18, x1 + k * 18, 0, 0, 18, 18);
 							item = recipe.getCraftingItem(j + k * recipe.recipeWidth);
 							if (!item.isEmpty()) {
-								this.drawItem(item, x + j * 18 + 1, x + k * 18 + 1, xMouse, yMouse);
+								this.drawItem(item, x1 + j * 18 + 1, x1 + k * 18 + 1, xMouse, yMouse);
 							}
 						}
 					}

@@ -16,13 +16,13 @@ public class ContainerNPCTraderSetup extends Container {
 		int j1;
 		int l1;
 		for (j1 = 0; j1 < 18; ++j1) {
-			int x = 7;
+			byte x = 7;
 			l1 = x + j1 % 3 * 94;
-			int y = 15;
-			int y = y + j1 / 3 * 22;
-			this.addSlotToContainer(new Slot(this.role.inventoryCurrency, j1 + 18, l1, y));
-			this.addSlotToContainer(new Slot(this.role.inventoryCurrency, j1, l1 + 18, y));
-			this.addSlotToContainer(new Slot(this.role.inventorySold, j1, l1 + 43, y));
+			byte y = 15;
+			int y1 = y + j1 / 3 * 22;
+			this.addSlotToContainer(new Slot(this.role.inventoryCurrency, j1 + 18, l1, y1));
+			this.addSlotToContainer(new Slot(this.role.inventoryCurrency, j1, l1 + 18, y1));
+			this.addSlotToContainer(new Slot(this.role.inventorySold, j1, l1 + 43, y1));
 		}
 
 		for (j1 = 0; j1 < 3; ++j1) {

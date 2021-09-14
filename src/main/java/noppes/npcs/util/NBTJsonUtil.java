@@ -231,9 +231,9 @@ public class NBTJsonUtil {
 			list.add(new NBTJsonUtil.JsonLine(name + base));
 		}
 
-		NBTJsonUtil.JsonLine line = (NBTJsonUtil.JsonLine) list.get(list.size() - 1);
-		line.line = line.line + ",";
-		return line;
+		NBTJsonUtil.JsonLine line1 = (NBTJsonUtil.JsonLine) list.get(list.size() - 1);
+		line1.line = line1.line + ",";
+		return line1;
 	}
 
 	private static String ConvertList(List list) {

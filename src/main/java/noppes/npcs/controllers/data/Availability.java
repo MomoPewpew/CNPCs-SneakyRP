@@ -135,7 +135,7 @@ public class Availability implements ICompatibilty, IAvailability {
 
 				for (int var4 = 0; var4 < var3; ++var4) {
 					WorldServer world = var2[var4];
-					ServerScoreboard board = (ServerScoreboard) world.worldScoreboard;
+					ServerScoreboard board = (ServerScoreboard) world.getScoreboard();
 					ScoreObjective so = board.getObjective(objective);
 					if (so != null) {
 						Set addedObjectives = (Set) ObfuscationReflectionHelper.getPrivateValue(ServerScoreboard.class,

@@ -450,7 +450,7 @@ public class ItemStackWrapper implements IItemStack, ICapabilityProvider, ICapab
 		NBTTagCompound compound = this.item.getSubCompound("display");
 		if (compound != null && compound.getTagId("Lore") == 9) {
 			NBTTagList nbttaglist = compound.getTagList("Lore", 8);
-			if (nbttaglist.isEmpty()) {
+			if (nbttaglist.hasNoTags()) {
 				return new String[0];
 			} else {
 				List lore = new ArrayList();
@@ -494,7 +494,7 @@ public class ItemStackWrapper implements IItemStack, ICapabilityProvider, ICapab
 
 	public NBTTagCompound getMCNbt() {
 		NBTTagCompound compound = new NBTTagCompound();
-		if (!this.storedData.isEmpty()) {
+		if (!this.storedData.hasNoTags()) {
 			compound.setTag("StoredData", this.storedData);
 		}
 

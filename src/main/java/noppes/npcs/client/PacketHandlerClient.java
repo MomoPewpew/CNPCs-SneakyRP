@@ -199,41 +199,41 @@ public class PacketHandlerClient extends PacketHandlerServer {
 												Server.readString(buffer), buffer.readInt(), buffer.readInt(),
 												buffer.readInt(), buffer.readFloat(), buffer.readFloat());
 									} else {
-										Entity entity;
-										NBTTagCompound compound;
+										Entity entity1;
+										NBTTagCompound compound1;
 										if (type == EnumPacketClient.UPDATE_NPC) {
-											compound = Server.readNBT(buffer);
-											entity = Minecraft.getMinecraft().world
-													.getEntityByID(compound.getInteger("EntityId"));
-											if (entity == null || !(entity instanceof EntityNPCInterface)) {
+											compound1 = Server.readNBT(buffer);
+											entity1 = Minecraft.getMinecraft().world
+													.getEntityByID(compound1.getInteger("EntityId"));
+											if (entity1 == null || !(entity1 instanceof EntityNPCInterface)) {
 												return;
 											}
 
-											((EntityNPCInterface) entity).readSpawnData(compound);
+											((EntityNPCInterface) entity1).readSpawnData(compound1);
 										} else if (type == EnumPacketClient.ROLE) {
-											compound = Server.readNBT(buffer);
-											entity = Minecraft.getMinecraft().world
-													.getEntityByID(compound.getInteger("EntityId"));
-											if (entity == null || !(entity instanceof EntityNPCInterface)) {
+											compound1 = Server.readNBT(buffer);
+											entity1 = Minecraft.getMinecraft().world
+													.getEntityByID(compound1.getInteger("EntityId"));
+											if (entity1 == null || !(entity1 instanceof EntityNPCInterface)) {
 												return;
 											}
 
-											((EntityNPCInterface) entity).advanced.setRole(compound.getInteger("Role"));
-											((EntityNPCInterface) entity).roleInterface.readFromNBT(compound);
-											NoppesUtil.setLastNpc((EntityNPCInterface) entity);
+											((EntityNPCInterface) entity1).advanced.setRole(compound1.getInteger("Role"));
+											((EntityNPCInterface) entity1).roleInterface.readFromNBT(compound1);
+											NoppesUtil.setLastNpc((EntityNPCInterface) entity1);
 										} else if (type == EnumPacketClient.GUI) {
-											EnumGuiType gui = EnumGuiType.values()[buffer.readInt()];
-											CustomNpcs.proxy.openGui(NoppesUtil.getLastNpc(), gui, buffer.readInt(),
+											EnumGuiType gui1 = EnumGuiType.values()[buffer.readInt()];
+											CustomNpcs.proxy.openGui(NoppesUtil.getLastNpc(), gui1, buffer.readInt(),
 													buffer.readInt(), buffer.readInt());
 										} else if (type == EnumPacketClient.PARTICLE) {
 											NoppesUtil.spawnParticle(buffer);
 										} else if (type == EnumPacketClient.DELETE_NPC) {
-											entity = Minecraft.getMinecraft().world.getEntityByID(buffer.readInt());
-											if (entity == null || !(entity instanceof EntityNPCInterface)) {
+											entity1 = Minecraft.getMinecraft().world.getEntityByID(buffer.readInt());
+											if (entity1 == null || !(entity1 instanceof EntityNPCInterface)) {
 												return;
 											}
 
-											((EntityNPCInterface) entity).delete();
+											((EntityNPCInterface) entity1).delete();
 										} else if (type == EnumPacketClient.SCROLL_LIST) {
 											NoppesUtil.setScrollList(buffer);
 										} else if (type == EnumPacketClient.SCROLL_DATA) {
@@ -249,23 +249,23 @@ public class PacketHandlerClient extends PacketHandlerServer {
 											font = Server.readString(buffer);
 											((IScrollData) gui).setSelected(font);
 										} else if (type == EnumPacketClient.CLONE) {
-											compound = Server.readNBT(buffer);
-											NoppesUtil.openGUI(player, new GuiNpcMobSpawnerAdd(compound));
+											compound1 = Server.readNBT(buffer);
+											NoppesUtil.openGUI(player, new GuiNpcMobSpawnerAdd(compound1));
 										} else if (type == EnumPacketClient.GUI_DATA) {
-											GuiScreen gui = Minecraft.getMinecraft().currentScreen;
-											if (gui == null) {
+											GuiScreen gui1 = Minecraft.getMinecraft().currentScreen;
+											if (gui1 == null) {
 												return;
 											}
 
-											if (gui instanceof GuiNPCInterface && ((GuiNPCInterface) gui).hasSubGui()) {
-												gui = ((GuiNPCInterface) gui).getSubGui();
-											} else if (gui instanceof GuiContainerNPCInterface
-													&& ((GuiContainerNPCInterface) gui).hasSubGui()) {
-												gui = ((GuiContainerNPCInterface) gui).getSubGui();
+											if (gui1 instanceof GuiNPCInterface && ((GuiNPCInterface) gui1).hasSubGui()) {
+												gui1 = ((GuiNPCInterface) gui1).getSubGui();
+											} else if (gui1 instanceof GuiContainerNPCInterface
+													&& ((GuiContainerNPCInterface) gui1).hasSubGui()) {
+												gui1 = ((GuiContainerNPCInterface) gui1).getSubGui();
 											}
 
-											if (gui instanceof IGuiData) {
-												((IGuiData) gui).setGuiData(Server.readNBT(buffer));
+											if (gui1 instanceof IGuiData) {
+												((IGuiData) gui1).setGuiData(Server.readNBT(buffer));
 											}
 										} else if (type == EnumPacketClient.GUI_UPDATE) {
 											gui = Minecraft.getMinecraft().currentScreen;
@@ -275,7 +275,7 @@ public class PacketHandlerClient extends PacketHandlerServer {
 
 											gui.initGui();
 										} else {
-											NBTTagCompound compound;
+											NBTTagCompound compound11;
 											if (type == EnumPacketClient.GUI_ERROR) {
 												gui = Minecraft.getMinecraft().currentScreen;
 												if (gui == null || !(gui instanceof IGuiError)) {
@@ -283,8 +283,8 @@ public class PacketHandlerClient extends PacketHandlerServer {
 												}
 
 												i = buffer.readInt();
-												compound = Server.readNBT(buffer);
-												((IGuiError) gui).setError(i, compound);
+												compound11 = Server.readNBT(buffer);
+												((IGuiError) gui).setError(i, compound11);
 											} else if (type == EnumPacketClient.GUI_CLOSE) {
 												gui = Minecraft.getMinecraft().currentScreen;
 												if (gui == null) {
@@ -293,8 +293,8 @@ public class PacketHandlerClient extends PacketHandlerServer {
 
 												if (gui instanceof IGuiClose) {
 													i = buffer.readInt();
-													compound = Server.readNBT(buffer);
-													((IGuiClose) gui).setClose(i, compound);
+													compound11 = Server.readNBT(buffer);
+													((IGuiClose) gui).setClose(i, compound11);
 												}
 
 												Minecraft mc = Minecraft.getMinecraft();
@@ -307,11 +307,11 @@ public class PacketHandlerClient extends PacketHandlerServer {
 											} else if (type == EnumPacketClient.CONFIG) {
 												config = buffer.readInt();
 												if (config == 0) {
-													font = Server.readString(buffer);
+													final String font2 = Server.readString(buffer);
 													size = buffer.readInt();
 													Runnable run = () -> {
-														if (!font.isEmpty()) {
-															CustomNpcs.FontType = font;
+														if (!font2.isEmpty()) {
+															CustomNpcs.FontType = font2;
 															CustomNpcs.FontSize = size;
 															ClientProxy.Font.clear();
 															ClientProxy.Font = new ClientProxy.FontContainer(

@@ -128,8 +128,8 @@ public class JobItemGiver extends JobInterface {
 					Iterator var10 = items.iterator();
 
 					while (var10.hasNext()) {
-						ItemStack is = (ItemStack) var10.next();
-						if (this.playerHasItem(player, is.getItem())) {
+						ItemStack is1 = (ItemStack) var10.next();
+						if (this.playerHasItem(player, is1.getItem())) {
 							ownsItems = true;
 							break;
 						}

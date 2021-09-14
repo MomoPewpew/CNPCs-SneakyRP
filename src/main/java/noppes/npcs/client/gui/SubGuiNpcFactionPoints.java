@@ -48,11 +48,11 @@ public class SubGuiNpcFactionPoints extends SubGuiInterface implements ITextfiel
 	}
 
 	public void unFocused(GuiNpcTextField textfield) {
-		if (textfield.id == 2) {
+		if (textfield.getId() == 2) {
 			this.faction.defaultPoints = textfield.getInteger();
-		} else if (textfield.id == 3) {
+		} else if (textfield.getId() == 3) {
 			this.faction.neutralPoints = textfield.getInteger();
-		} else if (textfield.id == 4) {
+		} else if (textfield.getId() == 4) {
 			this.faction.friendlyPoints = textfield.getInteger();
 		}
 

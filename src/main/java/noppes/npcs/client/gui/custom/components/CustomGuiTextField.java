@@ -16,9 +16,7 @@ public class CustomGuiTextField extends GuiTextField implements IDataHolder, ICl
 	String[] hoverText;
 
 	public CustomGuiTextField(int id, int x, int y, int width, int height) {
-		int var10003 = GuiCustom.guiLeft + x;
-		int var10004 = GuiCustom.guiTop + y;
-		super(id, Minecraft.getMinecraft().fontRenderer, var10003, var10004, width, height);
+		super(id, Minecraft.getMinecraft().fontRenderer, (GuiCustom.guiLeft + x), (GuiCustom.guiTop + y), width, height);
 		this.setMaxStringLength(500);
 	}
 
@@ -28,7 +26,7 @@ public class CustomGuiTextField extends GuiTextField implements IDataHolder, ICl
 
 	public void onRender(Minecraft mc, int mouseX, int mouseY, int mouseWheel, float partialTicks) {
 		GlStateManager.pushMatrix();
-		GlStateManager.translate(0.0F, 0.0F, (float) this.id);
+		GlStateManager.translate(0.0F, 0.0F, (float) this.getId());
 		boolean hovered = mouseX >= this.x && mouseY >= this.y && mouseX < this.x + this.width
 				&& mouseY < this.y + this.height;
 		this.drawTextBox();
@@ -44,18 +42,18 @@ public class CustomGuiTextField extends GuiTextField implements IDataHolder, ICl
 	}
 
 	public int getID() {
-		return this.id;
+		return this.getId();
 	}
 
 	public NBTTagCompound toNBT() {
 		NBTTagCompound tag = new NBTTagCompound();
-		tag.setInteger("id", this.id);
-		tag.setString("text", this.text);
+		tag.setInteger("id", this.getId());
+		tag.setString("text", this.getText());
 		return tag;
 	}
 
 	public ICustomGuiComponent toComponent() {
-		CustomGuiTextFieldWrapper component = new CustomGuiTextFieldWrapper(this.id, this.x - GuiCustom.guiLeft,
+		CustomGuiTextFieldWrapper component = new CustomGuiTextFieldWrapper(this.getId(), this.x - GuiCustom.guiLeft,
 				this.y - GuiCustom.guiTop, this.width, this.height);
 		component.setText(this.getText());
 		component.setHoverText(this.hoverText);
@@ -70,7 +68,7 @@ public class CustomGuiTextField extends GuiTextField implements IDataHolder, ICl
 		}
 
 		if (component.getText() != null && !component.getText().isEmpty()) {
-			txt.text = component.getText();
+			txt.setText(component.getText());
 		}
 
 		return txt;

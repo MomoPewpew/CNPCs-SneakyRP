@@ -197,11 +197,11 @@ public class GuiNpcTextArea extends GuiNpcTextField {
 				if (flag && charCount == this.cursorPosition && lineCount >= startLine && lineCount < maxLine
 						&& this.canEdit) {
 					int xx = this.posX + this.font.width(line) + 4;
-					int yy = this.posY + (lineCount - startLine) * this.font.height(line) + 4;
+					int yy1 = this.posY + (lineCount - startLine) * this.font.height(line) + 4;
 					if (this.getText().length() == this.cursorPosition) {
-						this.font.drawString("_", xx, yy, color);
+						this.font.drawString("_", xx, yy1, color);
 					} else {
-						this.drawCursorVertical(xx, yy, xx + 1, yy + this.font.height(line));
+						this.drawCursorVertical(xx, yy1, xx + 1, yy1 + this.font.height(line));
 					}
 				}
 

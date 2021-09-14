@@ -63,7 +63,7 @@ public class SubGuiNpcRespawn extends SubGuiInterface implements ITextfieldListe
 	}
 
 	public void unFocused(GuiNpcTextField textfield) {
-		if (textfield.id == 2) {
+		if (textfield.getId() == 2) {
 			this.stats.respawnTime = textfield.getInteger();
 		}
 

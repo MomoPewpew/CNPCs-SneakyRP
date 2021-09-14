@@ -21,8 +21,8 @@ public class ItemNbtBook extends Item implements IPermission {
 		this.setCreativeTab(CustomItems.tab);
 	}
 
-	public Item setTranslationKey(String name) {
-		super.setTranslationKey(name);
+	public Item setUnlocalizedName(String name) {
+		super.setUnlocalizedName(name);
 		this.setRegistryName(new ResourceLocation("customnpcs", name));
 		return this;
 	}

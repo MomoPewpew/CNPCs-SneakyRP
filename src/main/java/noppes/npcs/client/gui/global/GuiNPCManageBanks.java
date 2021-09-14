@@ -180,7 +180,7 @@ public class GuiNPCManageBanks extends GuiContainerNPCInterface2
 
 	public void unFocused(GuiNpcTextField guiNpcTextField) {
 		if (this.bank.id != -1) {
-			if (guiNpcTextField.id == 0) {
+			if (guiNpcTextField.getId() == 0) {
 				String name = guiNpcTextField.getText();
 				if (!name.isEmpty() && !this.data.containsKey(name)) {
 					String old = this.bank.name;
@@ -190,7 +190,7 @@ public class GuiNPCManageBanks extends GuiContainerNPCInterface2
 					this.selected = name;
 					this.scroll.replace(old, this.bank.name);
 				}
-			} else if (guiNpcTextField.id == 1 || guiNpcTextField.id == 2) {
+			} else if (guiNpcTextField.getId() == 1 || guiNpcTextField.getId() == 2) {
 				int num = 1;
 				if (!guiNpcTextField.isEmpty()) {
 					num = guiNpcTextField.getInteger();
@@ -204,9 +204,9 @@ public class GuiNPCManageBanks extends GuiContainerNPCInterface2
 					num = 0;
 				}
 
-				if (guiNpcTextField.id == 1) {
+				if (guiNpcTextField.getId() == 1) {
 					this.bank.startSlots = num;
-				} else if (guiNpcTextField.id == 2) {
+				} else if (guiNpcTextField.getId() == 2) {
 					this.bank.maxSlots = num;
 				}
 

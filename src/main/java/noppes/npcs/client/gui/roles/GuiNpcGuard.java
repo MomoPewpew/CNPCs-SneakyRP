@@ -151,11 +151,11 @@ public class GuiNpcGuard extends GuiNPCInterface2 {
 			Iterator var9 = ForgeRegistries.ENTITIES.getValues().iterator();
 
 			while (var9.hasNext()) {
-				EntityEntry ent = (EntityEntry) var9.next();
-				Class cl = ent.getEntityClass();
-				String name = "entity." + ent.getName() + ".name";
-				if (EntityLivingBase.class.isAssignableFrom(cl) && !EntityNPCInterface.class.isAssignableFrom(cl)) {
-					all.add(name);
+				EntityEntry ent1 = (EntityEntry) var9.next();
+				Class cl1 = ent1.getEntityClass();
+				String name1 = "entity." + ent1.getName() + ".name";
+				if (EntityLivingBase.class.isAssignableFrom(cl1) && !EntityNPCInterface.class.isAssignableFrom(cl1)) {
+					all.add(name1);
 				}
 			}
 

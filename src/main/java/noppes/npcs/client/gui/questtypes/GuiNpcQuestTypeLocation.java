@@ -51,15 +51,15 @@ public class GuiNpcQuestTypeLocation extends SubGuiInterface implements ITextfie
 	}
 
 	public void unFocused(GuiNpcTextField textfield) {
-		if (textfield.id == 0) {
+		if (textfield.getId() == 0) {
 			this.quest.location = textfield.getText();
 		}
 
-		if (textfield.id == 1) {
+		if (textfield.getId() == 1) {
 			this.quest.location2 = textfield.getText();
 		}
 
-		if (textfield.id == 2) {
+		if (textfield.getId() == 2) {
 			this.quest.location3 = textfield.getText();
 		}
 

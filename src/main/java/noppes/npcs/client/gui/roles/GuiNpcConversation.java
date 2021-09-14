@@ -124,21 +124,21 @@ public class GuiNpcConversation extends GuiNPCInterface2 implements ITextfieldLi
 
 	public void unFocused(GuiNpcTextField textfield) {
 		JobConversation.ConversationLine line;
-		if (textfield.id >= 0 && textfield.id < 14) {
-			line = this.job.getLine(textfield.id);
+		if (textfield.getId() >= 0 && textfield.getId() < 14) {
+			line = this.job.getLine(textfield.getId());
 			line.npc = textfield.getText();
 		}
 
-		if (textfield.id >= 14 && textfield.id < 28) {
-			line = this.job.getLine(textfield.id - 14);
+		if (textfield.getId() >= 14 && textfield.getId() < 28) {
+			line = this.job.getLine(textfield.getId() - 14);
 			line.delay = textfield.getInteger();
 		}
 
-		if (textfield.id == 50) {
+		if (textfield.getId() == 50) {
 			this.job.generalDelay = textfield.getInteger();
 		}
 
-		if (textfield.id == 54) {
+		if (textfield.getId() == 54) {
 			this.job.range = textfield.getInteger();
 		}
 

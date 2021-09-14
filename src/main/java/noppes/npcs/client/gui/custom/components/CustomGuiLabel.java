@@ -22,9 +22,7 @@ public class CustomGuiLabel extends GuiLabel implements IGuiComponent {
 	}
 
 	public CustomGuiLabel(String label, int id, int x, int y, int width, int height, int colour) {
-		int var10003 = GuiCustom.guiLeft + x;
-		int var10004 = GuiCustom.guiTop + y;
-		super(Minecraft.getMinecraft().fontRenderer, id, var10003, var10004, width, height, colour);
+		super(Minecraft.getMinecraft().fontRenderer, id, (GuiCustom.guiLeft + x), (GuiCustom.guiTop + y), width, height, colour);
 		this.scale = 1.0F;
 		this.fullLabel = label;
 		this.colour = colour;

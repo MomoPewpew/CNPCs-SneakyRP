@@ -65,15 +65,15 @@ public class SubGuiNpcMeleeProperties extends SubGuiInterface implements ITextfi
 	}
 
 	public void unFocused(GuiNpcTextField textfield) {
-		if (textfield.id == 1) {
+		if (textfield.getId() == 1) {
 			this.stats.setStrength(textfield.getInteger());
-		} else if (textfield.id == 2) {
+		} else if (textfield.getId() == 2) {
 			this.stats.setRange(textfield.getInteger());
-		} else if (textfield.id == 3) {
+		} else if (textfield.getId() == 3) {
 			this.stats.setDelay(textfield.getInteger());
-		} else if (textfield.id == 4) {
+		} else if (textfield.getId() == 4) {
 			this.stats.setKnockback(textfield.getInteger());
-		} else if (textfield.id == 6) {
+		} else if (textfield.getId() == 6) {
 			this.stats.setEffect(this.stats.getEffectType(), this.stats.getEffectStrength(), textfield.getInteger());
 		}
 

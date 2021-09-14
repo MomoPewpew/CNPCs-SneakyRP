@@ -40,7 +40,7 @@ public class SubGuiNpcCommand extends SubGuiInterface implements ITextfieldListe
 	}
 
 	public void unFocused(GuiNpcTextField textfield) {
-		if (textfield.id == 4) {
+		if (textfield.getId() == 4) {
 			this.command = textfield.getText();
 		}
 

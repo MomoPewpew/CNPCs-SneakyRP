@@ -113,7 +113,7 @@ public class GuiNpcQuestTypeKill extends SubGuiInterface implements ITextfieldLi
 	}
 
 	public void unFocused(GuiNpcTextField guiNpcTextField) {
-		if (guiNpcTextField.id < 3) {
+		if (guiNpcTextField.getId() < 3) {
 			this.lastSelected = guiNpcTextField;
 		}
 

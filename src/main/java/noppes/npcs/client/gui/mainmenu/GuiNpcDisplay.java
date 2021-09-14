@@ -92,15 +92,15 @@ public class GuiNpcDisplay extends GuiNPCInterface2 implements ITextfieldListene
      }
 
 	public void unFocused(GuiNpcTextField textfield) {
-		if (textfield.id == 0) {
+		if (textfield.getId() == 0) {
 			if (!textfield.isEmpty()) {
 				this.display.setName(textfield.getText());
 			} else {
 				textfield.setText(this.display.getName());
 			}
-		} else if (textfield.id == 2) {
+		} else if (textfield.getId() == 2) {
 			this.display.setSize(textfield.getInteger());
-		} else if (textfield.id == 3) {
+		} else if (textfield.getId() == 3) {
 			if (this.display.skinType == 2) {
 				this.display.setSkinUrl(textfield.getText());
 			} else if (this.display.skinType == 1) {
@@ -108,7 +108,7 @@ public class GuiNpcDisplay extends GuiNPCInterface2 implements ITextfieldListene
 			} else {
 				this.display.setSkinTexture(textfield.getText());
 			}
-		} else if (textfield.id == 6) {
+		} else if (textfield.getId() == 6) {
 			boolean var2 = false;
 
 			int color;
@@ -120,11 +120,11 @@ public class GuiNpcDisplay extends GuiNPCInterface2 implements ITextfieldListene
 
 			this.display.setTint(color);
 			textfield.setTextColor(this.display.getTint());
-		} else if (textfield.id == 8) {
+		} else if (textfield.getId() == 8) {
 			this.display.setCapeTexture(textfield.getText());
-		} else if (textfield.id == 9) {
+		} else if (textfield.getId() == 9) {
 			this.display.setOverlayTexture(textfield.getText());
-		} else if (textfield.id == 11) {
+		} else if (textfield.getId() == 11) {
 			this.display.setTitle(textfield.getText());
 		}
 

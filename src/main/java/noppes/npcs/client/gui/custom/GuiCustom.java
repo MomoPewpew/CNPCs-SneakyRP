@@ -141,7 +141,7 @@ public class GuiCustom extends GuiContainer implements ICustomScrollListener, IG
 		case 3:
 			CustomGuiTextField textField = CustomGuiTextField.fromComponent((CustomGuiTextFieldWrapper) component);
 			textField.setParent(this);
-			this.components.put(textField.id, textField);
+			this.components.put(textField.getId(), textField);
 			this.addDataHolder(textField);
 			this.addClickListener(textField);
 			this.addKeyListener(textField);

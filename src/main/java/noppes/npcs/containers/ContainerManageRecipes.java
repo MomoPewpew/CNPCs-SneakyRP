@@ -166,10 +166,10 @@ public class ContainerManageRecipes extends Container {
 			Iterator var18 = nameMapping.keySet().iterator();
 
 			while (var18.hasNext()) {
-				ItemStack mapped = (ItemStack) var18.next();
-				Character letter = (Character) nameMapping.get(mapped);
+				ItemStack mapped1 = (ItemStack) var18.next();
+				Character letter = (Character) nameMapping.get(mapped1);
 				recipe.add(letter);
-				recipe.add(mapped);
+				recipe.add(mapped1);
 			}
 
 			this.recipe = RecipeCarpentry.createRecipe(this.recipe, this.craftingMatrix.getStackInSlot(0),
