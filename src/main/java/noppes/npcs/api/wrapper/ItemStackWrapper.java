@@ -328,7 +328,7 @@ public class ItemStackWrapper implements IItemStack, ICapabilityProvider, ICapab
 
 	public boolean hasNbt() {
 		NBTTagCompound compound = this.item.getTagCompound();
-		return compound != null && !compound.isEmpty();
+		return compound != null && !compound.hasNoTags();
 	}
 
 	public ItemStack getMCItemStack() {

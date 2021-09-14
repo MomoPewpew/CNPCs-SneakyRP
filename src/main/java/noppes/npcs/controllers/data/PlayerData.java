@@ -259,7 +259,7 @@ public class PlayerData implements ICapabilityProvider {
 				data.playerLevel = player.experienceLevel;
 				data.scriptData = new PlayerScriptData(player);
 				NBTTagCompound compound = loadPlayerData(player.getPersistentID().toString());
-				if (compound.isEmpty()) {
+				if (compound.hasNoTags()) {
 					compound = loadPlayerDataOld(player.getName());
 				}
 

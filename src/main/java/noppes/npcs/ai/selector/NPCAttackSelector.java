@@ -81,4 +81,10 @@ public class NPCAttackSelector implements Predicate {
 	public boolean apply(EntityLivingBase ob) {
 		return this.isEntityApplicable(ob);
 	}
+
+	@Override
+	public boolean apply(Object input) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

@@ -166,7 +166,7 @@ public class EntityAIStalkTarget extends EntityAIBase {
 				this.npc.getEntityBoundingBox().minY + (double) (this.npc.height / 2.0F)
 						- (this.targetEntity.posY + (double) this.targetEntity.getEyeHeight()),
 				this.npc.posZ - this.targetEntity.posZ);
-		double d0 = vec31.length();
+		double d0 = vec31.lengthVector();
 		vec31 = vec31.normalize();
 		double d1 = vec3.dotProduct(vec31);
 		return d1 < 0.6D;

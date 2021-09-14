@@ -34,45 +34,45 @@ public class VersionCompatibility {
 			}
 
 			int i;
-			int i;
+			int i1;
 			if (npc.npcVersion < 6 && compound.getTag("NpcInteractLines") instanceof NBTTagList) {
 				List interactLines = NBTTags.getStringList(compound.getTagList("NpcInteractLines", 10));
 				Lines lines = new Lines();
 
-				for (i = 0; i < interactLines.size(); ++i) {
+				for (i1 = 0; i1 < interactLines.size(); ++i1) {
 					Line line = new Line();
-					line.setText((String) interactLines.toArray()[i]);
-					lines.lines.put(i, line);
+					line.setText((String) interactLines.toArray()[i1]);
+					lines.lines.put(i1, line);
 				}
 
 				compound.setTag("NpcInteractLines", lines.writeToNBT());
 				List worldLines = NBTTags.getStringList(compound.getTagList("NpcLines", 10));
 				lines = new Lines();
 
-				for (i = 0; i < worldLines.size(); ++i) {
+				for (i1 = 0; i1 < worldLines.size(); ++i1) {
 					Line line = new Line();
-					line.setText((String) worldLines.toArray()[i]);
-					lines.lines.put(i, line);
+					line.setText((String) worldLines.toArray()[i1]);
+					lines.lines.put(i1, line);
 				}
 
 				compound.setTag("NpcLines", lines.writeToNBT());
 				List attackLines = NBTTags.getStringList(compound.getTagList("NpcAttackLines", 10));
 				lines = new Lines();
 
-				for (int i = 0; i < attackLines.size(); ++i) {
+				for (int i11 = 0; i11 < attackLines.size(); ++i11) {
 					Line line = new Line();
-					line.setText((String) attackLines.toArray()[i]);
-					lines.lines.put(i, line);
+					line.setText((String) attackLines.toArray()[i11]);
+					lines.lines.put(i11, line);
 				}
 
 				compound.setTag("NpcAttackLines", lines.writeToNBT());
 				List killedLines = NBTTags.getStringList(compound.getTagList("NpcKilledLines", 10));
 				lines = new Lines();
 
-				for (int i = 0; i < killedLines.size(); ++i) {
+				for (int i11 = 0; i11 < killedLines.size(); ++i11) {
 					Line line = new Line();
-					line.setText((String) killedLines.toArray()[i]);
-					lines.lines.put(i, line);
+					line.setText((String) killedLines.toArray()[i11]);
+					lines.lines.put(i11, line);
 				}
 
 				compound.setTag("NpcKilledLines", lines.writeToNBT());
@@ -83,9 +83,9 @@ public class VersionCompatibility {
 				list = compound.getTagList("StartPos", 3);
 				if (list.tagCount() == 3) {
 					int z = ((NBTTagInt) list.removeTag(2)).getInt();
-					i = ((NBTTagInt) list.removeTag(1)).getInt();
-					i = ((NBTTagInt) list.removeTag(0)).getInt();
-					compound.setIntArray("StartPosNew", new int[] { i, i, z });
+					i1 = ((NBTTagInt) list.removeTag(1)).getInt();
+					i1 = ((NBTTagInt) list.removeTag(0)).getInt();
+					compound.setIntArray("StartPosNew", new int[] { i1, i1, z });
 				}
 			}
 
@@ -103,8 +103,8 @@ public class VersionCompatibility {
 				if (list.tagCount() > 0) {
 					ScriptContainer script = new ScriptContainer(npc.script);
 
-					for (i = 0; i < list.tagCount(); ++i) {
-						NBTTagCompound scriptOld = list.getCompoundTagAt(i);
+					for (i1 = 0; i1 < list.tagCount(); ++i1) {
+						NBTTagCompound scriptOld = list.getCompoundTagAt(i1);
 						EnumScriptType type = EnumScriptType.values()[scriptOld.getInteger("Type")];
 						script.script = script.script + "\nfunction " + type.function + "(event) {\n"
 								+ scriptOld.getString("Script") + "\n}";

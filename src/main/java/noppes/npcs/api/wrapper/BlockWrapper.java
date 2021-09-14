@@ -120,7 +120,7 @@ public class BlockWrapper implements IBlock {
 				return null;
 			} else {
 				NBTTagCompound compound = BlockWrapper.this.tile.getTileData().getCompoundTag("CustomNPCsData");
-				if (compound.isEmpty() && !BlockWrapper.this.tile.getTileData().hasKey("CustomNPCsData")) {
+				if (compound.hasNoTags() && !BlockWrapper.this.tile.getTileData().hasKey("CustomNPCsData")) {
 					BlockWrapper.this.tile.getTileData().setTag("CustomNPCsData", compound);
 				}
 

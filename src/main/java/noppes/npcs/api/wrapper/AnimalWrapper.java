@@ -15,4 +15,6 @@ public class AnimalWrapper extends EntityLivingWrapper implements IAnimal {
 	public boolean typeOf(int type) {
 		return type == 4 ? true : super.typeOf(type);
 	}
+	
+	
 }

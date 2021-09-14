@@ -47,9 +47,9 @@ public class EntityAIZigZagTarget extends EntityAIBase {
 	public void updateTask() {
 		this.npc.getLookHelper().setLookPositionWithEntity(this.targetEntity, 30.0F, 30.0F);
 		if (this.ticks-- <= 0) {
-			Path pathentity = this.npc.getNavigator().getResourcePathToEntityLiving(this.targetEntity);
+			Path pathentity = this.npc.getNavigator().getPathToEntityLiving(this.targetEntity);
 			if (pathentity != null && pathentity.getCurrentPathLength() >= this.npc.ais.getTacticalRange()) {
-				PathPoint pathpoint = pathentity.getResourcePathPointFromIndex(
+				PathPoint pathpoint = pathentity.getPathPointFromIndex(
 						MathHelper.floor((double) this.npc.ais.getTacticalRange() / 2.0D));
 				this.entityPosX = pathpoint.x;
 				this.entityPosY = pathpoint.y;

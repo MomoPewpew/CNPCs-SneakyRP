@@ -1874,16 +1874,16 @@ public abstract class EntityNPCInterface extends EntityCreature
 		if (owner != null) {
 			EnumFacing facing = owner.getHorizontalFacing().getOpposite();
 			BlockPos pos = new BlockPos(owner.posX, owner.getEntityBoundingBox().minY, owner.posZ);
-			pos = pos.add(facing.getXOffset(), 0, facing.getZOffset());
+			pos = pos.add(facing.getFrontOffsetX(), 0, facing.getFrontOffsetZ());
 			pos = this.calculateTopPos(pos);
 
 			for (int i = -1; i < 2; ++i) {
 				for (int j = 0; j < 3; ++j) {
 					BlockPos check;
-					if (facing.getXOffset() == 0) {
-						check = pos.add(i, 0, j * facing.getZOffset());
+					if (facing.getFrontOffsetX() == 0) {
+						check = pos.add(i, 0, j * facing.getFrontOffsetZ());
 					} else {
-						check = pos.add(j * facing.getXOffset(), 0, i);
+						check = pos.add(j * facing.getFrontOffsetX(), 0, i);
 					}
 
 					check = this.calculateTopPos(check);

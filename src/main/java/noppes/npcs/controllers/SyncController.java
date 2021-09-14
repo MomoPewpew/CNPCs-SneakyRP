@@ -156,7 +156,7 @@ public class SyncController {
 			HashMap dialogs;
 			Iterator var11;
 			if (synctype == 3) {
-				if (!compound.isEmpty()) {
+				if (!compound.hasNoTags()) {
 					QuestCategory category = new QuestCategory();
 					category.readNBT(compound);
 					QuestController.instance.categoriesSync.put(category.id, category);
@@ -181,7 +181,7 @@ public class SyncController {
 					QuestController.instance.categoriesSync = new HashMap();
 				}
 			} else if (synctype == 5) {
-				if (!compound.isEmpty()) {
+				if (!compound.hasNoTags()) {
 					DialogCategory category = new DialogCategory();
 					category.readNBT(compound);
 					DialogController.instance.categoriesSync.put(category.id, category);

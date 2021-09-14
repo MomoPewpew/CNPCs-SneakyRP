@@ -61,7 +61,7 @@ public class GuiNbtBook extends GuiNPCInterface implements IGuiData {
 		}
 
 		this.addButton(new GuiNpcButton(0, this.guiLeft + 38, this.guiTop + 144, 180, 20, "nbt.edit"));
-		this.getButton(0).enabled = this.compound != null && !this.compound.isEmpty();
+		this.getButton(0).enabled = this.compound != null && !this.compound.hasNoTags();
 		this.addLabel(new GuiNpcLabel(0, "", this.guiLeft + 4, this.guiTop + 167));
 		this.addLabel(new GuiNpcLabel(1, "", this.guiLeft + 4, this.guiTop + 177));
 		this.addButton(new GuiNpcButton(66, this.guiLeft + 128, this.guiTop + 190, 120, 20, "gui.close"));

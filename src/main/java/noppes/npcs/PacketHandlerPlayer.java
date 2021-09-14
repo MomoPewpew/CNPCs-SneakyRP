@@ -216,13 +216,13 @@ public class PacketHandlerPlayer {
 
 					Server.sendData(player, EnumPacketClient.GUI_DATA, data.saveNBTData(new NBTTagCompound()));
 				} else if (type == EnumPlayerPacket.MailSend) {
-					String username = PlayerDataController.instance.hasPlayer(Server.readString(buffer));
+					username = PlayerDataController.instance.hasPlayer(Server.readString(buffer));
 					if (username.isEmpty()) {
 						NoppesUtilServer.sendGuiError(player, 0);
 						return;
 					}
 
-					PlayerMail mail = new PlayerMail();
+					mail = new PlayerMail();
 					username = player.getDisplayNameString();
 					if (!username.equals(player.getName())) {
 						username = username + "(" + player.getName() + ")";
@@ -239,7 +239,7 @@ public class PacketHandlerPlayer {
 					NBTTagCompound comp = new NBTTagCompound();
 					comp.setString("username", username);
 					NoppesUtilServer.sendGuiClose(player, 1, comp);
-					EntityNPCInterface npc = NoppesUtilServer.getEditingNpc(player);
+					npc = NoppesUtilServer.getEditingNpc(player);
 					if (npc != null
 							&& EventHooks.onNPCRole(npc, new RoleEvent.MailmanEvent(player, npc.wrappedNPC, mail))) {
 						return;

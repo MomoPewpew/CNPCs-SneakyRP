@@ -392,7 +392,7 @@ public class WorldWrapper implements IWorld {
 	}
 
 	public String getBiomeName(int x, int z) {
-		return this.world.getBiomeForCoordsBody(new BlockPos(x, 0, z)).biomeName;
+		return this.world.getBiomeForCoordsBody(new BlockPos(x, 0, z)).getBiomeName();
 	}
 
 	public IEntity spawnClone(double x, double y, double z, int tab, String name) {

@@ -28,6 +28,7 @@ import noppes.npcs.blocks.BlockBorder;
 import noppes.npcs.blocks.BlockBuilder;
 import noppes.npcs.blocks.BlockCarpentryBench;
 import noppes.npcs.blocks.BlockCopy;
+import noppes.npcs.blocks.BlockInterface;
 import noppes.npcs.blocks.BlockMailbox;
 import noppes.npcs.blocks.BlockNpcRedstone;
 import noppes.npcs.blocks.BlockScripted;
@@ -123,7 +124,7 @@ public class CustomItems {
 		GameRegistry.registerTileEntity(TileBuilder.class, "TileNPCBuilder");
 		GameRegistry.registerTileEntity(TileCopy.class, "TileNPCCopy");
 		GameRegistry.registerTileEntity(TileBorder.class, "TileNPCBorder");
-		Block redstoneBlock = (new BlockNpcRedstone()).setHardness(50.0F).setResistance(2000.0F)
+		Block redstoneBlock = ((BlockInterface) (new BlockNpcRedstone()).setHardness(50.0F).setResistance(2000.0F))
 				.setTranslationKey("npcredstoneblock").setCreativeTab(tab);
 		Block mailbox = (new BlockMailbox()).setTranslationKey("npcmailbox").setHardness(5.0F).setResistance(10.0F)
 				.setCreativeTab(tab);
@@ -170,8 +171,8 @@ public class CustomItems {
 		BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(soulstoneFull, new BehaviorDefaultDispenseItem() {
 			public ItemStack dispenseStack(IBlockSource source, ItemStack item) {
 				EnumFacing enumfacing = (EnumFacing) source.getBlockState().getValue(BlockDispenser.FACING);
-				double x = source.getX() + (double) enumfacing.getXOffset();
-				double z = source.getZ() + (double) enumfacing.getZOffset();
+				double x = source.getX() + (double) enumfacing.getFrontOffsetX();
+				double z = source.getZ() + (double) enumfacing.getFrontOffsetZ();
 				ItemSoulstoneFilled.Spawn((EntityPlayer) null, item, source.getWorld(),
 						new BlockPos(x, source.getY(), z));
 				item.splitStack(1);

@@ -83,7 +83,7 @@ public class NPCSpawning {
 						int z = l1 + (world.rand.nextInt(b1) - world.rand.nextInt(b1));
 						BlockPos pos = new BlockPos(x, y, z);
 						IBlockState state = world.getBlockState(pos);
-						String name = world.getBiomeForCoordsBody(pos).biomeName;
+						String name = world.getBiomeForCoordsBody(pos).getBiomeName();
 						SpawnData data = SpawnController.instance.getRandomSpawnData(name,
 								state.getMaterial() == Material.AIR);
 						if (data != null && canCreatureTypeSpawnAtLocation(data, world, pos)
@@ -113,7 +113,7 @@ public class NPCSpawning {
 	}
 
 	protected static BlockPos getChunk(World world, int x, int z) {
-		Chunk chunk = world.getChunk(x, z);
+		Chunk chunk = world.getChunkFromChunkCoords(x, z);
 		int k = x * 16 + world.rand.nextInt(16);
 		int l = z * 16 + world.rand.nextInt(16);
 		int i1 = MathHelper.roundUp(chunk.getHeight(new BlockPos(k, 0, l)) + 1, 16);
@@ -131,7 +131,7 @@ public class NPCSpawning {
 					return;
 				}
 
-				data = SpawnController.instance.getRandomSpawnData(biome.biomeName, true);
+				data = SpawnController.instance.getRandomSpawnData(biome.getBiomeName(), true);
 			} while (data == null);
 
 			int size = 16;

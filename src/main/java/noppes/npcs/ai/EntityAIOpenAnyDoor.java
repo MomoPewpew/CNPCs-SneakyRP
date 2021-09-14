@@ -33,11 +33,11 @@ public class EntityAIOpenAnyDoor extends EntityAIBase {
 		if (!this.npc.collidedHorizontally) {
 			return false;
 		} else {
-			Path pathentity = this.npc.getNavigator().getResourcePath();
+			Path pathentity = this.npc.getNavigator().getPath();
 			if (pathentity != null && !pathentity.isFinished()) {
 				for (int i = 0; i < Math.min(pathentity.getCurrentPathIndex() + 2,
 						pathentity.getCurrentPathLength()); ++i) {
-					PathPoint pathpoint = pathentity.getResourcePathPointFromIndex(i);
+					PathPoint pathpoint = pathentity.getPathPointFromIndex(i);
 					this.position = new BlockPos(pathpoint.x, pathpoint.y + 1, pathpoint.z);
 					if (this.npc.getDistanceSq((double) this.position.getX(), this.npc.posY,
 							(double) this.position.getZ()) <= 2.25D) {
