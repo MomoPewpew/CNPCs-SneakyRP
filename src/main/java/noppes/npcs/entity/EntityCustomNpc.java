@@ -102,7 +102,7 @@ public class EntityCustomNpc extends EntityNPCFlying {
                     World.MAX_ENTITY_RADIUS = (double)(this.field_70130_N / 2.0F);
                }
 
-               this.func_70107_b(this.field_70165_t, this.field_70163_u, this.field_70161_v);
+               this.setPosition(this.field_70165_t, this.field_70163_u, this.field_70161_v);
           } else {
                this.baseHeight = 1.9F - this.modelData.getBodyY() + (this.modelData.getPartConfig(EnumParts.HEAD).scaleY - 1.0F) / 2.0F;
                super.updateHitbox();

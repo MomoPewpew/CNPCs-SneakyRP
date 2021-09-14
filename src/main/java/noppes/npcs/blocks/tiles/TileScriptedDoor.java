@@ -37,7 +37,7 @@ public class TileScriptedDoor extends TileDoor implements ITickable, IScriptBloc
 
      public IBlock getBlock() {
           if (this.blockDummy == null) {
-               this.blockDummy = new BlockScriptedDoorWrapper(this.func_145831_w(), this.func_145838_q(), this.getPos());
+               this.blockDummy = new BlockScriptedDoorWrapper(this.getWorld(), this.func_145838_q(), this.getPos());
           }
 
           return this.blockDummy;
@@ -117,7 +117,7 @@ public class TileScriptedDoor extends TileDoor implements ITickable, IScriptBloc
      }
 
      public boolean isClient() {
-          return this.func_145831_w().isRemote;
+          return this.getWorld().isRemote;
      }
 
      public boolean getEnabled() {

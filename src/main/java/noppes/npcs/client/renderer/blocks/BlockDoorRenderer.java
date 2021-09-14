@@ -23,7 +23,7 @@ public class BlockDoorRenderer extends BlockRendererInterface {
 
      public void func_192841_a(TileEntity te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
           TileDoor tile = (TileDoor)te;
-          IBlockState original = CustomItems.scriptedDoor.func_176203_a(tile.func_145832_p());
+          IBlockState original = CustomItems.scriptedDoor.getStateFromMeta(tile.func_145832_p());
           BlockPos lowerPos = tile.getPos();
           if (original.getValue(BlockDoor.field_176523_O) == EnumDoorHalf.UPPER) {
                lowerPos = tile.getPos().down();
@@ -33,20 +33,20 @@ public class BlockDoorRenderer extends BlockRendererInterface {
           TileDoor lowerTile = (TileDoor)this.func_178459_a().getTileEntity(lowerPos);
           TileDoor upperTile = (TileDoor)this.func_178459_a().getTileEntity(upperPos);
           if (lowerTile != null && upperTile != null) {
-               IBlockState lowerState = CustomItems.scriptedDoor.func_176203_a(lowerTile.func_145832_p());
-               IBlockState upperState = CustomItems.scriptedDoor.func_176203_a(upperTile.func_145832_p());
+               IBlockState lowerState = CustomItems.scriptedDoor.getStateFromMeta(lowerTile.func_145832_p());
+               IBlockState upperState = CustomItems.scriptedDoor.getStateFromMeta(upperTile.func_145832_p());
                int meta = BlockNpcDoorInterface.func_176515_e(this.func_178459_a(), tile.getPos());
                Block b = lowerTile.blockModel;
                if (this.overrideModel()) {
                     b = CustomItems.scriptedDoor;
                }
 
-               IBlockState state = b.func_176203_a(meta);
-               state = state.func_177226_a(BlockDoor.field_176523_O, original.getValue(BlockDoor.field_176523_O));
-               state = state.func_177226_a(BlockDoor.field_176520_a, lowerState.getValue(BlockDoor.field_176520_a));
-               state = state.func_177226_a(BlockDoor.field_176519_b, lowerState.getValue(BlockDoor.field_176519_b));
-               state = state.func_177226_a(BlockDoor.field_176521_M, upperState.getValue(BlockDoor.field_176521_M));
-               state = state.func_177226_a(BlockDoor.field_176522_N, upperState.getValue(BlockDoor.field_176522_N));
+               IBlockState state = b.getStateFromMeta(meta);
+               state = state.withProperty(BlockDoor.field_176523_O, original.getValue(BlockDoor.field_176523_O));
+               state = state.withProperty(BlockDoor.field_176520_a, lowerState.getValue(BlockDoor.field_176520_a));
+               state = state.withProperty(BlockDoor.field_176519_b, lowerState.getValue(BlockDoor.field_176519_b));
+               state = state.withProperty(BlockDoor.field_176521_M, upperState.getValue(BlockDoor.field_176521_M));
+               state = state.withProperty(BlockDoor.field_176522_N, upperState.getValue(BlockDoor.field_176522_N));
                GlStateManager.func_179094_E();
                RenderHelper.enableStandardItemLighting();
                GlStateManager.func_179141_d();

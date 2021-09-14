@@ -16,7 +16,7 @@ public class AniCrawling {
                par2 = 0.25F;
           }
 
-          float movement = MathHelper.func_76134_b(par1 * 0.8F + 3.1415927F) * par2;
+          float movement = MathHelper.cos(par1 * 0.8F + 3.1415927F) * par2;
           model.field_178724_i.field_78795_f = 3.1415927F - movement * 0.25F;
           model.field_178724_i.field_78796_g = movement * -0.46F;
           model.field_178724_i.field_78808_h = movement * -0.2F;

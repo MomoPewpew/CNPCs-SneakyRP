@@ -279,7 +279,7 @@ public class GuiScriptInterface extends GuiNPCInterface implements IGuiData, ITe
                NBTTagList list = comp.getTagList("Scripts", 8);
 
                for(int j = 0; j < list.tagCount(); ++j) {
-                    scripts.add(list.func_150307_f(j));
+                    scripts.add(list.getStringTagAt(j));
                }
 
                languages.put(comp.getString("Language"), scripts);

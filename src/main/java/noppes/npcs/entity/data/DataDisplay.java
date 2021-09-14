@@ -404,7 +404,7 @@ public class DataDisplay implements INPCDisplay {
                this.npc.updateClient = true;
           } else {
                ResourceLocation resource = new ResourceLocation(id);
-               Entity entity = EntityList.func_188429_b(resource, this.npc.world);
+               Entity entity = EntityList.createEntityByIDFromName(resource, this.npc.world);
                if (entity == null) {
                     throw new CustomNPCsException("Failed to create an entity from given id: " + id, new Object[0]);
                }

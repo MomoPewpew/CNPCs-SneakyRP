@@ -52,27 +52,27 @@ public class ItemTeleporter extends Item implements IPermission {
                double d1 = par3EntityPlayer.field_70167_r + (par3EntityPlayer.field_70163_u - par3EntityPlayer.field_70167_r) * (double)f + 1.62D;
                double d2 = par3EntityPlayer.field_70166_s + (par3EntityPlayer.field_70161_v - par3EntityPlayer.field_70166_s) * (double)f;
                Vec3d vec3 = new Vec3d(d0, d1, d2);
-               float f3 = MathHelper.func_76134_b(-f2 * 0.017453292F - 3.1415927F);
-               float f4 = MathHelper.func_76126_a(-f2 * 0.017453292F - 3.1415927F);
-               float f5 = -MathHelper.func_76134_b(-f1 * 0.017453292F);
-               float f6 = MathHelper.func_76126_a(-f1 * 0.017453292F);
+               float f3 = MathHelper.cos(-f2 * 0.017453292F - 3.1415927F);
+               float f4 = MathHelper.sin(-f2 * 0.017453292F - 3.1415927F);
+               float f5 = -MathHelper.cos(-f1 * 0.017453292F);
+               float f6 = MathHelper.sin(-f1 * 0.017453292F);
                float f7 = f4 * f5;
                float f8 = f3 * f5;
                double d3 = 80.0D;
-               Vec3d vec31 = vec3.func_72441_c((double)f7 * d3, (double)f6 * d3, (double)f8 * d3);
+               Vec3d vec31 = vec3.addVector((double)f7 * d3, (double)f6 * d3, (double)f8 * d3);
                RayTraceResult movingobjectposition = par3EntityPlayer.world.func_72901_a(vec3, vec31, true);
                if (movingobjectposition == null) {
                     return false;
                } else {
-                    Vec3d vec32 = par3EntityPlayer.func_70676_i(f);
+                    Vec3d vec32 = par3EntityPlayer.getLook(f);
                     boolean flag = false;
                     float f9 = 1.0F;
-                    List list = par3EntityPlayer.world.func_72839_b(par3EntityPlayer, par3EntityPlayer.getEntityBoundingBox().expand(vec32.field_72450_a * d3, vec32.field_72448_b * d3, vec32.field_72449_c * d3).expand((double)f9, (double)f9, (double)f9));
+                    List list = par3EntityPlayer.world.getEntitiesWithinAABBExcludingEntity(par3EntityPlayer, par3EntityPlayer.getEntityBoundingBox().expand(vec32.x * d3, vec32.y * d3, vec32.z * d3).expand((double)f9, (double)f9, (double)f9));
 
                     for(int i = 0; i < list.size(); ++i) {
                          Entity entity = (Entity)list.get(i);
-                         if (entity.func_70067_L()) {
-                              float f10 = entity.func_70111_Y();
+                         if (entity.canBeCollidedWith()) {
+                              float f10 = entity.getCollisionBorderSize();
                               AxisAlignedBB axisalignedbb = entity.getEntityBoundingBox().expand((double)f10, (double)f10, (double)f10);
                               if (axisalignedbb.func_72318_a(vec3)) {
                                    flag = true;
@@ -85,7 +85,7 @@ public class ItemTeleporter extends Item implements IPermission {
                     } else {
                          if (movingobjectposition.field_72313_a == Type.BLOCK) {
                               BlockPos pos;
-                              for(pos = movingobjectposition.func_178782_a(); par3EntityPlayer.world.getBlockState(pos).getBlock() != Blocks.field_150350_a; pos = pos.up()) {
+                              for(pos = movingobjectposition.getBlockPos(); par3EntityPlayer.world.getBlockState(pos).getBlock() != Blocks.field_150350_a; pos = pos.up()) {
                               }
 
                               par3EntityPlayer.func_70634_a((double)((float)pos.getX() + 0.5F), (double)((float)pos.getY() + 1.0F), (double)((float)pos.getZ() + 0.5F));

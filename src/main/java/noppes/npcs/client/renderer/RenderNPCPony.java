@@ -67,7 +67,7 @@ public class RenderNPCPony extends RenderNPCInterface {
           this.modelArmorChestplate.heldItemRight = this.modelArmor.heldItemRight = this.modelBipedMain.heldItemRight = itemstack == null ? 0 : 1;
           this.modelArmorChestplate.isSneak = this.modelArmor.isSneak = this.modelBipedMain.isSneak = pony.isSneaking();
           this.modelArmorChestplate.field_78093_q = this.modelArmor.field_78093_q = this.modelBipedMain.field_78093_q = false;
-          this.modelArmorChestplate.isSleeping = this.modelArmor.isSleeping = this.modelBipedMain.isSleeping = pony.func_70608_bn();
+          this.modelArmorChestplate.isSleeping = this.modelArmor.isSleeping = this.modelBipedMain.isSleeping = pony.isPlayerSleeping();
           this.modelArmorChestplate.isUnicorn = this.modelArmor.isUnicorn = this.modelBipedMain.isUnicorn = pony.isUnicorn;
           this.modelArmorChestplate.isPegasus = this.modelArmor.isPegasus = this.modelBipedMain.isPegasus = pony.isPegasus;
           if (pony.isSneaking()) {

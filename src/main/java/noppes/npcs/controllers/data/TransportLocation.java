@@ -15,7 +15,7 @@ public class TransportLocation implements IRoleTransporter.ITransportLocation {
      public void readNBT(NBTTagCompound compound) {
           if (compound != null) {
                this.id = compound.getInteger("Id");
-               this.pos = new BlockPos(compound.func_74769_h("PosX"), compound.func_74769_h("PosY"), compound.func_74769_h("PosZ"));
+               this.pos = new BlockPos(compound.getDouble("PosX"), compound.getDouble("PosY"), compound.getDouble("PosZ"));
                this.type = compound.getInteger("Type");
                this.dimension = compound.getInteger("Dimension");
                this.name = compound.getString("Name");
@@ -25,9 +25,9 @@ public class TransportLocation implements IRoleTransporter.ITransportLocation {
      public NBTTagCompound writeNBT() {
           NBTTagCompound compound = new NBTTagCompound();
           compound.setInteger("Id", this.id);
-          compound.func_74780_a("PosX", (double)this.pos.getX());
-          compound.func_74780_a("PosY", (double)this.pos.getY());
-          compound.func_74780_a("PosZ", (double)this.pos.getZ());
+          compound.setDouble("PosX", (double)this.pos.getX());
+          compound.setDouble("PosY", (double)this.pos.getY());
+          compound.setDouble("PosZ", (double)this.pos.getZ());
           compound.setInteger("Type", this.type);
           compound.setInteger("Dimension", this.dimension);
           compound.setString("Name", this.name);

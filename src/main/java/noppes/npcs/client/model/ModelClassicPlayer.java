@@ -17,13 +17,13 @@ public class ModelClassicPlayer extends ModelPlayerAlt {
           }
 
           ModelRenderer var10000 = this.field_178723_h;
-          var10000.field_78795_f += MathHelper.func_76134_b(par1 * 0.6662F + 3.1415927F) * j * par2;
+          var10000.field_78795_f += MathHelper.cos(par1 * 0.6662F + 3.1415927F) * j * par2;
           var10000 = this.field_178724_i;
-          var10000.field_78795_f += MathHelper.func_76134_b(par1 * 0.6662F) * j * par2;
+          var10000.field_78795_f += MathHelper.cos(par1 * 0.6662F) * j * par2;
           var10000 = this.field_178724_i;
-          var10000.field_78808_h += (MathHelper.func_76134_b(par1 * 0.2812F) - 1.0F) * par2;
+          var10000.field_78808_h += (MathHelper.cos(par1 * 0.2812F) - 1.0F) * par2;
           var10000 = this.field_178723_h;
-          var10000.field_78808_h += (MathHelper.func_76134_b(par1 * 0.2312F) + 1.0F) * par2;
+          var10000.field_78808_h += (MathHelper.cos(par1 * 0.2312F) + 1.0F) * par2;
           this.field_178734_a.field_78795_f = this.field_178724_i.field_78795_f;
           this.field_178734_a.field_78796_g = this.field_178724_i.field_78796_g;
           this.field_178734_a.field_78808_h = this.field_178724_i.field_78808_h;

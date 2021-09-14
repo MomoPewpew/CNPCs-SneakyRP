@@ -25,11 +25,11 @@ public class ScoreboardWrapper implements IScoreboard {
 
      protected ScoreboardWrapper(MinecraftServer server) {
           this.server = server;
-          this.board = server.getWorld(0).func_96441_U();
+          this.board = server.getWorld(0).getScoreboard();
      }
 
      public IScoreboardObjective[] getObjectives() {
-          List collection = new ArrayList(this.board.func_96514_c());
+          List collection = new ArrayList(this.board.getScoreObjectives());
           IScoreboardObjective[] objectives = new IScoreboardObjective[collection.size()];
 
           for(int i = 0; i < collection.size(); ++i) {
@@ -40,23 +40,23 @@ public class ScoreboardWrapper implements IScoreboard {
      }
 
      public String[] getPlayerList() {
-          Collection collection = this.board.func_96526_d();
+          Collection collection = this.board.getObjectiveNames();
           return (String[])collection.toArray(new String[collection.size()]);
      }
 
      public IScoreboardObjective getObjective(String name) {
-          ScoreObjective obj = this.board.func_96518_b(name);
+          ScoreObjective obj = this.board.getObjective(name);
           return obj == null ? null : new ScoreboardObjectiveWrapper(this.board, obj);
      }
 
      public boolean hasObjective(String objective) {
-          return this.board.func_96518_b(objective) != null;
+          return this.board.getObjective(objective) != null;
      }
 
      public void removeObjective(String objective) {
-          ScoreObjective obj = this.board.func_96518_b(objective);
+          ScoreObjective obj = this.board.getObjective(objective);
           if (obj != null) {
-               this.board.func_96519_k(obj);
+               this.board.removeObjective(obj);
           }
 
      }
@@ -66,7 +66,7 @@ public class ScoreboardWrapper implements IScoreboard {
           if (icriteria == null) {
                throw new CustomNPCsException("Unknown score criteria: %s", new Object[]{criteria});
           } else if (objective.length() > 0 && objective.length() <= 16) {
-               ScoreObjective obj = this.board.func_96535_a(objective, icriteria);
+               ScoreObjective obj = this.board.addScoreObjective(objective, icriteria);
                return new ScoreboardObjectiveWrapper(this.board, obj);
           } else {
                throw new CustomNPCsException("Score objective must be between 1-16 characters: %s", new Object[]{objective});
@@ -75,9 +75,9 @@ public class ScoreboardWrapper implements IScoreboard {
 
      public void setPlayerScore(String player, String objective, int score, String datatag) {
           ScoreObjective objec = this.getObjectiveWithException(objective);
-          if (!objec.func_96680_c().func_96637_b() && score >= Integer.MIN_VALUE && score <= Integer.MAX_VALUE && this.test(datatag)) {
-               Score sco = this.board.func_96529_a(player, objec);
-               sco.func_96647_c(score);
+          if (!objec.getCriteria().isReadOnly() && score >= Integer.MIN_VALUE && score <= Integer.MAX_VALUE && this.test(datatag)) {
+               Score sco = this.board.getOrCreateScore(player, objec);
+               sco.setScorePoints(score);
           }
      }
 
@@ -86,11 +86,11 @@ public class ScoreboardWrapper implements IScoreboard {
                return true;
           } else {
                try {
-                    Entity entity = CommandBase.func_184885_b(this.server, this.server, datatag);
-                    NBTTagCompound nbttagcompound = JsonToNBT.func_180713_a(datatag);
+                    Entity entity = CommandBase.getEntity(this.server, this.server, datatag);
+                    NBTTagCompound nbttagcompound = JsonToNBT.getTagFromJson(datatag);
                     NBTTagCompound nbttagcompound1 = new NBTTagCompound();
-                    entity.func_189511_e(nbttagcompound1);
-                    return NBTUtil.func_181123_a(nbttagcompound, nbttagcompound1, true);
+                    entity.writeToNBT(nbttagcompound1);
+                    return NBTUtil.areNBTEquals(nbttagcompound, nbttagcompound1, true);
                } catch (Exception var5) {
                     return false;
                }
@@ -98,7 +98,7 @@ public class ScoreboardWrapper implements IScoreboard {
      }
 
      private ScoreObjective getObjectiveWithException(String objective) {
-          ScoreObjective objec = this.board.func_96518_b(objective);
+          ScoreObjective objec = this.board.getObjective(objective);
           if (objec == null) {
                throw new CustomNPCsException("Score objective does not exist: %s", new Object[]{objective});
           } else {
@@ -108,7 +108,7 @@ public class ScoreboardWrapper implements IScoreboard {
 
      public int getPlayerScore(String player, String objective, String datatag) {
           ScoreObjective objec = this.getObjectiveWithException(objective);
-          return !objec.func_96680_c().func_96637_b() && this.test(datatag) ? this.board.func_96529_a(player, objec).func_96652_c() : 0;
+          return !objec.getCriteria().isReadOnly() && this.test(datatag) ? this.board.getOrCreateScore(player, objec).getScorePoints() : 0;
      }
 
      public boolean hasPlayerObjective(String player, String objective, String datatag) {
@@ -116,22 +116,22 @@ public class ScoreboardWrapper implements IScoreboard {
           if (!this.test(datatag)) {
                return false;
           } else {
-               return this.board.func_96510_d(player).get(objec) != null;
+               return this.board.getObjectivesForEntity(player).get(objec) != null;
           }
      }
 
      public void deletePlayerScore(String player, String objective, String datatag) {
           ScoreObjective objec = this.getObjectiveWithException(objective);
           if (this.test(datatag)) {
-               if (this.board.func_96510_d(player).remove(objec) != null) {
-                    this.board.func_96524_g(player);
+               if (this.board.getObjectivesForEntity(player).remove(objec) != null) {
+                    this.board.removePlayerFromTeams(player);
                }
 
           }
      }
 
      public IScoreboardTeam[] getTeams() {
-          List list = new ArrayList(this.board.func_96525_g());
+          List list = new ArrayList(this.board.getTeams());
           IScoreboardTeam[] teams = new IScoreboardTeam[list.size()];
 
           for(int i = 0; i < list.size(); ++i) {
@@ -142,36 +142,36 @@ public class ScoreboardWrapper implements IScoreboard {
      }
 
      public boolean hasTeam(String name) {
-          return this.board.func_96508_e(name) != null;
+          return this.board.getTeam(name) != null;
      }
 
      public IScoreboardTeam addTeam(String name) {
           if (this.hasTeam(name)) {
                throw new CustomNPCsException("Team %s already exists", new Object[]{name});
           } else {
-               return new ScoreboardTeamWrapper(this.board.func_96527_f(name), this.board);
+               return new ScoreboardTeamWrapper(this.board.createTeam(name), this.board);
           }
      }
 
      public IScoreboardTeam getTeam(String name) {
-          ScorePlayerTeam team = this.board.func_96508_e(name);
+          ScorePlayerTeam team = this.board.getTeam(name);
           return team == null ? null : new ScoreboardTeamWrapper(team, this.board);
      }
 
      public void removeTeam(String name) {
-          ScorePlayerTeam team = this.board.func_96508_e(name);
+          ScorePlayerTeam team = this.board.getTeam(name);
           if (team != null) {
-               this.board.func_96511_d(team);
+               this.board.removeTeam(team);
           }
 
      }
 
      public IScoreboardTeam getPlayerTeam(String player) {
-          ScorePlayerTeam team = this.board.func_96509_i(player);
+          ScorePlayerTeam team = this.board.getPlayersTeam(player);
           return team == null ? null : new ScoreboardTeamWrapper(team, this.board);
      }
 
      public void removePlayerTeam(String player) {
-          this.board.func_96524_g(player);
+          this.board.removePlayerFromTeams(player);
      }
 }

@@ -225,8 +225,8 @@ public class DataInventory implements IInventory, INPCInventory {
                entityitem.setPickupDelay(40);
                float f2 = this.npc.getRNG().nextFloat() * 0.5F;
                float f4 = this.npc.getRNG().nextFloat() * 3.141593F * 2.0F;
-               entityitem.motionX = (double)(-MathHelper.func_76126_a(f4) * f2);
-               entityitem.motionZ = (double)(MathHelper.func_76134_b(f4) * f2);
+               entityitem.motionX = (double)(-MathHelper.sin(f4) * f2);
+               entityitem.motionZ = (double)(MathHelper.cos(f4) * f2);
                entityitem.motionY = 0.20000000298023224D;
                return entityitem;
           } else {

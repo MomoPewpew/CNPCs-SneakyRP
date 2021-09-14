@@ -23,7 +23,7 @@ public class EntityChairMount extends Entity {
 
      public void func_70030_z() {
           super.func_70030_z();
-          if (this.world != null && !this.world.isRemote && this.func_184188_bt().isEmpty()) {
+          if (this.world != null && !this.world.isRemote && this.getPassengers().isEmpty()) {
                this.field_70128_L = true;
           }
 
@@ -46,7 +46,7 @@ public class EntityChairMount extends Entity {
      protected void writeEntityToNBT(NBTTagCompound tagCompound) {
      }
 
-     public boolean func_70067_L() {
+     public boolean canBeCollidedWith() {
           return false;
      }
 
@@ -59,7 +59,7 @@ public class EntityChairMount extends Entity {
 
      @SideOnly(Side.CLIENT)
      public void func_180426_a(double p_70056_1_, double p_70056_3_, double p_70056_5_, float p_70056_7_, float p_70056_8_, int p_70056_9_, boolean bo) {
-          this.func_70107_b(p_70056_1_, p_70056_3_, p_70056_5_);
+          this.setPosition(p_70056_1_, p_70056_3_, p_70056_5_);
           this.func_70101_b(p_70056_7_, p_70056_8_);
      }
 }

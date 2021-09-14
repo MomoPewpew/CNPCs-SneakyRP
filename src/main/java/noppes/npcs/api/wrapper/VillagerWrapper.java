@@ -9,7 +9,7 @@ public class VillagerWrapper extends EntityLivingWrapper implements IVillager {
      }
 
      public int getProfession() {
-          return ((EntityVillager)this.entity).func_70946_n();
+          return ((EntityVillager)this.entity).getProfession();
      }
 
      public String getCareer() {

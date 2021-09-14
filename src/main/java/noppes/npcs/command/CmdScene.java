@@ -9,7 +9,7 @@ import noppes.npcs.api.CommandNoppesBase;
 import noppes.npcs.entity.data.DataScenes;
 
 public class CmdScene extends CommandNoppesBase {
-     public String func_71517_b() {
+     public String getName() {
           return "scene";
      }
 

@@ -59,7 +59,7 @@ public class ModelNPCGolem extends ModelBipedAlt {
 
      public void func_78087_a(float par1, float par2, float par3, float par4, float par5, float par6, Entity entity) {
           EntityNPCInterface npc = (EntityNPCInterface)entity;
-          this.field_78093_q = npc.func_184218_aH();
+          this.field_78093_q = npc.isRiding();
           if (this.field_78117_n && (npc.currentAnimation == 7 || npc.currentAnimation == 2)) {
                this.field_78117_n = false;
           }
@@ -72,8 +72,8 @@ public class ModelNPCGolem extends ModelBipedAlt {
           this.field_178721_j.field_78795_f = 1.5F * this.func_78172_a(par1, 13.0F) * par2;
           this.field_178722_k.field_78796_g = 0.0F;
           this.field_178721_j.field_78796_g = 0.0F;
-          float f6 = MathHelper.func_76126_a(this.field_78095_p * 3.1415927F);
-          float f7 = MathHelper.func_76126_a((16.0F - (1.0F - this.field_78095_p) * (1.0F - this.field_78095_p)) * 3.1415927F);
+          float f6 = MathHelper.sin(this.field_78095_p * 3.1415927F);
+          float f7 = MathHelper.sin((16.0F - (1.0F - this.field_78095_p) * (1.0F - this.field_78095_p)) * 3.1415927F);
           ModelRenderer var10000;
           if ((double)this.field_78095_p > 0.0D) {
                this.field_178723_h.field_78808_h = 0.0F;
@@ -96,9 +96,9 @@ public class ModelNPCGolem extends ModelBipedAlt {
                var10000 = this.field_178723_h;
                var10000.field_78795_f -= f1 * 1.2F - f3 * 0.4F;
                var10000 = this.field_178723_h;
-               var10000.field_78808_h += MathHelper.func_76134_b(par3 * 0.09F) * 0.05F + 0.05F;
+               var10000.field_78808_h += MathHelper.cos(par3 * 0.09F) * 0.05F + 0.05F;
                var10000 = this.field_178723_h;
-               var10000.field_78795_f += MathHelper.func_76126_a(par3 * 0.067F) * 0.05F;
+               var10000.field_78795_f += MathHelper.sin(par3 * 0.067F) * 0.05F;
                this.field_178724_i.field_78795_f = (-0.2F - 1.5F * this.func_78172_a(par1, 13.0F)) * par2;
                this.field_78115_e.field_78796_g = -(0.1F - f1 * 0.6F) + this.field_78116_c.field_78796_g;
                this.field_178723_h.field_78796_g = -(0.1F - f1 * 0.6F) + this.field_78116_c.field_78796_g;

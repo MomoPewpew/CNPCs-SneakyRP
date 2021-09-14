@@ -19,7 +19,7 @@ public class CmdFaction extends CommandNoppesBase {
      public Faction selectedFaction;
      public List data;
 
-     public String func_71517_b() {
+     public String getName() {
           return "faction";
      }
 
@@ -35,7 +35,7 @@ public class CmdFaction extends CommandNoppesBase {
           return false;
      }
 
-     public void func_184881_a(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
+     public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
           String playername = args[0];
           String factionname = args[1];
           this.data = PlayerDataController.instance.getPlayersData(sender, playername);

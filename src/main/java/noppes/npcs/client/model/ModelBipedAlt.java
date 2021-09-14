@@ -81,7 +81,7 @@ public class ModelBipedAlt extends ModelBiped {
                this.field_78093_q = player.currentAnimation == 1;
           }
 
-          if (this.field_78117_n && (player.currentAnimation == 7 || player.func_70608_bn())) {
+          if (this.field_78117_n && (player.currentAnimation == 7 || player.isPlayerSleeping())) {
                this.field_78117_n = false;
           }
 
@@ -110,7 +110,7 @@ public class ModelBipedAlt extends ModelBiped {
           this.field_178723_h.field_78797_d = 2.0F;
           this.field_178723_h.field_78798_e = 0.0F;
           super.func_78087_a(par1, par2, par3, par4, par5, par6, entity);
-          if (player.func_70608_bn()) {
+          if (player.isPlayerSleeping()) {
                if (this.field_78116_c.field_78795_f < 0.0F) {
                     this.field_78116_c.field_78795_f = 0.0F;
                     this.field_178720_f.field_78795_f = 0.0F;
@@ -161,9 +161,9 @@ public class ModelBipedAlt extends ModelBiped {
                          this.field_178724_i.field_78808_h = job.getRotationZ(job.larm, job.larm2, partialTicks) * pi;
                          if (player.display.getHasLivingAnimation()) {
                               var10000 = this.field_178724_i;
-                              var10000.field_78808_h -= MathHelper.func_76134_b(par3 * 0.09F) * 0.05F + 0.05F;
+                              var10000.field_78808_h -= MathHelper.cos(par3 * 0.09F) * 0.05F + 0.05F;
                               var10000 = this.field_178724_i;
-                              var10000.field_78795_f -= MathHelper.func_76126_a(par3 * 0.067F) * 0.05F;
+                              var10000.field_78795_f -= MathHelper.sin(par3 * 0.067F) * 0.05F;
                          }
                     }
 
@@ -173,9 +173,9 @@ public class ModelBipedAlt extends ModelBiped {
                          this.field_178723_h.field_78808_h = job.getRotationZ(job.rarm, job.rarm2, partialTicks) * pi;
                          if (player.display.getHasLivingAnimation()) {
                               var10000 = this.field_178723_h;
-                              var10000.field_78808_h += MathHelper.func_76134_b(par3 * 0.09F) * 0.05F + 0.05F;
+                              var10000.field_78808_h += MathHelper.cos(par3 * 0.09F) * 0.05F + 0.05F;
                               var10000 = this.field_178723_h;
-                              var10000.field_78795_f += MathHelper.func_76126_a(par3 * 0.067F) * 0.05F;
+                              var10000.field_78795_f += MathHelper.sin(par3 * 0.067F) * 0.05F;
                          }
                     }
 

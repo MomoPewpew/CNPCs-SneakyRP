@@ -20,7 +20,7 @@ import noppes.npcs.controllers.ServerCloneController;
 import noppes.npcs.entity.EntityNPCInterface;
 
 public class CmdClone extends CommandNoppesBase {
-     public String func_71517_b() {
+     public String getName() {
           return "clone";
      }
 
@@ -175,7 +175,7 @@ public class CmdClone extends CommandNoppesBase {
                     throw new CommandException("Location needed", new Object[0]);
                } else {
                     Entity entity = EntityList.createEntityFromNBT(compound, world);
-                    entity.func_70107_b((double)pos.getX() + 0.5D, (double)(pos.getY() + 1), (double)pos.getZ() + 0.5D);
+                    entity.setPosition((double)pos.getX() + 0.5D, (double)(pos.getY() + 1), (double)pos.getZ() + 0.5D);
                     if (entity instanceof EntityNPCInterface) {
                          EntityNPCInterface npc = (EntityNPCInterface)entity;
                          npc.ais.setStartPos(pos);
@@ -270,7 +270,7 @@ public class CmdClone extends CommandNoppesBase {
                               }
 
                               Entity entity = EntityList.createEntityFromNBT(compound, world);
-                              entity.func_70107_b((double)npcpos.getX() + 0.5D, (double)(npcpos.getY() + 1), (double)npcpos.getZ() + 0.5D);
+                              entity.setPosition((double)npcpos.getX() + 0.5D, (double)(npcpos.getY() + 1), (double)npcpos.getZ() + 0.5D);
                               if (entity instanceof EntityNPCInterface) {
                                    EntityNPCInterface npc = (EntityNPCInterface)entity;
                                    npc.ais.setStartPos(npcpos);

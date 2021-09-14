@@ -16,7 +16,7 @@ public class CmdHelp extends CommandNoppesBase {
           this.parent = parent;
      }
 
-     public String func_71517_b() {
+     public String getName() {
           return "help";
      }
 
@@ -24,14 +24,14 @@ public class CmdHelp extends CommandNoppesBase {
           return "help [command]";
      }
 
-     public void func_184881_a(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
+     public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
           if (args.length == 0) {
                this.sendMessage(sender, "------Noppes Commands------", new Object[0]);
                Iterator var8 = this.parent.map.entrySet().iterator();
 
                while(var8.hasNext()) {
                     Entry entry = (Entry)var8.next();
-                    this.sendMessage(sender, (String)entry.getKey() + ": " + ((CommandNoppesBase)entry.getValue()).func_71518_a(sender), new Object[0]);
+                    this.sendMessage(sender, (String)entry.getKey() + ": " + ((CommandNoppesBase)entry.getValue()).getUsage(sender), new Object[0]);
                }
 
           } else {
@@ -39,7 +39,7 @@ public class CmdHelp extends CommandNoppesBase {
                if (command == null) {
                     throw new CommandException("Unknown command " + args[0], new Object[0]);
                } else if (command.subcommands.isEmpty()) {
-                    sender.sendMessage(new TextComponentTranslation(command.func_71518_a(sender), new Object[0]));
+                    sender.sendMessage(new TextComponentTranslation(command.getUsage(sender), new Object[0]));
                } else {
                     Method m = null;
                     if (args.length > 1) {
@@ -47,7 +47,7 @@ public class CmdHelp extends CommandNoppesBase {
                     }
 
                     if (m == null) {
-                         this.sendMessage(sender, "------" + command.func_71517_b() + " SubCommands------", new Object[0]);
+                         this.sendMessage(sender, "------" + command.getName() + " SubCommands------", new Object[0]);
                          Iterator var6 = command.subcommands.entrySet().iterator();
 
                          while(var6.hasNext()) {
@@ -55,7 +55,7 @@ public class CmdHelp extends CommandNoppesBase {
                               sender.sendMessage(new TextComponentTranslation((String)entry.getKey() + ": " + ((CommandNoppesBase.SubCommand)((Method)entry.getValue()).getAnnotation(CommandNoppesBase.SubCommand.class)).desc(), new Object[0]));
                          }
                     } else {
-                         this.sendMessage(sender, "------" + command.func_71517_b() + "." + args[1].toLowerCase() + " Command------", new Object[0]);
+                         this.sendMessage(sender, "------" + command.getName() + "." + args[1].toLowerCase() + " Command------", new Object[0]);
                          CommandNoppesBase.SubCommand sc = (CommandNoppesBase.SubCommand)m.getAnnotation(CommandNoppesBase.SubCommand.class);
                          sender.sendMessage(new TextComponentTranslation(sc.desc(), new Object[0]));
                          if (!sc.usage().isEmpty()) {

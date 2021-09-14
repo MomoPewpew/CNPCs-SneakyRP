@@ -25,7 +25,7 @@ public class BlockData {
           compound.setInteger("BuildY", this.pos.getY());
           compound.setInteger("BuildZ", this.pos.getZ());
           compound.setString("Block", ((ResourceLocation)Block.REGISTRY.getNameForObject(this.state.getBlock())).toString());
-          compound.setInteger("Meta", this.state.getBlock().func_176201_c(this.state));
+          compound.setInteger("Meta", this.state.getBlock().getMetaFromState(this.state));
           if (this.tile != null) {
                compound.setTag("Tile", this.tile);
           }
@@ -35,11 +35,11 @@ public class BlockData {
 
      public static BlockData getData(NBTTagCompound compound) {
           BlockPos pos = new BlockPos(compound.getInteger("BuildX"), compound.getInteger("BuildY"), compound.getInteger("BuildZ"));
-          Block b = Block.func_149684_b(compound.getString("Block"));
+          Block b = Block.getBlockFromName(compound.getString("Block"));
           if (b == null) {
                return null;
           } else {
-               IBlockState state = b.func_176203_a(compound.getInteger("Meta"));
+               IBlockState state = b.getStateFromMeta(compound.getInteger("Meta"));
                NBTTagCompound tile = null;
                if (compound.hasKey("Tile")) {
                     tile = compound.getCompoundTag("Tile");

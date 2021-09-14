@@ -134,7 +134,7 @@ public class LinkedNpcController {
      }
 
      private void cleanTags(NBTTagCompound compound) {
-          compound.func_82580_o("MovingPathNew");
+          compound.removeTag("MovingPathNew");
      }
 
      public LinkedNpcController.LinkedData getData(String name) {

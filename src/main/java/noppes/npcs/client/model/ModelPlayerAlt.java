@@ -99,7 +99,7 @@ public class ModelPlayerAlt extends ModelPlayer {
                this.field_78093_q = player.currentAnimation == 1;
           }
 
-          if (this.field_78117_n && (player.currentAnimation == 7 || player.func_70608_bn())) {
+          if (this.field_78117_n && (player.currentAnimation == 7 || player.isPlayerSleeping())) {
                this.field_78117_n = false;
           }
 
@@ -133,7 +133,7 @@ public class ModelPlayerAlt extends ModelPlayer {
           } catch (Exception var15) {
           }
 
-          if (player.func_70608_bn()) {
+          if (player.isPlayerSleeping()) {
                if (this.field_78116_c.field_78795_f < 0.0F) {
                     this.field_78116_c.field_78795_f = 0.0F;
                     this.field_178720_f.field_78795_f = 0.0F;
@@ -184,9 +184,9 @@ public class ModelPlayerAlt extends ModelPlayer {
                          this.field_178724_i.field_78808_h = job.getRotationZ(job.larm, job.larm2, partialTicks) * pi;
                          if (player.display.getHasLivingAnimation()) {
                               var10000 = this.field_178724_i;
-                              var10000.field_78808_h -= MathHelper.func_76134_b(ageInTicks * 0.09F) * 0.05F + 0.05F;
+                              var10000.field_78808_h -= MathHelper.cos(ageInTicks * 0.09F) * 0.05F + 0.05F;
                               var10000 = this.field_178724_i;
-                              var10000.field_78795_f -= MathHelper.func_76126_a(ageInTicks * 0.067F) * 0.05F;
+                              var10000.field_78795_f -= MathHelper.sin(ageInTicks * 0.067F) * 0.05F;
                          }
                     }
 
@@ -196,9 +196,9 @@ public class ModelPlayerAlt extends ModelPlayer {
                          this.field_178723_h.field_78808_h = job.getRotationZ(job.rarm, job.rarm2, partialTicks) * pi;
                          if (player.display.getHasLivingAnimation()) {
                               var10000 = this.field_178723_h;
-                              var10000.field_78808_h += MathHelper.func_76134_b(ageInTicks * 0.09F) * 0.05F + 0.05F;
+                              var10000.field_78808_h += MathHelper.cos(ageInTicks * 0.09F) * 0.05F + 0.05F;
                               var10000 = this.field_178723_h;
-                              var10000.field_78795_f += MathHelper.func_76126_a(ageInTicks * 0.067F) * 0.05F;
+                              var10000.field_78795_f += MathHelper.sin(ageInTicks * 0.067F) * 0.05F;
                          }
                     }
 

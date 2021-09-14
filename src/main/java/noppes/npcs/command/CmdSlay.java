@@ -54,7 +54,7 @@ public class CmdSlay extends CommandNoppesBase {
           this.SlayMap.remove("mob");
      }
 
-     public String func_71517_b() {
+     public String getName() {
           return "slay";
      }
 
@@ -66,7 +66,7 @@ public class CmdSlay extends CommandNoppesBase {
           return "<type>.. [range]";
      }
 
-     public void func_184881_a(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
+     public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
           ArrayList toDelete = new ArrayList();
           boolean deleteNPCs = false;
           String[] var6 = args;

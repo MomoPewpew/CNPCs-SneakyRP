@@ -17,10 +17,10 @@ public class ItemArmorWrapper extends ItemStackWrapper implements IItemArmor {
      }
 
      public int getArmorSlot() {
-          return this.armor.func_185083_B_().func_188452_c();
+          return this.armor.getEquipmentSlot().getSlotIndex();
      }
 
      public String getArmorMaterial() {
-          return this.armor.func_82812_d().func_179242_c();
+          return this.armor.getArmorMaterial().getName();
      }
 }

@@ -95,9 +95,9 @@ public class ServerCloneController implements ICloneHandler {
                          ++number;
                     }
 
-                    compound.func_82580_o("ClonedName");
-                    compound.func_82580_o("ClonedTab");
-                    compound.func_82580_o("ClonedDate");
+                    compound.removeTag("ClonedName");
+                    compound.removeTag("ClonedTab");
+                    compound.removeTag("ClonedDate");
                     this.cleanTags(compound);
                     ((Map)tab).put(name, compound);
                }
@@ -195,14 +195,14 @@ public class ServerCloneController implements ICloneHandler {
                nbttagcompound.setInteger("TransporterId", -1);
           }
 
-          nbttagcompound.func_82580_o("StartPosNew");
-          nbttagcompound.func_82580_o("StartPos");
-          nbttagcompound.func_82580_o("MovingPathNew");
-          nbttagcompound.func_82580_o("Pos");
-          nbttagcompound.func_82580_o("Riding");
-          nbttagcompound.func_82580_o("UUID");
-          nbttagcompound.func_82580_o("UUIDMost");
-          nbttagcompound.func_82580_o("UUIDLeast");
+          nbttagcompound.removeTag("StartPosNew");
+          nbttagcompound.removeTag("StartPos");
+          nbttagcompound.removeTag("MovingPathNew");
+          nbttagcompound.removeTag("Pos");
+          nbttagcompound.removeTag("Riding");
+          nbttagcompound.removeTag("UUID");
+          nbttagcompound.removeTag("UUIDMost");
+          nbttagcompound.removeTag("UUIDLeast");
           if (!nbttagcompound.hasKey("ModRev")) {
                nbttagcompound.setInteger("ModRev", 1);
           }
@@ -222,9 +222,9 @@ public class ServerCloneController implements ICloneHandler {
 
           if (nbttagcompound.hasKey("TransformAI")) {
                adv = nbttagcompound.getCompoundTag("TransformAI");
-               adv.func_82580_o("StartPosNew");
-               adv.func_82580_o("StartPos");
-               adv.func_82580_o("MovingPathNew");
+               adv.removeTag("StartPosNew");
+               adv.removeTag("StartPos");
+               adv.removeTag("MovingPathNew");
                nbttagcompound.setTag("TransformAI", adv);
           }
 

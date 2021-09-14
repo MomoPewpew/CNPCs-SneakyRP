@@ -9,7 +9,7 @@ public class ItemBlockWrapper extends ItemStackWrapper implements IItemBlock {
 
      protected ItemBlockWrapper(ItemStack item) {
           super(item);
-          Block b = Block.func_149634_a(item.getItem());
+          Block b = Block.getBlockFromItem(item.getItem());
           this.blockName = Block.REGISTRY.getNameForObject(b) + "";
      }
 

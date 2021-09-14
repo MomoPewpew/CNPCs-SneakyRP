@@ -339,7 +339,7 @@ public class DataScenes {
                                    Path pathentity = DataScenes.this.npc.getNavigator().func_179680_a(pos);
                                    DataScenes.this.npc.getNavigator().setPath(pathentity, 1.0D);
                               } else if (!DataScenes.this.npc.isInRange((double)pos.getX() + 0.5D, (double)pos.getY(), (double)pos.getZ() + 0.5D, 2.0D)) {
-                                   DataScenes.this.npc.func_70107_b((double)pos.getX() + 0.5D, (double)pos.getY(), (double)pos.getZ() + 0.5D);
+                                   DataScenes.this.npc.setPosition((double)pos.getX() + 0.5D, (double)pos.getY(), (double)pos.getZ() + 0.5D);
                               }
                          }
                     }

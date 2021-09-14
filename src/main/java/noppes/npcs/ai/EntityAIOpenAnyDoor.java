@@ -33,10 +33,10 @@ public class EntityAIOpenAnyDoor extends EntityAIBase {
           if (!this.npc.field_70123_F) {
                return false;
           } else {
-               Path pathentity = this.npc.getNavigator().func_75505_d();
-               if (pathentity != null && !pathentity.func_75879_b()) {
-                    for(int i = 0; i < Math.min(pathentity.func_75873_e() + 2, pathentity.func_75874_d()); ++i) {
-                         PathPoint pathpoint = pathentity.func_75877_a(i);
+               Path pathentity = this.npc.getNavigator().getPath();
+               if (pathentity != null && !pathentity.isFinished()) {
+                    for(int i = 0; i < Math.min(pathentity.getCurrentPathIndex() + 2, pathentity.getCurrentPathLength()); ++i) {
+                         PathPoint pathpoint = pathentity.getPathPointFromIndex(i);
                          this.position = new BlockPos(pathpoint.field_75839_a, pathpoint.field_75837_b + 1, pathpoint.field_75838_c);
                          if (this.npc.getDistanceSq((double)this.position.getX(), this.npc.field_70163_u, (double)this.position.getZ()) <= 2.25D) {
                               this.door = this.getDoor(this.position);
@@ -85,11 +85,11 @@ public class EntityAIOpenAnyDoor extends EntityAIBase {
      public Block getDoor(BlockPos pos) {
           IBlockState state = this.npc.world.getBlockState(pos);
           Block block = state.getBlock();
-          if (!state.func_185913_b() && block != Blocks.field_150454_av) {
+          if (!state.isFullBlock() && block != Blocks.field_150454_av) {
                if (block instanceof BlockDoor) {
                     return block;
                } else {
-                    Set set = state.func_177228_b().keySet();
+                    Set set = state.getProperties().keySet();
                     Iterator var5 = set.iterator();
 
                     IProperty prop;
@@ -99,7 +99,7 @@ public class EntityAIOpenAnyDoor extends EntityAIBase {
                          }
 
                          prop = (IProperty)var5.next();
-                    } while(!(prop instanceof PropertyBool) || !prop.func_177701_a().equals("open"));
+                    } while(!(prop instanceof PropertyBool) || !prop.getName().equals("open"));
 
                     this.property = prop;
                     return block;
@@ -111,14 +111,14 @@ public class EntityAIOpenAnyDoor extends EntityAIBase {
 
      public void setDoorState(Block block, BlockPos position, boolean open) {
           if (block instanceof BlockDoor) {
-               ((BlockDoor)block).func_176512_a(this.npc.world, position, open);
+               ((BlockDoor)block).toggleDoor(this.npc.world, position, open);
           } else {
                IBlockState state = this.npc.world.getBlockState(position);
                if (state.getBlock() != block) {
                     return;
                }
 
-               this.npc.world.setBlockState(position, state.func_177226_a(this.property, open));
+               this.npc.world.setBlockState(position, state.withProperty(this.property, open));
                this.npc.world.playEvent((EntityPlayer)null, open ? 1003 : 1006, position, 0);
           }
 

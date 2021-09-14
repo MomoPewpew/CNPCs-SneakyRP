@@ -518,7 +518,7 @@ public class ClientProxy extends CommonProxy {
                BlockPos pos = (BlockPos)ob[0];
                int id = (Integer)ob[1];
                Block block = Block.func_149729_e(id & 4095);
-               Minecraft.getMinecraft().field_71452_i.func_180533_a(pos, block.func_176203_a(id >> 12 & 255));
+               Minecraft.getMinecraft().field_71452_i.func_180533_a(pos, block.getStateFromMeta(id >> 12 & 255));
           } else if (string.equals("ModelData")) {
                ModelData data = (ModelData)ob[0];
                ModelPartData particles = (ModelPartData)ob[1];

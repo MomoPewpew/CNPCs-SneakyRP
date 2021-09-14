@@ -28,7 +28,7 @@ public class EntityLivingWrapper extends EntityLivingBaseWrapper implements IEnt
           if (!this.isNavigating()) {
                return null;
           } else {
-               PathPoint point = ((EntityLiving)this.entity).getNavigator().func_75505_d().func_75870_c();
+               PathPoint point = ((EntityLiving)this.entity).getNavigator().getPath().getFinalPathPoint();
                return point == null ? null : new BlockPosWrapper(new BlockPos(point.field_75839_a, point.field_75837_b, point.field_75838_c));
           }
      }
@@ -61,6 +61,6 @@ public class EntityLivingWrapper extends EntityLivingBaseWrapper implements IEnt
      }
 
      public void jump() {
-          ((EntityLiving)this.entity).func_70683_ar().func_75660_a();
+          ((EntityLiving)this.entity).getJumpHelper().setJumping();
      }
 }

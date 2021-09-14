@@ -33,12 +33,12 @@ public class BlockBuilder extends BlockInterface implements IPermission {
           this.func_149672_a(SoundType.field_185851_d);
      }
 
-     public int func_176201_c(IBlockState state) {
+     public int getMetaFromState(IBlockState state) {
           return (Integer)state.getValue(ROTATION);
      }
 
-     public IBlockState func_176203_a(int meta) {
-          return this.getDefaultState().func_177226_a(ROTATION, meta);
+     public IBlockState getStateFromMeta(int meta) {
+          return this.getDefaultState().withProperty(ROTATION, meta);
      }
 
      protected BlockStateContainer func_180661_e() {
@@ -49,7 +49,7 @@ public class BlockBuilder extends BlockInterface implements IPermission {
           return EnumBlockRenderType.MODEL;
      }
 
-     public boolean func_180639_a(World par1World, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
+     public boolean onBlockActivated(World par1World, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
           if (par1World.isRemote) {
                return true;
           } else {
@@ -64,7 +64,7 @@ public class BlockBuilder extends BlockInterface implements IPermission {
 
      public void func_180633_a(World world, BlockPos pos, IBlockState state, EntityLivingBase entity, ItemStack stack) {
           int var6 = MathHelper.floor((double)(entity.field_70177_z / 90.0F) + 0.5D) & 3;
-          world.func_180501_a(pos, state.func_177226_a(ROTATION, var6), 2);
+          world.setBlockState(pos, state.withProperty(ROTATION, var6), 2);
           if (entity instanceof EntityPlayer && !world.isRemote) {
                NoppesUtilServer.sendOpenGui((EntityPlayer)entity, EnumGuiType.BuilderBlock, (EntityNPCInterface)null, pos.getX(), pos.getY(), pos.getZ());
           }

@@ -53,7 +53,7 @@ public class CmdScript extends CommandNoppesBase {
           return true;
      }
 
-     public String func_71517_b() {
+     public String getName() {
           return "script";
      }
 

@@ -31,7 +31,7 @@ public class EntityAIWatchClosest extends EntityAIBase {
                if (this.watchedClass == EntityPlayer.class) {
                     this.closestEntity = this.npc.world.getClosestPlayerToEntity(this.npc, (double)this.field_75333_c);
                } else {
-                    this.closestEntity = this.npc.world.func_72857_a(this.watchedClass, this.npc.getEntityBoundingBox().expand((double)this.field_75333_c, 3.0D, (double)this.field_75333_c), this.npc);
+                    this.closestEntity = this.npc.world.findNearestEntityWithinAABB(this.watchedClass, this.npc.getEntityBoundingBox().expand((double)this.field_75333_c, 3.0D, (double)this.field_75333_c), this.npc);
                     if (this.closestEntity != null) {
                          return this.npc.canSee(this.closestEntity);
                     }
@@ -60,7 +60,7 @@ public class EntityAIWatchClosest extends EntityAIBase {
      }
 
      public void updateTask() {
-          this.npc.getLookHelper().func_75650_a(this.closestEntity.field_70165_t, this.closestEntity.field_70163_u + (double)this.closestEntity.getEyeHeight(), this.closestEntity.field_70161_v, 10.0F, (float)this.npc.getVerticalFaceSpeed());
+          this.npc.getLookHelper().setLookPosition(this.closestEntity.field_70165_t, this.closestEntity.field_70163_u + (double)this.closestEntity.getEyeHeight(), this.closestEntity.field_70161_v, 10.0F, (float)this.npc.getVerticalFaceSpeed());
           --this.lookTime;
      }
 }

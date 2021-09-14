@@ -83,7 +83,7 @@ public class EntityAIRangedAttack extends EntityAIBase {
                          indirect = !this.npc.getEntitySenses().canSee(this.attackTarget);
                     }
 
-                    this.npc.func_82196_d(this.attackTarget, indirect ? 1.0F : 0.0F);
+                    this.npc.attackEntityWithRangedAttack(this.attackTarget, indirect ? 1.0F : 0.0F);
                     if (this.npc.currentAnimation != 6) {
                          this.npc.swingArm(EnumHand.MAIN_HAND);
                     }

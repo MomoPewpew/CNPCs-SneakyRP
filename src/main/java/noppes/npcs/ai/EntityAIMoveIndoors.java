@@ -22,7 +22,7 @@ public class EntityAIMoveIndoors extends EntityAIBase {
      }
 
      public boolean shouldExecute() {
-          if ((!this.theCreature.world.isDaytime() || this.theCreature.world.func_72896_J()) && !this.theCreature.world.field_73011_w.func_191066_m()) {
+          if ((!this.theCreature.world.isDaytime() || this.theCreature.world.isRaining()) && !this.theCreature.world.field_73011_w.hasSkyLight()) {
                BlockPos pos = new BlockPos(this.theCreature.field_70165_t, this.theCreature.getEntityBoundingBox().field_72338_b, this.theCreature.field_70161_v);
                if (!this.world.canSeeSky(pos) && this.world.getLight(pos) > 8) {
                     return false;
@@ -31,9 +31,9 @@ public class EntityAIMoveIndoors extends EntityAIBase {
                     if (var1 == null) {
                          return false;
                     } else {
-                         this.shelterX = var1.field_72450_a;
-                         this.shelterY = var1.field_72448_b;
-                         this.shelterZ = var1.field_72449_c;
+                         this.shelterX = var1.x;
+                         this.shelterY = var1.y;
+                         this.shelterZ = var1.z;
                          return true;
                     }
                }

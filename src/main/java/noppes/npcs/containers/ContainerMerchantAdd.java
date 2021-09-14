@@ -38,8 +38,8 @@ public class ContainerMerchantAdd extends ContainerNpcInterface {
 
      }
 
-     public void func_75142_b() {
-          super.func_75142_b();
+     public void detectAndSendChanges() {
+          super.detectAndSendChanges();
      }
 
      public void onCraftMatrixChanged(IInventory par1IInventory) {

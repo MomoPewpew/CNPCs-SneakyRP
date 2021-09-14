@@ -32,8 +32,8 @@ public class EntityAIClosestTarget extends EntityAITarget {
           if (this.targetChance > 0 && this.field_75299_d.getRNG().nextInt(this.targetChance) != 0) {
                return false;
           } else {
-               double d0 = this.func_111175_f();
-               List list = this.field_75299_d.world.func_175647_a(this.targetClass, this.field_75299_d.getEntityBoundingBox().expand(d0, (double)MathHelper.func_76143_f(d0 / 2.0D), d0), this.field_82643_g);
+               double d0 = this.getTargetDistance();
+               List list = this.field_75299_d.world.getEntitiesWithinAABB(this.targetClass, this.field_75299_d.getEntityBoundingBox().expand(d0, (double)MathHelper.ceil(d0 / 2.0D), d0), this.field_82643_g);
                Collections.sort(list, this.theNearestAttackableTargetSorter);
                if (list.isEmpty()) {
                     return false;

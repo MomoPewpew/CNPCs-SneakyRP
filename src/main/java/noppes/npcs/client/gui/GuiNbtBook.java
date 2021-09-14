@@ -136,7 +136,7 @@ public class GuiNbtBook extends GuiNPCInterface implements IGuiData {
           super.closeSubGui(gui);
           if (gui instanceof SubGuiNpcTextArea) {
                try {
-                    this.compound = JsonToNBT.func_180713_a(((SubGuiNpcTextArea)gui).text);
+                    this.compound = JsonToNBT.getTagFromJson(((SubGuiNpcTextArea)gui).text);
                     this.errorMessage = this.faultyText = null;
                } catch (NBTException var3) {
                     this.errorMessage = var3.getLocalizedMessage();

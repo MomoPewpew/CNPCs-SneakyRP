@@ -84,7 +84,7 @@ public class ItemStackWrapper implements IItemStack, ICapabilityProvider, ICapab
      private final IData storeddata = new IData() {
           public void put(String key, Object value) {
                if (value instanceof Number) {
-                    ItemStackWrapper.this.storedData.func_74780_a(key, ((Number)value).doubleValue());
+                    ItemStackWrapper.this.storedData.setDouble(key, ((Number)value).doubleValue());
                } else if (value instanceof String) {
                     ItemStackWrapper.this.storedData.setString(key, (String)value);
                }
@@ -96,12 +96,12 @@ public class ItemStackWrapper implements IItemStack, ICapabilityProvider, ICapab
                     return null;
                } else {
                     NBTBase base = ItemStackWrapper.this.storedData.getTag(key);
-                    return base instanceof NBTPrimitive ? ((NBTPrimitive)base).func_150286_g() : ((NBTTagString)base).func_150285_a_();
+                    return base instanceof NBTPrimitive ? ((NBTPrimitive)base).getDouble() : ((NBTTagString)base).getString();
                }
           }
 
           public void remove(String key) {
-               ItemStackWrapper.this.storedData.func_82580_o(key);
+               ItemStackWrapper.this.storedData.removeTag(key);
           }
 
           public boolean has(String key) {
@@ -164,10 +164,10 @@ public class ItemStackWrapper implements IItemStack, ICapabilityProvider, ICapab
                }
 
                if (value != 0.0D) {
-                    NBTTagCompound nbttagcompound = SharedMonsterAttributes.func_111262_a(new AttributeModifier(name, value, 0));
+                    NBTTagCompound nbttagcompound = SharedMonsterAttributes.writeAttributeModifierToNBT(new AttributeModifier(name, value, 0));
                     nbttagcompound.setString("AttributeName", name);
                     if (slot >= 0) {
-                         nbttagcompound.setString("Slot", EntityEquipmentSlot.values()[slot].func_188450_d());
+                         nbttagcompound.setString("Slot", EntityEquipmentSlot.values()[slot].getName());
                     }
 
                     newList.appendTag(nbttagcompound);
@@ -184,7 +184,7 @@ public class ItemStackWrapper implements IItemStack, ICapabilityProvider, ICapab
           if (compound == null) {
                return 0.0D;
           } else {
-               Multimap map = this.item.func_111283_C(EntityEquipmentSlot.MAINHAND);
+               Multimap map = this.item.getAttributeModifiers(EntityEquipmentSlot.MAINHAND);
                Iterator var4 = map.entries().iterator();
 
                Entry entry;
@@ -197,7 +197,7 @@ public class ItemStackWrapper implements IItemStack, ICapabilityProvider, ICapab
                } while(!((String)entry.getKey()).equals(name));
 
                AttributeModifier mod = (AttributeModifier)entry.getValue();
-               return mod.func_111164_d();
+               return mod.getAmount();
           }
      }
 
@@ -224,35 +224,35 @@ public class ItemStackWrapper implements IItemStack, ICapabilityProvider, ICapab
      }
 
      public void setItemDamage(int value) {
-          this.item.func_77964_b(value);
+          this.item.setItemDamage(value);
      }
 
      public void addEnchantment(String id, int strenght) {
-          Enchantment ench = Enchantment.func_180305_b(id);
+          Enchantment ench = Enchantment.getEnchantmentByLocation(id);
           if (ench == null) {
                throw new CustomNPCsException("Unknown enchant id:" + id, new Object[0]);
           } else {
-               this.item.func_77966_a(ench, strenght);
+               this.item.addEnchantment(ench, strenght);
           }
      }
 
      public boolean isEnchanted() {
-          return this.item.func_77948_v();
+          return this.item.isItemEnchanted();
      }
 
      public boolean hasEnchant(String id) {
-          Enchantment ench = Enchantment.func_180305_b(id);
+          Enchantment ench = Enchantment.getEnchantmentByLocation(id);
           if (ench == null) {
                throw new CustomNPCsException("Unknown enchant id:" + id, new Object[0]);
           } else if (!this.isEnchanted()) {
                return false;
           } else {
-               int enchId = Enchantment.func_185258_b(ench);
-               NBTTagList list = this.item.func_77986_q();
+               int enchId = Enchantment.getEnchantmentID(ench);
+               NBTTagList list = this.item.getEnchantmentTagList();
 
                for(int i = 0; i < list.tagCount(); ++i) {
                     NBTTagCompound compound = list.getCompoundTagAt(i);
-                    if (compound.func_74765_d("id") == enchId) {
+                    if (compound.getShort("id") == enchId) {
                          return true;
                     }
                }
@@ -262,19 +262,19 @@ public class ItemStackWrapper implements IItemStack, ICapabilityProvider, ICapab
      }
 
      public boolean removeEnchant(String id) {
-          Enchantment ench = Enchantment.func_180305_b(id);
+          Enchantment ench = Enchantment.getEnchantmentByLocation(id);
           if (ench == null) {
                throw new CustomNPCsException("Unknown enchant id:" + id, new Object[0]);
           } else if (!this.isEnchanted()) {
                return false;
           } else {
-               int enchId = Enchantment.func_185258_b(ench);
-               NBTTagList list = this.item.func_77986_q();
+               int enchId = Enchantment.getEnchantmentID(ench);
+               NBTTagList list = this.item.getEnchantmentTagList();
                NBTTagList newList = new NBTTagList();
 
                for(int i = 0; i < list.tagCount(); ++i) {
                     NBTTagCompound compound = list.getCompoundTagAt(i);
-                    if (compound.func_74765_d("id") != enchId) {
+                    if (compound.getShort("id") != enchId) {
                          newList.appendTag(compound);
                     }
                }
@@ -289,24 +289,24 @@ public class ItemStackWrapper implements IItemStack, ICapabilityProvider, ICapab
      }
 
      public boolean isBlock() {
-          Block block = Block.func_149634_a(this.item.getItem());
+          Block block = Block.getBlockFromItem(this.item.getItem());
           return block != null && block != Blocks.field_150350_a;
      }
 
      public boolean hasCustomName() {
-          return this.item.func_82837_s();
+          return this.item.hasDisplayName();
      }
 
      public void setCustomName(String name) {
-          this.item.func_151001_c(name);
+          this.item.setStackDisplayName(name);
      }
 
      public String getDisplayName() {
-          return this.item.func_82833_r();
+          return this.item.getDisplayName();
      }
 
      public String getItemName() {
-          return this.item.getItem().func_77653_i(this.item);
+          return this.item.getItem().getItemStackDisplayName(this.item);
      }
 
      public String getName() {
@@ -336,7 +336,7 @@ public class ItemStackWrapper implements IItemStack, ICapabilityProvider, ICapab
      }
 
      public void damageItem(int damage, IEntityLiving living) {
-          this.item.func_77972_a(damage, living == null ? null : living.getMCEntity());
+          this.item.damageItem(damage, living == null ? null : living.getMCEntity());
      }
 
      public boolean isBook() {
@@ -344,7 +344,7 @@ public class ItemStackWrapper implements IItemStack, ICapabilityProvider, ICapab
      }
 
      public int getFoodLevel() {
-          return this.item.getItem() instanceof ItemFood ? ((ItemFood)this.item.getItem()).func_150905_g(this.item) : 0;
+          return this.item.getItem() instanceof ItemFood ? ((ItemFood)this.item.getItem()).getHealAmount(this.item) : 0;
      }
 
      public IItemStack copy() {
@@ -356,7 +356,7 @@ public class ItemStackWrapper implements IItemStack, ICapabilityProvider, ICapab
      }
 
      public int getMaxItemDamage() {
-          return this.item.func_77958_k();
+          return this.item.getMaxDamage();
      }
 
      public INbt getItemNbt() {
@@ -366,19 +366,19 @@ public class ItemStackWrapper implements IItemStack, ICapabilityProvider, ICapab
      }
 
      public double getAttackDamage() {
-          HashMultimap map = (HashMultimap)this.item.func_111283_C(EntityEquipmentSlot.MAINHAND);
+          HashMultimap map = (HashMultimap)this.item.getAttributeModifiers(EntityEquipmentSlot.MAINHAND);
           Iterator iterator = map.entries().iterator();
           double damage = 0.0D;
 
           while(iterator.hasNext()) {
                Entry entry = (Entry)iterator.next();
-               if (entry.getKey().equals(SharedMonsterAttributes.field_111264_e.func_111108_a())) {
+               if (entry.getKey().equals(SharedMonsterAttributes.field_111264_e.getName())) {
                     AttributeModifier mod = (AttributeModifier)entry.getValue();
-                    damage = mod.func_111164_d();
+                    damage = mod.getAmount();
                }
           }
 
-          damage += (double)EnchantmentHelper.func_152377_a(this.item, EnumCreatureAttribute.UNDEFINED);
+          damage += (double)EnchantmentHelper.getModifierForCreature(this.item, EnumCreatureAttribute.UNDEFINED);
           return damage;
      }
 
@@ -429,7 +429,7 @@ public class ItemStackWrapper implements IItemStack, ICapabilityProvider, ICapab
                     if (item.getItem() instanceof ItemArmor) {
                          return new ItemArmorWrapper(item);
                     } else {
-                         Block block = Block.func_149634_a(item.getItem());
+                         Block block = Block.getBlockFromItem(item.getItem());
                          return (ItemStackWrapper)(block != Blocks.field_150350_a ? new ItemBlockWrapper(item) : new ItemStackWrapper(item));
                     }
                } else {
@@ -441,8 +441,8 @@ public class ItemStackWrapper implements IItemStack, ICapabilityProvider, ICapab
      }
 
      public String[] getLore() {
-          NBTTagCompound compound = this.item.func_179543_a("display");
-          if (compound != null && compound.func_150299_b("Lore") == 9) {
+          NBTTagCompound compound = this.item.getSubCompound("display");
+          if (compound != null && compound.getTagId("Lore") == 9) {
                NBTTagList nbttaglist = compound.getTagList("Lore", 8);
                if (nbttaglist.hasNoTags()) {
                     return new String[0];
@@ -450,7 +450,7 @@ public class ItemStackWrapper implements IItemStack, ICapabilityProvider, ICapab
                     List lore = new ArrayList();
 
                     for(int i = 0; i < nbttaglist.tagCount(); ++i) {
-                         lore.add(nbttaglist.func_150307_f(i));
+                         lore.add(nbttaglist.getStringTagAt(i));
                     }
 
                     return (String[])lore.toArray(new String[lore.size()]);
@@ -461,7 +461,7 @@ public class ItemStackWrapper implements IItemStack, ICapabilityProvider, ICapab
      }
 
      public void setLore(String[] lore) {
-          NBTTagCompound compound = this.item.func_190925_c("display");
+          NBTTagCompound compound = this.item.getOrCreateSubCompound("display");
           if (lore != null && lore.length != 0) {
                NBTTagList nbtlist = new NBTTagList();
                String[] var4 = lore;
@@ -474,7 +474,7 @@ public class ItemStackWrapper implements IItemStack, ICapabilityProvider, ICapab
 
                compound.setTag("Lore", nbtlist);
           } else {
-               compound.func_82580_o("Lore");
+               compound.removeTag("Lore");
           }
      }
 

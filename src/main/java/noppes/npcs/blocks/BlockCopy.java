@@ -25,7 +25,7 @@ public class BlockCopy extends BlockInterface implements IPermission {
           this.func_149672_a(SoundType.field_185851_d);
      }
 
-     public boolean func_180639_a(World par1World, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
+     public boolean onBlockActivated(World par1World, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
           if (par1World.isRemote) {
                return true;
           } else {

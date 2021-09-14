@@ -44,7 +44,7 @@ public class Blueprint implements ISchematic {
                     for(x = 0; x < this.getSizeX(); ++x) {
                          state = pallete[structure[y][z][x] & '\uffff'];
                          if (state.getBlock() != Blocks.field_189881_dj && state.func_185917_h()) {
-                              world.func_180501_a(pos.add(x, y, z), state, 2);
+                              world.setBlockState(pos.add(x, y, z), state, 2);
                          }
                     }
                }
@@ -55,7 +55,7 @@ public class Blueprint implements ISchematic {
                     for(x = 0; x < this.getSizeX(); ++x) {
                          state = pallete[structure[y][z][x]];
                          if (state.getBlock() != Blocks.field_189881_dj && !state.func_185917_h()) {
-                              world.func_180501_a(pos.add(x, y, z), state, 2);
+                              world.setBlockState(pos.add(x, y, z), state, 2);
                          }
                     }
                }
@@ -67,10 +67,10 @@ public class Blueprint implements ISchematic {
 
                for(int var12 = 0; var12 < var11; ++var12) {
                     NBTTagCompound tag = var10[var12];
-                    TileEntity te = world.getTileEntity(pos.add(tag.func_74765_d("x"), tag.func_74765_d("y"), tag.func_74765_d("z")));
-                    tag.setInteger("x", pos.getX() + tag.func_74765_d("x"));
-                    tag.setInteger("y", pos.getY() + tag.func_74765_d("y"));
-                    tag.setInteger("z", pos.getZ() + tag.func_74765_d("z"));
+                    TileEntity te = world.getTileEntity(pos.add(tag.getShort("x"), tag.getShort("y"), tag.getShort("z")));
+                    tag.setInteger("x", pos.getX() + tag.getShort("x"));
+                    tag.setInteger("y", pos.getY() + tag.getShort("y"));
+                    tag.setInteger("z", pos.getZ() + tag.getShort("z"));
                     te.deserializeNBT(tag);
                }
           }

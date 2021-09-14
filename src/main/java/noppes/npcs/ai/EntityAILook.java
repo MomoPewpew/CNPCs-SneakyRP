@@ -22,7 +22,7 @@ public class EntityAILook extends EntityAIBase {
      }
 
      public boolean shouldExecute() {
-          return !this.npc.isAttacking() && this.npc.getNavigator().noPath() && !this.npc.func_70608_bn() && this.npc.isEntityAlive();
+          return !this.npc.isAttacking() && this.npc.getNavigator().noPath() && !this.npc.isPlayerSleeping() && this.npc.isEntityAlive();
      }
 
      public void startExecuting() {
@@ -84,7 +84,7 @@ public class EntityAILook extends EntityAIBase {
 
                     if (this.idle > 0) {
                          --this.idle;
-                         this.npc.getLookHelper().func_75650_a(this.npc.field_70165_t + this.lookX, this.npc.field_70163_u + (double)this.npc.getEyeHeight(), this.npc.field_70161_v + this.lookZ, 10.0F, (float)this.npc.getVerticalFaceSpeed());
+                         this.npc.getLookHelper().setLookPosition(this.npc.field_70165_t + this.lookX, this.npc.field_70163_u + (double)this.npc.getEyeHeight(), this.npc.field_70161_v + this.lookZ, 10.0F, (float)this.npc.getVerticalFaceSpeed());
                     }
                }
 

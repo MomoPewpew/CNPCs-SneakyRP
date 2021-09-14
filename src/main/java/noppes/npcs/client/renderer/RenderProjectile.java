@@ -56,7 +56,7 @@ public class RenderProjectile extends Render {
                GlStateManager.enableRescaleNormal();
                float f9 = (float)projectile.arrowShake - partialTicks;
                if (f9 > 0.0F) {
-                    float f10 = -MathHelper.func_76126_a(f9 * 3.0F) * f9;
+                    float f10 = -MathHelper.sin(f9 * 3.0F) * f9;
                     GlStateManager.func_179114_b(f10, 0.0F, 0.0F, 1.0F);
                }
 
@@ -102,7 +102,7 @@ public class RenderProjectile extends Render {
                GlStateManager.func_179114_b(projectile.field_70126_B + (projectile.field_70177_z - projectile.field_70126_B) * partialTicks - 180.0F, 0.0F, 1.0F, 0.0F);
                GlStateManager.func_179114_b(projectile.field_70127_C + (projectile.field_70125_A - projectile.field_70127_C) * partialTicks, 1.0F, 0.0F, 0.0F);
                GlStateManager.func_179137_b(0.0D, -0.125D, 0.25D);
-               if (item.getItem() instanceof ItemBlock && Block.func_149634_a(item.getItem()).getDefaultState().func_185901_i() == EnumBlockRenderType.ENTITYBLOCK_ANIMATED) {
+               if (item.getItem() instanceof ItemBlock && Block.getBlockFromItem(item.getItem()).getDefaultState().func_185901_i() == EnumBlockRenderType.ENTITYBLOCK_ANIMATED) {
                     GlStateManager.translate(0.0F, 0.1875F, -0.3125F);
                     GlStateManager.func_179114_b(20.0F, 1.0F, 0.0F, 0.0F);
                     GlStateManager.func_179114_b(45.0F, 0.0F, 1.0F, 0.0F);

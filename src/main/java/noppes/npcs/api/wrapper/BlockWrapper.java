@@ -75,7 +75,7 @@ public class BlockWrapper implements IBlock {
                NBTTagCompound compound = this.getNBT();
                if (compound != null) {
                     if (value instanceof Number) {
-                         compound.func_74780_a(key, ((Number)value).doubleValue());
+                         compound.setDouble(key, ((Number)value).doubleValue());
                     } else if (value instanceof String) {
                          compound.setString(key, (String)value);
                     }
@@ -91,14 +91,14 @@ public class BlockWrapper implements IBlock {
                     return null;
                } else {
                     NBTBase base = compound.getTag(key);
-                    return base instanceof NBTPrimitive ? ((NBTPrimitive)base).func_150286_g() : ((NBTTagString)base).func_150285_a_();
+                    return base instanceof NBTPrimitive ? ((NBTPrimitive)base).getDouble() : ((NBTTagString)base).getString();
                }
           }
 
           public void remove(String key) {
                NBTTagCompound compound = this.getNBT();
                if (compound != null) {
-                    compound.func_82580_o(key);
+                    compound.removeTag(key);
                }
           }
 
@@ -157,11 +157,11 @@ public class BlockWrapper implements IBlock {
      }
 
      public int getMetadata() {
-          return this.block.func_176201_c(this.world.getMCWorld().getBlockState(this.pos));
+          return this.block.getMetaFromState(this.world.getMCWorld().getBlockState(this.pos));
      }
 
      public void setMetadata(int i) {
-          this.world.getMCWorld().func_180501_a(this.pos, this.block.func_176203_a(i), 3);
+          this.world.getMCWorld().setBlockState(this.pos, this.block.getStateFromMeta(i), 3);
      }
 
      public void remove() {
@@ -288,7 +288,7 @@ public class BlockWrapper implements IBlock {
           this.tile.readFromNBT(nbt.getMCNBT());
           this.tile.markDirty();
           IBlockState state = this.world.getMCWorld().getBlockState(this.pos);
-          this.world.getMCWorld().func_184138_a(this.pos, state, state, 3);
+          this.world.getMCWorld().notifyBlockUpdate(this.pos, state, state, 3);
      }
 
      public TileEntity getMCTileEntity() {
@@ -300,14 +300,14 @@ public class BlockWrapper implements IBlock {
      }
 
      public void blockEvent(int type, int data) {
-          this.world.getMCWorld().func_175641_c(this.pos, this.getMCBlock(), type, data);
+          this.world.getMCWorld().addBlockEvent(this.pos, this.getMCBlock(), type, data);
      }
 
      public void interact(int side) {
           EntityPlayer player = EntityNPCInterface.GenericPlayer;
           World w = this.world.getMCWorld();
           player.setWorld(w);
-          player.func_70107_b((double)this.pos.getX(), (double)this.pos.getY(), (double)this.pos.getZ());
-          this.block.func_180639_a(w, this.pos, w.getBlockState(this.pos), EntityNPCInterface.CommandPlayer, EnumHand.MAIN_HAND, EnumFacing.func_82600_a(side), 0.0F, 0.0F, 0.0F);
+          player.setPosition((double)this.pos.getX(), (double)this.pos.getY(), (double)this.pos.getZ());
+          this.block.onBlockActivated(w, this.pos, w.getBlockState(this.pos), EntityNPCInterface.CommandPlayer, EnumHand.MAIN_HAND, EnumFacing.getFront(side), 0.0F, 0.0F, 0.0F);
      }
 }

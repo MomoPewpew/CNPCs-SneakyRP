@@ -32,7 +32,7 @@ public class BlockScriptedDoor extends BlockNpcDoorInterface implements IPermiss
           return EnumBlockRenderType.INVISIBLE;
      }
 
-     public boolean func_180639_a(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
+     public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
           if (world.isRemote) {
                return true;
           } else {
@@ -47,10 +47,10 @@ public class BlockScriptedDoor extends BlockNpcDoorInterface implements IPermiss
                          return true;
                     } else {
                          TileScriptedDoor tile = (TileScriptedDoor)world.getTileEntity(blockpos1);
-                         if (EventHooks.onScriptBlockInteract(tile, player, side.func_176745_a(), hitX, hitY, hitZ)) {
+                         if (EventHooks.onScriptBlockInteract(tile, player, side.getIndex(), hitX, hitY, hitZ)) {
                               return false;
                          } else {
-                              this.func_176512_a(world, blockpos1, ((Boolean)iblockstate1.getValue(BlockDoor.field_176519_b)).equals(false));
+                              this.toggleDoor(world, blockpos1, ((Boolean)iblockstate1.getValue(BlockDoor.field_176519_b)).equals(false));
                               return true;
                          }
                     }
@@ -82,9 +82,9 @@ public class BlockScriptedDoor extends BlockNpcDoorInterface implements IPermiss
 
                     boolean flag = worldIn.func_175640_z(pos) || worldIn.func_175640_z(blockpos2);
                     if ((flag || neighborBlock.getDefaultState().func_185897_m()) && neighborBlock != this && flag != (Boolean)iblockstate2.getValue(field_176522_N)) {
-                         worldIn.func_180501_a(blockpos2, iblockstate2.func_177226_a(field_176522_N, flag), 2);
+                         worldIn.setBlockState(blockpos2, iblockstate2.withProperty(field_176522_N, flag), 2);
                          if (flag != (Boolean)state.getValue(field_176519_b)) {
-                              this.func_176512_a(worldIn, pos, flag);
+                              this.toggleDoor(worldIn, pos, flag);
                          }
                     }
 
@@ -94,7 +94,7 @@ public class BlockScriptedDoor extends BlockNpcDoorInterface implements IPermiss
 
                     for(int var13 = 0; var13 < var12; ++var13) {
                          EnumFacing enumfacing = var11[var13];
-                         int p = worldIn.func_175651_c(pos.func_177972_a(enumfacing), enumfacing);
+                         int p = worldIn.func_175651_c(pos.offset(enumfacing), enumfacing);
                          if (p > power) {
                               power = p;
                          }
@@ -106,10 +106,10 @@ public class BlockScriptedDoor extends BlockNpcDoorInterface implements IPermiss
 
      }
 
-     public void func_176512_a(World worldIn, BlockPos pos, boolean open) {
+     public void toggleDoor(World worldIn, BlockPos pos, boolean open) {
           TileScriptedDoor tile = (TileScriptedDoor)worldIn.getTileEntity(pos);
           if (!EventHooks.onScriptBlockDoorToggle(tile)) {
-               super.func_176512_a(worldIn, pos, open);
+               super.toggleDoor(worldIn, pos, open);
           }
      }
 

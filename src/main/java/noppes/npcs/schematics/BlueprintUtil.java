@@ -41,9 +41,9 @@ public class BlueprintUtil {
                          TileEntity te = world.getTileEntity(pos.add(x, y, z));
                          if (te != null) {
                               NBTTagCompound teTag = te.serializeNBT();
-                              teTag.func_74777_a("x", x);
-                              teTag.func_74777_a("y", y);
-                              teTag.func_74777_a("z", z);
+                              teTag.setShort("x", x);
+                              teTag.setShort("y", y);
+                              teTag.setShort("z", z);
                               tileEntities.add(teTag);
                          }
 
@@ -75,9 +75,9 @@ public class BlueprintUtil {
      public static NBTTagCompound writeBlueprintToNBT(Blueprint schem) {
           NBTTagCompound tag = new NBTTagCompound();
           tag.setByte("version", (byte)1);
-          tag.func_74777_a("size_x", schem.getSizeX());
-          tag.func_74777_a("size_y", schem.getSizeY());
-          tag.func_74777_a("size_z", schem.getSizeZ());
+          tag.setShort("size_x", schem.getSizeX());
+          tag.setShort("size_y", schem.getSizeY());
+          tag.setShort("size_z", schem.getSizeZ());
           IBlockState[] palette = schem.getPallete();
           NBTTagList paletteTag = new NBTTagList();
 
@@ -133,15 +133,15 @@ public class BlueprintUtil {
           if (version != 1) {
                return null;
           } else {
-               short sizeX = tag.func_74765_d("size_x");
-               short sizeY = tag.func_74765_d("size_y");
-               short sizeZ = tag.func_74765_d("size_z");
+               short sizeX = tag.getShort("size_x");
+               short sizeY = tag.getShort("size_y");
+               short sizeZ = tag.getShort("size_z");
                List requiredMods = new ArrayList();
                NBTTagList modsList = (NBTTagList)tag.getTag("required_mods");
                short modListSize = (short)modsList.tagCount();
 
                for(int i = 0; i < modListSize; ++i) {
-                    requiredMods.add(((NBTTagString)modsList.func_179238_g(i)).func_150285_a_());
+                    requiredMods.add(((NBTTagString)modsList.get(i)).getString());
                     if (!Loader.isModLoaded((String)requiredMods.get(i))) {
                          Logger.getGlobal().log(Level.WARNING, "Couldn't load Blueprint, the following mod is missing: " + (String)requiredMods.get(i));
                          return null;
@@ -174,7 +174,7 @@ public class BlueprintUtil {
                     String[] architects = new String[architectsTag.tagCount()];
 
                     for(int i = 0; i < architectsTag.tagCount(); ++i) {
-                         architects[i] = architectsTag.func_150307_f(i);
+                         architects[i] = architectsTag.getStringTagAt(i);
                     }
 
                     schem.setArchitects(architects);

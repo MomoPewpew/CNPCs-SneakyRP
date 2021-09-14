@@ -37,8 +37,8 @@ public class TileColorable extends TileNpcEntity {
      public NBTTagCompound func_189517_E_() {
           NBTTagCompound compound = new NBTTagCompound();
           this.writeToNBT(compound);
-          compound.func_82580_o("Items");
-          compound.func_82580_o("ExtraData");
+          compound.removeTag("Items");
+          compound.removeTag("ExtraData");
           return compound;
      }
 

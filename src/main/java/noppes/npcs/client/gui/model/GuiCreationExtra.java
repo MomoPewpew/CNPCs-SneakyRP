@@ -91,7 +91,7 @@ public class GuiCreationExtra extends GuiCreationScreenInterface implements ICus
 
                     NBTBase base = compound.getTag(name);
                     if (name.equals("Age")) {
-                         data.put("Child", new GuiCreationExtra.GuiTypeBoolean("Child", entity.func_70631_g_()));
+                         data.put("Child", new GuiCreationExtra.GuiTypeBoolean("Child", entity.isChild()));
                     } else if (name.equals("Color") && base.getId() == 1) {
                          data.put("Color", new GuiCreationExtra.GuiTypeByte("Color", compound.getByte("Color")));
                     } else if (base.getId() == 1) {
@@ -143,7 +143,7 @@ public class GuiCreationExtra extends GuiCreationScreenInterface implements ICus
 
           while(var5.hasNext()) {
                String name = (String)var5.next();
-               compound.func_82580_o(name);
+               compound.removeTag(name);
           }
 
           return compound;

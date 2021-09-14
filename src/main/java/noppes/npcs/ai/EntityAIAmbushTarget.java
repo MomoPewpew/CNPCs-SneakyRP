@@ -39,9 +39,9 @@ public class EntityAIAmbushTarget extends EntityAIBase {
                     this.delay = 10;
                     return false;
                } else {
-                    this.shelterX = vec3.field_72450_a;
-                    this.shelterY = vec3.field_72448_b;
-                    this.shelterZ = vec3.field_72449_c;
+                    this.shelterX = vec3.x;
+                    this.shelterY = vec3.y;
+                    this.shelterZ = vec3.z;
                     return true;
                }
           } else {

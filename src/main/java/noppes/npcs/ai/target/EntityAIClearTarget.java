@@ -24,7 +24,7 @@ public class EntityAIClearTarget extends EntityAIBase {
      public void startExecuting() {
           this.npc.setAttackTarget((EntityLivingBase)null);
           if (this.target == this.npc.getRevengeTarget()) {
-               this.npc.func_70604_c((EntityLivingBase)null);
+               this.npc.setRevengeTarget((EntityLivingBase)null);
           }
 
           super.startExecuting();

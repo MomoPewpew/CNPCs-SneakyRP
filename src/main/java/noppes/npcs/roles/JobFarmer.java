@@ -116,7 +116,7 @@ public class JobFarmer extends JobInterface implements MassBlockController.IMass
      private void chest() {
           BlockPos pos = this.chest;
           this.npc.getNavigator().tryMoveToXYZ((double)pos.getX(), (double)pos.getY(), (double)pos.getZ(), 1.0D);
-          this.npc.getLookHelper().func_75650_a((double)pos.getX(), (double)pos.getY(), (double)pos.getZ(), 10.0F, (float)this.npc.getVerticalFaceSpeed());
+          this.npc.getLookHelper().setLookPosition((double)pos.getX(), (double)pos.getY(), (double)pos.getZ(), 10.0F, (float)this.npc.getVerticalFaceSpeed());
           if (this.npc.nearPosition(pos) || this.walkTicks++ > 400) {
                if (this.walkTicks < 400) {
                     this.npc.swingArm(EnumHand.MAIN_HAND);
@@ -175,7 +175,7 @@ public class JobFarmer extends JobInterface implements MassBlockController.IMass
      private void pluck() {
           BlockPos pos = this.ripe;
           this.npc.getNavigator().tryMoveToXYZ((double)pos.getX(), (double)pos.getY(), (double)pos.getZ(), 1.0D);
-          this.npc.getLookHelper().func_75650_a((double)pos.getX(), (double)pos.getY(), (double)pos.getZ(), 10.0F, (float)this.npc.getVerticalFaceSpeed());
+          this.npc.getLookHelper().setLookPosition((double)pos.getX(), (double)pos.getY(), (double)pos.getZ(), 10.0F, (float)this.npc.getVerticalFaceSpeed());
           if (this.npc.nearPosition(pos) || this.walkTicks++ > 400) {
                if (this.walkTicks > 400) {
                     pos = NoppesUtilServer.GetClosePos(pos, this.npc.world);
@@ -202,7 +202,7 @@ public class JobFarmer extends JobInterface implements MassBlockController.IMass
                          return;
                     }
 
-                    pos = pos.func_177971_a(facing.func_176730_m());
+                    pos = pos.add(facing.func_176730_m());
                     b = this.npc.world.getBlockState(pos).getBlock();
                     this.npc.world.setBlockToAir(pos);
                     if (b != Blocks.field_150350_a) {
@@ -244,7 +244,7 @@ public class JobFarmer extends JobInterface implements MassBlockController.IMass
           this.npc.ais.returnToStart = this.ripe == null;
           if (this.ripe != null) {
                this.npc.getNavigator().clearPath();
-               this.npc.getLookHelper().func_75650_a((double)this.ripe.getX(), (double)this.ripe.getY(), (double)this.ripe.getZ(), 10.0F, (float)this.npc.getVerticalFaceSpeed());
+               this.npc.getLookHelper().setLookPosition((double)this.ripe.getX(), (double)this.ripe.getY(), (double)this.ripe.getZ(), 10.0F, (float)this.npc.getVerticalFaceSpeed());
           }
 
      }

@@ -36,8 +36,8 @@ public class LayerNpcCloak extends LayerInterface {
           double d1 = this.npc.field_20065_s + (this.npc.field_20062_v - this.npc.field_20065_s) * (double)par7 - (this.npc.field_70167_r + (this.npc.field_70163_u - this.npc.field_70167_r) * (double)par7);
           double d2 = this.npc.field_20064_t + (this.npc.field_20061_w - this.npc.field_20064_t) * (double)par7 - (this.npc.field_70166_s + (this.npc.field_70161_v - this.npc.field_70166_s) * (double)par7);
           float f11 = this.npc.field_70760_ar + (this.npc.field_70761_aq - this.npc.field_70760_ar) * par7;
-          double d3 = (double)MathHelper.func_76126_a(f11 * 3.141593F / 180.0F);
-          double d4 = (double)(-MathHelper.func_76134_b(f11 * 3.141593F / 180.0F));
+          double d3 = (double)MathHelper.sin(f11 * 3.141593F / 180.0F);
+          double d4 = (double)(-MathHelper.cos(f11 * 3.141593F / 180.0F));
           float f14 = (float)(d * d3 + d2 * d4) * 100.0F;
           float f15 = (float)(d * d4 - d2 * d3) * 100.0F;
           if (f14 < 0.0F) {

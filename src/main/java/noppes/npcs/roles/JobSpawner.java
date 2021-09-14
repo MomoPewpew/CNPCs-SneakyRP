@@ -101,12 +101,12 @@ public class JobSpawner extends JobInterface implements IJobSpawner {
      }
 
      public void cleanCompound(NBTTagCompound compound) {
-          compound.func_82580_o("SpawnerNBT1");
-          compound.func_82580_o("SpawnerNBT2");
-          compound.func_82580_o("SpawnerNBT3");
-          compound.func_82580_o("SpawnerNBT4");
-          compound.func_82580_o("SpawnerNBT5");
-          compound.func_82580_o("SpawnerNBT6");
+          compound.removeTag("SpawnerNBT1");
+          compound.removeTag("SpawnerNBT2");
+          compound.removeTag("SpawnerNBT3");
+          compound.removeTag("SpawnerNBT4");
+          compound.removeTag("SpawnerNBT5");
+          compound.removeTag("SpawnerNBT6");
      }
 
      public void setJobCompound(int i, NBTTagCompound compound) {
@@ -217,7 +217,7 @@ public class JobSpawner extends JobInterface implements IJobSpawner {
                     liv.setAttackTarget(this.target);
                }
           } else if (entity.getRevengeTarget() == null || this.npc.getRNG().nextInt(100) == 1) {
-               entity.func_70604_c(this.target);
+               entity.setRevengeTarget(this.target);
           }
 
      }
@@ -278,7 +278,7 @@ public class JobSpawner extends JobInterface implements IJobSpawner {
           if (base instanceof EntityLiving) {
                ((EntityLiving)base).setAttackTarget(target);
           } else {
-               base.func_70604_c(target);
+               base.setRevengeTarget(target);
           }
 
      }
@@ -347,7 +347,7 @@ public class JobSpawner extends JobInterface implements IJobSpawner {
                     living.getEntityData().setString("NpcSpawnerId", this.id);
                     living.getEntityData().setInteger("NpcSpawnerNr", this.number);
                     this.setTarget(living, this.npc.getAttackTarget());
-                    living.func_70107_b(x, y, z);
+                    living.setPosition(x, y, z);
                     if (living instanceof EntityNPCInterface) {
                          EntityNPCInterface snpc = (EntityNPCInterface)living;
                          snpc.stats.spawnCycle = 4;

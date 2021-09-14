@@ -14,7 +14,7 @@ public class EntityAITransform extends EntityAIBase {
 
      public boolean shouldExecute() {
           if (!this.npc.isKilled() && !this.npc.isAttacking() && !this.npc.transform.editingModus) {
-               return this.npc.world.func_72820_D() % 24000L < 12000L ? this.npc.transform.isActive : !this.npc.transform.isActive;
+               return this.npc.world.getWorldTime() % 24000L < 12000L ? this.npc.transform.isActive : !this.npc.transform.isActive;
           } else {
                return false;
           }

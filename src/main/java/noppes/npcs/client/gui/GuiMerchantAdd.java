@@ -90,9 +90,9 @@ public class GuiMerchantAdd extends GuiContainer {
           }
 
           if (par1GuiButton.id == 5) {
-               ItemStack item1 = this.field_147002_h.func_75139_a(0).getStack();
-               ItemStack item2 = this.field_147002_h.func_75139_a(1).getStack();
-               ItemStack sold = this.field_147002_h.func_75139_a(2).getStack();
+               ItemStack item1 = this.field_147002_h.getSlot(0).getStack();
+               ItemStack item2 = this.field_147002_h.getSlot(1).getStack();
+               ItemStack sold = this.field_147002_h.getSlot(2).getStack();
                if (item1 == null && item2 != null) {
                     item1 = item2;
                     item2 = null;

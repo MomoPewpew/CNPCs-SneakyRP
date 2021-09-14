@@ -11,7 +11,7 @@ import noppes.npcs.api.CommandNoppesBase;
 import noppes.npcs.controllers.data.MarkData;
 
 public class CmdMark extends CommandNoppesBase {
-     public String func_71517_b() {
+     public String getName() {
           return "mark";
      }
 

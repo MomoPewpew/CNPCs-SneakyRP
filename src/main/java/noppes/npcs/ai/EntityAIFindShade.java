@@ -31,9 +31,9 @@ public class EntityAIFindShade extends EntityAIBase {
                if (var1 == null) {
                     return false;
                } else {
-                    this.shelterX = var1.field_72450_a;
-                    this.shelterY = var1.field_72448_b;
-                    this.shelterZ = var1.field_72449_c;
+                    this.shelterX = var1.x;
+                    this.shelterY = var1.y;
+                    this.shelterZ = var1.z;
                     return true;
                }
           }

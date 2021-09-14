@@ -31,7 +31,7 @@ public class ModelNpcCrystal extends ModelBase {
           GlStateManager.translate(0.0F, -0.5F, 0.0F);
           this.field_41059_i.func_78785_a(par7);
           float f = (float)par1Entity.field_70173_aa + this.ticks;
-          float f1 = MathHelper.func_76126_a(f * 0.2F) / 2.0F + 0.5F;
+          float f1 = MathHelper.sin(f * 0.2F) / 2.0F + 0.5F;
           f1 += f1 * f1;
           par3 = f * 3.0F;
           par4 = f1 * 0.2F;

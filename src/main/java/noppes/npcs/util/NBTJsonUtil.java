@@ -109,7 +109,7 @@ public class NBTJsonUtil {
                } else {
                     json.cut(1);
                     int i;
-                    if (list.func_150303_d() == 3) {
+                    if (list.getTagType() == 3) {
                          int[] arr = new int[list.tagCount()];
 
                          for(i = 0; list.tagCount() > 0; ++i) {
@@ -117,7 +117,7 @@ public class NBTJsonUtil {
                          }
 
                          return new NBTTagIntArray(arr);
-                    } else if (list.func_150303_d() == 1) {
+                    } else if (list.getTagType() == 1) {
                          byte[] arr = new byte[list.tagCount()];
 
                          for(i = 0; list.tagCount() > 0; ++i) {
@@ -125,7 +125,7 @@ public class NBTJsonUtil {
                          }
 
                          return new NBTTagByteArray(arr);
-                    } else if (list.func_150303_d() != 4) {
+                    } else if (list.getTagType() != 4) {
                          return list;
                     } else {
                          long[] arr = new long[list.tagCount()];
@@ -280,7 +280,7 @@ public class NBTJsonUtil {
      public static void main(String[] args) {
           NBTTagCompound comp = new NBTTagCompound();
           NBTTagCompound comp2 = new NBTTagCompound();
-          comp2.func_74773_a("test", new byte[]{0, 0, 1, 1, 0});
+          comp2.setByteArray("test", new byte[]{0, 0, 1, 1, 0});
           comp.setTag("comp", comp2);
           System.out.println(Convert(comp));
      }

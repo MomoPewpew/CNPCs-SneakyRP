@@ -179,7 +179,7 @@ public class LayerLegs extends LayerInterface implements LayerPreRender {
                this.horseLegs.setRotationAngles(this.playerdata, par1, par2, par3, par4, par5, par6, this.npc);
           } else if (part.type == 1) {
                this.naga.isRiding = this.model.field_78093_q;
-               this.naga.isSleeping = this.npc.func_70608_bn();
+               this.naga.isSleeping = this.npc.isPlayerSleeping();
                this.naga.isCrawling = this.npc.currentAnimation == 7;
                this.naga.isSneaking = this.model.field_78117_n;
                this.naga.setRotationAngles(par1, par2, par3, par4, par5, par6, this.npc);
@@ -195,14 +195,14 @@ public class LayerLegs extends LayerInterface implements LayerPreRender {
           ModelPartData part = this.playerdata.getPartData(EnumParts.LEGS);
           ModelPartData partTail = this.playerdata.getPartData(EnumParts.TAIL);
           ModelPartConfig config = this.playerdata.getPartConfig(EnumParts.LEG_LEFT);
-          float rotateAngleY = MathHelper.func_76134_b(par1 * 0.6662F) * 0.2F * par2;
-          float rotateAngleX = MathHelper.func_76126_a(par3 * 0.067F) * 0.05F;
+          float rotateAngleY = MathHelper.cos(par1 * 0.6662F) * 0.2F * par2;
+          float rotateAngleX = MathHelper.sin(par3 * 0.067F) * 0.05F;
           this.rotationPointZ = 0.0F;
           this.rotationPointY = 11.0F;
           if (part.type == 2) {
                this.rotationPointY = 12.0F + (config.scaleY - 1.0F) * 3.0F;
                this.rotationPointZ = 15.0F + (config.scaleZ - 1.0F) * 10.0F;
-               if (this.npc.func_70608_bn() || this.npc.currentAnimation == 7) {
+               if (this.npc.isPlayerSleeping() || this.npc.currentAnimation == 7) {
                     this.rotationPointY = 12.0F + 16.0F * config.scaleZ;
                     this.rotationPointZ = 1.0F * config.scaleY;
                     rotateAngleX = -0.7853982F;

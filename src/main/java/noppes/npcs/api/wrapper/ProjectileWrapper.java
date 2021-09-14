@@ -52,20 +52,20 @@ public class ProjectileWrapper extends ThrowableWrapper implements IProjectile {
           x -= ((EntityProjectile)this.entity).field_70165_t;
           y -= ((EntityProjectile)this.entity).field_70163_u;
           z -= ((EntityProjectile)this.entity).field_70161_v;
-          float varF = ((EntityProjectile)this.entity).hasGravity() ? MathHelper.func_76133_a(x * x + z * z) : 0.0F;
+          float varF = ((EntityProjectile)this.entity).hasGravity() ? MathHelper.sqrt(x * x + z * z) : 0.0F;
           float angle = ((EntityProjectile)this.entity).getAngleForXYZ(x, y, z, (double)varF, false);
-          float acc = 20.0F - (float)MathHelper.func_76141_d((float)((EntityProjectile)this.entity).accuracy / 5.0F);
-          ((EntityProjectile)this.entity).func_70186_c(x, y, z, angle, acc);
+          float acc = 20.0F - (float)MathHelper.floor((float)((EntityProjectile)this.entity).accuracy / 5.0F);
+          ((EntityProjectile)this.entity).shoot(x, y, z, angle, acc);
      }
 
      public void setHeading(float yaw, float pitch) {
           ((EntityProjectile)this.entity).field_70126_B = ((EntityProjectile)this.entity).field_70177_z = yaw;
           ((EntityProjectile)this.entity).field_70127_C = ((EntityProjectile)this.entity).field_70125_A = pitch;
-          double varX = (double)(-MathHelper.func_76126_a(yaw / 180.0F * 3.1415927F) * MathHelper.func_76134_b(pitch / 180.0F * 3.1415927F));
-          double varZ = (double)(MathHelper.func_76134_b(yaw / 180.0F * 3.1415927F) * MathHelper.func_76134_b(pitch / 180.0F * 3.1415927F));
-          double varY = (double)(-MathHelper.func_76126_a(pitch / 180.0F * 3.1415927F));
-          float acc = 20.0F - (float)MathHelper.func_76141_d((float)((EntityProjectile)this.entity).accuracy / 5.0F);
-          ((EntityProjectile)this.entity).func_70186_c(varX, varY, varZ, -pitch, acc);
+          double varX = (double)(-MathHelper.sin(yaw / 180.0F * 3.1415927F) * MathHelper.cos(pitch / 180.0F * 3.1415927F));
+          double varZ = (double)(MathHelper.cos(yaw / 180.0F * 3.1415927F) * MathHelper.cos(pitch / 180.0F * 3.1415927F));
+          double varY = (double)(-MathHelper.sin(pitch / 180.0F * 3.1415927F));
+          float acc = 20.0F - (float)MathHelper.floor((float)((EntityProjectile)this.entity).accuracy / 5.0F);
+          ((EntityProjectile)this.entity).shoot(varX, varY, varZ, -pitch, acc);
      }
 
      public int getType() {

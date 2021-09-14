@@ -20,16 +20,16 @@ public class EntityAIPanic extends EntityAIBase {
      }
 
      public boolean shouldExecute() {
-          if (this.entityCreature.getAttackTarget() == null && !this.entityCreature.func_70027_ad()) {
+          if (this.entityCreature.getAttackTarget() == null && !this.entityCreature.isBurning()) {
                return false;
           } else {
                Vec3d var1 = RandomPositionGenerator.findRandomTarget(this.entityCreature, 5, 4);
                if (var1 == null) {
                     return false;
                } else {
-                    this.randPosX = var1.field_72450_a;
-                    this.randPosY = var1.field_72448_b;
-                    this.randPosZ = var1.field_72449_c;
+                    this.randPosX = var1.x;
+                    this.randPosY = var1.y;
+                    this.randPosZ = var1.z;
                     return true;
                }
           }

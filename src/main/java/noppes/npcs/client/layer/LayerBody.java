@@ -171,20 +171,20 @@ public class LayerBody extends LayerInterface {
           this.rWing.field_78808_h = 0.5090659F;
           this.lWing.field_78795_f = 0.7141593F;
           this.lWing.field_78808_h = -0.5090659F;
-          float motion = Math.abs(MathHelper.func_76126_a(par1 * 0.033F + 3.1415927F) * 0.4F) * par2;
+          float motion = Math.abs(MathHelper.sin(par1 * 0.033F + 3.1415927F) * 0.4F) * par2;
           Model2DRenderer var10000;
           if (this.npc.field_70122_E && (double)motion <= 0.01D) {
                var10000 = this.lWing;
-               var10000.field_78808_h += MathHelper.func_76134_b(par3 * 0.09F) * 0.05F + 0.05F;
+               var10000.field_78808_h += MathHelper.cos(par3 * 0.09F) * 0.05F + 0.05F;
                var10000 = this.rWing;
-               var10000.field_78808_h -= MathHelper.func_76134_b(par3 * 0.09F) * 0.05F + 0.05F;
+               var10000.field_78808_h -= MathHelper.cos(par3 * 0.09F) * 0.05F + 0.05F;
                var10000 = this.lWing;
-               var10000.field_78795_f += MathHelper.func_76126_a(par3 * 0.067F) * 0.05F;
+               var10000.field_78795_f += MathHelper.sin(par3 * 0.067F) * 0.05F;
                var10000 = this.rWing;
-               var10000.field_78795_f += MathHelper.func_76126_a(par3 * 0.067F) * 0.05F;
+               var10000.field_78795_f += MathHelper.sin(par3 * 0.067F) * 0.05F;
           } else {
                float speed = 0.55F + 0.5F * motion;
-               float y = MathHelper.func_76126_a(par3 * 0.55F);
+               float y = MathHelper.sin(par3 * 0.55F);
                var10000 = this.rWing;
                var10000.field_78808_h += y * 0.5F * speed;
                var10000 = this.rWing;
@@ -201,6 +201,6 @@ public class LayerBody extends LayerInterface {
           var10 = this.skirt;
           var10.field_78808_h += this.model.field_178724_i.field_78795_f * 0.06F;
           var10 = this.skirt;
-          var10.field_78808_h -= MathHelper.func_76134_b(par3 * 0.09F) * 0.04F - 0.05F;
+          var10.field_78808_h -= MathHelper.cos(par3 * 0.09F) * 0.04F - 0.05F;
      }
 }

@@ -31,7 +31,7 @@ public class ClientEventHandler {
      @SubscribeEvent
      public void onRenderTick(RenderWorldLastEvent event) {
           EntityPlayer player = Minecraft.getMinecraft().player;
-          if (TileBuilder.DrawPos != null && TileBuilder.DrawPos.func_177951_i(player.getPosition()) <= 1000000.0D) {
+          if (TileBuilder.DrawPos != null && TileBuilder.DrawPos.distanceSq(player.getPosition()) <= 1000000.0D) {
                TileEntity te = player.world.getTileEntity(TileBuilder.DrawPos);
                if (te != null && te instanceof TileBuilder) {
                     TileBuilder tile = (TileBuilder)te;

@@ -87,9 +87,9 @@ public class JobHealer extends JobInterface {
 
                while(var4.hasNext()) {
                     Integer potionEffect = (Integer)var4.next();
-                    Potion p = Potion.func_188412_a(potionEffect);
+                    Potion p = Potion.getPotionById(potionEffect);
                     if (p != null) {
-                         entity.func_70690_d(new PotionEffect(p, 100, (Integer)this.effects.get(potionEffect)));
+                         entity.addPotionEffect(new PotionEffect(p, 100, (Integer)this.effects.get(potionEffect)));
                     }
                }
           }

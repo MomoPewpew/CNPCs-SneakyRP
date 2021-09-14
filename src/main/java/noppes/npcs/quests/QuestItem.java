@@ -169,7 +169,7 @@ public class QuestItem extends QuestInterface {
           }
 
           public String getText() {
-               return this.questItem.func_82833_r() + ": " + this.getProgress() + "/" + this.getMaxProgress();
+               return this.questItem.getDisplayName() + ": " + this.getProgress() + "/" + this.getMaxProgress();
           }
      }
 }

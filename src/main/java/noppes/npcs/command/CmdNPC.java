@@ -24,7 +24,7 @@ import org.apache.commons.lang3.ArrayUtils;
 public class CmdNPC extends CommandNoppesBase {
      public EntityNPCInterface selectedNpc;
 
-     public String func_71517_b() {
+     public String getName() {
           return "npc";
      }
 
@@ -40,7 +40,7 @@ public class CmdNPC extends CommandNoppesBase {
           return false;
      }
 
-     public void func_184881_a(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
+     public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
           String npcname = args[0].replace("%", " ");
           String command = args[1];
           args = (String[])Arrays.copyOfRange(args, 2, args.length);
@@ -204,7 +204,7 @@ public class CmdNPC extends CommandNoppesBase {
           }
 
           BlockPos pos = sender.getPosition();
-          npc.func_70080_a((double)pos.getX(), (double)pos.getY(), (double)pos.getZ(), 0.0F, 0.0F);
+          npc.setPositionAndRotation((double)pos.getX(), (double)pos.getY(), (double)pos.getZ(), 0.0F, 0.0F);
           npc.ais.setStartPos(pos);
           pw.spawnEntity(npc);
           npc.setHealth(npc.getMaxHealth());
@@ -218,7 +218,7 @@ public class CmdNPC extends CommandNoppesBase {
           }
      }
 
-     public int func_82362_a() {
+     public int getRequiredPermissionLevel() {
           return 4;
      }
 

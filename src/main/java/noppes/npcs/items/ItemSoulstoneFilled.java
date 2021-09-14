@@ -90,12 +90,12 @@ public class ItemSoulstoneFilled extends Item {
                if (entity == null) {
                     return null;
                } else {
-                    entity.func_70107_b((double)pos.getX() + 0.5D, (double)((float)(pos.getY() + 1) + 0.2F), (double)pos.getZ() + 0.5D);
+                    entity.setPosition((double)pos.getX() + 0.5D, (double)((float)(pos.getY() + 1) + 0.2F), (double)pos.getZ() + 0.5D);
                     if (entity instanceof EntityNPCInterface) {
                          EntityNPCInterface npc = (EntityNPCInterface)entity;
                          npc.ais.setStartPos(pos);
                          npc.setHealth(npc.getMaxHealth());
-                         npc.func_70107_b((double)((float)pos.getX() + 0.5F), npc.getStartYPos(), (double)((float)pos.getZ() + 0.5F));
+                         npc.setPosition((double)((float)pos.getX() + 0.5F), npc.getStartYPos(), (double)((float)pos.getZ() + 0.5F));
                          if (npc.advanced.role == 6 && player != null) {
                               PlayerData data = PlayerData.get(player);
                               if (data.hasCompanion()) {

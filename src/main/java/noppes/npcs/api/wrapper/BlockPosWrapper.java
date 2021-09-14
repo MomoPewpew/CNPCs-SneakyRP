@@ -36,39 +36,39 @@ public class BlockPosWrapper implements IPos {
      }
 
      public IPos down(int n) {
-          return new BlockPosWrapper(this.blockPos.func_177979_c(n));
+          return new BlockPosWrapper(this.blockPos.down(n));
      }
 
      public IPos north() {
-          return new BlockPosWrapper(this.blockPos.func_177978_c());
+          return new BlockPosWrapper(this.blockPos.north());
      }
 
      public IPos north(int n) {
-          return new BlockPosWrapper(this.blockPos.func_177964_d(n));
+          return new BlockPosWrapper(this.blockPos.north(n));
      }
 
      public IPos east() {
-          return new BlockPosWrapper(this.blockPos.func_177978_c());
+          return new BlockPosWrapper(this.blockPos.north());
      }
 
      public IPos east(int n) {
-          return new BlockPosWrapper(this.blockPos.func_177964_d(n));
+          return new BlockPosWrapper(this.blockPos.north(n));
      }
 
      public IPos south() {
-          return new BlockPosWrapper(this.blockPos.func_177978_c());
+          return new BlockPosWrapper(this.blockPos.north());
      }
 
      public IPos south(int n) {
-          return new BlockPosWrapper(this.blockPos.func_177964_d(n));
+          return new BlockPosWrapper(this.blockPos.north(n));
      }
 
      public IPos west() {
-          return new BlockPosWrapper(this.blockPos.func_177978_c());
+          return new BlockPosWrapper(this.blockPos.north());
      }
 
      public IPos west(int n) {
-          return new BlockPosWrapper(this.blockPos.func_177964_d(n));
+          return new BlockPosWrapper(this.blockPos.north(n));
      }
 
      public IPos add(int x, int y, int z) {
@@ -76,7 +76,7 @@ public class BlockPosWrapper implements IPos {
      }
 
      public IPos add(IPos pos) {
-          return new BlockPosWrapper(this.blockPos.func_177971_a(pos.getMCBlockPos()));
+          return new BlockPosWrapper(this.blockPos.add(pos.getMCBlockPos()));
      }
 
      public IPos subtract(int x, int y, int z) {
@@ -88,11 +88,11 @@ public class BlockPosWrapper implements IPos {
      }
 
      public IPos offset(int direction) {
-          return new BlockPosWrapper(this.blockPos.func_177972_a(EnumFacing.field_82609_l[direction]));
+          return new BlockPosWrapper(this.blockPos.offset(EnumFacing.field_82609_l[direction]));
      }
 
      public IPos offset(int direction, int n) {
-          return new BlockPosWrapper(this.blockPos.func_177967_a(EnumFacing.field_82609_l[direction], n));
+          return new BlockPosWrapper(this.blockPos.offset(EnumFacing.field_82609_l[direction], n));
      }
 
      public BlockPos getMCBlockPos() {

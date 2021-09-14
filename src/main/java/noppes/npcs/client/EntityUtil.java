@@ -18,7 +18,7 @@ public class EntityUtil {
           entity.field_82151_R = copied.field_82151_R;
           entity.field_191988_bg = copied.field_191988_bg;
           entity.field_70702_br = copied.field_70702_br;
-          entity.func_70107_b(copied.field_70165_t, copied.field_70163_u, copied.field_70161_v);
+          entity.setPosition(copied.field_70165_t, copied.field_70163_u, copied.field_70161_v);
           entity.func_174826_a(copied.getEntityBoundingBox());
           entity.field_70169_q = copied.field_70169_q;
           entity.field_70167_r = copied.field_70167_r;
@@ -50,7 +50,7 @@ public class EntityUtil {
           entity.field_70128_L = copied.field_70128_L;
           entity.field_70725_aQ = copied.field_70725_aQ;
           entity.field_70173_aa = copied.field_70173_aa;
-          entity.getEntityData().func_179237_a(copied.getEntityData());
+          entity.getEntityData().merge(copied.getEntityData());
           if (entity instanceof EntityPlayer && copied instanceof EntityPlayer) {
                EntityPlayer ePlayer = (EntityPlayer)entity;
                EntityPlayer cPlayer = (EntityPlayer)copied;
@@ -77,7 +77,7 @@ public class EntityUtil {
 
           for(int var4 = 0; var4 < var9; ++var4) {
                EntityEquipmentSlot slot = var6[var4];
-               entity.setItemStackToSlot(slot, copied.func_184582_a(slot));
+               entity.setItemStackToSlot(slot, copied.getItemStackFromSlot(slot));
           }
 
           if (copied instanceof EntityNPCInterface && entity instanceof EntityNPCInterface) {

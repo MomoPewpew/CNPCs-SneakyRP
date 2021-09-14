@@ -96,10 +96,10 @@ public class ModelHorseLegs extends ModelRenderer {
      }
 
      public void setRotationAngles(ModelData data, float par1, float par2, float par3, float par4, float par5, float par6, Entity entity) {
-          this.frontLeftLeg.field_78795_f = MathHelper.func_76134_b(par1 * 0.6662F) * 0.4F * par2;
-          this.frontRightLeg.field_78795_f = MathHelper.func_76134_b(par1 * 0.6662F + 3.1415927F) * 0.4F * par2;
-          this.backLeftLeg.field_78795_f = MathHelper.func_76134_b(par1 * 0.6662F + 3.1415927F) * 0.4F * par2;
-          this.backRightLeg.field_78795_f = MathHelper.func_76134_b(par1 * 0.6662F) * 0.4F * par2;
+          this.frontLeftLeg.field_78795_f = MathHelper.cos(par1 * 0.6662F) * 0.4F * par2;
+          this.frontRightLeg.field_78795_f = MathHelper.cos(par1 * 0.6662F + 3.1415927F) * 0.4F * par2;
+          this.backLeftLeg.field_78795_f = MathHelper.cos(par1 * 0.6662F + 3.1415927F) * 0.4F * par2;
+          this.backRightLeg.field_78795_f = MathHelper.cos(par1 * 0.6662F) * 0.4F * par2;
      }
 
      private void setRotation(ModelRenderer model, float x, float y, float z) {

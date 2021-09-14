@@ -26,14 +26,14 @@ public class BlockScriptedDoorWrapper extends BlockWrapper implements IBlockScri
      public void setOpen(boolean open) {
           if (this.getOpen() != open && !this.isRemoved()) {
                IBlockState state = this.world.getMCWorld().getBlockState(this.pos);
-               ((BlockDoor)this.block).func_176512_a(this.world.getMCWorld(), this.pos, open);
+               ((BlockDoor)this.block).toggleDoor(this.world.getMCWorld(), this.pos, open);
           }
      }
 
      public void setBlockModel(String name) {
           Block b = null;
           if (name != null) {
-               b = Block.func_149684_b(name);
+               b = Block.getBlockFromName(name);
           }
 
           this.tile.setItemModel(b);

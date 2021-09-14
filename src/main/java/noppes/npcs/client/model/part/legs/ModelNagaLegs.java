@@ -101,11 +101,11 @@ public class ModelNagaLegs extends ModelRenderer {
      }
 
      public void setRotationAngles(float par1, float par2, float par3, float par4, float par5, float par6, Entity entity) {
-          this.nagaPart1.field_78796_g = MathHelper.func_76134_b(par1 * 0.6662F) * 0.26F * par2;
-          this.nagaPart2.field_78796_g = MathHelper.func_76134_b(par1 * 0.6662F) * 0.5F * par2;
-          this.nagaPart3.field_78796_g = MathHelper.func_76134_b(par1 * 0.6662F) * 0.26F * par2;
-          this.nagaPart4.field_78796_g = -MathHelper.func_76134_b(par1 * 0.6662F) * 0.16F * par2;
-          this.nagaPart5.field_78796_g = -MathHelper.func_76134_b(par1 * 0.6662F) * 0.3F * par2;
+          this.nagaPart1.field_78796_g = MathHelper.cos(par1 * 0.6662F) * 0.26F * par2;
+          this.nagaPart2.field_78796_g = MathHelper.cos(par1 * 0.6662F) * 0.5F * par2;
+          this.nagaPart3.field_78796_g = MathHelper.cos(par1 * 0.6662F) * 0.26F * par2;
+          this.nagaPart4.field_78796_g = -MathHelper.cos(par1 * 0.6662F) * 0.16F * par2;
+          this.nagaPart5.field_78796_g = -MathHelper.cos(par1 * 0.6662F) * 0.3F * par2;
           this.nagaPart1.func_78793_a(0.0F, 14.0F, 0.0F);
           this.nagaPart2.func_78793_a(0.0F, 18.0F, 0.6F);
           this.nagaPart3.func_78793_a(0.0F, 22.0F, -0.3F);

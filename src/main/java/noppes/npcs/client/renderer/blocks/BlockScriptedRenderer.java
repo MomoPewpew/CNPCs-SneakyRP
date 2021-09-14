@@ -46,7 +46,7 @@ public class BlockScriptedRenderer extends BlockRendererInterface {
                          GlStateManager.func_179137_b(0.0D, 0.5D, 0.0D);
                          this.renderItem(tile.itemModel);
                     } else {
-                         IBlockState state = b.func_176203_a(tile.itemModel.getItemDamage());
+                         IBlockState state = b.getStateFromMeta(tile.itemModel.getItemDamage());
                          this.renderBlock(tile, b, state);
                          if (b.hasTileEntity(state) && !tile.renderTileErrored) {
                               try {
@@ -157,7 +157,7 @@ public class BlockScriptedRenderer extends BlockRendererInterface {
           GlStateManager.translate(-0.5F, 0.0F, 0.5F);
           Minecraft.getMinecraft().func_175602_ab().func_175016_a(state, 1.0F);
           if (b.func_149653_t() && random.nextInt(12) == 1) {
-               b.func_180655_c(state, tile.func_145831_w(), tile.getPos(), random);
+               b.func_180655_c(state, tile.getWorld(), tile.getPos(), random);
           }
 
           GlStateManager.func_179121_F();

@@ -142,7 +142,7 @@ public class GuiNpcMobSpawnerSelector extends SubGuiInterface implements IGuiDat
           List list = new ArrayList();
 
           for(int i = 0; i < nbtlist.tagCount(); ++i) {
-               list.add(nbtlist.func_150307_f(i));
+               list.add(nbtlist.getStringTagAt(i));
           }
 
           this.list = list;

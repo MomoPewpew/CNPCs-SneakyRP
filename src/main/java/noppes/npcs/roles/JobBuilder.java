@@ -154,7 +154,7 @@ public class JobBuilder extends JobInterface implements IJobBuilder {
           if (this.placing != null) {
                this.npc.getNavigator().clearPath();
                this.npc.swingArm(EnumHand.MAIN_HAND);
-               this.npc.world.func_180501_a(this.placing.pos, this.placing.state, 2);
+               this.npc.world.setBlockState(this.placing.pos, this.placing.state, 2);
                if (this.placing.state.getBlock() instanceof ITileEntityProvider && this.placing.tile != null) {
                     TileEntity tile = this.npc.world.getTileEntity(this.placing.pos);
                     if (tile != null) {

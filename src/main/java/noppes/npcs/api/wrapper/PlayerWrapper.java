@@ -70,7 +70,7 @@ public class PlayerWrapper extends EntityLivingBaseWrapper implements IPlayer {
           public void put(String key, Object value) {
                NBTTagCompound compound = this.getStoredCompound();
                if (value instanceof Number) {
-                    compound.func_74780_a(key, ((Number)value).doubleValue());
+                    compound.setDouble(key, ((Number)value).doubleValue());
                } else if (value instanceof String) {
                     compound.setString(key, (String)value);
                }
@@ -83,13 +83,13 @@ public class PlayerWrapper extends EntityLivingBaseWrapper implements IPlayer {
                     return null;
                } else {
                     NBTBase base = compound.getTag(key);
-                    return base instanceof NBTPrimitive ? ((NBTPrimitive)base).func_150286_g() : ((NBTTagString)base).func_150285_a_();
+                    return base instanceof NBTPrimitive ? ((NBTPrimitive)base).getDouble() : ((NBTTagString)base).getString();
                }
           }
 
           public void remove(String key) {
                NBTTagCompound compound = this.getStoredCompound();
-               compound.func_82580_o(key);
+               compound.removeTag(key);
           }
 
           public boolean has(String key) {
@@ -130,11 +130,11 @@ public class PlayerWrapper extends EntityLivingBaseWrapper implements IPlayer {
      }
 
      public int getHunger() {
-          return ((EntityPlayerMP)this.entity).func_71024_bL().func_75116_a();
+          return ((EntityPlayerMP)this.entity).getFoodStats().getFoodLevel();
      }
 
      public void setHunger(int level) {
-          ((EntityPlayerMP)this.entity).func_71024_bL().func_75114_a(level);
+          ((EntityPlayerMP)this.entity).getFoodStats().setFoodLevel(level);
      }
 
      public boolean hasFinishedQuest(int id) {
@@ -272,11 +272,11 @@ public class PlayerWrapper extends EntityLivingBaseWrapper implements IPlayer {
      }
 
      public int getGamemode() {
-          return ((EntityPlayerMP)this.entity).field_71134_c.func_73081_b().func_77148_a();
+          return ((EntityPlayerMP)this.entity).field_71134_c.getGameType().getID();
      }
 
      public void setGamemode(int type) {
-          ((EntityPlayerMP)this.entity).func_71033_a(WorldSettings.func_77161_a(type));
+          ((EntityPlayerMP)this.entity).setGameType(WorldSettings.getGameTypeById(type));
      }
 
      public int inventoryItemCount(IItemStack item) {
@@ -386,35 +386,35 @@ public class PlayerWrapper extends EntityLivingBaseWrapper implements IPlayer {
      }
 
      public void updatePlayerInventory() {
-          ((EntityPlayerMP)this.entity).field_71069_bz.func_75142_b();
+          ((EntityPlayerMP)this.entity).field_71069_bz.detectAndSendChanges();
           PlayerQuestData playerdata = this.getData().questData;
           playerdata.checkQuestCompletion((EntityPlayer)this.entity, 0);
      }
 
      public IBlock getSpawnPoint() {
-          BlockPos pos = ((EntityPlayerMP)this.entity).func_180470_cg();
+          BlockPos pos = ((EntityPlayerMP)this.entity).getBedLocation();
           return pos == null ? this.getWorld().getSpawnPoint() : NpcAPI.Instance().getIBlock(((EntityPlayerMP)this.entity).world, pos);
      }
 
      public void setSpawnPoint(IBlock block) {
-          ((EntityPlayerMP)this.entity).func_180473_a(new BlockPos(block.getX(), block.getY(), block.getZ()), true);
+          ((EntityPlayerMP)this.entity).setSpawnPoint(new BlockPos(block.getX(), block.getY(), block.getZ()), true);
      }
 
      public void setSpawnpoint(int x, int y, int z) {
           x = ValueUtil.CorrectInt(x, -30000000, 30000000);
           z = ValueUtil.CorrectInt(z, -30000000, 30000000);
           y = ValueUtil.CorrectInt(y, 0, 256);
-          ((EntityPlayerMP)this.entity).func_180473_a(new BlockPos(x, y, z), true);
+          ((EntityPlayerMP)this.entity).setSpawnPoint(new BlockPos(x, y, z), true);
      }
 
      public void resetSpawnpoint() {
-          ((EntityPlayerMP)this.entity).func_180473_a((BlockPos)null, false);
+          ((EntityPlayerMP)this.entity).setSpawnPoint((BlockPos)null, false);
      }
 
      public void removeAllItems(IItemStack item) {
           for(int i = 0; i < ((EntityPlayerMP)this.entity).inventory.getSizeInventory(); ++i) {
                ItemStack is = ((EntityPlayerMP)this.entity).inventory.getStackInSlot(i);
-               if (is != null && is.func_77969_a(item.getMCItemStack())) {
+               if (is != null && is.isItemEqual(item.getMCItemStack())) {
                     ((EntityPlayerMP)this.entity).inventory.setInventorySlotContents(i, ItemStack.EMPTY);
                }
           }
@@ -422,7 +422,7 @@ public class PlayerWrapper extends EntityLivingBaseWrapper implements IPlayer {
      }
 
      public boolean hasAchievement(String achievement) {
-          StatBase statbase = StatList.func_151177_a(achievement);
+          StatBase statbase = StatList.getOneShotStat(achievement);
           return false;
      }
 
@@ -432,7 +432,7 @@ public class PlayerWrapper extends EntityLivingBaseWrapper implements IPlayer {
 
      public void setExpLevel(int level) {
           ((EntityPlayerMP)this.entity).field_71068_ca = level;
-          ((EntityPlayerMP)this.entity).func_82242_a(0);
+          ((EntityPlayerMP)this.entity).addExperienceLevel(0);
      }
 
      public void setPosition(double x, double y, double z) {
@@ -518,7 +518,7 @@ public class PlayerWrapper extends EntityLivingBaseWrapper implements IPlayer {
      }
 
      public void kick(String message) {
-          ((EntityPlayerMP)this.entity).field_71135_a.func_194028_b(new TextComponentTranslation(message, new Object[0]));
+          ((EntityPlayerMP)this.entity).field_71135_a.disconnect(new TextComponentTranslation(message, new Object[0]));
      }
 
      public boolean canQuestBeAccepted(int questId) {
@@ -541,7 +541,7 @@ public class PlayerWrapper extends EntityLivingBaseWrapper implements IPlayer {
 
      public IContainer showChestGui(int rows) {
           ScriptContainer current = ScriptContainer.Current;
-          ((EntityPlayerMP)this.entity).func_71053_j();
+          ((EntityPlayerMP)this.entity).closeScreen();
           ((EntityPlayerMP)this.entity).openGui(CustomNpcs.instance, EnumGuiType.CustomChest.ordinal(), ((EntityPlayerMP)this.entity).world, rows, 0, 0);
           ContainerCustomChestWrapper container = (ContainerCustomChestWrapper)NpcAPI.Instance().getIContainer(((EntityPlayerMP)this.entity).openContainer);
           container.script = current;

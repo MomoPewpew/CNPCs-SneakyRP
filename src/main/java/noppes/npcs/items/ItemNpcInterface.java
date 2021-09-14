@@ -51,7 +51,7 @@ public class ItemNpcInterface extends Item {
                return false;
           } else {
                if (this.damageAble) {
-                    par1ItemStack.func_77972_a(1, par3EntityLiving);
+                    par1ItemStack.damageItem(1, par3EntityLiving);
                }
 
                return true;

@@ -105,7 +105,7 @@ public class CustomGuiController {
                String[] selection = new String[list.tagCount()];
 
                for(int i = 0; i < list.tagCount(); ++i) {
-                    selection[i] = ((NBTTagString)list.func_179238_g(i)).func_150285_a_();
+                    selection[i] = ((NBTTagString)list.get(i)).getString();
                }
 
                return selection;

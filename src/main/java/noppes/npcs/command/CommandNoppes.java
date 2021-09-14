@@ -33,7 +33,7 @@ public class CommandNoppes extends CommandBase {
      }
 
      public void registerCommand(CommandNoppesBase command) {
-          String name = command.func_71517_b().toLowerCase();
+          String name = command.getName().toLowerCase();
           if (this.map.containsKey(name)) {
                throw new CustomNPCsException("Already a subcommand with the name: " + name, new Object[0]);
           } else {
@@ -41,17 +41,17 @@ public class CommandNoppes extends CommandBase {
           }
      }
 
-     public String func_71517_b() {
+     public String getName() {
           return "noppes";
      }
 
-     public String func_71518_a(ICommandSender sender) {
+     public String getUsage(ICommandSender sender) {
           return "Use as /noppes subcommand";
      }
 
-     public void func_184881_a(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
+     public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
           if (args.length == 0) {
-               this.help.func_184881_a(server, sender, args);
+               this.help.execute(server, sender, args);
           } else {
                CommandNoppesBase command = this.getCommand(args);
                if (command == null) {
@@ -60,15 +60,15 @@ public class CommandNoppes extends CommandBase {
                     args = (String[])Arrays.copyOfRange(args, 1, args.length);
                     if (!command.subcommands.isEmpty() && command.runSubCommands()) {
                          if (args.length == 0) {
-                              this.help.func_184881_a(server, sender, new String[]{command.func_71517_b()});
+                              this.help.execute(server, sender, new String[]{command.getName()});
                          } else {
                               command.executeSub(server, sender, args[0], (String[])Arrays.copyOfRange(args, 1, args.length));
                          }
-                    } else if (!sender.canUseCommand(command.func_82362_a(), "commands.noppes." + command.func_71517_b().toLowerCase())) {
+                    } else if (!sender.canUseCommand(command.getRequiredPermissionLevel(), "commands.noppes." + command.getName().toLowerCase())) {
                          throw new CommandException("You are not allowed to use this command", new Object[0]);
                     } else {
                          command.canRun(server, sender, command.getUsage(), args);
-                         command.func_184881_a(server, sender, args);
+                         command.execute(server, sender, args);
                     }
                }
           }
@@ -108,7 +108,7 @@ public class CommandNoppes extends CommandBase {
           return args.length == 0 ? null : (CommandNoppesBase)this.map.get(args[0].toLowerCase());
      }
 
-     public int func_82362_a() {
+     public int getRequiredPermissionLevel() {
           return 2;
      }
 }

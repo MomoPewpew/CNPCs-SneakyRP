@@ -26,9 +26,9 @@ public class EntityAIReturn extends EntityAIBase {
      }
 
      public boolean shouldExecute() {
-          if (!this.npc.hasOwner() && !this.npc.func_184218_aH() && this.npc.ais.shouldReturnHome() && !this.npc.isKilled() && this.npc.getNavigator().noPath() && !this.npc.isInteracting()) {
+          if (!this.npc.hasOwner() && !this.npc.isRiding() && this.npc.ais.shouldReturnHome() && !this.npc.isKilled() && this.npc.getNavigator().noPath() && !this.npc.isInteracting()) {
                BlockPos pos;
-               if (this.npc.ais.findShelter == 0 && (!this.npc.world.isDaytime() || this.npc.world.func_72896_J()) && !this.npc.world.field_73011_w.func_191066_m()) {
+               if (this.npc.ais.findShelter == 0 && (!this.npc.world.isDaytime() || this.npc.world.isRaining()) && !this.npc.world.field_73011_w.hasSkyLight()) {
                     pos = new BlockPos((double)this.npc.getStartXPos(), this.npc.getStartYPos(), (double)this.npc.getStartZPos());
                     if (this.npc.world.canSeeSky(pos) || this.npc.world.getLight(pos) <= 8) {
                          return false;
@@ -66,7 +66,7 @@ public class EntityAIReturn extends EntityAIBase {
      }
 
      public boolean shouldContinueExecuting() {
-          if (!this.npc.isFollower() && !this.npc.isKilled() && !this.npc.isAttacking() && !this.npc.isVeryNearAssignedPlace() && !this.npc.isInteracting() && !this.npc.func_184218_aH()) {
+          if (!this.npc.isFollower() && !this.npc.isKilled() && !this.npc.isAttacking() && !this.npc.isVeryNearAssignedPlace() && !this.npc.isInteracting() && !this.npc.isRiding()) {
                if (this.npc.getNavigator().noPath() && this.wasAttacked && !this.isTooFar()) {
                     return false;
                } else {
@@ -80,7 +80,7 @@ public class EntityAIReturn extends EntityAIBase {
      public void updateTask() {
           ++this.totalTicks;
           if (this.totalTicks > 600) {
-               this.npc.func_70107_b(this.endPosX, this.endPosY, this.endPosZ);
+               this.npc.setPosition(this.endPosX, this.endPosY, this.endPosZ);
                this.npc.getNavigator().clearPath();
           } else {
                if (this.stuckTicks > 0) {
@@ -91,7 +91,7 @@ public class EntityAIReturn extends EntityAIBase {
                     if ((this.totalTicks <= 30 || !this.wasAttacked || !this.isTooFar()) && this.stuckCount <= 5) {
                          this.navigate(this.stuckCount % 2 == 1);
                     } else {
-                         this.npc.func_70107_b(this.endPosX, this.endPosY, this.endPosZ);
+                         this.npc.setPosition(this.endPosX, this.endPosY, this.endPosZ);
                          this.npc.getNavigator().clearPath();
                     }
                } else {
@@ -133,7 +133,7 @@ public class EntityAIReturn extends EntityAIBase {
           double posX = this.endPosX;
           double posY = this.endPosY;
           double posZ = this.endPosZ;
-          double range = this.npc.func_70011_f(posX, posY, posZ);
+          double range = this.npc.getDistance(posX, posY, posZ);
           if (range > (double)CustomNpcs.NpcNavRange || towards) {
                int distance = (int)range;
                if (distance > CustomNpcs.NpcNavRange) {
@@ -144,11 +144,11 @@ public class EntityAIReturn extends EntityAIBase {
 
                if (distance > 2) {
                     Vec3d start = new Vec3d(posX, posY, posZ);
-                    Vec3d pos = RandomPositionGenerator.func_75464_a(this.npc, distance, distance / 2 > 7 ? 7 : distance / 2, start);
+                    Vec3d pos = RandomPositionGenerator.findRandomTargetBlockTowards(this.npc, distance, distance / 2 > 7 ? 7 : distance / 2, start);
                     if (pos != null) {
-                         posX = pos.field_72450_a;
-                         posY = pos.field_72448_b;
-                         posZ = pos.field_72449_c;
+                         posX = pos.x;
+                         posY = pos.y;
+                         posZ = pos.z;
                     }
                }
           }

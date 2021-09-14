@@ -135,8 +135,8 @@ public class JobPuppet extends JobInterface implements IJobPuppet {
                     }
 
                     int ticks = this.npc.field_70173_aa - this.startTick;
-                    this.val = 1.0F - (MathHelper.func_76134_b((float)ticks / speed * 3.1415927F / 2.0F) + 1.0F) / 2.0F;
-                    this.valNext = 1.0F - (MathHelper.func_76134_b((float)(ticks + 1) / speed * 3.1415927F / 2.0F) + 1.0F) / 2.0F;
+                    this.val = 1.0F - (MathHelper.cos((float)ticks / speed * 3.1415927F / 2.0F) + 1.0F) / 2.0F;
+                    this.valNext = 1.0F - (MathHelper.cos((float)(ticks + 1) / speed * 3.1415927F / 2.0F) + 1.0F) / 2.0F;
                     this.prevTicks = this.npc.field_70173_aa;
                }
 

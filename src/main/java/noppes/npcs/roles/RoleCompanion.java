@@ -183,12 +183,12 @@ public class RoleCompanion extends RoleInterface {
                          Vec3d vec31 = new Vec3d(((double)rand.nextFloat() - 0.5D) * 0.3D, (double)(-rand.nextFloat()) * 0.6D - 0.3D, (double)(this.npc.field_70130_N / 2.0F) + 0.1D);
                          vec31.func_178785_b(-this.npc.field_70125_A * 3.1415927F / 180.0F);
                          vec31.func_178789_a(-this.npc.field_70761_aq * 3.1415927F / 180.0F);
-                         vec31 = vec31.func_72441_c(this.npc.field_70165_t, this.npc.field_70163_u + (double)this.npc.height + 0.1D, this.npc.field_70161_v);
+                         vec31 = vec31.addVector(this.npc.field_70165_t, this.npc.field_70163_u + (double)this.npc.height + 0.1D, this.npc.field_70161_v);
                          (new StringBuilder()).append("iconcrack_").append(Item.func_150891_b(eating.getItem())).toString();
                          if (eating.getHasSubtypes()) {
-                              this.npc.world.func_175688_a(EnumParticleTypes.ITEM_CRACK, vec31.field_72450_a, vec31.field_72448_b, vec31.field_72449_c, vec3.field_72450_a, vec3.field_72448_b + 0.05D, vec3.field_72449_c, new int[]{Item.func_150891_b(eating.getItem()), eating.func_77960_j()});
+                              this.npc.world.func_175688_a(EnumParticleTypes.ITEM_CRACK, vec31.x, vec31.y, vec31.z, vec3.x, vec3.y + 0.05D, vec3.z, new int[]{Item.func_150891_b(eating.getItem()), eating.func_77960_j()});
                          } else {
-                              this.npc.world.func_175688_a(EnumParticleTypes.ITEM_CRACK, vec31.field_72450_a, vec31.field_72448_b, vec31.field_72449_c, vec3.field_72450_a, vec3.field_72448_b + 0.05D, vec3.field_72449_c, new int[]{Item.func_150891_b(eating.getItem())});
+                              this.npc.world.func_175688_a(EnumParticleTypes.ITEM_CRACK, vec31.x, vec31.y, vec31.z, vec3.x, vec3.y + 0.05D, vec3.z, new int[]{Item.func_150891_b(eating.getItem())});
                          }
                     }
                } else {
@@ -512,7 +512,7 @@ public class RoleCompanion extends RoleInterface {
                     return true;
                } else {
                     ItemArmor armor = (ItemArmor)item.getItem();
-                    int reduction = (Integer)ObfuscationReflectionHelper.getPrivateValue(ArmorMaterial.class, armor.func_82812_d(), 6);
+                    int reduction = (Integer)ObfuscationReflectionHelper.getPrivateValue(ArmorMaterial.class, armor.getArmorMaterial(), 6);
                     if (reduction <= 5 && level >= 1) {
                          return true;
                     } else if (reduction <= 7 && level >= 2) {
@@ -543,7 +543,7 @@ public class RoleCompanion extends RoleInterface {
 
      private double getSwordDamage(IItemStack item) {
           if (item != null && item.getMCItemStack().getItem() instanceof ItemSword) {
-               HashMultimap map = (HashMultimap)item.getMCItemStack().func_111283_C(EntityEquipmentSlot.MAINHAND);
+               HashMultimap map = (HashMultimap)item.getMCItemStack().getAttributeModifiers(EntityEquipmentSlot.MAINHAND);
                Iterator iterator = map.entries().iterator();
 
                Entry entry;
@@ -553,10 +553,10 @@ public class RoleCompanion extends RoleInterface {
                     }
 
                     entry = (Entry)iterator.next();
-               } while(!entry.getKey().equals(SharedMonsterAttributes.field_111264_e.func_111108_a()));
+               } while(!entry.getKey().equals(SharedMonsterAttributes.field_111264_e.getName()));
 
                AttributeModifier mod = (AttributeModifier)entry.getValue();
-               return mod.func_111164_d();
+               return mod.getAmount();
           } else {
                return 0.0D;
           }
@@ -618,7 +618,7 @@ public class RoleCompanion extends RoleInterface {
 
      public float applyArmorCalculations(DamageSource source, float damage) {
           if (this.hasInv && this.getTalentLevel(EnumCompanionTalent.ARMOR) > 0) {
-               if (!source.func_76363_c()) {
+               if (!source.isUnblockable()) {
                     this.damageArmor(damage);
                     int i = 25 - this.getTotalArmorValue();
                     float f1 = damage * (float)i;
@@ -645,7 +645,7 @@ public class RoleCompanion extends RoleInterface {
                IItemStack item = (IItemStack)entry.getValue();
                if (item != null && item.getMCItemStack().getItem() instanceof ItemArmor) {
                     hasArmor = true;
-                    item.getMCItemStack().func_77972_a((int)damage, this.npc);
+                    item.getMCItemStack().damageItem((int)damage, this.npc);
                     if (item.getStackSize() <= 0) {
                          ita.remove();
                     }
@@ -686,7 +686,7 @@ public class RoleCompanion extends RoleInterface {
      }
 
      public void addMovementStat(double x, double y, double z) {
-          int i = Math.round(MathHelper.func_76133_a(x * x + y * y + z * z) * 100.0F);
+          int i = Math.round(MathHelper.sqrt(x * x + y * y + z * z) * 100.0F);
           if (this.npc.isAttacking()) {
                this.foodstats.addExhaustion(0.04F * (float)i * 0.01F);
           } else {
@@ -752,7 +752,7 @@ public class RoleCompanion extends RoleInterface {
           IItemStack weapon = this.npc.inventory.getRightHand();
           this.gainExp(weapon == null ? 8 : 4);
           if (weapon != null) {
-               weapon.getMCItemStack().func_77972_a(1, this.npc);
+               weapon.getMCItemStack().damageItem(1, this.npc);
                if (weapon.getMCItemStack().getCount() <= 0) {
                     this.npc.inventory.setRightHand((IItemStack)null);
                }

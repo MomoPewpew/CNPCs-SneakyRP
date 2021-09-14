@@ -40,7 +40,7 @@ public class BlockMailbox extends BlockInterface {
           par3List.add(new ItemStack(this, 1, 2));
      }
 
-     public boolean func_180639_a(World par1World, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
+     public boolean onBlockActivated(World par1World, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
           if (!par1World.isRemote) {
                Server.sendData((EntityPlayerMP)player, EnumPacketClient.GUI, EnumGuiType.PlayerMailbox, pos.getX(), pos.getY(), pos.getZ());
           }
@@ -59,12 +59,12 @@ public class BlockMailbox extends BlockInterface {
           return (Integer)state.getValue(TYPE);
      }
 
-     public int func_176201_c(IBlockState state) {
+     public int getMetaFromState(IBlockState state) {
           return (Integer)state.getValue(ROTATION) | (Integer)state.getValue(TYPE) << 2;
      }
 
-     public IBlockState func_176203_a(int meta) {
-          return this.getDefaultState().func_177226_a(TYPE, (Integer.valueOf(meta) >> 2) % 3).func_177226_a(ROTATION, (meta | 4) % 4);
+     public IBlockState getStateFromMeta(int meta) {
+          return this.getDefaultState().withProperty(TYPE, (Integer.valueOf(meta) >> 2) % 3).withProperty(ROTATION, (meta | 4) % 4);
      }
 
      protected BlockStateContainer func_180661_e() {
@@ -73,7 +73,7 @@ public class BlockMailbox extends BlockInterface {
 
      public void func_180633_a(World world, BlockPos pos, IBlockState state, EntityLivingBase entity, ItemStack stack) {
           int l = MathHelper.floor((double)(entity.field_70177_z * 4.0F / 360.0F) + 0.5D) & 3;
-          world.func_180501_a(pos, state.func_177226_a(TYPE, stack.getItemDamage()).func_177226_a(ROTATION, l % 4), 2);
+          world.setBlockState(pos, state.withProperty(TYPE, stack.getItemDamage()).withProperty(ROTATION, l % 4), 2);
      }
 
      public boolean func_149662_c(IBlockState state) {

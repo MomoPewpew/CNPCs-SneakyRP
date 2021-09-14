@@ -26,7 +26,7 @@ public class SlotNpcCrafting extends SlotCrafting {
                     this.craftMatrix.decrStackSize(i, 1);
                     if (itemstack1.getItem().hasContainerItem(itemstack1)) {
                          ItemStack itemstack2 = itemstack1.getItem().getContainerItem(itemstack1);
-                         if ((NoppesUtilServer.IsItemStackNull(itemstack2) || !itemstack2.func_77984_f() || itemstack2.getItemDamage() <= itemstack2.func_77958_k()) && !player.inventory.addItemStackToInventory(itemstack2)) {
+                         if ((NoppesUtilServer.IsItemStackNull(itemstack2) || !itemstack2.func_77984_f() || itemstack2.getItemDamage() <= itemstack2.getMaxDamage()) && !player.inventory.addItemStackToInventory(itemstack2)) {
                               if (NoppesUtilServer.IsItemStackNull(this.craftMatrix.getStackInSlot(i))) {
                                    this.craftMatrix.setInventorySlotContents(i, itemstack2);
                               } else {

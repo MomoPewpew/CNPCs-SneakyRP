@@ -13,11 +13,11 @@ public class DamageSourceWrapper implements IDamageSource {
      }
 
      public String getType() {
-          return this.source.func_76355_l();
+          return this.source.getDamageType();
      }
 
      public boolean isUnblockable() {
-          return this.source.func_76363_c();
+          return this.source.isUnblockable();
      }
 
      public boolean isProjectile() {

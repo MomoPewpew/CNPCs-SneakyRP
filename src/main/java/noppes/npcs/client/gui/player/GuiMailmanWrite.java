@@ -235,7 +235,7 @@ public class GuiMailmanWrite extends GuiContainerNPCInterface implements ITextfi
      }
 
      private String func_74158_i() {
-          return this.bookPages != null && this.currPage >= 0 && this.currPage < this.bookPages.tagCount() ? this.bookPages.func_150307_f(this.currPage) : "";
+          return this.bookPages != null && this.currPage >= 0 && this.currPage < this.bookPages.tagCount() ? this.bookPages.getStringTagAt(this.currPage) : "";
      }
 
      private void func_74159_a(String par1Str) {
@@ -268,7 +268,7 @@ public class GuiMailmanWrite extends GuiContainerNPCInterface implements ITextfi
           String s = net.minecraft.client.resources.I18n.func_135052_a("book.pageIndicator", new Object[]{this.currPage + 1, this.bookTotalPages});
           String s1 = "";
           if (this.bookPages != null && this.currPage >= 0 && this.currPage < this.bookPages.tagCount()) {
-               s1 = this.bookPages.func_150307_f(this.currPage);
+               s1 = this.bookPages.getStringTagAt(this.currPage);
           }
 
           if (this.canEdit) {

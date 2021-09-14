@@ -44,9 +44,9 @@ public class EntityLivingBaseWrapper extends EntityWrapper implements IEntityLiv
 
      public void setAttackTarget(IEntityLivingBase living) {
           if (living == null) {
-               ((EntityLivingBase)this.entity).func_70604_c((EntityLivingBase)null);
+               ((EntityLivingBase)this.entity).setRevengeTarget((EntityLivingBase)null);
           } else {
-               ((EntityLivingBase)this.entity).func_70604_c(living.getMCEntity());
+               ((EntityLivingBase)this.entity).setRevengeTarget(living.getMCEntity());
           }
 
      }
@@ -56,11 +56,11 @@ public class EntityLivingBaseWrapper extends EntityWrapper implements IEntityLiv
      }
 
      public IEntityLivingBase getLastAttacked() {
-          return (IEntityLivingBase)NpcAPI.Instance().getIEntity(((EntityLivingBase)this.entity).func_110144_aD());
+          return (IEntityLivingBase)NpcAPI.Instance().getIEntity(((EntityLivingBase)this.entity).getLastAttackedEntity());
      }
 
      public int getLastAttackedTime() {
-          return ((EntityLivingBase)this.entity).func_142013_aG();
+          return ((EntityLivingBase)this.entity).getLastAttackedEntityTime();
      }
 
      public boolean canSeeEntity(IEntity entity) {
@@ -76,7 +76,7 @@ public class EntityLivingBaseWrapper extends EntityWrapper implements IEntityLiv
      }
 
      public void addPotionEffect(int effect, int duration, int strength, boolean hideParticles) {
-          Potion p = Potion.func_188412_a(effect);
+          Potion p = Potion.getPotionById(effect);
           if (p != null) {
                if (strength < 0) {
                     strength = 0;
@@ -90,26 +90,26 @@ public class EntityLivingBaseWrapper extends EntityWrapper implements IEntityLiv
                     duration = 1000000;
                }
 
-               if (!p.func_76403_b()) {
+               if (!p.isInstant()) {
                     duration *= 20;
                }
 
                if (duration == 0) {
-                    ((EntityLivingBase)this.entity).func_184589_d(p);
+                    ((EntityLivingBase)this.entity).removePotionEffect(p);
                } else {
-                    ((EntityLivingBase)this.entity).func_70690_d(new PotionEffect(p, duration, strength, false, hideParticles));
+                    ((EntityLivingBase)this.entity).addPotionEffect(new PotionEffect(p, duration, strength, false, hideParticles));
                }
 
           }
      }
 
      public void clearPotionEffects() {
-          ((EntityLivingBase)this.entity).func_70674_bp();
+          ((EntityLivingBase)this.entity).clearActivePotions();
      }
 
      public int getPotionEffect(int effect) {
-          PotionEffect pf = ((EntityLivingBase)this.entity).func_70660_b(Potion.func_188412_a(effect));
-          return pf == null ? -1 : pf.func_76458_c();
+          PotionEffect pf = ((EntityLivingBase)this.entity).getActivePotionEffect(Potion.getPotionById(effect));
+          return pf == null ? -1 : pf.getAmplifier();
      }
 
      public IItemStack getMainhandItem() {
@@ -121,7 +121,7 @@ public class EntityLivingBaseWrapper extends EntityWrapper implements IEntityLiv
      }
 
      public IItemStack getOffhandItem() {
-          return NpcAPI.Instance().getIItemStack(((EntityLivingBase)this.entity).func_184592_cb());
+          return NpcAPI.Instance().getIItemStack(((EntityLivingBase)this.entity).getHeldItemOffhand());
      }
 
      public void setOffhandItem(IItemStack item) {
@@ -130,7 +130,7 @@ public class EntityLivingBaseWrapper extends EntityWrapper implements IEntityLiv
 
      public IItemStack getArmor(int slot) {
           if (slot >= 0 && slot <= 3) {
-               return NpcAPI.Instance().getIItemStack(((EntityLivingBase)this.entity).func_184582_a(this.getSlot(slot)));
+               return NpcAPI.Instance().getIItemStack(((EntityLivingBase)this.entity).getItemStackFromSlot(this.getSlot(slot)));
           } else {
                throw new CustomNPCsException("Wrong slot id:" + slot, new Object[0]);
           }
@@ -173,7 +173,7 @@ public class EntityLivingBaseWrapper extends EntityWrapper implements IEntityLiv
      }
 
      public boolean isChild() {
-          return ((EntityLivingBase)this.entity).func_70631_g_();
+          return ((EntityLivingBase)this.entity).isChild();
      }
 
      public IMark addMark(int type) {

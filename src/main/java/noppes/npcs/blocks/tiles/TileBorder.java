@@ -28,8 +28,8 @@ public class TileBorder extends TileNpcEntity implements Predicate, ITickable {
      public void readFromNBT(NBTTagCompound compound) {
           super.readFromNBT(compound);
           this.readExtraNBT(compound);
-          if (this.func_145831_w() != null) {
-               this.func_145831_w().setBlockState(this.getPos(), CustomItems.border.getDefaultState().func_177226_a(BlockBorder.ROTATION, this.rotation));
+          if (this.getWorld() != null) {
+               this.getWorld().setBlockState(this.getPos(), CustomItems.border.getDefaultState().withProperty(BlockBorder.ROTATION, this.rotation));
           }
 
      }
@@ -56,7 +56,7 @@ public class TileBorder extends TileNpcEntity implements Predicate, ITickable {
      public void func_73660_a() {
           if (!this.field_145850_b.isRemote) {
                AxisAlignedBB box = new AxisAlignedBB((double)this.field_174879_c.getX(), (double)this.field_174879_c.getY(), (double)this.field_174879_c.getZ(), (double)(this.field_174879_c.getX() + 1), (double)(this.field_174879_c.getY() + this.height + 1), (double)(this.field_174879_c.getZ() + 1));
-               List list = this.field_145850_b.func_175647_a(Entity.class, box, this);
+               List list = this.field_145850_b.getEntitiesWithinAABB(Entity.class, box, this);
                Iterator var3 = list.iterator();
 
                while(true) {
@@ -74,7 +74,7 @@ public class TileBorder extends TileNpcEntity implements Predicate, ITickable {
                                    if (this.rotation == 2) {
                                         pos2 = pos2.func_177968_d();
                                    } else if (this.rotation == 0) {
-                                        pos2 = pos2.func_177978_c();
+                                        pos2 = pos2.north();
                                    } else if (this.rotation == 1) {
                                         pos2 = pos2.func_177974_f();
                                    } else if (this.rotation == 3) {

@@ -210,7 +210,7 @@ public class PlayerMail implements IInventory, IPlayerMail {
           NBTTagList pages = this.message.getTagList("pages", 8);
 
           for(int i = 0; i < pages.tagCount(); ++i) {
-               list.add(pages.func_150307_f(i));
+               list.add(pages.getStringTagAt(i));
           }
 
           return (String[])list.toArray(new String[list.size()]);

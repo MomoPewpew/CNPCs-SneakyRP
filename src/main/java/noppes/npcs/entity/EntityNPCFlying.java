@@ -33,17 +33,17 @@ public abstract class EntityNPCFlying extends EntityNPCInterface {
           if (!this.canFly()) {
                super.func_191986_a(par1, par2, par3);
           } else {
-               if (!this.func_70090_H() && this.ais.movementType == 2) {
+               if (!this.isInWater() && this.ais.movementType == 2) {
                     this.motionY = -0.15D;
                }
 
-               if (this.func_70090_H() && this.ais.movementType == 1) {
+               if (this.isInWater() && this.ais.movementType == 1) {
                     this.func_191958_b(par1, par2, par3, 0.02F);
                     this.func_70091_d(MoverType.SELF, this.motionX, this.motionY, this.motionZ);
                     this.motionX *= 0.800000011920929D;
                     this.motionY *= 0.800000011920929D;
                     this.motionZ *= 0.800000011920929D;
-               } else if (this.func_180799_ab()) {
+               } else if (this.isInLava()) {
                     this.func_191958_b(par1, par2, par3, 0.02F);
                     this.func_70091_d(MoverType.SELF, this.motionX, this.motionY, this.motionZ);
                     this.motionX *= 0.5D;
@@ -71,7 +71,7 @@ public abstract class EntityNPCFlying extends EntityNPCInterface {
                this.field_184618_aE = this.field_70721_aZ;
                double d1 = this.field_70165_t - this.field_70169_q;
                double d0 = this.field_70161_v - this.field_70166_s;
-               float f4 = MathHelper.func_76133_a(d1 * d1 + d0 * d0) * 4.0F;
+               float f4 = MathHelper.sqrt(d1 * d1 + d0 * d0) * 4.0F;
                if (f4 > 1.0F) {
                     f4 = 1.0F;
                }

@@ -30,9 +30,9 @@ public class EntityAIDodgeShoot extends EntityAIBase {
                     if (vec == null) {
                          return false;
                     } else {
-                         this.x = vec.field_72450_a;
-                         this.y = vec.field_72448_b;
-                         this.zPosition = vec.field_72449_c;
+                         this.x = vec.x;
+                         this.y = vec.y;
+                         this.zPosition = vec.z;
                          return true;
                     }
                }

@@ -48,12 +48,12 @@ public abstract class BlockNpcDoorInterface extends BlockDoor implements ITileEn
           if (state.getValue(field_176523_O) == EnumDoorHalf.LOWER) {
                iblockstate1 = worldIn.getBlockState(pos.up());
                if (iblockstate1.getBlock() == this) {
-                    state = state.func_177226_a(field_176521_M, iblockstate1.getValue(field_176521_M)).func_177226_a(field_176522_N, iblockstate1.getValue(field_176522_N));
+                    state = state.withProperty(field_176521_M, iblockstate1.getValue(field_176521_M)).withProperty(field_176522_N, iblockstate1.getValue(field_176522_N));
                }
           } else {
                iblockstate1 = worldIn.getBlockState(pos.down());
                if (iblockstate1.getBlock() == this) {
-                    state = state.func_177226_a(field_176520_a, iblockstate1.getValue(field_176520_a)).func_177226_a(field_176519_b, iblockstate1.getValue(field_176519_b));
+                    state = state.withProperty(field_176520_a, iblockstate1.getValue(field_176520_a)).withProperty(field_176519_b, iblockstate1.getValue(field_176519_b));
                }
           }
 

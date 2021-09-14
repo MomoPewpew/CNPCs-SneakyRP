@@ -27,7 +27,7 @@ public class BlockCarpentryBench extends BlockInterface {
           this.func_149672_a(SoundType.field_185848_a);
      }
 
-     public boolean func_180639_a(World par1World, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
+     public boolean onBlockActivated(World par1World, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
           if (!par1World.isRemote) {
                player.openGui(CustomNpcs.instance, EnumGuiType.PlayerAnvil.ordinal(), par1World, pos.getX(), pos.getY(), pos.getZ());
           }
@@ -43,12 +43,12 @@ public class BlockCarpentryBench extends BlockInterface {
           return false;
      }
 
-     public int func_176201_c(IBlockState state) {
+     public int getMetaFromState(IBlockState state) {
           return (Integer)state.getValue(ROTATION);
      }
 
-     public IBlockState func_176203_a(int meta) {
-          return this.getDefaultState().func_177226_a(ROTATION, meta % 4);
+     public IBlockState getStateFromMeta(int meta) {
+          return this.getDefaultState().withProperty(ROTATION, meta % 4);
      }
 
      protected BlockStateContainer func_180661_e() {
@@ -57,7 +57,7 @@ public class BlockCarpentryBench extends BlockInterface {
 
      public void func_180633_a(World world, BlockPos pos, IBlockState state, EntityLivingBase entity, ItemStack stack) {
           int var6 = MathHelper.floor((double)(entity.field_70177_z / 90.0F) + 0.5D) & 3;
-          world.func_180501_a(pos, state.func_177226_a(ROTATION, var6), 2);
+          world.setBlockState(pos, state.withProperty(ROTATION, var6), 2);
      }
 
      public TileEntity func_149915_a(World var1, int var2) {

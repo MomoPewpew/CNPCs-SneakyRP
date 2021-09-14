@@ -50,14 +50,14 @@ public class BlockScripted extends BlockInterface implements IPermission {
           return tile != null && tile.isPassible ? AABB_EMPTY : AABB;
      }
 
-     public boolean func_180639_a(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
+     public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
           if (world.isRemote) {
                return true;
           } else {
                ItemStack currentItem = player.inventory.getCurrentItem();
                if (currentItem == null || currentItem.getItem() != CustomItems.wand && currentItem.getItem() != CustomItems.scripter) {
                     TileScripted tile = (TileScripted)world.getTileEntity(pos);
-                    return !EventHooks.onScriptBlockInteract(tile, player, side.func_176745_a(), hitX, hitY, hitZ);
+                    return !EventHooks.onScriptBlockInteract(tile, player, side.getIndex(), hitX, hitY, hitZ);
                } else {
                     NoppesUtilServer.sendOpenGui(player, EnumGuiType.ScriptBlock, (EntityNPCInterface)null, pos.getX(), pos.getY(), pos.getZ());
                     return true;
@@ -154,7 +154,7 @@ public class BlockScripted extends BlockInterface implements IPermission {
 
                for(int var10 = 0; var10 < var9; ++var10) {
                     EnumFacing enumfacing = var8[var10];
-                    int p = world.func_175651_c(pos.func_177972_a(enumfacing), enumfacing);
+                    int p = world.func_175651_c(pos.offset(enumfacing), enumfacing);
                     if (p > power) {
                          power = p;
                     }

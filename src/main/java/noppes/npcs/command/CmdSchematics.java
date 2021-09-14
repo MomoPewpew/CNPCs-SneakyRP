@@ -15,7 +15,7 @@ import noppes.npcs.controllers.SchematicController;
 import noppes.npcs.schematics.SchematicWrapper;
 
 public class CmdSchematics extends CommandNoppesBase {
-     public String func_71517_b() {
+     public String getName() {
           return "schema";
      }
 

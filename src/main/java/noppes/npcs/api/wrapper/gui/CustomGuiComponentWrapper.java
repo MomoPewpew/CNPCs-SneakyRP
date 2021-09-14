@@ -86,7 +86,7 @@ public abstract class CustomGuiComponentWrapper implements ICustomGuiComponent {
                String[] hoverText = new String[list.tagCount()];
 
                for(int i = 0; i < list.tagCount(); ++i) {
-                    hoverText[i] = ((NBTTagString)list.func_179238_g(i)).func_150285_a_();
+                    hoverText[i] = ((NBTTagString)list.get(i)).getString();
                }
 
                this.setHoverText(hoverText);

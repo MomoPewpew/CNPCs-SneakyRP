@@ -28,7 +28,7 @@ public class BlockWaypoint extends BlockInterface implements IPermission {
           this.setCreativeTab(CustomItems.tab);
      }
 
-     public boolean func_180639_a(World par1World, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
+     public boolean onBlockActivated(World par1World, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
           if (par1World.isRemote) {
                return false;
           } else {

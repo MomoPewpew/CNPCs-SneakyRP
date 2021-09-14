@@ -172,7 +172,7 @@ public class GuiBlockBuilder extends GuiNPCInterface implements IGuiData, ICusto
 
                this.selected = new ISchematic() {
                     public short getWidth() {
-                         return compound.func_74765_d("Width");
+                         return compound.getShort("Width");
                     }
 
                     public int getTileEntitySize() {
@@ -188,11 +188,11 @@ public class GuiBlockBuilder extends GuiNPCInterface implements IGuiData, ICusto
                     }
 
                     public short getLength() {
-                         return compound.func_74765_d("Length");
+                         return compound.getShort("Length");
                     }
 
                     public short getHeight() {
-                         return compound.func_74765_d("Height");
+                         return compound.getShort("Height");
                     }
 
                     public IBlockState getBlockState(int i) {

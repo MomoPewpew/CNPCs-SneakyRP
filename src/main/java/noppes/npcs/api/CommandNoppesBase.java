@@ -37,10 +37,10 @@ public abstract class CommandNoppesBase extends CommandBase {
 
      }
 
-     public void func_184881_a(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
+     public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
      }
 
-     public String func_71518_a(ICommandSender sender) {
+     public String getUsage(ICommandSender sender) {
           return this.getDescription();
      }
 
@@ -64,7 +64,7 @@ public abstract class CommandNoppesBase extends CommandBase {
                throw new CommandException("Unknown subcommand " + command, new Object[0]);
           } else {
                CommandNoppesBase.SubCommand sc = (CommandNoppesBase.SubCommand)m.getAnnotation(CommandNoppesBase.SubCommand.class);
-               if (!sender.canUseCommand(sc.permission(), "commands.noppes." + this.func_71517_b().toLowerCase() + "." + command.toLowerCase())) {
+               if (!sender.canUseCommand(sc.permission(), "commands.noppes." + this.getName().toLowerCase() + "." + command.toLowerCase())) {
                     throw new CommandException("You are not allowed to use this command", new Object[0]);
                } else {
                     this.canRun(server, sender, sc.usage(), args);
@@ -103,7 +103,7 @@ public abstract class CommandNoppesBase extends CommandBase {
           }
      }
 
-     public int func_82362_a() {
+     public int getRequiredPermissionLevel() {
           return 2;
      }
 

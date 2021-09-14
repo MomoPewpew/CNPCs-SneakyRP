@@ -14,24 +14,24 @@ public class TileCopy extends TileEntity {
 
      public void readFromNBT(NBTTagCompound compound) {
           super.readFromNBT(compound);
-          this.length = compound.func_74765_d("Length");
-          this.width = compound.func_74765_d("Width");
-          this.height = compound.func_74765_d("Height");
+          this.length = compound.getShort("Length");
+          this.width = compound.getShort("Width");
+          this.height = compound.getShort("Height");
           this.name = compound.getString("Name");
      }
 
      public NBTTagCompound writeToNBT(NBTTagCompound compound) {
-          compound.func_74777_a("Length", this.length);
-          compound.func_74777_a("Width", this.width);
-          compound.func_74777_a("Height", this.height);
+          compound.setShort("Length", this.length);
+          compound.setShort("Width", this.width);
+          compound.setShort("Height", this.height);
           compound.setString("Name", this.name);
           return super.writeToNBT(compound);
      }
 
      public void handleUpdateTag(NBTTagCompound compound) {
-          this.length = compound.func_74765_d("Length");
-          this.width = compound.func_74765_d("Width");
-          this.height = compound.func_74765_d("Height");
+          this.length = compound.getShort("Length");
+          this.width = compound.getShort("Width");
+          this.height = compound.getShort("Height");
      }
 
      public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity pkt) {
@@ -47,9 +47,9 @@ public class TileCopy extends TileEntity {
           compound.setInteger("x", this.field_174879_c.getX());
           compound.setInteger("y", this.field_174879_c.getY());
           compound.setInteger("z", this.field_174879_c.getZ());
-          compound.func_74777_a("Length", this.length);
-          compound.func_74777_a("Width", this.width);
-          compound.func_74777_a("Height", this.height);
+          compound.setShort("Length", this.length);
+          compound.setShort("Width", this.width);
+          compound.setShort("Height", this.height);
           return compound;
      }
 

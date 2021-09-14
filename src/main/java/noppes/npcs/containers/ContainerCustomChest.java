@@ -69,8 +69,8 @@ public class ContainerCustomChest extends ContainerNpcInterface {
                     EventHooks.onCustomChestClicked(event);
                     player.inventory.func_70437_b(event.heldItem == null ? ItemStack.EMPTY : event.heldItem.getMCItemStack());
                     ((EntityPlayerMP)player).func_71113_k();
-                    this.func_75141_a(slotId, event.slotItem == null ? ItemStack.EMPTY : event.slotItem.getMCItemStack());
-                    this.func_75142_b();
+                    this.putStackInSlot(slotId, event.slotItem == null ? ItemStack.EMPTY : event.slotItem.getMCItemStack());
+                    this.detectAndSendChanges();
                     return ItemStack.EMPTY;
                }
           } else {

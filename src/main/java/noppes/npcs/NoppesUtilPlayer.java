@@ -365,7 +365,7 @@ public class NoppesUtilPlayer {
                     if (!quest.command.isEmpty()) {
                          FakePlayer cplayer = EntityNPCInterface.CommandPlayer;
                          cplayer.setWorld(player.world);
-                         cplayer.func_70107_b(player.field_70165_t, player.field_70163_u, player.field_70161_v);
+                         cplayer.setPosition(player.field_70165_t, player.field_70163_u, player.field_70161_v);
                          NoppesUtilServer.runCommand(cplayer, "QuestCompletion", quest.command, player);
                     }
 

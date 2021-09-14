@@ -52,7 +52,7 @@ public class EntityAIOrbitTarget extends EntityAIBase {
      }
 
      public boolean shouldContinueExecuting() {
-          return this.targetEntity.isEntityAlive() && !this.npc.isInRange(this.targetEntity, (double)(this.distance / 2.0F)) && this.npc.isInRange(this.targetEntity, (double)this.distance * 1.5D) && !this.npc.func_70090_H() && this.canNavigate;
+          return this.targetEntity.isEntityAlive() && !this.npc.isInRange(this.targetEntity, (double)(this.distance / 2.0F)) && this.npc.isInRange(this.targetEntity, (double)this.distance * 1.5D) && !this.npc.isInWater() && this.canNavigate;
      }
 
      public void resetTask() {
@@ -81,15 +81,15 @@ public class EntityAIOrbitTarget extends EntityAIBase {
 
      public void updateTask() {
           this.npc.getLookHelper().setLookPositionWithEntity(this.targetEntity, 30.0F, 30.0F);
-          if (this.npc.getNavigator().noPath() && this.tick >= 0 && this.npc.field_70122_E && !this.npc.func_70090_H()) {
-               double d0 = (double)this.targetDistance * (double)MathHelper.func_76134_b(this.angle / 180.0F * 3.1415927F);
-               double d1 = (double)this.targetDistance * (double)MathHelper.func_76126_a(this.angle / 180.0F * 3.1415927F);
+          if (this.npc.getNavigator().noPath() && this.tick >= 0 && this.npc.field_70122_E && !this.npc.isInWater()) {
+               double d0 = (double)this.targetDistance * (double)MathHelper.cos(this.angle / 180.0F * 3.1415927F);
+               double d1 = (double)this.targetDistance * (double)MathHelper.sin(this.angle / 180.0F * 3.1415927F);
                this.movePosX = this.targetEntity.field_70165_t + d0;
                this.movePosY = this.targetEntity.getEntityBoundingBox().field_72337_e;
                this.movePosZ = this.targetEntity.field_70161_v + d1;
                this.npc.getNavigator().tryMoveToXYZ(this.movePosX, this.movePosY, this.movePosZ, this.speed);
                this.angle += 15.0F * (float)this.direction;
-               this.tick = MathHelper.func_76143_f(this.npc.func_70011_f(this.movePosX, this.movePosY, this.movePosZ) / (double)(this.npc.getSpeed() / 20.0F));
+               this.tick = MathHelper.ceil(this.npc.getDistance(this.movePosX, this.movePosY, this.movePosZ) / (double)(this.npc.getSpeed() / 20.0F));
                if (this.decay) {
                     this.targetDistance -= this.decayRate;
                }

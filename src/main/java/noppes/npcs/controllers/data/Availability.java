@@ -136,7 +136,7 @@ public class Availability implements ICompatibilty, IAvailability {
                     for(int var4 = 0; var4 < var3; ++var4) {
                          WorldServer world = var2[var4];
                          ServerScoreboard board = (ServerScoreboard)world.field_96442_D;
-                         ScoreObjective so = board.func_96518_b(objective);
+                         ScoreObjective so = board.getObjective(objective);
                          if (so != null) {
                               Set addedObjectives = (Set)ObfuscationReflectionHelper.getPrivateValue(ServerScoreboard.class, board, 1);
                               if (!addedObjectives.contains(so)) {
@@ -203,14 +203,14 @@ public class Availability implements ICompatibilty, IAvailability {
      public boolean isAvailable(EntityPlayer player) {
           long time;
           if (this.daytime == EnumDayTime.Day) {
-               time = player.world.func_72820_D() % 24000L;
+               time = player.world.getWorldTime() % 24000L;
                if (time > 12000L) {
                     return false;
                }
           }
 
           if (this.daytime == EnumDayTime.Night) {
-               time = player.world.func_72820_D() % 24000L;
+               time = player.world.getWorldTime() % 24000L;
                if (time < 12000L) {
                     return false;
                }
@@ -249,13 +249,13 @@ public class Availability implements ICompatibilty, IAvailability {
           if (objective.isEmpty()) {
                return true;
           } else {
-               ScoreObjective sbObjective = player.func_96123_co().func_96518_b(objective);
+               ScoreObjective sbObjective = player.func_96123_co().getObjective(objective);
                if (sbObjective == null) {
                     return false;
-               } else if (!player.func_96123_co().func_178819_b(player.getName(), sbObjective)) {
+               } else if (!player.func_96123_co().entityHasObjective(player.getName(), sbObjective)) {
                     return false;
                } else {
-                    int i = player.func_96123_co().func_96529_a(player.getName(), sbObjective).func_96652_c();
+                    int i = player.func_96123_co().getOrCreateScore(player.getName(), sbObjective).getScorePoints();
                     if (type == EnumAvailabilityScoreboard.EQUAL) {
                          return i == value;
                     } else if (type == EnumAvailabilityScoreboard.BIGGER) {

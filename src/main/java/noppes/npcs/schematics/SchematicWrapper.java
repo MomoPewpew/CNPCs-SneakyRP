@@ -101,11 +101,11 @@ public class SchematicWrapper {
 
      public void place(int x, int y, int z, int flag) {
           IBlockState state = this.schema.getBlockState(x, y, z);
-          if (state != null && (flag != 1 || state.func_185913_b() || state.getBlock() == Blocks.field_150350_a) && (flag != 2 || !state.func_185913_b() && state.getBlock() != Blocks.field_150350_a)) {
+          if (state != null && (flag != 1 || state.isFullBlock() || state.getBlock() == Blocks.field_150350_a) && (flag != 2 || !state.isFullBlock() && state.getBlock() != Blocks.field_150350_a)) {
                int rotation = this.rotation / 90;
-               BlockPos pos = this.start.func_177971_a(this.rotatePos(x, y, z, rotation));
+               BlockPos pos = this.start.add(this.rotatePos(x, y, z, rotation));
                state = this.rotationState(state, rotation);
-               this.world.func_180501_a(pos, state, 2);
+               this.world.setBlockState(pos, state, 2);
                if (state.getBlock() instanceof ITileEntityProvider) {
                     TileEntity tile = this.world.getTileEntity(pos);
                     if (tile != null) {
@@ -123,7 +123,7 @@ public class SchematicWrapper {
           if (rotation == 0) {
                return state;
           } else {
-               Set set = state.func_177228_b().keySet();
+               Set set = state.getProperties().keySet();
                Iterator var4 = set.iterator();
 
                while(var4.hasNext()) {
@@ -135,7 +135,7 @@ public class SchematicWrapper {
                                    direction = direction.func_176746_e();
                               }
 
-                              return state.func_177226_a(prop, direction);
+                              return state.withProperty(prop, direction);
                          }
                     }
                }
@@ -163,9 +163,9 @@ public class SchematicWrapper {
 
      public NBTTagCompound getNBTSmall() {
           NBTTagCompound compound = new NBTTagCompound();
-          compound.func_74777_a("Width", this.schema.getWidth());
-          compound.func_74777_a("Height", this.schema.getHeight());
-          compound.func_74777_a("Length", this.schema.getLength());
+          compound.setShort("Width", this.schema.getWidth());
+          compound.setShort("Height", this.schema.getHeight());
+          compound.setShort("Length", this.schema.getLength());
           compound.setString("SchematicName", this.schema.getName());
           NBTTagList list = new NBTTagList();
 

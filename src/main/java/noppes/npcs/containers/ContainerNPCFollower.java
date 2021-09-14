@@ -32,7 +32,7 @@ public class ContainerNPCFollower extends ContainerNpcInterface {
           if (!entityplayer.world.isRemote) {
                ItemStack itemstack = this.currencyMatrix.removeStackFromSlot(0);
                if (!NoppesUtilServer.IsItemStackNull(itemstack) && !entityplayer.world.isRemote) {
-                    entityplayer.func_70099_a(itemstack, 0.0F);
+                    entityplayer.entityDropItem(itemstack, 0.0F);
                }
           }
 

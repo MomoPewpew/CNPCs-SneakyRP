@@ -9,11 +9,11 @@ public class EntityAIWaterNav extends EntityAIBase {
 
      public EntityAIWaterNav(EntityNPCInterface iNpc) {
           this.entity = iNpc;
-          ((PathNavigateGround)iNpc.getNavigator()).func_179693_d(true);
+          ((PathNavigateGround)iNpc.getNavigator()).setCanSwim(true);
      }
 
      public boolean shouldExecute() {
-          if (!this.entity.func_70090_H() && !this.entity.func_180799_ab()) {
+          if (!this.entity.isInWater() && !this.entity.isInLava()) {
                return false;
           } else {
                return this.entity.ais.canSwim ? true : this.entity.field_70123_F;
@@ -22,7 +22,7 @@ public class EntityAIWaterNav extends EntityAIBase {
 
      public void updateTask() {
           if (this.entity.getRNG().nextFloat() < 0.8F) {
-               this.entity.func_70683_ar().func_75660_a();
+               this.entity.getJumpHelper().setJumping();
           }
 
      }

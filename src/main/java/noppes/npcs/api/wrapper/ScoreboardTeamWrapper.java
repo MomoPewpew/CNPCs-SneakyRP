@@ -19,65 +19,65 @@ public class ScoreboardTeamWrapper implements IScoreboardTeam {
      }
 
      public String getName() {
-          return this.team.func_96661_b();
+          return this.team.getName();
      }
 
      public String getDisplayName() {
-          return this.team.func_96669_c();
+          return this.team.getDisplayName();
      }
 
      public void setDisplayName(String name) {
           if (name.length() > 0 && name.length() <= 32) {
-               this.team.func_96664_a(name);
+               this.team.setDisplayName(name);
           } else {
                throw new CustomNPCsException("Score team display name must be between 1-32 characters: %s", new Object[]{name});
           }
      }
 
      public void addPlayer(String player) {
-          this.board.func_151392_a(player, this.getName());
+          this.board.addPlayerToTeam(player, this.getName());
      }
 
      public void removePlayer(String player) {
-          this.board.func_96512_b(player, this.team);
+          this.board.removePlayerFromTeam(player, this.team);
      }
 
      public String[] getPlayers() {
-          List list = new ArrayList(this.team.func_96670_d());
+          List list = new ArrayList(this.team.getMembershipCollection());
           return (String[])list.toArray(new String[list.size()]);
      }
 
      public void clearPlayers() {
-          List list = new ArrayList(this.team.func_96670_d());
+          List list = new ArrayList(this.team.getMembershipCollection());
           Iterator var2 = list.iterator();
 
           while(var2.hasNext()) {
                String player = (String)var2.next();
-               this.board.func_96512_b(player, this.team);
+               this.board.removePlayerFromTeam(player, this.team);
           }
 
      }
 
      public boolean getFriendlyFire() {
-          return this.team.func_96665_g();
+          return this.team.getAllowFriendlyFire();
      }
 
      public void setFriendlyFire(boolean bo) {
-          this.team.func_96660_a(bo);
+          this.team.setAllowFriendlyFire(bo);
      }
 
      public void setColor(String color) {
-          TextFormatting enumchatformatting = TextFormatting.func_96300_b(color);
-          if (enumchatformatting != null && !enumchatformatting.func_96301_b()) {
-               this.team.func_96666_b(enumchatformatting.toString());
-               this.team.func_96662_c(TextFormatting.RESET.toString());
+          TextFormatting enumchatformatting = TextFormatting.getValueByName(color);
+          if (enumchatformatting != null && !enumchatformatting.isFancyStyling()) {
+               this.team.setPrefix(enumchatformatting.toString());
+               this.team.setSuffix(TextFormatting.RESET.toString());
           } else {
                throw new CustomNPCsException("Not a proper color name: %s", new Object[]{color});
           }
      }
 
      public String getColor() {
-          String prefix = this.team.func_96668_e();
+          String prefix = this.team.getPrefix();
           if (prefix != null && !prefix.isEmpty()) {
                TextFormatting[] var2 = TextFormatting.values();
                int var3 = var2.length;
@@ -85,7 +85,7 @@ public class ScoreboardTeamWrapper implements IScoreboardTeam {
                for(int var4 = 0; var4 < var3; ++var4) {
                     TextFormatting format = var2[var4];
                     if (prefix.equals(format.toString()) && format != TextFormatting.RESET) {
-                         return format.func_96297_d();
+                         return format.getFriendlyName();
                     }
                }
 
@@ -96,14 +96,14 @@ public class ScoreboardTeamWrapper implements IScoreboardTeam {
      }
 
      public void setSeeInvisibleTeamPlayers(boolean bo) {
-          this.team.func_98300_b(bo);
+          this.team.setSeeFriendlyInvisiblesEnabled(bo);
      }
 
      public boolean getSeeInvisibleTeamPlayers() {
-          return this.team.func_98297_h();
+          return this.team.getSeeFriendlyInvisiblesEnabled();
      }
 
      public boolean hasPlayer(String player) {
-          return this.board.func_96509_i(player) != null;
+          return this.board.getPlayersTeam(player) != null;
      }
 }

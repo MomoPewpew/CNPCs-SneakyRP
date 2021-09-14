@@ -123,8 +123,8 @@ public class DataTransform {
           this.npc.advanced.job = 0;
           this.npc.advanced.role = 0;
           NBTTagCompound compound = this.npc.advanced.writeToNBT(new NBTTagCompound());
-          compound.func_82580_o("Role");
-          compound.func_82580_o("NpcJob");
+          compound.removeTag("Role");
+          compound.removeTag("NpcJob");
           this.npc.advanced.job = jopType;
           this.npc.advanced.role = roleType;
           return compound;

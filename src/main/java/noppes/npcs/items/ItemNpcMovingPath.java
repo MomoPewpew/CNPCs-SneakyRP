@@ -65,7 +65,7 @@ public class ItemNpcMovingPath extends Item implements IPermission {
                     double d3 = (double)(x - pos[0]);
                     double d4 = (double)(y - pos[1]);
                     double d5 = (double)(z - pos[2]);
-                    double distance = (double)MathHelper.func_76133_a(d3 * d3 + d4 * d4 + d5 * d5);
+                    double distance = (double)MathHelper.sqrt(d3 * d3 + d4 * d4 + d5 * d5);
                     player.sendMessage(new TextComponentString("Added point x:" + x + " y:" + y + " z:" + z + " to npc " + npc.getName()));
                     if (distance > (double)CustomNpcs.NpcNavRange) {
                          player.sendMessage(new TextComponentString("Warning: point is too far away from previous point. Max block walk distance = " + CustomNpcs.NpcNavRange));

@@ -159,7 +159,7 @@ public abstract class GuiContainerNPCInterface extends GuiContainer {
      public void close() {
           GuiNpcTextField.unfocus();
           this.save();
-          this.player.func_71053_j();
+          this.player.closeScreen();
           this.displayGuiScreen((GuiScreen)null);
           this.field_146297_k.func_71381_h();
      }

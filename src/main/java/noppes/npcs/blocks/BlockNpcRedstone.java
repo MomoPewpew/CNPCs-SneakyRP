@@ -31,7 +31,7 @@ public class BlockNpcRedstone extends BlockInterface implements IPermission {
           super(Material.field_151576_e);
      }
 
-     public boolean func_180639_a(World par1World, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
+     public boolean onBlockActivated(World par1World, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
           if (par1World.isRemote) {
                return false;
           } else {
@@ -52,7 +52,7 @@ public class BlockNpcRedstone extends BlockInterface implements IPermission {
           par1World.func_175685_c(pos.func_177976_e(), this, false);
           par1World.func_175685_c(pos.func_177974_f(), this, false);
           par1World.func_175685_c(pos.func_177968_d(), this, false);
-          par1World.func_175685_c(pos.func_177978_c(), this, false);
+          par1World.func_175685_c(pos.north(), this, false);
      }
 
      public void func_180633_a(World world, BlockPos pos, IBlockState state, EntityLivingBase entityliving, ItemStack item) {
@@ -78,12 +78,12 @@ public class BlockNpcRedstone extends BlockInterface implements IPermission {
           return true;
      }
 
-     public int func_176201_c(IBlockState state) {
+     public int getMetaFromState(IBlockState state) {
           return (Boolean)state.getValue(ACTIVE) ? 1 : 0;
      }
 
-     public IBlockState func_176203_a(int meta) {
-          return this.getDefaultState().func_177226_a(ACTIVE, false);
+     public IBlockState getStateFromMeta(int meta) {
+          return this.getDefaultState().withProperty(ACTIVE, false);
      }
 
      protected BlockStateContainer func_180661_e() {

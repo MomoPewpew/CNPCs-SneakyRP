@@ -101,7 +101,7 @@ public class WrapperNpcAPI extends NpcAPI {
                return null;
           } else {
                EntityCustomNpc npc = new EntityCustomNpc(world);
-               npc.func_70080_a((double)x + 0.5D, (double)y, (double)z + 0.5D, 0.0F, 0.0F);
+               npc.setPositionAndRotation((double)x + 0.5D, (double)y, (double)z + 0.5D, 0.0F, 0.0F);
                npc.ais.setStartPos((double)x, (double)y, (double)z);
                npc.setHealth(npc.getMaxHealth());
                world.spawnEntity(npc);
@@ -168,7 +168,7 @@ public class WrapperNpcAPI extends NpcAPI {
      }
 
      private void checkWorld() {
-          if (CustomNpcs.Server == null || CustomNpcs.Server.func_71241_aa()) {
+          if (CustomNpcs.Server == null || CustomNpcs.Server.isServerStopped()) {
                throw new CustomNPCsException("No world is loaded right now", new Object[0]);
           }
      }
@@ -241,7 +241,7 @@ public class WrapperNpcAPI extends NpcAPI {
      public String executeCommand(IWorld world, String command) {
           FakePlayer player = EntityNPCInterface.CommandPlayer;
           player.setWorld(world.getMCWorld());
-          player.func_70107_b(0.0D, 0.0D, 0.0D);
+          player.setPosition(0.0D, 0.0D, 0.0D);
           return NoppesUtilServer.runCommand(world.getMCWorld(), BlockPos.field_177992_a, "API", command, (EntityPlayer)null, player);
      }
 

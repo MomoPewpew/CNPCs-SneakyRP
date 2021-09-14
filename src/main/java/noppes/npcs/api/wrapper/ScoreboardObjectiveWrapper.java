@@ -19,31 +19,31 @@ public class ScoreboardObjectiveWrapper implements IScoreboardObjective {
      }
 
      public String getName() {
-          return this.objective.func_96679_b();
+          return this.objective.getName();
      }
 
      public String getDisplayName() {
-          return this.objective.func_96678_d();
+          return this.objective.getDisplayName();
      }
 
      public void setDisplayName(String name) {
           if (name.length() > 0 && name.length() <= 32) {
-               this.objective.func_96681_a(name);
+               this.objective.setDisplayName(name);
           } else {
                throw new CustomNPCsException("Score objective display name must be between 1-32 characters: %s", new Object[]{name});
           }
      }
 
      public String getCriteria() {
-          return this.objective.func_96680_c().func_96636_a();
+          return this.objective.getCriteria().getName();
      }
 
      public boolean isReadyOnly() {
-          return this.objective.func_96680_c().func_96637_b();
+          return this.objective.getCriteria().isReadOnly();
      }
 
      public IScoreboardScore[] getScores() {
-          Collection list = this.board.func_96534_i(this.objective);
+          Collection list = this.board.getSortedScores(this.objective);
           IScoreboardScore[] scores = new IScoreboardScore[list.size()];
           int i = 0;
 
@@ -56,18 +56,18 @@ public class ScoreboardObjectiveWrapper implements IScoreboardObjective {
      }
 
      public IScoreboardScore getScore(String player) {
-          return !this.hasScore(player) ? null : new ScoreboardScoreWrapper(this.board.func_96529_a(player, this.objective));
+          return !this.hasScore(player) ? null : new ScoreboardScoreWrapper(this.board.getOrCreateScore(player, this.objective));
      }
 
      public IScoreboardScore createScore(String player) {
-          return new ScoreboardScoreWrapper(this.board.func_96529_a(player, this.objective));
+          return new ScoreboardScoreWrapper(this.board.getOrCreateScore(player, this.objective));
      }
 
      public void removeScore(String player) {
-          this.board.func_178822_d(player, this.objective);
+          this.board.removeObjectiveFromEntity(player, this.objective);
      }
 
      public boolean hasScore(String player) {
-          return this.board.func_178819_b(player, this.objective);
+          return this.board.entityHasObjective(player, this.objective);
      }
 }

@@ -34,7 +34,7 @@ public class BlockBorder extends BlockInterface implements IPermission {
           this.func_149722_s();
      }
 
-     public boolean func_180639_a(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
+     public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
           ItemStack currentItem = player.inventory.getCurrentItem();
           if (!world.isRemote && currentItem != null && currentItem.getItem() == CustomItems.wand) {
                NoppesUtilServer.sendOpenGui(player, EnumGuiType.Border, (EntityNPCInterface)null, pos.getX(), pos.getY(), pos.getZ());
@@ -47,7 +47,7 @@ public class BlockBorder extends BlockInterface implements IPermission {
      public void func_180633_a(World world, BlockPos pos, IBlockState state, EntityLivingBase entity, ItemStack stack) {
           int l = MathHelper.floor((double)(entity.field_70177_z * 4.0F / 360.0F) + 0.5D) & 3;
           l %= 4;
-          world.setBlockState(pos, state.func_177226_a(ROTATION, l));
+          world.setBlockState(pos, state.withProperty(ROTATION, l));
           TileBorder tile = (TileBorder)world.getTileEntity(pos);
           TileBorder adjacent = this.getTile(world, pos.func_177976_e());
           if (adjacent == null) {
@@ -55,7 +55,7 @@ public class BlockBorder extends BlockInterface implements IPermission {
           }
 
           if (adjacent == null) {
-               adjacent = this.getTile(world, pos.func_177978_c());
+               adjacent = this.getTile(world, pos.north());
           }
 
           if (adjacent == null) {
@@ -100,12 +100,12 @@ public class BlockBorder extends BlockInterface implements IPermission {
           return new BlockStateContainer(this, new IProperty[]{ROTATION});
      }
 
-     public int func_176201_c(IBlockState state) {
+     public int getMetaFromState(IBlockState state) {
           return (Integer)state.getValue(ROTATION);
      }
 
-     public IBlockState func_176203_a(int meta) {
-          return this.getDefaultState().func_177226_a(ROTATION, meta);
+     public IBlockState getStateFromMeta(int meta) {
+          return this.getDefaultState().withProperty(ROTATION, meta);
      }
 
      public boolean isAllowed(EnumPacketServer e) {

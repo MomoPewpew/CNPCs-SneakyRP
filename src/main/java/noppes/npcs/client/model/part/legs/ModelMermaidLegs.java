@@ -56,7 +56,7 @@ public class ModelMermaidLegs extends ModelRenderer {
      }
 
      public void setRotationAngles(float par1, float par2, float par3, float par4, float par5, float par6, Entity entity) {
-          float ani = MathHelper.func_76126_a(par1 * 0.6662F);
+          float ani = MathHelper.sin(par1 * 0.6662F);
           if ((double)ani > 0.2D) {
                ani /= 3.0F;
           }

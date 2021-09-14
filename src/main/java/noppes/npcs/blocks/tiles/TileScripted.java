@@ -103,7 +103,7 @@ public class TileScripted extends TileNpcEntity implements ITickable, IScriptBlo
 
      public IBlock getBlock() {
           if (this.blockDummy == null) {
-               this.blockDummy = new BlockScriptedWrapper(this.func_145831_w(), this.func_145838_q(), this.getPos());
+               this.blockDummy = new BlockScriptedWrapper(this.getWorld(), this.func_145838_q(), this.getPos());
           }
 
           return this.blockDummy;
@@ -136,7 +136,7 @@ public class TileScripted extends TileNpcEntity implements ITickable, IScriptBlo
           }
 
           if (compound.hasKey("ScriptBlockModelBlock")) {
-               this.blockModel = Block.func_149684_b(compound.getString("ScriptBlockModelBlock"));
+               this.blockModel = Block.getBlockFromName(compound.getString("ScriptBlockModelBlock"));
           }
 
           this.renderTileUpdate = null;
@@ -245,7 +245,7 @@ public class TileScripted extends TileNpcEntity implements ITickable, IScriptBlo
                if (this.needsClientUpdate) {
                     this.markDirty();
                     IBlockState state = this.field_145850_b.getBlockState(this.field_174879_c);
-                    this.field_145850_b.func_184138_a(this.field_174879_c, state, state, 3);
+                    this.field_145850_b.notifyBlockUpdate(this.field_174879_c, state, state, 3);
                     this.needsClientUpdate = false;
                }
           }
@@ -343,7 +343,7 @@ public class TileScripted extends TileNpcEntity implements ITickable, IScriptBlo
      }
 
      public boolean isClient() {
-          return this.func_145831_w().isRemote;
+          return this.getWorld().isRemote;
      }
 
      public boolean getEnabled() {
@@ -402,7 +402,7 @@ public class TileScripted extends TileNpcEntity implements ITickable, IScriptBlo
 
      @SideOnly(Side.CLIENT)
      public AxisAlignedBB getRenderBoundingBox() {
-          return Block.field_185505_j.func_186670_a(this.getPos());
+          return Block.field_185505_j.offset(this.getPos());
      }
 
      public class TextPlane implements ITextPlane {

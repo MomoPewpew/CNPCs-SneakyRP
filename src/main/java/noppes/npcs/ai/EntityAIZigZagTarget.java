@@ -48,17 +48,17 @@ public class EntityAIZigZagTarget extends EntityAIBase {
           this.npc.getLookHelper().setLookPositionWithEntity(this.targetEntity, 30.0F, 30.0F);
           if (this.ticks-- <= 0) {
                Path pathentity = this.npc.getNavigator().getPathToEntityLiving(this.targetEntity);
-               if (pathentity != null && pathentity.func_75874_d() >= this.npc.ais.getTacticalRange()) {
-                    PathPoint pathpoint = pathentity.func_75877_a(MathHelper.floor((double)this.npc.ais.getTacticalRange() / 2.0D));
+               if (pathentity != null && pathentity.getCurrentPathLength() >= this.npc.ais.getTacticalRange()) {
+                    PathPoint pathpoint = pathentity.getPathPointFromIndex(MathHelper.floor((double)this.npc.ais.getTacticalRange() / 2.0D));
                     this.entityPosX = pathpoint.field_75839_a;
                     this.entityPosY = pathpoint.field_75837_b;
                     this.entityPosZ = pathpoint.field_75838_c;
-                    Vec3d vec3 = RandomPositionGenerator.func_75464_a(this.npc, this.npc.ais.getTacticalRange(), 3, new Vec3d((double)this.entityPosX, (double)this.entityPosY, (double)this.entityPosZ));
+                    Vec3d vec3 = RandomPositionGenerator.findRandomTargetBlockTowards(this.npc, this.npc.ais.getTacticalRange(), 3, new Vec3d((double)this.entityPosX, (double)this.entityPosY, (double)this.entityPosZ));
                     if (vec3 != null) {
-                         if (this.targetEntity.getDistanceSq(vec3.field_72450_a, vec3.field_72448_b, vec3.field_72449_c) < this.targetEntity.getDistanceSq((double)this.entityPosX, (double)this.entityPosY, (double)this.entityPosZ)) {
-                              this.movePosX = vec3.field_72450_a;
-                              this.movePosY = vec3.field_72448_b;
-                              this.movePosZ = vec3.field_72449_c;
+                         if (this.targetEntity.getDistanceSq(vec3.x, vec3.y, vec3.z) < this.targetEntity.getDistanceSq((double)this.entityPosX, (double)this.entityPosY, (double)this.entityPosZ)) {
+                              this.movePosX = vec3.x;
+                              this.movePosY = vec3.y;
+                              this.movePosZ = vec3.z;
                          }
                     } else {
                          this.movePosX = (double)pathpoint.field_75839_a;

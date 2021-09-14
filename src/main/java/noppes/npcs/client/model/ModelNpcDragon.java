@@ -169,11 +169,11 @@ public class ModelNpcDragon extends ModelBase {
                     this.wing.field_78796_g = 0.95F;
                     this.wing.field_78808_h = -0.5F;
                     this.wingTip.field_78808_h = -0.4F;
-                    this.frontLeg.field_78795_f = MathHelper.func_76134_b((float)((double)(f * 0.6662F) + (k == 0 ? 0.0D : 3.141592653589793D))) * 0.6F * f1 + 0.45F + f7 * 0.5F;
+                    this.frontLeg.field_78795_f = MathHelper.cos((float)((double)(f * 0.6662F) + (k == 0 ? 0.0D : 3.141592653589793D))) * 0.6F * f1 + 0.45F + f7 * 0.5F;
                     this.frontLegTip.field_78795_f = -1.3F - f7 * 1.2F;
                     this.frontFoot.field_78795_f = 0.85F + f7 * 0.5F;
                     this.frontLeg.func_78785_a(f5);
-                    this.rearLeg.field_78795_f = MathHelper.func_76134_b((float)((double)(f * 0.6662F) + (k == 0 ? 3.141592653589793D : 0.0D))) * 0.6F * f1 + 0.75F + f7 * 0.5F;
+                    this.rearLeg.field_78795_f = MathHelper.cos((float)((double)(f * 0.6662F) + (k == 0 ? 3.141592653589793D : 0.0D))) * 0.6F * f1 + 0.75F + f7 * 0.5F;
                     this.rearLegTip.field_78795_f = -1.6F - f7 * 0.8F;
                     this.rearLegTip.field_78797_d = 20.0F;
                     this.rearLegTip.field_78798_e = 2.0F;

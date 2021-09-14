@@ -27,7 +27,7 @@ public class ContainerWrapper implements IContainer {
 
      public IItemStack getSlot(int slot) {
           if (slot >= 0 && slot < this.getSize()) {
-               return this.inventory != null ? NpcAPI.Instance().getIItemStack(this.inventory.getStackInSlot(slot)) : NpcAPI.Instance().getIItemStack(this.container.func_75139_a(slot).getStack());
+               return this.inventory != null ? NpcAPI.Instance().getIItemStack(this.inventory.getStackInSlot(slot)) : NpcAPI.Instance().getIItemStack(this.container.getSlot(slot).getStack());
           } else {
                throw new CustomNPCsException("Slot is out of range " + slot, new Object[0]);
           }
@@ -39,8 +39,8 @@ public class ContainerWrapper implements IContainer {
                if (this.inventory != null) {
                     this.inventory.setInventorySlotContents(slot, itemstack);
                } else {
-                    this.container.func_75141_a(slot, itemstack);
-                    this.container.func_75142_b();
+                    this.container.putStackInSlot(slot, itemstack);
+                    this.container.detectAndSendChanges();
                }
 
           } else {

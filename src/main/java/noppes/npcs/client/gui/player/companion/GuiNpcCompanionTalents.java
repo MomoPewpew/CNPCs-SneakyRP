@@ -85,7 +85,7 @@ public class GuiNpcCompanionTalents extends GuiNPCInterface {
 
           if (id >= 10) {
                this.selected = (GuiNpcButton)guibutton;
-               this.lastPressedTime = this.startPressedTime = this.field_146297_k.field_71441_e.func_72820_D();
+               this.lastPressedTime = this.startPressedTime = this.field_146297_k.field_71441_e.getWorldTime();
                this.addExperience(1);
           }
 
@@ -107,9 +107,9 @@ public class GuiNpcCompanionTalents extends GuiNPCInterface {
 
      public void func_73863_a(int i, int j, float f) {
           super.func_73863_a(i, j, f);
-          if (this.selected != null && this.field_146297_k.field_71441_e.func_72820_D() - this.startPressedTime > 4L && this.lastPressedTime < this.field_146297_k.field_71441_e.func_72820_D() && this.field_146297_k.field_71441_e.func_72820_D() % 4L == 0L) {
+          if (this.selected != null && this.field_146297_k.field_71441_e.getWorldTime() - this.startPressedTime > 4L && this.lastPressedTime < this.field_146297_k.field_71441_e.getWorldTime() && this.field_146297_k.field_71441_e.getWorldTime() % 4L == 0L) {
                if (this.selected.func_146116_c(this.field_146297_k, i, j) && Mouse.isButtonDown(0)) {
-                    this.lastPressedTime = this.field_146297_k.field_71441_e.func_72820_D();
+                    this.lastPressedTime = this.field_146297_k.field_71441_e.getWorldTime();
                     if (this.lastPressedTime - this.startPressedTime < 20L) {
                          this.addExperience(1);
                     } else if (this.lastPressedTime - this.startPressedTime < 40L) {

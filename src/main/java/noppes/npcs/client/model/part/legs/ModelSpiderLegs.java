@@ -94,14 +94,14 @@ public class ModelSpiderLegs extends ModelRenderer {
           this.spiderLeg6.field_78796_g = var10 * 1.0F - var9;
           this.spiderLeg7.field_78796_g = -var10 * 2.0F + var9;
           this.spiderLeg8.field_78796_g = var10 * 2.0F - var9;
-          float var11 = -(MathHelper.func_76134_b(par1 * 0.6662F * 2.0F + 0.0F) * 0.4F) * par2;
-          float var12 = -(MathHelper.func_76134_b(par1 * 0.6662F * 2.0F + 3.1415927F) * 0.4F) * par2;
-          float var13 = -(MathHelper.func_76134_b(par1 * 0.6662F * 2.0F + 1.5707964F) * 0.4F) * par2;
-          float var14 = -(MathHelper.func_76134_b(par1 * 0.6662F * 2.0F + 4.712389F) * 0.4F) * par2;
-          float var15 = Math.abs(MathHelper.func_76126_a(par1 * 0.6662F + 0.0F) * 0.4F) * par2;
-          float var16 = Math.abs(MathHelper.func_76126_a(par1 * 0.6662F + 3.1415927F) * 0.4F) * par2;
-          float var17 = Math.abs(MathHelper.func_76126_a(par1 * 0.6662F + 1.5707964F) * 0.4F) * par2;
-          float var18 = Math.abs(MathHelper.func_76126_a(par1 * 0.6662F + 4.712389F) * 0.4F) * par2;
+          float var11 = -(MathHelper.cos(par1 * 0.6662F * 2.0F + 0.0F) * 0.4F) * par2;
+          float var12 = -(MathHelper.cos(par1 * 0.6662F * 2.0F + 3.1415927F) * 0.4F) * par2;
+          float var13 = -(MathHelper.cos(par1 * 0.6662F * 2.0F + 1.5707964F) * 0.4F) * par2;
+          float var14 = -(MathHelper.cos(par1 * 0.6662F * 2.0F + 4.712389F) * 0.4F) * par2;
+          float var15 = Math.abs(MathHelper.sin(par1 * 0.6662F + 0.0F) * 0.4F) * par2;
+          float var16 = Math.abs(MathHelper.sin(par1 * 0.6662F + 3.1415927F) * 0.4F) * par2;
+          float var17 = Math.abs(MathHelper.sin(par1 * 0.6662F + 1.5707964F) * 0.4F) * par2;
+          float var18 = Math.abs(MathHelper.sin(par1 * 0.6662F + 4.712389F) * 0.4F) * par2;
           ModelRenderer var10000 = this.spiderLeg1;
           var10000.field_78796_g += var11;
           var10000 = this.spiderLeg2;
@@ -142,7 +142,7 @@ public class ModelSpiderLegs extends ModelRenderer {
                this.spiderNeck.field_78795_f = -0.3926991F;
           }
 
-          if (((EntityNPCInterface)entity).func_70608_bn() || ((EntityNPCInterface)entity).currentAnimation == 7) {
+          if (((EntityNPCInterface)entity).isPlayerSleeping() || ((EntityNPCInterface)entity).currentAnimation == 7) {
                this.field_78797_d = 12.0F * data.getPartConfig(EnumParts.LEG_LEFT).scaleY;
                this.field_78798_e = 15.0F * data.getPartConfig(EnumParts.LEG_LEFT).scaleY;
                this.field_78795_f = -1.5707964F;

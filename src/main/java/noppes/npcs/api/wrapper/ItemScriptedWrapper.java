@@ -68,7 +68,7 @@ public class ItemScriptedWrapper extends ItemStackWrapper implements IItemScript
           NBTTagCompound compound = super.getMCNbt();
           this.getScriptNBT(compound);
           compound.setBoolean("DurabilityShow", this.durabilityShow);
-          compound.func_74780_a("DurabilityValue", this.durabilityValue);
+          compound.setDouble("DurabilityValue", this.durabilityValue);
           compound.setInteger("DurabilityColor", this.durabilityColor);
           compound.setInteger("ItemColor", this.itemColor);
           compound.setInteger("MaxStackSize", this.stackSize);
@@ -87,7 +87,7 @@ public class ItemScriptedWrapper extends ItemStackWrapper implements IItemScript
           super.setMCNbt(compound);
           this.setScriptNBT(compound);
           this.durabilityShow = compound.getBoolean("DurabilityShow");
-          this.durabilityValue = compound.func_74769_h("DurabilityValue");
+          this.durabilityValue = compound.getDouble("DurabilityValue");
           if (compound.hasKey("DurabilityColor")) {
                this.durabilityColor = compound.getInteger("DurabilityColor");
           }

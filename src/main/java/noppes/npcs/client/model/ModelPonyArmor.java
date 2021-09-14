@@ -108,10 +108,10 @@ public class ModelPonyArmor extends ModelBase {
           if (this.isFlying && this.isPegasus) {
                if (f1 < 0.9999F) {
                     this.rainboom = false;
-                    f8 = MathHelper.func_76126_a(0.0F - f1 * 0.5F);
-                    f9 = MathHelper.func_76126_a(0.0F - f1 * 0.5F);
-                    f10 = MathHelper.func_76126_a(f1 * 0.5F);
-                    f11 = MathHelper.func_76126_a(f1 * 0.5F);
+                    f8 = MathHelper.sin(0.0F - f1 * 0.5F);
+                    f9 = MathHelper.sin(0.0F - f1 * 0.5F);
+                    f10 = MathHelper.sin(f1 * 0.5F);
+                    f11 = MathHelper.sin(f1 * 0.5F);
                } else {
                     this.rainboom = true;
                     f8 = 4.712F;
@@ -129,10 +129,10 @@ public class ModelPonyArmor extends ModelBase {
                this.RightLeg2.field_78796_g = -0.2F;
                this.LeftLeg2.field_78796_g = 0.2F;
           } else {
-               f8 = MathHelper.func_76134_b(f * 0.6662F + 3.141593F) * 0.6F * f1;
-               f9 = MathHelper.func_76134_b(f * 0.6662F) * 0.6F * f1;
-               f10 = MathHelper.func_76134_b(f * 0.6662F) * 0.3F * f1;
-               f11 = MathHelper.func_76134_b(f * 0.6662F + 3.141593F) * 0.3F * f1;
+               f8 = MathHelper.cos(f * 0.6662F + 3.141593F) * 0.6F * f1;
+               f9 = MathHelper.cos(f * 0.6662F) * 0.6F * f1;
+               f10 = MathHelper.cos(f * 0.6662F) * 0.3F * f1;
+               f11 = MathHelper.cos(f * 0.6662F + 3.141593F) * 0.3F * f1;
                this.rightarm.field_78796_g = 0.0F;
                this.LeftArm.field_78796_g = 0.0F;
                this.RightLeg.field_78796_g = 0.0F;
@@ -169,13 +169,13 @@ public class ModelPonyArmor extends ModelBase {
 
           float f12 = 0.0F;
           if (f5 > -9990.0F && !this.isUnicorn) {
-               f12 = MathHelper.func_76126_a(MathHelper.func_76129_c(f5) * 3.141593F * 2.0F) * 0.2F;
+               f12 = MathHelper.sin(MathHelper.func_76129_c(f5) * 3.141593F * 2.0F) * 0.2F;
           }
 
           this.Body.field_78796_g = (float)((double)f12 * 0.2D);
           this.BodyBack.field_78796_g = (float)((double)f12 * 0.2D);
-          float f13 = MathHelper.func_76126_a(this.Body.field_78796_g) * 5.0F;
-          float f14 = MathHelper.func_76134_b(this.Body.field_78796_g) * 5.0F;
+          float f13 = MathHelper.sin(this.Body.field_78796_g) * 5.0F;
+          float f14 = MathHelper.cos(this.Body.field_78796_g) * 5.0F;
           float f15 = 4.0F;
           if (this.isSneak && !this.isFlying) {
                f15 = 0.0F;
@@ -233,8 +233,8 @@ public class ModelPonyArmor extends ModelBase {
                f20 = 1.0F - f5;
                f20 *= f20 * f20;
                f20 = 1.0F - f20;
-               f25 = MathHelper.func_76126_a(f20 * 3.141593F);
-               f28 = MathHelper.func_76126_a(f5 * 3.141593F);
+               f25 = MathHelper.sin(f20 * 3.141593F);
+               f28 = MathHelper.sin(f5 * 3.141593F);
                f31 = f28 * -(this.head.field_78795_f - 0.7F) * 0.75F;
           }
 
@@ -305,8 +305,8 @@ public class ModelPonyArmor extends ModelBase {
                this.LeftLeg2.field_78798_e = 10.0F;
                this.RightLeg2.field_78797_d = 8.0F;
                this.LeftLeg2.field_78797_d = 8.0F;
-               f31 = MathHelper.func_76134_b(f2 * 0.09F) * 0.05F + 0.05F;
-               f33 = MathHelper.func_76126_a(f2 * 0.067F) * 0.05F;
+               f31 = MathHelper.cos(f2 * 0.09F) * 0.05F + 0.05F;
+               f33 = MathHelper.sin(f2 * 0.067F) * 0.05F;
                f35 = 0.0F;
                float f37 = 0.0F;
                this.head.field_78797_d = f35;
@@ -341,18 +341,18 @@ public class ModelPonyArmor extends ModelBase {
                var10000 = this.rightarm;
                var10000.field_78795_f -= f20 * 1.2F - f25 * 0.4F;
                var10000 = this.rightarm;
-               var10000.field_78808_h += MathHelper.func_76134_b(f2 * 0.09F) * 0.05F + 0.05F;
+               var10000.field_78808_h += MathHelper.cos(f2 * 0.09F) * 0.05F + 0.05F;
                var10000 = this.rightarm;
-               var10000.field_78795_f += MathHelper.func_76126_a(f2 * 0.067F) * 0.05F;
+               var10000.field_78795_f += MathHelper.sin(f2 * 0.067F) * 0.05F;
                this.rightarm2.field_78808_h = 0.0F;
                this.rightarm2.field_78796_g = -(0.1F - f20 * 0.6F) + this.head.field_78796_g;
                this.rightarm2.field_78795_f = 4.712F + this.head.field_78795_f;
                var10000 = this.rightarm2;
                var10000.field_78795_f -= f20 * 1.2F - f25 * 0.4F;
                var10000 = this.rightarm2;
-               var10000.field_78808_h += MathHelper.func_76134_b(f2 * 0.09F) * 0.05F + 0.05F;
+               var10000.field_78808_h += MathHelper.cos(f2 * 0.09F) * 0.05F + 0.05F;
                var10000 = this.rightarm2;
-               var10000.field_78795_f += MathHelper.func_76126_a(f2 * 0.067F) * 0.05F;
+               var10000.field_78795_f += MathHelper.sin(f2 * 0.067F) * 0.05F;
                ++this.rightarm.field_78798_e;
                ++this.rightarm2.field_78798_e;
           }

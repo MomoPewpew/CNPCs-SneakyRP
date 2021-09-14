@@ -84,7 +84,7 @@ public class TileDoor extends TileNpcEntity implements ITickable {
                if (this.needsClientUpdate) {
                     this.markDirty();
                     IBlockState state = this.field_145850_b.getBlockState(this.field_174879_c);
-                    this.field_145850_b.func_184138_a(this.field_174879_c, state, state, 3);
+                    this.field_145850_b.notifyBlockUpdate(this.field_174879_c, state, state, 3);
                     this.needsClientUpdate = false;
                }
           }

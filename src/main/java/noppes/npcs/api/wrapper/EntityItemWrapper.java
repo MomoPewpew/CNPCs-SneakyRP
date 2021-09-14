@@ -12,11 +12,11 @@ public class EntityItemWrapper extends EntityWrapper implements IEntityItem {
      }
 
      public String getOwner() {
-          return ((EntityItem)this.entity).func_145798_i();
+          return ((EntityItem)this.entity).getOwner();
      }
 
      public void setOwner(String name) {
-          ((EntityItem)this.entity).func_145797_a(name);
+          ((EntityItem)this.entity).setOwner(name);
      }
 
      public int getPickupDelay() {
@@ -54,6 +54,6 @@ public class EntityItemWrapper extends EntityWrapper implements IEntityItem {
 
      public void setItem(IItemStack item) {
           ItemStack stack = item == null ? ItemStack.EMPTY : item.getMCItemStack();
-          ((EntityItem)this.entity).func_92058_a(stack);
+          ((EntityItem)this.entity).setItem(stack);
      }
 }

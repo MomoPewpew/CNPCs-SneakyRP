@@ -22,9 +22,9 @@ public class EntityAIOwnerHurtTarget extends EntityAITarget {
                if (entitylivingbase == null) {
                     return false;
                } else {
-                    this.theTarget = entitylivingbase.func_110144_aD();
-                    int i = entitylivingbase.func_142013_aG();
-                    return i != this.field_142050_e && this.func_75296_a(this.theTarget, false);
+                    this.theTarget = entitylivingbase.getLastAttackedEntity();
+                    int i = entitylivingbase.getLastAttackedEntityTime();
+                    return i != this.field_142050_e && this.isSuitableTarget(this.theTarget, false);
                }
           } else {
                return false;
@@ -35,7 +35,7 @@ public class EntityAIOwnerHurtTarget extends EntityAITarget {
           this.field_75299_d.setAttackTarget(this.theTarget);
           EntityLivingBase entitylivingbase = this.npc.getOwner();
           if (entitylivingbase != null) {
-               this.field_142050_e = entitylivingbase.func_142013_aG();
+               this.field_142050_e = entitylivingbase.getLastAttackedEntityTime();
           }
 
           super.startExecuting();

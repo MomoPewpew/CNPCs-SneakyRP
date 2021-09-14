@@ -99,7 +99,7 @@ public class CustomGuiScrollWrapper extends CustomGuiComponentWrapper implements
           String[] list = new String[tagList.tagCount()];
 
           for(int i = 0; i < tagList.tagCount(); ++i) {
-               list[i] = ((NBTTagString)tagList.func_179238_g(i)).func_150285_a_();
+               list[i] = ((NBTTagString)tagList.get(i)).getString();
           }
 
           this.setList(list);

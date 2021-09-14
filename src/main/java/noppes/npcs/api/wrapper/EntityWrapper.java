@@ -67,7 +67,7 @@ public class EntityWrapper implements IEntity {
           public void put(String key, Object value) {
                NBTTagCompound compound = this.getStoredCompound();
                if (value instanceof Number) {
-                    compound.func_74780_a(key, ((Number)value).doubleValue());
+                    compound.setDouble(key, ((Number)value).doubleValue());
                } else if (value instanceof String) {
                     compound.setString(key, (String)value);
                }
@@ -81,13 +81,13 @@ public class EntityWrapper implements IEntity {
                     return null;
                } else {
                     NBTBase base = compound.getTag(key);
-                    return base instanceof NBTPrimitive ? ((NBTPrimitive)base).func_150286_g() : ((NBTTagString)base).func_150285_a_();
+                    return base instanceof NBTPrimitive ? ((NBTPrimitive)base).getDouble() : ((NBTTagString)base).getString();
                }
           }
 
           public void remove(String key) {
                NBTTagCompound compound = this.getStoredCompound();
-               compound.func_82580_o(key);
+               compound.removeTag(key);
                this.saveStoredCompound(compound);
           }
 
@@ -96,7 +96,7 @@ public class EntityWrapper implements IEntity {
           }
 
           public void clear() {
-               EntityWrapper.this.entity.getEntityData().func_82580_o("CNPCStoredData");
+               EntityWrapper.this.entity.getEntityData().removeTag("CNPCStoredData");
           }
 
           private NBTTagCompound getStoredCompound() {
@@ -173,7 +173,7 @@ public class EntityWrapper implements IEntity {
      }
 
      public void setName(String name) {
-          this.entity.func_96094_a(name);
+          this.entity.setCustomNameTag(name);
      }
 
      public boolean hasCustomName() {
@@ -181,7 +181,7 @@ public class EntityWrapper implements IEntity {
      }
 
      public void setPosition(double x, double y, double z) {
-          this.entity.func_70107_b(x, y, z);
+          this.entity.setPosition(x, y, z);
      }
 
      public IWorld getWorld() {
@@ -209,7 +209,7 @@ public class EntityWrapper implements IEntity {
      }
 
      public void damage(float amount) {
-          this.entity.func_70097_a(DamageSource.field_76377_j, amount);
+          this.entity.attackEntityFrom(DamageSource.field_76377_j, amount);
      }
 
      public void despawn() {
@@ -217,7 +217,7 @@ public class EntityWrapper implements IEntity {
      }
 
      public void spawn() {
-          if (this.worldWrapper.getMCWorld().func_175733_a(this.entity.getUniqueID()) != null) {
+          if (this.worldWrapper.getMCWorld().getEntityFromUuid(this.entity.getUniqueID()) != null) {
                throw new CustomNPCsException("Entity is already spawned", new Object[0]);
           } else {
                this.entity.field_70128_L = false;
@@ -230,27 +230,27 @@ public class EntityWrapper implements IEntity {
      }
 
      public boolean inWater() {
-          return this.entity.func_70055_a(Material.field_151586_h);
+          return this.entity.isInsideOfMaterial(Material.WATER);
      }
 
      public boolean inLava() {
-          return this.entity.func_70055_a(Material.field_151587_i);
+          return this.entity.isInsideOfMaterial(Material.LAVA);
      }
 
      public boolean inFire() {
-          return this.entity.func_70055_a(Material.field_151581_o);
+          return this.entity.isInsideOfMaterial(Material.FIRE);
      }
 
      public boolean isBurning() {
-          return this.entity.func_70027_ad();
+          return this.entity.isBurning();
      }
 
      public void setBurning(int ticks) {
-          this.entity.func_70015_d(ticks);
+          this.entity.setFire(ticks);
      }
 
      public void extinguish() {
-          this.entity.func_70066_B();
+          this.entity.extinguish();
      }
 
      public String getTypeName() {
@@ -258,11 +258,11 @@ public class EntityWrapper implements IEntity {
      }
 
      public IEntityItem dropItem(IItemStack item) {
-          return (IEntityItem)NpcAPI.Instance().getIEntity(this.entity.func_70099_a(item.getMCItemStack(), 0.0F));
+          return (IEntityItem)NpcAPI.Instance().getIEntity(this.entity.entityDropItem(item.getMCItemStack(), 0.0F));
      }
 
      public IEntity[] getRiders() {
-          List list = this.entity.func_184188_bt();
+          List list = this.entity.getPassengers();
           IEntity[] riders = new IEntity[list.size()];
 
           for(int i = 0; i < list.size(); ++i) {
@@ -273,35 +273,35 @@ public class EntityWrapper implements IEntity {
      }
 
      public IRayTrace rayTraceBlock(double distance, boolean stopOnLiquid, boolean ignoreBlockWithoutBoundingBox) {
-          Vec3d vec3d = this.entity.func_174824_e(1.0F);
-          Vec3d vec3d1 = this.entity.func_70676_i(1.0F);
-          Vec3d vec3d2 = vec3d.func_72441_c(vec3d1.field_72450_a * distance, vec3d1.field_72448_b * distance, vec3d1.field_72449_c * distance);
-          RayTraceResult result = this.entity.world.func_147447_a(vec3d, vec3d2, stopOnLiquid, ignoreBlockWithoutBoundingBox, true);
-          return result == null ? null : new RayTraceWrapper(NpcAPI.Instance().getIBlock(this.entity.world, result.func_178782_a()), result.field_178784_b.func_176745_a());
+          Vec3d vec3d = this.entity.getPositionEyes(1.0F);
+          Vec3d vec3d1 = this.entity.getLook(1.0F);
+          Vec3d vec3d2 = vec3d.addVector(vec3d1.x * distance, vec3d1.y * distance, vec3d1.z * distance);
+          RayTraceResult result = this.entity.world.rayTraceBlocks(vec3d, vec3d2, stopOnLiquid, ignoreBlockWithoutBoundingBox, true);
+          return result == null ? null : new RayTraceWrapper(NpcAPI.Instance().getIBlock(this.entity.world, result.getBlockPos()), result.field_178784_b.getIndex());
      }
 
      public IEntity[] rayTraceEntities(double distance, boolean stopOnLiquid, boolean ignoreBlockWithoutBoundingBox) {
-          Vec3d vec3d = this.entity.func_174824_e(1.0F);
-          Vec3d vec3d1 = this.entity.func_70676_i(1.0F);
-          Vec3d vec3d2 = vec3d.func_72441_c(vec3d1.field_72450_a * distance, vec3d1.field_72448_b * distance, vec3d1.field_72449_c * distance);
-          RayTraceResult result = this.entity.world.func_147447_a(vec3d, vec3d2, stopOnLiquid, ignoreBlockWithoutBoundingBox, false);
+          Vec3d vec3d = this.entity.getPositionEyes(1.0F);
+          Vec3d vec3d1 = this.entity.getLook(1.0F);
+          Vec3d vec3d2 = vec3d.addVector(vec3d1.x * distance, vec3d1.y * distance, vec3d1.z * distance);
+          RayTraceResult result = this.entity.world.rayTraceBlocks(vec3d, vec3d2, stopOnLiquid, ignoreBlockWithoutBoundingBox, false);
           if (result != null) {
-               vec3d2 = new Vec3d(result.field_72307_f.field_72450_a, result.field_72307_f.field_72448_b, result.field_72307_f.field_72449_c);
+               vec3d2 = new Vec3d(result.field_72307_f.x, result.field_72307_f.y, result.field_72307_f.z);
           }
 
           return this.findEntityOnPath(distance, vec3d, vec3d2);
      }
 
      private IEntity[] findEntityOnPath(double distance, Vec3d vec3d, Vec3d vec3d1) {
-          List list = this.entity.world.func_72839_b(this.entity, this.entity.getEntityBoundingBox().func_186662_g(distance));
+          List list = this.entity.world.getEntitiesWithinAABBExcludingEntity(this.entity, this.entity.getEntityBoundingBox().grow(distance));
           List result = new ArrayList();
           Iterator var7 = list.iterator();
 
           while(var7.hasNext()) {
                Entity entity1 = (Entity)var7.next();
-               if (entity1.func_70067_L() && entity1 != this.entity) {
-                    AxisAlignedBB axisalignedbb = entity1.getEntityBoundingBox().func_186662_g((double)entity1.func_70111_Y());
-                    RayTraceResult raytraceresult1 = axisalignedbb.func_72327_a(vec3d, vec3d1);
+               if (entity1.canBeCollidedWith() && entity1 != this.entity) {
+                    AxisAlignedBB axisalignedbb = entity1.getEntityBoundingBox().grow((double)entity1.getCollisionBorderSize());
+                    RayTraceResult raytraceresult1 = axisalignedbb.calculateIntercept(vec3d, vec3d1);
                     if (raytraceresult1 != null) {
                          result.add(NpcAPI.Instance().getIEntity(entity1));
                     }
@@ -321,7 +321,7 @@ public class EntityWrapper implements IEntity {
      }
 
      public IEntity[] getAllRiders() {
-          List list = new ArrayList(this.entity.func_184182_bu());
+          List list = new ArrayList(this.entity.getRecursivePassengers());
           IEntity[] riders = new IEntity[list.size()];
 
           for(int i = 0; i < list.size(); ++i) {
@@ -339,16 +339,16 @@ public class EntityWrapper implements IEntity {
      }
 
      public void clearRiders() {
-          this.entity.func_184226_ay();
+          this.entity.removePassengers();
      }
 
      public IEntity getMount() {
-          return NpcAPI.Instance().getIEntity(this.entity.func_184187_bx());
+          return NpcAPI.Instance().getIEntity(this.entity.getRidingEntity());
      }
 
      public void setMount(IEntity entity) {
           if (entity == null) {
-               this.entity.func_184210_p();
+               this.entity.dismountRidingEntity();
           } else {
                this.entity.startRiding(entity.getMCEntity(), true);
           }
@@ -373,7 +373,7 @@ public class EntityWrapper implements IEntity {
 
      public void knockback(int power, float direction) {
           float v = direction * 3.1415927F / 180.0F;
-          this.entity.func_70024_g((double)(-MathHelper.func_76126_a(v) * (float)power), 0.1D + (double)((float)power * 0.04F), (double)(MathHelper.func_76134_b(v) * (float)power));
+          this.entity.addVelocity((double)(-MathHelper.sin(v) * (float)power), 0.1D + (double)((float)power * 0.04F), (double)(MathHelper.cos(v) * (float)power));
           Entity var10000 = this.entity;
           var10000.motionX *= 0.6D;
           var10000 = this.entity;
@@ -407,7 +407,7 @@ public class EntityWrapper implements IEntity {
 
      public String generateNewUUID() {
           UUID id = UUID.randomUUID();
-          this.entity.func_184221_a(id);
+          this.entity.setUniqueId(id);
           return id.toString();
      }
 
@@ -426,8 +426,8 @@ public class EntityWrapper implements IEntity {
 
      public INbt getEntityNbt() {
           NBTTagCompound compound = new NBTTagCompound();
-          this.entity.func_189511_e(compound);
-          ResourceLocation resourcelocation = EntityList.func_191301_a(this.entity);
+          this.entity.writeToNBT(compound);
+          ResourceLocation resourcelocation = EntityList.getKey(this.entity);
           if (this.getType() == 1) {
                resourcelocation = new ResourceLocation("player");
           }
@@ -444,7 +444,7 @@ public class EntityWrapper implements IEntity {
      }
 
      public void playAnimation(int type) {
-          this.worldWrapper.getMCWorld().func_73039_n().func_151248_b(this.entity, new SPacketAnimation(this.entity, type));
+          this.worldWrapper.getMCWorld().getEntityTracker().sendToTrackingAndSelf(this.entity, new SPacketAnimation(this.entity, type));
      }
 
      public float getHeight() {
@@ -464,23 +464,23 @@ public class EntityWrapper implements IEntity {
      }
 
      public void setPos(IPos pos) {
-          this.entity.func_70107_b((double)((float)pos.getX() + 0.5F), (double)pos.getY(), (double)((float)pos.getZ() + 0.5F));
+          this.entity.setPosition((double)((float)pos.getX() + 0.5F), (double)pos.getY(), (double)((float)pos.getZ() + 0.5F));
      }
 
      public String[] getTags() {
-          return (String[])this.entity.func_184216_O().toArray(new String[this.entity.func_184216_O().size()]);
+          return (String[])this.entity.getTags().toArray(new String[this.entity.getTags().size()]);
      }
 
      public void addTag(String tag) {
-          this.entity.func_184211_a(tag);
+          this.entity.addTag(tag);
      }
 
      public boolean hasTag(String tag) {
-          return this.entity.func_184216_O().contains(tag);
+          return this.entity.getTags().contains(tag);
      }
 
      public void removeTag(String tag) {
-          this.entity.func_184197_b(tag);
+          this.entity.removeTag(tag);
      }
 
      public double getMotionX() {

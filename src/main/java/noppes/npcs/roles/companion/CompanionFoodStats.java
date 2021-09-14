@@ -22,7 +22,7 @@ public class CompanionFoodStats {
      }
 
      public void onFoodEaten(ItemFood food, ItemStack itemstack) {
-          this.addStats(food.func_150905_g(itemstack), food.func_150906_h(itemstack));
+          this.addStats(food.getHealAmount(itemstack), food.func_150906_h(itemstack));
      }
 
      public void onUpdate(EntityNPCInterface npc) {
@@ -48,7 +48,7 @@ public class CompanionFoodStats {
                ++this.foodTimer;
                if (this.foodTimer >= 80) {
                     if (npc.getHealth() > 10.0F || enumdifficulty == EnumDifficulty.HARD || npc.getHealth() > 1.0F && enumdifficulty == EnumDifficulty.NORMAL) {
-                         npc.func_70097_a(DamageSource.field_76366_f, 1.0F);
+                         npc.attackEntityFrom(DamageSource.field_76366_f, 1.0F);
                     }
 
                     this.foodTimer = 0;

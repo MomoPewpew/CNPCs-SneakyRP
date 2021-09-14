@@ -21,7 +21,7 @@ import noppes.npcs.controllers.data.QuestData;
 import noppes.npcs.util.ValueUtil;
 
 public class CmdQuest extends CommandNoppesBase {
-     public String func_71517_b() {
+     public String getName() {
           return "quest";
      }
 

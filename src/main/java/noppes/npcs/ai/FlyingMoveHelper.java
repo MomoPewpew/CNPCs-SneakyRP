@@ -16,16 +16,16 @@ public class FlyingMoveHelper extends EntityMoveHelper {
           this.entity = entity;
      }
 
-     public void func_75641_c() {
+     public void onUpdateMoveHelper() {
           if (this.field_188491_h == Action.MOVE_TO && this.courseChangeCooldown-- <= 0) {
                this.courseChangeCooldown = 4;
                double d0 = this.field_75646_b - this.entity.field_70165_t;
                double d1 = this.field_75647_c - this.entity.field_70163_u;
                double d2 = this.field_75644_d - this.entity.field_70161_v;
                double d3 = d0 * d0 + d1 * d1 + d2 * d2;
-               d3 = (double)MathHelper.func_76133_a(d3);
+               d3 = (double)MathHelper.sqrt(d3);
                if (d3 > 0.5D && this.isNotColliding(this.field_75646_b, this.field_75647_c, this.field_75644_d, d3)) {
-                    double speed = this.entity.getEntityAttribute(SharedMonsterAttributes.field_111263_d).func_111126_e() / 2.5D;
+                    double speed = this.entity.getEntityAttribute(SharedMonsterAttributes.field_111263_d).getAttributeValue() / 2.5D;
                     if (d3 < 3.0D && speed > 0.10000000149011612D) {
                          speed = 0.10000000149011612D;
                     }
@@ -51,8 +51,8 @@ public class FlyingMoveHelper extends EntityMoveHelper {
           AxisAlignedBB axisalignedbb = this.entity.getEntityBoundingBox();
 
           for(int i = 1; (double)i < p_179926_7_; ++i) {
-               axisalignedbb = axisalignedbb.func_72317_d(d4, d5, d6);
-               if (!this.entity.world.func_184144_a(this.entity, axisalignedbb).isEmpty()) {
+               axisalignedbb = axisalignedbb.offset(d4, d5, d6);
+               if (!this.entity.world.getCollisionBoxes(this.entity, axisalignedbb).isEmpty()) {
                     return false;
                }
           }

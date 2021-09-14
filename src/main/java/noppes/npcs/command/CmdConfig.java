@@ -19,7 +19,7 @@ import noppes.npcs.constants.EnumPacketClient;
 import noppes.npcs.controllers.ChunkController;
 
 public class CmdConfig extends CommandNoppesBase {
-     public String func_71517_b() {
+     public String getName() {
           return "config";
      }
 

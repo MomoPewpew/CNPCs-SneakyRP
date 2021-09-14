@@ -11,14 +11,14 @@ public class ScoreboardScoreWrapper implements IScoreboardScore {
      }
 
      public int getValue() {
-          return this.score.func_96652_c();
+          return this.score.getScorePoints();
      }
 
      public void setValue(int val) {
-          this.score.func_96647_c(val);
+          this.score.setScorePoints(val);
      }
 
      public String getPlayerName() {
-          return this.score.func_96653_e();
+          return this.score.getPlayerName();
      }
 }

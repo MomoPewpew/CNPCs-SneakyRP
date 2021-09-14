@@ -61,7 +61,7 @@ public class EntityAIStalkTarget extends EntityAIBase {
                if (this.isLookingAway()) {
                     this.movePosition = this.stalkTarget();
                     if (this.movePosition != null) {
-                         this.npc.getNavigator().tryMoveToXYZ(this.movePosition.field_72450_a, this.movePosition.field_72448_b, this.movePosition.field_72449_c, 1.0D);
+                         this.npc.getNavigator().tryMoveToXYZ(this.movePosition.x, this.movePosition.y, this.movePosition.z, 1.0D);
                          this.overRide = false;
                     } else {
                          this.tick = 100;
@@ -69,7 +69,7 @@ public class EntityAIStalkTarget extends EntityAIBase {
                } else if (this.npc.canSee(this.targetEntity)) {
                     this.movePosition = this.hideFromTarget();
                     if (this.movePosition != null) {
-                         this.npc.getNavigator().tryMoveToXYZ(this.movePosition.field_72450_a, this.movePosition.field_72448_b, this.movePosition.field_72449_c, 1.33D);
+                         this.npc.getNavigator().tryMoveToXYZ(this.movePosition.x, this.movePosition.y, this.movePosition.z, 1.33D);
                          this.overRide = false;
                     } else {
                          this.tick = 100;
@@ -117,9 +117,9 @@ public class EntityAIStalkTarget extends EntityAIBase {
           double v = 0.0D;
           double w = 0.0D;
           if (this.movePosition != null) {
-               u = this.movePosition.field_72450_a;
-               v = this.movePosition.field_72448_b;
-               w = this.movePosition.field_72449_c;
+               u = this.movePosition.x;
+               v = this.movePosition.y;
+               w = this.movePosition.z;
           }
 
           for(int y = -2; y <= 2; ++y) {
@@ -157,11 +157,11 @@ public class EntityAIStalkTarget extends EntityAIBase {
      }
 
      private boolean isLookingAway() {
-          Vec3d vec3 = this.targetEntity.func_70676_i(1.0F).func_72432_b();
+          Vec3d vec3 = this.targetEntity.getLook(1.0F).normalize();
           Vec3d vec31 = new Vec3d(this.npc.field_70165_t - this.targetEntity.field_70165_t, this.npc.getEntityBoundingBox().field_72338_b + (double)(this.npc.height / 2.0F) - (this.targetEntity.field_70163_u + (double)this.targetEntity.getEyeHeight()), this.npc.field_70161_v - this.targetEntity.field_70161_v);
-          double d0 = vec31.func_72433_c();
-          vec31 = vec31.func_72432_b();
-          double d1 = vec3.func_72430_b(vec31);
+          double d0 = vec31.lengthVector();
+          vec31 = vec31.normalize();
+          double d1 = vec3.dotProduct(vec31);
           return d1 < 0.6D;
      }
 }

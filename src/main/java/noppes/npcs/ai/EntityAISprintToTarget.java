@@ -34,10 +34,10 @@ public class EntityAISprintToTarget extends EntityAIBase {
      }
 
      public void startExecuting() {
-          this.npc.func_70031_b(true);
+          this.npc.setSprinting(true);
      }
 
      public void resetTask() {
-          this.npc.func_70031_b(false);
+          this.npc.setSprinting(false);
      }
 }

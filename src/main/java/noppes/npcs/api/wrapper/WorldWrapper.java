@@ -84,7 +84,7 @@ public class WorldWrapper implements IWorld {
           public void put(String key, Object value) {
                NBTTagCompound compound = ScriptController.Instance.compound;
                if (value instanceof Number) {
-                    compound.func_74780_a(key, ((Number)value).doubleValue());
+                    compound.setDouble(key, ((Number)value).doubleValue());
                } else if (value instanceof String) {
                     compound.setString(key, (String)value);
                }
@@ -98,12 +98,12 @@ public class WorldWrapper implements IWorld {
                     return null;
                } else {
                     NBTBase base = compound.getTag(key);
-                    return base instanceof NBTPrimitive ? ((NBTPrimitive)base).func_150286_g() : ((NBTTagString)base).func_150285_a_();
+                    return base instanceof NBTPrimitive ? ((NBTPrimitive)base).getDouble() : ((NBTTagString)base).getString();
                }
           }
 
           public void remove(String key) {
-               ScriptController.Instance.compound.func_82580_o(key);
+               ScriptController.Instance.compound.removeTag(key);
                ScriptController.Instance.shouldSave = true;
           }
 
@@ -135,7 +135,7 @@ public class WorldWrapper implements IWorld {
      }
 
      public IEntity[] getNearbyEntities(IPos pos, int range, int type) {
-          AxisAlignedBB bb = (new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 1.0D, 1.0D)).func_186670_a(pos.getMCBlockPos()).expand((double)range, (double)range, (double)range);
+          AxisAlignedBB bb = (new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 1.0D, 1.0D)).offset(pos.getMCBlockPos()).expand((double)range, (double)range, (double)range);
           List entities = this.world.getEntitiesWithinAABB(this.getClassForType(type), bb);
           List list = new ArrayList();
           Iterator var7 = entities.iterator();
@@ -149,7 +149,7 @@ public class WorldWrapper implements IWorld {
      }
 
      public IEntity[] getAllEntities(int type) {
-          List entities = this.world.func_175644_a(this.getClassForType(type), EntitySelectors.field_180132_d);
+          List entities = this.world.getEntities(this.getClassForType(type), EntitySelectors.field_180132_d);
           List list = new ArrayList();
           Iterator var4 = entities.iterator();
 
@@ -166,7 +166,7 @@ public class WorldWrapper implements IWorld {
      }
 
      public IEntity getClosestEntity(IPos pos, int range, int type) {
-          AxisAlignedBB bb = (new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 1.0D, 1.0D)).func_186670_a(pos.getMCBlockPos()).expand((double)range, (double)range, (double)range);
+          AxisAlignedBB bb = (new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 1.0D, 1.0D)).offset(pos.getMCBlockPos()).expand((double)range, (double)range, (double)range);
           List entities = this.world.getEntitiesWithinAABB(this.getClassForType(type), bb);
           double distance = (double)(range * range * range);
           Entity entity = null;
@@ -174,7 +174,7 @@ public class WorldWrapper implements IWorld {
 
           while(var9.hasNext()) {
                Entity e = (Entity)var9.next();
-               double r = pos.getMCBlockPos().func_177951_i(e.getPosition());
+               double r = pos.getMCBlockPos().distanceSq(e.getPosition());
                if (entity == null) {
                     distance = r;
                     entity = e;
@@ -190,9 +190,9 @@ public class WorldWrapper implements IWorld {
      public IEntity getEntity(String uuid) {
           try {
                UUID id = UUID.fromString(uuid);
-               Entity e = this.world.func_175733_a(id);
+               Entity e = this.world.getEntityFromUuid(id);
                if (e == null) {
-                    e = this.world.func_152378_a(id);
+                    e = this.world.getPlayerEntityByUUID(id);
                }
 
                return e == null ? null : NpcAPI.Instance().getIEntity((Entity)e);
@@ -212,7 +212,7 @@ public class WorldWrapper implements IWorld {
 
      public IEntity createEntity(String id) {
           ResourceLocation resource = new ResourceLocation(id);
-          Entity entity = EntityList.func_188429_b(resource, this.world);
+          Entity entity = EntityList.createEntityByIDFromName(resource, this.world);
           if (entity == null) {
                throw new CustomNPCsException("Failed to create an entity from given id: " + id, new Object[0]);
           } else {
@@ -221,7 +221,7 @@ public class WorldWrapper implements IWorld {
      }
 
      public IPlayer getPlayer(String name) {
-          EntityPlayer player = this.world.func_72924_a(name);
+          EntityPlayer player = this.world.getPlayerEntityByName(name);
           return player == null ? null : (IPlayer)NpcAPI.Instance().getIEntity(player);
      }
 
@@ -256,15 +256,15 @@ public class WorldWrapper implements IWorld {
      }
 
      public long getTime() {
-          return this.world.func_72820_D();
+          return this.world.getWorldTime();
      }
 
      public void setTime(long time) {
-          this.world.func_72877_b(time);
+          this.world.setWorldTime(time);
      }
 
      public long getTotalTime() {
-          return this.world.func_82737_E();
+          return this.world.getTotalWorldTime();
      }
 
      public IBlock getBlock(int x, int y, int z) {
@@ -272,15 +272,15 @@ public class WorldWrapper implements IWorld {
      }
 
      public boolean isChunkLoaded(int x, int z) {
-          return this.world.func_72863_F().func_73149_a(x >> 4, z >> 4);
+          return this.world.getChunkProvider().chunkExists(x >> 4, z >> 4);
      }
 
      public void setBlock(int x, int y, int z, String name, int meta) {
-          Block block = Block.func_149684_b(name);
+          Block block = Block.getBlockFromName(name);
           if (block == null) {
                throw new CustomNPCsException("There is no such block: %s", new Object[0]);
           } else {
-               this.world.setBlockState(new BlockPos(x, y, z), block.func_176203_a(meta));
+               this.world.setBlockState(new BlockPos(x, y, z), block.getStateFromMeta(meta));
           }
      }
 
@@ -302,23 +302,23 @@ public class WorldWrapper implements IWorld {
      }
 
      public void setSpawnPoint(IBlock block) {
-          this.world.func_175652_B(new BlockPos(block.getX(), block.getY(), block.getZ()));
+          this.world.setSpawnPoint(new BlockPos(block.getX(), block.getY(), block.getZ()));
      }
 
      public boolean isDay() {
-          return this.world.func_72820_D() % 24000L < 12000L;
+          return this.world.getWorldTime() % 24000L < 12000L;
      }
 
      public boolean isRaining() {
-          return this.world.getWorldInfo().func_76059_o();
+          return this.world.getWorldInfo().isRaining();
      }
 
      public void setRaining(boolean bo) {
-          this.world.getWorldInfo().func_76084_b(bo);
+          this.world.getWorldInfo().setRaining(bo);
      }
 
      public void thunderStrike(double x, double y, double z) {
-          this.world.func_72942_c(new EntityLightningBolt(this.world, x, y, z, false));
+          this.world.addWeatherEffect(new EntityLightningBolt(this.world, x, y, z, false));
      }
 
      public void spawnParticle(String particle, double x, double y, double z, double dx, double dy, double dz, double speed, int count) {
@@ -328,19 +328,19 @@ public class WorldWrapper implements IWorld {
 
           for(int var20 = 0; var20 < var19; ++var20) {
                EnumParticleTypes enumParticle = var18[var20];
-               if (enumParticle.func_179345_d() > 0) {
-                    if (particle.startsWith(enumParticle.func_179346_b())) {
+               if (enumParticle.getArgumentCount() > 0) {
+                    if (particle.startsWith(enumParticle.getParticleName())) {
                          particleType = enumParticle;
                          break;
                     }
-               } else if (particle.equals(enumParticle.func_179346_b())) {
+               } else if (particle.equals(enumParticle.getParticleName())) {
                     particleType = enumParticle;
                     break;
                }
           }
 
           if (particleType != null) {
-               this.world.func_175739_a(particleType, x, y, z, count, dx, dy, dz, speed, new int[0]);
+               this.world.spawnParticle(particleType, x, y, z, count, dx, dy, dz, speed, new int[0]);
           }
 
      }
@@ -372,7 +372,7 @@ public class WorldWrapper implements IWorld {
      }
 
      public void explode(double x, double y, double z, float range, boolean fire, boolean grief) {
-          this.world.func_72885_a((Entity)null, x, y, z, range, fire, grief);
+          this.world.newExplosion((Entity)null, x, y, z, range, fire, grief);
      }
 
      public IPlayer[] getAllPlayers() {
@@ -396,10 +396,10 @@ public class WorldWrapper implements IWorld {
 
      public void spawnEntity(IEntity entity) {
           Entity e = entity.getMCEntity();
-          if (this.world.func_175733_a(e.getUniqueID()) != null) {
+          if (this.world.getEntityFromUuid(e.getUniqueID()) != null) {
                throw new CustomNPCsException("Entity with this UUID already exists", new Object[0]);
           } else {
-               e.func_70107_b(e.field_70165_t, e.field_70163_u, e.field_70161_v);
+               e.setPosition(e.field_70165_t, e.field_70163_u, e.field_70161_v);
                this.world.spawnEntity(e);
           }
      }
@@ -413,11 +413,11 @@ public class WorldWrapper implements IWorld {
      }
 
      public void broadcast(String message) {
-          this.world.getMinecraftServer().getPlayerList().func_148539_a(new TextComponentString(message));
+          this.world.getMinecraftServer().getPlayerList().sendMessage(new TextComponentString(message));
      }
 
      public int getRedstonePower(int x, int y, int z) {
-          return this.world.func_175676_y(new BlockPos(x, y, z));
+          return this.world.getStrongPower(new BlockPos(x, y, z));
      }
 
      /** @deprecated */
@@ -431,7 +431,7 @@ public class WorldWrapper implements IWorld {
      }
 
      public String getName() {
-          return this.world.getWorldInfo().func_76065_j();
+          return this.world.getWorldInfo().getWorldName();
      }
 
      public BlockPos getMCBlockPos(int x, int y, int z) {

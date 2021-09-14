@@ -27,28 +27,28 @@ public class Schematic implements ISchematic {
      }
 
      public void load(NBTTagCompound compound) {
-          this.width = compound.func_74765_d("Width");
-          this.height = compound.func_74765_d("Height");
-          this.length = compound.func_74765_d("Length");
-          byte[] addId = compound.hasKey("AddBlocks") ? compound.func_74770_j("AddBlocks") : new byte[0];
-          this.setBlockBytes(compound.func_74770_j("Blocks"), addId);
-          this.blockDataArray = compound.func_74770_j("Data");
+          this.width = compound.getShort("Width");
+          this.height = compound.getShort("Height");
+          this.length = compound.getShort("Length");
+          byte[] addId = compound.hasKey("AddBlocks") ? compound.getByteArray("AddBlocks") : new byte[0];
+          this.setBlockBytes(compound.getByteArray("Blocks"), addId);
+          this.blockDataArray = compound.getByteArray("Data");
           this.entityList = compound.getTagList("Entities", 10);
           this.tileList = compound.getTagList("TileEntities", 10);
      }
 
      public NBTTagCompound getNBT() {
           NBTTagCompound compound = new NBTTagCompound();
-          compound.func_74777_a("Width", this.width);
-          compound.func_74777_a("Height", this.height);
-          compound.func_74777_a("Length", this.length);
+          compound.setShort("Width", this.width);
+          compound.setShort("Height", this.height);
+          compound.setShort("Length", this.length);
           byte[][] arr = this.getBlockBytes();
-          compound.func_74773_a("Blocks", arr[0]);
+          compound.setByteArray("Blocks", arr[0]);
           if (arr.length > 1) {
-               compound.func_74773_a("AddBlocks", arr[1]);
+               compound.setByteArray("AddBlocks", arr[1]);
           }
 
-          compound.func_74773_a("Data", this.blockDataArray);
+          compound.setByteArray("Data", this.blockDataArray);
           compound.setTag("TileEntities", this.tileList);
           return compound;
      }
@@ -106,12 +106,12 @@ public class Schematic implements ISchematic {
      public IBlockState getBlockState(int x, int y, int z) {
           int i = this.xyzToIndex(x, y, z);
           Block b = Block.func_149729_e(this.blockArray[i]);
-          return b == null ? Blocks.field_150350_a.getDefaultState() : b.func_176203_a(this.blockDataArray[i]);
+          return b == null ? Blocks.field_150350_a.getDefaultState() : b.getStateFromMeta(this.blockDataArray[i]);
      }
 
      public IBlockState getBlockState(int i) {
           Block b = Block.func_149729_e(this.blockArray[i]);
-          return b == null ? Blocks.field_150350_a.getDefaultState() : b.func_176203_a(this.blockDataArray[i]);
+          return b == null ? Blocks.field_150350_a.getDefaultState() : b.getStateFromMeta(this.blockDataArray[i]);
      }
 
      public short getWidth() {
@@ -156,7 +156,7 @@ public class Schematic implements ISchematic {
                IBlockState state = world.getBlockState(pos.add(x, y, z));
                if (state.getBlock() != Blocks.field_150350_a && state.getBlock() != CustomItems.copy) {
                     schema.blockArray[i] = (short)Block.REGISTRY.func_148757_b(state.getBlock());
-                    schema.blockDataArray[i] = (byte)state.getBlock().func_176201_c(state);
+                    schema.blockDataArray[i] = (byte)state.getBlock().getMetaFromState(state);
                     if (state.getBlock() instanceof ITileEntityProvider) {
                          TileEntity tile = world.getTileEntity(pos.add(x, y, z));
                          NBTTagCompound compound = new NBTTagCompound();

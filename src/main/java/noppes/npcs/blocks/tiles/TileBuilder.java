@@ -208,10 +208,10 @@ public class TileBuilder extends TileEntity implements ITickable {
                          int z = (pos - x) / this.schematic.schema.getWidth() % this.schematic.schema.getLength();
                          int y = ((pos - x) / this.schematic.schema.getWidth() - z) / this.schematic.schema.getLength();
                          IBlockState state = this.schematic.schema.getBlockState(x, y, z);
-                         if (!state.func_185913_b() && !bo && state.getBlock() != Blocks.field_150350_a) {
+                         if (!state.isFullBlock() && !bo && state.getBlock() != Blocks.field_150350_a) {
                               this.positionsSecond.add(0, pos);
                          } else {
-                              BlockPos blockPos = this.getPos().add(1, this.yOffest, 1).func_177971_a(this.schematic.rotatePos(x, y, z, this.rotation));
+                              BlockPos blockPos = this.getPos().add(1, this.yOffest, 1).add(this.schematic.rotatePos(x, y, z, this.rotation));
                               IBlockState original = this.field_145850_b.getBlockState(blockPos);
                               if (Block.func_176210_f(state) != Block.func_176210_f(original)) {
                                    state = this.schematic.rotationState(state, this.rotation);

@@ -19,7 +19,7 @@ import noppes.npcs.controllers.data.PlayerData;
 import noppes.npcs.entity.EntityDialogNpc;
 
 public class CmdDialog extends CommandNoppesBase {
-     public String func_71517_b() {
+     public String getName() {
           return "dialog";
      }
 

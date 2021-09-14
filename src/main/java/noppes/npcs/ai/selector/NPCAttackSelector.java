@@ -21,7 +21,7 @@ public class NPCAttackSelector implements Predicate {
           if (entity.isEntityAlive() && entity != this.npc && this.npc.isInRange(entity, (double)this.npc.stats.aggroRange) && entity.getHealth() >= 1.0F) {
                if (this.npc.ais.directLOS && !this.npc.getEntitySenses().canSee(entity)) {
                     return false;
-               } else if (!this.npc.ais.attackInvisible && entity.func_70644_a(MobEffects.field_76441_p) && !this.npc.isInRange(entity, 3.0D)) {
+               } else if (!this.npc.ais.attackInvisible && entity.isPotionActive(MobEffects.field_76441_p) && !this.npc.isInRange(entity, 3.0D)) {
                     return false;
                } else {
                     if (!this.npc.isFollower() && this.npc.ais.shouldReturnHome()) {

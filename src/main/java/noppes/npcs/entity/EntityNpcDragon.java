@@ -57,7 +57,7 @@ public class EntityNpcDragon extends EntityNPCInterface {
           this.func_94061_f(true);
           if (!this.world.isRemote) {
                NBTTagCompound compound = new NBTTagCompound();
-               this.func_189511_e(compound);
+               this.writeToNBT(compound);
                EntityCustomNpc npc = new EntityCustomNpc(this.world);
                npc.readFromNBT(compound);
                ModelData data = npc.modelData;
@@ -81,7 +81,7 @@ public class EntityNpcDragon extends EntityNPCInterface {
                }
           } else {
                this.exploded = false;
-               f = 0.2F / (MathHelper.func_76133_a(this.motionX * this.motionX + this.motionZ * this.motionZ) * 10.0F + 1.0F);
+               f = 0.2F / (MathHelper.sqrt(this.motionX * this.motionX + this.motionZ * this.motionZ) * 10.0F + 1.0F);
                f = 0.045F;
                f *= (float)Math.pow(2.0D, this.motionY);
                this.field_40172_ax += f * 0.5F;

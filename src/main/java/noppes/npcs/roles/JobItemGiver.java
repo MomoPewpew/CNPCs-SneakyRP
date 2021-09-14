@@ -179,7 +179,7 @@ public class JobItemGiver extends JobInterface {
      }
 
      private int getDay() {
-          return (int)(this.npc.world.func_82737_E() / 24000L);
+          return (int)(this.npc.world.getTotalWorldTime() / 24000L);
      }
 
      private boolean canPlayerInteract(PlayerItemGiverData data) {

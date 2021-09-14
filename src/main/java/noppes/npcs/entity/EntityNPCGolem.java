@@ -31,7 +31,7 @@ public class EntityNPCGolem extends EntityNPCInterface {
           this.func_94061_f(true);
           if (!this.world.isRemote) {
                NBTTagCompound compound = new NBTTagCompound();
-               this.func_189511_e(compound);
+               this.writeToNBT(compound);
                EntityCustomNpc npc = new EntityCustomNpc(this.world);
                npc.readFromNBT(compound);
                ModelData data = npc.modelData;

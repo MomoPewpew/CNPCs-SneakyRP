@@ -34,7 +34,7 @@ public class ModelData extends ModelDataShared {
 
                          for(int var4 = 0; var4 < var3; ++var4) {
                               EntityEquipmentSlot slot = var2[var4];
-                              this.entity.setItemStackToSlot(slot, npc.func_184582_a(slot));
+                              this.entity.setItemStackToSlot(slot, npc.getItemStackFromSlot(slot));
                          }
                     } catch (Exception var7) {
                     }

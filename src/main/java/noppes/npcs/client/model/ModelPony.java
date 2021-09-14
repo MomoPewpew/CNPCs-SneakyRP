@@ -270,7 +270,7 @@ public class ModelPony extends ModelBase {
 
      public void func_78087_a(float f, float f1, float f2, float f3, float f4, float f5, Entity entity) {
           EntityNPCInterface npc = (EntityNPCInterface)entity;
-          this.field_78093_q = npc.func_184218_aH();
+          this.field_78093_q = npc.isRiding();
           if (this.isSneak && (npc.currentAnimation == 7 || npc.currentAnimation == 2)) {
                this.isSneak = false;
           }
@@ -304,10 +304,10 @@ public class ModelPony extends ModelBase {
           if (this.isFlying && this.isPegasus) {
                if (f1 < 0.9999F) {
                     this.rainboom = false;
-                    f8 = MathHelper.func_76126_a(0.0F - f1 * 0.5F);
-                    f9 = MathHelper.func_76126_a(0.0F - f1 * 0.5F);
-                    f10 = MathHelper.func_76126_a(f1 * 0.5F);
-                    f11 = MathHelper.func_76126_a(f1 * 0.5F);
+                    f8 = MathHelper.sin(0.0F - f1 * 0.5F);
+                    f9 = MathHelper.sin(0.0F - f1 * 0.5F);
+                    f10 = MathHelper.sin(f1 * 0.5F);
+                    f11 = MathHelper.sin(f1 * 0.5F);
                } else {
                     this.rainboom = true;
                     f8 = 4.712F;
@@ -321,10 +321,10 @@ public class ModelPony extends ModelBase {
                this.RightLeg.field_78796_g = -0.2F;
                this.LeftLeg.field_78796_g = 0.2F;
           } else {
-               f8 = MathHelper.func_76134_b(f * 0.6662F + 3.141593F) * 0.6F * f1;
-               f9 = MathHelper.func_76134_b(f * 0.6662F) * 0.6F * f1;
-               f10 = MathHelper.func_76134_b(f * 0.6662F) * 0.3F * f1;
-               f11 = MathHelper.func_76134_b(f * 0.6662F + 3.141593F) * 0.3F * f1;
+               f8 = MathHelper.cos(f * 0.6662F + 3.141593F) * 0.6F * f1;
+               f9 = MathHelper.cos(f * 0.6662F) * 0.6F * f1;
+               f10 = MathHelper.cos(f * 0.6662F) * 0.3F * f1;
+               f11 = MathHelper.cos(f * 0.6662F + 3.141593F) * 0.3F * f1;
                this.RightArm.field_78796_g = 0.0F;
                this.unicornarm.field_78796_g = 0.0F;
                this.LeftArm.field_78796_g = 0.0F;
@@ -352,7 +352,7 @@ public class ModelPony extends ModelBase {
                if (this.rainboom) {
                     this.Tail[i].field_78808_h = 0.0F;
                } else {
-                    this.Tail[i].field_78808_h = MathHelper.func_76134_b(f * 0.8F) * 0.2F * f1;
+                    this.Tail[i].field_78808_h = MathHelper.cos(f * 0.8F) * 0.2F * f1;
                }
           }
 
@@ -362,7 +362,7 @@ public class ModelPony extends ModelBase {
 
           float f12 = 0.0F;
           if (f5 > -9990.0F && !this.isUnicorn) {
-               f12 = MathHelper.func_76126_a(MathHelper.func_76129_c(f5) * 3.141593F * 2.0F) * 0.2F;
+               f12 = MathHelper.sin(MathHelper.func_76129_c(f5) * 3.141593F * 2.0F) * 0.2F;
           }
 
           this.Body.field_78796_g = (float)((double)f12 * 0.2D);
@@ -384,8 +384,8 @@ public class ModelPony extends ModelBase {
                this.Tail[i1].field_78796_g = f12;
           }
 
-          float f13 = MathHelper.func_76126_a(this.Body.field_78796_g) * 5.0F;
-          float f14 = MathHelper.func_76134_b(this.Body.field_78796_g) * 5.0F;
+          float f13 = MathHelper.sin(this.Body.field_78796_g) * 5.0F;
+          float f14 = MathHelper.cos(this.Body.field_78796_g) * 5.0F;
           float f15 = 4.0F;
           if (this.isSneak && !this.isFlying) {
                f15 = 0.0F;
@@ -425,8 +425,8 @@ public class ModelPony extends ModelBase {
                f20 = 1.0F - f5;
                f20 *= f20 * f20;
                f20 = 1.0F - f20;
-               f26 = MathHelper.func_76126_a(f20 * 3.141593F);
-               f30 = MathHelper.func_76126_a(f5 * 3.141593F);
+               f26 = MathHelper.sin(f20 * 3.141593F);
+               f30 = MathHelper.sin(f5 * 3.141593F);
                f35 = f30 * -(this.Head.field_78795_f - 0.7F) * 0.75F;
                if (this.isUnicorn) {
                     var10000 = this.unicornarm;
@@ -598,15 +598,15 @@ public class ModelPony extends ModelBase {
                this.LeftLeg.field_78798_e = 10.0F;
                this.RightLeg.field_78797_d = 8.0F;
                this.LeftLeg.field_78797_d = 8.0F;
-               f35 = MathHelper.func_76134_b(f2 * 0.09F) * 0.05F + 0.05F;
-               f39 = MathHelper.func_76126_a(f2 * 0.067F) * 0.05F;
+               f35 = MathHelper.cos(f2 * 0.09F) * 0.05F + 0.05F;
+               f39 = MathHelper.sin(f2 * 0.067F) * 0.05F;
                var10000 = this.unicornarm;
                var10000.field_78808_h += f35;
                var10000 = this.unicornarm;
                var10000.field_78795_f += f39;
                if (this.isPegasus && this.isFlying) {
-                    this.WingRotateAngleY = MathHelper.func_76126_a(f2 * 0.067F * 8.0F) * 1.0F;
-                    this.WingRotateAngleZ = MathHelper.func_76126_a(f2 * 0.067F * 8.0F) * 1.0F;
+                    this.WingRotateAngleY = MathHelper.sin(f2 * 0.067F * 8.0F) * 1.0F;
+                    this.WingRotateAngleZ = MathHelper.sin(f2 * 0.067F * 8.0F) * 1.0F;
 
                     for(l4 = 0; l4 < this.LeftWingExt.length; ++l4) {
                          this.LeftWingExt[l4].field_78795_f = 2.5F;
@@ -658,7 +658,7 @@ public class ModelPony extends ModelBase {
                     this.Tail[l5].field_78797_d = f57;
                     this.Tail[l5].field_78798_e = f58;
                     if (this.rainboom) {
-                         this.Tail[l5].field_78795_f = 1.571F + 0.1F * MathHelper.func_76126_a(f);
+                         this.Tail[l5].field_78795_f = 1.571F + 0.1F * MathHelper.sin(f);
                     } else {
                          this.Tail[l5].field_78795_f = f61;
                     }
@@ -712,9 +712,9 @@ public class ModelPony extends ModelBase {
                     var10000 = this.unicornarm;
                     var10000.field_78795_f -= f20 * 1.2F - f26 * 0.4F;
                     var10000 = this.unicornarm;
-                    var10000.field_78808_h += MathHelper.func_76134_b(f2 * 0.09F) * 0.05F + 0.05F;
+                    var10000.field_78808_h += MathHelper.cos(f2 * 0.09F) * 0.05F + 0.05F;
                     var10000 = this.unicornarm;
-                    var10000.field_78795_f += MathHelper.func_76126_a(f2 * 0.067F) * 0.05F;
+                    var10000.field_78795_f += MathHelper.sin(f2 * 0.067F) * 0.05F;
                } else {
                     f20 = 0.0F;
                     f26 = 0.0F;
@@ -724,9 +724,9 @@ public class ModelPony extends ModelBase {
                     var10000 = this.RightArm;
                     var10000.field_78795_f -= f20 * 1.2F - f26 * 0.4F;
                     var10000 = this.RightArm;
-                    var10000.field_78808_h += MathHelper.func_76134_b(f2 * 0.09F) * 0.05F + 0.05F;
+                    var10000.field_78808_h += MathHelper.cos(f2 * 0.09F) * 0.05F + 0.05F;
                     var10000 = this.RightArm;
-                    var10000.field_78795_f += MathHelper.func_76126_a(f2 * 0.067F) * 0.05F;
+                    var10000.field_78795_f += MathHelper.sin(f2 * 0.067F) * 0.05F;
                     ++this.RightArm.field_78798_e;
                }
           }
@@ -767,7 +767,7 @@ public class ModelPony extends ModelBase {
                }
           }
 
-          this.isSleeping = pony.func_70608_bn();
+          this.isSleeping = pony.isPlayerSleeping();
           this.isUnicorn = pony.isUnicorn;
           this.isPegasus = pony.isPegasus;
           this.isSneak = pony.isSneaking();

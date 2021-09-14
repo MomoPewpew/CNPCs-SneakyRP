@@ -83,7 +83,7 @@ public class RenderCustomNpc extends RenderNPCInterface {
           }
 
           this.npcmodel.field_187076_m = this.getPose(npc, npc.getHeldItemMainhand());
-          this.npcmodel.field_187075_l = this.getPose(npc, npc.func_184592_cb());
+          this.npcmodel.field_187075_l = this.getPose(npc, npc.getHeldItemOffhand());
           super.doRender(npc, d, d1, d2, f, partialTicks);
      }
 
@@ -133,10 +133,10 @@ public class RenderCustomNpc extends RenderNPCInterface {
                }
 
                model.field_78095_p = this.field_77045_g.field_78095_p;
-               model.field_78093_q = this.entity.func_184218_aH() && this.entity.func_184187_bx() != null && this.entity.func_184187_bx().shouldRiderSit();
+               model.field_78093_q = this.entity.isRiding() && this.entity.getRidingEntity() != null && this.entity.getRidingEntity().shouldRiderSit();
                model.func_78086_a(this.entity, par2, par3, this.partialTicks);
                model.func_78087_a(par2, par3, par4, par5, par6, par7, this.entity);
-               model.field_78091_s = this.entity.func_70631_g_();
+               model.field_78091_s = this.entity.isChild();
                NPCRendererHelper.renderModel(this.entity, par2, par3, par4, par5, par6, par7, this.renderEntity, model, this.getEntityTexture(npc));
                if (!npc.display.getOverlayTexture().isEmpty()) {
                     GlStateManager.func_179143_c(515);
