@@ -34,7 +34,7 @@ public class BlueprintUtil {
                     for(short x = 0; x < sizeX; ++x) {
                          IBlockState state = world.getBlockState(pos.add(x, y, z));
                          String modName;
-                         if (!requiredMods.contains(modName = state.getBlock().getRegistryName().getNamespace())) {
+                         if (!requiredMods.contains(modName = state.getBlock().getRegistryName().getResourceDomain())) {
                               requiredMods.add(modName);
                          }
 

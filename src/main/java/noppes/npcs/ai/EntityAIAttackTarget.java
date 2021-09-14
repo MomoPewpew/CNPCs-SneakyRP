@@ -32,7 +32,7 @@ public class EntityAIAttackTarget extends EntityAIBase {
                     return false;
                } else {
                     this.entityTarget = entitylivingbase;
-                    this.entityPathEntity = this.npc.getNavigator().getPathToEntityLiving(entitylivingbase);
+                    this.entityPathEntity = this.npc.getNavigator().getResourcePathToEntityLiving(entitylivingbase);
                     return this.entityPathEntity != null;
                }
           } else {

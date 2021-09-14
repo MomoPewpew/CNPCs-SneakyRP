@@ -149,13 +149,13 @@ public class GuiTextureSelection extends SubGuiInterface implements ICustomScrol
 
           if (texture != null && !texture.isEmpty()) {
                this.selectedResource = new ResourceLocation(texture);
-               this.selectedDomain = this.selectedResource.getNamespace();
+               this.selectedDomain = this.selectedResource.getResourceDomain();
                if (!this.domains.containsKey(this.selectedDomain)) {
                     this.selectedDomain = null;
                }
 
-               int i = this.selectedResource.getPath().lastIndexOf(47);
-               this.location = this.selectedResource.getPath().substring(0, i + 1);
+               int i = this.selectedResource.getResourcePath().lastIndexOf(47);
+               this.location = this.selectedResource.getResourcePath().substring(0, i + 1);
                if (this.location.startsWith("textures/")) {
                     this.location = this.location.substring(9);
                }
@@ -262,7 +262,7 @@ public class GuiTextureSelection extends SubGuiInterface implements ICustomScrol
           }
 
           if (this.selectedResource != null) {
-               this.scrollQuests.setSelected(this.selectedResource.getPath());
+               this.scrollQuests.setSelected(this.selectedResource.getResourcePath());
           }
 
           this.scrollQuests.guiLeft = this.guiLeft + 125;

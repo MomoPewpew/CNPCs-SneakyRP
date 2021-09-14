@@ -48,7 +48,7 @@ public class MarkovDictionary {
      private InputStream getResource(ResourceLocation resourceLocation) {
           ModContainer container = Loader.instance().activeModContainer();
           if (container != null) {
-               String resourcePath = String.format("/%s/%s/%s", "assets", resourceLocation.getNamespace(), resourceLocation.getPath());
+               String resourcePath = String.format("/%s/%s/%s", "assets", resourceLocation.getResourceDomain(), resourceLocation.getResourcePath());
                InputStream resourceAsStream = null;
 
                try {
@@ -139,10 +139,10 @@ public class MarkovDictionary {
                String chosen;
                int occu;
                for(chosen = ""; k.hasNext(); randomNumber -= occu) {
-                    Entry entry = (Entry)k.next();
-                    occu = (Integer)this.occurrences.get(sequence.toString(), entry.getKey());
+                    Entry entry1 = (Entry)k.next();
+                    occu = (Integer)this.occurrences.get(sequence.toString(), entry1.getKey());
                     if (randomNumber < occu) {
-                         chosen = (String)entry.getKey();
+                         chosen = (String)entry1.getKey();
                          break;
                     }
                }

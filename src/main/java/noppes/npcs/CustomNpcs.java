@@ -226,6 +226,18 @@ public class CustomNpcs {
 
                public void readNBT(Capability capability, ItemStackWrapper instance, EnumFacing side, NBTBase nbt) {
                }
+
+				@Override
+				public void readNBT(Capability arg0, Object arg1, EnumFacing arg2, NBTBase arg3) {
+					// TODO Auto-generated method stub
+
+				}
+
+				@Override
+				public NBTBase writeNBT(Capability arg0, Object arg1, EnumFacing arg2) {
+					// TODO Auto-generated method stub
+					return null;
+				}
           }, () -> {
                return null;
           });
@@ -339,7 +351,7 @@ public class CustomNpcs {
                File dir = new File(".");
                if (Server != null) {
                     if (!Server.isDedicatedServer()) {
-                         dir = new File(Minecraft.getMinecraft().gameDir, "saves");
+                         dir = new File(Minecraft.getMinecraft().mcDataDir, "saves");
                     }
 
                     dir = new File(new File(dir, Server.getFolderName()), "customnpcs");

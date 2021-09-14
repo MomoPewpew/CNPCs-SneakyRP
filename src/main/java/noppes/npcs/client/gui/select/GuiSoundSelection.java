@@ -40,18 +40,18 @@ public class GuiSoundSelection extends SubGuiInterface implements ICustomScrollL
 
           while(var5.hasNext()) {
                ResourceLocation location = (ResourceLocation)var5.next();
-               List list = (List)this.domains.get(location.getNamespace());
+               List list = (List)this.domains.get(location.getResourceDomain());
                if (list == null) {
-                    this.domains.put(location.getNamespace(), list = new ArrayList());
+                    this.domains.put(location.getResourceDomain(), list = new ArrayList());
                }
 
-               ((List)list).add(location.getPath());
-               this.domains.put(location.getNamespace(), list);
+               ((List)list).add(location.getResourcePath());
+               this.domains.put(location.getResourceDomain(), list);
           }
 
           if (sound != null && !sound.isEmpty()) {
                this.selectedResource = new ResourceLocation(sound);
-               this.selectedDomain = this.selectedResource.getNamespace();
+               this.selectedDomain = this.selectedResource.getResourceDomain();
                if (!this.domains.containsKey(this.selectedDomain)) {
                     this.selectedDomain = null;
                }
@@ -86,7 +86,7 @@ public class GuiSoundSelection extends SubGuiInterface implements ICustomScrollL
           }
 
           if (this.selectedResource != null) {
-               this.scrollQuests.setSelected(this.selectedResource.getPath());
+               this.scrollQuests.setSelected(this.selectedResource.getResourcePath());
           }
 
           this.scrollQuests.guiLeft = this.guiLeft + 95;

@@ -28,7 +28,7 @@ public class EntityLivingWrapper extends EntityLivingBaseWrapper implements IEnt
           if (!this.isNavigating()) {
                return null;
           } else {
-               PathPoint point = ((EntityLiving)this.entity).getNavigator().getPath().getFinalPathPoint();
+               PathPoint point = ((EntityLiving)this.entity).getNavigator().getResourcePath().getFinalPathPoint();
                return point == null ? null : new BlockPosWrapper(new BlockPos(point.x, point.y, point.z));
           }
      }

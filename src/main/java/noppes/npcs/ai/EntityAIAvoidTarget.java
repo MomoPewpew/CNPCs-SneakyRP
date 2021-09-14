@@ -62,7 +62,7 @@ public class EntityAIAvoidTarget extends EntityAIBase {
                     } else if (this.npc.ais.tacticalVariant == 3 && var4) {
                          return false;
                     } else {
-                         this.entityPathEntity = this.entityPathNavigate.getPathToXYZ(var2.x, var2.y, var2.z);
+                         this.entityPathEntity = this.entityPathNavigate.getResourcePathToXYZ(var2.x, var2.y, var2.z);
                          return this.entityPathEntity != null;
                     }
                }

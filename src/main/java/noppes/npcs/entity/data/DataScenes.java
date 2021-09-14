@@ -336,7 +336,7 @@ public class DataScenes {
                               DataScenes.this.npc.ais.setStartPos(pos);
                               DataScenes.this.npc.getNavigator().clearPath();
                               if (move) {
-                                   Path pathentity = DataScenes.this.npc.getNavigator().getPathToPos(pos);
+                                   Path pathentity = DataScenes.this.npc.getNavigator().getResourcePathToPos(pos);
                                    DataScenes.this.npc.getNavigator().setPath(pathentity, 1.0D);
                               } else if (!DataScenes.this.npc.isInRange((double)pos.getX() + 0.5D, (double)pos.getY(), (double)pos.getZ() + 0.5D, 2.0D)) {
                                    DataScenes.this.npc.setPosition((double)pos.getX() + 0.5D, (double)pos.getY(), (double)pos.getZ() + 0.5D);
