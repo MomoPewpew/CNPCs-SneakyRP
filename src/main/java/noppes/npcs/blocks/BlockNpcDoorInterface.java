@@ -22,28 +22,28 @@ public abstract class BlockNpcDoorInterface extends BlockDoor implements ITileEn
           this.field_149758_A = true;
      }
 
-     public void func_180663_b(World worldIn, BlockPos pos, IBlockState state) {
-          super.func_180663_b(worldIn, pos, state);
-          worldIn.func_175713_t(pos);
+     public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
+          super.breakBlock(worldIn, pos, state);
+          worldIn.removeTileEntity(pos);
      }
 
-     public TileEntity func_149915_a(World worldIn, int meta) {
+     public TileEntity createNewTileEntity(World worldIn, int meta) {
           return new TileDoor();
      }
 
-     public ItemStack func_185473_a(World worldIn, BlockPos pos, IBlockState state) {
-          return new ItemStack(CustomItems.scriptedDoorTool, 1, this.func_180651_a(state));
+     public ItemStack getItem(World worldIn, BlockPos pos, IBlockState state) {
+          return new ItemStack(CustomItems.scriptedDoorTool, 1, this.damageDropped(state));
      }
 
      public boolean hasTileEntity(IBlockState state) {
           return true;
      }
 
-     public Item func_180660_a(IBlockState state, Random rand, int fortune) {
+     public Item getItemDropped(IBlockState state, Random rand, int fortune) {
           return null;
      }
 
-     public IBlockState func_176221_a(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
+     public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
           IBlockState iblockstate1;
           if (state.getValue(field_176523_O) == EnumDoorHalf.LOWER) {
                iblockstate1 = worldIn.getBlockState(pos.up());

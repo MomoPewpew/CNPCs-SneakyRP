@@ -69,10 +69,10 @@ public class TileDoor extends TileNpcEntity implements ITickable {
           }
      }
 
-     public void func_73660_a() {
+     public void update() {
           if (this.renderTileUpdate != null) {
                try {
-                    this.renderTileUpdate.func_73660_a();
+                    this.renderTileUpdate.update();
                } catch (Exception var2) {
                     this.renderTileUpdate = null;
                }

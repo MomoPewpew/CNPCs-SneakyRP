@@ -24,11 +24,11 @@ import noppes.npcs.entity.EntityNPCInterface;
 import noppes.npcs.util.IPermission;
 
 public class BlockScriptedDoor extends BlockNpcDoorInterface implements IPermission {
-     public TileEntity func_149915_a(World worldIn, int meta) {
+     public TileEntity createNewTileEntity(World worldIn, int meta) {
           return new TileScriptedDoor();
      }
 
-     public EnumBlockRenderType func_149645_b(IBlockState state) {
+     public EnumBlockRenderType getRenderType(IBlockState state) {
           return EnumBlockRenderType.INVISIBLE;
      }
 
@@ -58,7 +58,7 @@ public class BlockScriptedDoor extends BlockNpcDoorInterface implements IPermiss
           }
      }
 
-     public void func_189540_a(IBlockState state, World worldIn, BlockPos pos, Block neighborBlock, BlockPos pos2) {
+     public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block neighborBlock, BlockPos pos2) {
           BlockPos blockpos2;
           IBlockState iblockstate2;
           if (state.getValue(field_176523_O) == EnumDoorHalf.UPPER) {
@@ -67,7 +67,7 @@ public class BlockScriptedDoor extends BlockNpcDoorInterface implements IPermiss
                if (iblockstate2.getBlock() != this) {
                     worldIn.setBlockToAir(pos);
                } else if (neighborBlock != this) {
-                    this.func_189540_a(iblockstate2, worldIn, blockpos2, neighborBlock, blockpos2);
+                    this.neighborChanged(iblockstate2, worldIn, blockpos2, neighborBlock, blockpos2);
                }
           } else {
                blockpos2 = pos.up();
@@ -80,8 +80,8 @@ public class BlockScriptedDoor extends BlockNpcDoorInterface implements IPermiss
                          EventHooks.onScriptBlockNeighborChanged(tile, pos2);
                     }
 
-                    boolean flag = worldIn.func_175640_z(pos) || worldIn.func_175640_z(blockpos2);
-                    if ((flag || neighborBlock.getDefaultState().func_185897_m()) && neighborBlock != this && flag != (Boolean)iblockstate2.getValue(field_176522_N)) {
+                    boolean flag = worldIn.isBlockPowered(pos) || worldIn.isBlockPowered(blockpos2);
+                    if ((flag || neighborBlock.getDefaultState().canProvidePower()) && neighborBlock != this && flag != (Boolean)iblockstate2.getValue(field_176522_N)) {
                          worldIn.setBlockState(blockpos2, iblockstate2.withProperty(field_176522_N, flag), 2);
                          if (flag != (Boolean)state.getValue(field_176519_b)) {
                               this.toggleDoor(worldIn, pos, flag);
@@ -94,7 +94,7 @@ public class BlockScriptedDoor extends BlockNpcDoorInterface implements IPermiss
 
                     for(int var13 = 0; var13 < var12; ++var13) {
                          EnumFacing enumfacing = var11[var13];
-                         int p = worldIn.func_175651_c(pos.offset(enumfacing), enumfacing);
+                         int p = worldIn.getRedstonePower(pos.offset(enumfacing), enumfacing);
                          if (p > power) {
                               power = p;
                          }
@@ -113,7 +113,7 @@ public class BlockScriptedDoor extends BlockNpcDoorInterface implements IPermiss
           }
      }
 
-     public void func_180649_a(World world, BlockPos pos, EntityPlayer playerIn) {
+     public void onBlockClicked(World world, BlockPos pos, EntityPlayer playerIn) {
           if (!world.isRemote) {
                IBlockState state = world.getBlockState(pos);
                BlockPos blockpos1 = state.getValue(field_176523_O) == EnumDoorHalf.LOWER ? pos : pos.down();
@@ -125,7 +125,7 @@ public class BlockScriptedDoor extends BlockNpcDoorInterface implements IPermiss
           }
      }
 
-     public void func_180663_b(World world, BlockPos pos, IBlockState state) {
+     public void breakBlock(World world, BlockPos pos, IBlockState state) {
           BlockPos blockpos1 = state.getValue(field_176523_O) == EnumDoorHalf.LOWER ? pos : pos.down();
           IBlockState iblockstate1 = pos.equals(blockpos1) ? state : world.getBlockState(blockpos1);
           if (!world.isRemote && iblockstate1.getBlock() == this) {
@@ -133,7 +133,7 @@ public class BlockScriptedDoor extends BlockNpcDoorInterface implements IPermiss
                EventHooks.onScriptBlockBreak(tile);
           }
 
-          super.func_180663_b(world, pos, state);
+          super.breakBlock(world, pos, state);
      }
 
      public boolean removedByPlayer(IBlockState state, World world, BlockPos pos, EntityPlayer player, boolean willHarvest) {
@@ -147,14 +147,14 @@ public class BlockScriptedDoor extends BlockNpcDoorInterface implements IPermiss
           return super.removedByPlayer(state, world, pos, player, willHarvest);
      }
 
-     public void func_180634_a(World world, BlockPos pos, IBlockState state, Entity entityIn) {
+     public void onEntityCollidedWithBlock(World world, BlockPos pos, IBlockState state, Entity entityIn) {
           if (!world.isRemote) {
                TileScriptedDoor tile = (TileScriptedDoor)world.getTileEntity(pos);
                EventHooks.onScriptBlockCollide(tile, entityIn);
           }
      }
 
-     public void func_176208_a(World world, BlockPos pos, IBlockState state, EntityPlayer player) {
+     public void onBlockHarvested(World world, BlockPos pos, IBlockState state, EntityPlayer player) {
           BlockPos blockpos1 = state.getValue(field_176523_O) == EnumDoorHalf.LOWER ? pos : pos.down();
           IBlockState iblockstate1 = pos.equals(blockpos1) ? state : world.getBlockState(blockpos1);
           if (player.field_71075_bZ.field_75098_d && iblockstate1.getValue(field_176523_O) == EnumDoorHalf.LOWER && iblockstate1.getBlock() == this) {
@@ -163,7 +163,7 @@ public class BlockScriptedDoor extends BlockNpcDoorInterface implements IPermiss
 
      }
 
-     public float func_176195_g(IBlockState state, World world, BlockPos pos) {
+     public float getBlockHardness(IBlockState state, World world, BlockPos pos) {
           return ((TileScriptedDoor)world.getTileEntity(pos)).blockHardness;
      }
 

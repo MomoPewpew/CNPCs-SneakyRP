@@ -22,7 +22,7 @@ import noppes.npcs.util.IPermission;
 public class BlockCopy extends BlockInterface implements IPermission {
      public BlockCopy() {
           super(Material.field_151576_e);
-          this.func_149672_a(SoundType.field_185851_d);
+          this.setSoundType(SoundType.field_185851_d);
      }
 
      public boolean onBlockActivated(World par1World, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
@@ -38,22 +38,22 @@ public class BlockCopy extends BlockInterface implements IPermission {
           }
      }
 
-     public void func_180633_a(World world, BlockPos pos, IBlockState state, EntityLivingBase entity, ItemStack stack) {
+     public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase entity, ItemStack stack) {
           if (entity instanceof EntityPlayer && !world.isRemote) {
                NoppesUtilServer.sendOpenGui((EntityPlayer)entity, EnumGuiType.CopyBlock, (EntityNPCInterface)null, pos.getX(), pos.getY(), pos.getZ());
           }
 
      }
 
-     public boolean func_149662_c(IBlockState state) {
+     public boolean isOpaqueCube(IBlockState state) {
           return false;
      }
 
-     public boolean func_149686_d(IBlockState state) {
+     public boolean isFullCube(IBlockState state) {
           return false;
      }
 
-     public TileEntity func_149915_a(World var1, int var2) {
+     public TileEntity createNewTileEntity(World var1, int var2) {
           return new TileCopy();
      }
 

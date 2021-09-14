@@ -26,12 +26,12 @@ import noppes.npcs.entity.EntityNPCInterface;
 import noppes.npcs.util.IPermission;
 
 public class BlockBorder extends BlockInterface implements IPermission {
-     public static final PropertyInteger ROTATION = PropertyInteger.func_177719_a("rotation", 0, 3);
+     public static final PropertyInteger ROTATION = PropertyInteger.create("rotation", 0, 3);
 
      public BlockBorder() {
           super(Material.field_151576_e);
-          this.func_149672_a(SoundType.field_185851_d);
-          this.func_149722_s();
+          this.setSoundType(SoundType.field_185851_d);
+          this.setBlockUnbreakable();
      }
 
      public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
@@ -44,14 +44,14 @@ public class BlockBorder extends BlockInterface implements IPermission {
           }
      }
 
-     public void func_180633_a(World world, BlockPos pos, IBlockState state, EntityLivingBase entity, ItemStack stack) {
+     public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase entity, ItemStack stack) {
           int l = MathHelper.floor((double)(entity.field_70177_z * 4.0F / 360.0F) + 0.5D) & 3;
           l %= 4;
           world.setBlockState(pos, state.withProperty(ROTATION, l));
           TileBorder tile = (TileBorder)world.getTileEntity(pos);
-          TileBorder adjacent = this.getTile(world, pos.func_177976_e());
+          TileBorder adjacent = this.getTile(world, pos.west());
           if (adjacent == null) {
-               adjacent = this.getTile(world, pos.func_177968_d());
+               adjacent = this.getTile(world, pos.south());
           }
 
           if (adjacent == null) {
@@ -59,7 +59,7 @@ public class BlockBorder extends BlockInterface implements IPermission {
           }
 
           if (adjacent == null) {
-               adjacent = this.getTile(world, pos.func_177974_f());
+               adjacent = this.getTile(world, pos.east());
           }
 
           if (adjacent != null) {
@@ -80,23 +80,23 @@ public class BlockBorder extends BlockInterface implements IPermission {
           return tile != null && tile instanceof TileBorder ? (TileBorder)tile : null;
      }
 
-     public EnumBlockRenderType func_149645_b(IBlockState state) {
+     public EnumBlockRenderType getRenderType(IBlockState state) {
           return EnumBlockRenderType.MODEL;
      }
 
-     public boolean func_149662_c(IBlockState state) {
+     public boolean isOpaqueCube(IBlockState state) {
           return false;
      }
 
-     public boolean func_149686_d(IBlockState state) {
+     public boolean isFullCube(IBlockState state) {
           return false;
      }
 
-     public TileEntity func_149915_a(World var1, int var2) {
+     public TileEntity createNewTileEntity(World var1, int var2) {
           return new TileBorder();
      }
 
-     protected BlockStateContainer func_180661_e() {
+     protected BlockStateContainer createBlockState() {
           return new BlockStateContainer(this, new IProperty[]{ROTATION});
      }
 

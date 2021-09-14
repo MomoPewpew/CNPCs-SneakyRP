@@ -179,7 +179,7 @@ public class JobFarmer extends JobInterface implements MassBlockController.IMass
           if (this.npc.nearPosition(pos) || this.walkTicks++ > 400) {
                if (this.walkTicks > 400) {
                     pos = NoppesUtilServer.GetClosePos(pos, this.npc.world);
-                    this.npc.func_70634_a((double)pos.getX() + 0.5D, (double)pos.getY(), (double)pos.getZ() + 0.5D);
+                    this.npc.setPositionAndUpdate((double)pos.getX() + 0.5D, (double)pos.getY(), (double)pos.getZ() + 0.5D);
                }
 
                this.ripe = null;
@@ -196,7 +196,7 @@ public class JobFarmer extends JobInterface implements MassBlockController.IMass
                }
 
                if (b instanceof BlockStem) {
-                    state = b.func_176221_a(state, this.npc.world, pos);
+                    state = b.getActualState(state, this.npc.world, pos);
                     EnumFacing facing = (EnumFacing)state.getValue(BlockStem.field_176483_b);
                     if (facing == EnumFacing.UP || facing == EnumFacing.DOWN) {
                          return;
@@ -231,7 +231,7 @@ public class JobFarmer extends JobInterface implements MassBlockController.IMass
                          this.ripe = pos;
                     }
                } else if (b instanceof BlockStem) {
-                    state = b.func_176221_a(state, this.npc.world, pos);
+                    state = b.getActualState(state, this.npc.world, pos);
                     EnumFacing facing = (EnumFacing)state.getValue(BlockStem.field_176483_b);
                     if (facing != EnumFacing.UP) {
                          this.ripe = pos;

@@ -223,10 +223,10 @@ public class TileScripted extends TileNpcEntity implements ITickable, IScriptBlo
           return this.enabled && ScriptController.HasStart && !this.field_145850_b.isRemote;
      }
 
-     public void func_73660_a() {
+     public void update() {
           if (this.renderTileUpdate != null) {
                try {
-                    this.renderTileUpdate.func_73660_a();
+                    this.renderTileUpdate.update();
                } catch (Exception var2) {
                     this.renderTileUpdate = null;
                }
@@ -300,7 +300,7 @@ public class TileScripted extends TileNpcEntity implements ITickable, IScriptBlo
      public void setRedstonePower(int strength) {
           if (this.powering != strength) {
                this.prevPower = this.activePowering = ValueUtil.CorrectInt(strength, 0, 15);
-               this.field_145850_b.func_175685_c(this.field_174879_c, this.func_145838_q(), false);
+               this.field_145850_b.notifyNeighborsOfStateChange(this.field_174879_c, this.func_145838_q(), false);
                this.powering = this.activePowering;
           }
      }

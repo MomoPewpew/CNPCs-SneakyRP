@@ -88,7 +88,7 @@ public class ItemTeleporter extends Item implements IPermission {
                               for(pos = movingobjectposition.getBlockPos(); par3EntityPlayer.world.getBlockState(pos).getBlock() != Blocks.field_150350_a; pos = pos.up()) {
                               }
 
-                              par3EntityPlayer.func_70634_a((double)((float)pos.getX() + 0.5F), (double)((float)pos.getY() + 1.0F), (double)((float)pos.getZ() + 0.5F));
+                              par3EntityPlayer.setPositionAndUpdate((double)((float)pos.getX() + 0.5F), (double)((float)pos.getY() + 1.0F), (double)((float)pos.getZ() + 0.5F));
                          }
 
                          return true;

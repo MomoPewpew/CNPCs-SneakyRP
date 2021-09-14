@@ -34,18 +34,18 @@ public class BlockScripted extends BlockInterface implements IPermission {
 
      public BlockScripted() {
           super(Material.field_151576_e);
-          this.func_149672_a(SoundType.field_185851_d);
+          this.setSoundType(SoundType.field_185851_d);
      }
 
-     public TileEntity func_149915_a(World worldIn, int meta) {
+     public TileEntity createNewTileEntity(World worldIn, int meta) {
           return new TileScripted();
      }
 
-     public AxisAlignedBB func_185496_a(IBlockState state, IBlockAccess world, BlockPos pos) {
+     public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess world, BlockPos pos) {
           return AABB;
      }
 
-     public AxisAlignedBB func_180646_a(IBlockState blockState, IBlockAccess world, BlockPos pos) {
+     public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess world, BlockPos pos) {
           TileScripted tile = (TileScripted)world.getTileEntity(pos);
           return tile != null && tile.isPassible ? AABB_EMPTY : AABB;
      }
@@ -65,57 +65,57 @@ public class BlockScripted extends BlockInterface implements IPermission {
           }
      }
 
-     public void func_180633_a(World world, BlockPos pos, IBlockState state, EntityLivingBase entity, ItemStack stack) {
+     public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase entity, ItemStack stack) {
           if (entity instanceof EntityPlayer && !world.isRemote) {
                NoppesUtilServer.sendOpenGui((EntityPlayer)entity, EnumGuiType.ScriptBlock, (EntityNPCInterface)null, pos.getX(), pos.getY(), pos.getZ());
           }
 
      }
 
-     public void func_180634_a(World world, BlockPos pos, IBlockState state, Entity entityIn) {
+     public void onEntityCollidedWithBlock(World world, BlockPos pos, IBlockState state, Entity entityIn) {
           if (!world.isRemote) {
                TileScripted tile = (TileScripted)world.getTileEntity(pos);
                EventHooks.onScriptBlockCollide(tile, entityIn);
           }
      }
 
-     public void func_176224_k(World world, BlockPos pos) {
+     public void fillWithRain(World world, BlockPos pos) {
           if (!world.isRemote) {
                TileScripted tile = (TileScripted)world.getTileEntity(pos);
                EventHooks.onScriptBlockRainFill(tile);
           }
      }
 
-     public void func_180658_a(World world, BlockPos pos, Entity entity, float fallDistance) {
+     public void onFallenUpon(World world, BlockPos pos, Entity entity, float fallDistance) {
           if (!world.isRemote) {
                TileScripted tile = (TileScripted)world.getTileEntity(pos);
                fallDistance = EventHooks.onScriptBlockFallenUpon(tile, entity, fallDistance);
-               super.func_180658_a(world, pos, entity, fallDistance);
+               super.onFallenUpon(world, pos, entity, fallDistance);
           }
      }
 
-     public boolean func_149662_c(IBlockState state) {
+     public boolean isOpaqueCube(IBlockState state) {
           return false;
      }
 
-     public boolean func_149686_d(IBlockState state) {
+     public boolean isFullCube(IBlockState state) {
           return false;
      }
 
-     public void func_180649_a(World world, BlockPos pos, EntityPlayer player) {
+     public void onBlockClicked(World world, BlockPos pos, EntityPlayer player) {
           if (!world.isRemote) {
                TileScripted tile = (TileScripted)world.getTileEntity(pos);
                EventHooks.onScriptBlockClicked(tile, player);
           }
      }
 
-     public void func_180663_b(World world, BlockPos pos, IBlockState state) {
+     public void breakBlock(World world, BlockPos pos, IBlockState state) {
           if (!world.isRemote) {
                TileScripted tile = (TileScripted)world.getTileEntity(pos);
                EventHooks.onScriptBlockBreak(tile);
           }
 
-          super.func_180663_b(world, pos, state);
+          super.breakBlock(world, pos, state);
      }
 
      public boolean removedByPlayer(IBlockState state, World world, BlockPos pos, EntityPlayer player, boolean willHarvest) {
@@ -129,7 +129,7 @@ public class BlockScripted extends BlockInterface implements IPermission {
           return super.removedByPlayer(state, world, pos, player, willHarvest);
      }
 
-     public Item func_180660_a(IBlockState state, Random rand, int fortune) {
+     public Item getItemDropped(IBlockState state, Random rand, int fortune) {
           return null;
      }
 
@@ -144,7 +144,7 @@ public class BlockScripted extends BlockInterface implements IPermission {
           super.onBlockExploded(world, pos, explosion);
      }
 
-     public void func_189540_a(IBlockState state, World world, BlockPos pos, Block neighborBlock, BlockPos pos2) {
+     public void neighborChanged(IBlockState state, World world, BlockPos pos, Block neighborBlock, BlockPos pos2) {
           if (!world.isRemote) {
                TileScripted tile = (TileScripted)world.getTileEntity(pos);
                EventHooks.onScriptBlockNeighborChanged(tile, pos2);
@@ -154,7 +154,7 @@ public class BlockScripted extends BlockInterface implements IPermission {
 
                for(int var10 = 0; var10 < var9; ++var10) {
                     EnumFacing enumfacing = var8[var10];
-                    int p = world.func_175651_c(pos.offset(enumfacing), enumfacing);
+                    int p = world.getRedstonePower(pos.offset(enumfacing), enumfacing);
                     if (p > power) {
                          power = p;
                     }
@@ -167,15 +167,15 @@ public class BlockScripted extends BlockInterface implements IPermission {
           }
      }
 
-     public boolean func_149744_f(IBlockState state) {
+     public boolean canProvidePower(IBlockState state) {
           return true;
      }
 
-     public int func_180656_a(IBlockState state, IBlockAccess worldIn, BlockPos pos, EnumFacing side) {
-          return this.func_176211_b(state, worldIn, pos, side);
+     public int getWeakPower(IBlockState state, IBlockAccess worldIn, BlockPos pos, EnumFacing side) {
+          return this.getStrongPower(state, worldIn, pos, side);
      }
 
-     public int func_176211_b(IBlockState state, IBlockAccess world, BlockPos pos, EnumFacing side) {
+     public int getStrongPower(IBlockState state, IBlockAccess world, BlockPos pos, EnumFacing side) {
           return ((TileScripted)world.getTileEntity(pos)).activePowering;
      }
 
@@ -192,7 +192,7 @@ public class BlockScripted extends BlockInterface implements IPermission {
           return tile == null ? 0 : tile.lightValue;
      }
 
-     public boolean func_176205_b(IBlockAccess world, BlockPos pos) {
+     public boolean isPassable(IBlockAccess world, BlockPos pos) {
           return ((TileScripted)world.getTileEntity(pos)).isPassible;
      }
 
@@ -204,7 +204,7 @@ public class BlockScripted extends BlockInterface implements IPermission {
           return super.getEnchantPowerBonus(world, pos);
      }
 
-     public float func_176195_g(IBlockState state, World world, BlockPos pos) {
+     public float getBlockHardness(IBlockState state, World world, BlockPos pos) {
           return ((TileScripted)world.getTileEntity(pos)).blockHardness;
      }
 

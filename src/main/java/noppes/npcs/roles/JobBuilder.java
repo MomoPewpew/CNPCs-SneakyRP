@@ -125,7 +125,7 @@ public class JobBuilder extends JobInterface implements IJobBuilder {
                               this.placeBlock();
                               if (this.tryTicks > 40) {
                                    blockPos = NoppesUtilServer.GetClosePos(blockPos, this.npc.world);
-                                   this.npc.func_70634_a((double)blockPos.getX() + 0.5D, (double)blockPos.getY(), (double)blockPos.getZ() + 0.5D);
+                                   this.npc.setPositionAndUpdate((double)blockPos.getX() + 0.5D, (double)blockPos.getY(), (double)blockPos.getZ() + 0.5D);
                               }
                          }
 

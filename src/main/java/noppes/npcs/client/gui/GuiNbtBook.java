@@ -158,7 +158,7 @@ public class GuiNbtBook extends GuiNPCInterface implements IGuiData {
           } else {
                this.tile = this.player.world.getTileEntity(new BlockPos(this.x, this.y, this.z));
                this.state = this.player.world.getBlockState(new BlockPos(this.x, this.y, this.z));
-               this.blockStack = this.state.getBlock().func_185473_a(this.player.world, new BlockPos(this.x, this.y, this.z), this.state);
+               this.blockStack = this.state.getBlock().getItem(this.player.world, new BlockPos(this.x, this.y, this.z), this.state);
           }
 
           this.originalCompound = compound.getCompoundTag("Data");

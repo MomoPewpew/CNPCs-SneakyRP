@@ -21,7 +21,7 @@ public class TileWaypoint extends TileNpcEntity implements ITickable {
      private List toCheck;
      public int range = 10;
 
-     public void func_73660_a() {
+     public void update() {
           if (!this.field_145850_b.isRemote && !this.name.isEmpty()) {
                --this.ticks;
                if (this.ticks <= 0) {

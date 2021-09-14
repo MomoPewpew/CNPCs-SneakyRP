@@ -142,7 +142,7 @@ public class TileBuilder extends TileEntity implements ITickable {
           return this.schematic != null;
      }
 
-     public void func_73660_a() {
+     public void update() {
           if (!this.field_145850_b.isRemote && this.hasSchematic() && !this.finished) {
                --this.ticks;
                if (this.ticks <= 0) {

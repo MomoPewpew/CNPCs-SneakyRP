@@ -46,16 +46,16 @@ public class BlockNpcRedstone extends BlockInterface implements IPermission {
      }
 
      public void func_176213_c(World par1World, BlockPos pos, IBlockState state) {
-          par1World.func_175685_c(pos, this, false);
-          par1World.func_175685_c(pos.down(), this, false);
-          par1World.func_175685_c(pos.up(), this, false);
-          par1World.func_175685_c(pos.func_177976_e(), this, false);
-          par1World.func_175685_c(pos.func_177974_f(), this, false);
-          par1World.func_175685_c(pos.func_177968_d(), this, false);
-          par1World.func_175685_c(pos.north(), this, false);
+          par1World.notifyNeighborsOfStateChange(pos, this, false);
+          par1World.notifyNeighborsOfStateChange(pos.down(), this, false);
+          par1World.notifyNeighborsOfStateChange(pos.up(), this, false);
+          par1World.notifyNeighborsOfStateChange(pos.west(), this, false);
+          par1World.notifyNeighborsOfStateChange(pos.east(), this, false);
+          par1World.notifyNeighborsOfStateChange(pos.south(), this, false);
+          par1World.notifyNeighborsOfStateChange(pos.north(), this, false);
      }
 
-     public void func_180633_a(World world, BlockPos pos, IBlockState state, EntityLivingBase entityliving, ItemStack item) {
+     public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase entityliving, ItemStack item) {
           if (entityliving instanceof EntityPlayer && !world.isRemote) {
                NoppesUtilServer.sendOpenGui((EntityPlayer)entityliving, EnumGuiType.RedstoneBlock, (EntityNPCInterface)null, pos.getX(), pos.getY(), pos.getZ());
           }
@@ -66,15 +66,15 @@ public class BlockNpcRedstone extends BlockInterface implements IPermission {
           this.func_176213_c(par1World, pos, state);
      }
 
-     public int func_180656_a(IBlockState state, IBlockAccess worldIn, BlockPos pos, EnumFacing side) {
+     public int getWeakPower(IBlockState state, IBlockAccess worldIn, BlockPos pos, EnumFacing side) {
           return this.isActivated(state);
      }
 
-     public int func_176211_b(IBlockState state, IBlockAccess world, BlockPos pos, EnumFacing side) {
+     public int getStrongPower(IBlockState state, IBlockAccess world, BlockPos pos, EnumFacing side) {
           return this.isActivated(state);
      }
 
-     public boolean func_149744_f(IBlockState state) {
+     public boolean canProvidePower(IBlockState state) {
           return true;
      }
 
@@ -86,7 +86,7 @@ public class BlockNpcRedstone extends BlockInterface implements IPermission {
           return this.getDefaultState().withProperty(ACTIVE, false);
      }
 
-     protected BlockStateContainer func_180661_e() {
+     protected BlockStateContainer createBlockState() {
           return new BlockStateContainer(this, new IProperty[]{ACTIVE});
      }
 
@@ -94,11 +94,11 @@ public class BlockNpcRedstone extends BlockInterface implements IPermission {
           return (Boolean)state.getValue(ACTIVE) ? 15 : 0;
      }
 
-     public TileEntity func_149915_a(World var1, int var2) {
+     public TileEntity createNewTileEntity(World var1, int var2) {
           return new TileRedstoneBlock();
      }
 
-     public EnumBlockRenderType func_149645_b(IBlockState state) {
+     public EnumBlockRenderType getRenderType(IBlockState state) {
           return EnumBlockRenderType.MODEL;
      }
 

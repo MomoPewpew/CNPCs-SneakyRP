@@ -20,11 +20,11 @@ import noppes.npcs.blocks.tiles.TileBlockAnvil;
 import noppes.npcs.constants.EnumGuiType;
 
 public class BlockCarpentryBench extends BlockInterface {
-     public static final PropertyInteger ROTATION = PropertyInteger.func_177719_a("rotation", 0, 3);
+     public static final PropertyInteger ROTATION = PropertyInteger.create("rotation", 0, 3);
 
      public BlockCarpentryBench() {
           super(Material.field_151575_d);
-          this.func_149672_a(SoundType.field_185848_a);
+          this.setSoundType(SoundType.field_185848_a);
      }
 
      public boolean onBlockActivated(World par1World, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
@@ -35,11 +35,11 @@ public class BlockCarpentryBench extends BlockInterface {
           return true;
      }
 
-     public boolean func_149662_c(IBlockState state) {
+     public boolean isOpaqueCube(IBlockState state) {
           return false;
      }
 
-     public boolean func_149686_d(IBlockState state) {
+     public boolean isFullCube(IBlockState state) {
           return false;
      }
 
@@ -51,16 +51,16 @@ public class BlockCarpentryBench extends BlockInterface {
           return this.getDefaultState().withProperty(ROTATION, meta % 4);
      }
 
-     protected BlockStateContainer func_180661_e() {
+     protected BlockStateContainer createBlockState() {
           return new BlockStateContainer(this, new IProperty[]{ROTATION});
      }
 
-     public void func_180633_a(World world, BlockPos pos, IBlockState state, EntityLivingBase entity, ItemStack stack) {
+     public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase entity, ItemStack stack) {
           int var6 = MathHelper.floor((double)(entity.field_70177_z / 90.0F) + 0.5D) & 3;
           world.setBlockState(pos, state.withProperty(ROTATION, var6), 2);
      }
 
-     public TileEntity func_149915_a(World var1, int var2) {
+     public TileEntity createNewTileEntity(World var1, int var2) {
           return new TileBlockAnvil();
      }
 }

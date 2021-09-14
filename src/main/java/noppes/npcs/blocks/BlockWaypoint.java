@@ -24,7 +24,7 @@ import noppes.npcs.util.IPermission;
 public class BlockWaypoint extends BlockInterface implements IPermission {
      public BlockWaypoint() {
           super(Material.field_151573_f);
-          this.func_149672_a(SoundType.field_185852_e);
+          this.setSoundType(SoundType.field_185852_e);
           this.setCreativeTab(CustomItems.tab);
      }
 
@@ -42,18 +42,18 @@ public class BlockWaypoint extends BlockInterface implements IPermission {
           }
      }
 
-     public void func_180633_a(World world, BlockPos pos, IBlockState state, EntityLivingBase entity, ItemStack stack) {
+     public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase entity, ItemStack stack) {
           if (entity instanceof EntityPlayer && !world.isRemote) {
                NoppesUtilServer.sendOpenGui((EntityPlayer)entity, EnumGuiType.Waypoint, (EntityNPCInterface)null, pos.getX(), pos.getY(), pos.getZ());
           }
 
      }
 
-     public TileEntity func_149915_a(World var1, int var2) {
+     public TileEntity createNewTileEntity(World var1, int var2) {
           return new TileWaypoint();
      }
 
-     public EnumBlockRenderType func_149645_b(IBlockState state) {
+     public EnumBlockRenderType getRenderType(IBlockState state) {
           return EnumBlockRenderType.MODEL;
      }
 

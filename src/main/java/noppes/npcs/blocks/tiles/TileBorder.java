@@ -53,7 +53,7 @@ public class TileBorder extends TileNpcEntity implements Predicate, ITickable {
           compound.setString("BorderMessage", this.message);
      }
 
-     public void func_73660_a() {
+     public void update() {
           if (!this.field_145850_b.isRemote) {
                AxisAlignedBB box = new AxisAlignedBB((double)this.field_174879_c.getX(), (double)this.field_174879_c.getY(), (double)this.field_174879_c.getZ(), (double)(this.field_174879_c.getX() + 1), (double)(this.field_174879_c.getY() + this.height + 1), (double)(this.field_174879_c.getZ() + 1));
                List list = this.field_145850_b.getEntitiesWithinAABB(Entity.class, box, this);
@@ -72,22 +72,22 @@ public class TileBorder extends TileNpcEntity implements Predicate, ITickable {
                               if (!this.availability.isAvailable(player)) {
                                    BlockPos pos2 = new BlockPos(this.field_174879_c);
                                    if (this.rotation == 2) {
-                                        pos2 = pos2.func_177968_d();
+                                        pos2 = pos2.south();
                                    } else if (this.rotation == 0) {
                                         pos2 = pos2.north();
                                    } else if (this.rotation == 1) {
-                                        pos2 = pos2.func_177974_f();
+                                        pos2 = pos2.east();
                                    } else if (this.rotation == 3) {
-                                        pos2 = pos2.func_177976_e();
+                                        pos2 = pos2.west();
                                    }
 
                                    while(!this.field_145850_b.isAirBlock(pos2)) {
                                         pos2 = pos2.up();
                                    }
 
-                                   player.func_70634_a((double)pos2.getX() + 0.5D, (double)pos2.getY(), (double)pos2.getZ() + 0.5D);
+                                   player.setPositionAndUpdate((double)pos2.getX() + 0.5D, (double)pos2.getY(), (double)pos2.getZ() + 0.5D);
                                    if (!this.message.isEmpty()) {
-                                        player.func_146105_b(new TextComponentTranslation(this.message, new Object[0]), true);
+                                        player.sendStatusMessage(new TextComponentTranslation(this.message, new Object[0]), true);
                                    }
                               }
                          }

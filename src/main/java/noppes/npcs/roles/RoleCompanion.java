@@ -603,7 +603,7 @@ public class RoleCompanion extends RoleInterface {
                this.npc.ais.onAttack = 3;
                this.npc.ais.setStartPos(new BlockPos(this.npc));
                this.npc.getNavigator().clearPath();
-               this.npc.func_70634_a((double)this.npc.getStartXPos(), this.npc.field_70163_u, (double)this.npc.getStartZPos());
+               this.npc.setPositionAndUpdate((double)this.npc.getStartXPos(), this.npc.field_70163_u, (double)this.npc.getStartZPos());
           } else {
                this.npc.ais.animationType = this.stage.animation;
                this.npc.ais.onAttack = 0;

@@ -100,8 +100,8 @@ public class TileScriptedDoor extends TileDoor implements ITickable, IScriptBloc
           return this.enabled && ScriptController.HasStart && !this.field_145850_b.isRemote;
      }
 
-     public void func_73660_a() {
-          super.func_73660_a();
+     public void update() {
+          super.update();
           ++this.ticksExisted;
           if (this.prevPower != this.newPower) {
                EventHooks.onScriptBlockRedstonePower(this, this.prevPower, this.newPower);

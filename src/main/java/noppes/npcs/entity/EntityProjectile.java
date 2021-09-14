@@ -530,7 +530,7 @@ public class EntityProjectile extends EntityThrowable {
                }
 
                if (this.inTile != null) {
-                    this.inTile.func_180634_a(this.world, this.tilePos, state, this);
+                    this.inTile.onEntityCollidedWithBlock(this.world, this.tilePos, state, this);
                }
           }
 

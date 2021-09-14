@@ -28,7 +28,7 @@ public class TileRedstoneBlock extends TileNpcEntity implements ITickable {
      public boolean isActivated = false;
      private int ticks = 10;
 
-     public void func_73660_a() {
+     public void update() {
           if (!this.field_145850_b.isRemote) {
                --this.ticks;
                if (this.ticks <= 0) {

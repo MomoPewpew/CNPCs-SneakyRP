@@ -26,15 +26,15 @@ import noppes.npcs.constants.EnumGuiType;
 import noppes.npcs.constants.EnumPacketClient;
 
 public class BlockMailbox extends BlockInterface {
-     public static final PropertyInteger ROTATION = PropertyInteger.func_177719_a("rotation", 0, 3);
-     public static final PropertyInteger TYPE = PropertyInteger.func_177719_a("type", 0, 2);
+     public static final PropertyInteger ROTATION = PropertyInteger.create("rotation", 0, 3);
+     public static final PropertyInteger TYPE = PropertyInteger.create("type", 0, 2);
 
      public BlockMailbox() {
           super(Material.field_151573_f);
-          this.func_149672_a(SoundType.field_185852_e);
+          this.setSoundType(SoundType.field_185852_e);
      }
 
-     public void func_149666_a(CreativeTabs par2CreativeTabs, NonNullList par3List) {
+     public void getSubBlocks(CreativeTabs par2CreativeTabs, NonNullList par3List) {
           par3List.add(new ItemStack(this, 1, 0));
           par3List.add(new ItemStack(this, 1, 1));
           par3List.add(new ItemStack(this, 1, 2));
@@ -55,7 +55,7 @@ public class BlockMailbox extends BlockInterface {
           return ret;
      }
 
-     public int func_180651_a(IBlockState state) {
+     public int damageDropped(IBlockState state) {
           return (Integer)state.getValue(TYPE);
      }
 
@@ -67,24 +67,24 @@ public class BlockMailbox extends BlockInterface {
           return this.getDefaultState().withProperty(TYPE, (Integer.valueOf(meta) >> 2) % 3).withProperty(ROTATION, (meta | 4) % 4);
      }
 
-     protected BlockStateContainer func_180661_e() {
+     protected BlockStateContainer createBlockState() {
           return new BlockStateContainer(this, new IProperty[]{TYPE, ROTATION});
      }
 
-     public void func_180633_a(World world, BlockPos pos, IBlockState state, EntityLivingBase entity, ItemStack stack) {
+     public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase entity, ItemStack stack) {
           int l = MathHelper.floor((double)(entity.field_70177_z * 4.0F / 360.0F) + 0.5D) & 3;
           world.setBlockState(pos, state.withProperty(TYPE, stack.getItemDamage()).withProperty(ROTATION, l % 4), 2);
      }
 
-     public boolean func_149662_c(IBlockState state) {
+     public boolean isOpaqueCube(IBlockState state) {
           return false;
      }
 
-     public boolean func_149686_d(IBlockState state) {
+     public boolean isFullCube(IBlockState state) {
           return false;
      }
 
-     public TileEntity func_149915_a(World var1, int var2) {
+     public TileEntity createNewTileEntity(World var1, int var2) {
           return new TileMailbox();
      }
 }

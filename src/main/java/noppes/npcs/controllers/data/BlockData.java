@@ -51,7 +51,7 @@ public class BlockData {
 
      public ItemStack getStack() {
           if (this.stack == null) {
-               this.stack = new ItemStack(this.state.getBlock(), 1, this.state.getBlock().func_180651_a(this.state));
+               this.stack = new ItemStack(this.state.getBlock(), 1, this.state.getBlock().damageDropped(this.state));
           }
 
           return this.stack;

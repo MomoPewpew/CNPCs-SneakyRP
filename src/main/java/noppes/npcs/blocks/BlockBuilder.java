@@ -26,11 +26,11 @@ import noppes.npcs.entity.EntityNPCInterface;
 import noppes.npcs.util.IPermission;
 
 public class BlockBuilder extends BlockInterface implements IPermission {
-     public static final PropertyInteger ROTATION = PropertyInteger.func_177719_a("rotation", 0, 3);
+     public static final PropertyInteger ROTATION = PropertyInteger.create("rotation", 0, 3);
 
      public BlockBuilder() {
           super(Material.field_151576_e);
-          this.func_149672_a(SoundType.field_185851_d);
+          this.setSoundType(SoundType.field_185851_d);
      }
 
      public int getMetaFromState(IBlockState state) {
@@ -41,11 +41,11 @@ public class BlockBuilder extends BlockInterface implements IPermission {
           return this.getDefaultState().withProperty(ROTATION, meta);
      }
 
-     protected BlockStateContainer func_180661_e() {
+     protected BlockStateContainer createBlockState() {
           return new BlockStateContainer(this, new IProperty[]{ROTATION});
      }
 
-     public EnumBlockRenderType func_149645_b(IBlockState state) {
+     public EnumBlockRenderType getRenderType(IBlockState state) {
           return EnumBlockRenderType.MODEL;
      }
 
@@ -62,7 +62,7 @@ public class BlockBuilder extends BlockInterface implements IPermission {
           }
      }
 
-     public void func_180633_a(World world, BlockPos pos, IBlockState state, EntityLivingBase entity, ItemStack stack) {
+     public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase entity, ItemStack stack) {
           int var6 = MathHelper.floor((double)(entity.field_70177_z / 90.0F) + 0.5D) & 3;
           world.setBlockState(pos, state.withProperty(ROTATION, var6), 2);
           if (entity instanceof EntityPlayer && !world.isRemote) {
@@ -71,7 +71,7 @@ public class BlockBuilder extends BlockInterface implements IPermission {
 
      }
 
-     public TileEntity func_149915_a(World var1, int var2) {
+     public TileEntity createNewTileEntity(World var1, int var2) {
           return new TileBuilder();
      }
 
@@ -79,7 +79,7 @@ public class BlockBuilder extends BlockInterface implements IPermission {
           return e == EnumPacketServer.SchematicsSet || e == EnumPacketServer.SchematicsTile || e == EnumPacketServer.SchematicsTileSave || e == EnumPacketServer.SchematicsBuild;
      }
 
-     public void func_180663_b(World worldIn, BlockPos pos, IBlockState state) {
+     public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
           if (TileBuilder.DrawPos != null && TileBuilder.DrawPos.equals(pos)) {
                TileBuilder.SetDrawPos((BlockPos)null);
           }
