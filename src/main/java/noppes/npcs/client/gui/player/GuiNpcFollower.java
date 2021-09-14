@@ -31,18 +31,18 @@ public class GuiNpcFollower extends GuiContainerNPCInterface implements IGuiData
           NoppesUtilPlayer.sendData(EnumPlayerPacket.RoleGet);
      }
 
-     public void func_73866_w_() {
-          super.func_73866_w_();
-          this.field_146292_n.clear();
-          this.addButton(new GuiNpcButton(4, this.field_147003_i + 100, this.field_147009_r + 110, 50, 20, new String[]{I18n.translateToLocal("follower.waiting"), I18n.translateToLocal("follower.following")}, this.role.isFollowing ? 1 : 0));
+     public void initGui() {
+          super.initGui();
+          this.buttonList.clear();
+          this.addButton(new GuiNpcButton(4, this.guiLeft + 100, this.guiTop + 110, 50, 20, new String[]{I18n.translateToLocal("follower.waiting"), I18n.translateToLocal("follower.following")}, this.role.isFollowing ? 1 : 0));
           if (!this.role.infiniteDays) {
-               this.addButton(new GuiNpcButton(5, this.field_147003_i + 8, this.field_147009_r + 30, 50, 20, I18n.translateToLocal("follower.hire")));
+               this.addButton(new GuiNpcButton(5, this.guiLeft + 8, this.guiTop + 30, 50, 20, I18n.translateToLocal("follower.hire")));
           }
 
      }
 
-     public void func_146284_a(GuiButton guibutton) {
-          super.func_146284_a(guibutton);
+     public void actionPerformed(GuiButton guibutton) {
+          super.actionPerformed(guibutton);
           int id = guibutton.id;
           if (id == 4) {
                NoppesUtilPlayer.sendData(EnumPlayerPacket.FollowerState);
@@ -54,24 +54,24 @@ public class GuiNpcFollower extends GuiContainerNPCInterface implements IGuiData
 
      }
 
-     protected void func_146979_b(int par1, int par2) {
-          this.field_146289_q.func_78276_b(I18n.translateToLocal("follower.health") + ": " + this.npc.getHealth() + "/" + this.npc.getMaxHealth(), 62, 70, CustomNpcResourceListener.DefaultTextColor);
+     protected void drawGuiContainerForegroundLayer(int par1, int par2) {
+          this.fontRenderer.drawString(I18n.translateToLocal("follower.health") + ": " + this.npc.getHealth() + "/" + this.npc.getMaxHealth(), 62, 70, CustomNpcResourceListener.DefaultTextColor);
           if (!this.role.infiniteDays) {
                if (this.role.getDays() <= 1) {
-                    this.field_146289_q.func_78276_b(I18n.translateToLocal("follower.daysleft") + ": " + I18n.translateToLocal("follower.lastday"), 62, 94, CustomNpcResourceListener.DefaultTextColor);
+                    this.fontRenderer.drawString(I18n.translateToLocal("follower.daysleft") + ": " + I18n.translateToLocal("follower.lastday"), 62, 94, CustomNpcResourceListener.DefaultTextColor);
                } else {
-                    this.field_146289_q.func_78276_b(I18n.translateToLocal("follower.daysleft") + ": " + (this.role.getDays() - 1), 62, 94, CustomNpcResourceListener.DefaultTextColor);
+                    this.fontRenderer.drawString(I18n.translateToLocal("follower.daysleft") + ": " + (this.role.getDays() - 1), 62, 94, CustomNpcResourceListener.DefaultTextColor);
                }
           }
 
      }
 
-     protected void func_146976_a(float f, int i, int j) {
+     protected void drawGuiContainerBackgroundLayer(float f, int i, int j) {
           GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-          this.field_146297_k.renderEngine.bindTexture(this.resource);
-          int l = this.field_147003_i;
-          int i1 = this.field_147009_r;
-          this.drawTexturedModalRect(l, i1, 0, 0, this.field_146999_f, this.field_147000_g);
+          this.mc.renderEngine.bindTexture(this.resource);
+          int l = this.guiLeft;
+          int i1 = this.guiTop;
+          this.drawTexturedModalRect(l, i1, 0, 0, this.xSize, this.ySize);
           int index = 0;
           if (!this.role.infiniteDays) {
                for(int slot = 0; slot < this.role.inventory.items.size(); ++slot) {
@@ -83,18 +83,18 @@ public class GuiNpcFollower extends GuiContainerNPCInterface implements IGuiData
                          }
 
                          int yOffset = index * 20;
-                         int x = this.field_147003_i + 68;
-                         int y = this.field_147009_r + yOffset + 4;
+                         int x = this.guiLeft + 68;
+                         int y = this.guiTop + yOffset + 4;
                          GlStateManager.enableRescaleNormal();
                          RenderHelper.enableGUIStandardItemLighting();
-                         this.field_146296_j.renderItemAndEffectIntoGUI(itemstack, x + 11, y);
-                         this.field_146296_j.func_175030_a(this.field_146289_q, itemstack, x + 11, y);
+                         this.itemRender.renderItemAndEffectIntoGUI(itemstack, x + 11, y);
+                         this.itemRender.renderItemOverlays(this.fontRenderer, itemstack, x + 11, y);
                          RenderHelper.disableStandardItemLighting();
                          GlStateManager.disableRescaleNormal();
                          String daysS = days + " " + (days == 1 ? I18n.translateToLocal("follower.day") : I18n.translateToLocal("follower.days"));
-                         this.field_146289_q.func_78276_b(" = " + daysS, x + 27, y + 4, CustomNpcResourceListener.DefaultTextColor);
-                         if (this.func_146978_c(x - this.field_147003_i + 11, y - this.field_147009_r, 16, 16, this.mouseX, this.mouseY)) {
-                              this.func_146285_a(itemstack, this.mouseX, this.mouseY);
+                         this.fontRenderer.drawString(" = " + daysS, x + 27, y + 4, CustomNpcResourceListener.DefaultTextColor);
+                         if (this.isPointInRegion(x - this.guiLeft + 11, y - this.guiTop, 16, 16, this.mouseX, this.mouseY)) {
+                              this.renderToolTip(itemstack, this.mouseX, this.mouseY);
                          }
 
                          ++index;
@@ -110,6 +110,6 @@ public class GuiNpcFollower extends GuiContainerNPCInterface implements IGuiData
 
      public void setGuiData(NBTTagCompound compound) {
           this.npc.roleInterface.readFromNBT(compound);
-          this.func_73866_w_();
+          this.initGui();
      }
 }

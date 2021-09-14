@@ -62,7 +62,7 @@ public class SpawnController {
 
      public void loadData(DataInputStream stream) throws IOException {
           ArrayList data = new ArrayList();
-          NBTTagCompound nbttagcompound1 = CompressedStreamTools.func_74794_a(stream);
+          NBTTagCompound nbttagcompound1 = CompressedStreamTools.read(stream);
           this.lastUsedID = nbttagcompound1.getInteger("lastID");
           NBTTagList nbtlist = nbttagcompound1.getTagList("NPCSpawnData", 10);
           if (nbtlist != null) {
@@ -101,7 +101,7 @@ public class SpawnController {
                File file = new File(saveDir, "spawns.dat_new");
                File file1 = new File(saveDir, "spawns.dat_old");
                File file2 = new File(saveDir, "spawns.dat");
-               CompressedStreamTools.func_74799_a(this.getNBT(), new FileOutputStream(file));
+               CompressedStreamTools.writeCompressed(this.getNBT(), new FileOutputStream(file));
                if (file1.exists()) {
                     file1.delete();
                }
@@ -199,7 +199,7 @@ public class SpawnController {
 
      public SpawnData getRandomSpawnData(String biome, boolean isAir) {
           List list = this.getSpawnList(biome);
-          return list != null && !list.isEmpty() ? (SpawnData)WeightedRandom.func_76271_a(this.random, list) : null;
+          return list != null && !list.isEmpty() ? (SpawnData)WeightedRandom.getRandomItem(this.random, list) : null;
      }
 
      public Map getScroll() {

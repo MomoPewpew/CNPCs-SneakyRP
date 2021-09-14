@@ -20,13 +20,13 @@ public class SubGuiNpcName extends SubGuiInterface implements ITextfieldListener
           this.closeOnEsc = true;
      }
 
-     public void func_73866_w_() {
-          super.func_73866_w_();
+     public void initGui() {
+          super.initGui();
           int y = this.guiTop + 4;
           this.addButton(new GuiNpcButton(66, this.guiLeft + this.xSize - 24, y, 20, 20, "X"));
           int var10006 = this.guiLeft + 4;
           y += 50;
-          this.addTextField(new GuiNpcTextField(0, this, this.field_146289_q, var10006, y, 226, 20, this.display.getName()));
+          this.addTextField(new GuiNpcTextField(0, this, this.fontRenderer, var10006, y, 226, 20, this.display.getName()));
           int var10004 = this.guiLeft + 4;
           y += 22;
           this.addButton(new GuiButtonBiDirectional(1, var10004, y, 200, 20, new String[]{"markov.roman.name", "markov.japanese.name", "markov.slavic.name", "markov.welsh.name", "markov.sami.name", "markov.oldNorse.name", "markov.ancientGreek.name", "markov.aztec.name", "markov.classicCNPCs.name", "markov.spanish.name"}, this.display.getMarkovGeneratorId()));
@@ -40,17 +40,17 @@ public class SubGuiNpcName extends SubGuiInterface implements ITextfieldListener
      }
 
      public void unFocused(GuiNpcTextField textfield) {
-          if (textfield.field_175208_g == 0) {
+          if (textfield.id == 0) {
                if (!textfield.isEmpty()) {
-                    this.display.setName(textfield.func_146179_b());
+                    this.display.setName(textfield.getText());
                } else {
-                    textfield.func_146180_a(this.display.getName());
+                    textfield.setText(this.display.getName());
                }
           }
 
      }
 
-     protected void func_146284_a(GuiButton guibutton) {
+     protected void actionPerformed(GuiButton guibutton) {
           GuiNpcButton button = (GuiNpcButton)guibutton;
           if (button.id == 1) {
                this.display.setMarkovGeneratorId(button.getValue());
@@ -63,7 +63,7 @@ public class SubGuiNpcName extends SubGuiInterface implements ITextfieldListener
           if (button.id == 3) {
                String name = this.display.getRandomName();
                this.display.setName(name);
-               this.getTextField(0).func_146180_a(name);
+               this.getTextField(0).setText(name);
           }
 
           if (button.id == 66) {

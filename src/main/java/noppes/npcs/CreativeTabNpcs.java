@@ -15,8 +15,7 @@ public class CreativeTabNpcs extends CreativeTabs {
           this.meta = 0;
      }
 
-     @Override
-     public ItemStack getTabIconItem() {
+     public ItemStack createIcon() {
           return new ItemStack(this.item, 1, this.meta);
      }
 }

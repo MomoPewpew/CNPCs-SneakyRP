@@ -85,7 +85,7 @@ public class CmdNPC extends CommandNoppesBase {
           BlockPos pos = sender.getPosition();
           if (args.length == 3) {
                try {
-                    pos = CommandBase.func_175757_a(sender, args, 0, false);
+                    pos = CommandBase.parseBlockPos(sender, args, 0, false);
                } catch (NumberInvalidException var6) {
                }
           }
@@ -210,11 +210,11 @@ public class CmdNPC extends CommandNoppesBase {
           npc.setHealth(npc.getMaxHealth());
      }
 
-     public List func_184883_a(MinecraftServer server, ICommandSender par1, String[] args, BlockPos pos) {
+     public List getTabCompletions(MinecraftServer server, ICommandSender par1, String[] args, BlockPos pos) {
           if (args.length == 2) {
-               return CommandBase.func_71530_a(args, new String[]{"create", "home", "visible", "delete", "owner", "name"});
+               return CommandBase.getListOfStringsMatchingLastWord(args, new String[]{"create", "home", "visible", "delete", "owner", "name"});
           } else {
-               return args.length == 3 && args[1].equalsIgnoreCase("owner") ? CommandBase.func_71530_a(args, server.func_71213_z()) : null;
+               return args.length == 3 && args[1].equalsIgnoreCase("owner") ? CommandBase.getListOfStringsMatchingLastWord(args, server.getOnlinePlayerNames()) : null;
           }
      }
 
@@ -223,6 +223,6 @@ public class CmdNPC extends CommandNoppesBase {
      }
 
      public List getEntities(Class cls, World world, BlockPos pos, int range) {
-          return world.getEntitiesWithinAABB(cls, (new AxisAlignedBB(pos, pos.add(1, 1, 1))).expand((double)range, (double)range, (double)range));
+          return world.getEntitiesWithinAABB(cls, (new AxisAlignedBB(pos, pos.add(1, 1, 1))).grow((double)range, (double)range, (double)range));
      }
 }

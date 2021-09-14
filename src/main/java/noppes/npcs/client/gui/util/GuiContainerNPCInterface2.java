@@ -22,7 +22,7 @@ public abstract class GuiContainerNPCInterface2 extends GuiContainerNPCInterface
           this.background = new ResourceLocation("customnpcs", "textures/gui/menubg.png");
           this.defaultBackground = new ResourceLocation("customnpcs", "textures/gui/menubg.png");
           this.menuYOffset = 0;
-          this.field_146999_f = 420;
+          this.xSize = 420;
           this.menu = new GuiNpcMenu(this, activeMenu, npc);
           this.title = "";
      }
@@ -35,13 +35,13 @@ public abstract class GuiContainerNPCInterface2 extends GuiContainerNPCInterface
           return new ResourceLocation("customnpcs", "textures/gui/" + texture);
      }
 
-     public void func_73866_w_() {
-          super.func_73866_w_();
-          this.menu.initGui(this.field_147003_i, this.field_147009_r + this.menuYOffset, this.field_146999_f);
+     public void initGui() {
+          super.initGui();
+          this.menu.initGui(this.guiLeft, this.guiTop + this.menuYOffset, this.xSize);
      }
 
-     protected void func_73864_a(int i, int j, int k) throws IOException {
-          super.func_73864_a(i, j, k);
+     protected void mouseClicked(int i, int j, int k) throws IOException {
+          super.mouseClicked(i, j, k);
           if (!this.hasSubGui()) {
                this.menu.mouseClicked(i, j, k);
           }
@@ -51,18 +51,18 @@ public abstract class GuiContainerNPCInterface2 extends GuiContainerNPCInterface
      public void delete() {
           this.npc.delete();
           this.displayGuiScreen((GuiScreen)null);
-          this.field_146297_k.func_71381_h();
+          this.mc.setIngameFocus();
      }
 
-     protected void func_146976_a(float f, int i, int j) {
-          this.func_146276_q_();
+     protected void drawGuiContainerBackgroundLayer(float f, int i, int j) {
+          this.drawDefaultBackground();
           GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-          this.field_146297_k.renderEngine.bindTexture(this.background);
-          this.drawTexturedModalRect(this.field_147003_i, this.field_147009_r, 0, 0, 256, 256);
+          this.mc.renderEngine.bindTexture(this.background);
+          this.drawTexturedModalRect(this.guiLeft, this.guiTop, 0, 0, 256, 256);
           GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-          this.field_146297_k.renderEngine.bindTexture(this.defaultBackground);
-          this.drawTexturedModalRect(this.field_147003_i + this.field_146999_f - 200, this.field_147009_r, 26, 0, 200, 220);
-          this.menu.drawElements(this.field_146289_q, i, j, this.field_146297_k, f);
-          super.func_146976_a(f, i, j);
+          this.mc.renderEngine.bindTexture(this.defaultBackground);
+          this.drawTexturedModalRect(this.guiLeft + this.xSize - 200, this.guiTop, 26, 0, 200, 220);
+          this.menu.drawElements(this.fontRenderer, i, j, this.mc, f);
+          super.drawGuiContainerBackgroundLayer(f, i, j);
      }
 }

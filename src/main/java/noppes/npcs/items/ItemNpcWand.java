@@ -24,12 +24,12 @@ import noppes.npcs.util.IPermission;
 
 public class ItemNpcWand extends Item implements IPermission {
      public ItemNpcWand() {
-          this.field_77777_bU = 1;
+          this.maxStackSize = 1;
           this.setCreativeTab(CustomItems.tab);
      }
 
-     public ActionResult func_77659_a(World world, EntityPlayer player, EnumHand hand) {
-          ItemStack itemstack = player.func_184586_b(hand);
+     public ActionResult onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
+          ItemStack itemstack = player.getHeldItem(hand);
           if (!world.isRemote) {
                return new ActionResult(EnumActionResult.SUCCESS, itemstack);
           } else {
@@ -38,11 +38,11 @@ public class ItemNpcWand extends Item implements IPermission {
           }
      }
 
-     public int func_77626_a(ItemStack par1ItemStack) {
+     public int getMaxItemUseDuration(ItemStack par1ItemStack) {
           return 72000;
      }
 
-     public EnumActionResult func_180614_a(EntityPlayer player, World world, BlockPos bpos, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
+     public EnumActionResult onItemUse(EntityPlayer player, World world, BlockPos bpos, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
           if (world.isRemote) {
                return EnumActionResult.SUCCESS;
           } else {
@@ -51,7 +51,7 @@ public class ItemNpcWand extends Item implements IPermission {
                } else if (CustomNpcsPermissions.hasPermission(player, CustomNpcsPermissions.NPC_CREATE)) {
                     EntityCustomNpc npc = new EntityCustomNpc(world);
                     npc.ais.setStartPos(bpos.up());
-                    npc.setLocationAndAngles((double)((float)bpos.getX() + 0.5F), npc.getStartYPos(), (double)((float)bpos.getZ() + 0.5F), player.field_70177_z, player.field_70125_A);
+                    npc.setLocationAndAngles((double)((float)bpos.getX() + 0.5F), npc.getStartYPos(), (double)((float)bpos.getZ() + 0.5F), player.rotationYaw, player.rotationPitch);
                     world.spawnEntity(npc);
                     npc.setHealth(npc.getMaxHealth());
                     CustomNPCsScheduler.runTack(() -> {
@@ -65,13 +65,13 @@ public class ItemNpcWand extends Item implements IPermission {
           }
      }
 
-     public ItemStack func_77654_b(ItemStack stack, World worldIn, EntityLivingBase playerIn) {
+     public ItemStack onItemUseFinish(ItemStack stack, World worldIn, EntityLivingBase playerIn) {
           return stack;
      }
 
-     public Item setUnlocalizedName(String name) {
+     public Item setTranslationKey(String name) {
           this.setRegistryName(new ResourceLocation("customnpcs", name));
-          return super.setUnlocalizedName(name);
+          return super.setTranslationKey(name);
      }
 
      public boolean isAllowed(EnumPacketServer e) {

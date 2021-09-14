@@ -109,7 +109,7 @@ public class LinkedNpcController {
                     npc.linkedData = null;
                } else {
                     npc.linkedData = data;
-                    if (npc.field_70165_t == 0.0D && npc.field_70163_u == 0.0D && npc.field_70165_t == 0.0D) {
+                    if (npc.posX == 0.0D && npc.posY == 0.0D && npc.posX == 0.0D) {
                          return;
                     }
 

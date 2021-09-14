@@ -23,26 +23,26 @@ public class LayerGlow implements LayerRenderer {
                     npc.textureGlowLocation = new ResourceLocation(npc.display.getOverlayTexture());
                }
 
-               this.renderer.func_110776_a(npc.textureGlowLocation);
-               GlStateManager.func_179147_l();
-               GlStateManager.func_179112_b(1, 1);
+               this.renderer.bindTexture(npc.textureGlowLocation);
+               GlStateManager.enableBlend();
+               GlStateManager.blendFunc(1, 1);
                GlStateManager.disableLighting();
-               GlStateManager.func_179143_c(514);
+               GlStateManager.depthFunc(514);
                char c0 = '\uf0f0';
                int i = c0 % 65536;
                int j = c0 / 65536;
-               OpenGlHelper.func_77475_a(OpenGlHelper.field_77476_b, (float)i / 1.0F, (float)j / 1.0F);
+               OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, (float)i / 1.0F, (float)j / 1.0F);
                GlStateManager.enableLighting();
                GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-               this.renderer.func_177087_b().func_78088_a(npc, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
-               this.renderer.func_177105_a(npc);
-               GlStateManager.func_179084_k();
-               GlStateManager.func_179141_d();
-               GlStateManager.func_179143_c(515);
+               this.renderer.getMainModel().render(npc, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
+               this.renderer.setLightmap(npc);
+               GlStateManager.disableBlend();
+               GlStateManager.enableAlpha();
+               GlStateManager.depthFunc(515);
           }
      }
 
-     public boolean func_177142_b() {
+     public boolean shouldCombineTextures() {
           return true;
      }
 }

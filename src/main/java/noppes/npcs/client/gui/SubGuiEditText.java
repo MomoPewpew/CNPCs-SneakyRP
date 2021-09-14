@@ -23,8 +23,8 @@ public class SubGuiEditText extends SubGuiInterface {
           this.id = id;
      }
 
-     public void func_73866_w_() {
-          super.func_73866_w_();
+     public void initGui() {
+          super.initGui();
           this.addTextField(new GuiNpcTextField(0, this.parent, this.guiLeft + 4, this.guiTop + 14, 168, 20, this.text));
           this.addButton(new GuiNpcButton(0, this.guiLeft + 4, this.guiTop + 44, 80, 20, "gui.done"));
           this.addButton(new GuiNpcButton(1, this.guiLeft + 90, this.guiTop + 44, 80, 20, "gui.cancel"));
@@ -33,7 +33,7 @@ public class SubGuiEditText extends SubGuiInterface {
      public void buttonEvent(GuiButton button) {
           if (button.id == 0) {
                this.cancelled = false;
-               this.text = this.getTextField(0).func_146179_b();
+               this.text = this.getTextField(0).getText();
           }
 
           this.close();

@@ -67,7 +67,7 @@ public class PlayerData implements ICapabilityProvider {
           if (data.hasKey("PlayerCompanion") && !this.hasCompanion()) {
                EntityCustomNpc npc = new EntityCustomNpc(this.player.world);
                npc.readEntityFromNBT(data.getCompoundTag("PlayerCompanion"));
-               npc.setPosition(this.player.field_70165_t, this.player.field_70163_u, this.player.field_70161_v);
+               npc.setPosition(this.player.posX, this.player.posY, this.player.posZ);
                if (npc.advanced.role == 6) {
                     this.setCompanion(npc);
                     ((RoleCompanion)npc.roleInterface).setSitting(false);
@@ -116,7 +116,7 @@ public class PlayerData implements ICapabilityProvider {
      }
 
      public boolean hasCompanion() {
-          return this.activeCompanion != null && !this.activeCompanion.field_70128_L;
+          return this.activeCompanion != null && !this.activeCompanion.isDead;
      }
 
      public void setCompanion(EntityNPCInterface npc) {
@@ -138,10 +138,10 @@ public class PlayerData implements ICapabilityProvider {
                if (role.isFollowing()) {
                     NBTTagCompound nbt = new NBTTagCompound();
                     this.activeCompanion.writeToNBTAtomically(nbt);
-                    this.activeCompanion.field_70128_L = true;
+                    this.activeCompanion.isDead = true;
                     EntityCustomNpc npc = new EntityCustomNpc(world);
                     npc.readEntityFromNBT(nbt);
-                    npc.setPosition(this.player.field_70165_t, this.player.field_70163_u, this.player.field_70161_v);
+                    npc.setPosition(this.player.posX, this.player.posY, this.player.posZ);
                     this.setCompanion(npc);
                     ((RoleCompanion)npc.roleInterface).setSitting(false);
                     world.spawnEntity(npc);
@@ -202,7 +202,7 @@ public class PlayerData implements ICapabilityProvider {
           try {
                file = new File(saveDir, filename);
                if (file.exists()) {
-                    NBTTagCompound comp = CompressedStreamTools.func_74796_a(new FileInputStream(file));
+                    NBTTagCompound comp = CompressedStreamTools.readCompressed(new FileInputStream(file));
                     file.delete();
                     file = new File(saveDir, filename + "_old");
                     if (file.exists()) {
@@ -218,7 +218,7 @@ public class PlayerData implements ICapabilityProvider {
           try {
                file = new File(saveDir, filename + "_old");
                if (file.exists()) {
-                    return CompressedStreamTools.func_74796_a(new FileInputStream(file));
+                    return CompressedStreamTools.readCompressed(new FileInputStream(file));
                }
           } catch (Exception var5) {
                LogWriter.except(var5);
@@ -256,10 +256,10 @@ public class PlayerData implements ICapabilityProvider {
                PlayerData data = (PlayerData)player.getCapability(PLAYERDATA_CAPABILITY, (EnumFacing)null);
                if (data.player == null) {
                     data.player = player;
-                    data.playerLevel = player.field_71068_ca;
+                    data.playerLevel = player.experienceLevel;
                     data.scriptData = new PlayerScriptData(player);
                     NBTTagCompound compound = loadPlayerData(player.getPersistentID().toString());
-                    if (compound.hasNoTags()) {
+                    if (compound.isEmpty()) {
                          compound = loadPlayerDataOld(player.getName());
                     }
 

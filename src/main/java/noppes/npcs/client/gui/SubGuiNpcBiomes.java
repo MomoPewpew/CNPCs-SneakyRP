@@ -24,8 +24,8 @@ public class SubGuiNpcBiomes extends SubGuiInterface {
           this.closeOnEsc = true;
      }
 
-     public void func_73866_w_() {
-          super.func_73866_w_();
+     public void initGui() {
+          super.initGui();
           if (this.scroll1 == null) {
                this.scroll1 = new GuiCustomScroll(this, 0);
                this.scroll1.setSize(140, 180);
@@ -45,12 +45,12 @@ public class SubGuiNpcBiomes extends SubGuiInterface {
           this.addScroll(this.scroll2);
           this.addLabel(new GuiNpcLabel(2, "spawning.spawningBiomes", this.guiLeft + 200, this.guiTop + 4));
           List biomes = new ArrayList();
-          Iterator ita = Biome.field_185377_q.iterator();
+          Iterator ita = Biome.REGISTRY.iterator();
 
           while(ita.hasNext()) {
                Biome base = (Biome)ita.next();
-               if (base != null && base.func_185359_l() != null && !this.data.biomes.contains(base.func_185359_l())) {
-                    biomes.add(base.func_185359_l());
+               if (base != null && base.getBiomeName() != null && !this.data.biomes.contains(base.getBiomeName())) {
+                    biomes.add(base.getBiomeName());
                }
           }
 
@@ -63,42 +63,42 @@ public class SubGuiNpcBiomes extends SubGuiInterface {
           this.addButton(new GuiNpcButton(66, this.guiLeft + 260, this.guiTop + 194, 60, 20, "gui.done"));
      }
 
-     protected void func_146284_a(GuiButton guibutton) {
+     protected void actionPerformed(GuiButton guibutton) {
           GuiNpcButton button = (GuiNpcButton)guibutton;
           if (button.id == 1 && this.scroll1.hasSelected()) {
                this.data.biomes.add(this.scroll1.getSelected());
                this.scroll1.selected = -1;
                this.scroll1.selected = -1;
-               this.func_73866_w_();
+               this.initGui();
           }
 
           if (button.id == 2 && this.scroll2.hasSelected()) {
                this.data.biomes.remove(this.scroll2.getSelected());
                this.scroll2.selected = -1;
-               this.func_73866_w_();
+               this.initGui();
           }
 
           if (button.id == 3) {
                this.data.biomes.clear();
-               Iterator ita = Biome.field_185377_q.iterator();
+               Iterator ita = Biome.REGISTRY.iterator();
 
                while(ita.hasNext()) {
                     Biome base = (Biome)ita.next();
                     if (base != null) {
-                         this.data.biomes.add(base.func_185359_l());
+                         this.data.biomes.add(base.getBiomeName());
                     }
                }
 
                this.scroll1.selected = -1;
                this.scroll1.selected = -1;
-               this.func_73866_w_();
+               this.initGui();
           }
 
           if (button.id == 4) {
                this.data.biomes.clear();
                this.scroll1.selected = -1;
                this.scroll1.selected = -1;
-               this.func_73866_w_();
+               this.initGui();
           }
 
           if (button.id == 66) {

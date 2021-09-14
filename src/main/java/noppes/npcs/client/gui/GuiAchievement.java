@@ -23,14 +23,14 @@ public class GuiAchievement implements IToast {
           this.type = type;
      }
 
-     public Visibility func_193653_a(GuiToast toastGui, long delta) {
+     public Visibility draw(GuiToast toastGui, long delta) {
           if (this.newDisplay) {
                this.firstDrawTime = delta;
                this.newDisplay = false;
           }
 
-          toastGui.func_192989_b().func_110434_K().bindTexture(field_193654_a);
-          GlStateManager.func_179124_c(1.0F, 1.0F, 1.0F);
+          toastGui.getMinecraft().getTextureManager().bindTexture(TEXTURE_TOASTS);
+          GlStateManager.color(1.0F, 1.0F, 1.0F);
           toastGui.drawTexturedModalRect(0, 0, 0, 32 * this.type, 160, 32);
           int color1 = -256;
           int color2 = -1;
@@ -39,8 +39,8 @@ public class GuiAchievement implements IToast {
                color2 = -16777216;
           }
 
-          toastGui.func_192989_b().fontRenderer.func_78276_b(this.title, 18, 7, color1);
-          toastGui.func_192989_b().fontRenderer.func_78276_b(this.subtitle, 18, 18, color2);
+          toastGui.getMinecraft().fontRenderer.drawString(this.title, 18, 7, color1);
+          toastGui.getMinecraft().fontRenderer.drawString(this.subtitle, 18, 18, color2);
           return delta - this.firstDrawTime < 5000L ? Visibility.SHOW : Visibility.HIDE;
      }
 

@@ -37,8 +37,8 @@ public class GuiRecipes extends GuiNPCInterface {
           this.recipes.addAll(RecipeController.instance.anvilRecipes.values());
      }
 
-     public void func_73866_w_() {
-          super.func_73866_w_();
+     public void initGui() {
+          super.initGui();
           this.addLabel(new GuiNpcLabel(0, "Recipe List", this.guiLeft + 5, this.guiTop + 5));
           this.addLabel(this.label = new GuiNpcLabel(1, "", this.guiLeft + 5, this.guiTop + 168));
           this.addButton(this.left = new GuiButtonNextPage(1, this.guiLeft + 150, this.guiTop + 164, true));
@@ -48,10 +48,10 @@ public class GuiRecipes extends GuiNPCInterface {
 
      private void updateButton() {
           this.right.visible = this.right.enabled = this.page > 0;
-          this.left.visible = this.left.enabled = this.page + 1 < MathHelper.func_76123_f((float)this.recipes.size() / 4.0F);
+          this.left.visible = this.left.enabled = this.page + 1 < MathHelper.ceil((float)this.recipes.size() / 4.0F);
      }
 
-     protected void func_146284_a(GuiButton button) {
+     protected void actionPerformed(GuiButton button) {
           if (button.enabled) {
                if (button == this.right) {
                     --this.page;
@@ -65,10 +65,10 @@ public class GuiRecipes extends GuiNPCInterface {
           }
      }
 
-     public void func_73863_a(int xMouse, int yMouse, float f) {
-          super.func_73863_a(xMouse, yMouse, f);
-          this.field_146297_k.renderEngine.bindTexture(resource);
-          this.label.label = this.page + 1 + "/" + MathHelper.func_76123_f((float)this.recipes.size() / 4.0F);
+     public void drawScreen(int xMouse, int yMouse, float f) {
+          super.drawScreen(xMouse, yMouse, f);
+          this.mc.renderEngine.bindTexture(resource);
+          this.label.label = this.page + 1 + "/" + MathHelper.ceil((float)this.recipes.size() / 4.0F);
           this.label.x = this.guiLeft + (256 - Minecraft.getMinecraft().fontRenderer.getStringWidth(this.label.label)) / 2;
 
           int i;
@@ -85,21 +85,21 @@ public class GuiRecipes extends GuiNPCInterface {
                }
 
                irecipe = (IRecipe)this.recipes.get(index);
-               if (!irecipe.getResult().isEmpty()) {
+               if (!irecipe.getRecipeOutput().isEmpty()) {
                     int x = this.guiLeft + 5 + i / 2 * 126;
                     x = this.guiTop + 15 + i % 2 * 76;
-                    this.drawItem(irecipe.getResult(), x + 98, x + 28, xMouse, yMouse);
+                    this.drawItem(irecipe.getRecipeOutput(), x + 98, x + 28, xMouse, yMouse);
                     if (irecipe instanceof RecipeCarpentry) {
                          RecipeCarpentry recipe = (RecipeCarpentry)irecipe;
-                         x += (72 - recipe.field_77576_b * 18) / 2;
-                         x += (72 - recipe.field_77577_c * 18) / 2;
+                         x += (72 - recipe.recipeWidth * 18) / 2;
+                         x += (72 - recipe.recipeHeight * 18) / 2;
 
-                         for(j = 0; j < recipe.field_77576_b; ++j) {
-                              for(k = 0; k < recipe.field_77577_c; ++k) {
-                                   this.field_146297_k.renderEngine.bindTexture(resource);
+                         for(j = 0; j < recipe.recipeWidth; ++j) {
+                              for(k = 0; k < recipe.recipeHeight; ++k) {
+                                   this.mc.renderEngine.bindTexture(resource);
                                    GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
                                    this.drawTexturedModalRect(x + j * 18, x + k * 18, 0, 0, 18, 18);
-                                   item = recipe.getCraftingItem(j + k * recipe.field_77576_b);
+                                   item = recipe.getCraftingItem(j + k * recipe.recipeWidth);
                                    if (!item.isEmpty()) {
                                         this.drawItem(item, x + j * 18 + 1, x + k * 18 + 1, xMouse, yMouse);
                                    }
@@ -118,16 +118,16 @@ public class GuiRecipes extends GuiNPCInterface {
                irecipe = (IRecipe)this.recipes.get(index);
                if (irecipe instanceof RecipeCarpentry) {
                     RecipeCarpentry recipe = (RecipeCarpentry)irecipe;
-                    if (!recipe.getResult().isEmpty()) {
+                    if (!recipe.getRecipeOutput().isEmpty()) {
                          x = this.guiLeft + 5 + i / 2 * 126;
                          int y = this.guiTop + 15 + i % 2 * 76;
-                         this.drawOverlay(recipe.getResult(), x + 98, y + 22, xMouse, yMouse);
-                         x += (72 - recipe.field_77576_b * 18) / 2;
-                         y += (72 - recipe.field_77577_c * 18) / 2;
+                         this.drawOverlay(recipe.getRecipeOutput(), x + 98, y + 22, xMouse, yMouse);
+                         x += (72 - recipe.recipeWidth * 18) / 2;
+                         y += (72 - recipe.recipeHeight * 18) / 2;
 
-                         for(j = 0; j < recipe.field_77576_b; ++j) {
-                              for(k = 0; k < recipe.field_77577_c; ++k) {
-                                   item = recipe.getCraftingItem(j + k * recipe.field_77576_b);
+                         for(j = 0; j < recipe.recipeWidth; ++j) {
+                              for(k = 0; k < recipe.recipeHeight; ++k) {
+                                   item = recipe.getCraftingItem(j + k * recipe.recipeWidth);
                                    if (!item.isEmpty()) {
                                         this.drawOverlay(item, x + j * 18 + 1, y + k * 18 + 1, xMouse, yMouse);
                                    }
@@ -140,26 +140,26 @@ public class GuiRecipes extends GuiNPCInterface {
      }
 
      private void drawItem(ItemStack item, int x, int y, int xMouse, int yMouse) {
-          GlStateManager.func_179094_E();
+          GlStateManager.pushMatrix();
           GlStateManager.enableRescaleNormal();
           RenderHelper.enableGUIStandardItemLighting();
-          this.field_146296_j.zLevel = 100.0F;
-          this.field_146296_j.renderItemAndEffectIntoGUI(item, x, y);
-          this.field_146296_j.func_175030_a(this.field_146289_q, item, x, y);
-          this.field_146296_j.zLevel = 0.0F;
+          this.itemRender.zLevel = 100.0F;
+          this.itemRender.renderItemAndEffectIntoGUI(item, x, y);
+          this.itemRender.renderItemOverlays(this.fontRenderer, item, x, y);
+          this.itemRender.zLevel = 0.0F;
           RenderHelper.disableStandardItemLighting();
           GlStateManager.disableRescaleNormal();
-          GlStateManager.func_179121_F();
+          GlStateManager.popMatrix();
      }
 
      private void drawOverlay(ItemStack item, int x, int y, int xMouse, int yMouse) {
-          if (this.func_146978_c(x - this.guiLeft, y - this.guiTop, 16, 16, xMouse, yMouse)) {
-               this.func_146285_a(item, xMouse, yMouse);
+          if (this.isPointInRegion(x - this.guiLeft, y - this.guiTop, 16, 16, xMouse, yMouse)) {
+               this.renderToolTip(item, xMouse, yMouse);
           }
 
      }
 
-     protected boolean func_146978_c(int p_146978_1_, int p_146978_2_, int p_146978_3_, int p_146978_4_, int p_146978_5_, int p_146978_6_) {
+     protected boolean isPointInRegion(int p_146978_1_, int p_146978_2_, int p_146978_3_, int p_146978_4_, int p_146978_5_, int p_146978_6_) {
           int k1 = this.guiLeft;
           int l1 = this.guiTop;
           p_146978_5_ -= k1;

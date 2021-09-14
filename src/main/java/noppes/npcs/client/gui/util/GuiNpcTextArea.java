@@ -37,26 +37,26 @@ public class GuiNpcTextArea extends GuiNpcTextField {
           this.listHeight = this.height = l;
           this.font = ClientProxy.Font.copy();
           this.font.useCustomFont = true;
-          this.func_146203_f(Integer.MAX_VALUE);
-          this.func_146180_a(s.replace("\r\n", "\n"));
+          this.setMaxStringLength(Integer.MAX_VALUE);
+          this.setText(s.replace("\r\n", "\n"));
      }
 
-     public void func_146178_a() {
+     public void updateCursorCounter() {
           ++this.cursorCounter;
      }
 
-     public boolean func_146201_a(char c, int i) {
-          if (this.func_146206_l() && this.canEdit) {
-               String originalText = this.func_146179_b();
-               this.func_146180_a(originalText);
+     public boolean textboxKeyTyped(char c, int i) {
+          if (this.isFocused() && this.canEdit) {
+               String originalText = this.getText();
+               this.setText(originalText);
                if (c == '\r' || c == '\n') {
-                    this.func_146180_a(originalText.substring(0, this.cursorPosition) + c + originalText.substring(this.cursorPosition));
+                    this.setText(originalText.substring(0, this.cursorPosition) + c + originalText.substring(this.cursorPosition));
                }
 
-               this.func_146196_d();
-               this.func_146182_d(this.cursorPosition);
-               boolean bo = super.func_146201_a(c, i);
-               String newText = this.func_146179_b();
+               this.setCursorPositionZero();
+               this.moveCursorBy(this.cursorPosition);
+               boolean bo = super.textboxKeyTyped(c, i);
+               String newText = this.getText();
                if (i != 211) {
                     this.cursorPosition += newText.length() - originalText.length();
                }
@@ -75,16 +75,16 @@ public class GuiNpcTextArea extends GuiNpcTextField {
           }
      }
 
-     public boolean func_146192_a(int i, int j, int k) {
-          boolean wasFocused = this.func_146206_l();
-          super.func_146192_a(i, j, k);
+     public boolean mouseClicked(int i, int j, int k) {
+          boolean wasFocused = this.isFocused();
+          super.mouseClicked(i, j, k);
           if (this.hoverVerticalScrollBar(i, j)) {
                this.clickVerticalBar = true;
                this.startClick = -1;
                return false;
           } else if (k == 0 && this.canEdit) {
                int x = i - this.posX;
-               int y = (j - this.posY - 4) / this.font.height(this.func_146179_b()) + this.getStartLineY();
+               int y = (j - this.posY - 4) / this.font.height(this.getText()) + this.getStartLineY();
                this.cursorPosition = 0;
                List lines = this.getLines();
                int charCount = 0;
@@ -125,7 +125,7 @@ public class GuiNpcTextArea extends GuiNpcTextField {
                }
 
                if (y >= lineCount) {
-                    this.cursorPosition = this.func_146179_b().length();
+                    this.cursorPosition = this.getText().length();
                }
 
                return true;
@@ -137,7 +137,7 @@ public class GuiNpcTextArea extends GuiNpcTextField {
      private List getLines() {
           List list = new ArrayList();
           String line = "";
-          char[] var3 = this.func_146179_b().toCharArray();
+          char[] var3 = this.getText().toCharArray();
           int var4 = var3.length;
 
           for(int var5 = 0; var5 < var4; ++var5) {
@@ -159,16 +159,16 @@ public class GuiNpcTextArea extends GuiNpcTextField {
                this.scrolledY = 0.0F;
           }
 
-          return MathHelper.func_76123_f(this.scrolledY * (float)this.listHeight / (float)this.font.height(this.func_146179_b()));
+          return MathHelper.ceil(this.scrolledY * (float)this.listHeight / (float)this.font.height(this.getText()));
      }
 
      public void drawTextBox(int mouseX, int mouseY) {
-          func_73734_a(this.posX - 1, this.posY - 1, this.posX + this.width + 1, this.posY + this.height + 1, -6250336);
-          func_73734_a(this.posX, this.posY, this.posX + this.width, this.posY + this.height, -16777216);
+          drawRect(this.posX - 1, this.posY - 1, this.posX + this.width + 1, this.posY + this.height + 1, -6250336);
+          drawRect(this.posX, this.posY, this.posX + this.width, this.posY + this.height, -16777216);
           int color = 14737632;
-          boolean flag = this.func_146206_l() && this.cursorCounter / 6 % 2 == 0;
+          boolean flag = this.isFocused() && this.cursorCounter / 6 % 2 == 0;
           int startLine = this.getStartLineY();
-          int maxLine = this.height / this.font.height(this.func_146179_b()) + startLine;
+          int maxLine = this.height / this.font.height(this.getText()) + startLine;
           List lines = this.getLines();
           int charCount = 0;
           int lineCount = 0;
@@ -185,7 +185,7 @@ public class GuiNpcTextArea extends GuiNpcTextField {
                     char c = var14[var16];
                     if (this.font.width(line + c) > maxSize && this.wrapLine) {
                          if (lineCount >= startLine && lineCount < maxLine) {
-                              this.func_73731_b((FontRenderer)null, line, this.posX + 4, this.posY + 4 + (lineCount - startLine) * this.font.height(line), color);
+                              this.drawString((FontRenderer)null, line, this.posX + 4, this.posY + 4 + (lineCount - startLine) * this.font.height(line), color);
                          }
 
                          line = "";
@@ -195,7 +195,7 @@ public class GuiNpcTextArea extends GuiNpcTextField {
                     if (flag && charCount == this.cursorPosition && lineCount >= startLine && lineCount < maxLine && this.canEdit) {
                          int xx = this.posX + this.font.width(line) + 4;
                          int yy = this.posY + (lineCount - startLine) * this.font.height(line) + 4;
-                         if (this.func_146179_b().length() == this.cursorPosition) {
+                         if (this.getText().length() == this.cursorPosition) {
                               this.font.drawString("_", xx, yy, color);
                          } else {
                               this.drawCursorVertical(xx, yy, xx + 1, yy + this.font.height(line));
@@ -207,11 +207,11 @@ public class GuiNpcTextArea extends GuiNpcTextField {
                }
 
                if (lineCount >= startLine && lineCount < maxLine) {
-                    this.func_73731_b((FontRenderer)null, line, this.posX + 4, this.posY + 4 + (lineCount - startLine) * this.font.height(line), color);
+                    this.drawString((FontRenderer)null, line, this.posX + 4, this.posY + 4 + (lineCount - startLine) * this.font.height(line), color);
                     if (flag && charCount == this.cursorPosition && this.canEdit) {
                          int xx = this.posX + this.font.width(line) + 4;
                          yy = this.posY + (lineCount - startLine) * this.font.height(line) + 4;
-                         if (this.func_146179_b().length() == this.cursorPosition) {
+                         if (this.getText().length() == this.cursorPosition) {
                               this.font.drawString("_", xx, yy, color);
                          } else {
                               this.drawCursorVertical(xx, yy, xx + 1, yy + this.font.height(line));
@@ -224,7 +224,7 @@ public class GuiNpcTextArea extends GuiNpcTextField {
           }
 
           k2 = Mouse.getDWheel();
-          if (k2 != 0 && this.func_146206_l()) {
+          if (k2 != 0 && this.isFocused()) {
                this.addScrollY(k2 < 0 ? -10 : 10);
           }
 
@@ -244,11 +244,11 @@ public class GuiNpcTextArea extends GuiNpcTextField {
                this.clickVerticalBar = false;
           }
 
-          this.listHeight = lineCount * this.font.height(this.func_146179_b());
+          this.listHeight = lineCount * this.font.height(this.getText());
           this.drawVerticalScrollBar();
      }
 
-     public void func_73731_b(FontRenderer fontRendererIn, String text, int x, int y, int color) {
+     public void drawString(FontRenderer fontRendererIn, String text, int x, int y, int color) {
           GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
           this.font.drawString(text, x, y, color);
      }
@@ -300,19 +300,19 @@ public class GuiNpcTextArea extends GuiNpcTextField {
                p_146188_1_ = this.posX + this.width;
           }
 
-          BufferBuilder tessellator = Tessellator.func_178181_a().func_178180_c();
+          BufferBuilder tessellator = Tessellator.getInstance().getBuffer();
           GlStateManager.color(0.0F, 0.0F, 255.0F, 255.0F);
-          GlStateManager.func_179090_x();
-          GlStateManager.func_179115_u();
-          GlStateManager.func_179116_f(5387);
-          tessellator.func_181668_a(7, DefaultVertexFormats.field_181705_e);
-          tessellator.func_181662_b((double)p_146188_1_, (double)p_146188_4_, 0.0D).func_181675_d();
-          tessellator.func_181662_b((double)p_146188_3_, (double)p_146188_4_, 0.0D).func_181675_d();
-          tessellator.func_181662_b((double)p_146188_3_, (double)p_146188_2_, 0.0D).func_181675_d();
-          tessellator.func_181662_b((double)p_146188_1_, (double)p_146188_2_, 0.0D).func_181675_d();
-          Tessellator.func_178181_a().func_78381_a();
-          GlStateManager.func_179134_v();
-          GlStateManager.func_179098_w();
+          GlStateManager.disableTexture2D();
+          GlStateManager.enableColorLogic();
+          GlStateManager.colorLogicOp(5387);
+          tessellator.begin(7, DefaultVertexFormats.POSITION);
+          tessellator.pos((double)p_146188_1_, (double)p_146188_4_, 0.0D).endVertex();
+          tessellator.pos((double)p_146188_3_, (double)p_146188_4_, 0.0D).endVertex();
+          tessellator.pos((double)p_146188_3_, (double)p_146188_2_, 0.0D).endVertex();
+          tessellator.pos((double)p_146188_1_, (double)p_146188_2_, 0.0D).endVertex();
+          Tessellator.getInstance().draw();
+          GlStateManager.disableColorLogic();
+          GlStateManager.enableTexture2D();
      }
 
      private int getVerticalBarSize() {

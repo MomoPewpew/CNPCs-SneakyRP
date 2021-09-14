@@ -74,15 +74,15 @@ public class CommandNoppes extends CommandBase {
           }
      }
 
-     public List func_184883_a(MinecraftServer server, ICommandSender sender, String[] args, BlockPos pos) {
+     public List getTabCompletions(MinecraftServer server, ICommandSender sender, String[] args, BlockPos pos) {
           if (args.length == 1) {
-               return CommandBase.func_175762_a(args, this.map.keySet());
+               return CommandBase.getListOfStringsMatchingLastWord(args, this.map.keySet());
           } else {
                CommandNoppesBase command = this.getCommand(args);
                if (command == null) {
                     return null;
                } else if (args.length == 2 && command.runSubCommands()) {
-                    return CommandBase.func_175762_a(args, command.subcommands.keySet());
+                    return CommandBase.getListOfStringsMatchingLastWord(args, command.subcommands.keySet());
                } else {
                     String[] useArgs = command.getUsage().split(" ");
                     if (command.runSubCommands()) {
@@ -95,11 +95,11 @@ public class CommandNoppes extends CommandBase {
                     if (args.length <= useArgs.length + 2) {
                          String usage = useArgs[args.length - 3];
                          if (usage.equals("<player>") || usage.equals("[player]")) {
-                              return CommandBase.func_71530_a(args, server.func_71213_z());
+                              return CommandBase.getListOfStringsMatchingLastWord(args, server.getOnlinePlayerNames());
                          }
                     }
 
-                    return command.func_184883_a(server, sender, (String[])Arrays.copyOfRange(args, 1, args.length), pos);
+                    return command.getTabCompletions(server, sender, (String[])Arrays.copyOfRange(args, 1, args.length), pos);
                }
           }
      }

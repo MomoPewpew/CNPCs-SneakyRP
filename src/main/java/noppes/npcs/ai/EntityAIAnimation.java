@@ -87,7 +87,7 @@ public class EntityAIAnimation extends EntityAIBase {
      private void setAnimation(int animation) {
           this.npc.setCurrentAnimation(animation);
           this.npc.updateHitbox();
-          this.npc.setPosition(this.npc.field_70165_t, this.npc.field_70163_u, this.npc.field_70161_v);
+          this.npc.setPosition(this.npc.posX, this.npc.posY, this.npc.posZ);
      }
 
      private boolean hasNavigation() {

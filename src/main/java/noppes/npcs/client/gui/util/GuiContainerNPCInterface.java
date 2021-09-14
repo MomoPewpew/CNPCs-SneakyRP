@@ -23,8 +23,8 @@ import org.lwjgl.input.Mouse;
 
 public abstract class GuiContainerNPCInterface extends GuiContainer {
      public boolean drawDefaultBackground = false;
-     public int field_147003_i;
-     public int field_147009_r;
+     public int guiLeft;
+     public int guiTop;
      public EntityPlayerSP player;
      public EntityNPCInterface npc;
      private HashMap buttons = new HashMap();
@@ -44,23 +44,23 @@ public abstract class GuiContainerNPCInterface extends GuiContainer {
           this.player = Minecraft.getMinecraft().player;
           this.npc = npc;
           this.title = "Npc Mainmenu";
-          this.field_146297_k = Minecraft.getMinecraft();
-          this.field_146296_j = this.field_146297_k.getRenderItem();
-          this.field_146289_q = this.field_146297_k.fontRenderer;
+          this.mc = Minecraft.getMinecraft();
+          this.itemRender = this.mc.getRenderItem();
+          this.fontRenderer = this.mc.fontRenderer;
      }
 
-     public void func_146280_a(Minecraft mc, int width, int height) {
-          super.func_146280_a(mc, width, height);
+     public void setWorldAndResolution(Minecraft mc, int width, int height) {
+          super.setWorldAndResolution(mc, width, height);
           this.initPacket();
      }
 
      public void initPacket() {
      }
 
-     public void func_73866_w_() {
-          super.func_73866_w_();
+     public void initGui() {
+          super.initGui();
           GuiNpcTextField.unfocus();
-          this.field_146292_n.clear();
+          this.buttonList.clear();
           this.buttons.clear();
           this.topbuttons.clear();
           this.scrolls.clear();
@@ -69,42 +69,42 @@ public abstract class GuiContainerNPCInterface extends GuiContainer {
           this.textfields.clear();
           Keyboard.enableRepeatEvents(true);
           if (this.subgui != null) {
-               this.subgui.func_146280_a(this.field_146297_k, this.width, this.height);
-               this.subgui.func_73866_w_();
+               this.subgui.setWorldAndResolution(this.mc, this.width, this.height);
+               this.subgui.initGui();
           }
 
-          this.field_146292_n.clear();
-          this.field_147003_i = (this.width - this.field_146999_f) / 2;
-          this.field_147009_r = (this.height - this.field_147000_g) / 2;
+          this.buttonList.clear();
+          this.guiLeft = (this.width - this.xSize) / 2;
+          this.guiTop = (this.height - this.ySize) / 2;
      }
 
      public ResourceLocation getResource(String texture) {
           return new ResourceLocation("customnpcs", "textures/gui/" + texture);
      }
 
-     public void func_73876_c() {
+     public void updateScreen() {
           Iterator var1 = (new ArrayList(this.textfields.values())).iterator();
 
           while(var1.hasNext()) {
                GuiNpcTextField tf = (GuiNpcTextField)var1.next();
                if (tf.enabled) {
-                    tf.func_146178_a();
+                    tf.updateCursorCounter();
                }
           }
 
-          super.func_73876_c();
+          super.updateScreen();
      }
 
-     protected void func_73864_a(int i, int j, int k) throws IOException {
+     protected void mouseClicked(int i, int j, int k) throws IOException {
           if (this.subgui != null) {
-               this.subgui.func_73864_a(i, j, k);
+               this.subgui.mouseClicked(i, j, k);
           } else {
                Iterator var4 = (new ArrayList(this.textfields.values())).iterator();
 
                while(var4.hasNext()) {
                     GuiNpcTextField tf = (GuiNpcTextField)var4.next();
                     if (tf.enabled) {
-                         tf.func_146192_a(i, j, k);
+                         tf.mouseClicked(i, j, k);
                     }
                }
 
@@ -113,12 +113,12 @@ public abstract class GuiContainerNPCInterface extends GuiContainer {
 
                     while(var4.hasNext()) {
                          GuiCustomScroll scroll = (GuiCustomScroll)var4.next();
-                         scroll.func_73864_a(i, j, k);
+                         scroll.mouseClicked(i, j, k);
                     }
                }
 
                this.mouseEvent(i, j, k);
-               super.func_73864_a(i, j, k);
+               super.mouseClicked(i, j, k);
           }
 
      }
@@ -126,25 +126,25 @@ public abstract class GuiContainerNPCInterface extends GuiContainer {
      public void mouseEvent(int i, int j, int k) {
      }
 
-     protected void func_73869_a(char c, int i) {
+     protected void keyTyped(char c, int i) {
           if (this.subgui != null) {
-               this.subgui.func_73869_a(c, i);
+               this.subgui.keyTyped(c, i);
           } else {
                Iterator var3 = (new ArrayList(this.textfields.values())).iterator();
 
                while(var3.hasNext()) {
                     GuiNpcTextField tf = (GuiNpcTextField)var3.next();
-                    tf.func_146201_a(c, i);
+                    tf.textboxKeyTyped(c, i);
                }
 
-               if (this.closeOnEsc && (i == 1 || i == this.field_146297_k.field_71474_y.field_151445_Q.getKeyCode() && !GuiNpcTextField.isActive())) {
+               if (this.closeOnEsc && (i == 1 || i == this.mc.gameSettings.keyBindInventory.getKeyCode() && !GuiNpcTextField.isActive())) {
                     this.close();
                }
           }
 
      }
 
-     protected void func_146284_a(GuiButton guibutton) {
+     protected void actionPerformed(GuiButton guibutton) {
           if (this.subgui != null) {
                this.subgui.buttonEvent(guibutton);
           } else {
@@ -161,17 +161,17 @@ public abstract class GuiContainerNPCInterface extends GuiContainer {
           this.save();
           this.player.closeScreen();
           this.displayGuiScreen((GuiScreen)null);
-          this.field_146297_k.func_71381_h();
+          this.mc.setIngameFocus();
      }
 
      public void addButton(GuiNpcButton button) {
           this.buttons.put(button.id, button);
-          this.field_146292_n.add(button);
+          this.buttonList.add(button);
      }
 
      public void addTopButton(GuiMenuTopButton button) {
           this.topbuttons.put(button.id, button);
-          this.field_146292_n.add(button);
+          this.buttonList.add(button);
      }
 
      public GuiNpcButton getButton(int i) {
@@ -179,7 +179,7 @@ public abstract class GuiContainerNPCInterface extends GuiContainer {
      }
 
      public void addTextField(GuiNpcTextField tf) {
-          this.textfields.put(tf.field_175208_g, tf);
+          this.textfields.put(tf.id, tf);
      }
 
      public GuiNpcTextField getTextField(int i) {
@@ -200,7 +200,7 @@ public abstract class GuiContainerNPCInterface extends GuiContainer {
 
      public void addSlider(GuiNpcSlider slider) {
           this.sliders.put(slider.id, slider);
-          this.field_146292_n.add(slider);
+          this.buttonList.add(slider);
      }
 
      public GuiNpcSlider getSlider(int i) {
@@ -208,7 +208,7 @@ public abstract class GuiContainerNPCInterface extends GuiContainer {
      }
 
      public void addScroll(GuiCustomScroll scroll) {
-          scroll.func_146280_a(this.field_146297_k, 350, 250);
+          scroll.setWorldAndResolution(this.mc, 350, 250);
           this.scrolls.put(scroll.id, scroll);
      }
 
@@ -216,16 +216,16 @@ public abstract class GuiContainerNPCInterface extends GuiContainer {
           return (GuiCustomScroll)this.scrolls.get(id);
      }
 
-     protected void func_146979_b(int par1, int par2) {
+     protected void drawGuiContainerForegroundLayer(int par1, int par2) {
      }
 
-     protected void func_146976_a(float f, int i, int j) {
-          this.func_73732_a(this.field_146289_q, I18n.translateToLocal(this.title), this.width / 2, this.field_147009_r - 8, 16777215);
+     protected void drawGuiContainerBackgroundLayer(float f, int i, int j) {
+          this.drawCenteredString(this.fontRenderer, I18n.translateToLocal(this.title), this.width / 2, this.guiTop - 8, 16777215);
           Iterator var4 = (new ArrayList(this.labels.values())).iterator();
 
           while(var4.hasNext()) {
                GuiNpcLabel label = (GuiNpcLabel)var4.next();
-               label.drawLabel(this, this.field_146289_q);
+               label.drawLabel(this, this.fontRenderer);
           }
 
           var4 = (new ArrayList(this.textfields.values())).iterator();
@@ -246,36 +246,36 @@ public abstract class GuiContainerNPCInterface extends GuiContainer {
 
      public abstract void save();
 
-     public void func_73863_a(int i, int j, float f) {
+     public void drawScreen(int i, int j, float f) {
           this.mouseX = i;
           this.mouseY = j;
-          Container container = this.field_147002_h;
+          Container container = this.inventorySlots;
           if (this.subgui != null) {
-               this.field_147002_h = new ContainerEmpty();
+               this.inventorySlots = new ContainerEmpty();
           }
 
-          super.func_73863_a(i, j, f);
+          super.drawScreen(i, j, f);
           this.zLevel = 0.0F;
           GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
           if (this.subgui != null) {
-               this.field_147002_h = container;
+               this.inventorySlots = container;
                RenderHelper.disableStandardItemLighting();
-               this.subgui.func_73863_a(i, j, f);
+               this.subgui.drawScreen(i, j, f);
           } else {
-               this.func_191948_b(this.mouseX, this.mouseY);
+               this.renderHoveredToolTip(this.mouseX, this.mouseY);
           }
 
      }
 
-     public void func_146276_q_() {
+     public void drawDefaultBackground() {
           if (this.drawDefaultBackground && this.subgui == null) {
-               super.func_146276_q_();
+               super.drawDefaultBackground();
           }
 
      }
 
      public FontRenderer getFontRenderer() {
-          return this.field_146289_q;
+          return this.fontRenderer;
      }
 
      public void closeSubGui(SubGuiInterface gui) {
@@ -291,64 +291,64 @@ public abstract class GuiContainerNPCInterface extends GuiContainer {
      }
 
      public void displayGuiScreen(GuiScreen gui) {
-          this.field_146297_k.displayGuiScreen(gui);
+          this.mc.displayGuiScreen(gui);
      }
 
      public void setSubGui(SubGuiInterface gui) {
           this.subgui = gui;
-          this.subgui.func_146280_a(this.field_146297_k, this.width, this.height);
+          this.subgui.setWorldAndResolution(this.mc, this.width, this.height);
           this.subgui.parent = this;
-          this.func_73866_w_();
+          this.initGui();
      }
 
      public void drawNpc(int x, int y) {
           GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-          GlStateManager.func_179142_g();
-          GlStateManager.func_179094_E();
-          GlStateManager.translate((float)(this.field_147003_i + x), (float)(this.field_147009_r + y), 50.0F);
+          GlStateManager.enableColorMaterial();
+          GlStateManager.pushMatrix();
+          GlStateManager.translate((float)(this.guiLeft + x), (float)(this.guiTop + y), 50.0F);
           float scale = 1.0F;
           if ((double)this.npc.height > 2.4D) {
                scale = 2.0F / this.npc.height;
           }
 
-          GlStateManager.func_179152_a(-30.0F * scale, 30.0F * scale, 30.0F * scale);
-          GlStateManager.func_179114_b(180.0F, 0.0F, 0.0F, 1.0F);
-          float f2 = this.npc.field_70761_aq;
-          float f3 = this.npc.field_70177_z;
-          float f4 = this.npc.field_70125_A;
-          float f7 = this.npc.field_70759_as;
-          float f5 = (float)(this.field_147003_i + x) - (float)this.mouseX;
-          float f6 = (float)(this.field_147009_r + y - 50) - (float)this.mouseY;
+          GlStateManager.scale(-30.0F * scale, 30.0F * scale, 30.0F * scale);
+          GlStateManager.rotate(180.0F, 0.0F, 0.0F, 1.0F);
+          float f2 = this.npc.renderYawOffset;
+          float f3 = this.npc.rotationYaw;
+          float f4 = this.npc.rotationPitch;
+          float f7 = this.npc.rotationYawHead;
+          float f5 = (float)(this.guiLeft + x) - (float)this.mouseX;
+          float f6 = (float)(this.guiTop + y - 50) - (float)this.mouseY;
           int orientation = 0;
           if (this.npc != null) {
                orientation = this.npc.ais.orientation;
                this.npc.ais.orientation = 0;
           }
 
-          GlStateManager.func_179114_b(135.0F, 0.0F, 1.0F, 0.0F);
+          GlStateManager.rotate(135.0F, 0.0F, 1.0F, 0.0F);
           RenderHelper.enableStandardItemLighting();
-          GlStateManager.func_179114_b(-135.0F, 0.0F, 1.0F, 0.0F);
-          GlStateManager.func_179114_b(-((float)Math.atan((double)(f6 / 40.0F))) * 20.0F, 1.0F, 0.0F, 0.0F);
-          this.npc.field_70761_aq = (float)Math.atan((double)(f5 / 40.0F)) * 20.0F;
-          this.npc.field_70177_z = (float)Math.atan((double)(f5 / 40.0F)) * 40.0F;
-          this.npc.field_70125_A = -((float)Math.atan((double)(f6 / 40.0F))) * 20.0F;
-          this.npc.field_70759_as = this.npc.field_70177_z;
-          this.field_146297_k.func_175598_ae().field_78735_i = 180.0F;
-          this.field_146297_k.func_175598_ae().func_188391_a(this.npc, 0.0D, 0.0D, 0.0D, 0.0F, 1.0F, false);
-          this.npc.field_70761_aq = f2;
-          this.npc.field_70177_z = f3;
-          this.npc.field_70125_A = f4;
-          this.npc.field_70759_as = f7;
+          GlStateManager.rotate(-135.0F, 0.0F, 1.0F, 0.0F);
+          GlStateManager.rotate(-((float)Math.atan((double)(f6 / 40.0F))) * 20.0F, 1.0F, 0.0F, 0.0F);
+          this.npc.renderYawOffset = (float)Math.atan((double)(f5 / 40.0F)) * 20.0F;
+          this.npc.rotationYaw = (float)Math.atan((double)(f5 / 40.0F)) * 40.0F;
+          this.npc.rotationPitch = -((float)Math.atan((double)(f6 / 40.0F))) * 20.0F;
+          this.npc.rotationYawHead = this.npc.rotationYaw;
+          this.mc.getRenderManager().playerViewY = 180.0F;
+          this.mc.getRenderManager().renderEntity(this.npc, 0.0D, 0.0D, 0.0D, 0.0F, 1.0F, false);
+          this.npc.renderYawOffset = f2;
+          this.npc.rotationYaw = f3;
+          this.npc.rotationPitch = f4;
+          this.npc.rotationYawHead = f7;
           if (this.npc != null) {
                this.npc.ais.orientation = orientation;
           }
 
-          GlStateManager.func_179121_F();
+          GlStateManager.popMatrix();
           RenderHelper.disableStandardItemLighting();
           GlStateManager.disableRescaleNormal();
-          GlStateManager.func_179138_g(OpenGlHelper.field_77476_b);
-          GlStateManager.func_179090_x();
-          GlStateManager.func_179138_g(OpenGlHelper.field_77478_a);
+          GlStateManager.setActiveTexture(OpenGlHelper.lightmapTexUnit);
+          GlStateManager.disableTexture2D();
+          GlStateManager.setActiveTexture(OpenGlHelper.defaultTexUnit);
           GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
      }
 }

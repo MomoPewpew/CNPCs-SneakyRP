@@ -21,11 +21,11 @@ import noppes.npcs.roles.RoleFollower;
 
 public class ItemSoulstoneEmpty extends Item {
      public ItemSoulstoneEmpty() {
-          this.func_77625_d(64);
+          this.setMaxStackSize(64);
      }
 
-     public Item setUnlocalizedName(String name) {
-          super.setUnlocalizedName(name);
+     public Item setTranslationKey(String name) {
+          super.setTranslationKey(name);
           this.setRegistryName(new ResourceLocation("customnpcs", name));
           return this;
      }
@@ -38,33 +38,33 @@ public class ItemSoulstoneEmpty extends Item {
                     return false;
                } else {
                     ServerCloneController.Instance.cleanTags(compound);
-                    stone.func_77983_a("Entity", compound);
+                    stone.setTagInfo("Entity", compound);
                     String name = EntityList.getEntityString(entity);
                     if (name == null) {
                          name = "generic";
                     }
 
-                    stone.func_77983_a("Name", new NBTTagString("entity." + name + ".name"));
+                    stone.setTagInfo("Name", new NBTTagString("entity." + name + ".name"));
                     if (entity instanceof EntityNPCInterface) {
                          EntityNPCInterface npc = (EntityNPCInterface)entity;
-                         stone.func_77983_a("DisplayName", new NBTTagString(entity.getName()));
+                         stone.setTagInfo("DisplayName", new NBTTagString(entity.getName()));
                          if (npc.advanced.role == 6) {
                               RoleCompanion role = (RoleCompanion)npc.roleInterface;
-                              stone.func_77983_a("ExtraText", new NBTTagString("companion.stage,: ," + role.stage.name));
+                              stone.setTagInfo("ExtraText", new NBTTagString("companion.stage,: ," + role.stage.name));
                          }
                     } else if (entity instanceof EntityLiving && ((EntityLiving)entity).hasCustomName()) {
-                         stone.func_77983_a("DisplayName", new NBTTagString(((EntityLiving)entity).func_95999_t()));
+                         stone.setTagInfo("DisplayName", new NBTTagString(((EntityLiving)entity).getCustomNameTag()));
                     }
 
                     NoppesUtilServer.GivePlayerItem(player, player, stone);
-                    if (!player.field_71075_bZ.field_75098_d) {
+                    if (!player.capabilities.isCreativeMode) {
                          stack.splitStack(1);
                          if (stack.getCount() <= 0) {
-                              player.inventory.func_184437_d(stack);
+                              player.inventory.deleteStack(stack);
                          }
                     }
 
-                    entity.field_70128_L = true;
+                    entity.isDead = true;
                     return true;
                }
           } else {

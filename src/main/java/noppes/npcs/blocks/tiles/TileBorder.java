@@ -54,9 +54,9 @@ public class TileBorder extends TileNpcEntity implements Predicate, ITickable {
      }
 
      public void update() {
-          if (!this.field_145850_b.isRemote) {
-               AxisAlignedBB box = new AxisAlignedBB((double)this.field_174879_c.getX(), (double)this.field_174879_c.getY(), (double)this.field_174879_c.getZ(), (double)(this.field_174879_c.getX() + 1), (double)(this.field_174879_c.getY() + this.height + 1), (double)(this.field_174879_c.getZ() + 1));
-               List list = this.field_145850_b.getEntitiesWithinAABB(Entity.class, box, this);
+          if (!this.world.isRemote) {
+               AxisAlignedBB box = new AxisAlignedBB((double)this.pos.getX(), (double)this.pos.getY(), (double)this.pos.getZ(), (double)(this.pos.getX() + 1), (double)(this.pos.getY() + this.height + 1), (double)(this.pos.getZ() + 1));
+               List list = this.world.getEntitiesWithinAABB(Entity.class, box, this);
                Iterator var3 = list.iterator();
 
                while(true) {
@@ -65,12 +65,12 @@ public class TileBorder extends TileNpcEntity implements Predicate, ITickable {
                          if (entity instanceof EntityEnderPearl) {
                               EntityEnderPearl pearl = (EntityEnderPearl)entity;
                               if (pearl.getThrower() instanceof EntityPlayer && !this.availability.isAvailable((EntityPlayer)pearl.getThrower())) {
-                                   entity.field_70128_L = true;
+                                   entity.isDead = true;
                               }
                          } else {
                               EntityPlayer player = (EntityPlayer)entity;
                               if (!this.availability.isAvailable(player)) {
-                                   BlockPos pos2 = new BlockPos(this.field_174879_c);
+                                   BlockPos pos2 = new BlockPos(this.pos);
                                    if (this.rotation == 2) {
                                         pos2 = pos2.south();
                                    } else if (this.rotation == 0) {
@@ -81,7 +81,7 @@ public class TileBorder extends TileNpcEntity implements Predicate, ITickable {
                                         pos2 = pos2.west();
                                    }
 
-                                   while(!this.field_145850_b.isAirBlock(pos2)) {
+                                   while(!this.world.isAirBlock(pos2)) {
                                         pos2 = pos2.up();
                                    }
 
@@ -99,22 +99,22 @@ public class TileBorder extends TileNpcEntity implements Predicate, ITickable {
      }
 
      public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity pkt) {
-          this.handleUpdateTag(pkt.func_148857_g());
+          this.handleUpdateTag(pkt.getNbtCompound());
      }
 
      public void handleUpdateTag(NBTTagCompound compound) {
           this.rotation = compound.getInteger("Rotation");
      }
 
-     public SPacketUpdateTileEntity func_189518_D_() {
-          return new SPacketUpdateTileEntity(this.field_174879_c, 0, this.func_189517_E_());
+     public SPacketUpdateTileEntity getUpdatePacket() {
+          return new SPacketUpdateTileEntity(this.pos, 0, this.getUpdateTag());
      }
 
-     public NBTTagCompound func_189517_E_() {
+     public NBTTagCompound getUpdateTag() {
           NBTTagCompound compound = new NBTTagCompound();
-          compound.setInteger("x", this.field_174879_c.getX());
-          compound.setInteger("y", this.field_174879_c.getY());
-          compound.setInteger("z", this.field_174879_c.getZ());
+          compound.setInteger("x", this.pos.getX());
+          compound.setInteger("y", this.pos.getY());
+          compound.setInteger("z", this.pos.getZ());
           compound.setInteger("Rotation", this.rotation);
           return compound;
      }

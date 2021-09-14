@@ -19,8 +19,8 @@ public class SubGuiNpcResistanceProperties extends SubGuiInterface implements IS
           this.closeOnEsc = true;
      }
 
-     public void func_73866_w_() {
-          super.func_73866_w_();
+     public void initGui() {
+          super.initGui();
           this.addLabel(new GuiNpcLabel(0, "enchantment.knockback", this.guiLeft + 4, this.guiTop + 15));
           this.addSlider(new GuiNpcSlider(this, 0, this.guiLeft + 94, this.guiTop + 10, (int)(this.resistances.knockback * 100.0F - 100.0F) + "%", this.resistances.knockback / 2.0F));
           this.addLabel(new GuiNpcLabel(1, "item.arrow.name", this.guiLeft + 4, this.guiTop + 37));
@@ -32,7 +32,7 @@ public class SubGuiNpcResistanceProperties extends SubGuiInterface implements IS
           this.addButton(new GuiNpcButton(66, this.guiLeft + 190, this.guiTop + 190, 60, 20, "gui.done"));
      }
 
-     protected void func_146284_a(GuiButton guibutton) {
+     protected void actionPerformed(GuiButton guibutton) {
           int id = guibutton.id;
           if (id == 66) {
                this.close();
@@ -41,7 +41,7 @@ public class SubGuiNpcResistanceProperties extends SubGuiInterface implements IS
      }
 
      public void mouseDragged(GuiNpcSlider slider) {
-          slider.field_146126_j = (int)(slider.sliderValue * 200.0F - 100.0F) + "%";
+          slider.displayString = (int)(slider.sliderValue * 200.0F - 100.0F) + "%";
      }
 
      public void mousePressed(GuiNpcSlider slider) {

@@ -15,9 +15,9 @@ public class EntityNPCFurryFemale extends EntityNPCInterface {
           this.display.setSkinTexture("customnpcs:textures/entity/furryfemale/WolfBlack.png");
      }
 
-     public void func_70071_h_() {
-          this.field_70128_L = true;
-          this.func_94061_f(true);
+     public void onUpdate() {
+          this.isDead = true;
+          this.setNoAI(true);
           if (!this.world.isRemote) {
                NBTTagCompound compound = new NBTTagCompound();
                this.writeToNBT(compound);
@@ -41,6 +41,6 @@ public class EntityNPCFurryFemale extends EntityNPCInterface {
                this.world.spawnEntity(npc);
           }
 
-          super.func_70071_h_();
+          super.onUpdate();
      }
 }

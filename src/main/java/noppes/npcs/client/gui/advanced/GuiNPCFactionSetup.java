@@ -23,8 +23,8 @@ public class GuiNPCFactionSetup extends GuiNPCInterface2 implements IScrollData,
           super(npc);
      }
 
-     public void func_73866_w_() {
-          super.func_73866_w_();
+     public void initGui() {
+          super.initGui();
           this.addLabel(new GuiNpcLabel(0, "faction.attackHostile", this.guiLeft + 4, this.guiTop + 25));
           this.addButton(new GuiNpcButton(0, this.guiLeft + 144, this.guiTop + 20, 40, 20, new String[]{"gui.no", "gui.yes"}, this.npc.advanced.attackOtherFactions ? 1 : 0));
           this.addLabel(new GuiNpcLabel(1, "faction.defend", this.guiLeft + 4, this.guiTop + 47));
@@ -68,10 +68,10 @@ public class GuiNPCFactionSetup extends GuiNPCInterface2 implements IScrollData,
 
      }
 
-     public void func_73864_a(int i, int j, int k) {
-          super.func_73864_a(i, j, k);
+     public void mouseClicked(int i, int j, int k) {
+          super.mouseClicked(i, j, k);
           if (k == 0 && this.scrollFactions != null) {
-               this.scrollFactions.func_73864_a(i, j, k);
+               this.scrollFactions.mouseClicked(i, j, k);
           }
 
      }

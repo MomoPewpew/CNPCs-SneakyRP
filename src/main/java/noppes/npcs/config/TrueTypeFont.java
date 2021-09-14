@@ -47,7 +47,7 @@ public class TrueTypeFont {
      }
 
      public TrueTypeFont(ResourceLocation resource, int fontSize, float scale) throws IOException, FontFormatException {
-          InputStream stream = Minecraft.getMinecraft().func_110442_L().func_110536_a(resource).func_110527_b();
+          InputStream stream = Minecraft.getMinecraft().getResourceManager().getResource(resource).getInputStream();
           GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
           Font font = Font.createFont(0, stream);
           ge.registerFont(font);
@@ -67,10 +67,10 @@ public class TrueTypeFont {
           float g = (float)(color >> 8 & 255) / 255.0F;
           float b = (float)(color & 255) / 255.0F;
           GlStateManager.color(r, g, b, 1.0F);
-          GlStateManager.func_179147_l();
-          GlStateManager.func_179094_E();
+          GlStateManager.enableBlend();
+          GlStateManager.pushMatrix();
           GlStateManager.translate(x, y, 0.0F);
-          GlStateManager.func_179152_a(this.scale, this.scale, 1.0F);
+          GlStateManager.scale(this.scale, this.scale, 1.0F);
           float i = 0.0F;
           Iterator var10 = cache.glyphs.iterator();
 
@@ -83,14 +83,14 @@ public class TrueTypeFont {
                          GlStateManager.color((float)(gl.color >> 16 & 255) / 255.0F, (float)(gl.color >> 8 & 255) / 255.0F, (float)(gl.color & 255) / 255.0F, 1.0F);
                     }
                } else {
-                    GlStateManager.func_179144_i(gl.texture);
+                    GlStateManager.bindTexture(gl.texture);
                     this.drawTexturedModalRect(i, 0.0F, (float)gl.x * this.textureScale(), (float)gl.y * this.textureScale(), (float)gl.width * this.textureScale(), (float)gl.height * this.textureScale());
                     i += (float)gl.width * this.textureScale();
                }
           }
 
-          GlStateManager.func_179084_k();
-          GlStateManager.func_179121_F();
+          GlStateManager.disableBlend();
+          GlStateManager.popMatrix();
           GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
      }
 
@@ -110,7 +110,7 @@ public class TrueTypeFont {
                               TrueTypeFont.Glyph g = new TrueTypeFont.Glyph();
                               if (index < 16) {
                                    g.type = TrueTypeFont.GlyphType.COLOR;
-                                   g.color = Minecraft.getMinecraft().fontRenderer.func_175064_b(next);
+                                   g.color = Minecraft.getMinecraft().fontRenderer.getColorCode(next);
                               } else if (index == 16) {
                                    g.type = TrueTypeFont.GlyphType.RANDOM;
                               } else if (index == 17) {
@@ -170,7 +170,7 @@ public class TrueTypeFont {
                cache.g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
                cache.g.drawString(c + "", g.x, g.y + metrics.getAscent());
                g.texture = cache.textureId;
-               TextureUtil.func_110987_a(cache.textureId, cache.bufferedImage);
+               TextureUtil.uploadTextureImage(cache.textureId, cache.bufferedImage);
                this.glyphcache.put(c, g);
                return g;
           }
@@ -239,14 +239,14 @@ public class TrueTypeFont {
           float f = 0.00390625F;
           float f1 = 0.00390625F;
           int zLevel = 0;
-          BufferBuilder tessellator = Tessellator.func_178181_a().func_178180_c();
-          tessellator.func_181668_a(7, DefaultVertexFormats.field_181707_g);
-          tessellator.func_78914_f();
-          tessellator.func_181662_b((double)x, (double)(y + height), (double)zLevel).func_187315_a((double)(textureX * f), (double)((textureY + height) * f1)).func_181675_d();
-          tessellator.func_181662_b((double)(x + width), (double)(y + height), (double)zLevel).func_187315_a((double)((textureX + width) * f), (double)((textureY + height) * f1)).func_181675_d();
-          tessellator.func_181662_b((double)(x + width), (double)y, (double)zLevel).func_187315_a((double)((textureX + width) * f), (double)(textureY * f1)).func_181675_d();
-          tessellator.func_181662_b((double)x, (double)y, (double)zLevel).func_187315_a((double)(textureX * f), (double)(textureY * f1)).func_181675_d();
-          Tessellator.func_178181_a().func_78381_a();
+          BufferBuilder tessellator = Tessellator.getInstance().getBuffer();
+          tessellator.begin(7, DefaultVertexFormats.POSITION_TEX);
+          tessellator.noColor();
+          tessellator.pos((double)x, (double)(y + height), (double)zLevel).tex((double)(textureX * f), (double)((textureY + height) * f1)).endVertex();
+          tessellator.pos((double)(x + width), (double)(y + height), (double)zLevel).tex((double)((textureX + width) * f), (double)((textureY + height) * f1)).endVertex();
+          tessellator.pos((double)(x + width), (double)y, (double)zLevel).tex((double)((textureX + width) * f), (double)(textureY * f1)).endVertex();
+          tessellator.pos((double)x, (double)y, (double)zLevel).tex((double)(textureX * f), (double)(textureY * f1)).endVertex();
+          Tessellator.getInstance().draw();
      }
 
      public int width(String text) {
@@ -272,7 +272,7 @@ public class TrueTypeFont {
 
           while(var1.hasNext()) {
                TrueTypeFont.TextureCache cache = (TrueTypeFont.TextureCache)var1.next();
-               GlStateManager.func_179150_h(cache.textureId);
+               GlStateManager.deleteTexture(cache.textureId);
           }
 
           this.textcache.clear();
@@ -306,7 +306,7 @@ public class TrueTypeFont {
      class TextureCache {
           int x;
           int y;
-          int textureId = GlStateManager.func_179146_y();
+          int textureId = GlStateManager.generateTexture();
           BufferedImage bufferedImage = new BufferedImage(512, 512, 2);
           Graphics2D g;
           boolean full;

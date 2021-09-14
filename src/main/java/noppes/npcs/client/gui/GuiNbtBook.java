@@ -45,8 +45,8 @@ public class GuiNbtBook extends GuiNPCInterface implements IGuiData {
           this.ySize = 216;
      }
 
-     public void func_73866_w_() {
-          super.func_73866_w_();
+     public void initGui() {
+          super.initGui();
           if (this.state != null) {
                this.addLabel(new GuiNpcLabel(11, "x: " + this.x + ", y: " + this.y + ", z: " + this.z, this.guiLeft + 60, this.guiTop + 6));
                this.addLabel(new GuiNpcLabel(12, "id: " + Block.REGISTRY.getNameForObject(this.state.getBlock()), this.guiLeft + 60, this.guiTop + 16));
@@ -57,7 +57,7 @@ public class GuiNbtBook extends GuiNPCInterface implements IGuiData {
           }
 
           this.addButton(new GuiNpcButton(0, this.guiLeft + 38, this.guiTop + 144, 180, 20, "nbt.edit"));
-          this.getButton(0).enabled = this.compound != null && !this.compound.hasNoTags();
+          this.getButton(0).enabled = this.compound != null && !this.compound.isEmpty();
           this.addLabel(new GuiNpcLabel(0, "", this.guiLeft + 4, this.guiTop + 167));
           this.addLabel(new GuiNpcLabel(1, "", this.guiLeft + 4, this.guiTop + 177));
           this.addButton(new GuiNpcButton(66, this.guiLeft + 128, this.guiTop + 190, 120, 20, "gui.close"));
@@ -79,7 +79,7 @@ public class GuiNbtBook extends GuiNPCInterface implements IGuiData {
 
      }
 
-     protected void func_146284_a(GuiButton guibutton) {
+     protected void actionPerformed(GuiButton guibutton) {
           int id = guibutton.id;
           if (id == 0) {
                if (this.faultyText != null) {
@@ -111,18 +111,18 @@ public class GuiNbtBook extends GuiNPCInterface implements IGuiData {
 
      }
 
-     public void func_73863_a(int mouseX, int mouseY, float partialTicks) {
-          super.func_73863_a(mouseX, mouseY, partialTicks);
+     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
+          super.drawScreen(mouseX, mouseY, partialTicks);
           if (!this.hasSubGui()) {
                if (this.state != null) {
-                    GlStateManager.func_179094_E();
+                    GlStateManager.pushMatrix();
                     GlStateManager.translate((float)(this.guiLeft + 4), (float)(this.guiTop + 4), 0.0F);
-                    GlStateManager.func_179152_a(3.0F, 3.0F, 3.0F);
+                    GlStateManager.scale(3.0F, 3.0F, 3.0F);
                     RenderHelper.enableGUIStandardItemLighting();
-                    this.field_146296_j.renderItemAndEffectIntoGUI(this.blockStack, 0, 0);
-                    this.field_146296_j.func_175030_a(this.field_146289_q, this.blockStack, 0, 0);
+                    this.itemRender.renderItemAndEffectIntoGUI(this.blockStack, 0, 0);
+                    this.itemRender.renderItemOverlays(this.fontRenderer, this.blockStack, 0, 0);
                     RenderHelper.disableStandardItemLighting();
-                    GlStateManager.func_179121_F();
+                    GlStateManager.popMatrix();
                }
 
                if (this.entity instanceof EntityLivingBase) {
@@ -143,7 +143,7 @@ public class GuiNbtBook extends GuiNPCInterface implements IGuiData {
                     this.faultyText = ((SubGuiNpcTextArea)gui).text;
                }
 
-               this.func_73866_w_();
+               this.initGui();
           }
 
      }
@@ -163,6 +163,6 @@ public class GuiNbtBook extends GuiNPCInterface implements IGuiData {
 
           this.originalCompound = compound.getCompoundTag("Data");
           this.compound = this.originalCompound.copy();
-          this.func_73866_w_();
+          this.initGui();
      }
 }

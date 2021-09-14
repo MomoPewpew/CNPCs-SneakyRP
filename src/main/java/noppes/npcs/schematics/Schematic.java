@@ -105,13 +105,13 @@ public class Schematic implements ISchematic {
 
      public IBlockState getBlockState(int x, int y, int z) {
           int i = this.xyzToIndex(x, y, z);
-          Block b = Block.func_149729_e(this.blockArray[i]);
-          return b == null ? Blocks.field_150350_a.getDefaultState() : b.getStateFromMeta(this.blockDataArray[i]);
+          Block b = Block.getBlockById(this.blockArray[i]);
+          return b == null ? Blocks.AIR.getDefaultState() : b.getStateFromMeta(this.blockDataArray[i]);
      }
 
      public IBlockState getBlockState(int i) {
-          Block b = Block.func_149729_e(this.blockArray[i]);
-          return b == null ? Blocks.field_150350_a.getDefaultState() : b.getStateFromMeta(this.blockDataArray[i]);
+          Block b = Block.getBlockById(this.blockArray[i]);
+          return b == null ? Blocks.AIR.getDefaultState() : b.getStateFromMeta(this.blockDataArray[i]);
      }
 
      public short getWidth() {
@@ -154,8 +154,8 @@ public class Schematic implements ISchematic {
                int z = (i - x) / width % length;
                int y = ((i - x) / width - z) / length;
                IBlockState state = world.getBlockState(pos.add(x, y, z));
-               if (state.getBlock() != Blocks.field_150350_a && state.getBlock() != CustomItems.copy) {
-                    schema.blockArray[i] = (short)Block.REGISTRY.func_148757_b(state.getBlock());
+               if (state.getBlock() != Blocks.AIR && state.getBlock() != CustomItems.copy) {
+                    schema.blockArray[i] = (short)Block.REGISTRY.getIDForObject(state.getBlock());
                     schema.blockDataArray[i] = (byte)state.getBlock().getMetaFromState(state);
                     if (state.getBlock() instanceof ITileEntityProvider) {
                          TileEntity tile = world.getTileEntity(pos.add(x, y, z));

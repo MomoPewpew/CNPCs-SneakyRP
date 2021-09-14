@@ -29,8 +29,8 @@ public class GuiNPCAdvancedLinkedNpc extends GuiNPCInterface2 implements IScroll
           Client.sendData(EnumPacketServer.LinkedGetAll);
      }
 
-     public void func_73866_w_() {
-          super.func_73866_w_();
+     public void initGui() {
+          super.initGui();
           this.addButton(new GuiNpcButton(1, this.guiLeft + 358, this.guiTop + 38, 58, 20, "gui.clear"));
           if (this.scroll == null) {
                this.scroll = new GuiCustomScroll(this, 0);
@@ -53,7 +53,7 @@ public class GuiNPCAdvancedLinkedNpc extends GuiNPCInterface2 implements IScroll
 
      public void setData(Vector list, HashMap data) {
           this.data = new ArrayList(list);
-          this.func_73866_w_();
+          this.initGui();
      }
 
      public void setSelected(String selected) {

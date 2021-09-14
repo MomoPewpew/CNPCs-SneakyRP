@@ -63,8 +63,8 @@ public class ChunkController implements LoadingCallback {
                     EntityNPCInterface npc = (EntityNPCInterface)ticket.getEntity();
                     if (npc.advanced.job == 8 && !tickets.contains(npc)) {
                          this.tickets.put(npc, ticket);
-                         double x = npc.field_70165_t / 16.0D;
-                         double z = npc.field_70161_v / 16.0D;
+                         double x = npc.posX / 16.0D;
+                         double z = npc.posZ / 16.0D;
                          ForgeChunkManager.forceChunk(ticket, new ChunkPos(MathHelper.floor(x), MathHelper.floor(z)));
                          ForgeChunkManager.forceChunk(ticket, new ChunkPos(MathHelper.ceil(x), MathHelper.ceil(z)));
                          ForgeChunkManager.forceChunk(ticket, new ChunkPos(MathHelper.floor(x), MathHelper.ceil(z)));

@@ -15,20 +15,20 @@ public class LayerSlimeNpc implements LayerRenderer {
           this.renderer = renderer;
      }
 
-     public boolean func_177142_b() {
+     public boolean shouldCombineTextures() {
           return true;
      }
 
-     public void func_177141_a(EntityLivingBase living, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-          if (!living.func_82150_aj()) {
+     public void doRenderLayer(EntityLivingBase living, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
+          if (!living.isInvisible()) {
                GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-               GlStateManager.func_179108_z();
-               GlStateManager.func_179147_l();
-               GlStateManager.func_179112_b(770, 771);
-               this.slimeModel.func_178686_a(this.renderer.func_177087_b());
-               this.slimeModel.func_78088_a(living, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
-               GlStateManager.func_179084_k();
-               GlStateManager.func_179133_A();
+               GlStateManager.enableNormalize();
+               GlStateManager.enableBlend();
+               GlStateManager.blendFunc(770, 771);
+               this.slimeModel.setModelAttributes(this.renderer.getMainModel());
+               this.slimeModel.render(living, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
+               GlStateManager.disableBlend();
+               GlStateManager.disableNormalize();
           }
      }
 }

@@ -39,26 +39,26 @@ public class GuiNPCFactionSelection extends GuiNPCInterface implements IScrollDa
           Client.sendData(EnumPacketServer.FactionsGet);
      }
 
-     public void func_73866_w_() {
-          super.func_73866_w_();
+     public void initGui() {
+          super.initGui();
           Vector list = new Vector();
           this.slot = new GuiNPCStringSlot(list, this, false, 18);
-          this.slot.func_148134_d(4, 5);
+          this.slot.registerScrollButtons(4, 5);
           this.addButton(new GuiNpcButton(2, this.width / 2 - 100, this.height - 41, 98, 20, "gui.back"));
           this.addButton(new GuiNpcButton(4, this.width / 2 + 2, this.height - 41, 98, 20, "mco.template.button.select"));
      }
 
-     public void func_73863_a(int i, int j, float f) {
-          this.slot.func_148128_a(i, j, f);
-          super.func_73863_a(i, j, f);
+     public void drawScreen(int i, int j, float f) {
+          this.slot.drawScreen(i, j, f);
+          super.drawScreen(i, j, f);
      }
 
-     public void func_146274_d() throws IOException {
-          this.slot.func_178039_p();
-          super.func_146274_d();
+     public void handleMouseInput() throws IOException {
+          this.slot.handleMouseInput();
+          super.handleMouseInput();
      }
 
-     protected void func_146284_a(GuiButton guibutton) {
+     protected void actionPerformed(GuiButton guibutton) {
           int id = guibutton.id;
           if (id == 2) {
                this.close();

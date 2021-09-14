@@ -24,18 +24,18 @@ public class GuiNpcQuestReward extends GuiContainerNPCInterface implements IText
           this.resource = this.getResource("questreward.png");
      }
 
-     public void func_73866_w_() {
-          super.func_73866_w_();
-          this.addLabel(new GuiNpcLabel(0, "quest.randomitem", this.field_147003_i + 4, this.field_147009_r + 4));
-          this.addButton(new GuiNpcButton(0, this.field_147003_i + 4, this.field_147009_r + 14, 60, 20, new String[]{"gui.no", "gui.yes"}, this.quest.randomReward ? 1 : 0));
-          this.addButton(new GuiNpcButton(5, this.field_147003_i, this.field_147009_r + this.field_147000_g, 98, 20, "gui.back"));
-          this.addLabel(new GuiNpcLabel(1, "quest.exp", this.field_147003_i + 4, this.field_147009_r + 45));
-          this.addTextField(new GuiNpcTextField(0, this, this.field_146289_q, this.field_147003_i + 4, this.field_147009_r + 55, 60, 20, this.quest.rewardExp + ""));
+     public void initGui() {
+          super.initGui();
+          this.addLabel(new GuiNpcLabel(0, "quest.randomitem", this.guiLeft + 4, this.guiTop + 4));
+          this.addButton(new GuiNpcButton(0, this.guiLeft + 4, this.guiTop + 14, 60, 20, new String[]{"gui.no", "gui.yes"}, this.quest.randomReward ? 1 : 0));
+          this.addButton(new GuiNpcButton(5, this.guiLeft, this.guiTop + this.ySize, 98, 20, "gui.back"));
+          this.addLabel(new GuiNpcLabel(1, "quest.exp", this.guiLeft + 4, this.guiTop + 45));
+          this.addTextField(new GuiNpcTextField(0, this, this.fontRenderer, this.guiLeft + 4, this.guiTop + 55, 60, 20, this.quest.rewardExp + ""));
           this.getTextField(0).numbersOnly = true;
           this.getTextField(0).setMinMaxDefault(0, 99999, 0);
      }
 
-     public void func_146284_a(GuiButton guibutton) {
+     public void actionPerformed(GuiButton guibutton) {
           int id = guibutton.id;
           if (id == 5) {
                NoppesUtil.openGUI(this.player, GuiNPCManageQuest.Instance);
@@ -47,13 +47,13 @@ public class GuiNpcQuestReward extends GuiContainerNPCInterface implements IText
 
      }
 
-     protected void func_146976_a(float f, int i, int j) {
+     protected void drawGuiContainerBackgroundLayer(float f, int i, int j) {
           GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-          this.field_146297_k.renderEngine.bindTexture(this.resource);
-          int l = (this.width - this.field_146999_f) / 2;
-          int i1 = (this.height - this.field_147000_g) / 2;
-          this.drawTexturedModalRect(l, i1, 0, 0, this.field_146999_f, this.field_147000_g);
-          super.func_146976_a(f, i, j);
+          this.mc.renderEngine.bindTexture(this.resource);
+          int l = (this.width - this.xSize) / 2;
+          int i1 = (this.height - this.ySize) / 2;
+          this.drawTexturedModalRect(l, i1, 0, 0, this.xSize, this.ySize);
+          super.drawGuiContainerBackgroundLayer(f, i, j);
      }
 
      public void save() {

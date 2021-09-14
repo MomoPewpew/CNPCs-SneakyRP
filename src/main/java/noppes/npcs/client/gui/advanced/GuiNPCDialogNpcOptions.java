@@ -27,8 +27,8 @@ public class GuiNPCDialogNpcOptions extends GuiNPCInterface2 implements GuiSelec
           Client.sendData(EnumPacketServer.DialogNpcGet);
      }
 
-     public void func_73866_w_() {
-          super.func_73866_w_();
+     public void initGui() {
+          super.initGui();
 
           for(int i = 0; i < 12; ++i) {
                int offset = i >= 6 ? 200 : 0;
@@ -44,11 +44,11 @@ public class GuiNPCDialogNpcOptions extends GuiNPCInterface2 implements GuiSelec
 
      }
 
-     public void func_73863_a(int i, int j, float f) {
-          super.func_73863_a(i, j, f);
+     public void drawScreen(int i, int j, float f) {
+          super.drawScreen(i, j, f);
      }
 
-     protected void func_146284_a(GuiButton guibutton) {
+     protected void actionPerformed(GuiButton guibutton) {
           int id = guibutton.id;
           int slot;
           if (id >= 0 && id < 20) {
@@ -65,7 +65,7 @@ public class GuiNPCDialogNpcOptions extends GuiNPCInterface2 implements GuiSelec
                slot = id - 20;
                this.data.remove(slot);
                Client.sendData(EnumPacketServer.DialogNpcRemove, slot);
-               this.func_73866_w_();
+               this.initGui();
           }
 
      }
@@ -82,6 +82,6 @@ public class GuiNPCDialogNpcOptions extends GuiNPCInterface2 implements GuiSelec
           DialogOption dialog = new DialogOption();
           dialog.readNBT(compound);
           this.data.put(pos, dialog);
-          this.func_73866_w_();
+          this.initGui();
      }
 }

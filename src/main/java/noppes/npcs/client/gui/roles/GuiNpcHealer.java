@@ -31,29 +31,29 @@ public class GuiNpcHealer extends GuiNPCInterface2 {
           this.job = (JobHealer)npc.jobInterface;
           this.potions = new HashMap();
           this.displays = new HashMap();
-          Iterator ita = Potion.field_188414_b.iterator();
+          Iterator ita = Potion.REGISTRY.iterator();
 
           while(ita.hasNext()) {
                Potion p = (Potion)ita.next();
-               this.potions.put(p.func_76393_a(), Potion.func_188409_a(p));
+               this.potions.put(p.getName(), Potion.getIdFromPotion(p));
           }
 
      }
 
-     public void func_73866_w_() {
-          super.func_73866_w_();
+     public void initGui() {
+          super.initGui();
           this.addLabel(new GuiNpcLabel(1, "beacon.range", this.guiLeft + 10, this.guiTop + 9));
-          this.addTextField(new GuiNpcTextField(1, this, this.field_146289_q, this.guiLeft + 80, this.guiTop + 4, 40, 20, this.job.range + ""));
+          this.addTextField(new GuiNpcTextField(1, this, this.fontRenderer, this.guiLeft + 80, this.guiTop + 4, 40, 20, this.job.range + ""));
           this.getTextField(1).numbersOnly = true;
           this.getTextField(1).setMinMaxDefault(1, 64, 16);
           this.addLabel(new GuiNpcLabel(4, "stats.speed", this.guiLeft + 140, this.guiTop + 9));
-          this.addTextField(new GuiNpcTextField(4, this, this.field_146289_q, this.guiLeft + 220, this.guiTop + 4, 40, 20, this.potency + ""));
+          this.addTextField(new GuiNpcTextField(4, this, this.fontRenderer, this.guiLeft + 220, this.guiTop + 4, 40, 20, this.potency + ""));
           this.getTextField(4).numbersOnly = true;
           this.getTextField(4).setMinMaxDefault(10, Integer.MAX_VALUE, 20);
           this.addLabel(new GuiNpcLabel(3, "beacon.affect", this.guiLeft + 10, this.guiTop + 31));
           this.addButton(new GuiNpcButton(3, this.guiLeft + 56, this.guiTop + 26, 80, 20, new String[]{"faction.friendly", "faction.unfriendly", "spawner.all"}, this.job.type));
           this.addLabel(new GuiNpcLabel(2, "beacon.potency", this.guiLeft + 140, this.guiTop + 31));
-          this.addTextField(new GuiNpcTextField(2, this, this.field_146289_q, this.guiLeft + 220, this.guiTop + 26, 40, 20, this.potency + ""));
+          this.addTextField(new GuiNpcTextField(2, this, this.fontRenderer, this.guiLeft + 220, this.guiTop + 26, 40, 20, this.potency + ""));
           this.getTextField(2).numbersOnly = true;
           this.getTextField(2).setMinMaxDefault(0, 3, 0);
           if (this.scroll1 == null) {
@@ -82,7 +82,7 @@ public class GuiNpcHealer extends GuiNPCInterface2 {
                if (!this.job.effects.containsKey(this.potions.get(names))) {
                     all.add(names);
                } else {
-                    this.displays.put(I18n.func_135052_a(names, new Object[0]) + " " + I18n.func_135052_a("enchantment.level." + ((Integer)this.job.effects.get(this.potions.get(names)) + 1), new Object[0]), names);
+                    this.displays.put(I18n.format(names, new Object[0]) + " " + I18n.format("enchantment.level." + ((Integer)this.job.effects.get(this.potions.get(names)) + 1), new Object[0]), names);
                }
           }
 
@@ -98,7 +98,7 @@ public class GuiNpcHealer extends GuiNPCInterface2 {
      public void elementClicked() {
      }
 
-     protected void func_146284_a(GuiButton guibutton) {
+     protected void actionPerformed(GuiButton guibutton) {
           GuiNpcButton button = (GuiNpcButton)guibutton;
           if (button.id == 3) {
                this.job.type = (byte)button.getValue();
@@ -108,29 +108,29 @@ public class GuiNpcHealer extends GuiNPCInterface2 {
                this.job.effects.put(this.potions.get(this.scroll1.getSelected()), this.getTextField(2).getInteger());
                this.scroll1.selected = -1;
                this.scroll2.selected = -1;
-               this.func_73866_w_();
+               this.initGui();
           }
 
           if (button.id == 12 && this.scroll2.hasSelected()) {
                this.job.effects.remove(this.potions.get(this.displays.remove(this.scroll2.getSelected())));
                this.scroll1.selected = -1;
                this.scroll2.selected = -1;
-               this.func_73866_w_();
+               this.initGui();
           }
 
           if (button.id == 13) {
                this.job.effects.clear();
                new ArrayList();
-               Iterator ita = Potion.field_188414_b.iterator();
+               Iterator ita = Potion.REGISTRY.iterator();
 
                while(ita.hasNext()) {
                     Potion p = (Potion)ita.next();
-                    this.job.effects.put(Potion.func_188409_a(p), this.potency);
+                    this.job.effects.put(Potion.getIdFromPotion(p), this.potency);
                }
 
                this.scroll1.selected = -1;
                this.scroll2.selected = -1;
-               this.func_73866_w_();
+               this.initGui();
           }
 
           if (button.id == 14) {
@@ -138,7 +138,7 @@ public class GuiNpcHealer extends GuiNPCInterface2 {
                this.displays.clear();
                this.scroll1.selected = -1;
                this.scroll2.selected = -1;
-               this.func_73866_w_();
+               this.initGui();
           }
 
      }

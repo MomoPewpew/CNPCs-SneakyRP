@@ -42,10 +42,10 @@ public class GuiQuestEdit extends SubGuiInterface implements ISubGuiListener, Gu
           this.closeOnEsc = true;
      }
 
-     public void func_73866_w_() {
-          super.func_73866_w_();
+     public void initGui() {
+          super.initGui();
           this.addLabel(new GuiNpcLabel(1, "gui.title", this.guiLeft + 4, this.guiTop + 8));
-          this.addTextField(new GuiNpcTextField(1, this, this.field_146289_q, this.guiLeft + 46, this.guiTop + 3, 220, 20, this.quest.title));
+          this.addTextField(new GuiNpcTextField(1, this, this.fontRenderer, this.guiLeft + 46, this.guiTop + 3, 220, 20, this.quest.title));
           this.addLabel(new GuiNpcLabel(0, "ID", this.guiLeft + 268, this.guiTop + 4));
           this.addLabel(new GuiNpcLabel(2, this.quest.id + "", this.guiLeft + 268, this.guiTop + 14));
           this.addLabel(new GuiNpcLabel(3, "quest.completedtext", this.guiLeft + 4, this.guiTop + 30));
@@ -64,7 +64,7 @@ public class GuiQuestEdit extends SubGuiInterface implements ISubGuiListener, Gu
                this.quest.completerNpc = this.npc.display.getName();
           }
 
-          this.addTextField(new GuiNpcTextField(2, this, this.field_146289_q, this.guiLeft + 96, this.guiTop + 131, 114, 20, this.quest.completerNpc));
+          this.addTextField(new GuiNpcTextField(2, this, this.fontRenderer, this.guiLeft + 96, this.guiTop + 131, 114, 20, this.quest.completerNpc));
           this.getTextField(2).enabled = this.quest.completion == EnumQuestCompletion.Npc;
           this.addLabel(new GuiNpcLabel(10, "faction.options", this.guiLeft + 214, this.guiTop + 30));
           this.addButton(new GuiNpcButton(10, this.guiLeft + 330, this.guiTop + 25, 50, 20, "selectServer.edit"));
@@ -154,7 +154,7 @@ public class GuiQuestEdit extends SubGuiInterface implements ISubGuiListener, Gu
 
           if (button.id == 12) {
                this.quest.nextQuestid = -1;
-               this.func_73866_w_();
+               this.initGui();
           }
 
           if (button.id == 13) {
@@ -163,7 +163,7 @@ public class GuiQuestEdit extends SubGuiInterface implements ISubGuiListener, Gu
 
           if (button.id == 14) {
                this.quest.mail = new PlayerMail();
-               this.func_73866_w_();
+               this.initGui();
           }
 
           if (button.id == 66) {
@@ -175,15 +175,15 @@ public class GuiQuestEdit extends SubGuiInterface implements ISubGuiListener, Gu
      public void unFocused(GuiNpcTextField guiNpcTextField) {
           StringBuilder var10000;
           Quest var10002;
-          if (guiNpcTextField.field_175208_g == 1) {
-               for(this.quest.title = guiNpcTextField.func_146179_b(); QuestController.instance.containsQuestName(this.quest.category, this.quest); var10002.title = var10000.append(var10002.title).append("_").toString()) {
+          if (guiNpcTextField.id == 1) {
+               for(this.quest.title = guiNpcTextField.getText(); QuestController.instance.containsQuestName(this.quest.category, this.quest); var10002.title = var10000.append(var10002.title).append("_").toString()) {
                     var10000 = new StringBuilder();
                     var10002 = this.quest;
                }
           }
 
-          if (guiNpcTextField.field_175208_g == 2) {
-               this.quest.completerNpc = guiNpcTextField.func_146179_b();
+          if (guiNpcTextField.id == 2) {
+               this.quest.completerNpc = guiNpcTextField.getText();
           }
 
      }
@@ -200,7 +200,7 @@ public class GuiQuestEdit extends SubGuiInterface implements ISubGuiListener, Gu
                SubGuiNpcCommand sub = (SubGuiNpcCommand)subgui;
                this.quest.command = sub.command;
           } else {
-               this.func_73866_w_();
+               this.initGui();
           }
 
      }

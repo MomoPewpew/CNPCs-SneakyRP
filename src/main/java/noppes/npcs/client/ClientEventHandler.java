@@ -37,9 +37,9 @@ public class ClientEventHandler {
                     TileBuilder tile = (TileBuilder)te;
                     SchematicWrapper schem = tile.getSchematic();
                     if (schem != null) {
-                         GlStateManager.func_179094_E();
+                         GlStateManager.pushMatrix();
                          RenderHelper.enableStandardItemLighting();
-                         GlStateManager.func_179137_b((double)TileBuilder.DrawPos.getX() - TileEntityRendererDispatcher.field_147554_b, (double)TileBuilder.DrawPos.getY() - TileEntityRendererDispatcher.field_147555_c + 0.01D, (double)TileBuilder.DrawPos.getZ() - TileEntityRendererDispatcher.field_147552_d);
+                         GlStateManager.translate((double)TileBuilder.DrawPos.getX() - TileEntityRendererDispatcher.staticPlayerX, (double)TileBuilder.DrawPos.getY() - TileEntityRendererDispatcher.staticPlayerY + 0.01D, (double)TileBuilder.DrawPos.getZ() - TileEntityRendererDispatcher.staticPlayerZ);
                          GlStateManager.translate(1.0F, (float)tile.yOffest, 1.0F);
                          if (tile.rotation % 2 == 0) {
                               this.drawSelectionBox(new BlockPos(schem.schema.getWidth(), schem.schema.getHeight(), schem.schema.getLength()));
@@ -48,14 +48,14 @@ public class ClientEventHandler {
                          }
 
                          if (TileBuilder.Compiled) {
-                              GlStateManager.func_179148_o(this.displayList);
+                              GlStateManager.callList(this.displayList);
                          } else {
-                              BlockRendererDispatcher dispatcher = Minecraft.getMinecraft().func_175602_ab();
+                              BlockRendererDispatcher dispatcher = Minecraft.getMinecraft().getBlockRendererDispatcher();
                               if (this.displayList >= 0) {
-                                   GLAllocation.func_74523_b(this.displayList);
+                                   GLAllocation.deleteDisplayLists(this.displayList);
                               }
 
-                              this.displayList = GLAllocation.func_74526_a(1);
+                              this.displayList = GLAllocation.generateDisplayLists(1);
                               GL11.glNewList(this.displayList, 4864);
 
                               try {
@@ -64,26 +64,26 @@ public class ClientEventHandler {
                                         int posZ = (i - posX) / schem.schema.getWidth() % schem.schema.getLength();
                                         int posY = ((i - posX) / schem.schema.getWidth() - posZ) / schem.schema.getLength();
                                         IBlockState state = schem.schema.getBlockState(posX, posY, posZ);
-                                        if (state.func_185901_i() != EnumBlockRenderType.INVISIBLE) {
+                                        if (state.getRenderType() != EnumBlockRenderType.INVISIBLE) {
                                              BlockPos pos = schem.rotatePos(posX, posY, posZ, tile.rotation);
-                                             GlStateManager.func_179094_E();
-                                             GlStateManager.func_179123_a();
+                                             GlStateManager.pushMatrix();
+                                             GlStateManager.pushAttrib();
                                              GlStateManager.enableRescaleNormal();
                                              GlStateManager.translate((float)pos.getX(), (float)pos.getY(), (float)pos.getZ());
-                                             Minecraft.getMinecraft().func_110434_K().bindTexture(TextureMap.field_110575_b);
-                                             GlStateManager.func_179114_b(-90.0F, 0.0F, 1.0F, 0.0F);
+                                             Minecraft.getMinecraft().getTextureManager().bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+                                             GlStateManager.rotate(-90.0F, 0.0F, 1.0F, 0.0F);
                                              state = schem.rotationState(state, tile.rotation);
 
                                              try {
-                                                  dispatcher.func_175016_a(state, 1.0F);
+                                                  dispatcher.renderBlockBrightness(state, 1.0F);
                                                   if (GL11.glGetError() != 0) {
                                                        break;
                                                   }
                                              } catch (Exception var24) {
                                              } finally {
-                                                  GlStateManager.func_179099_b();
+                                                  GlStateManager.popAttrib();
                                                   GlStateManager.disableRescaleNormal();
-                                                  GlStateManager.func_179121_F();
+                                                  GlStateManager.popMatrix();
                                              }
                                         }
                                    }
@@ -100,7 +100,7 @@ public class ClientEventHandler {
 
                          RenderHelper.disableStandardItemLighting();
                          GlStateManager.translate(-1.0F, 0.0F, -1.0F);
-                         GlStateManager.func_179121_F();
+                         GlStateManager.popMatrix();
                     }
                }
           }
@@ -123,15 +123,15 @@ public class ClientEventHandler {
      }
 
      public void drawSelectionBox(BlockPos pos) {
-          GlStateManager.func_179090_x();
+          GlStateManager.disableTexture2D();
           GlStateManager.disableLighting();
-          GlStateManager.func_179129_p();
-          GlStateManager.func_179084_k();
-          AxisAlignedBB bb = new AxisAlignedBB(BlockPos.field_177992_a, pos);
-          RenderGlobal.func_189697_a(bb, 1.0F, 0.0F, 0.0F, 1.0F);
-          GlStateManager.func_179098_w();
+          GlStateManager.disableCull();
+          GlStateManager.disableBlend();
+          AxisAlignedBB bb = new AxisAlignedBB(BlockPos.ORIGIN, pos);
+          RenderGlobal.drawSelectionBoundingBox(bb, 1.0F, 0.0F, 0.0F, 1.0F);
+          GlStateManager.enableTexture2D();
           GlStateManager.enableLighting();
-          GlStateManager.func_179089_o();
-          GlStateManager.func_179084_k();
+          GlStateManager.enableCull();
+          GlStateManager.disableBlend();
      }
 }

@@ -116,7 +116,7 @@ public class QuestController implements IQuestHandler {
      }
 
      private void loadCategoriesOld(File file) throws Exception {
-          NBTTagCompound nbttagcompound1 = CompressedStreamTools.func_74796_a(new FileInputStream(file));
+          NBTTagCompound nbttagcompound1 = CompressedStreamTools.readCompressed(new FileInputStream(file));
           this.lastUsedCatID = nbttagcompound1.getInteger("lastID");
           this.lastUsedQuestID = nbttagcompound1.getInteger("lastQuestID");
           NBTTagList list = nbttagcompound1.getTagList("Data", 10);

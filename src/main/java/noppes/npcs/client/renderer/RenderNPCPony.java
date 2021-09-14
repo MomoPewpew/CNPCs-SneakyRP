@@ -10,6 +10,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import noppes.npcs.client.model.ModelPony;
 import noppes.npcs.client.model.ModelPonyArmor;
+import noppes.npcs.entity.EntityNPCInterface;
 import noppes.npcs.entity.EntityNpcPony;
 
 public class RenderNPCPony extends RenderNPCInterface {
@@ -19,18 +20,18 @@ public class RenderNPCPony extends RenderNPCInterface {
 
      public RenderNPCPony() {
           super(new ModelPony(0.0F), 0.5F);
-          this.modelBipedMain = (ModelPony)this.field_77045_g;
+          this.modelBipedMain = (ModelPony)this.mainModel;
           this.modelArmorChestplate = new ModelPonyArmor(1.0F);
           this.modelArmor = new ModelPonyArmor(0.5F);
      }
 
      public ResourceLocation getEntityTexture(EntityNpcPony pony) {
           boolean check = pony.textureLocation == null || pony.textureLocation != pony.checked;
-          ResourceLocation loc = super.getEntityTexture(pony);
+          ResourceLocation loc = super.getEntityTexture((EntityNPCInterface)pony);
           if (check) {
                try {
-                    IResource resource = Minecraft.getMinecraft().func_110442_L().func_110536_a(loc);
-                    BufferedImage bufferedimage = ImageIO.read(resource.func_110527_b());
+                    IResource resource = Minecraft.getMinecraft().getResourceManager().getResource(loc);
+                    BufferedImage bufferedimage = ImageIO.read(resource.getInputStream());
                     pony.isPegasus = false;
                     pony.isUnicorn = false;
                     Color color = new Color(bufferedimage.getRGB(0, 0), true);
@@ -66,7 +67,7 @@ public class RenderNPCPony extends RenderNPCInterface {
           ItemStack itemstack = pony.getHeldItemMainhand();
           this.modelArmorChestplate.heldItemRight = this.modelArmor.heldItemRight = this.modelBipedMain.heldItemRight = itemstack == null ? 0 : 1;
           this.modelArmorChestplate.isSneak = this.modelArmor.isSneak = this.modelBipedMain.isSneak = pony.isSneaking();
-          this.modelArmorChestplate.field_78093_q = this.modelArmor.field_78093_q = this.modelBipedMain.field_78093_q = false;
+          this.modelArmorChestplate.isRiding = this.modelArmor.isRiding = this.modelBipedMain.isRiding = false;
           this.modelArmorChestplate.isSleeping = this.modelArmor.isSleeping = this.modelBipedMain.isSleeping = pony.isPlayerSleeping();
           this.modelArmorChestplate.isUnicorn = this.modelArmor.isUnicorn = this.modelBipedMain.isUnicorn = pony.isUnicorn;
           this.modelArmorChestplate.isPegasus = this.modelArmor.isPegasus = this.modelBipedMain.isPegasus = pony.isPegasus;
@@ -74,9 +75,9 @@ public class RenderNPCPony extends RenderNPCInterface {
                d1 -= 0.125D;
           }
 
-          super.doRender(pony, d, d1, d2, f, f1);
+          super.doRender((EntityNPCInterface)pony, d, d1, d2, f, f1);
           this.modelArmorChestplate.aimedBow = this.modelArmor.aimedBow = this.modelBipedMain.aimedBow = false;
-          this.modelArmorChestplate.field_78093_q = this.modelArmor.field_78093_q = this.modelBipedMain.field_78093_q = false;
+          this.modelArmorChestplate.isRiding = this.modelArmor.isRiding = this.modelBipedMain.isRiding = false;
           this.modelArmorChestplate.isSneak = this.modelArmor.isSneak = this.modelBipedMain.isSneak = false;
           this.modelArmorChestplate.heldItemRight = this.modelArmor.heldItemRight = this.modelBipedMain.heldItemRight = 0;
      }

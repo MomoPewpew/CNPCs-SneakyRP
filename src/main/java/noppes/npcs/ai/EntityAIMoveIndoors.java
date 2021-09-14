@@ -22,8 +22,8 @@ public class EntityAIMoveIndoors extends EntityAIBase {
      }
 
      public boolean shouldExecute() {
-          if ((!this.theCreature.world.isDaytime() || this.theCreature.world.isRaining()) && !this.theCreature.world.field_73011_w.hasSkyLight()) {
-               BlockPos pos = new BlockPos(this.theCreature.field_70165_t, this.theCreature.getEntityBoundingBox().field_72338_b, this.theCreature.field_70161_v);
+          if ((!this.theCreature.world.isDaytime() || this.theCreature.world.isRaining()) && !this.theCreature.world.provider.hasSkyLight()) {
+               BlockPos pos = new BlockPos(this.theCreature.posX, this.theCreature.getEntityBoundingBox().minY, this.theCreature.posZ);
                if (!this.world.canSeeSky(pos) && this.world.getLight(pos) > 8) {
                     return false;
                } else {
@@ -52,7 +52,7 @@ public class EntityAIMoveIndoors extends EntityAIBase {
 
      private Vec3d findPossibleShelter() {
           Random random = this.theCreature.getRNG();
-          BlockPos blockpos = new BlockPos(this.theCreature.field_70165_t, this.theCreature.getEntityBoundingBox().field_72338_b, this.theCreature.field_70161_v);
+          BlockPos blockpos = new BlockPos(this.theCreature.posX, this.theCreature.getEntityBoundingBox().minY, this.theCreature.posZ);
 
           for(int i = 0; i < 10; ++i) {
                BlockPos blockpos1 = blockpos.add(random.nextInt(20) - 10, random.nextInt(6) - 3, random.nextInt(20) - 10);

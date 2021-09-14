@@ -14,12 +14,12 @@ import noppes.npcs.CustomNpcs;
 public class CustomNpcResourceListener implements IResourceManagerReloadListener {
      public static int DefaultTextColor = 4210752;
 
-     public void func_110549_a(IResourceManager var1) {
+     public void onResourceManagerReload(IResourceManager var1) {
           if (var1 instanceof SimpleReloadableResourceManager) {
                this.createTextureCache();
                SimpleReloadableResourceManager simplemanager = (SimpleReloadableResourceManager)var1;
                FolderResourcePack pack = new FolderResourcePack(CustomNpcs.Dir);
-               simplemanager.func_110545_a(pack);
+               simplemanager.reloadResourcePack(pack);
 
                try {
                     DefaultTextColor = Integer.parseInt(I18n.translateToLocal("customnpcs.defaultTextColor"), 16);
@@ -45,13 +45,13 @@ public class CustomNpcResourceListener implements IResourceManagerReloadListener
      }
 
      private void enlargeTexture(String texture) {
-          TextureManager manager = Minecraft.getMinecraft().func_110434_K();
+          TextureManager manager = Minecraft.getMinecraft().getTextureManager();
           if (manager != null) {
                ResourceLocation location = new ResourceLocation("customnpcs:textures/cache/" + texture + ".png");
-               ITextureObject ob = manager.func_110581_b(location);
+               ITextureObject ob = manager.getTexture(location);
                if (ob == null || !(ob instanceof TextureCache)) {
                     ob = new TextureCache(location);
-                    manager.func_110579_a(location, (ITextureObject)ob);
+                    manager.loadTexture(location, (ITextureObject)ob);
                }
 
                ((TextureCache)ob).setImage(new ResourceLocation("textures/blocks/" + texture + ".png"));

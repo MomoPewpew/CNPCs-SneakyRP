@@ -73,7 +73,7 @@ public class ServerCloneController implements ICloneHandler {
 
      private Map loadOldClones(File file) throws Exception {
           Map clones = new HashMap();
-          NBTTagCompound nbttagcompound1 = CompressedStreamTools.func_74796_a(new FileInputStream(file));
+          NBTTagCompound nbttagcompound1 = CompressedStreamTools.readCompressed(new FileInputStream(file));
           NBTTagList list = nbttagcompound1.getTagList("Data", 10);
           if (list == null) {
                return clones;

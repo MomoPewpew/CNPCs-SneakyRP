@@ -379,8 +379,8 @@ public class DataAI implements INPCAi {
      public void setWalkingSpeed(int speed) {
           if (speed >= 0 && speed <= 10) {
                this.moveSpeed = speed;
-               this.npc.getEntityAttribute(SharedMonsterAttributes.field_111263_d).setBaseValue((double)this.npc.getSpeed());
-               this.npc.getEntityAttribute(SharedMonsterAttributes.field_193334_e).setBaseValue((double)(this.npc.getSpeed() * 2.0F));
+               this.npc.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue((double)this.npc.getSpeed());
+               this.npc.getEntityAttribute(SharedMonsterAttributes.FLYING_SPEED).setBaseValue((double)(this.npc.getSpeed() * 2.0F));
           } else {
                throw new CustomNPCsException("Wrong speed: " + speed, new Object[0]);
           }
@@ -444,7 +444,7 @@ public class DataAI implements INPCAi {
 
      public void setAvoidsWater(boolean enabled) {
           if (this.npc.getNavigator() instanceof PathNavigateGround) {
-               this.npc.func_184644_a(PathNodeType.WATER, enabled ? PathNodeType.WATER.func_186289_a() : 0.0F);
+               this.npc.setPathPriority(PathNodeType.WATER, enabled ? PathNodeType.WATER.getPriority() : 0.0F);
           }
 
           this.avoidsWater = enabled;

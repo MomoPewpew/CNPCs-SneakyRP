@@ -121,7 +121,7 @@ public class NBTJsonUtil {
                          byte[] arr = new byte[list.tagCount()];
 
                          for(i = 0; list.tagCount() > 0; ++i) {
-                              arr[i] = ((NBTTagByte)list.removeTag(0)).func_150290_f();
+                              arr[i] = ((NBTTagByte)list.removeTag(0)).getByte();
                          }
 
                          return new NBTTagByteArray(arr);
@@ -131,7 +131,7 @@ public class NBTJsonUtil {
                          long[] arr = new long[list.tagCount()];
 
                          for(i = 0; list.tagCount() > 0; ++i) {
-                              arr[i] = (long)((NBTTagLong)list.removeTag(0)).func_150290_f();
+                              arr[i] = (long)((NBTTagLong)list.removeTag(0)).getByte();
                          }
 
                          return new NBTTagLongArray(arr);

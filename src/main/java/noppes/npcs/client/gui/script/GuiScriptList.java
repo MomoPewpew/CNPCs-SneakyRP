@@ -28,8 +28,8 @@ public class GuiScriptList extends SubGuiInterface {
           this.scripts = (List)scripts;
      }
 
-     public void func_73866_w_() {
-          super.func_73866_w_();
+     public void initGui() {
+          super.initGui();
           if (this.scroll1 == null) {
                this.scroll1 = new GuiCustomScroll(this, 0);
                this.scroll1.setSize(140, 180);
@@ -59,19 +59,19 @@ public class GuiScriptList extends SubGuiInterface {
           this.addButton(new GuiNpcButton(66, this.guiLeft + 260, this.guiTop + 194, 60, 20, "gui.done"));
      }
 
-     protected void func_146284_a(GuiButton guibutton) {
+     protected void actionPerformed(GuiButton guibutton) {
           GuiNpcButton button = (GuiNpcButton)guibutton;
           if (button.id == 1 && this.scroll1.hasSelected()) {
                this.container.scripts.add(this.scroll1.getSelected());
                this.scroll1.selected = -1;
                this.scroll1.selected = -1;
-               this.func_73866_w_();
+               this.initGui();
           }
 
           if (button.id == 2 && this.scroll2.hasSelected()) {
                this.container.scripts.remove(this.scroll2.getSelected());
                this.scroll2.selected = -1;
-               this.func_73866_w_();
+               this.initGui();
           }
 
           if (button.id == 3) {
@@ -85,14 +85,14 @@ public class GuiScriptList extends SubGuiInterface {
 
                this.scroll1.selected = -1;
                this.scroll1.selected = -1;
-               this.func_73866_w_();
+               this.initGui();
           }
 
           if (button.id == 4) {
                this.container.scripts.clear();
                this.scroll1.selected = -1;
                this.scroll1.selected = -1;
-               this.func_73866_w_();
+               this.initGui();
           }
 
           if (button.id == 66) {

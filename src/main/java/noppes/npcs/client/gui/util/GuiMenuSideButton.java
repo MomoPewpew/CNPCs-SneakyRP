@@ -18,25 +18,25 @@ public class GuiMenuSideButton extends GuiNpcButton {
           this.active = false;
      }
 
-     public int func_146114_a(boolean flag) {
+     public int getHoverState(boolean flag) {
           return this.active ? 0 : 1;
      }
 
-     public void func_191745_a(Minecraft minecraft, int i, int j, float partialTicks) {
+     public void drawButton(Minecraft minecraft, int i, int j, float partialTicks) {
           if (this.visible) {
                FontRenderer fontrenderer = minecraft.fontRenderer;
                minecraft.renderEngine.bindTexture(resource);
                GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
                int width = this.width + (this.active ? 2 : 0);
-               this.field_146123_n = i >= this.x && j >= this.y && i < this.x + width && j < this.y + this.height;
-               int k = this.func_146114_a(this.field_146123_n);
+               this.hovered = i >= this.x && j >= this.y && i < this.x + width && j < this.y + this.height;
+               int k = this.getHoverState(this.hovered);
                this.drawTexturedModalRect(this.x, this.y, 0, k * 22, width, this.height);
-               this.func_146119_b(minecraft, i, j);
+               this.mouseDragged(minecraft, i, j);
                String text = "";
                float maxWidth = (float)width * 0.75F;
-               if ((float)fontrenderer.getStringWidth(this.field_146126_j) > maxWidth) {
-                    for(int h = 0; h < this.field_146126_j.length(); ++h) {
-                         char c = this.field_146126_j.charAt(h);
+               if ((float)fontrenderer.getStringWidth(this.displayString) > maxWidth) {
+                    for(int h = 0; h < this.displayString.length(); ++h) {
+                         char c = this.displayString.charAt(h);
                          if ((float)fontrenderer.getStringWidth(text + c) > maxWidth) {
                               break;
                          }
@@ -46,27 +46,27 @@ public class GuiMenuSideButton extends GuiNpcButton {
 
                     text = text + "...";
                } else {
-                    text = this.field_146126_j;
+                    text = this.displayString;
                }
 
                if (this.active) {
-                    this.func_73732_a(fontrenderer, text, this.x + width / 2, this.y + (this.height - 8) / 2, 16777120);
-               } else if (this.field_146123_n) {
-                    this.func_73732_a(fontrenderer, text, this.x + width / 2, this.y + (this.height - 8) / 2, 16777120);
+                    this.drawCenteredString(fontrenderer, text, this.x + width / 2, this.y + (this.height - 8) / 2, 16777120);
+               } else if (this.hovered) {
+                    this.drawCenteredString(fontrenderer, text, this.x + width / 2, this.y + (this.height - 8) / 2, 16777120);
                } else {
-                    this.func_73732_a(fontrenderer, text, this.x + width / 2, this.y + (this.height - 8) / 2, 14737632);
+                    this.drawCenteredString(fontrenderer, text, this.x + width / 2, this.y + (this.height - 8) / 2, 14737632);
                }
 
           }
      }
 
-     protected void func_146119_b(Minecraft minecraft, int i, int j) {
+     protected void mouseDragged(Minecraft minecraft, int i, int j) {
      }
 
-     public void func_146118_a(int i, int j) {
+     public void mouseReleased(int i, int j) {
      }
 
-     public boolean func_146116_c(Minecraft minecraft, int i, int j) {
-          return !this.active && this.visible && this.field_146123_n;
+     public boolean mousePressed(Minecraft minecraft, int i, int j) {
+          return !this.active && this.visible && this.hovered;
      }
 }

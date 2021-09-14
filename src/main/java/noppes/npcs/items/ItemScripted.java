@@ -18,13 +18,13 @@ public class ItemScripted extends Item implements IPermission {
      public static Map Resources = new HashMap();
 
      public ItemScripted() {
-          this.field_77777_bU = 1;
+          this.maxStackSize = 1;
           this.setCreativeTab(CustomItems.tab);
           this.setHasSubtypes(true);
      }
 
-     public Item setUnlocalizedName(String name) {
-          super.setUnlocalizedName(name);
+     public Item setTranslationKey(String name) {
+          super.setTranslationKey(name);
           this.setRegistryName(new ResourceLocation("customnpcs", name));
           return this;
      }
@@ -53,7 +53,7 @@ public class ItemScripted extends Item implements IPermission {
                return super.getRGBDurabilityForDisplay(stack);
           } else {
                int color = ((ItemScriptedWrapper)istack).durabilityColor;
-               return color >= 0 ? color : MathHelper.func_181758_c(Math.max(0.0F, (float)(1.0D - this.getDurabilityForDisplay(stack))) / 3.0F, 1.0F, 1.0F);
+               return color >= 0 ? color : MathHelper.hsvToRGB(Math.max(0.0F, (float)(1.0D - this.getDurabilityForDisplay(stack))) / 3.0F, 1.0F, 1.0F);
           }
      }
 
@@ -62,7 +62,7 @@ public class ItemScripted extends Item implements IPermission {
           return istack instanceof ItemScriptedWrapper ? ((ItemScriptedWrapper)istack).getMaxStackSize() : super.getItemStackLimit(stack);
      }
 
-     public boolean func_77644_a(ItemStack stack, EntityLivingBase target, EntityLivingBase attacker) {
+     public boolean hitEntity(ItemStack stack, EntityLivingBase target, EntityLivingBase attacker) {
           return true;
      }
 }

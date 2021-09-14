@@ -13,7 +13,7 @@ public class VillagerWrapper extends EntityLivingWrapper implements IVillager {
      }
 
      public String getCareer() {
-          return ((EntityVillager)this.entity).getProfessionForge().getCareer(((EntityVillager)this.entity).field_175563_bv).getName();
+          return ((EntityVillager)this.entity).getProfessionForge().getCareer(((EntityVillager)this.entity).careerId).getName();
      }
 
      public int getType() {

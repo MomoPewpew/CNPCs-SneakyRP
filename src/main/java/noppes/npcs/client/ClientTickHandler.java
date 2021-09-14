@@ -43,8 +43,8 @@ public class ClientTickHandler {
 
                ++CustomNpcs.ticks;
                ++RenderNPCInterface.LastTextureTick;
-               if (this.prevWorld != mc.field_71441_e) {
-                    this.prevWorld = mc.field_71441_e;
+               if (this.prevWorld != mc.world) {
+                    this.prevWorld = mc.world;
                     MusicController.Instance.stopMusic();
                }
 
@@ -54,29 +54,29 @@ public class ClientTickHandler {
      @SubscribeEvent
      public void onKey(KeyInputEvent event) {
           if (CustomNpcs.SceneButtonsEnabled) {
-               if (ClientProxy.Scene1.func_151468_f()) {
+               if (ClientProxy.Scene1.isPressed()) {
                     Client.sendData(EnumPacketServer.SceneStart, 1);
                }
 
-               if (ClientProxy.Scene2.func_151468_f()) {
+               if (ClientProxy.Scene2.isPressed()) {
                     Client.sendData(EnumPacketServer.SceneStart, 2);
                }
 
-               if (ClientProxy.Scene3.func_151468_f()) {
+               if (ClientProxy.Scene3.isPressed()) {
                     Client.sendData(EnumPacketServer.SceneStart, 3);
                }
 
-               if (ClientProxy.SceneReset.func_151468_f()) {
+               if (ClientProxy.SceneReset.isPressed()) {
                     Client.sendData(EnumPacketServer.SceneReset);
                }
           }
 
           Minecraft mc = Minecraft.getMinecraft();
-          if (ClientProxy.QuestLog.func_151468_f()) {
-               if (mc.field_71462_r == null) {
+          if (ClientProxy.QuestLog.isPressed()) {
+               if (mc.currentScreen == null) {
                     NoppesUtil.openGUI(mc.player, new GuiQuestLog(mc.player));
-               } else if (mc.field_71462_r instanceof GuiQuestLog) {
-                    mc.func_71381_h();
+               } else if (mc.currentScreen instanceof GuiQuestLog) {
+                    mc.setIngameFocus();
                }
           }
 
@@ -88,7 +88,7 @@ public class ClientTickHandler {
                     this.buttonPressed = key;
                }
           } else {
-               if (key == this.buttonPressed && time - this.buttonTime < 500000000L && mc.field_71462_r == null) {
+               if (key == this.buttonPressed && time - this.buttonTime < 500000000L && mc.currentScreen == null) {
                     boolean isCtrlPressed = Keyboard.isKeyDown(157) || Keyboard.isKeyDown(29);
                     boolean isShiftPressed = Keyboard.isKeyDown(54) || Keyboard.isKeyDown(42);
                     boolean isAltPressed = Keyboard.isKeyDown(184) || Keyboard.isKeyDown(56);

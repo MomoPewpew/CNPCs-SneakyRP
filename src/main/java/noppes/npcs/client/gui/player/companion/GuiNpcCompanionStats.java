@@ -36,8 +36,8 @@ public class GuiNpcCompanionStats extends GuiNPCInterface implements IGuiData {
           NoppesUtilPlayer.sendData(EnumPlayerPacket.RoleGet);
      }
 
-     public void func_73866_w_() {
-          super.func_73866_w_();
+     public void initGui() {
+          super.initGui();
           int y = this.guiTop + 10;
           this.addLabel(new GuiNpcLabel(0, NoppesStringUtils.translate("gui.name", ": ", this.npc.display.getName()), this.guiLeft + 4, y));
           String var10004 = NoppesStringUtils.translate("companion.owner", ": ", this.role.ownerName);
@@ -67,14 +67,14 @@ public class GuiNpcCompanionStats extends GuiNPCInterface implements IGuiData {
           GuiMenuTopIconButton button;
           if (screen instanceof GuiNPCInterface) {
                GuiNPCInterface gui = (GuiNPCInterface)screen;
-               gui.addTopButton(button = new GuiMenuTopIconButton(1, gui.guiLeft + 4, gui.guiTop - 27, "menu.stats", new ItemStack(Items.field_151122_aG)));
-               gui.addTopButton(button = new GuiMenuTopIconButton(2, button, "companion.talent", new ItemStack(Items.field_151156_bN)));
+               gui.addTopButton(button = new GuiMenuTopIconButton(1, gui.guiLeft + 4, gui.guiTop - 27, "menu.stats", new ItemStack(Items.BOOK)));
+               gui.addTopButton(button = new GuiMenuTopIconButton(2, button, "companion.talent", new ItemStack(Items.NETHER_STAR)));
                if (role.hasInv()) {
-                    gui.addTopButton(button = new GuiMenuTopIconButton(3, button, "inv.inventory", new ItemStack(Blocks.field_150486_ae)));
+                    gui.addTopButton(button = new GuiMenuTopIconButton(3, button, "inv.inventory", new ItemStack(Blocks.CHEST)));
                }
 
                if (role.job != EnumCompanionJobs.NONE) {
-                    gui.addTopButton(new GuiMenuTopIconButton(4, button, "job.name", new ItemStack(Items.field_151172_bF)));
+                    gui.addTopButton(new GuiMenuTopIconButton(4, button, "job.name", new ItemStack(Items.CARROT)));
                }
 
                gui.getTopButton(active).active = true;
@@ -82,14 +82,14 @@ public class GuiNpcCompanionStats extends GuiNPCInterface implements IGuiData {
 
           if (screen instanceof GuiContainerNPCInterface) {
                GuiContainerNPCInterface gui = (GuiContainerNPCInterface)screen;
-               gui.addTopButton(button = new GuiMenuTopIconButton(1, gui.field_147003_i + 4, gui.field_147009_r - 27, "menu.stats", new ItemStack(Items.field_151122_aG)));
-               gui.addTopButton(button = new GuiMenuTopIconButton(2, button, "companion.talent", new ItemStack(Items.field_151156_bN)));
+               gui.addTopButton(button = new GuiMenuTopIconButton(1, gui.guiLeft + 4, gui.guiTop - 27, "menu.stats", new ItemStack(Items.BOOK)));
+               gui.addTopButton(button = new GuiMenuTopIconButton(2, button, "companion.talent", new ItemStack(Items.NETHER_STAR)));
                if (role.hasInv()) {
-                    gui.addTopButton(button = new GuiMenuTopIconButton(3, button, "inv.inventory", new ItemStack(Blocks.field_150486_ae)));
+                    gui.addTopButton(button = new GuiMenuTopIconButton(3, button, "inv.inventory", new ItemStack(Blocks.CHEST)));
                }
 
                if (role.job != EnumCompanionJobs.NONE) {
-                    gui.addTopButton(new GuiMenuTopIconButton(4, button, "job.name", new ItemStack(Items.field_151172_bF)));
+                    gui.addTopButton(new GuiMenuTopIconButton(4, button, "job.name", new ItemStack(Items.CARROT)));
                }
 
                gui.getTopButton(active).active = true;
@@ -97,8 +97,8 @@ public class GuiNpcCompanionStats extends GuiNPCInterface implements IGuiData {
 
      }
 
-     public void func_146284_a(GuiButton guibutton) {
-          super.func_146284_a(guibutton);
+     public void actionPerformed(GuiButton guibutton) {
+          super.actionPerformed(guibutton);
           int id = guibutton.id;
           if (id == 2) {
                CustomNpcs.proxy.openGui(this.npc, EnumGuiType.CompanionTalent);
@@ -110,8 +110,8 @@ public class GuiNpcCompanionStats extends GuiNPCInterface implements IGuiData {
 
      }
 
-     public void func_73863_a(int i, int j, float f) {
-          super.func_73863_a(i, j, f);
+     public void drawScreen(int i, int j, float f) {
+          super.drawScreen(i, j, f);
           if (this.isEating && !this.role.isEating()) {
                NoppesUtilPlayer.sendData(EnumPlayerPacket.RoleGet);
           }
@@ -122,7 +122,7 @@ public class GuiNpcCompanionStats extends GuiNPCInterface implements IGuiData {
      }
 
      private int drawHealth(int y) {
-          this.field_146297_k.func_110434_K().bindTexture(field_110324_m);
+          this.mc.getTextureManager().bindTexture(ICONS);
           int max = this.role.getTotalArmorValue();
           int k;
           if (this.role.talents.containsKey(EnumCompanionTalent.ARMOR) || max > 0) {
@@ -144,7 +144,7 @@ public class GuiNpcCompanionStats extends GuiNPCInterface implements IGuiData {
                y += 10;
           }
 
-          max = MathHelper.func_76123_f(this.npc.getMaxHealth());
+          max = MathHelper.ceil(this.npc.getMaxHealth());
           k = (int)this.npc.getHealth();
           float scale = 1.0F;
           if (max > 40) {

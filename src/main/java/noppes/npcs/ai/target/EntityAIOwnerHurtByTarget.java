@@ -32,7 +32,7 @@ public class EntityAIOwnerHurtByTarget extends EntityAITarget {
      }
 
      public void startExecuting() {
-          this.field_75299_d.setAttackTarget(this.theOwnerAttacker);
+          this.taskOwner.setAttackTarget(this.theOwnerAttacker);
           EntityLivingBase entitylivingbase = this.npc.getOwner();
           if (entitylivingbase != null) {
                this.timer = entitylivingbase.getRevengeTimer();

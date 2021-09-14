@@ -260,11 +260,11 @@ public class PlayerWrapper extends EntityLivingBaseWrapper implements IPlayer {
      }
 
      public float getRotation() {
-          return ((EntityPlayerMP)this.entity).field_70177_z;
+          return ((EntityPlayerMP)this.entity).rotationYaw;
      }
 
      public void setRotation(float rotation) {
-          ((EntityPlayerMP)this.entity).field_70177_z = rotation;
+          ((EntityPlayerMP)this.entity).rotationYaw = rotation;
      }
 
      public void message(String message) {
@@ -272,7 +272,7 @@ public class PlayerWrapper extends EntityLivingBaseWrapper implements IPlayer {
      }
 
      public int getGamemode() {
-          return ((EntityPlayerMP)this.entity).field_71134_c.getGameType().getID();
+          return ((EntityPlayerMP)this.entity).interactionManager.getGameType().getID();
      }
 
      public void setGamemode(int type) {
@@ -305,7 +305,7 @@ public class PlayerWrapper extends EntityLivingBaseWrapper implements IPlayer {
      }
 
      public int inventoryItemCount(String id, int damage) {
-          Item item = (Item)Item.field_150901_e.getObject(new ResourceLocation(id));
+          Item item = (Item)Item.REGISTRY.getObject(new ResourceLocation(id));
           if (item == null) {
                throw new CustomNPCsException("Unknown item id: " + id, new Object[0]);
           } else {
@@ -349,7 +349,7 @@ public class PlayerWrapper extends EntityLivingBaseWrapper implements IPlayer {
      }
 
      public boolean removeItem(String id, int damage, int amount) {
-          Item item = (Item)Item.field_150901_e.getObject(new ResourceLocation(id));
+          Item item = (Item)Item.REGISTRY.getObject(new ResourceLocation(id));
           if (item == null) {
                throw new CustomNPCsException("Unknown item id: " + id, new Object[0]);
           } else {
@@ -364,7 +364,7 @@ public class PlayerWrapper extends EntityLivingBaseWrapper implements IPlayer {
           } else {
                boolean bo = ((EntityPlayerMP)this.entity).inventory.addItemStackToInventory(mcItem.copy());
                if (bo) {
-                    NoppesUtilServer.playSound((EntityLivingBase)this.entity, SoundEvents.field_187638_cR, 0.2F, ((((EntityPlayerMP)this.entity).getRNG().nextFloat() - ((EntityPlayerMP)this.entity).getRNG().nextFloat()) * 0.7F + 1.0F) * 2.0F);
+                    NoppesUtilServer.playSound((EntityLivingBase)this.entity, SoundEvents.ENTITY_ITEM_PICKUP, 0.2F, ((((EntityPlayerMP)this.entity).getRNG().nextFloat() - ((EntityPlayerMP)this.entity).getRNG().nextFloat()) * 0.7F + 1.0F) * 2.0F);
                     this.updatePlayerInventory();
                }
 
@@ -373,7 +373,7 @@ public class PlayerWrapper extends EntityLivingBaseWrapper implements IPlayer {
      }
 
      public boolean giveItem(String id, int damage, int amount) {
-          Item item = (Item)Item.field_150901_e.getObject(new ResourceLocation(id));
+          Item item = (Item)Item.REGISTRY.getObject(new ResourceLocation(id));
           if (item == null) {
                return false;
           } else {
@@ -386,7 +386,7 @@ public class PlayerWrapper extends EntityLivingBaseWrapper implements IPlayer {
      }
 
      public void updatePlayerInventory() {
-          ((EntityPlayerMP)this.entity).field_71069_bz.detectAndSendChanges();
+          ((EntityPlayerMP)this.entity).inventoryContainer.detectAndSendChanges();
           PlayerQuestData playerdata = this.getData().questData;
           playerdata.checkQuestCompletion((EntityPlayer)this.entity, 0);
      }
@@ -427,20 +427,20 @@ public class PlayerWrapper extends EntityLivingBaseWrapper implements IPlayer {
      }
 
      public int getExpLevel() {
-          return ((EntityPlayerMP)this.entity).field_71068_ca;
+          return ((EntityPlayerMP)this.entity).experienceLevel;
      }
 
      public void setExpLevel(int level) {
-          ((EntityPlayerMP)this.entity).field_71068_ca = level;
+          ((EntityPlayerMP)this.entity).experienceLevel = level;
           ((EntityPlayerMP)this.entity).addExperienceLevel(0);
      }
 
      public void setPosition(double x, double y, double z) {
-          NoppesUtilPlayer.teleportPlayer((EntityPlayerMP)this.entity, x, y, z, ((EntityPlayerMP)this.entity).field_71093_bK);
+          NoppesUtilPlayer.teleportPlayer((EntityPlayerMP)this.entity, x, y, z, ((EntityPlayerMP)this.entity).dimension);
      }
 
      public void setPos(IPos pos) {
-          NoppesUtilPlayer.teleportPlayer((EntityPlayerMP)this.entity, (double)pos.getX(), (double)pos.getY(), (double)pos.getZ(), ((EntityPlayerMP)this.entity).field_71093_bK);
+          NoppesUtilPlayer.teleportPlayer((EntityPlayerMP)this.entity, (double)pos.getX(), (double)pos.getY(), (double)pos.getZ(), ((EntityPlayerMP)this.entity).dimension);
      }
 
      public int getType() {
@@ -518,7 +518,7 @@ public class PlayerWrapper extends EntityLivingBaseWrapper implements IPlayer {
      }
 
      public void kick(String message) {
-          ((EntityPlayerMP)this.entity).field_71135_a.disconnect(new TextComponentTranslation(message, new Object[0]));
+          ((EntityPlayerMP)this.entity).connection.disconnect(new TextComponentTranslation(message, new Object[0]));
      }
 
      public boolean canQuestBeAccepted(int questId) {

@@ -16,7 +16,7 @@ public class SlotValid extends Slot {
           this.canPutIn = bo;
      }
 
-     public boolean func_75214_a(ItemStack par1ItemStack) {
-          return this.canPutIn && this.field_75224_c.isItemValidForSlot(0, par1ItemStack);
+     public boolean isItemValid(ItemStack par1ItemStack) {
+          return this.canPutIn && this.inventory.isItemValidForSlot(0, par1ItemStack);
      }
 }

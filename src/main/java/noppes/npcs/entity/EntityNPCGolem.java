@@ -8,27 +8,27 @@ public class EntityNPCGolem extends EntityNPCInterface {
      public EntityNPCGolem(World world) {
           super(world);
           this.display.setSkinTexture("customnpcs:textures/entity/golem/Iron Golem.png");
-          this.field_70130_N = 1.4F;
+          this.width = 1.4F;
           this.height = 2.5F;
      }
 
      public void updateHitbox() {
-          this.currentAnimation = (Integer)this.field_70180_af.func_187225_a(Animation);
+          this.currentAnimation = (Integer)this.dataManager.get(Animation);
           if (this.currentAnimation == 2) {
-               this.field_70130_N = this.height = 0.5F;
+               this.width = this.height = 0.5F;
           } else if (this.currentAnimation == 1) {
-               this.field_70130_N = 1.4F;
+               this.width = 1.4F;
                this.height = 2.0F;
           } else {
-               this.field_70130_N = 1.4F;
+               this.width = 1.4F;
                this.height = 2.5F;
           }
 
      }
 
-     public void func_70071_h_() {
-          this.field_70128_L = true;
-          this.func_94061_f(true);
+     public void onUpdate() {
+          this.isDead = true;
+          this.setNoAI(true);
           if (!this.world.isRemote) {
                NBTTagCompound compound = new NBTTagCompound();
                this.writeToNBT(compound);
@@ -39,6 +39,6 @@ public class EntityNPCGolem extends EntityNPCInterface {
                this.world.spawnEntity(npc);
           }
 
-          super.func_70071_h_();
+          super.onUpdate();
      }
 }

@@ -18,8 +18,8 @@ import noppes.npcs.blocks.tiles.TileDoor;
 
 public abstract class BlockNpcDoorInterface extends BlockDoor implements ITileEntityProvider {
      public BlockNpcDoorInterface() {
-          super(Material.field_151575_d);
-          this.field_149758_A = true;
+          super(Material.WOOD);
+          this.hasTileEntity = true;
      }
 
      public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
@@ -45,23 +45,23 @@ public abstract class BlockNpcDoorInterface extends BlockDoor implements ITileEn
 
      public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
           IBlockState iblockstate1;
-          if (state.getValue(field_176523_O) == EnumDoorHalf.LOWER) {
+          if (state.getValue(HALF) == EnumDoorHalf.LOWER) {
                iblockstate1 = worldIn.getBlockState(pos.up());
                if (iblockstate1.getBlock() == this) {
-                    state = state.withProperty(field_176521_M, iblockstate1.getValue(field_176521_M)).withProperty(field_176522_N, iblockstate1.getValue(field_176522_N));
+                    state = state.withProperty(HINGE, iblockstate1.getValue(HINGE)).withProperty(POWERED, iblockstate1.getValue(POWERED));
                }
           } else {
                iblockstate1 = worldIn.getBlockState(pos.down());
                if (iblockstate1.getBlock() == this) {
-                    state = state.withProperty(field_176520_a, iblockstate1.getValue(field_176520_a)).withProperty(field_176519_b, iblockstate1.getValue(field_176519_b));
+                    state = state.withProperty(FACING, iblockstate1.getValue(FACING)).withProperty(OPEN, iblockstate1.getValue(OPEN));
                }
           }
 
           return state;
      }
 
-     public Block setUnlocalizedName(String name) {
+     public Block setTranslationKey(String name) {
           this.setRegistryName(name);
-          return super.setUnlocalizedName(name);
+          return super.setTranslationKey(name);
      }
 }

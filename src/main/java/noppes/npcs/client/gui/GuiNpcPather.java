@@ -33,8 +33,8 @@ public class GuiNpcPather extends GuiNPCInterface implements IGuiData {
           Client.sendData(EnumPacketServer.MovingPathGet);
      }
 
-     public void func_73866_w_() {
-          super.func_73866_w_();
+     public void initGui() {
+          super.initGui();
           this.scroll = new GuiCustomScroll(this, 0);
           this.scroll.setSize(160, 164);
           List list = new ArrayList();
@@ -54,7 +54,7 @@ public class GuiNpcPather extends GuiNPCInterface implements IGuiData {
           this.addButton(new GuiNpcButton(2, this.guiLeft + 118, this.guiTop + 178, 52, 20, "selectWorld.deleteButton"));
      }
 
-     protected void func_146284_a(GuiButton guibutton) {
+     protected void actionPerformed(GuiButton guibutton) {
           if (this.scroll.selected >= 0) {
                int id = guibutton.id;
                List list;
@@ -73,7 +73,7 @@ public class GuiNpcPather extends GuiNPCInterface implements IGuiData {
                     list.set(selected, b);
                     list.set(selected + 1, a);
                     this.ai.setMovingPath(list);
-                    this.func_73866_w_();
+                    this.initGui();
                     this.scroll.selected = selected + 1;
                }
 
@@ -89,7 +89,7 @@ public class GuiNpcPather extends GuiNPCInterface implements IGuiData {
                     list.set(selected, b);
                     list.set(selected - 1, a);
                     this.ai.setMovingPath(list);
-                    this.func_73866_w_();
+                    this.initGui();
                     this.scroll.selected = selected - 1;
                }
 
@@ -101,7 +101,7 @@ public class GuiNpcPather extends GuiNPCInterface implements IGuiData {
 
                     list.remove(this.scroll.selected);
                     this.ai.setMovingPath(list);
-                    this.func_73866_w_();
+                    this.initGui();
                }
 
           }
@@ -110,12 +110,12 @@ public class GuiNpcPather extends GuiNPCInterface implements IGuiData {
      protected void drawGuiContainerBackgroundLayer(float f, int i, int j) {
      }
 
-     public void func_73864_a(int i, int j, int k) {
-          super.func_73864_a(i, j, k);
-          this.scroll.func_73864_a(i, j, k);
+     public void mouseClicked(int i, int j, int k) {
+          super.mouseClicked(i, j, k);
+          this.scroll.mouseClicked(i, j, k);
      }
 
-     public void func_73869_a(char c, int i) {
+     public void keyTyped(char c, int i) {
           if (i == 1 || this.isInventoryKey(i)) {
                this.close();
           }
@@ -130,6 +130,6 @@ public class GuiNpcPather extends GuiNPCInterface implements IGuiData {
 
      public void setGuiData(NBTTagCompound compound) {
           this.ai.readToNBT(compound);
-          this.func_73866_w_();
+          this.initGui();
      }
 }

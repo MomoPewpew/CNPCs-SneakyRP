@@ -50,7 +50,7 @@ public class ContainerMerchantAdd extends ContainerNpcInterface {
      }
 
      @SideOnly(Side.CLIENT)
-     public void func_75137_b(int par1, int par2) {
+     public void updateProgressBar(int par1, int par2) {
      }
 
      public ItemStack transferStackInSlot(EntityPlayer par1EntityPlayer, int par2) {
@@ -89,7 +89,7 @@ public class ContainerMerchantAdd extends ContainerNpcInterface {
 
      public void onContainerClosed(EntityPlayer par1EntityPlayer) {
           super.onContainerClosed(par1EntityPlayer);
-          this.theMerchant.func_70932_a_((EntityPlayer)null);
+          this.theMerchant.setCustomer((EntityPlayer)null);
           super.onContainerClosed(par1EntityPlayer);
           if (!this.world.isRemote) {
                ItemStack itemstack = this.merchantInventory.removeStackFromSlot(0);

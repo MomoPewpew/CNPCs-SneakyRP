@@ -15,11 +15,11 @@ class SlotCompanionWeapon extends Slot {
           this.role = role;
      }
 
-     public int func_75219_a() {
+     public int getSlotStackLimit() {
           return 1;
      }
 
-     public boolean func_75214_a(ItemStack itemstack) {
+     public boolean isItemValid(ItemStack itemstack) {
           return NoppesUtilServer.IsItemStackNull(itemstack) ? false : this.role.canWearSword(NpcAPI.Instance().getIItemStack(itemstack));
      }
 }

@@ -102,7 +102,7 @@ public class CmdDialog extends CommandNoppesBase {
           permission = 2
      )
      public void show(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
-          List players = CommandBase.func_193513_a(server, sender, args[0]);
+          List players = CommandBase.getPlayers(server, sender, args[0]);
           if (players == null) {
                throw new CommandException("Unknow player '%s'", new Object[]{args[0]});
           } else {

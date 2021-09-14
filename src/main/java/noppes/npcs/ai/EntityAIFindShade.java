@@ -24,7 +24,7 @@ public class EntityAIFindShade extends EntityAIBase {
      public boolean shouldExecute() {
           if (!this.world.isDaytime()) {
                return false;
-          } else if (!this.world.canSeeSky(new BlockPos(this.theCreature.field_70165_t, this.theCreature.getEntityBoundingBox().field_72338_b, this.theCreature.field_70161_v))) {
+          } else if (!this.world.canSeeSky(new BlockPos(this.theCreature.posX, this.theCreature.getEntityBoundingBox().minY, this.theCreature.posZ))) {
                return false;
           } else {
                Vec3d var1 = this.findPossibleShelter();
@@ -49,7 +49,7 @@ public class EntityAIFindShade extends EntityAIBase {
 
      private Vec3d findPossibleShelter() {
           Random random = this.theCreature.getRNG();
-          BlockPos blockpos = new BlockPos(this.theCreature.field_70165_t, this.theCreature.getEntityBoundingBox().field_72338_b, this.theCreature.field_70161_v);
+          BlockPos blockpos = new BlockPos(this.theCreature.posX, this.theCreature.getEntityBoundingBox().minY, this.theCreature.posZ);
 
           for(int i = 0; i < 10; ++i) {
                BlockPos blockpos1 = blockpos.add(random.nextInt(20) - 10, random.nextInt(6) - 3, random.nextInt(20) - 10);

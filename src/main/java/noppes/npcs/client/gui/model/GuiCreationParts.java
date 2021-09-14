@@ -36,8 +36,8 @@ public class GuiCreationParts extends GuiCreationScreenInterface implements ITex
           });
      }
 
-     public void func_73866_w_() {
-          super.func_73866_w_();
+     public void initGui() {
+          super.initGui();
           if (this.entity != null) {
                this.openGui(new GuiCreationExtra(this.npc));
           } else {
@@ -67,8 +67,8 @@ public class GuiCreationParts extends GuiCreationScreenInterface implements ITex
           }
      }
 
-     protected void func_146284_a(GuiButton btn) {
-          super.func_146284_a(btn);
+     protected void actionPerformed(GuiButton btn) {
+          super.actionPerformed(btn);
           if (this.parts[selected] != null) {
                this.parts[selected].actionPerformed(btn);
           }
@@ -76,7 +76,7 @@ public class GuiCreationParts extends GuiCreationScreenInterface implements ITex
      }
 
      public void unFocused(GuiNpcTextField textfield) {
-          if (textfield.field_175208_g == 23) {
+          if (textfield.id == 23) {
           }
 
      }
@@ -84,7 +84,7 @@ public class GuiCreationParts extends GuiCreationScreenInterface implements ITex
      public void scrollClicked(int i, int j, int k, GuiCustomScroll scroll) {
           if (scroll.selected >= 0) {
                selected = scroll.selected;
-               this.func_73866_w_();
+               this.initGui();
           }
 
      }
@@ -338,7 +338,7 @@ public class GuiCreationParts extends GuiCreationScreenInterface implements ITex
                          this.data.setType(i - 1);
                     }
 
-                    GuiCreationParts.this.func_73866_w_();
+                    GuiCreationParts.this.initGui();
                }
 
                if (btn.id == 22) {
@@ -347,7 +347,7 @@ public class GuiCreationParts extends GuiCreationScreenInterface implements ITex
 
                if (btn.id == 21) {
                     this.data.playerTexture = ((GuiNpcButtonYesNo)btn).getBoolean();
-                    GuiCreationParts.this.func_73866_w_();
+                    GuiCreationParts.this.initGui();
                }
 
                if (btn.id == 23) {

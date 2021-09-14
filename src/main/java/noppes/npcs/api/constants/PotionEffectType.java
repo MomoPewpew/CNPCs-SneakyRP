@@ -17,19 +17,19 @@ public final class PotionEffectType {
      public static Potion getMCType(int effect) {
           switch(effect) {
           case 2:
-               return MobEffects.field_76436_u;
+               return MobEffects.POISON;
           case 3:
-               return MobEffects.field_76438_s;
+               return MobEffects.HUNGER;
           case 4:
-               return MobEffects.field_76437_t;
+               return MobEffects.WEAKNESS;
           case 5:
-               return MobEffects.field_76421_d;
+               return MobEffects.SLOWNESS;
           case 6:
-               return MobEffects.field_76431_k;
+               return MobEffects.NAUSEA;
           case 7:
-               return MobEffects.field_76440_q;
+               return MobEffects.BLINDNESS;
           case 8:
-               return MobEffects.field_82731_v;
+               return MobEffects.WITHER;
           default:
                return null;
           }

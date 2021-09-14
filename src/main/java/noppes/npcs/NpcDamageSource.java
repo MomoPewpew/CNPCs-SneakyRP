@@ -8,7 +8,7 @@ public class NpcDamageSource extends EntityDamageSource {
           super(par1Str, par2Entity);
      }
 
-     public boolean func_76350_n() {
+     public boolean isDifficultyScaled() {
           return false;
      }
 }

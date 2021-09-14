@@ -42,7 +42,7 @@ public class BlockScriptedWrapper extends BlockWrapper implements IBlockScripted
           } else {
                ResourceLocation loc = new ResourceLocation(name);
                Block block = (Block)Block.REGISTRY.getObject(loc);
-               this.tile.setItemModel(new ItemStack((Item)Item.field_150901_e.getObject(loc)), block);
+               this.tile.setItemModel(new ItemStack((Item)Item.REGISTRY.getObject(loc)), block);
           }
 
      }

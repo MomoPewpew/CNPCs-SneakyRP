@@ -45,13 +45,13 @@ public class ProjectileWrapper extends ThrowableWrapper implements IProjectile {
      }
 
      public void setHeading(IEntity entity) {
-          this.setHeading(entity.getX(), entity.getMCEntity().getEntityBoundingBox().field_72338_b + (double)(entity.getHeight() / 2.0F), entity.getZ());
+          this.setHeading(entity.getX(), entity.getMCEntity().getEntityBoundingBox().minY + (double)(entity.getHeight() / 2.0F), entity.getZ());
      }
 
      public void setHeading(double x, double y, double z) {
-          x -= ((EntityProjectile)this.entity).field_70165_t;
-          y -= ((EntityProjectile)this.entity).field_70163_u;
-          z -= ((EntityProjectile)this.entity).field_70161_v;
+          x -= ((EntityProjectile)this.entity).posX;
+          y -= ((EntityProjectile)this.entity).posY;
+          z -= ((EntityProjectile)this.entity).posZ;
           float varF = ((EntityProjectile)this.entity).hasGravity() ? MathHelper.sqrt(x * x + z * z) : 0.0F;
           float angle = ((EntityProjectile)this.entity).getAngleForXYZ(x, y, z, (double)varF, false);
           float acc = 20.0F - (float)MathHelper.floor((float)((EntityProjectile)this.entity).accuracy / 5.0F);
@@ -59,8 +59,8 @@ public class ProjectileWrapper extends ThrowableWrapper implements IProjectile {
      }
 
      public void setHeading(float yaw, float pitch) {
-          ((EntityProjectile)this.entity).field_70126_B = ((EntityProjectile)this.entity).field_70177_z = yaw;
-          ((EntityProjectile)this.entity).field_70127_C = ((EntityProjectile)this.entity).field_70125_A = pitch;
+          ((EntityProjectile)this.entity).prevRotationYaw = ((EntityProjectile)this.entity).rotationYaw = yaw;
+          ((EntityProjectile)this.entity).prevRotationPitch = ((EntityProjectile)this.entity).rotationPitch = pitch;
           double varX = (double)(-MathHelper.sin(yaw / 180.0F * 3.1415927F) * MathHelper.cos(pitch / 180.0F * 3.1415927F));
           double varZ = (double)(MathHelper.cos(yaw / 180.0F * 3.1415927F) * MathHelper.cos(pitch / 180.0F * 3.1415927F));
           double varY = (double)(-MathHelper.sin(pitch / 180.0F * 3.1415927F));

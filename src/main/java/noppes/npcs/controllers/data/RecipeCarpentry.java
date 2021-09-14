@@ -52,10 +52,10 @@ public class RecipeCarpentry extends ShapedRecipes implements IRecipe {
      public NBTTagCompound writeNBT() {
           NBTTagCompound compound = new NBTTagCompound();
           compound.setInteger("ID", this.id);
-          compound.setInteger("Width", this.field_77576_b);
-          compound.setInteger("Height", this.field_77577_c);
-          if (this.getResult() != null) {
-               compound.setTag("Item", this.getResult().writeToNBT(new NBTTagCompound()));
+          compound.setInteger("Width", this.recipeWidth);
+          compound.setInteger("Height", this.recipeHeight);
+          if (this.getRecipeOutput() != null) {
+               compound.setTag("Item", this.getRecipeOutput().writeToNBT(new NBTTagCompound()));
           }
 
           compound.setTag("Materials", NBTTags.nbtIngredientList(this.recipeItems));
@@ -115,7 +115,7 @@ public class RecipeCarpentry extends ShapedRecipes implements IRecipe {
                if (var14.containsKey(var18)) {
                     ingredients.add(var9, Ingredient.fromStacks(new ItemStack[]{((ItemStack)var14.get(var18)).copy()}));
                } else {
-                    ingredients.add(var9, Ingredient.field_193370_a);
+                    ingredients.add(var9, Ingredient.EMPTY);
                }
           }
 
@@ -128,9 +128,9 @@ public class RecipeCarpentry extends ShapedRecipes implements IRecipe {
           return newrecipe;
      }
 
-     public boolean func_77569_a(InventoryCrafting inventoryCrafting, World world) {
-          for(int i = 0; i <= 4 - this.field_77576_b; ++i) {
-               for(int j = 0; j <= 4 - this.field_77577_c; ++j) {
+     public boolean matches(InventoryCrafting inventoryCrafting, World world) {
+          for(int i = 0; i <= 4 - this.recipeWidth; ++i) {
+               for(int j = 0; j <= 4 - this.recipeHeight; ++j) {
                     if (this.checkMatch(inventoryCrafting, i, j, true)) {
                          return true;
                     }
@@ -144,8 +144,8 @@ public class RecipeCarpentry extends ShapedRecipes implements IRecipe {
           return false;
      }
 
-     public ItemStack func_77572_b(InventoryCrafting var1) {
-          return this.getResult().isEmpty() ? ItemStack.EMPTY : this.getResult().copy();
+     public ItemStack getCraftingResult(InventoryCrafting var1) {
+          return this.getRecipeOutput().isEmpty() ? ItemStack.EMPTY : this.getRecipeOutput().copy();
      }
 
      private boolean checkMatch(InventoryCrafting inventoryCrafting, int par2, int par3, boolean par4) {
@@ -153,12 +153,12 @@ public class RecipeCarpentry extends ShapedRecipes implements IRecipe {
                for(int j = 0; j < 4; ++j) {
                     int var7 = i - par2;
                     int var8 = j - par3;
-                    Ingredient ingredient = Ingredient.field_193370_a;
-                    if (var7 >= 0 && var8 >= 0 && var7 < this.field_77576_b && var8 < this.field_77577_c) {
+                    Ingredient ingredient = Ingredient.EMPTY;
+                    if (var7 >= 0 && var8 >= 0 && var7 < this.recipeWidth && var8 < this.recipeHeight) {
                          if (par4) {
-                              ingredient = (Ingredient)this.recipeItems.get(this.field_77576_b - var7 - 1 + var8 * this.field_77576_b);
+                              ingredient = (Ingredient)this.recipeItems.get(this.recipeWidth - var7 - 1 + var8 * this.recipeWidth);
                          } else {
-                              ingredient = (Ingredient)this.recipeItems.get(var7 + var8 * this.field_77576_b);
+                              ingredient = (Ingredient)this.recipeItems.get(var7 + var8 * this.recipeWidth);
                          }
                     }
 
@@ -177,7 +177,7 @@ public class RecipeCarpentry extends ShapedRecipes implements IRecipe {
           return true;
      }
 
-     public NonNullList func_179532_b(InventoryCrafting inventoryCrafting) {
+     public NonNullList getRemainingItems(InventoryCrafting inventoryCrafting) {
           NonNullList list = NonNullList.withSize(inventoryCrafting.getSizeInventory(), ItemStack.EMPTY);
 
           for(int i = 0; i < list.size(); ++i) {
@@ -207,7 +207,7 @@ public class RecipeCarpentry extends ShapedRecipes implements IRecipe {
      }
 
      public boolean isValid() {
-          if (this.recipeItems.size() != 0 && !this.getResult().isEmpty()) {
+          if (this.recipeItems.size() != 0 && !this.getRecipeOutput().isEmpty()) {
                Iterator var1 = this.recipeItems.iterator();
 
                Ingredient ingredient;
@@ -230,7 +230,7 @@ public class RecipeCarpentry extends ShapedRecipes implements IRecipe {
      }
 
      public ItemStack getResult() {
-          return this.getResult();
+          return this.getRecipeOutput();
      }
 
      public boolean isGlobal() {
@@ -269,12 +269,12 @@ public class RecipeCarpentry extends ShapedRecipes implements IRecipe {
           RecipeController.instance.delete(this.id);
      }
 
-     public int func_192403_f() {
-          return this.field_77576_b;
+     public int getWidth() {
+          return this.recipeWidth;
      }
 
-     public int func_192404_g() {
-          return this.field_77577_c;
+     public int getHeight() {
+          return this.recipeHeight;
      }
 
      public ItemStack[] getRecipe() {

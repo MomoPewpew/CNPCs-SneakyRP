@@ -32,11 +32,11 @@ public class GuiNPCStringSlot extends GuiSlot {
           this.selected = "";
      }
 
-     protected int func_148127_b() {
+     protected int getSize() {
           return this.list.size();
      }
 
-     protected void func_148144_a(int i, boolean flag, int j, int k) {
+     protected void elementClicked(int i, boolean flag, int j, int k) {
           if (this.selected != null && this.selected.equals(this.list.get(i)) && flag) {
                this.parent.doubleClicked();
           }
@@ -51,7 +51,7 @@ public class GuiNPCStringSlot extends GuiSlot {
           this.parent.elementClicked();
      }
 
-     protected boolean func_148131_a(int i) {
+     protected boolean isSelected(int i) {
           if (!this.multiSelect) {
                return this.selected == null ? false : this.selected.equals(this.list.get(i));
           } else {
@@ -59,17 +59,17 @@ public class GuiNPCStringSlot extends GuiSlot {
           }
      }
 
-     protected int func_148138_e() {
+     protected int getContentHeight() {
           return this.list.size() * this.size;
      }
 
-     protected void func_148123_a() {
-          this.parent.func_146276_q_();
+     protected void drawBackground() {
+          this.parent.drawDefaultBackground();
      }
 
-     protected void func_192637_a(int i, int j, int k, int l, int var6, int var7, float partialTick) {
+     protected void drawSlot(int i, int j, int k, int l, int var6, int var7, float partialTick) {
           String s = (String)this.list.get(i);
-          this.parent.func_73731_b(this.parent.getFontRenderer(), s, j + 50, k + 3, 16777215);
+          this.parent.drawString(this.parent.getFontRenderer(), s, j + 50, k + 3, 16777215);
      }
 
      public void clear() {

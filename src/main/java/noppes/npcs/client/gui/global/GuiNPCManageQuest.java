@@ -40,8 +40,8 @@ public class GuiNPCManageQuest extends GuiNPCInterface2 implements ISubGuiListen
           Instance = this;
      }
 
-     public void func_73866_w_() {
-          super.func_73866_w_();
+     public void initGui() {
+          super.initGui();
           this.addLabel(new GuiNpcLabel(0, "gui.categories", this.guiLeft + 8, this.guiTop + 4));
           this.addLabel(new GuiNpcLabel(1, "quest.quests", this.guiLeft + 175, this.guiTop + 4));
           this.addLabel(new GuiNpcLabel(3, "quest.quests", this.guiLeft + 356, this.guiTop + 8));
@@ -155,7 +155,7 @@ public class GuiNPCManageQuest extends GuiNPCInterface2 implements ISubGuiListen
                }
 
                if (subgui instanceof GuiQuestEdit) {
-                    this.func_73866_w_();
+                    this.initGui();
                }
 
           }
@@ -172,7 +172,7 @@ public class GuiNPCManageQuest extends GuiNPCInterface2 implements ISubGuiListen
                this.selectedQuest = (Quest)this.questData.get(this.scrollQuests.getSelected());
           }
 
-          this.func_73866_w_();
+          this.initGui();
      }
 
      public void scrollDoubleClicked(String selection, GuiCustomScroll scroll) {
@@ -190,7 +190,7 @@ public class GuiNPCManageQuest extends GuiNPCInterface2 implements ISubGuiListen
           GuiNpcTextField.unfocus();
      }
 
-     public void func_73878_a(boolean result, int id) {
+     public void confirmClicked(boolean result, int id) {
           NoppesUtil.openGUI(this.player, this);
           if (result) {
                if (id == 2) {

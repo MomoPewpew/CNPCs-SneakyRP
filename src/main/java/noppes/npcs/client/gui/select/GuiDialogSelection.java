@@ -36,8 +36,8 @@ public class GuiDialogSelection extends SubGuiInterface implements ICustomScroll
 
      }
 
-     public void func_73866_w_() {
-          super.func_73866_w_();
+     public void initGui() {
+          super.initGui();
           if (this.parent instanceof GuiSelectionListener) {
                this.listener = (GuiSelectionListener)this.parent;
           }
@@ -104,7 +104,7 @@ public class GuiDialogSelection extends SubGuiInterface implements ICustomScroll
                this.selectedDialog = (Dialog)this.dialogData.get(this.scrollDialogs.getSelected());
           }
 
-          this.func_73866_w_();
+          this.initGui();
      }
 
      public void scrollDoubleClicked(String selection, GuiCustomScroll scroll) {
@@ -117,7 +117,7 @@ public class GuiDialogSelection extends SubGuiInterface implements ICustomScroll
           }
      }
 
-     protected void func_146284_a(GuiButton guibutton) {
+     protected void actionPerformed(GuiButton guibutton) {
           int id = guibutton.id;
           if (id == 2) {
                if (this.selectedDialog != null) {

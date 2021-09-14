@@ -29,7 +29,7 @@ public class EntityLivingWrapper extends EntityLivingBaseWrapper implements IEnt
                return null;
           } else {
                PathPoint point = ((EntityLiving)this.entity).getNavigator().getPath().getFinalPathPoint();
-               return point == null ? null : new BlockPosWrapper(new BlockPos(point.field_75839_a, point.field_75837_b, point.field_75838_c));
+               return point == null ? null : new BlockPosWrapper(new BlockPos(point.x, point.y, point.z));
           }
      }
 

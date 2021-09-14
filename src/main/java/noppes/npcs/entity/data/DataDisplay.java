@@ -70,7 +70,7 @@ public class DataDisplay implements INPCDisplay {
           nbttagcompound.setByte("UsingSkinUrl", this.skinType);
           if (this.playerProfile != null) {
                NBTTagCompound nbttagcompound1 = new NBTTagCompound();
-               NBTUtil.func_180708_a(nbttagcompound1, this.playerProfile);
+               NBTUtil.writeGameProfile(nbttagcompound1, this.playerProfile);
                nbttagcompound.setTag("SkinUsername", nbttagcompound1);
           }
 
@@ -102,8 +102,8 @@ public class DataDisplay implements INPCDisplay {
           this.playerProfile = null;
           if (this.skinType == 1) {
                if (nbttagcompound.hasKey("SkinUsername", 10)) {
-                    this.playerProfile = NBTUtil.func_152459_a(nbttagcompound.getCompoundTag("SkinUsername"));
-               } else if (nbttagcompound.hasKey("SkinUsername", 8) && !StringUtils.func_151246_b(nbttagcompound.getString("SkinUsername"))) {
+                    this.playerProfile = NBTUtil.readGameProfileFromNBT(nbttagcompound.getCompoundTag("SkinUsername"));
+               } else if (nbttagcompound.hasKey("SkinUsername", 8) && !StringUtils.isNullOrEmpty(nbttagcompound.getString("SkinUsername"))) {
                     this.playerProfile = new GameProfile((UUID)null, nbttagcompound.getString("SkinUsername"));
                }
 
@@ -131,12 +131,12 @@ public class DataDisplay implements INPCDisplay {
      }
 
      public void loadProfile() {
-          if (this.playerProfile != null && !StringUtils.func_151246_b(this.playerProfile.getName()) && this.npc.getServer() != null && (!this.playerProfile.isComplete() || !this.playerProfile.getProperties().containsKey("textures"))) {
-               GameProfile gameprofile = this.npc.getServer().func_152358_ax().func_152655_a(this.playerProfile.getName());
+          if (this.playerProfile != null && !StringUtils.isNullOrEmpty(this.playerProfile.getName()) && this.npc.getServer() != null && (!this.playerProfile.isComplete() || !this.playerProfile.getProperties().containsKey("textures"))) {
+               GameProfile gameprofile = this.npc.getServer().getPlayerProfileCache().getGameProfileForUsername(this.playerProfile.getName());
                if (gameprofile != null) {
                     Property property = (Property)Iterables.getFirst(gameprofile.getProperties().get("textures"), (Object)null);
                     if (property == null) {
-                         gameprofile = this.npc.getServer().func_147130_as().fillProfileProperties(gameprofile, true);
+                         gameprofile = this.npc.getServer().getMinecraftSessionService().fillProfileProperties(gameprofile, true);
                     }
 
                     this.playerProfile = gameprofile;
@@ -160,7 +160,7 @@ public class DataDisplay implements INPCDisplay {
      public void setName(String name) {
           if (!this.name.equals(name)) {
                this.name = name;
-               this.npc.bossInfo.func_186739_a(this.npc.getDisplayName());
+               this.npc.bossInfo.setName(this.npc.getDisplayName());
                this.npc.updateClient = true;
           }
      }
@@ -293,7 +293,7 @@ public class DataDisplay implements INPCDisplay {
      public void setBossbar(int type) {
           if (type != this.showBossBar) {
                this.showBossBar = (byte)ValueUtil.CorrectInt(type, 0, 2);
-               this.npc.bossInfo.func_186758_d(this.showBossBar == 1);
+               this.npc.bossInfo.setVisible(this.showBossBar == 1);
                this.npc.updateClient = true;
           }
      }
@@ -305,7 +305,7 @@ public class DataDisplay implements INPCDisplay {
      public void setBossColor(int color) {
           if (color >= 0 && color < Color.values().length) {
                this.bossColor = Color.values()[color];
-               this.npc.bossInfo.func_186745_a(this.bossColor);
+               this.npc.bossInfo.setColor(this.bossColor);
           } else {
                throw new CustomNPCsException("Invalid Boss Color: " + color, new Object[0]);
           }

@@ -29,8 +29,8 @@ public class BlockBuilder extends BlockInterface implements IPermission {
      public static final PropertyInteger ROTATION = PropertyInteger.create("rotation", 0, 3);
 
      public BlockBuilder() {
-          super(Material.field_151576_e);
-          this.setSoundType(SoundType.field_185851_d);
+          super(Material.ROCK);
+          this.setSoundType(SoundType.STONE);
      }
 
      public int getMetaFromState(IBlockState state) {
@@ -63,7 +63,7 @@ public class BlockBuilder extends BlockInterface implements IPermission {
      }
 
      public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase entity, ItemStack stack) {
-          int var6 = MathHelper.floor((double)(entity.field_70177_z / 90.0F) + 0.5D) & 3;
+          int var6 = MathHelper.floor((double)(entity.rotationYaw / 90.0F) + 0.5D) & 3;
           world.setBlockState(pos, state.withProperty(ROTATION, var6), 2);
           if (entity instanceof EntityPlayer && !world.isRemote) {
                NoppesUtilServer.sendOpenGui((EntityPlayer)entity, EnumGuiType.BuilderBlock, (EntityNPCInterface)null, pos.getX(), pos.getY(), pos.getZ());

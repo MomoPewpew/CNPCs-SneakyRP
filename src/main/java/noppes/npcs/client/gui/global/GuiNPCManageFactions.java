@@ -37,8 +37,8 @@ public class GuiNPCManageFactions extends GuiNPCInterface2 implements IScrollDat
           Client.sendData(EnumPacketServer.FactionsGet);
      }
 
-     public void func_73866_w_() {
-          super.func_73866_w_();
+     public void initGui() {
+          super.initGui();
           this.addButton(new GuiNpcButton(0, this.guiLeft + 368, this.guiTop + 8, 45, 20, "gui.add"));
           this.addButton(new GuiNpcButton(1, this.guiLeft + 368, this.guiTop + 32, 45, 20, "gui.remove"));
           if (this.scrollFactions == null) {
@@ -51,7 +51,7 @@ public class GuiNPCManageFactions extends GuiNPCInterface2 implements IScrollDat
           this.addScroll(this.scrollFactions);
           if (this.faction.id != -1) {
                this.addTextField(new GuiNpcTextField(0, this, this.guiLeft + 40, this.guiTop + 4, 136, 20, this.faction.name));
-               this.getTextField(0).func_146203_f(20);
+               this.getTextField(0).setMaxStringLength(20);
                this.addLabel(new GuiNpcLabel(0, "gui.name", this.guiLeft + 8, this.guiTop + 9));
                this.addLabel(new GuiNpcLabel(10, "ID", this.guiLeft + 178, this.guiTop + 4));
                this.addLabel(new GuiNpcLabel(11, this.faction.id + "", this.guiLeft + 178, this.guiTop + 14));
@@ -92,7 +92,7 @@ public class GuiNPCManageFactions extends GuiNPCInterface2 implements IScrollDat
           }
      }
 
-     protected void func_146284_a(GuiButton guibutton) {
+     protected void actionPerformed(GuiButton guibutton) {
           GuiNpcButton button = (GuiNpcButton)guibutton;
           if (button.id == 0) {
                this.save();
@@ -111,7 +111,7 @@ public class GuiNPCManageFactions extends GuiNPCInterface2 implements IScrollDat
                Client.sendData(EnumPacketServer.FactionRemove, this.data.get(this.selected));
                this.scrollFactions.clear();
                this.faction = new Faction();
-               this.func_73866_w_();
+               this.initGui();
           }
 
           if (button.id == 2) {
@@ -136,7 +136,7 @@ public class GuiNPCManageFactions extends GuiNPCInterface2 implements IScrollDat
           this.faction = new Faction();
           this.faction.readNBT(compound);
           this.setSelected(this.faction.name);
-          this.func_73866_w_();
+          this.initGui();
      }
 
      public void setData(Vector list, HashMap data) {
@@ -187,8 +187,8 @@ public class GuiNPCManageFactions extends GuiNPCInterface2 implements IScrollDat
 
      public void unFocused(GuiNpcTextField guiNpcTextField) {
           if (this.faction.id != -1) {
-               if (guiNpcTextField.field_175208_g == 0) {
-                    String name = guiNpcTextField.func_146179_b();
+               if (guiNpcTextField.id == 0) {
+                    String name = guiNpcTextField.getText();
                     if (!name.isEmpty() && !this.data.containsKey(name)) {
                          String old = this.faction.name;
                          this.data.remove(this.faction.name);
@@ -197,18 +197,18 @@ public class GuiNPCManageFactions extends GuiNPCInterface2 implements IScrollDat
                          this.selected = name;
                          this.scrollFactions.replace(old, this.faction.name);
                     }
-               } else if (guiNpcTextField.field_175208_g == 1) {
+               } else if (guiNpcTextField.id == 1) {
                     boolean var5 = false;
 
                     int color;
                     try {
-                         color = Integer.parseInt(guiNpcTextField.func_146179_b(), 16);
+                         color = Integer.parseInt(guiNpcTextField.getText(), 16);
                     } catch (NumberFormatException var4) {
                          color = 0;
                     }
 
                     this.faction.color = color;
-                    guiNpcTextField.func_146193_g(this.faction.color);
+                    guiNpcTextField.setTextColor(this.faction.color);
                }
 
           }
@@ -217,7 +217,7 @@ public class GuiNPCManageFactions extends GuiNPCInterface2 implements IScrollDat
      public void subGuiClosed(SubGuiInterface subgui) {
           if (subgui instanceof SubGuiColorSelector) {
                this.faction.color = ((SubGuiColorSelector)subgui).color;
-               this.func_73866_w_();
+               this.initGui();
           }
 
      }

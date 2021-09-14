@@ -25,8 +25,8 @@ public class GuiNpcAI extends GuiNPCInterface2 implements ITextfieldListener, IG
           Client.sendData(EnumPacketServer.MainmenuAIGet);
      }
 
-     public void func_73866_w_() {
-          super.func_73866_w_();
+     public void initGui() {
+          super.initGui();
           this.addLabel(new GuiNpcLabel(0, "ai.enemyresponse", this.guiLeft + 5, this.guiTop + 17));
           this.addButton(new GuiNpcButton(0, this.guiLeft + 86, this.guiTop + 10, 60, 20, new String[]{"gui.retaliate", "gui.panic", "gui.retreat", "gui.nothing"}, this.npc.ais.onAttack));
           this.addLabel(new GuiNpcLabel(1, "ai.door", this.guiLeft + 5, this.guiTop + 40));
@@ -67,7 +67,7 @@ public class GuiNpcAI extends GuiNPCInterface2 implements ITextfieldListener, IG
                }
 
                this.addLabel(new GuiNpcLabel(21, label, this.guiLeft + 300, this.guiTop + 140));
-               this.addTextField(new GuiNpcTextField(3, this, this.field_146289_q, this.guiLeft + 380, this.guiTop + 135, 30, 20, this.ai.getTacticalRange() + ""));
+               this.addTextField(new GuiNpcTextField(3, this, this.fontRenderer, this.guiLeft + 380, this.guiTop + 135, 30, 20, this.ai.getTacticalRange() + ""));
                this.getTextField(3).numbersOnly = true;
                this.getTextField(3).setMinMaxDefault(1, this.npc.stats.aggroRange, 5);
           }
@@ -80,17 +80,17 @@ public class GuiNpcAI extends GuiNPCInterface2 implements ITextfieldListener, IG
      }
 
      public void unFocused(GuiNpcTextField textfield) {
-          if (textfield.field_175208_g == 3) {
+          if (textfield.id == 3) {
                this.ai.setTacticalRange(textfield.getInteger());
           }
 
      }
 
-     protected void func_146284_a(GuiButton guibutton) {
+     protected void actionPerformed(GuiButton guibutton) {
           GuiNpcButton button = (GuiNpcButton)guibutton;
           if (button.id == 0) {
                this.ai.onAttack = button.getValue();
-               this.func_73866_w_();
+               this.initGui();
           } else if (button.id == 1) {
                this.ai.doorInteract = button.getValue();
           } else if (button.id == 2) {
@@ -110,7 +110,7 @@ public class GuiNpcAI extends GuiNPCInterface2 implements ITextfieldListener, IG
           } else if (button.id == 17) {
                this.ai.tacticalVariant = button.getValue();
                this.ai.directLOS = button.getValue() == 5 ? false : this.ai.directLOS;
-               this.func_73866_w_();
+               this.initGui();
           } else if (button.id == 23) {
                this.ai.attackInvisible = ((GuiNpcButtonYesNo)button).getBoolean();
           }
@@ -123,6 +123,6 @@ public class GuiNpcAI extends GuiNPCInterface2 implements ITextfieldListener, IG
 
      public void setGuiData(NBTTagCompound compound) {
           this.ai.readToNBT(compound);
-          this.func_73866_w_();
+          this.initGui();
      }
 }

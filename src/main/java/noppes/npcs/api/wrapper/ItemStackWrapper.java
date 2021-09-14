@@ -290,7 +290,7 @@ public class ItemStackWrapper implements IItemStack, ICapabilityProvider, ICapab
 
      public boolean isBlock() {
           Block block = Block.getBlockFromItem(this.item.getItem());
-          return block != null && block != Blocks.field_150350_a;
+          return block != null && block != Blocks.AIR;
      }
 
      public boolean hasCustomName() {
@@ -310,7 +310,7 @@ public class ItemStackWrapper implements IItemStack, ICapabilityProvider, ICapab
      }
 
      public String getName() {
-          return Item.field_150901_e.getNameForObject(this.item.getItem()) + "";
+          return Item.REGISTRY.getNameForObject(this.item.getItem()) + "";
      }
 
      public INbt getNbt() {
@@ -324,7 +324,7 @@ public class ItemStackWrapper implements IItemStack, ICapabilityProvider, ICapab
 
      public boolean hasNbt() {
           NBTTagCompound compound = this.item.getTagCompound();
-          return compound != null && !compound.hasNoTags();
+          return compound != null && !compound.isEmpty();
      }
 
      public ItemStack getMCItemStack() {
@@ -372,7 +372,7 @@ public class ItemStackWrapper implements IItemStack, ICapabilityProvider, ICapab
 
           while(iterator.hasNext()) {
                Entry entry = (Entry)iterator.next();
-               if (entry.getKey().equals(SharedMonsterAttributes.field_111264_e.getName())) {
+               if (entry.getKey().equals(SharedMonsterAttributes.ATTACK_DAMAGE.getName())) {
                     AttributeModifier mod = (AttributeModifier)entry.getValue();
                     damage = mod.getAmount();
                }
@@ -425,12 +425,12 @@ public class ItemStackWrapper implements IItemStack, ICapabilityProvider, ICapab
           if (item != null && !item.isEmpty()) {
                if (item.getItem() instanceof ItemScripted) {
                     return new ItemScriptedWrapper(item);
-               } else if (item.getItem() != Items.field_151164_bB && item.getItem() != Items.field_151099_bA && !(item.getItem() instanceof ItemWritableBook) && !(item.getItem() instanceof ItemWrittenBook)) {
+               } else if (item.getItem() != Items.WRITTEN_BOOK && item.getItem() != Items.WRITABLE_BOOK && !(item.getItem() instanceof ItemWritableBook) && !(item.getItem() instanceof ItemWrittenBook)) {
                     if (item.getItem() instanceof ItemArmor) {
                          return new ItemArmorWrapper(item);
                     } else {
                          Block block = Block.getBlockFromItem(item.getItem());
-                         return (ItemStackWrapper)(block != Blocks.field_150350_a ? new ItemBlockWrapper(item) : new ItemStackWrapper(item));
+                         return (ItemStackWrapper)(block != Blocks.AIR ? new ItemBlockWrapper(item) : new ItemStackWrapper(item));
                     }
                } else {
                     return new ItemBookWrapper(item);
@@ -444,7 +444,7 @@ public class ItemStackWrapper implements IItemStack, ICapabilityProvider, ICapab
           NBTTagCompound compound = this.item.getSubCompound("display");
           if (compound != null && compound.getTagId("Lore") == 9) {
                NBTTagList nbttaglist = compound.getTagList("Lore", 8);
-               if (nbttaglist.hasNoTags()) {
+               if (nbttaglist.isEmpty()) {
                     return new String[0];
                } else {
                     List lore = new ArrayList();
@@ -488,7 +488,7 @@ public class ItemStackWrapper implements IItemStack, ICapabilityProvider, ICapab
 
      public NBTTagCompound getMCNbt() {
           NBTTagCompound compound = new NBTTagCompound();
-          if (!this.storedData.hasNoTags()) {
+          if (!this.storedData.isEmpty()) {
                compound.setTag("StoredData", this.storedData);
           }
 

@@ -47,7 +47,7 @@ public class EntityAIRangedAttack extends EntityAIBase {
 
      public void updateTask() {
           this.npc.getLookHelper().setLookPositionWithEntity(this.attackTarget, 30.0F, 30.0F);
-          double var1 = this.npc.getDistanceSq(this.attackTarget.field_70165_t, this.attackTarget.getEntityBoundingBox().field_72338_b, this.attackTarget.field_70161_v);
+          double var1 = this.npc.getDistanceSq(this.attackTarget.posX, this.attackTarget.getEntityBoundingBox().minY, this.attackTarget.posZ);
           float range = (float)(this.npc.stats.ranged.getRange() * this.npc.stats.ranged.getRange());
           if (!this.navOverride && this.npc.ais.directLOS) {
                if (this.npc.getEntitySenses().canSee(this.attackTarget)) {

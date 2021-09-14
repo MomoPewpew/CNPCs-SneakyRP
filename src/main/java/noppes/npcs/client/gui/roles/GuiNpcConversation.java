@@ -25,8 +25,8 @@ public class GuiNpcConversation extends GuiNPCInterface2 implements ITextfieldLi
           this.job = (JobConversation)npc.jobInterface;
      }
 
-     public void func_73866_w_() {
-          super.func_73866_w_();
+     public void initGui() {
+          super.initGui();
           this.addLabel(new GuiNpcLabel(40, "gui.name", this.guiLeft + 40, this.guiTop + 4));
           this.addLabel(new GuiNpcLabel(41, "gui.name", this.guiLeft + 240, this.guiTop + 4));
           this.addLabel(new GuiNpcLabel(42, "conversation.delay", this.guiLeft + 164, this.guiTop + 4));
@@ -36,21 +36,21 @@ public class GuiNpcConversation extends GuiNPCInterface2 implements ITextfieldLi
                JobConversation.ConversationLine line = this.job.getLine(i);
                int offset = i >= 7 ? 200 : 0;
                this.addLabel(new GuiNpcLabel(i, "" + (i + 1), this.guiLeft + 5 + offset - (i > 8 ? 6 : 0), this.guiTop + 18 + i % 7 * 22));
-               this.addTextField(new GuiNpcTextField(i, this, this.field_146289_q, this.guiLeft + 13 + offset, this.guiTop + 13 + i % 7 * 22, 100, 20, line.npc));
+               this.addTextField(new GuiNpcTextField(i, this, this.fontRenderer, this.guiLeft + 13 + offset, this.guiTop + 13 + i % 7 * 22, 100, 20, line.npc));
                this.addButton(new GuiNpcButton(i, this.guiLeft + 115 + offset, this.guiTop + 13 + i % 7 * 22, 46, 20, "conversation.line"));
                if (i > 0) {
-                    this.addTextField(new GuiNpcTextField(i + 14, this, this.field_146289_q, this.guiLeft + 164 + offset, this.guiTop + 13 + i % 7 * 22, 30, 20, line.delay + ""));
+                    this.addTextField(new GuiNpcTextField(i + 14, this, this.fontRenderer, this.guiLeft + 164 + offset, this.guiTop + 13 + i % 7 * 22, 30, 20, line.delay + ""));
                     this.getTextField(i + 14).numbersOnly = true;
                     this.getTextField(i + 14).setMinMaxDefault(5, 1000, 40);
                }
           }
 
           this.addLabel(new GuiNpcLabel(50, "conversation.delay", this.guiLeft + 202, this.guiTop + 175));
-          this.addTextField(new GuiNpcTextField(50, this, this.field_146289_q, this.guiLeft + 260, this.guiTop + 170, 40, 20, this.job.generalDelay + ""));
+          this.addTextField(new GuiNpcTextField(50, this, this.fontRenderer, this.guiLeft + 260, this.guiTop + 170, 40, 20, this.job.generalDelay + ""));
           this.getTextField(50).numbersOnly = true;
           this.getTextField(50).setMinMaxDefault(10, 1000000, 12000);
           this.addLabel(new GuiNpcLabel(54, "gui.range", this.guiLeft + 202, this.guiTop + 196));
-          this.addTextField(new GuiNpcTextField(54, this, this.field_146289_q, this.guiLeft + 260, this.guiTop + 191, 40, 20, this.job.range + ""));
+          this.addTextField(new GuiNpcTextField(54, this, this.fontRenderer, this.guiLeft + 260, this.guiTop + 191, 40, 20, this.job.range + ""));
           this.getTextField(54).numbersOnly = true;
           this.getTextField(54).setMinMaxDefault(4, 60, 20);
           this.addLabel(new GuiNpcLabel(51, "quest.quest", this.guiLeft + 13, this.guiTop + 175));
@@ -66,7 +66,7 @@ public class GuiNpcConversation extends GuiNPCInterface2 implements ITextfieldLi
           this.addButton(new GuiNpcButton(55, this.guiLeft + 310, this.guiTop + 181, 96, 20, new String[]{"gui.always", "gui.playernearby"}, this.job.mode));
      }
 
-     protected void func_146284_a(GuiButton guibutton) {
+     protected void actionPerformed(GuiButton guibutton) {
           GuiNpcButton button = (GuiNpcButton)guibutton;
           if (button.id >= 0 && button.id < 14) {
                this.slot = button.id;
@@ -81,7 +81,7 @@ public class GuiNpcConversation extends GuiNPCInterface2 implements ITextfieldLi
           if (button.id == 52) {
                this.job.quest = -1;
                this.job.questTitle = "";
-               this.func_73866_w_();
+               this.initGui();
           }
 
           if (button.id == 53) {
@@ -97,7 +97,7 @@ public class GuiNpcConversation extends GuiNPCInterface2 implements ITextfieldLi
      public void selected(int ob, String name) {
           this.job.quest = ob;
           this.job.questTitle = name;
-          this.func_73866_w_();
+          this.initGui();
      }
 
      public void closeSubGui(SubGuiInterface gui) {
@@ -117,21 +117,21 @@ public class GuiNpcConversation extends GuiNPCInterface2 implements ITextfieldLi
 
      public void unFocused(GuiNpcTextField textfield) {
           JobConversation.ConversationLine line;
-          if (textfield.field_175208_g >= 0 && textfield.field_175208_g < 14) {
-               line = this.job.getLine(textfield.field_175208_g);
-               line.npc = textfield.func_146179_b();
+          if (textfield.id >= 0 && textfield.id < 14) {
+               line = this.job.getLine(textfield.id);
+               line.npc = textfield.getText();
           }
 
-          if (textfield.field_175208_g >= 14 && textfield.field_175208_g < 28) {
-               line = this.job.getLine(textfield.field_175208_g - 14);
+          if (textfield.id >= 14 && textfield.id < 28) {
+               line = this.job.getLine(textfield.id - 14);
                line.delay = textfield.getInteger();
           }
 
-          if (textfield.field_175208_g == 50) {
+          if (textfield.id == 50) {
                this.job.generalDelay = textfield.getInteger();
           }
 
-          if (textfield.field_175208_g == 54) {
+          if (textfield.id == 54) {
                this.job.range = textfield.getInteger();
           }
 

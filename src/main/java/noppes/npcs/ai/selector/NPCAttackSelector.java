@@ -21,7 +21,7 @@ public class NPCAttackSelector implements Predicate {
           if (entity.isEntityAlive() && entity != this.npc && this.npc.isInRange(entity, (double)this.npc.stats.aggroRange) && entity.getHealth() >= 1.0F) {
                if (this.npc.ais.directLOS && !this.npc.getEntitySenses().canSee(entity)) {
                     return false;
-               } else if (!this.npc.ais.attackInvisible && entity.isPotionActive(MobEffects.field_76441_p) && !this.npc.isInRange(entity, 3.0D)) {
+               } else if (!this.npc.ais.attackInvisible && entity.isPotionActive(MobEffects.INVISIBILITY) && !this.npc.isInRange(entity, 3.0D)) {
                     return false;
                } else {
                     if (!this.npc.isFollower() && this.npc.ais.shouldReturnHome()) {
@@ -53,7 +53,7 @@ public class NPCAttackSelector implements Predicate {
 
                          if (entity instanceof EntityPlayerMP) {
                               EntityPlayerMP player = (EntityPlayerMP)entity;
-                              return this.npc.faction.isAggressiveToPlayer(player) && !player.field_71075_bZ.field_75102_a;
+                              return this.npc.faction.isAggressiveToPlayer(player) && !player.capabilities.disableDamage;
                          } else {
                               if (entity instanceof EntityNPCInterface) {
                                    if (((EntityNPCInterface)entity).isKilled()) {

@@ -63,7 +63,7 @@ public class TransportController {
      public void loadCategories(File file) throws IOException {
           HashMap locations = new HashMap();
           HashMap categories = new HashMap();
-          NBTTagCompound nbttagcompound1 = CompressedStreamTools.func_74796_a(new FileInputStream(file));
+          NBTTagCompound nbttagcompound1 = CompressedStreamTools.readCompressed(new FileInputStream(file));
           this.lastUsedID = nbttagcompound1.getInteger("lastID");
           NBTTagList list = nbttagcompound1.getTagList("NPCTransportCategories", 10);
           if (list != null) {
@@ -109,7 +109,7 @@ public class TransportController {
                File file = new File(saveDir, "transport.dat_new");
                File file1 = new File(saveDir, "transport.dat_old");
                File file2 = new File(saveDir, "transport.dat");
-               CompressedStreamTools.func_74799_a(this.getNBT(), new FileOutputStream(file));
+               CompressedStreamTools.writeCompressed(this.getNBT(), new FileOutputStream(file));
                if (file1.exists()) {
                     file1.delete();
                }

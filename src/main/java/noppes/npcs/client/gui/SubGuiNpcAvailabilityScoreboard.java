@@ -23,8 +23,8 @@ public class SubGuiNpcAvailabilityScoreboard extends SubGuiInterface implements 
           this.closeOnEsc = true;
      }
 
-     public void func_73866_w_() {
-          super.func_73866_w_();
+     public void initGui() {
+          super.initGui();
           this.addLabel(new GuiNpcLabel(1, "availability.available", this.guiLeft, this.guiTop + 4));
           this.getLabel(1).center(this.xSize);
           int y = this.guiTop + 12;
@@ -40,7 +40,7 @@ public class SubGuiNpcAvailabilityScoreboard extends SubGuiInterface implements 
           this.addButton(new GuiNpcButton(66, this.guiLeft + 82, this.guiTop + 192, 98, 20, "gui.done"));
      }
 
-     protected void func_146284_a(GuiButton guibutton) {
+     protected void actionPerformed(GuiButton guibutton) {
           GuiNpcButton button = (GuiNpcButton)guibutton;
           if (guibutton.id == 0) {
                this.availabitily.scoreboardType = EnumAvailabilityScoreboard.values()[button.getValue()];
@@ -57,20 +57,20 @@ public class SubGuiNpcAvailabilityScoreboard extends SubGuiInterface implements 
      }
 
      public void unFocused(GuiNpcTextField textfield) {
-          if (textfield.field_175208_g == 10) {
-               this.availabitily.scoreboardObjective = textfield.field_146216_j;
+          if (textfield.id == 10) {
+               this.availabitily.scoreboardObjective = textfield.text;
           }
 
-          if (textfield.field_175208_g == 11) {
-               this.availabitily.scoreboard2Objective = textfield.field_146216_j;
+          if (textfield.id == 11) {
+               this.availabitily.scoreboard2Objective = textfield.text;
           }
 
-          if (textfield.field_175208_g == 20) {
-               this.availabitily.scoreboardValue = NoppesStringUtils.parseInt(textfield.field_146216_j, 0);
+          if (textfield.id == 20) {
+               this.availabitily.scoreboardValue = NoppesStringUtils.parseInt(textfield.text, 0);
           }
 
-          if (textfield.field_175208_g == 21) {
-               this.availabitily.scoreboard2Value = NoppesStringUtils.parseInt(textfield.field_146216_j, 0);
+          if (textfield.id == 21) {
+               this.availabitily.scoreboard2Value = NoppesStringUtils.parseInt(textfield.text, 0);
           }
 
      }

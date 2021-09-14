@@ -22,12 +22,12 @@ public class RolePostman extends RoleInterface {
      }
 
      public boolean aiShouldExecute() {
-          if (this.npc.field_70173_aa % 20 != 0) {
+          if (this.npc.ticksExisted % 20 != 0) {
                return false;
           } else {
-               this.toCheck = this.npc.world.getEntitiesWithinAABB(EntityPlayer.class, this.npc.getEntityBoundingBox().expand(10.0D, 10.0D, 10.0D));
+               this.toCheck = this.npc.world.getEntitiesWithinAABB(EntityPlayer.class, this.npc.getEntityBoundingBox().grow(10.0D, 10.0D, 10.0D));
                this.toCheck.removeAll(this.recentlyChecked);
-               List listMax = this.npc.world.getEntitiesWithinAABB(EntityPlayer.class, this.npc.getEntityBoundingBox().expand(20.0D, 20.0D, 20.0D));
+               List listMax = this.npc.world.getEntitiesWithinAABB(EntityPlayer.class, this.npc.getEntityBoundingBox().grow(20.0D, 20.0D, 20.0D));
                this.recentlyChecked.retainAll(listMax);
                this.recentlyChecked.addAll(this.toCheck);
                Iterator var2 = this.toCheck.iterator();

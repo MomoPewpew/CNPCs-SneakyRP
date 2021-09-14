@@ -41,18 +41,18 @@ public class NPCSpawning {
 
                int k1;
                int l1;
-               for(int i = 0; i < world.field_73010_i.size(); ++i) {
-                    EntityPlayer entityplayer = (EntityPlayer)world.field_73010_i.get(i);
+               for(int i = 0; i < world.playerEntities.size(); ++i) {
+                    EntityPlayer entityplayer = (EntityPlayer)world.playerEntities.get(i);
                     if (!entityplayer.isSpectator()) {
-                         int j = MathHelper.floor(entityplayer.field_70165_t / 16.0D);
-                         int k = MathHelper.floor(entityplayer.field_70161_v / 16.0D);
+                         int j = MathHelper.floor(entityplayer.posX / 16.0D);
+                         int k = MathHelper.floor(entityplayer.posZ / 16.0D);
                          byte size = 7;
 
                          for(k1 = -size; k1 <= size; ++k1) {
                               for(l1 = -size; l1 <= size; ++l1) {
                                    ChunkPos chunkcoordintpair = new ChunkPos(k1 + j, l1 + k);
                                    if (!eligibleChunksForSpawning.contains(chunkcoordintpair) && world.getWorldBorder().contains(chunkcoordintpair)) {
-                                        PlayerChunkMapEntry playerinstance = world.getPlayerChunkMap().getEntry(chunkcoordintpair.field_77276_a, chunkcoordintpair.field_77275_b);
+                                        PlayerChunkMapEntry playerinstance = world.getPlayerChunkMap().getEntry(chunkcoordintpair.x, chunkcoordintpair.z);
                                         if (playerinstance != null && playerinstance.isSentToPlayers()) {
                                              eligibleChunksForSpawning.add(chunkcoordintpair);
                                         }
@@ -69,7 +69,7 @@ public class NPCSpawning {
 
                     while(iterator.hasNext()) {
                          ChunkPos chunkcoordintpair1 = (ChunkPos)iterator.next();
-                         BlockPos chunkposition = getChunk(world, chunkcoordintpair1.field_77276_a, chunkcoordintpair1.field_77275_b);
+                         BlockPos chunkposition = getChunk(world, chunkcoordintpair1.x, chunkcoordintpair1.z);
                          int j1 = chunkposition.getX();
                          k1 = chunkposition.getY();
                          l1 = chunkposition.getZ();
@@ -81,8 +81,8 @@ public class NPCSpawning {
                               int z = l1 + (world.rand.nextInt(b1) - world.rand.nextInt(b1));
                               BlockPos pos = new BlockPos(x, y, z);
                               IBlockState state = world.getBlockState(pos);
-                              String name = world.getBiomeForCoordsBody(pos).field_76791_y;
-                              SpawnData data = SpawnController.instance.getRandomSpawnData(name, state.getMaterial() == Material.field_151579_a);
+                              String name = world.getBiomeForCoordsBody(pos).biomeName;
+                              SpawnData data = SpawnController.instance.getRandomSpawnData(name, state.getMaterial() == Material.AIR);
                               if (data != null && canCreatureTypeSpawnAtLocation(data, world, pos) && world.getClosestPlayer((double)x, (double)y, (double)z, 24.0D, false) == null) {
                                    spawnData(data, world, pos);
                               }
@@ -95,7 +95,7 @@ public class NPCSpawning {
 
      public static int countNPCs(World world) {
           int count = 0;
-          List list = world.field_72996_f;
+          List list = world.loadedEntityList;
           Iterator var3 = list.iterator();
 
           while(var3.hasNext()) {
@@ -109,7 +109,7 @@ public class NPCSpawning {
      }
 
      protected static BlockPos getChunk(World world, int x, int z) {
-          Chunk chunk = world.getChunkFromChunkCoords(x, z);
+          Chunk chunk = world.getChunk(x, z);
           int k = x * 16 + world.rand.nextInt(16);
           int l = z * 16 + world.rand.nextInt(16);
           int i1 = MathHelper.roundUp(chunk.getHeight(new BlockPos(k, 0, l)) + 1, 16);
@@ -127,7 +127,7 @@ public class NPCSpawning {
                          return;
                     }
 
-                    data = SpawnController.instance.getRandomSpawnData(biome.field_76791_y, true);
+                    data = SpawnController.instance.getRandomSpawnData(biome.biomeName, true);
                } while(data == null);
 
                int size = 16;
@@ -202,7 +202,7 @@ public class NPCSpawning {
                     if (!state1.isSideSolid(world, blockpos1, EnumFacing.UP)) {
                          return false;
                     } else {
-                         boolean flag = block1 != Blocks.field_150357_h && block1 != Blocks.field_180401_cv;
+                         boolean flag = block1 != Blocks.BEDROCK && block1 != Blocks.BARRIER;
                          BlockPos down = blockpos1.down();
                          flag |= world.getBlockState(down).getBlock().canCreatureSpawn(world.getBlockState(down), world, down, SpawnPlacementType.ON_GROUND);
                          return flag && !state.isNormalCube() && !state.getMaterial().isLiquid() && !world.getBlockState(pos.up()).isNormalCube();

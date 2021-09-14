@@ -18,13 +18,13 @@ public class GuiJobFarmer extends GuiNPCInterface2 {
           this.job = (JobFarmer)npc.jobInterface;
      }
 
-     public void func_73866_w_() {
-          super.func_73866_w_();
+     public void initGui() {
+          super.initGui();
           this.addLabel(new GuiNpcLabel(0, "farmer.itempicked", this.guiLeft + 10, this.guiTop + 20));
           this.addButton(new GuiNpcButton(0, this.guiLeft + 100, this.guiTop + 15, 160, 20, new String[]{"farmer.donothing", "farmer.chest", "farmer.drop"}, this.job.chestMode));
      }
 
-     protected void func_146284_a(GuiButton guibutton) {
+     protected void actionPerformed(GuiButton guibutton) {
           if (guibutton.id == 0) {
                this.job.chestMode = ((GuiNpcButton)guibutton).getValue();
           }

@@ -20,7 +20,7 @@ public class BlockScriptedDoorWrapper extends BlockWrapper implements IBlockScri
 
      public boolean getOpen() {
           IBlockState state = this.world.getMCWorld().getBlockState(this.pos);
-          return ((Boolean)state.getValue(BlockDoor.field_176519_b)).equals(true);
+          return ((Boolean)state.getValue(BlockDoor.OPEN)).equals(true);
      }
 
      public void setOpen(boolean open) {

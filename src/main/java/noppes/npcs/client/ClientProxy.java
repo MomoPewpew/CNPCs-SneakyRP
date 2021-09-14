@@ -158,7 +158,7 @@ public class ClientProxy extends CommonProxy {
      public void load() {
           Font = new ClientProxy.FontContainer(CustomNpcs.FontType, CustomNpcs.FontSize);
           this.createFolders();
-          ((IReloadableResourceManager)Minecraft.getMinecraft().func_110442_L()).func_110542_a(new CustomNpcResourceListener());
+          ((IReloadableResourceManager)Minecraft.getMinecraft().getResourceManager()).registerReloadListener(new CustomNpcResourceListener());
           CustomNpcs.Channel.register(new PacketHandlerClient());
           CustomNpcs.ChannelPlayer.register(new PacketHandlerPlayer());
           new MusicController();
@@ -177,7 +177,7 @@ public class ClientProxy extends CommonProxy {
           }
 
           ClientRegistry.registerKeyBinding(QuestLog);
-          mc.field_71474_y.func_74300_a();
+          mc.gameSettings.loadOptions();
           new PresetController(CustomNpcs.Dir);
           if (CustomNpcs.EnableUpdateChecker) {
                VersionChecker checker = new VersionChecker();
@@ -221,10 +221,10 @@ public class ClientProxy extends CommonProxy {
           RenderingRegistry.registerEntityRenderingHandler(EntityNPCGolem.class, new RenderNPCInterface(new ModelNPCGolem(0.0F), 0.0F));
           RenderingRegistry.registerEntityRenderingHandler(EntityNpcAlex.class, new RenderCustomNpc(new ModelPlayerAlt(0.0F, true)));
           RenderingRegistry.registerEntityRenderingHandler(EntityNpcClassicPlayer.class, new RenderCustomNpc(new ModelClassicPlayer(0.0F)));
-          Minecraft.getMinecraft().getItemColors().func_186730_a((stack, tintIndex) -> {
+          Minecraft.getMinecraft().getItemColors().registerItemColorHandler((stack, tintIndex) -> {
                return 9127187;
           }, new Item[]{CustomItems.mount, CustomItems.cloner, CustomItems.moving, CustomItems.scripter, CustomItems.wand, CustomItems.teleporter});
-          Minecraft.getMinecraft().getItemColors().func_186730_a((stack, tintIndex) -> {
+          Minecraft.getMinecraft().getItemColors().registerItemColorHandler((stack, tintIndex) -> {
                IItemStack item = NpcAPI.Instance().getIItemStack(stack);
                return stack.getItem() == CustomItems.scripted_item ? ((IItemScripted)item).getColor() : -1;
           }, new Item[]{CustomItems.scripted_item});
@@ -409,7 +409,7 @@ public class ClientProxy extends CommonProxy {
                          return new GuiNpcBankSetup(npc);
                     }
 
-                    if (gui == EnumGuiType.NpcRemote && Minecraft.getMinecraft().field_71462_r == null) {
+                    if (gui == EnumGuiType.NpcRemote && Minecraft.getMinecraft().currentScreen == null) {
                          return new GuiNpcRemoteEditor();
                     }
 
@@ -517,19 +517,19 @@ public class ClientProxy extends CommonProxy {
           if (string.equals("Block")) {
                BlockPos pos = (BlockPos)ob[0];
                int id = (Integer)ob[1];
-               Block block = Block.func_149729_e(id & 4095);
-               Minecraft.getMinecraft().field_71452_i.func_180533_a(pos, block.getStateFromMeta(id >> 12 & 255));
+               Block block = Block.getBlockById(id & 4095);
+               Minecraft.getMinecraft().effectRenderer.addBlockDestroyEffects(pos, block.getStateFromMeta(id >> 12 & 255));
           } else if (string.equals("ModelData")) {
                ModelData data = (ModelData)ob[0];
                ModelPartData particles = (ModelPartData)ob[1];
                EntityCustomNpc npc = (EntityCustomNpc)player;
                Minecraft minecraft = Minecraft.getMinecraft();
-               double height = npc.func_70033_W() + (double)data.getBodyY();
+               double height = npc.getYOffset() + (double)data.getBodyY();
                Random rand = npc.getRNG();
 
                for(int i = 0; i < 2; ++i) {
-                    EntityEnderFX fx = new EntityEnderFX(npc, (rand.nextDouble() - 0.5D) * (double)player.field_70130_N, rand.nextDouble() * (double)player.height - height - 0.25D, (rand.nextDouble() - 0.5D) * (double)player.field_70130_N, (rand.nextDouble() - 0.5D) * 2.0D, -rand.nextDouble(), (rand.nextDouble() - 0.5D) * 2.0D, particles);
-                    minecraft.field_71452_i.func_78873_a(fx);
+                    EntityEnderFX fx = new EntityEnderFX(npc, (rand.nextDouble() - 0.5D) * (double)player.width, rand.nextDouble() * (double)player.height - height - 0.25D, (rand.nextDouble() - 0.5D) * (double)player.width, (rand.nextDouble() - 0.5D) * 2.0D, -rand.nextDouble(), (rand.nextDouble() - 0.5D) * 2.0D, particles);
+                    minecraft.effectRenderer.addEffect(fx);
                }
           }
 
@@ -549,14 +549,14 @@ public class ClientProxy extends CommonProxy {
                     return;
                }
 
-               TextureManager manager = Minecraft.getMinecraft().func_110434_K();
-               ITextureObject ob = manager.func_110581_b(location);
+               TextureManager manager = Minecraft.getMinecraft().getTextureManager();
+               ITextureObject ob = manager.getTexture(location);
                if (ob == null) {
                     ob = new SimpleTexture(location);
-                    manager.func_110579_a(location, (ITextureObject)ob);
+                    manager.loadTexture(location, (ITextureObject)ob);
                }
 
-               GlStateManager.func_179144_i(((ITextureObject)ob).func_110552_b());
+               GlStateManager.bindTexture(((ITextureObject)ob).getGlTextureId());
           } catch (NullPointerException var3) {
           } catch (ReportedException var4) {
           }
@@ -565,11 +565,11 @@ public class ClientProxy extends CommonProxy {
 
      public void spawnParticle(EnumParticleTypes particle, double x, double y, double z, double motionX, double motionY, double motionZ, float scale) {
           Minecraft mc = Minecraft.getMinecraft();
-          double xx = mc.func_175606_aa().field_70165_t - x;
-          double yy = mc.func_175606_aa().field_70163_u - y;
-          double zz = mc.func_175606_aa().field_70161_v - z;
+          double xx = mc.getRenderViewEntity().posX - x;
+          double yy = mc.getRenderViewEntity().posY - y;
+          double zz = mc.getRenderViewEntity().posZ - z;
           if (xx * xx + yy * yy + zz * zz <= 256.0D) {
-               Particle fx = mc.field_71452_i.func_178927_a(particle.func_179348_c(), x, y, z, motionX, motionY, motionZ, new int[0]);
+               Particle fx = mc.effectRenderer.spawnEffectParticle(particle.getParticleID(), x, y, z, motionX, motionY, motionZ, new int[0]);
                if (fx != null) {
                     if (particle == EnumParticleTypes.FLAME) {
                          ObfuscationReflectionHelper.setPrivateValue(ParticleFlame.class, (ParticleFlame)fx, scale, 0);
@@ -603,7 +603,7 @@ public class ClientProxy extends CommonProxy {
           }
 
           public int height(String text) {
-               return this.useCustomFont ? this.textFont.height(text) : Minecraft.getMinecraft().fontRenderer.field_78288_b;
+               return this.useCustomFont ? this.textFont.height(text) : Minecraft.getMinecraft().fontRenderer.FONT_HEIGHT;
           }
 
           public int width(String text) {

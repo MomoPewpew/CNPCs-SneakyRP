@@ -36,8 +36,8 @@ public class GuiCreationExtra extends GuiCreationScreenInterface implements ICus
           this.active = 2;
      }
 
-     public void func_73866_w_() {
-          super.func_73866_w_();
+     public void initGui() {
+          super.initGui();
           if (this.entity == null) {
                this.openGui(new GuiCreationParts(this.npc));
           } else {
@@ -95,7 +95,7 @@ public class GuiCreationExtra extends GuiCreationScreenInterface implements ICus
                     } else if (name.equals("Color") && base.getId() == 1) {
                          data.put("Color", new GuiCreationExtra.GuiTypeByte("Color", compound.getByte("Color")));
                     } else if (base.getId() == 1) {
-                         byte b = ((NBTTagByte)base).func_150290_f();
+                         byte b = ((NBTTagByte)base).getByte();
                          if (b == 0 || b == 1) {
                               if (this.playerdata.extra.hasKey(name)) {
                                    b = this.playerdata.extra.getByte(name);
@@ -124,7 +124,7 @@ public class GuiCreationExtra extends GuiCreationScreenInterface implements ICus
 
      private void updateTexture() {
           EntityLivingBase entity = this.playerdata.getEntity(this.npc);
-          RenderLivingBase render = (RenderLivingBase)this.field_146297_k.func_175598_ae().func_78713_a(entity);
+          RenderLivingBase render = (RenderLivingBase)this.mc.getRenderManager().getEntityRenderObject(entity);
           this.npc.display.setSkinTexture(NPCRendererHelper.getTexture(render, entity));
      }
 
@@ -151,15 +151,15 @@ public class GuiCreationExtra extends GuiCreationScreenInterface implements ICus
 
      public void scrollClicked(int i, int j, int k, GuiCustomScroll scroll) {
           if (scroll.id == 0) {
-               this.func_73866_w_();
+               this.initGui();
           } else if (this.selected != null) {
                this.selected.scrollClicked(i, j, k, scroll);
           }
 
      }
 
-     protected void func_146284_a(GuiButton btn) {
-          super.func_146284_a(btn);
+     protected void actionPerformed(GuiButton btn) {
+          super.actionPerformed(btn);
           if (this.selected != null) {
                this.selected.actionPerformed(btn);
           }

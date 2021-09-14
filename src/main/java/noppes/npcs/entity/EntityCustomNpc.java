@@ -34,10 +34,10 @@ public class EntityCustomNpc extends EntityNPCFlying {
           compound.setTag("NpcModelData", this.modelData.writeToNBT());
      }
 
-     public boolean func_70039_c(NBTTagCompound compound) {
+     public boolean writeToNBTOptional(NBTTagCompound compound) {
           boolean bo = super.writeToNBTAtomically(compound);
           if (bo) {
-               String s = this.func_70022_Q();
+               String s = this.getEntityString();
                if (s.equals("minecraft:customnpcs.customnpc")) {
                     compound.setString("id", "customnpcs:customnpc");
                }
@@ -46,8 +46,8 @@ public class EntityCustomNpc extends EntityNPCFlying {
           return bo;
      }
 
-     public void func_70071_h_() {
-          super.func_70071_h_();
+     public void onUpdate() {
+          super.onUpdate();
           if (this.isRemote()) {
                ModelPartData particles = this.modelData.getPartData(EnumParts.PARTICLES);
                if (particles != null && !this.isKilled()) {
@@ -57,7 +57,7 @@ public class EntityCustomNpc extends EntityNPCFlying {
                EntityLivingBase entity = this.modelData.getEntity(this);
                if (entity != null) {
                     try {
-                         entity.func_70071_h_();
+                         entity.onUpdate();
                     } catch (Exception var4) {
                     }
 
@@ -81,10 +81,10 @@ public class EntityCustomNpc extends EntityNPCFlying {
                     ((EntityNPCInterface)entity).updateHitbox();
                }
 
-               this.field_70130_N = entity.field_70130_N / 5.0F * (float)this.display.getSize();
+               this.width = entity.width / 5.0F * (float)this.display.getSize();
                this.height = entity.height / 5.0F * (float)this.display.getSize();
-               if (this.field_70130_N < 0.1F) {
-                    this.field_70130_N = 0.1F;
+               if (this.width < 0.1F) {
+                    this.width = 0.1F;
                }
 
                if (this.height < 0.1F) {
@@ -92,17 +92,17 @@ public class EntityCustomNpc extends EntityNPCFlying {
                }
 
                if (!this.display.getHasHitbox() || this.isKilled() && this.stats.hideKilledBody) {
-                    this.field_70130_N = 1.0E-5F;
+                    this.width = 1.0E-5F;
                }
 
-               double var10000 = (double)(this.field_70130_N / 2.0F);
+               double var10000 = (double)(this.width / 2.0F);
                World var10001 = this.world;
                if (var10000 > World.MAX_ENTITY_RADIUS) {
                     World var2 = this.world;
-                    World.MAX_ENTITY_RADIUS = (double)(this.field_70130_N / 2.0F);
+                    World.MAX_ENTITY_RADIUS = (double)(this.width / 2.0F);
                }
 
-               this.setPosition(this.field_70165_t, this.field_70163_u, this.field_70161_v);
+               this.setPosition(this.posX, this.posY, this.posZ);
           } else {
                this.baseHeight = 1.9F - this.modelData.getBodyY() + (this.modelData.getPartConfig(EnumParts.HEAD).scaleY - 1.0F) / 2.0F;
                super.updateHitbox();

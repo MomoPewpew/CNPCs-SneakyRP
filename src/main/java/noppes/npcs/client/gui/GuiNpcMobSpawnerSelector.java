@@ -30,8 +30,8 @@ public class GuiNpcMobSpawnerSelector extends SubGuiInterface implements IGuiDat
           this.setBackground("menubg.png");
      }
 
-     public void func_73866_w_() {
-          super.func_73866_w_();
+     public void initGui() {
+          super.initGui();
           if (this.scroll == null) {
                this.scroll = new GuiCustomScroll(this, 0);
                this.scroll.setSize(165, 188);
@@ -42,7 +42,7 @@ public class GuiNpcMobSpawnerSelector extends SubGuiInterface implements IGuiDat
           this.scroll.guiLeft = this.guiLeft + 4;
           this.scroll.guiTop = this.guiTop + 26;
           this.addScroll(this.scroll);
-          this.addTextField(new GuiNpcTextField(1, this, this.field_146289_q, this.guiLeft + 4, this.guiTop + 4, 165, 20, search));
+          this.addTextField(new GuiNpcTextField(1, this, this.fontRenderer, this.guiLeft + 4, this.guiTop + 4, 165, 20, search));
           this.addButton(new GuiNpcButton(0, this.guiLeft + 171, this.guiTop + 80, 80, 20, "gui.done"));
           this.addButton(new GuiNpcButton(1, this.guiLeft + 171, this.guiTop + 103, 80, 20, "gui.cancel"));
           this.addSideButton(new GuiMenuSideButton(21, this.guiLeft - 69, this.guiTop + 2, 70, 22, "Tab 1"));
@@ -72,10 +72,10 @@ public class GuiNpcMobSpawnerSelector extends SubGuiInterface implements IGuiDat
           }
      }
 
-     public void func_73869_a(char c, int i) {
-          super.func_73869_a(c, i);
-          if (!search.equals(this.getTextField(1).func_146179_b())) {
-               search = this.getTextField(1).func_146179_b().toLowerCase();
+     public void keyTyped(char c, int i) {
+          super.keyTyped(c, i);
+          if (!search.equals(this.getTextField(1).getText())) {
+               search = this.getTextField(1).getText().toLowerCase();
                this.scroll.setList(this.getSearchList());
           }
      }
@@ -116,7 +116,7 @@ public class GuiNpcMobSpawnerSelector extends SubGuiInterface implements IGuiDat
 
           if (id > 20) {
                this.activeTab = id - 20;
-               this.func_73866_w_();
+               this.initGui();
           }
 
      }

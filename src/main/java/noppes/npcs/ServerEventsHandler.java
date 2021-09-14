@@ -102,7 +102,7 @@ public class ServerEventsHandler {
                          event.setCanceled(true);
                          mounted = event.getTarget();
                          if (isRemote) {
-                              CustomNpcs.proxy.openGui(MathHelper.floor(mounted.field_70165_t), MathHelper.floor(mounted.field_70163_u), MathHelper.floor(mounted.field_70161_v), EnumGuiType.MobSpawnerMounter, event.getEntityPlayer());
+                              CustomNpcs.proxy.openGui(MathHelper.floor(mounted.posX), MathHelper.floor(mounted.posY), MathHelper.floor(mounted.posZ), EnumGuiType.MobSpawnerMounter, event.getEntityPlayer());
                          }
                     } else if (item.getItem() == CustomItems.wand && event.getTarget() instanceof EntityVillager) {
                          var10000 = CustomNpcsPermissions.Instance;
@@ -196,7 +196,7 @@ public class ServerEventsHandler {
                          } while(data.quest.type != 2 && data.quest.type != 4);
 
                          if (data.quest.type == 4 && all) {
-                              List list = player.world.getEntitiesWithinAABB(EntityPlayer.class, entity.getEntityBoundingBox().expand(10.0D, 10.0D, 10.0D));
+                              List list = player.world.getEntitiesWithinAABB(EntityPlayer.class, entity.getEntityBoundingBox().grow(10.0D, 10.0D, 10.0D));
                               Iterator var10 = list.iterator();
 
                               while(var10.hasNext()) {
@@ -242,7 +242,7 @@ public class ServerEventsHandler {
           if (event.getSender().getEntityWorld() instanceof WorldServer && event.getCommand() instanceof CommandGive) {
                try {
                     EntityPlayer player = CommandBase.getPlayer(event.getSender().getServer(), event.getSender(), event.getParameters()[0]);
-                    player.getServer().field_175589_i.add(ListenableFutureTask.create(Executors.callable(() -> {
+                    player.getServer().futureTaskQueue.add(ListenableFutureTask.create(Executors.callable(() -> {
                          PlayerQuestData playerdata = PlayerData.get(player).questData;
                          playerdata.checkQuestCompletion(player, 0);
                     })));

@@ -55,7 +55,7 @@ public class GuiTextureSelection extends SubGuiInterface implements ICustomScrol
           this.setBackground("menubg.png");
           this.xSize = 366;
           this.ySize = 226;
-          SimpleReloadableResourceManager simplemanager = (SimpleReloadableResourceManager)Minecraft.getMinecraft().func_110442_L();
+          SimpleReloadableResourceManager simplemanager = (SimpleReloadableResourceManager)Minecraft.getMinecraft().getResourceManager();
           Map map = (Map)ObfuscationReflectionHelper.getPrivateValue(SimpleReloadableResourceManager.class, simplemanager, 2);
           HashSet set = new HashSet();
           Iterator var6 = map.keySet().iterator();
@@ -75,7 +75,7 @@ public class GuiTextureSelection extends SubGuiInterface implements ICustomScrol
 
                     if (pack instanceof AbstractResourcePack) {
                          AbstractResourcePack p = (AbstractResourcePack)pack;
-                         File file = p.field_110597_b;
+                         File file = p.resourcePackFile;
                          if (file != null) {
                               set.add(file.getAbsolutePath());
                          }
@@ -104,13 +104,13 @@ public class GuiTextureSelection extends SubGuiInterface implements ICustomScrol
                }
           }
 
-          ResourcePackRepository repos = Minecraft.getMinecraft().func_110438_M();
-          repos.func_110611_a();
-          List list = repos.func_110613_c();
+          ResourcePackRepository repos = Minecraft.getMinecraft().getResourcePackRepository();
+          repos.updateRepositoryEntriesAll();
+          List list = repos.getRepositoryEntries();
           File f;
-          if (repos.func_148530_e() != null) {
-               AbstractResourcePack p = (AbstractResourcePack)repos.func_148530_e();
-               f = p.field_110597_b;
+          if (repos.getServerResourcePack() != null) {
+               AbstractResourcePack p = (AbstractResourcePack)repos.getServerResourcePack();
+               f = p.resourcePackFile;
                if (f != null) {
                     this.progressFile(f);
                }
@@ -120,7 +120,7 @@ public class GuiTextureSelection extends SubGuiInterface implements ICustomScrol
 
           while(var19.hasNext()) {
                Entry entry = (Entry)var19.next();
-               File file = new File(repos.func_110612_e(), entry.func_110515_d());
+               File file = new File(repos.getDirResourcepacks(), entry.getResourcePackName());
                if (file.exists()) {
                     this.progressFile(file);
                }
@@ -149,13 +149,13 @@ public class GuiTextureSelection extends SubGuiInterface implements ICustomScrol
 
           if (texture != null && !texture.isEmpty()) {
                this.selectedResource = new ResourceLocation(texture);
-               this.selectedDomain = this.selectedResource.getResourceDomain();
+               this.selectedDomain = this.selectedResource.getNamespace();
                if (!this.domains.containsKey(this.selectedDomain)) {
                     this.selectedDomain = null;
                }
 
-               int i = this.selectedResource.getResourcePath().lastIndexOf(47);
-               this.location = this.selectedResource.getResourcePath().substring(0, i + 1);
+               int i = this.selectedResource.getPath().lastIndexOf(47);
+               this.location = this.selectedResource.getPath().substring(0, i + 1);
                if (this.location.startsWith("textures/")) {
                     this.location = this.location.substring(9);
                }
@@ -182,8 +182,8 @@ public class GuiTextureSelection extends SubGuiInterface implements ICustomScrol
           return new File(url);
      }
 
-     public void func_73866_w_() {
-          super.func_73866_w_();
+     public void initGui() {
+          super.initGui();
           if (this.selectedDomain != null) {
                this.title = this.selectedDomain + ":" + this.location;
           } else {
@@ -262,7 +262,7 @@ public class GuiTextureSelection extends SubGuiInterface implements ICustomScrol
           }
 
           if (this.selectedResource != null) {
-               this.scrollQuests.setSelected(this.selectedResource.getResourcePath());
+               this.scrollQuests.setSelected(this.selectedResource.getPath());
           }
 
           this.scrollQuests.guiLeft = this.guiLeft + 125;
@@ -270,19 +270,19 @@ public class GuiTextureSelection extends SubGuiInterface implements ICustomScrol
           this.addScroll(this.scrollQuests);
      }
 
-     protected void func_146284_a(GuiButton guibutton) {
-          super.func_146284_a(guibutton);
+     protected void actionPerformed(GuiButton guibutton) {
+          super.actionPerformed(guibutton);
           if (guibutton.id == 2) {
                this.npc.display.setSkinTexture(this.selectedResource.toString());
           }
 
           this.npc.textureLocation = null;
           this.close();
-          this.parent.func_73866_w_();
+          this.parent.initGui();
      }
 
-     public void func_73863_a(int i, int j, float f) {
-          super.func_73863_a(i, j, f);
+     public void drawScreen(int i, int j, float f) {
+          super.drawScreen(i, j, f);
           this.npc.textureLocation = this.selectedResource;
           this.drawNpc(this.npc, this.guiLeft + 276, this.guiTop + 140, 2.0F, 0);
      }
@@ -294,7 +294,7 @@ public class GuiTextureSelection extends SubGuiInterface implements ICustomScrol
                     this.selectedResource = new ResourceLocation(this.selectedDomain, data.absoluteName);
                }
           } else {
-               this.func_73866_w_();
+               this.initGui();
           }
 
      }
@@ -320,11 +320,11 @@ public class GuiTextureSelection extends SubGuiInterface implements ICustomScrol
 
                this.scrollCategories.selected = -1;
                this.scrollQuests.selected = -1;
-               this.func_73866_w_();
+               this.initGui();
           } else {
                this.npc.display.setSkinTexture(this.selectedResource.toString());
                this.close();
-               this.parent.func_73866_w_();
+               this.parent.initGui();
           }
 
      }

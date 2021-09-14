@@ -8,7 +8,7 @@ import noppes.npcs.entity.EntityNPCInterface;
 public class EntityAIOwnerHurtTarget extends EntityAITarget {
      EntityNPCInterface npc;
      EntityLivingBase theTarget;
-     private int field_142050_e;
+     private int timestamp;
 
      public EntityAIOwnerHurtTarget(EntityNPCInterface npc) {
           super(npc, false);
@@ -24,7 +24,7 @@ public class EntityAIOwnerHurtTarget extends EntityAITarget {
                } else {
                     this.theTarget = entitylivingbase.getLastAttackedEntity();
                     int i = entitylivingbase.getLastAttackedEntityTime();
-                    return i != this.field_142050_e && this.isSuitableTarget(this.theTarget, false);
+                    return i != this.timestamp && this.isSuitableTarget(this.theTarget, false);
                }
           } else {
                return false;
@@ -32,10 +32,10 @@ public class EntityAIOwnerHurtTarget extends EntityAITarget {
      }
 
      public void startExecuting() {
-          this.field_75299_d.setAttackTarget(this.theTarget);
+          this.taskOwner.setAttackTarget(this.theTarget);
           EntityLivingBase entitylivingbase = this.npc.getOwner();
           if (entitylivingbase != null) {
-               this.field_142050_e = entitylivingbase.getLastAttackedEntityTime();
+               this.timestamp = entitylivingbase.getLastAttackedEntityTime();
           }
 
           super.startExecuting();

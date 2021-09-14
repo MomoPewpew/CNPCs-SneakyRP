@@ -42,7 +42,7 @@ public class GuiCreationEntities extends GuiCreationScreenInterface implements I
                Class c = ent.getEntityClass();
 
                try {
-                    if (EntityLiving.class.isAssignableFrom(c) && c.getConstructor(World.class) != null && !Modifier.isAbstract(c.getModifiers()) && Minecraft.getMinecraft().func_175598_ae().func_78715_a(c) instanceof RenderLivingBase && !name.toLowerCase().contains("customnpc")) {
+                    if (EntityLiving.class.isAssignableFrom(c) && c.getConstructor(World.class) != null && !Modifier.isAbstract(c.getModifiers()) && Minecraft.getMinecraft().getRenderManager().getEntityClassRenderObject(c) instanceof RenderLivingBase && !name.toLowerCase().contains("customnpc")) {
                          this.data.put(name, c.asSubclass(EntityLivingBase.class));
                     }
                } catch (SecurityException var7) {
@@ -61,8 +61,8 @@ public class GuiCreationEntities extends GuiCreationScreenInterface implements I
           this.xOffset = 60;
      }
 
-     public void func_73866_w_() {
-          super.func_73866_w_();
+     public void initGui() {
+          super.initGui();
           this.addButton(new GuiNpcButton(10, this.guiLeft, this.guiTop + 46, 120, 20, "Reset To NPC"));
           if (this.scroll == null) {
                this.scroll = new GuiCustomScroll(this, 0);
@@ -93,12 +93,12 @@ public class GuiCreationEntities extends GuiCreationScreenInterface implements I
           this.addScroll(this.scroll);
      }
 
-     protected void func_146284_a(GuiButton btn) {
-          super.func_146284_a(btn);
+     protected void actionPerformed(GuiButton btn) {
+          super.actionPerformed(btn);
           if (btn.id == 10) {
                this.playerdata.setEntityClass((Class)null);
                this.resetToSelected = true;
-               this.func_73866_w_();
+               this.initGui();
           }
 
      }
@@ -107,15 +107,15 @@ public class GuiCreationEntities extends GuiCreationScreenInterface implements I
           this.playerdata.setEntityClass((Class)this.data.get(scroll.getSelected()));
           Entity entity = this.playerdata.getEntity(this.npc);
           if (entity != null) {
-               RenderLivingBase render = (RenderLivingBase)this.field_146297_k.func_175598_ae().func_78715_a(entity.getClass());
-               if (!NPCRendererHelper.getTexture(render, entity).equals(TextureMap.field_174945_f.toString())) {
+               RenderLivingBase render = (RenderLivingBase)this.mc.getRenderManager().getEntityClassRenderObject(entity.getClass());
+               if (!NPCRendererHelper.getTexture(render, entity).equals(TextureMap.LOCATION_MISSING_TEXTURE.toString())) {
                     this.npc.display.setSkinTexture(NPCRendererHelper.getTexture(render, entity));
                }
           } else {
                this.npc.display.setSkinTexture("customnpcs:textures/entity/humanmale/steve.png");
           }
 
-          this.func_73866_w_();
+          this.initGui();
      }
 
      public void scrollDoubleClicked(String selection, GuiCustomScroll scroll) {

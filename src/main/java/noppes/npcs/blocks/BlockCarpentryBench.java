@@ -23,8 +23,8 @@ public class BlockCarpentryBench extends BlockInterface {
      public static final PropertyInteger ROTATION = PropertyInteger.create("rotation", 0, 3);
 
      public BlockCarpentryBench() {
-          super(Material.field_151575_d);
-          this.setSoundType(SoundType.field_185848_a);
+          super(Material.WOOD);
+          this.setSoundType(SoundType.WOOD);
      }
 
      public boolean onBlockActivated(World par1World, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
@@ -56,7 +56,7 @@ public class BlockCarpentryBench extends BlockInterface {
      }
 
      public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase entity, ItemStack stack) {
-          int var6 = MathHelper.floor((double)(entity.field_70177_z / 90.0F) + 0.5D) & 3;
+          int var6 = MathHelper.floor((double)(entity.rotationYaw / 90.0F) + 0.5D) & 3;
           world.setBlockState(pos, state.withProperty(ROTATION, var6), 2);
      }
 

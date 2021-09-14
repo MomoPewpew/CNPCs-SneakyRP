@@ -20,7 +20,7 @@ public abstract class LayerInterface implements LayerRenderer {
 
      public LayerInterface(RenderLiving render) {
           this.render = render;
-          this.model = (ModelBiped)render.func_177087_b();
+          this.model = (ModelBiped)render.getMainModel();
      }
 
      public void setColor(ModelPartData data, EntityLivingBase entity) {
@@ -33,7 +33,7 @@ public abstract class LayerInterface implements LayerRenderer {
                ClientProxy.bindTexture(data.getResource());
           }
 
-          if (this.npc.field_70737_aN <= 0 && this.npc.field_70725_aQ <= 0) {
+          if (this.npc.hurtTime <= 0 && this.npc.deathTime <= 0) {
                int color = data.color;
                if (this.npc.display.getTint() != 16777215) {
                     if (data.color != 16777215) {
@@ -46,7 +46,7 @@ public abstract class LayerInterface implements LayerRenderer {
                float red = (float)(color >> 16 & 255) / 255.0F;
                float green = (float)(color >> 8 & 255) / 255.0F;
                float blue = (float)(color & 255) / 255.0F;
-               GlStateManager.color(red, green, blue, this.npc.func_82150_aj() ? 0.15F : 0.99F);
+               GlStateManager.color(red, green, blue, this.npc.isInvisible() ? 0.15F : 0.99F);
           }
      }
 
@@ -69,22 +69,22 @@ public abstract class LayerInterface implements LayerRenderer {
           }
      }
 
-     public void func_177141_a(EntityLivingBase entity, float par2, float par3, float par8, float par4, float par5, float par6, float par7) {
+     public void doRenderLayer(EntityLivingBase entity, float par2, float par3, float par8, float par4, float par5, float par6, float par7) {
           this.npc = (EntityCustomNpc)entity;
-          if (!this.npc.func_98034_c(Minecraft.getMinecraft().player)) {
+          if (!this.npc.isInvisibleToPlayer(Minecraft.getMinecraft().player)) {
                this.playerdata = this.npc.modelData;
-               this.model = (ModelBiped)this.render.func_177087_b();
+               this.model = (ModelBiped)this.render.getMainModel();
                this.rotate(par2, par3, par4, par5, par6, par7);
-               GlStateManager.func_179094_E();
-               if (entity.func_82150_aj()) {
+               GlStateManager.pushMatrix();
+               if (entity.isInvisible()) {
                     GlStateManager.color(1.0F, 1.0F, 1.0F, 0.15F);
-                    GlStateManager.func_179132_a(false);
-                    GlStateManager.func_179147_l();
-                    GlStateManager.func_179112_b(770, 771);
-                    GlStateManager.func_179092_a(516, 0.003921569F);
+                    GlStateManager.depthMask(false);
+                    GlStateManager.enableBlend();
+                    GlStateManager.blendFunc(770, 771);
+                    GlStateManager.alphaFunc(516, 0.003921569F);
                }
 
-               if (this.npc.field_70737_aN > 0 || this.npc.field_70725_aQ > 0) {
+               if (this.npc.hurtTime > 0 || this.npc.deathTime > 0) {
                     GlStateManager.color(1.0F, 0.0F, 0.0F, 0.3F);
                }
 
@@ -95,23 +95,23 @@ public abstract class LayerInterface implements LayerRenderer {
                GlStateManager.enableRescaleNormal();
                this.render(par2, par3, par4, par5, par6, par7);
                GlStateManager.disableRescaleNormal();
-               if (entity.func_82150_aj()) {
-                    GlStateManager.func_179084_k();
-                    GlStateManager.func_179092_a(516, 0.1F);
-                    GlStateManager.func_179132_a(true);
+               if (entity.isInvisible()) {
+                    GlStateManager.disableBlend();
+                    GlStateManager.alphaFunc(516, 0.1F);
+                    GlStateManager.depthMask(true);
                }
 
-               GlStateManager.func_179121_F();
+               GlStateManager.popMatrix();
           }
      }
 
      public void setRotation(ModelRenderer model, float x, float y, float z) {
-          model.field_78795_f = x;
-          model.field_78796_g = y;
-          model.field_78808_h = z;
+          model.rotateAngleX = x;
+          model.rotateAngleY = y;
+          model.rotateAngleZ = z;
      }
 
-     public boolean func_177142_b() {
+     public boolean shouldCombineTextures() {
           return false;
      }
 

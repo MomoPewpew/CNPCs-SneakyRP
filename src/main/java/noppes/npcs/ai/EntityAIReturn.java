@@ -28,7 +28,7 @@ public class EntityAIReturn extends EntityAIBase {
      public boolean shouldExecute() {
           if (!this.npc.hasOwner() && !this.npc.isRiding() && this.npc.ais.shouldReturnHome() && !this.npc.isKilled() && this.npc.getNavigator().noPath() && !this.npc.isInteracting()) {
                BlockPos pos;
-               if (this.npc.ais.findShelter == 0 && (!this.npc.world.isDaytime() || this.npc.world.isRaining()) && !this.npc.world.field_73011_w.hasSkyLight()) {
+               if (this.npc.ais.findShelter == 0 && (!this.npc.world.isDaytime() || this.npc.world.isRaining()) && !this.npc.world.provider.hasSkyLight()) {
                     pos = new BlockPos((double)this.npc.getStartXPos(), this.npc.getStartYPos(), (double)this.npc.getStartZPos());
                     if (this.npc.world.canSeeSky(pos) || this.npc.world.getLight(pos) <= 8) {
                          return false;
@@ -43,7 +43,7 @@ public class EntityAIReturn extends EntityAIBase {
                if (this.npc.isAttacking()) {
                     if (!this.wasAttacked) {
                          this.wasAttacked = true;
-                         this.preAttackPos = new double[]{this.npc.field_70165_t, this.npc.field_70163_u, this.npc.field_70161_v};
+                         this.preAttackPos = new double[]{this.npc.posX, this.npc.posY, this.npc.posZ};
                     }
 
                     return false;
@@ -52,8 +52,8 @@ public class EntityAIReturn extends EntityAIBase {
                } else if (this.npc.ais.getMovingType() == 2 && this.npc.ais.getDistanceSqToPathPoint() < (double)(CustomNpcs.NpcNavRange * CustomNpcs.NpcNavRange)) {
                     return false;
                } else if (this.npc.ais.getMovingType() == 1) {
-                    double x = this.npc.field_70165_t - (double)this.npc.getStartXPos();
-                    double z = this.npc.field_70165_t - (double)this.npc.getStartZPos();
+                    double x = this.npc.posX - (double)this.npc.getStartXPos();
+                    double z = this.npc.posX - (double)this.npc.getStartZPos();
                     return !this.npc.isInRange((double)this.npc.getStartXPos(), -1.0D, (double)this.npc.getStartZPos(), (double)this.npc.ais.walkingRange);
                } else if (this.npc.ais.getMovingType() == 0) {
                     return !this.npc.isVeryNearAssignedPlace();
@@ -107,8 +107,8 @@ public class EntityAIReturn extends EntityAIBase {
                allowedDistance += this.npc.ais.walkingRange;
           }
 
-          double x = this.npc.field_70165_t - this.endPosX;
-          double z = this.npc.field_70165_t - this.endPosZ;
+          double x = this.npc.posX - this.endPosX;
+          double z = this.npc.posX - this.endPosZ;
           return x * x + z * z > (double)(allowedDistance * allowedDistance);
      }
 

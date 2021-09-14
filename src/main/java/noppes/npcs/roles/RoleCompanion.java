@@ -93,12 +93,12 @@ public class RoleCompanion extends RoleInterface {
                return true;
           } else {
                if (this.owner == null && !this.uuid.isEmpty()) {
-                    this.npc.field_70128_L = true;
+                    this.npc.isDead = true;
                } else if (prev != this.owner && this.owner != null) {
                     this.ownerName = this.owner.getDisplayNameString();
                     PlayerData data = PlayerData.get(this.owner);
                     if (data.companionID != this.companionID) {
-                         this.npc.field_70128_L = true;
+                         this.npc.isDead = true;
                     }
                }
 
@@ -178,17 +178,17 @@ public class RoleCompanion extends RoleInterface {
 
                     for(int j = 0; j < 2; ++j) {
                          Vec3d vec3 = new Vec3d(((double)rand.nextFloat() - 0.5D) * 0.1D, Math.random() * 0.1D + 0.1D, 0.0D);
-                         vec3.func_178785_b(-this.npc.field_70125_A * 3.1415927F / 180.0F);
-                         vec3.func_178789_a(-this.npc.field_70761_aq * 3.1415927F / 180.0F);
-                         Vec3d vec31 = new Vec3d(((double)rand.nextFloat() - 0.5D) * 0.3D, (double)(-rand.nextFloat()) * 0.6D - 0.3D, (double)(this.npc.field_70130_N / 2.0F) + 0.1D);
-                         vec31.func_178785_b(-this.npc.field_70125_A * 3.1415927F / 180.0F);
-                         vec31.func_178789_a(-this.npc.field_70761_aq * 3.1415927F / 180.0F);
-                         vec31 = vec31.addVector(this.npc.field_70165_t, this.npc.field_70163_u + (double)this.npc.height + 0.1D, this.npc.field_70161_v);
-                         (new StringBuilder()).append("iconcrack_").append(Item.func_150891_b(eating.getItem())).toString();
+                         vec3.rotateYaw(-this.npc.rotationPitch * 3.1415927F / 180.0F);
+                         vec3.rotatePitch(-this.npc.renderYawOffset * 3.1415927F / 180.0F);
+                         Vec3d vec31 = new Vec3d(((double)rand.nextFloat() - 0.5D) * 0.3D, (double)(-rand.nextFloat()) * 0.6D - 0.3D, (double)(this.npc.width / 2.0F) + 0.1D);
+                         vec31.rotateYaw(-this.npc.rotationPitch * 3.1415927F / 180.0F);
+                         vec31.rotatePitch(-this.npc.renderYawOffset * 3.1415927F / 180.0F);
+                         vec31 = vec31.add(this.npc.posX, this.npc.posY + (double)this.npc.height + 0.1D, this.npc.posZ);
+                         (new StringBuilder()).append("iconcrack_").append(Item.getIdFromItem(eating.getItem())).toString();
                          if (eating.getHasSubtypes()) {
-                              this.npc.world.func_175688_a(EnumParticleTypes.ITEM_CRACK, vec31.x, vec31.y, vec31.z, vec3.x, vec3.y + 0.05D, vec3.z, new int[]{Item.func_150891_b(eating.getItem()), eating.func_77960_j()});
+                              this.npc.world.spawnParticle(EnumParticleTypes.ITEM_CRACK, vec31.x, vec31.y, vec31.z, vec3.x, vec3.y + 0.05D, vec3.z, new int[]{Item.getIdFromItem(eating.getItem()), eating.getMetadata()});
                          } else {
-                              this.npc.world.func_175688_a(EnumParticleTypes.ITEM_CRACK, vec31.x, vec31.y, vec31.z, vec3.x, vec3.y + 0.05D, vec3.z, new int[]{Item.func_150891_b(eating.getItem())});
+                              this.npc.world.spawnParticle(EnumParticleTypes.ITEM_CRACK, vec31.x, vec31.y, vec31.z, vec3.x, vec3.y + 0.05D, vec3.z, new int[]{Item.getIdFromItem(eating.getItem())});
                          }
                     }
                } else {
@@ -197,7 +197,7 @@ public class RoleCompanion extends RoleInterface {
                          if (this.inventory.decrStackSize(eating, 1)) {
                               ItemFood food = (ItemFood)eating.getItem();
                               this.foodstats.onFoodEaten(food, eating);
-                              this.npc.func_184185_a(SoundEvents.field_187739_dZ, 0.5F, this.npc.getRNG().nextFloat() * 0.1F + 0.9F);
+                              this.npc.playSound(SoundEvents.ENTITY_PLAYER_BURP, 0.5F, this.npc.getRNG().nextFloat() * 0.1F + 0.9F);
                          }
 
                          this.eatingDelay = 20;
@@ -205,7 +205,7 @@ public class RoleCompanion extends RoleInterface {
                          eating = null;
                     } else if (this.eatingTicks > 3 && this.eatingTicks % 2 == 0) {
                          rand = this.npc.getRNG();
-                         this.npc.func_184185_a(SoundEvents.field_187537_bA, 0.5F + 0.5F * (float)rand.nextInt(2), (rand.nextFloat() - rand.nextFloat()) * 0.2F + 1.0F);
+                         this.npc.playSound(SoundEvents.ENTITY_GENERIC_EAT, 0.5F + 0.5F * (float)rand.nextInt(2), (rand.nextFloat() - rand.nextFloat()) * 0.2F + 1.0F);
                     }
                }
 
@@ -482,7 +482,7 @@ public class RoleCompanion extends RoleInterface {
 
      private boolean isWeapon(ItemStack item) {
           if (item != null && item.getItem() != null) {
-               return item.getItem() instanceof ItemSword || item.getItem() instanceof ItemBow || item.getItem() == Item.getItemFromBlock(Blocks.field_150347_e);
+               return item.getItem() instanceof ItemSword || item.getItem() instanceof ItemBow || item.getItem() == Item.getItemFromBlock(Blocks.COBBLESTONE);
           } else {
                return false;
           }
@@ -495,7 +495,7 @@ public class RoleCompanion extends RoleInterface {
                     return this.canWearSword(stack);
                } else if (item instanceof ItemBow) {
                     return this.getTalentLevel(EnumCompanionTalent.RANGED) > 2;
-               } else if (item == Item.getItemFromBlock(Blocks.field_150347_e)) {
+               } else if (item == Item.getItemFromBlock(Blocks.COBBLESTONE)) {
                     return this.getTalentLevel(EnumCompanionTalent.RANGED) > 1;
                } else {
                     return false;
@@ -553,7 +553,7 @@ public class RoleCompanion extends RoleInterface {
                     }
 
                     entry = (Entry)iterator.next();
-               } while(!entry.getKey().equals(SharedMonsterAttributes.field_111264_e.getName()));
+               } while(!entry.getKey().equals(SharedMonsterAttributes.ATTACK_DAMAGE.getName()));
 
                AttributeModifier mod = (AttributeModifier)entry.getValue();
                return mod.getAmount();
@@ -570,12 +570,12 @@ public class RoleCompanion extends RoleInterface {
           int ranged = this.getTalentLevel(EnumCompanionTalent.RANGED);
           if (ranged > 0 && weapon != null) {
                Item item = weapon.getMCItemStack().getItem();
-               if (ranged > 0 && item == Item.getItemFromBlock(Blocks.field_150347_e)) {
+               if (ranged > 0 && item == Item.getItemFromBlock(Blocks.COBBLESTONE)) {
                     this.npc.inventory.setProjectile(weapon);
                }
 
                if (ranged > 0 && item instanceof ItemBow) {
-                    this.npc.inventory.setProjectile(NpcAPI.Instance().getIItemStack(new ItemStack(Items.field_151032_g)));
+                    this.npc.inventory.setProjectile(NpcAPI.Instance().getIItemStack(new ItemStack(Items.ARROW)));
                }
           }
 
@@ -603,7 +603,7 @@ public class RoleCompanion extends RoleInterface {
                this.npc.ais.onAttack = 3;
                this.npc.ais.setStartPos(new BlockPos(this.npc));
                this.npc.getNavigator().clearPath();
-               this.npc.setPositionAndUpdate((double)this.npc.getStartXPos(), this.npc.field_70163_u, (double)this.npc.getStartZPos());
+               this.npc.setPositionAndUpdate((double)this.npc.getStartXPos(), this.npc.posY, (double)this.npc.getStartZPos());
           } else {
                this.npc.ais.animationType = this.stage.animation;
                this.npc.ais.onAttack = 0;
@@ -662,7 +662,7 @@ public class RoleCompanion extends RoleInterface {
           while(var2.hasNext()) {
                IItemStack armor = (IItemStack)var2.next();
                if (armor != null && armor.getMCItemStack().getItem() instanceof ItemArmor) {
-                    armorValue += ((ItemArmor)armor.getMCItemStack().getItem()).field_77879_b;
+                    armorValue += ((ItemArmor)armor.getMCItemStack().getItem()).damageReduceAmount;
                }
           }
 

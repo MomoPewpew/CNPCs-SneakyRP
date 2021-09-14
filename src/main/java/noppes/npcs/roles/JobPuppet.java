@@ -114,7 +114,7 @@ public class JobPuppet extends JobInterface implements IJobPuppet {
                return r;
           } else {
                float speed;
-               if (this.prevTicks != this.npc.field_70173_aa) {
+               if (this.prevTicks != this.npc.ticksExisted) {
                     speed = 0.0F;
                     if (this.animationSpeed == 0) {
                          speed = 40.0F;
@@ -134,10 +134,10 @@ public class JobPuppet extends JobInterface implements IJobPuppet {
                          speed = 2.0F;
                     }
 
-                    int ticks = this.npc.field_70173_aa - this.startTick;
+                    int ticks = this.npc.ticksExisted - this.startTick;
                     this.val = 1.0F - (MathHelper.cos((float)ticks / speed * 3.1415927F / 2.0F) + 1.0F) / 2.0F;
                     this.valNext = 1.0F - (MathHelper.cos((float)(ticks + 1) / speed * 3.1415927F / 2.0F) + 1.0F) / 2.0F;
-                    this.prevTicks = this.npc.field_70173_aa;
+                    this.prevTicks = this.npc.ticksExisted;
                }
 
                speed = this.val + (this.valNext - this.val) * partialTicks;
@@ -161,7 +161,7 @@ public class JobPuppet extends JobInterface implements IJobPuppet {
           this.val = 0.0F;
           this.valNext = 0.0F;
           this.prevTicks = 0;
-          this.startTick = this.npc.field_70173_aa;
+          this.startTick = this.npc.ticksExisted;
      }
 
      public void delete() {
@@ -186,7 +186,7 @@ public class JobPuppet extends JobInterface implements IJobPuppet {
                this.valNext = 0.0F;
                this.prevTicks = 0;
           } else {
-               this.startTick = this.npc.field_70173_aa;
+               this.startTick = this.npc.ticksExisted;
           }
 
           this.npc.updateClient = true;

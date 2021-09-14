@@ -20,28 +20,28 @@ public abstract class GuiNPCInterface2 extends GuiNPCInterface {
           this.menu = new GuiNpcMenu(this, activeMenu, npc);
      }
 
-     public void func_73866_w_() {
-          super.func_73866_w_();
+     public void initGui() {
+          super.initGui();
           this.menu.initGui(this.guiLeft, this.guiTop, this.xSize);
      }
 
-     public void func_73864_a(int i, int j, int k) {
+     public void mouseClicked(int i, int j, int k) {
           if (!this.hasSubGui()) {
                this.menu.mouseClicked(i, j, k);
           }
 
-          super.func_73864_a(i, j, k);
+          super.mouseClicked(i, j, k);
      }
 
      public abstract void save();
 
-     public void func_73863_a(int i, int j, float f) {
+     public void drawScreen(int i, int j, float f) {
           if (this.drawDefaultBackground) {
-               this.func_146276_q_();
+               this.drawDefaultBackground();
           }
 
           GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-          this.field_146297_k.renderEngine.bindTexture(this.background);
+          this.mc.renderEngine.bindTexture(this.background);
           this.drawTexturedModalRect(this.guiLeft, this.guiTop, 0, 0, 200, 220);
           this.drawTexturedModalRect(this.guiLeft + this.xSize - 230, this.guiTop, 26, 0, 230, 220);
           int x = i;
@@ -51,10 +51,10 @@ public abstract class GuiNPCInterface2 extends GuiNPCInterface {
                x = 0;
           }
 
-          this.menu.drawElements(this.getFontRenderer(), x, y, this.field_146297_k, f);
+          this.menu.drawElements(this.getFontRenderer(), x, y, this.mc, f);
           boolean bo = this.drawDefaultBackground;
           this.drawDefaultBackground = false;
-          super.func_73863_a(i, j, f);
+          super.drawScreen(i, j, f);
           this.drawDefaultBackground = bo;
      }
 }

@@ -247,7 +247,7 @@ public class NoppesUtilServer {
 
      public static void consumeItemStack(int i, EntityPlayer player) {
           ItemStack item = player.inventory.getCurrentItem();
-          if (!player.field_71075_bZ.field_75098_d && item != null && !item.isEmpty()) {
+          if (!player.capabilities.isCreativeMode && item != null && !item.isEmpty()) {
                item.shrink(1);
                if (item.getCount() <= 0) {
                     player.setHeldItem(EnumHand.MAIN_HAND, (ItemStack)null);
@@ -323,7 +323,7 @@ public class NoppesUtilServer {
      }
 
      public static void spawnParticle(Entity entity, String particle, int dimension) {
-          Server.sendAssociatedData(entity, EnumPacketClient.PARTICLE, entity.field_70165_t, entity.field_70163_u, entity.field_70161_v, entity.height, entity.field_70130_N, particle);
+          Server.sendAssociatedData(entity, EnumPacketClient.PARTICLE, entity.posX, entity.posY, entity.posZ, entity.height, entity.width, particle);
      }
 
      public static void deleteNpc(EntityNPCInterface npc, EntityPlayer player) {
@@ -335,7 +335,7 @@ public class NoppesUtilServer {
           if (comp.getString("id").equalsIgnoreCase("entityhorse")) {
                player.sendMessage(new TextComponentTranslation("Currently you cant create horse spawner, its a minecraft bug", new Object[0]));
           } else {
-               player.world.setBlockState(pos, Blocks.field_150474_ac.getDefaultState());
+               player.world.setBlockState(pos, Blocks.MOB_SPAWNER.getDefaultState());
                TileEntityMobSpawner tile = (TileEntityMobSpawner)player.world.getTileEntity(pos);
                MobSpawnerBaseLogic logic = tile.getSpawnerBaseLogic();
                if (!comp.hasKey("id", 8)) {
@@ -650,13 +650,13 @@ public class NoppesUtilServer {
 
      public static void sendNearbyNpcs(EntityPlayerMP player) {
           HashMap map = new HashMap();
-          Iterator var2 = player.world.field_72996_f.iterator();
+          Iterator var2 = player.world.loadedEntityList.iterator();
 
           while(var2.hasNext()) {
                Entity entity = (Entity)var2.next();
                if (entity instanceof EntityNPCInterface) {
                     EntityNPCInterface npc = (EntityNPCInterface)entity;
-                    if (!npc.field_70128_L) {
+                    if (!npc.isDead) {
                          float distance = player.getDistance(npc);
                          DecimalFormat df = new DecimalFormat("#.#");
                          String s = df.format((double)distance);
@@ -708,12 +708,12 @@ public class NoppesUtilServer {
                double d = (double)(entity.world.rand.nextFloat() * f) + (double)(1.0F - f);
                double d1 = (double)(entity.world.rand.nextFloat() * f) + (double)(1.0F - f);
                double d2 = (double)(entity.world.rand.nextFloat() * f) + (double)(1.0F - f);
-               EntityItem entityitem = new EntityItem(entity.world, entity.field_70165_t + d, entity.field_70163_u + d1, entity.field_70161_v + d2, item);
+               EntityItem entityitem = new EntityItem(entity.world, entity.posX + d, entity.posY + d1, entity.posZ + d2, item);
                entityitem.setPickupDelay(2);
                entity.world.spawnEntity(entityitem);
                int i = item.getCount();
                if (player.inventory.addItemStackToInventory(item)) {
-                    entity.world.playSound((EntityPlayer)null, player.field_70165_t, player.field_70163_u, player.field_70161_v, SoundEvents.field_187638_cR, SoundCategory.PLAYERS, 0.2F, ((player.getRNG().nextFloat() - player.getRNG().nextFloat()) * 0.7F + 1.0F) * 2.0F);
+                    entity.world.playSound((EntityPlayer)null, player.posX, player.posY, player.posZ, SoundEvents.ENTITY_ITEM_PICKUP, SoundCategory.PLAYERS, 0.2F, ((player.getRNG().nextFloat() - player.getRNG().nextFloat()) * 0.7F + 1.0F) * 2.0F);
                     player.onItemPickup(entityitem, i);
                     PlayerQuestData playerdata = PlayerData.get(player).questData;
                     playerdata.checkQuestCompletion(player, 0);
@@ -760,7 +760,7 @@ public class NoppesUtilServer {
      }
 
      public static void playSound(EntityLivingBase entity, SoundEvent sound, float volume, float pitch) {
-          entity.world.playSound((EntityPlayer)null, entity.field_70165_t, entity.field_70163_u, entity.field_70161_v, sound, SoundCategory.NEUTRAL, volume, pitch);
+          entity.world.playSound((EntityPlayer)null, entity.posX, entity.posY, entity.posZ, sound, SoundCategory.NEUTRAL, volume, pitch);
      }
 
      public static void playSound(World world, BlockPos pos, SoundEvent sound, SoundCategory cat, float volume, float pitch) {
@@ -789,8 +789,8 @@ public class NoppesUtilServer {
                entity = damagesource.getImmediateSource();
           }
 
-          if (entity instanceof EntityArrow && ((EntityArrow)entity).field_70250_c instanceof EntityLivingBase) {
-               entity = ((EntityArrow)entity).field_70250_c;
+          if (entity instanceof EntityArrow && ((EntityArrow)entity).shootingEntity instanceof EntityLivingBase) {
+               entity = ((EntityArrow)entity).shootingEntity;
           } else if (entity instanceof EntityThrowable) {
                entity = ((EntityThrowable)entity).getThrower();
           }
@@ -804,7 +804,7 @@ public class NoppesUtilServer {
 
      public static ItemStack ChangeItemStack(ItemStack is, Item item) {
           NBTTagCompound comp = is.writeToNBT(new NBTTagCompound());
-          ResourceLocation resourcelocation = (ResourceLocation)Item.field_150901_e.getNameForObject(item);
+          ResourceLocation resourcelocation = (ResourceLocation)Item.REGISTRY.getNameForObject(item);
           comp.setString("id", resourcelocation == null ? "minecraft:air" : resourcelocation.toString());
           return new ItemStack(comp);
      }

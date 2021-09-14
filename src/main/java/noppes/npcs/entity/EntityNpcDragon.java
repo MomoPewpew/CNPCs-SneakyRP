@@ -21,11 +21,11 @@ public class EntityNpcDragon extends EntityNPCInterface {
           this.scaleY = 0.4F;
           this.scaleZ = 0.4F;
           this.display.setSkinTexture("customnpcs:textures/entity/dragon/BlackDragon.png");
-          this.field_70130_N = 1.8F;
+          this.width = 1.8F;
           this.height = 1.4F;
      }
 
-     public double func_70042_X() {
+     public double getMountedYOffset() {
           return 1.1D;
      }
 
@@ -52,9 +52,9 @@ public class EntityNpcDragon extends EntityNPCInterface {
           return ad;
      }
 
-     public void func_70071_h_() {
-          this.field_70128_L = true;
-          this.func_94061_f(true);
+     public void onUpdate() {
+          this.isDead = true;
+          this.setNoAI(true);
           if (!this.world.isRemote) {
                NBTTagCompound compound = new NBTTagCompound();
                this.writeToNBT(compound);
@@ -65,19 +65,19 @@ public class EntityNpcDragon extends EntityNPCInterface {
                this.world.spawnEntity(npc);
           }
 
-          super.func_70071_h_();
+          super.onUpdate();
      }
 
-     public void func_70636_d() {
+     public void onLivingUpdate() {
           this.field_40173_aw = this.field_40172_ax;
           float f;
           if (this.world.isRemote && this.getHealth() <= 0.0F) {
                if (!this.exploded) {
                     this.exploded = true;
-                    f = (this.field_70146_Z.nextFloat() - 0.5F) * 8.0F;
-                    float f2 = (this.field_70146_Z.nextFloat() - 0.5F) * 4.0F;
-                    float f4 = (this.field_70146_Z.nextFloat() - 0.5F) * 8.0F;
-                    this.world.func_175688_a(EnumParticleTypes.EXPLOSION_LARGE, this.field_70165_t + (double)f, this.field_70163_u + 2.0D + (double)f2, this.field_70161_v + (double)f4, 0.0D, 0.0D, 0.0D, new int[0]);
+                    f = (this.rand.nextFloat() - 0.5F) * 8.0F;
+                    float f2 = (this.rand.nextFloat() - 0.5F) * 4.0F;
+                    float f4 = (this.rand.nextFloat() - 0.5F) * 8.0F;
+                    this.world.spawnParticle(EnumParticleTypes.EXPLOSION_LARGE, this.posX + (double)f, this.posY + 2.0D + (double)f2, this.posZ + (double)f4, 0.0D, 0.0D, 0.0D, new int[0]);
                }
           } else {
                this.exploded = false;
@@ -87,11 +87,11 @@ public class EntityNpcDragon extends EntityNPCInterface {
                this.field_40172_ax += f * 0.5F;
           }
 
-          super.func_70636_d();
+          super.onLivingUpdate();
      }
 
      public void updateHitbox() {
-          this.field_70130_N = 1.8F;
+          this.width = 1.8F;
           this.height = 1.4F;
      }
 }

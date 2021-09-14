@@ -70,8 +70,8 @@ public class EntityAIOrbitTarget extends EntityAIBase {
           this.direction = random.nextInt(10) > 5 ? 1 : -1;
           this.decayRate = random.nextFloat() + this.distance / 16.0F;
           this.targetDistance = this.npc.getDistance(this.targetEntity);
-          double d0 = this.npc.field_70165_t - this.targetEntity.field_70165_t;
-          double d1 = this.npc.field_70161_v - this.targetEntity.field_70161_v;
+          double d0 = this.npc.posX - this.targetEntity.posX;
+          double d1 = this.npc.posZ - this.targetEntity.posZ;
           this.angle = (float)(Math.atan2(d1, d0) * 180.0D / 3.141592653589793D);
           if (this.npc.getRangedTask() != null) {
                this.npc.getRangedTask().navOverride(true);
@@ -81,12 +81,12 @@ public class EntityAIOrbitTarget extends EntityAIBase {
 
      public void updateTask() {
           this.npc.getLookHelper().setLookPositionWithEntity(this.targetEntity, 30.0F, 30.0F);
-          if (this.npc.getNavigator().noPath() && this.tick >= 0 && this.npc.field_70122_E && !this.npc.isInWater()) {
+          if (this.npc.getNavigator().noPath() && this.tick >= 0 && this.npc.onGround && !this.npc.isInWater()) {
                double d0 = (double)this.targetDistance * (double)MathHelper.cos(this.angle / 180.0F * 3.1415927F);
                double d1 = (double)this.targetDistance * (double)MathHelper.sin(this.angle / 180.0F * 3.1415927F);
-               this.movePosX = this.targetEntity.field_70165_t + d0;
-               this.movePosY = this.targetEntity.getEntityBoundingBox().field_72337_e;
-               this.movePosZ = this.targetEntity.field_70161_v + d1;
+               this.movePosX = this.targetEntity.posX + d0;
+               this.movePosY = this.targetEntity.getEntityBoundingBox().maxY;
+               this.movePosZ = this.targetEntity.posZ + d1;
                this.npc.getNavigator().tryMoveToXYZ(this.movePosX, this.movePosY, this.movePosZ, this.speed);
                this.angle += 15.0F * (float)this.direction;
                this.tick = MathHelper.ceil(this.npc.getDistance(this.movePosX, this.movePosY, this.movePosZ) / (double)(this.npc.getSpeed() / 20.0F));

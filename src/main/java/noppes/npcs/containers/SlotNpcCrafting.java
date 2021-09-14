@@ -18,7 +18,7 @@ public class SlotNpcCrafting extends SlotCrafting {
 
      public ItemStack onTake(EntityPlayer player, ItemStack itemStack) {
           FMLCommonHandler.instance().firePlayerCraftingEvent(player, itemStack, this.craftMatrix);
-          this.func_75208_c(itemStack);
+          this.onCrafting(itemStack);
 
           for(int i = 0; i < this.craftMatrix.getSizeInventory(); ++i) {
                ItemStack itemstack1 = this.craftMatrix.getStackInSlot(i);
@@ -26,7 +26,7 @@ public class SlotNpcCrafting extends SlotCrafting {
                     this.craftMatrix.decrStackSize(i, 1);
                     if (itemstack1.getItem().hasContainerItem(itemstack1)) {
                          ItemStack itemstack2 = itemstack1.getItem().getContainerItem(itemstack1);
-                         if ((NoppesUtilServer.IsItemStackNull(itemstack2) || !itemstack2.func_77984_f() || itemstack2.getItemDamage() <= itemstack2.getMaxDamage()) && !player.inventory.addItemStackToInventory(itemstack2)) {
+                         if ((NoppesUtilServer.IsItemStackNull(itemstack2) || !itemstack2.isItemStackDamageable() || itemstack2.getItemDamage() <= itemstack2.getMaxDamage()) && !player.inventory.addItemStackToInventory(itemstack2)) {
                               if (NoppesUtilServer.IsItemStackNull(this.craftMatrix.getStackInSlot(i))) {
                                    this.craftMatrix.setInventorySlotContents(i, itemstack2);
                               } else {

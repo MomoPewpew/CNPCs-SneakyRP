@@ -46,8 +46,8 @@ public class GuiNpcMobSpawnerMounter extends GuiNPCInterface implements IGuiData
           this.setBackground("menubg.png");
      }
 
-     public void func_73866_w_() {
-          super.func_73866_w_();
+     public void initGui() {
+          super.initGui();
           this.guiTop += 10;
           if (this.scroll == null) {
                this.scroll = new GuiCustomScroll(this, 0);
@@ -59,7 +59,7 @@ public class GuiNpcMobSpawnerMounter extends GuiNPCInterface implements IGuiData
           this.scroll.guiLeft = this.guiLeft + 4;
           this.scroll.guiTop = this.guiTop + 26;
           this.addScroll(this.scroll);
-          this.addTextField(new GuiNpcTextField(1, this, this.field_146289_q, this.guiLeft + 4, this.guiTop + 4, 165, 20, search));
+          this.addTextField(new GuiNpcTextField(1, this, this.fontRenderer, this.guiLeft + 4, this.guiTop + 4, 165, 20, search));
           GuiMenuTopButton button;
           this.addTopButton(button = new GuiMenuTopButton(3, this.guiLeft + 4, this.guiTop - 17, "spawner.clones"));
           button.active = showingClones == 0;
@@ -120,10 +120,10 @@ public class GuiNpcMobSpawnerMounter extends GuiNPCInterface implements IGuiData
           }
      }
 
-     public void func_73869_a(char c, int i) {
-          super.func_73869_a(c, i);
-          if (!search.equals(this.getTextField(1).func_146179_b())) {
-               search = this.getTextField(1).func_146179_b().toLowerCase();
+     public void keyTyped(char c, int i) {
+          super.keyTyped(c, i);
+          if (!search.equals(this.getTextField(1).getText())) {
+               search = this.getTextField(1).getText().toLowerCase();
                this.scroll.setList(this.getSearchList());
           }
      }
@@ -153,7 +153,7 @@ public class GuiNpcMobSpawnerMounter extends GuiNPCInterface implements IGuiData
           } else if (showingClones == 0) {
                return ClientCloneController.Instance.getCloneData(this.player, sel, this.activeTab);
           } else {
-               Entity entity = EntityList.createEntityByIDFromName(new ResourceLocation(sel), Minecraft.getMinecraft().field_71441_e);
+               Entity entity = EntityList.createEntityByIDFromName(new ResourceLocation(sel), Minecraft.getMinecraft().world);
                if (entity == null) {
                     return null;
                } else {
@@ -164,7 +164,7 @@ public class GuiNpcMobSpawnerMounter extends GuiNPCInterface implements IGuiData
           }
      }
 
-     protected void func_146284_a(GuiButton guibutton) {
+     protected void actionPerformed(GuiButton guibutton) {
           int id = guibutton.id;
           if (id == 0) {
                this.close();
@@ -186,22 +186,22 @@ public class GuiNpcMobSpawnerMounter extends GuiNPCInterface implements IGuiData
 
           if (id == 3) {
                showingClones = 0;
-               this.func_73866_w_();
+               this.initGui();
           }
 
           if (id == 4) {
                showingClones = 1;
-               this.func_73866_w_();
+               this.initGui();
           }
 
           if (id == 5) {
                showingClones = 2;
-               this.func_73866_w_();
+               this.initGui();
           }
 
           if (id > 20) {
                this.activeTab = id - 20;
-               this.func_73866_w_();
+               this.initGui();
           }
 
      }

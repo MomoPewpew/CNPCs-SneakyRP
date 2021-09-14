@@ -339,7 +339,7 @@ public class CustomNpcs {
                File dir = new File(".");
                if (Server != null) {
                     if (!Server.isDedicatedServer()) {
-                         dir = new File(Minecraft.getMinecraft().mcDataDir, "saves");
+                         dir = new File(Minecraft.getMinecraft().gameDir, "saves");
                     }
 
                     dir = new File(new File(dir, Server.getFolderName()), "customnpcs");

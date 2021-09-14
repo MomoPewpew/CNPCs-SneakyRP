@@ -135,12 +135,12 @@ public class Availability implements ICompatibilty, IAvailability {
 
                     for(int var4 = 0; var4 < var3; ++var4) {
                          WorldServer world = var2[var4];
-                         ServerScoreboard board = (ServerScoreboard)world.field_96442_D;
+                         ServerScoreboard board = (ServerScoreboard)world.worldScoreboard;
                          ScoreObjective so = board.getObjective(objective);
                          if (so != null) {
                               Set addedObjectives = (Set)ObfuscationReflectionHelper.getPrivateValue(ServerScoreboard.class, board, 1);
                               if (!addedObjectives.contains(so)) {
-                                   board.func_96549_e(so);
+                                   board.addObjective(so);
                               }
                          }
                     }
@@ -241,7 +241,7 @@ public class Availability implements ICompatibilty, IAvailability {
           } else if (!this.scoreboardAvailable(player, this.scoreboard2Objective, this.scoreboard2Type, this.scoreboard2Value)) {
                return false;
           } else {
-               return player.field_71068_ca >= this.minPlayerLevel;
+               return player.experienceLevel >= this.minPlayerLevel;
           }
      }
 
@@ -249,13 +249,13 @@ public class Availability implements ICompatibilty, IAvailability {
           if (objective.isEmpty()) {
                return true;
           } else {
-               ScoreObjective sbObjective = player.func_96123_co().getObjective(objective);
+               ScoreObjective sbObjective = player.getWorldScoreboard().getObjective(objective);
                if (sbObjective == null) {
                     return false;
-               } else if (!player.func_96123_co().entityHasObjective(player.getName(), sbObjective)) {
+               } else if (!player.getWorldScoreboard().entityHasObjective(player.getName(), sbObjective)) {
                     return false;
                } else {
-                    int i = player.func_96123_co().getOrCreateScore(player.getName(), sbObjective).getScorePoints();
+                    int i = player.getWorldScoreboard().getOrCreateScore(player.getName(), sbObjective).getScorePoints();
                     if (type == EnumAvailabilityScoreboard.EQUAL) {
                          return i == value;
                     } else if (type == EnumAvailabilityScoreboard.BIGGER) {
@@ -343,7 +343,7 @@ public class Availability implements ICompatibilty, IAvailability {
      }
 
      public void setDaytime(int type) {
-          this.daytime = EnumDayTime.values()[MathHelper.func_76125_a(type, 0, 2)];
+          this.daytime = EnumDayTime.values()[MathHelper.clamp(type, 0, 2)];
      }
 
      public int getMinPlayerLevel() {
@@ -370,7 +370,7 @@ public class Availability implements ICompatibilty, IAvailability {
           if (i < 0 && i > 3) {
                throw new CustomNPCsException(i + " isnt between 0 and 3", new Object[0]);
           } else {
-               EnumAvailabilityDialog e = EnumAvailabilityDialog.values()[MathHelper.func_76125_a(type, 0, 2)];
+               EnumAvailabilityDialog e = EnumAvailabilityDialog.values()[MathHelper.clamp(type, 0, 2)];
                if (i == 0) {
                     this.dialogId = id;
                     this.dialogAvailable = e;
@@ -425,7 +425,7 @@ public class Availability implements ICompatibilty, IAvailability {
           if (i < 0 && i > 3) {
                throw new CustomNPCsException(i + " isnt between 0 and 3", new Object[0]);
           } else {
-               EnumAvailabilityQuest e = EnumAvailabilityQuest.values()[MathHelper.func_76125_a(type, 0, 5)];
+               EnumAvailabilityQuest e = EnumAvailabilityQuest.values()[MathHelper.clamp(type, 0, 5)];
                if (i == 0) {
                     this.questId = id;
                     this.questAvailable = e;
@@ -468,8 +468,8 @@ public class Availability implements ICompatibilty, IAvailability {
           if (i < 0 && i > 1) {
                throw new CustomNPCsException(i + " isnt between 0 and 1", new Object[0]);
           } else {
-               EnumAvailabilityFactionType e = EnumAvailabilityFactionType.values()[MathHelper.func_76125_a(type, 0, 2)];
-               EnumAvailabilityFaction ee = EnumAvailabilityFaction.values()[MathHelper.func_76125_a(stance, 0, 2)];
+               EnumAvailabilityFactionType e = EnumAvailabilityFactionType.values()[MathHelper.clamp(type, 0, 2)];
+               EnumAvailabilityFaction ee = EnumAvailabilityFaction.values()[MathHelper.clamp(stance, 0, 2)];
                if (i == 0) {
                     this.factionId = id;
                     this.factionAvailable = e;
@@ -491,7 +491,7 @@ public class Availability implements ICompatibilty, IAvailability {
                     objective = "";
                }
 
-               EnumAvailabilityScoreboard e = EnumAvailabilityScoreboard.values()[MathHelper.func_76125_a(type, 0, 2)];
+               EnumAvailabilityScoreboard e = EnumAvailabilityScoreboard.values()[MathHelper.clamp(type, 0, 2)];
                if (i == 0) {
                     this.scoreboardObjective = objective;
                     this.scoreboardType = e;

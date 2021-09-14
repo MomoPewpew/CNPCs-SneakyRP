@@ -19,7 +19,7 @@ public class CustomGuiButton extends GuiButton implements IClickListener {
      ResourceLocation texture;
      public int textureX;
      public int textureY;
-     boolean field_146123_n;
+     boolean hovered;
      String label;
      int colour;
      String[] hoverText;
@@ -76,48 +76,48 @@ public class CustomGuiButton extends GuiButton implements IClickListener {
      }
 
      public void onRender(Minecraft mc, int mouseX, int mouseY, int mouseWheel, float partialTicks) {
-          GlStateManager.func_179094_E();
+          GlStateManager.pushMatrix();
           GlStateManager.translate(0.0F, 0.0F, (float)this.id);
           FontRenderer fontRenderer = mc.fontRenderer;
           int i;
           if (this.texture == null) {
-               mc.func_110434_K().bindTexture(field_146122_a);
+               mc.getTextureManager().bindTexture(BUTTON_TEXTURES);
                GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-               this.field_146123_n = mouseX >= this.x && mouseY >= this.y && mouseX < this.x + this.width && mouseY < this.y + this.height;
-               i = this.func_146114_a(this.field_146123_n);
-               GlStateManager.func_179147_l();
-               GlStateManager.func_187428_a(SourceFactor.SRC_ALPHA, DestFactor.ONE_MINUS_SRC_ALPHA, SourceFactor.ONE, DestFactor.ZERO);
-               GlStateManager.func_187401_a(SourceFactor.SRC_ALPHA, DestFactor.ONE_MINUS_SRC_ALPHA);
+               this.hovered = mouseX >= this.x && mouseY >= this.y && mouseX < this.x + this.width && mouseY < this.y + this.height;
+               i = this.getHoverState(this.hovered);
+               GlStateManager.enableBlend();
+               GlStateManager.tryBlendFuncSeparate(SourceFactor.SRC_ALPHA, DestFactor.ONE_MINUS_SRC_ALPHA, SourceFactor.ONE, DestFactor.ZERO);
+               GlStateManager.blendFunc(SourceFactor.SRC_ALPHA, DestFactor.ONE_MINUS_SRC_ALPHA);
                this.drawTexturedModalRect(this.x, this.y, 0, 46 + i * 20, this.width / 2, this.height);
                this.drawTexturedModalRect(this.x + this.width / 2, this.y, 200 - this.width / 2, 46 + i * 20, this.width / 2, this.height);
-               this.func_146119_b(mc, mouseX, mouseY);
+               this.mouseDragged(mc, mouseX, mouseY);
                int j = 14737632;
                if (this.packedFGColour != 0) {
                     j = this.packedFGColour;
                } else if (!this.enabled) {
                     j = 10526880;
-               } else if (this.field_146123_n) {
+               } else if (this.hovered) {
                     j = 16777120;
                }
 
-               GlStateManager.func_179137_b(0.0D, 0.0D, 0.1D);
-               this.func_73732_a(fontRenderer, this.field_146126_j, this.x + this.width / 2, this.y + (this.height - 8) / 2, j);
+               GlStateManager.translate(0.0D, 0.0D, 0.1D);
+               this.drawCenteredString(fontRenderer, this.displayString, this.x + this.width / 2, this.y + (this.height - 8) / 2, j);
           } else {
-               mc.func_110434_K().bindTexture(this.texture);
+               mc.getTextureManager().bindTexture(this.texture);
                GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-               this.field_146123_n = mouseX >= this.x && mouseY >= this.y && mouseX < this.x + this.width && mouseY < this.y + this.height;
-               i = this.hoverState(this.field_146123_n);
-               GlStateManager.func_179147_l();
-               GlStateManager.func_187428_a(SourceFactor.SRC_ALPHA, DestFactor.ONE_MINUS_SRC_ALPHA, SourceFactor.ONE, DestFactor.ZERO);
-               GlStateManager.func_187401_a(SourceFactor.SRC_ALPHA, DestFactor.ONE_MINUS_SRC_ALPHA);
+               this.hovered = mouseX >= this.x && mouseY >= this.y && mouseX < this.x + this.width && mouseY < this.y + this.height;
+               i = this.hoverState(this.hovered);
+               GlStateManager.enableBlend();
+               GlStateManager.tryBlendFuncSeparate(SourceFactor.SRC_ALPHA, DestFactor.ONE_MINUS_SRC_ALPHA, SourceFactor.ONE, DestFactor.ZERO);
+               GlStateManager.blendFunc(SourceFactor.SRC_ALPHA, DestFactor.ONE_MINUS_SRC_ALPHA);
                this.drawTexturedModalRect(this.x, this.y, this.textureX, this.textureY + i * this.height, this.width, this.height);
-               this.func_73732_a(fontRenderer, this.label, this.x + this.width / 2, this.y + (this.height - 8) / 2, this.colour);
-               if (this.field_146123_n && this.hoverText != null && this.hoverText.length > 0) {
+               this.drawCenteredString(fontRenderer, this.label, this.x + this.width / 2, this.y + (this.height - 8) / 2, this.colour);
+               if (this.hovered && this.hoverText != null && this.hoverText.length > 0) {
                     this.parent.hoverText = this.hoverText;
                }
           }
 
-          GlStateManager.func_179121_F();
+          GlStateManager.popMatrix();
      }
 
      public ICustomGuiComponent toComponent() {
@@ -141,7 +141,7 @@ public class CustomGuiButton extends GuiButton implements IClickListener {
 
      public boolean mouseClicked(GuiCustom gui, int mouseX, int mouseY, int mouseButton) {
           if (mouseX >= this.x && mouseY >= this.y && mouseX < this.x + this.width && mouseY < this.y + this.height) {
-               Minecraft.getMinecraft().func_147118_V().func_147682_a(PositionedSoundRecord.func_184371_a(SoundEvents.field_187909_gi, 1.0F));
+               Minecraft.getMinecraft().getSoundHandler().playSound(PositionedSoundRecord.getMasterRecord(SoundEvents.UI_BUTTON_CLICK, 1.0F));
                gui.buttonClick(this);
                return true;
           } else {

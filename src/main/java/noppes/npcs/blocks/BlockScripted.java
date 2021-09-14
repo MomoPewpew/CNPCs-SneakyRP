@@ -33,8 +33,8 @@ public class BlockScripted extends BlockInterface implements IPermission {
      public static final AxisAlignedBB AABB_EMPTY = new AxisAlignedBB(0.0D, 0.0D, 0.0D, 0.0D, 0.0D, 0.0D);
 
      public BlockScripted() {
-          super(Material.field_151576_e);
-          this.setSoundType(SoundType.field_185851_d);
+          super(Material.ROCK);
+          this.setSoundType(SoundType.STONE);
      }
 
      public TileEntity createNewTileEntity(World worldIn, int meta) {
@@ -72,7 +72,7 @@ public class BlockScripted extends BlockInterface implements IPermission {
 
      }
 
-     public void onEntityCollidedWithBlock(World world, BlockPos pos, IBlockState state, Entity entityIn) {
+     public void onEntityCollision(World world, BlockPos pos, IBlockState state, Entity entityIn) {
           if (!world.isRemote) {
                TileScripted tile = (TileScripted)world.getTileEntity(pos);
                EventHooks.onScriptBlockCollide(tile, entityIn);

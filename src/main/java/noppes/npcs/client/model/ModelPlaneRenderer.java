@@ -42,7 +42,7 @@ public class ModelPlaneRenderer extends ModelRenderer {
      }
 
      public void addPlane(float par1, float par2, float par3, int par4, int par5, int par6, float f3, ModelPlaneRenderer.EnumPlanePosition pos) {
-          this.field_78804_l.add(new ModelPlaneRenderer.ModelPlane(this, this.textureOffsetX, this.textureOffsetY, par1, par2, par3, par4, par5, par6, f3, pos));
+          this.cubeList.add(new ModelPlaneRenderer.ModelPlane(this, this.textureOffsetX, this.textureOffsetY, par1, par2, par3, par4, par5, par6, f3, pos));
      }
 
      public class ModelPlane extends ModelBox {
@@ -60,7 +60,7 @@ public class ModelPlaneRenderer extends ModelRenderer {
                var11 += par10;
                var12 += par10;
                var13 += par10;
-               if (par1ModelRenderer.field_78809_i) {
+               if (par1ModelRenderer.mirror) {
                     float var14 = var11;
                     var11 = par4;
                     par4 = var14;
@@ -83,25 +83,25 @@ public class ModelPlaneRenderer extends ModelRenderer {
                this.vertexs[6] = var20;
                this.vertexs[7] = var21;
                if (position == ModelPlaneRenderer.EnumPlanePosition.LEFT) {
-                    this.quad = new TexturedQuad(new PositionTextureVertex[]{var19, var15, var16, var20}, textureOffsetX, textureOffsetY, textureOffsetX + par9, textureOffsetY + par8, par1ModelRenderer.field_78801_a, par1ModelRenderer.field_78799_b);
+                    this.quad = new TexturedQuad(new PositionTextureVertex[]{var19, var15, var16, var20}, textureOffsetX, textureOffsetY, textureOffsetX + par9, textureOffsetY + par8, par1ModelRenderer.textureWidth, par1ModelRenderer.textureHeight);
                }
 
                if (position == ModelPlaneRenderer.EnumPlanePosition.TOP) {
-                    this.quad = new TexturedQuad(new PositionTextureVertex[]{var19, var18, var23, var15}, textureOffsetX, textureOffsetY, textureOffsetX + par7, textureOffsetY + par9, par1ModelRenderer.field_78801_a, par1ModelRenderer.field_78799_b);
+                    this.quad = new TexturedQuad(new PositionTextureVertex[]{var19, var18, var23, var15}, textureOffsetX, textureOffsetY, textureOffsetX + par7, textureOffsetY + par9, par1ModelRenderer.textureWidth, par1ModelRenderer.textureHeight);
                }
 
                if (position == ModelPlaneRenderer.EnumPlanePosition.BACK) {
-                    this.quad = new TexturedQuad(new PositionTextureVertex[]{var15, var23, var17, var16}, textureOffsetX, textureOffsetY, textureOffsetX + par7, textureOffsetY + par8, par1ModelRenderer.field_78801_a, par1ModelRenderer.field_78799_b);
+                    this.quad = new TexturedQuad(new PositionTextureVertex[]{var15, var23, var17, var16}, textureOffsetX, textureOffsetY, textureOffsetX + par7, textureOffsetY + par8, par1ModelRenderer.textureWidth, par1ModelRenderer.textureHeight);
                }
 
-               if (par1ModelRenderer.field_78809_i) {
-                    this.quad.func_78235_a();
+               if (par1ModelRenderer.mirror) {
+                    this.quad.flipFace();
                }
 
           }
 
-          public void func_178780_a(BufferBuilder par1Tessellator, float par2) {
-               this.quad.func_178765_a(par1Tessellator, par2);
+          public void render(BufferBuilder par1Tessellator, float par2) {
+               this.quad.draw(par1Tessellator, par2);
           }
      }
 

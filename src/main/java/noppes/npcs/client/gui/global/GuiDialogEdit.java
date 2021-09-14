@@ -33,10 +33,10 @@ public class GuiDialogEdit extends SubGuiInterface implements ISubGuiListener, I
           this.closeOnEsc = true;
      }
 
-     public void func_73866_w_() {
-          super.func_73866_w_();
+     public void initGui() {
+          super.initGui();
           this.addLabel(new GuiNpcLabel(1, "gui.title", this.guiLeft + 4, this.guiTop + 8));
-          this.addTextField(new GuiNpcTextField(1, this, this.field_146289_q, this.guiLeft + 46, this.guiTop + 3, 220, 20, this.dialog.title));
+          this.addTextField(new GuiNpcTextField(1, this, this.fontRenderer, this.guiLeft + 46, this.guiTop + 3, 220, 20, this.dialog.title));
           this.addLabel(new GuiNpcLabel(0, "ID", this.guiLeft + 268, this.guiTop + 4));
           this.addLabel(new GuiNpcLabel(2, this.dialog.id + "", this.guiLeft + 268, this.guiTop + 14));
           this.addLabel(new GuiNpcLabel(3, "dialog.dialogtext", this.guiLeft + 4, this.guiTop + 30));
@@ -54,7 +54,7 @@ public class GuiDialogEdit extends SubGuiInterface implements ISubGuiListener, I
           }
 
           this.addLabel(new GuiNpcLabel(9, "gui.selectSound", this.guiLeft + 4, this.guiTop + 138));
-          this.addTextField(new GuiNpcTextField(2, this, this.field_146289_q, this.guiLeft + 4, this.guiTop + 148, 264, 20, this.dialog.sound));
+          this.addTextField(new GuiNpcTextField(2, this, this.fontRenderer, this.guiLeft + 4, this.guiTop + 148, 264, 20, this.dialog.sound));
           this.addButton(new GuiNpcButton(9, this.guiLeft + 270, this.guiTop + 148, 60, 20, "mco.template.button.select"));
           this.addButton(new GuiNpcButton(13, this.guiLeft + 4, this.guiTop + 172, 164, 20, "mailbox.setup"));
           this.addButton(new GuiNpcButton(14, this.guiLeft + 170, this.guiTop + 172, 20, 20, "X"));
@@ -107,11 +107,11 @@ public class GuiDialogEdit extends SubGuiInterface implements ISubGuiListener, I
 
           if (id == 8) {
                this.dialog.quest = -1;
-               this.func_73866_w_();
+               this.initGui();
           }
 
           if (id == 9) {
-               this.setSubGui(new GuiSoundSelection(this.getTextField(2).func_146179_b()));
+               this.setSubGui(new GuiSoundSelection(this.getTextField(2).getText()));
           }
 
           if (id == 10) {
@@ -136,7 +136,7 @@ public class GuiDialogEdit extends SubGuiInterface implements ISubGuiListener, I
 
           if (id == 14) {
                this.dialog.mail = new PlayerMail();
-               this.func_73866_w_();
+               this.initGui();
           }
 
           if (id == 66) {
@@ -148,15 +148,15 @@ public class GuiDialogEdit extends SubGuiInterface implements ISubGuiListener, I
      public void unFocused(GuiNpcTextField guiNpcTextField) {
           StringBuilder var10000;
           Dialog var10002;
-          if (guiNpcTextField.field_175208_g == 1) {
-               for(this.dialog.title = guiNpcTextField.func_146179_b(); DialogController.instance.containsDialogName(this.dialog.category, this.dialog); var10002.title = var10000.append(var10002.title).append("_").toString()) {
+          if (guiNpcTextField.id == 1) {
+               for(this.dialog.title = guiNpcTextField.getText(); DialogController.instance.containsDialogName(this.dialog.category, this.dialog); var10002.title = var10000.append(var10002.title).append("_").toString()) {
                     var10000 = new StringBuilder();
                     var10002 = this.dialog;
                }
           }
 
-          if (guiNpcTextField.field_175208_g == 2) {
-               this.dialog.sound = guiNpcTextField.func_146179_b();
+          if (guiNpcTextField.id == 2) {
+               this.dialog.sound = guiNpcTextField.getText();
           }
 
      }
@@ -179,14 +179,14 @@ public class GuiDialogEdit extends SubGuiInterface implements ISubGuiListener, I
                GuiQuestSelection gqs = (GuiQuestSelection)subgui;
                if (gqs.selectedQuest != null) {
                     this.dialog.quest = gqs.selectedQuest.id;
-                    this.func_73866_w_();
+                    this.initGui();
                }
           }
 
           if (subgui instanceof GuiSoundSelection) {
                GuiSoundSelection gss = (GuiSoundSelection)subgui;
                if (gss.selectedResource != null) {
-                    this.getTextField(2).func_146180_a(gss.selectedResource.toString());
+                    this.getTextField(2).setText(gss.selectedResource.toString());
                     this.unFocused(this.getTextField(2));
                }
           }

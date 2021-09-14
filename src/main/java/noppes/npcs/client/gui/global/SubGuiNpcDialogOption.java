@@ -25,12 +25,12 @@ public class SubGuiNpcDialogOption extends SubGuiInterface implements ITextfield
           this.closeOnEsc = true;
      }
 
-     public void func_73866_w_() {
-          super.func_73866_w_();
+     public void initGui() {
+          super.initGui();
           this.addLabel(new GuiNpcLabel(66, "dialog.editoption", this.guiLeft, this.guiTop + 4));
           this.getLabel(66).center(this.xSize);
           this.addLabel(new GuiNpcLabel(0, "gui.title", this.guiLeft + 4, this.guiTop + 20));
-          this.addTextField(new GuiNpcTextField(0, this, this.field_146289_q, this.guiLeft + 40, this.guiTop + 15, 196, 20, this.option.title));
+          this.addTextField(new GuiNpcTextField(0, this, this.fontRenderer, this.guiLeft + 40, this.guiTop + 15, 196, 20, this.option.title));
 
           String color;
           for(color = Integer.toHexString(this.option.optionColor); color.length() < 6; color = 0 + color) {
@@ -52,8 +52,8 @@ public class SubGuiNpcDialogOption extends SubGuiInterface implements ITextfield
           }
 
           if (this.option.optionType == 4) {
-               this.addTextField(new GuiNpcTextField(4, this, this.field_146289_q, this.guiLeft + 4, this.guiTop + 84, 248, 20, this.option.command));
-               this.getTextField(4).func_146203_f(32767);
+               this.addTextField(new GuiNpcTextField(4, this, this.fontRenderer, this.guiLeft + 4, this.guiTop + 84, 248, 20, this.option.command));
+               this.getTextField(4).setMaxStringLength(32767);
                this.addLabel(new GuiNpcLabel(4, "advMode.command", this.guiLeft + 4, this.guiTop + 110));
                this.addLabel(new GuiNpcLabel(5, "advMode.nearestPlayer", this.guiLeft + 4, this.guiTop + 125));
                this.addLabel(new GuiNpcLabel(6, "advMode.randomPlayer", this.guiLeft + 4, this.guiTop + 140));
@@ -64,11 +64,11 @@ public class SubGuiNpcDialogOption extends SubGuiInterface implements ITextfield
           this.addButton(new GuiNpcButton(66, this.guiLeft + 82, this.guiTop + 190, 98, 20, "gui.done"));
      }
 
-     protected void func_146284_a(GuiButton guibutton) {
+     protected void actionPerformed(GuiButton guibutton) {
           GuiNpcButton button = (GuiNpcButton)guibutton;
           if (button.id == 1) {
                this.option.optionType = button.getValue();
-               this.func_73866_w_();
+               this.initGui();
           }
 
           if (button.id == 2) {
@@ -86,16 +86,16 @@ public class SubGuiNpcDialogOption extends SubGuiInterface implements ITextfield
      }
 
      public void unFocused(GuiNpcTextField textfield) {
-          if (textfield.field_175208_g == 0) {
+          if (textfield.id == 0) {
                if (textfield.isEmpty()) {
-                    textfield.func_146180_a(this.option.title);
+                    textfield.setText(this.option.title);
                } else {
-                    this.option.title = textfield.func_146179_b();
+                    this.option.title = textfield.getText();
                }
           }
 
-          if (textfield.field_175208_g == 4) {
-               this.option.command = textfield.func_146179_b();
+          if (textfield.id == 4) {
+               this.option.command = textfield.getText();
           }
 
      }
@@ -112,6 +112,6 @@ public class SubGuiNpcDialogOption extends SubGuiInterface implements ITextfield
                }
           }
 
-          this.func_73866_w_();
+          this.initGui();
      }
 }

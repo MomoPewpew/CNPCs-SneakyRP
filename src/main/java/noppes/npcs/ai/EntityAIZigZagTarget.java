@@ -50,9 +50,9 @@ public class EntityAIZigZagTarget extends EntityAIBase {
                Path pathentity = this.npc.getNavigator().getPathToEntityLiving(this.targetEntity);
                if (pathentity != null && pathentity.getCurrentPathLength() >= this.npc.ais.getTacticalRange()) {
                     PathPoint pathpoint = pathentity.getPathPointFromIndex(MathHelper.floor((double)this.npc.ais.getTacticalRange() / 2.0D));
-                    this.entityPosX = pathpoint.field_75839_a;
-                    this.entityPosY = pathpoint.field_75837_b;
-                    this.entityPosZ = pathpoint.field_75838_c;
+                    this.entityPosX = pathpoint.x;
+                    this.entityPosY = pathpoint.y;
+                    this.entityPosZ = pathpoint.z;
                     Vec3d vec3 = RandomPositionGenerator.findRandomTargetBlockTowards(this.npc, this.npc.ais.getTacticalRange(), 3, new Vec3d((double)this.entityPosX, (double)this.entityPosY, (double)this.entityPosZ));
                     if (vec3 != null) {
                          if (this.targetEntity.getDistanceSq(vec3.x, vec3.y, vec3.z) < this.targetEntity.getDistanceSq((double)this.entityPosX, (double)this.entityPosY, (double)this.entityPosZ)) {
@@ -61,9 +61,9 @@ public class EntityAIZigZagTarget extends EntityAIBase {
                               this.movePosZ = vec3.z;
                          }
                     } else {
-                         this.movePosX = (double)pathpoint.field_75839_a;
-                         this.movePosY = (double)pathpoint.field_75837_b;
-                         this.movePosZ = (double)pathpoint.field_75838_c;
+                         this.movePosX = (double)pathpoint.x;
+                         this.movePosY = (double)pathpoint.y;
+                         this.movePosZ = (double)pathpoint.z;
                     }
 
                     this.npc.getNavigator().tryMoveToXYZ(this.movePosX, this.movePosY, this.movePosZ, this.speed);

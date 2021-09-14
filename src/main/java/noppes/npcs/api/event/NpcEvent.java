@@ -100,7 +100,7 @@ public class NpcEvent extends CustomNPCsEvent {
           public DiedEvent(ICustomNpc npc, DamageSource damagesource, Entity entity) {
                super(npc);
                this.damageSource = NpcAPI.Instance().getIDamageSource(damagesource);
-               this.type = damagesource.field_76373_n;
+               this.type = damagesource.damageType;
                this.source = NpcAPI.Instance().getIEntity(entity);
           }
      }

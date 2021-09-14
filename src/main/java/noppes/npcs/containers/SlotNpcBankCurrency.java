@@ -13,11 +13,11 @@ public class SlotNpcBankCurrency extends Slot {
           this.item = ItemStack.EMPTY;
      }
 
-     public int func_75219_a() {
+     public int getSlotStackLimit() {
           return 64;
      }
 
-     public boolean func_75214_a(ItemStack itemstack) {
+     public boolean isItemValid(ItemStack itemstack) {
           if (NoppesUtilServer.IsItemStackNull(itemstack)) {
                return false;
           } else {

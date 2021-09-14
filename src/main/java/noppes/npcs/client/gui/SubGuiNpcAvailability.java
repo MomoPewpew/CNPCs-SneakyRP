@@ -29,8 +29,8 @@ public class SubGuiNpcAvailability extends SubGuiInterface implements ITextfield
           this.closeOnEsc = true;
      }
 
-     public void func_73866_w_() {
-          super.func_73866_w_();
+     public void initGui() {
+          super.initGui();
           this.addLabel(new GuiNpcLabel(1, "availability.available", this.guiLeft, this.guiTop + 4));
           this.getLabel(1).center(this.xSize);
           this.addButton(new GuiNpcButton(0, this.guiLeft + 34, this.guiTop + 12, 180, 20, "availability.selectdialog"));
@@ -51,7 +51,7 @@ public class SubGuiNpcAvailability extends SubGuiInterface implements ITextfield
           this.addLabel(new GuiNpcLabel(50, "availability.daytime", this.guiLeft + 4, this.guiTop + 153));
           this.addButton(new GuiNpcButton(50, this.guiLeft + 50, this.guiTop + 148, 150, 20, new String[]{"availability.wholeday", "availability.night", "availability.day"}, this.availabitily.daytime.ordinal()));
           this.addLabel(new GuiNpcLabel(51, "availability.minlevel", this.guiLeft + 4, this.guiTop + 175));
-          this.addTextField(new GuiNpcTextField(51, this, this.field_146289_q, this.guiLeft + 50, this.guiTop + 170, 90, 20, this.availabitily.minPlayerLevel + ""));
+          this.addTextField(new GuiNpcTextField(51, this, this.fontRenderer, this.guiLeft + 50, this.guiTop + 170, 90, 20, this.availabitily.minPlayerLevel + ""));
           this.getTextField(51).numbersOnly = true;
           this.getTextField(51).setMinMaxDefault(0, Integer.MAX_VALUE, 0);
           this.addButton(new GuiNpcButton(66, this.guiLeft + 82, this.guiTop + 192, 98, 20, "gui.done"));
@@ -69,7 +69,7 @@ public class SubGuiNpcAvailability extends SubGuiInterface implements ITextfield
 
      }
 
-     protected void func_146284_a(GuiButton guibutton) {
+     protected void actionPerformed(GuiButton guibutton) {
           GuiNpcButton button = (GuiNpcButton)guibutton;
           if (button.id == 0) {
                this.setSubGui(new SubGuiNpcAvailabilityDialog(this.availabitily));
@@ -89,7 +89,7 @@ public class SubGuiNpcAvailability extends SubGuiInterface implements ITextfield
                     this.availabitily.factionId = -1;
                }
 
-               this.func_73866_w_();
+               this.initGui();
           }
 
           if (button.id == 24) {
@@ -98,7 +98,7 @@ public class SubGuiNpcAvailability extends SubGuiInterface implements ITextfield
                     this.availabitily.faction2Id = -1;
                }
 
-               this.func_73866_w_();
+               this.initGui();
           }
 
           GuiNPCFactionSelection gui;
@@ -171,7 +171,7 @@ public class SubGuiNpcAvailability extends SubGuiInterface implements ITextfield
      }
 
      public void unFocused(GuiNpcTextField textfield) {
-          if (textfield.field_175208_g == 51) {
+          if (textfield.id == 51) {
                this.availabitily.minPlayerLevel = textfield.getInteger();
           }
 

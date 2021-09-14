@@ -29,8 +29,8 @@ public class GuiNpcCompanion extends GuiNPCInterface2 implements ITextfieldListe
           this.role = (RoleCompanion)npc.roleInterface;
      }
 
-     public void func_73866_w_() {
-          super.func_73866_w_();
+     public void initGui() {
+          super.initGui();
           this.talents = new ArrayList();
           int y = this.guiTop + 4;
           this.addButton(new GuiNpcButton(0, this.guiLeft + 70, y, 90, 20, new String[]{EnumCompanionStage.BABY.name, EnumCompanionStage.CHILD.name, EnumCompanionStage.TEEN.name, EnumCompanionStage.ADULT.name, EnumCompanionStage.FULLGROWN.name}, this.role.stage.ordinal()));
@@ -62,7 +62,7 @@ public class GuiNpcCompanion extends GuiNPCInterface2 implements ITextfieldListe
 
           while(var2.hasNext()) {
                GuiNpcCompanionTalents.GuiTalent gui = (GuiNpcCompanionTalents.GuiTalent)var2.next();
-               gui.func_146280_a(this.field_146297_k, this.width, this.height);
+               gui.setWorldAndResolution(this.mc, this.width, this.height);
           }
 
      }
@@ -76,7 +76,7 @@ public class GuiNpcCompanion extends GuiNPCInterface2 implements ITextfieldListe
                     this.role.ticksActive = (long)this.role.stage.matureAge;
                }
 
-               this.func_73866_w_();
+               this.initGui();
           }
 
           if (guibutton.id == 1) {
@@ -86,25 +86,25 @@ public class GuiNpcCompanion extends GuiNPCInterface2 implements ITextfieldListe
           if (guibutton.id == 2) {
                button = (GuiNpcButton)guibutton;
                this.role.canAge = button.getValue() == 1;
-               this.func_73866_w_();
+               this.initGui();
           }
 
      }
 
      public void unFocused(GuiNpcTextField textfield) {
-          if (textfield.field_175208_g == 2) {
+          if (textfield.id == 2) {
                this.role.ticksActive = (long)textfield.getInteger();
           }
 
      }
 
-     public void func_73863_a(int i, int j, float f) {
-          super.func_73863_a(i, j, f);
+     public void drawScreen(int i, int j, float f) {
+          super.drawScreen(i, j, f);
           Iterator var4 = (new ArrayList(this.talents)).iterator();
 
           while(var4.hasNext()) {
                GuiNpcCompanionTalents.GuiTalent talent = (GuiNpcCompanionTalents.GuiTalent)var4.next();
-               talent.func_73863_a(i, j, f);
+               talent.drawScreen(i, j, f);
           }
 
      }
@@ -121,7 +121,7 @@ public class GuiNpcCompanion extends GuiNPCInterface2 implements ITextfieldListe
                slider.setString("gui.disabled");
                this.role.talents.remove(EnumCompanionTalent.values()[slider.id - 10]);
           } else {
-               slider.field_146126_j = (int)(slider.sliderValue * 50.0F) * 100 + " exp";
+               slider.displayString = (int)(slider.sliderValue * 50.0F) * 100 + " exp";
                this.role.setExp(EnumCompanionTalent.values()[slider.id - 10], (int)(slider.sliderValue * 50.0F) * 100);
           }
 

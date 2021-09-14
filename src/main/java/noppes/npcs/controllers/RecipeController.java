@@ -83,7 +83,7 @@ public class RecipeController implements IRecipeHandler {
      }
 
      private void loadCategories(File file) throws Exception {
-          NBTTagCompound nbttagcompound1 = CompressedStreamTools.func_74796_a(new FileInputStream(file));
+          NBTTagCompound nbttagcompound1 = CompressedStreamTools.readCompressed(new FileInputStream(file));
           this.nextId = nbttagcompound1.getInteger("LastId");
           NBTTagList list = nbttagcompound1.getTagList("Data", 10);
           HashMap globalRecipes = new HashMap();
@@ -138,7 +138,7 @@ public class RecipeController implements IRecipeHandler {
                File file = new File(saveDir, "recipes.dat_new");
                File file1 = new File(saveDir, "recipes.dat_old");
                File file2 = new File(saveDir, "recipes.dat");
-               CompressedStreamTools.func_74799_a(nbttagcompound, new FileOutputStream(file));
+               CompressedStreamTools.writeCompressed(nbttagcompound, new FileOutputStream(file));
                if (file1.exists()) {
                     file1.delete();
                }
@@ -168,7 +168,7 @@ public class RecipeController implements IRecipeHandler {
                }
 
                recipe = (RecipeCarpentry)var2.next();
-          } while(!recipe.isValid() || !recipe.func_77569_a(inventoryCrafting, (World)null));
+          } while(!recipe.isValid() || !recipe.matches(inventoryCrafting, (World)null));
 
           return recipe;
      }

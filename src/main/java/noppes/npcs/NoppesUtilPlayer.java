@@ -83,8 +83,8 @@ public class NoppesUtilPlayer {
      }
 
      public static void teleportPlayer(EntityPlayerMP player, double x, double y, double z, int dimension) {
-          if (player.field_71093_bK != dimension) {
-               int dim = player.field_71093_bK;
+          if (player.dimension != dimension) {
+               int dim = player.dimension;
                MinecraftServer server = player.getServer();
                WorldServer wor = server.getWorld(dimension);
                if (wor == null) {
@@ -92,14 +92,14 @@ public class NoppesUtilPlayer {
                     return;
                }
 
-               player.setLocationAndAngles(x, y, z, player.field_70177_z, player.field_70125_A);
+               player.setLocationAndAngles(x, y, z, player.rotationYaw, player.rotationPitch);
                server.getPlayerList().transferPlayerToDimension(player, dimension, new CustomTeleporter(wor));
-               player.field_71135_a.setPlayerLocation(x, y, z, player.field_70177_z, player.field_70125_A);
-               if (!wor.field_73010_i.contains(player)) {
+               player.connection.setPlayerLocation(x, y, z, player.rotationYaw, player.rotationPitch);
+               if (!wor.playerEntities.contains(player)) {
                     wor.spawnEntity(player);
                }
           } else {
-               player.field_71135_a.setPlayerLocation(x, y, z, player.field_70177_z, player.field_70125_A);
+               player.connection.setPlayerLocation(x, y, z, player.rotationYaw, player.rotationPitch);
           }
 
           player.world.updateEntityWithOptionalForce(player, false);
@@ -353,7 +353,7 @@ public class NoppesUtilPlayer {
 
                     quest.questInterface.handleComplete(player);
                     if (event.expReward > 0) {
-                         NoppesUtilServer.playSound(player, SoundEvents.field_187604_bf, 0.1F, 0.5F * ((player.world.rand.nextFloat() - player.world.rand.nextFloat()) * 0.7F + 1.8F));
+                         NoppesUtilServer.playSound(player, SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP, 0.1F, 0.5F * ((player.world.rand.nextFloat() - player.world.rand.nextFloat()) * 0.7F + 1.8F));
                          player.addExperience(event.expReward);
                     }
 
@@ -365,7 +365,7 @@ public class NoppesUtilPlayer {
                     if (!quest.command.isEmpty()) {
                          FakePlayer cplayer = EntityNPCInterface.CommandPlayer;
                          cplayer.setWorld(player.world);
-                         cplayer.setPosition(player.field_70165_t, player.field_70163_u, player.field_70161_v);
+                         cplayer.setPosition(player.posX, player.posY, player.posZ);
                          NoppesUtilServer.runCommand(cplayer, "QuestCompletion", quest.command, player);
                     }
 

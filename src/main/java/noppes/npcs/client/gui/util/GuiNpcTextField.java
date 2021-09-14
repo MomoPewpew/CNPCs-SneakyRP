@@ -27,8 +27,8 @@ public class GuiNpcTextField extends GuiTextField {
           this.def = 0;
           this.canEdit = true;
           this.allowedSpecialChars = new int[]{14, 211, 203, 205};
-          this.func_146203_f(500);
-          this.func_146180_a(s == null ? "" : s);
+          this.setMaxStringLength(500);
+          this.setText(s == null ? "" : s);
           if (parent instanceof ITextfieldListener) {
                this.listener = (ITextfieldListener)parent;
           }
@@ -44,7 +44,7 @@ public class GuiNpcTextField extends GuiTextField {
      }
 
      private boolean charAllowed(char c, int i) {
-          if (!this.numbersOnly || Character.isDigit(c) || c == '-' && this.func_146179_b().length() == 0) {
+          if (!this.numbersOnly || Character.isDigit(c) || c == '-' && this.getText().length() == 0) {
                return true;
           } else {
                int[] var3 = this.allowedSpecialChars;
@@ -61,38 +61,38 @@ public class GuiNpcTextField extends GuiTextField {
           }
      }
 
-     public boolean func_146201_a(char c, int i) {
-          return this.charAllowed(c, i) && this.canEdit ? super.func_146201_a(c, i) : false;
+     public boolean textboxKeyTyped(char c, int i) {
+          return this.charAllowed(c, i) && this.canEdit ? super.textboxKeyTyped(c, i) : false;
      }
 
      public boolean isEmpty() {
-          return this.func_146179_b().trim().length() == 0;
+          return this.getText().trim().length() == 0;
      }
 
      public int getInteger() {
-          return Integer.parseInt(this.func_146179_b());
+          return Integer.parseInt(this.getText());
      }
 
      public boolean isInteger() {
           try {
-               Integer.parseInt(this.func_146179_b());
+               Integer.parseInt(this.getText());
                return true;
           } catch (NumberFormatException var2) {
                return false;
           }
      }
 
-     public boolean func_146192_a(int i, int j, int k) {
+     public boolean mouseClicked(int i, int j, int k) {
           if (!this.canEdit) {
                return false;
           } else {
-               boolean wasFocused = this.func_146206_l();
-               boolean clicked = super.func_146192_a(i, j, k);
-               if (wasFocused != this.func_146206_l() && wasFocused) {
+               boolean wasFocused = this.isFocused();
+               boolean clicked = super.mouseClicked(i, j, k);
+               if (wasFocused != this.isFocused() && wasFocused) {
                     this.unFocused();
                }
 
-               if (this.func_146206_l()) {
+               if (this.isFocused()) {
                     activeTextfield = this;
                }
 
@@ -104,12 +104,12 @@ public class GuiNpcTextField extends GuiTextField {
           if (this.numbersOnly) {
                if (!this.isEmpty() && this.isInteger()) {
                     if (this.getInteger() < this.min) {
-                         this.func_146180_a(this.min + "");
+                         this.setText(this.min + "");
                     } else if (this.getInteger() > this.max) {
-                         this.func_146180_a(this.max + "");
+                         this.setText(this.max + "");
                     }
                } else {
-                    this.func_146180_a(this.def + "");
+                    this.setText(this.def + "");
                }
           }
 
@@ -123,9 +123,9 @@ public class GuiNpcTextField extends GuiTextField {
 
      }
 
-     public void func_146194_f() {
+     public void drawTextBox() {
           if (this.enabled) {
-               super.func_146194_f();
+               super.drawTextBox();
           }
 
      }
@@ -146,7 +146,7 @@ public class GuiNpcTextField extends GuiTextField {
      }
 
      public void drawTextBox(int mousX, int mousY) {
-          this.func_146194_f();
+          this.drawTextBox();
      }
 
      public GuiNpcTextField setNumbersOnly() {

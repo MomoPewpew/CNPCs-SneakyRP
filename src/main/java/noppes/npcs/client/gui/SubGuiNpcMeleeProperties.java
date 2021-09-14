@@ -21,29 +21,29 @@ public class SubGuiNpcMeleeProperties extends SubGuiInterface implements ITextfi
           this.closeOnEsc = true;
      }
 
-     public void func_73866_w_() {
-          super.func_73866_w_();
+     public void initGui() {
+          super.initGui();
           this.addLabel(new GuiNpcLabel(1, "stats.meleestrength", this.guiLeft + 5, this.guiTop + 15));
-          this.addTextField(new GuiNpcTextField(1, this, this.field_146289_q, this.guiLeft + 85, this.guiTop + 10, 50, 18, this.stats.getStrength() + ""));
+          this.addTextField(new GuiNpcTextField(1, this, this.fontRenderer, this.guiLeft + 85, this.guiTop + 10, 50, 18, this.stats.getStrength() + ""));
           this.getTextField(1).numbersOnly = true;
           this.getTextField(1).setMinMaxDefault(0, Integer.MAX_VALUE, 5);
           this.addLabel(new GuiNpcLabel(2, "stats.meleerange", this.guiLeft + 5, this.guiTop + 45));
-          this.addTextField(new GuiNpcTextField(2, this, this.field_146289_q, this.guiLeft + 85, this.guiTop + 40, 50, 18, this.stats.getRange() + ""));
+          this.addTextField(new GuiNpcTextField(2, this, this.fontRenderer, this.guiLeft + 85, this.guiTop + 40, 50, 18, this.stats.getRange() + ""));
           this.getTextField(2).numbersOnly = true;
           this.getTextField(2).setMinMaxDefault(1, 30, 2);
           this.addLabel(new GuiNpcLabel(3, "stats.meleespeed", this.guiLeft + 5, this.guiTop + 75));
-          this.addTextField(new GuiNpcTextField(3, this, this.field_146289_q, this.guiLeft + 85, this.guiTop + 70, 50, 18, this.stats.getDelay() + ""));
+          this.addTextField(new GuiNpcTextField(3, this, this.fontRenderer, this.guiLeft + 85, this.guiTop + 70, 50, 18, this.stats.getDelay() + ""));
           this.getTextField(3).numbersOnly = true;
           this.getTextField(3).setMinMaxDefault(1, 1000, 20);
           this.addLabel(new GuiNpcLabel(4, "enchantment.knockback", this.guiLeft + 5, this.guiTop + 105));
-          this.addTextField(new GuiNpcTextField(4, this, this.field_146289_q, this.guiLeft + 85, this.guiTop + 100, 50, 18, this.stats.getKnockback() + ""));
+          this.addTextField(new GuiNpcTextField(4, this, this.fontRenderer, this.guiLeft + 85, this.guiTop + 100, 50, 18, this.stats.getKnockback() + ""));
           this.getTextField(4).numbersOnly = true;
           this.getTextField(4).setMinMaxDefault(0, 4, 0);
           this.addLabel(new GuiNpcLabel(5, "stats.meleeeffect", this.guiLeft + 5, this.guiTop + 135));
           this.addButton(new GuiButtonBiDirectional(5, this.guiLeft + 85, this.guiTop + 130, 100, 20, this.potionNames, this.stats.getEffectType()));
           if (this.stats.getEffectType() != 0) {
                this.addLabel(new GuiNpcLabel(6, "gui.time", this.guiLeft + 5, this.guiTop + 165));
-               this.addTextField(new GuiNpcTextField(6, this, this.field_146289_q, this.guiLeft + 85, this.guiTop + 160, 50, 18, this.stats.getEffectTime() + ""));
+               this.addTextField(new GuiNpcTextField(6, this, this.fontRenderer, this.guiLeft + 85, this.guiTop + 160, 50, 18, this.stats.getEffectTime() + ""));
                this.getTextField(6).numbersOnly = true;
                this.getTextField(6).setMinMaxDefault(1, 99999, 5);
                if (this.stats.getEffectType() != 1) {
@@ -56,25 +56,25 @@ public class SubGuiNpcMeleeProperties extends SubGuiInterface implements ITextfi
      }
 
      public void unFocused(GuiNpcTextField textfield) {
-          if (textfield.field_175208_g == 1) {
+          if (textfield.id == 1) {
                this.stats.setStrength(textfield.getInteger());
-          } else if (textfield.field_175208_g == 2) {
+          } else if (textfield.id == 2) {
                this.stats.setRange(textfield.getInteger());
-          } else if (textfield.field_175208_g == 3) {
+          } else if (textfield.id == 3) {
                this.stats.setDelay(textfield.getInteger());
-          } else if (textfield.field_175208_g == 4) {
+          } else if (textfield.id == 4) {
                this.stats.setKnockback(textfield.getInteger());
-          } else if (textfield.field_175208_g == 6) {
+          } else if (textfield.id == 6) {
                this.stats.setEffect(this.stats.getEffectType(), this.stats.getEffectStrength(), textfield.getInteger());
           }
 
      }
 
-     protected void func_146284_a(GuiButton guibutton) {
+     protected void actionPerformed(GuiButton guibutton) {
           GuiNpcButton button = (GuiNpcButton)guibutton;
           if (button.id == 5) {
                this.stats.setEffect(button.getValue(), this.stats.getEffectStrength(), this.stats.getEffectTime());
-               this.func_73866_w_();
+               this.initGui();
           }
 
           if (button.id == 7) {

@@ -143,7 +143,7 @@ public class TileBuilder extends TileEntity implements ITickable {
      }
 
      public void update() {
-          if (!this.field_145850_b.isRemote && this.hasSchematic() && !this.finished) {
+          if (!this.world.isRemote && this.hasSchematic() && !this.finished) {
                --this.ticks;
                if (this.ticks <= 0) {
                     this.ticks = 200;
@@ -166,7 +166,7 @@ public class TileBuilder extends TileEntity implements ITickable {
                               }
                          }
 
-                         List list = this.field_145850_b.getEntitiesWithinAABB(EntityNPCInterface.class, (new AxisAlignedBB(this.getPos(), this.getPos())).expand(32.0D, 32.0D, 32.0D));
+                         List list = this.world.getEntitiesWithinAABB(EntityNPCInterface.class, (new AxisAlignedBB(this.getPos(), this.getPos())).grow(32.0D, 32.0D, 32.0D));
                          Iterator var6 = list.iterator();
 
                          while(var6.hasNext()) {
@@ -185,7 +185,7 @@ public class TileBuilder extends TileEntity implements ITickable {
      }
 
      private List getPlayerList() {
-          return this.field_145850_b.getEntitiesWithinAABB(EntityPlayer.class, (new AxisAlignedBB((double)this.field_174879_c.getX(), (double)this.field_174879_c.getY(), (double)this.field_174879_c.getZ(), (double)(this.field_174879_c.getX() + 1), (double)(this.field_174879_c.getY() + 1), (double)(this.field_174879_c.getZ() + 1))).expand(10.0D, 10.0D, 10.0D));
+          return this.world.getEntitiesWithinAABB(EntityPlayer.class, (new AxisAlignedBB((double)this.pos.getX(), (double)this.pos.getY(), (double)this.pos.getZ(), (double)(this.pos.getX() + 1), (double)(this.pos.getY() + 1), (double)(this.pos.getZ() + 1))).grow(10.0D, 10.0D, 10.0D));
      }
 
      public Stack getBlock() {
@@ -208,12 +208,12 @@ public class TileBuilder extends TileEntity implements ITickable {
                          int z = (pos - x) / this.schematic.schema.getWidth() % this.schematic.schema.getLength();
                          int y = ((pos - x) / this.schematic.schema.getWidth() - z) / this.schematic.schema.getLength();
                          IBlockState state = this.schematic.schema.getBlockState(x, y, z);
-                         if (!state.isFullBlock() && !bo && state.getBlock() != Blocks.field_150350_a) {
+                         if (!state.isFullBlock() && !bo && state.getBlock() != Blocks.AIR) {
                               this.positionsSecond.add(0, pos);
                          } else {
                               BlockPos blockPos = this.getPos().add(1, this.yOffest, 1).add(this.schematic.rotatePos(x, y, z, this.rotation));
-                              IBlockState original = this.field_145850_b.getBlockState(blockPos);
-                              if (Block.func_176210_f(state) != Block.func_176210_f(original)) {
+                              IBlockState original = this.world.getBlockState(blockPos);
+                              if (Block.getStateId(state) != Block.getStateId(original)) {
                                    state = this.schematic.rotationState(state, this.rotation);
                                    NBTTagCompound tile = null;
                                    if (state.getBlock() instanceof ITileEntityProvider) {

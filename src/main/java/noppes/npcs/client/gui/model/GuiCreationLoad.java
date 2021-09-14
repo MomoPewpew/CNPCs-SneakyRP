@@ -22,8 +22,8 @@ public class GuiCreationLoad extends GuiCreationScreenInterface implements ICust
           PresetController.instance.load();
      }
 
-     public void func_73866_w_() {
-          super.func_73866_w_();
+     public void initGui() {
+          super.initGui();
           if (this.scroll == null) {
                this.scroll = new GuiCustomScroll(this, 0);
           }
@@ -44,11 +44,11 @@ public class GuiCreationLoad extends GuiCreationScreenInterface implements ICust
           this.addButton(new GuiNpcButton(10, this.guiLeft, this.guiTop + this.ySize - 46, 120, 20, "gui.remove"));
      }
 
-     protected void func_146284_a(GuiButton btn) {
-          super.func_146284_a(btn);
+     protected void actionPerformed(GuiButton btn) {
+          super.actionPerformed(btn);
           if (btn.id == 10 && this.scroll.hasSelected()) {
                PresetController.instance.removePreset(this.scroll.getSelected());
-               this.func_73866_w_();
+               this.initGui();
           }
 
      }
@@ -56,7 +56,7 @@ public class GuiCreationLoad extends GuiCreationScreenInterface implements ICust
      public void scrollClicked(int i, int j, int k, GuiCustomScroll scroll) {
           Preset preset = PresetController.instance.getPreset(scroll.getSelected());
           this.playerdata.readFromNBT(preset.data.writeToNBT());
-          this.func_73866_w_();
+          this.initGui();
      }
 
      public void scrollDoubleClicked(String selection, GuiCustomScroll scroll) {

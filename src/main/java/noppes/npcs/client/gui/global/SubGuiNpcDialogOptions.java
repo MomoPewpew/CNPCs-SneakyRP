@@ -18,8 +18,8 @@ public class SubGuiNpcDialogOptions extends SubGuiInterface {
           this.closeOnEsc = true;
      }
 
-     public void func_73866_w_() {
-          super.func_73866_w_();
+     public void initGui() {
+          super.initGui();
           this.addLabel(new GuiNpcLabel(66, "dialog.options", this.guiLeft, this.guiTop + 4));
           this.getLabel(66).center(this.xSize);
 
@@ -38,7 +38,7 @@ public class SubGuiNpcDialogOptions extends SubGuiInterface {
           this.addButton(new GuiNpcButton(66, this.guiLeft + 82, this.guiTop + 194, 98, 20, "gui.done"));
      }
 
-     protected void func_146284_a(GuiButton guibutton) {
+     protected void actionPerformed(GuiButton guibutton) {
           int id = guibutton.id;
           if (id < 6) {
                DialogOption option = (DialogOption)this.dialog.options.get(id);

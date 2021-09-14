@@ -47,12 +47,12 @@ public class NoppesUtil {
           float height = buffer.readFloat();
           float width = buffer.readFloat();
           String particle = Server.readString(buffer);
-          World world = Minecraft.getMinecraft().field_71441_e;
+          World world = Minecraft.getMinecraft().world;
           Random rand = world.rand;
           if (particle.equals("heal")) {
                for(int k = 0; k < 6; ++k) {
-                    world.func_175688_a(EnumParticleTypes.SPELL_INSTANT, posX + (rand.nextDouble() - 0.5D) * (double)width, posY + rand.nextDouble() * (double)height, posZ + (rand.nextDouble() - 0.5D) * (double)width, 0.0D, 0.0D, 0.0D, new int[0]);
-                    world.func_175688_a(EnumParticleTypes.SPELL, posX + (rand.nextDouble() - 0.5D) * (double)width, posY + rand.nextDouble() * (double)height, posZ + (rand.nextDouble() - 0.5D) * (double)width, 0.0D, 0.0D, 0.0D, new int[0]);
+                    world.spawnParticle(EnumParticleTypes.SPELL_INSTANT, posX + (rand.nextDouble() - 0.5D) * (double)width, posY + rand.nextDouble() * (double)height, posZ + (rand.nextDouble() - 0.5D) * (double)width, 0.0D, 0.0D, 0.0D, new int[0]);
+                    world.spawnParticle(EnumParticleTypes.SPELL, posX + (rand.nextDouble() - 0.5D) * (double)width, posY + rand.nextDouble() * (double)height, posZ + (rand.nextDouble() - 0.5D) * (double)width, 0.0D, 0.0D, 0.0D, new int[0]);
                }
           }
 
@@ -72,13 +72,13 @@ public class NoppesUtil {
 
      public static void openFolder(File dir) {
           String s = dir.getAbsolutePath();
-          if (Util.func_110647_a() == EnumOS.OSX) {
+          if (Util.getOSType() == EnumOS.OSX) {
                try {
                     Runtime.getRuntime().exec(new String[]{"/usr/bin/open", s});
                     return;
                } catch (IOException var7) {
                }
-          } else if (Util.func_110647_a() == EnumOS.WINDOWS) {
+          } else if (Util.getOSType() == EnumOS.WINDOWS) {
                String s1 = String.format("cmd.exe /C start \"Open file\" \"%s\"", s);
 
                try {
@@ -105,7 +105,7 @@ public class NoppesUtil {
      }
 
      public static void setScrollList(ByteBuf buffer) {
-          GuiScreen gui = Minecraft.getMinecraft().field_71462_r;
+          GuiScreen gui = Minecraft.getMinecraft().currentScreen;
           if (gui instanceof GuiNPCInterface && ((GuiNPCInterface)gui).hasSubGui()) {
                gui = ((GuiNPCInterface)gui).getSubGui();
           }
@@ -141,7 +141,7 @@ public class NoppesUtil {
      }
 
      public static void setScrollData(ByteBuf buffer) {
-          GuiScreen gui = Minecraft.getMinecraft().field_71462_r;
+          GuiScreen gui = Minecraft.getMinecraft().currentScreen;
           if (gui != null) {
                try {
                     int size = buffer.readInt();
@@ -171,7 +171,7 @@ public class NoppesUtil {
      }
 
      public static void openDialog(Dialog dialog, EntityNPCInterface npc, EntityPlayer player) {
-          GuiScreen gui = Minecraft.getMinecraft().field_71462_r;
+          GuiScreen gui = Minecraft.getMinecraft().currentScreen;
           if (gui != null && gui instanceof GuiDialogInteract) {
                GuiDialogInteract dia = (GuiDialogInteract)gui;
                dia.appendDialog(dialog);
@@ -182,6 +182,6 @@ public class NoppesUtil {
      }
 
      public static void clickSound() {
-          Minecraft.getMinecraft().func_147118_V().func_147682_a(PositionedSoundRecord.func_184371_a(SoundEvents.field_187909_gi, 1.0F));
+          Minecraft.getMinecraft().getSoundHandler().playSound(PositionedSoundRecord.getMasterRecord(SoundEvents.UI_BUTTON_CLICK, 1.0F));
      }
 }

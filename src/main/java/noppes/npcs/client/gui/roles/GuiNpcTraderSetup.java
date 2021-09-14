@@ -22,30 +22,30 @@ public class GuiNpcTraderSetup extends GuiContainerNPCInterface2 implements ITex
 
      public GuiNpcTraderSetup(EntityNPCInterface npc, ContainerNPCTraderSetup container) {
           super(npc, container);
-          this.field_147000_g = 220;
+          this.ySize = 220;
           this.menuYOffset = 10;
           this.role = container.role;
      }
 
-     public void func_73866_w_() {
-          super.func_73866_w_();
-          this.field_146292_n.clear();
+     public void initGui() {
+          super.initGui();
+          this.buttonList.clear();
           this.setBackground("tradersetup.png");
-          this.addLabel(new GuiNpcLabel(0, "role.marketname", this.field_147003_i + 214, this.field_147009_r + 150));
-          this.addTextField(new GuiNpcTextField(0, this, this.field_147003_i + 214, this.field_147009_r + 160, 180, 20, this.role.marketName));
-          this.addLabel(new GuiNpcLabel(1, "gui.ignoreDamage", this.field_147003_i + 260, this.field_147009_r + 29));
-          this.addButton(new GuiNpcButtonYesNo(1, this.field_147003_i + 340, this.field_147009_r + 24, this.role.ignoreDamage));
-          this.addLabel(new GuiNpcLabel(2, "gui.ignoreNBT", this.field_147003_i + 260, this.field_147009_r + 51));
-          this.addButton(new GuiNpcButtonYesNo(2, this.field_147003_i + 340, this.field_147009_r + 46, this.role.ignoreNBT));
+          this.addLabel(new GuiNpcLabel(0, "role.marketname", this.guiLeft + 214, this.guiTop + 150));
+          this.addTextField(new GuiNpcTextField(0, this, this.guiLeft + 214, this.guiTop + 160, 180, 20, this.role.marketName));
+          this.addLabel(new GuiNpcLabel(1, "gui.ignoreDamage", this.guiLeft + 260, this.guiTop + 29));
+          this.addButton(new GuiNpcButtonYesNo(1, this.guiLeft + 340, this.guiTop + 24, this.role.ignoreDamage));
+          this.addLabel(new GuiNpcLabel(2, "gui.ignoreNBT", this.guiLeft + 260, this.guiTop + 51));
+          this.addButton(new GuiNpcButtonYesNo(2, this.guiLeft + 340, this.guiTop + 46, this.role.ignoreNBT));
      }
 
-     public void func_73863_a(int i, int j, float f) {
-          this.field_147009_r += 10;
-          super.func_73863_a(i, j, f);
-          this.field_147009_r -= 10;
+     public void drawScreen(int i, int j, float f) {
+          this.guiTop += 10;
+          super.drawScreen(i, j, f);
+          this.guiTop -= 10;
      }
 
-     public void func_146284_a(GuiButton guibutton) {
+     public void actionPerformed(GuiButton guibutton) {
           if (guibutton.id == 1) {
                this.role.ignoreDamage = ((GuiNpcButtonYesNo)guibutton).getBoolean();
           }
@@ -56,19 +56,19 @@ public class GuiNpcTraderSetup extends GuiContainerNPCInterface2 implements ITex
 
      }
 
-     protected void func_146976_a(float f, int i, int j) {
-          super.func_146976_a(f, i, j);
+     protected void drawGuiContainerBackgroundLayer(float f, int i, int j) {
+          super.drawGuiContainerBackgroundLayer(f, i, j);
           GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
 
           for(int slot = 0; slot < 18; ++slot) {
-               int x = this.field_147003_i + slot % 3 * 94 + 7;
-               int y = this.field_147009_r + slot / 3 * 22 + 4;
-               this.field_146297_k.renderEngine.bindTexture(this.slot);
+               int x = this.guiLeft + slot % 3 * 94 + 7;
+               int y = this.guiTop + slot / 3 * 22 + 4;
+               this.mc.renderEngine.bindTexture(this.slot);
                GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
                this.drawTexturedModalRect(x - 1, y, 0, 0, 18, 18);
                this.drawTexturedModalRect(x + 17, y, 0, 0, 18, 18);
-               this.field_146289_q.func_78276_b("=", x + 36, y + 5, CustomNpcResourceListener.DefaultTextColor);
-               this.field_146297_k.renderEngine.bindTexture(this.slot);
+               this.fontRenderer.drawString("=", x + 36, y + 5, CustomNpcResourceListener.DefaultTextColor);
+               this.mc.renderEngine.bindTexture(this.slot);
                GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
                this.drawTexturedModalRect(x + 42, y, 0, 0, 18, 18);
           }
@@ -81,7 +81,7 @@ public class GuiNpcTraderSetup extends GuiContainerNPCInterface2 implements ITex
      }
 
      public void unFocused(GuiNpcTextField guiNpcTextField) {
-          String name = guiNpcTextField.func_146179_b();
+          String name = guiNpcTextField.getText();
           if (!name.equalsIgnoreCase(this.role.marketName)) {
                this.role.marketName = name;
                Client.sendData(EnumPacketServer.TraderMarketSave, this.role.marketName, true);

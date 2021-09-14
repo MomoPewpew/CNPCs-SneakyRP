@@ -71,7 +71,7 @@ public class Faction implements IFaction {
      }
 
      public boolean isAggressiveToPlayer(EntityPlayer player) {
-          if (player.field_71075_bZ.field_75098_d) {
+          if (player.capabilities.isCreativeMode) {
                return false;
           } else {
                PlayerFactionData data = PlayerData.get(player).factionData;

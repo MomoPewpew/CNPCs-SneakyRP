@@ -43,8 +43,8 @@ import org.lwjgl.input.Mouse;
 
 public class GuiCustom extends GuiContainer implements ICustomScrollListener, IGuiData {
      CustomGuiWrapper gui;
-     int field_146999_f;
-     int field_147000_g;
+     int xSize;
+     int ySize;
      public static int guiLeft;
      public static int guiTop;
      ResourceLocation background;
@@ -58,11 +58,11 @@ public class GuiCustom extends GuiContainer implements ICustomScrollListener, IG
           super(container);
      }
 
-     public void func_73866_w_() {
-          super.func_73866_w_();
+     public void initGui() {
+          super.initGui();
           if (this.gui != null) {
-               guiLeft = (this.width - this.field_146999_f) / 2;
-               guiTop = (this.height - this.field_147000_g) / 2;
+               guiLeft = (this.width - this.xSize) / 2;
+               guiTop = (this.height - this.ySize) / 2;
                this.components.clear();
                this.clickListeners.clear();
                this.keyListeners.clear();
@@ -77,22 +77,22 @@ public class GuiCustom extends GuiContainer implements ICustomScrollListener, IG
 
      }
 
-     public void func_73876_c() {
-          super.func_73876_c();
+     public void updateScreen() {
+          super.updateScreen();
           Iterator var1 = this.dataHolders.iterator();
 
           while(var1.hasNext()) {
                IDataHolder component = (IDataHolder)var1.next();
                if (component instanceof GuiTextField) {
-                    ((GuiTextField)component).func_146178_a();
+                    ((GuiTextField)component).updateCursorCounter();
                }
           }
 
      }
 
-     public void func_73863_a(int mouseX, int mouseY, float partialTicks) {
+     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
           this.hoverText = null;
-          this.func_146276_q_();
+          this.drawDefaultBackground();
           if (this.background != null) {
                this.drawBackgroundTexture();
           }
@@ -101,22 +101,22 @@ public class GuiCustom extends GuiContainer implements ICustomScrollListener, IG
 
           while(var4.hasNext()) {
                IGuiComponent component = (IGuiComponent)var4.next();
-               component.onRender(this.field_146297_k, mouseX, mouseY, Mouse.getDWheel(), partialTicks);
+               component.onRender(this.mc, mouseX, mouseY, Mouse.getDWheel(), partialTicks);
           }
 
           if (this.hoverText != null) {
-               this.func_146283_a(Arrays.asList(this.hoverText), mouseX, mouseY);
+               this.drawHoveringText(Arrays.asList(this.hoverText), mouseX, mouseY);
           }
 
-          super.func_73863_a(mouseX, mouseY, partialTicks);
+          super.drawScreen(mouseX, mouseY, partialTicks);
      }
 
-     protected void func_146976_a(float partialTicks, int mouseX, int mouseY) {
+     protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
      }
 
      void drawBackgroundTexture() {
-          this.field_146297_k.func_110434_K().bindTexture(this.background);
-          this.drawTexturedModalRect(guiLeft, guiTop, 0, 0, this.field_146999_f, this.field_147000_g);
+          this.mc.getTextureManager().bindTexture(this.background);
+          this.drawTexturedModalRect(guiLeft, guiTop, 0, 0, this.xSize, this.ySize);
      }
 
      private void addComponent(ICustomGuiComponent component) {
@@ -141,13 +141,13 @@ public class GuiCustom extends GuiContainer implements ICustomScrollListener, IG
           case 3:
                CustomGuiTextField textField = CustomGuiTextField.fromComponent((CustomGuiTextFieldWrapper)component);
                textField.setParent(this);
-               this.components.put(textField.field_175208_g, textField);
+               this.components.put(textField.id, textField);
                this.addDataHolder(textField);
                this.addClickListener(textField);
                this.addKeyListener(textField);
                break;
           case 4:
-               CustomGuiScrollComponent scroll = new CustomGuiScrollComponent(this.field_146297_k, this, component.getID(), ((CustomGuiScrollWrapper)component).isMultiSelect());
+               CustomGuiScrollComponent scroll = new CustomGuiScrollComponent(this.mc, this, component.getID(), ((CustomGuiScrollWrapper)component).isMultiSelect());
                scroll.fromComponent((CustomGuiScrollWrapper)component);
                scroll.setParent(this);
                this.components.put(scroll.getID(), scroll);
@@ -157,8 +157,8 @@ public class GuiCustom extends GuiContainer implements ICustomScrollListener, IG
 
      }
 
-     protected void func_146284_a(GuiButton button) throws IOException {
-          super.func_146284_a(button);
+     protected void actionPerformed(GuiButton button) throws IOException {
+          super.actionPerformed(button);
           Client.sendData(EnumPacketServer.CustomGuiButton, this.updateGui().toNBT(), button.id);
      }
 
@@ -167,7 +167,7 @@ public class GuiCustom extends GuiContainer implements ICustomScrollListener, IG
      }
 
      public void slotChange(Slot slot) {
-          Client.sendData(EnumPacketServer.CustomGuiSlotChange, this.updateGui().toNBT(), slot.field_75222_d);
+          Client.sendData(EnumPacketServer.CustomGuiSlotChange, this.updateGui().toNBT(), slot.slotNumber);
      }
 
      public void scrollClicked(int i, int j, int k, GuiCustomScroll scroll) {
@@ -178,12 +178,12 @@ public class GuiCustom extends GuiContainer implements ICustomScrollListener, IG
           Client.sendData(EnumPacketServer.CustomGuiScrollClick, this.updateGui().toNBT(), scroll.id, scroll.selected, this.getScrollSelection((CustomGuiScrollComponent)scroll), true);
      }
 
-     public void func_146281_b() {
+     public void onGuiClosed() {
           if (this.gui != null) {
                Client.sendData(EnumPacketServer.CustomGuiClose, this.updateGui().toNBT());
           }
 
-          super.func_146281_b();
+          super.onGuiClosed();
      }
 
      CustomGuiWrapper updateGui() {
@@ -215,7 +215,7 @@ public class GuiCustom extends GuiContainer implements ICustomScrollListener, IG
           return selection;
      }
 
-     protected void func_73869_a(char typedChar, int keyCode) throws IOException {
+     protected void keyTyped(char typedChar, int keyCode) throws IOException {
           Iterator var3 = this.keyListeners.iterator();
 
           while(var3.hasNext()) {
@@ -223,13 +223,13 @@ public class GuiCustom extends GuiContainer implements ICustomScrollListener, IG
                listener.keyTyped(typedChar, keyCode);
           }
 
-          if (!this.field_146297_k.field_71474_y.field_151445_Q.isActiveAndMatches(keyCode)) {
-               super.func_73869_a(typedChar, keyCode);
+          if (!this.mc.gameSettings.keyBindInventory.isActiveAndMatches(keyCode)) {
+               super.keyTyped(typedChar, keyCode);
           }
      }
 
-     protected void func_73864_a(int mouseX, int mouseY, int mouseButton) throws IOException {
-          super.func_73864_a(mouseX, mouseY, mouseButton);
+     protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
+          super.mouseClicked(mouseX, mouseY, mouseButton);
           Iterator var4 = this.clickListeners.iterator();
 
           while(var4.hasNext()) {
@@ -239,7 +239,7 @@ public class GuiCustom extends GuiContainer implements ICustomScrollListener, IG
 
      }
 
-     public boolean func_73868_f() {
+     public boolean doesGuiPauseGame() {
           return this.gui != null ? this.gui.getDoesPauseGame() : true;
      }
 
@@ -258,14 +258,14 @@ public class GuiCustom extends GuiContainer implements ICustomScrollListener, IG
      public void setGuiData(NBTTagCompound compound) {
           Minecraft mc = Minecraft.getMinecraft();
           CustomGuiWrapper gui = (CustomGuiWrapper)(new CustomGuiWrapper()).fromNBT(compound);
-          ((ContainerCustomGui)this.field_147002_h).setGui(gui, mc.player);
+          ((ContainerCustomGui)this.inventorySlots).setGui(gui, mc.player);
           this.gui = gui;
-          this.field_146999_f = gui.getWidth();
-          this.field_147000_g = gui.getHeight();
+          this.xSize = gui.getWidth();
+          this.ySize = gui.getHeight();
           if (!gui.getBackgroundTexture().isEmpty()) {
                this.background = new ResourceLocation(gui.getBackgroundTexture());
           }
 
-          this.func_73866_w_();
+          this.initGui();
      }
 }

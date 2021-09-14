@@ -124,39 +124,39 @@ public class EntityWrapper implements IEntity {
      }
 
      public double getX() {
-          return this.entity.field_70165_t;
+          return this.entity.posX;
      }
 
      public void setX(double x) {
-          this.entity.field_70165_t = x;
+          this.entity.posX = x;
      }
 
      public double getY() {
-          return this.entity.field_70163_u;
+          return this.entity.posY;
      }
 
      public void setY(double y) {
-          this.entity.field_70163_u = y;
+          this.entity.posY = y;
      }
 
      public double getZ() {
-          return this.entity.field_70161_v;
+          return this.entity.posZ;
      }
 
      public void setZ(double z) {
-          this.entity.field_70161_v = z;
+          this.entity.posZ = z;
      }
 
      public int getBlockX() {
-          return MathHelper.floor(this.entity.field_70165_t);
+          return MathHelper.floor(this.entity.posX);
      }
 
      public int getBlockY() {
-          return MathHelper.floor(this.entity.field_70163_u);
+          return MathHelper.floor(this.entity.posY);
      }
 
      public int getBlockZ() {
-          return MathHelper.floor(this.entity.field_70161_v);
+          return MathHelper.floor(this.entity.posZ);
      }
 
      public String getEntityName() {
@@ -205,22 +205,22 @@ public class EntityWrapper implements IEntity {
      }
 
      public long getAge() {
-          return (long)this.entity.field_70173_aa;
+          return (long)this.entity.ticksExisted;
      }
 
      public void damage(float amount) {
-          this.entity.attackEntityFrom(DamageSource.field_76377_j, amount);
+          this.entity.attackEntityFrom(DamageSource.GENERIC, amount);
      }
 
      public void despawn() {
-          this.entity.field_70128_L = true;
+          this.entity.isDead = true;
      }
 
      public void spawn() {
           if (this.worldWrapper.getMCWorld().getEntityFromUuid(this.entity.getUniqueID()) != null) {
                throw new CustomNPCsException("Entity is already spawned", new Object[0]);
           } else {
-               this.entity.field_70128_L = false;
+               this.entity.isDead = false;
                this.worldWrapper.getMCWorld().spawnEntity(this.entity);
           }
      }
@@ -275,18 +275,18 @@ public class EntityWrapper implements IEntity {
      public IRayTrace rayTraceBlock(double distance, boolean stopOnLiquid, boolean ignoreBlockWithoutBoundingBox) {
           Vec3d vec3d = this.entity.getPositionEyes(1.0F);
           Vec3d vec3d1 = this.entity.getLook(1.0F);
-          Vec3d vec3d2 = vec3d.addVector(vec3d1.x * distance, vec3d1.y * distance, vec3d1.z * distance);
+          Vec3d vec3d2 = vec3d.add(vec3d1.x * distance, vec3d1.y * distance, vec3d1.z * distance);
           RayTraceResult result = this.entity.world.rayTraceBlocks(vec3d, vec3d2, stopOnLiquid, ignoreBlockWithoutBoundingBox, true);
-          return result == null ? null : new RayTraceWrapper(NpcAPI.Instance().getIBlock(this.entity.world, result.getBlockPos()), result.field_178784_b.getIndex());
+          return result == null ? null : new RayTraceWrapper(NpcAPI.Instance().getIBlock(this.entity.world, result.getBlockPos()), result.sideHit.getIndex());
      }
 
      public IEntity[] rayTraceEntities(double distance, boolean stopOnLiquid, boolean ignoreBlockWithoutBoundingBox) {
           Vec3d vec3d = this.entity.getPositionEyes(1.0F);
           Vec3d vec3d1 = this.entity.getLook(1.0F);
-          Vec3d vec3d2 = vec3d.addVector(vec3d1.x * distance, vec3d1.y * distance, vec3d1.z * distance);
+          Vec3d vec3d2 = vec3d.add(vec3d1.x * distance, vec3d1.y * distance, vec3d1.z * distance);
           RayTraceResult result = this.entity.world.rayTraceBlocks(vec3d, vec3d2, stopOnLiquid, ignoreBlockWithoutBoundingBox, false);
           if (result != null) {
-               vec3d2 = new Vec3d(result.field_72307_f.x, result.field_72307_f.y, result.field_72307_f.z);
+               vec3d2 = new Vec3d(result.hitVec.x, result.hitVec.y, result.hitVec.z);
           }
 
           return this.findEntityOnPath(distance, vec3d, vec3d2);
@@ -356,19 +356,19 @@ public class EntityWrapper implements IEntity {
      }
 
      public void setRotation(float rotation) {
-          this.entity.field_70177_z = rotation;
+          this.entity.rotationYaw = rotation;
      }
 
      public float getRotation() {
-          return this.entity.field_70177_z;
+          return this.entity.rotationYaw;
      }
 
      public void setPitch(float rotation) {
-          this.entity.field_70125_A = rotation;
+          this.entity.rotationPitch = rotation;
      }
 
      public float getPitch() {
-          return this.entity.field_70125_A;
+          return this.entity.rotationPitch;
      }
 
      public void knockback(int power, float direction) {
@@ -378,7 +378,7 @@ public class EntityWrapper implements IEntity {
           var10000.motionX *= 0.6D;
           var10000 = this.entity;
           var10000.motionZ *= 0.6D;
-          this.entity.field_70133_I = true;
+          this.entity.velocityChanged = true;
      }
 
      public boolean isSneaking() {
@@ -456,7 +456,7 @@ public class EntityWrapper implements IEntity {
      }
 
      public float getWidth() {
-          return this.entity.field_70130_N;
+          return this.entity.width;
      }
 
      public IPos getPos() {
@@ -498,21 +498,21 @@ public class EntityWrapper implements IEntity {
      public void setMotionX(double motion) {
           if (this.entity.motionX != motion) {
                this.entity.motionX = motion;
-               this.entity.field_70133_I = true;
+               this.entity.velocityChanged = true;
           }
      }
 
      public void setMotionY(double motion) {
           if (this.entity.motionY != motion) {
                this.entity.motionY = motion;
-               this.entity.field_70133_I = true;
+               this.entity.velocityChanged = true;
           }
      }
 
      public void setMotionZ(double motion) {
           if (this.entity.motionZ != motion) {
                this.entity.motionZ = motion;
-               this.entity.field_70133_I = true;
+               this.entity.velocityChanged = true;
           }
      }
 }

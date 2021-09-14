@@ -23,17 +23,17 @@ public class GuiNpcFollowerJob extends GuiNPCInterface2 implements ICustomScroll
           this.job = (JobFollower)npc.jobInterface;
      }
 
-     public void func_73866_w_() {
-          super.func_73866_w_();
+     public void initGui() {
+          super.initGui();
           this.addLabel(new GuiNpcLabel(1, "gui.name", this.guiLeft + 6, this.guiTop + 110));
-          this.addTextField(new GuiNpcTextField(1, this, this.field_146289_q, this.guiLeft + 50, this.guiTop + 105, 200, 20, this.job.name));
+          this.addTextField(new GuiNpcTextField(1, this, this.fontRenderer, this.guiLeft + 50, this.guiTop + 105, 200, 20, this.job.name));
           this.scroll = new GuiCustomScroll(this, 0);
           this.scroll.setSize(143, 208);
           this.scroll.guiLeft = this.guiLeft + 268;
           this.scroll.guiTop = this.guiTop + 4;
           this.addScroll(this.scroll);
           List names = new ArrayList();
-          List list = this.npc.world.getEntitiesWithinAABB(EntityNPCInterface.class, this.npc.getEntityBoundingBox().expand(40.0D, 40.0D, 40.0D));
+          List list = this.npc.world.getEntitiesWithinAABB(EntityNPCInterface.class, this.npc.getEntityBoundingBox().grow(40.0D, 40.0D, 40.0D));
           Iterator var3 = list.iterator();
 
           while(var3.hasNext()) {
@@ -47,12 +47,12 @@ public class GuiNpcFollowerJob extends GuiNPCInterface2 implements ICustomScroll
      }
 
      public void save() {
-          this.job.name = this.getTextField(1).func_146179_b();
+          this.job.name = this.getTextField(1).getText();
           Client.sendData(EnumPacketServer.JobSave, this.job.writeToNBT(new NBTTagCompound()));
      }
 
      public void scrollClicked(int i, int j, int k, GuiCustomScroll guiCustomScroll) {
-          this.getTextField(1).func_146180_a(guiCustomScroll.getSelected());
+          this.getTextField(1).setText(guiCustomScroll.getSelected());
      }
 
      public void scrollDoubleClicked(String selection, GuiCustomScroll scroll) {

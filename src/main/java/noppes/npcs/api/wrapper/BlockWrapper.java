@@ -118,7 +118,7 @@ public class BlockWrapper implements IBlock {
                     return null;
                } else {
                     NBTTagCompound compound = BlockWrapper.this.tile.getTileData().getCompoundTag("CustomNPCsData");
-                    if (compound.hasNoTags() && !BlockWrapper.this.tile.getTileData().hasKey("CustomNPCsData")) {
+                    if (compound.isEmpty() && !BlockWrapper.this.tile.getTileData().hasKey("CustomNPCsData")) {
                          BlockWrapper.this.tile.getTileData().setTag("CustomNPCsData", compound);
                     }
 
@@ -308,6 +308,6 @@ public class BlockWrapper implements IBlock {
           World w = this.world.getMCWorld();
           player.setWorld(w);
           player.setPosition((double)this.pos.getX(), (double)this.pos.getY(), (double)this.pos.getZ());
-          this.block.onBlockActivated(w, this.pos, w.getBlockState(this.pos), EntityNPCInterface.CommandPlayer, EnumHand.MAIN_HAND, EnumFacing.getFront(side), 0.0F, 0.0F, 0.0F);
+          this.block.onBlockActivated(w, this.pos, w.getBlockState(this.pos), EntityNPCInterface.CommandPlayer, EnumHand.MAIN_HAND, EnumFacing.byIndex(side), 0.0F, 0.0F, 0.0F);
      }
 }

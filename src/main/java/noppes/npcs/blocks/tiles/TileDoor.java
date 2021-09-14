@@ -83,8 +83,8 @@ public class TileDoor extends TileNpcEntity implements ITickable {
                this.ticksExisted = 0;
                if (this.needsClientUpdate) {
                     this.markDirty();
-                    IBlockState state = this.field_145850_b.getBlockState(this.field_174879_c);
-                    this.field_145850_b.notifyBlockUpdate(this.field_174879_c, state, state, 3);
+                    IBlockState state = this.world.getBlockState(this.pos);
+                    this.world.notifyBlockUpdate(this.pos, state, state, 3);
                     this.needsClientUpdate = false;
                }
           }
@@ -92,22 +92,22 @@ public class TileDoor extends TileNpcEntity implements ITickable {
      }
 
      public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity pkt) {
-          this.handleUpdateTag(pkt.func_148857_g());
+          this.handleUpdateTag(pkt.getNbtCompound());
      }
 
      public void handleUpdateTag(NBTTagCompound compound) {
           this.setDoorNBT(compound);
      }
 
-     public SPacketUpdateTileEntity func_189518_D_() {
-          return new SPacketUpdateTileEntity(this.field_174879_c, 0, this.func_189517_E_());
+     public SPacketUpdateTileEntity getUpdatePacket() {
+          return new SPacketUpdateTileEntity(this.pos, 0, this.getUpdateTag());
      }
 
-     public NBTTagCompound func_189517_E_() {
+     public NBTTagCompound getUpdateTag() {
           NBTTagCompound compound = new NBTTagCompound();
-          compound.setInteger("x", this.field_174879_c.getX());
-          compound.setInteger("y", this.field_174879_c.getY());
-          compound.setInteger("z", this.field_174879_c.getZ());
+          compound.setInteger("x", this.pos.getX());
+          compound.setInteger("y", this.pos.getY());
+          compound.setInteger("z", this.pos.getZ());
           this.getDoorNBT(compound);
           return compound;
      }

@@ -62,7 +62,7 @@ public class ScoreboardWrapper implements IScoreboard {
      }
 
      public IScoreboardObjective addObjective(String objective, String criteria) {
-          IScoreCriteria icriteria = (IScoreCriteria)IScoreCriteria.field_96643_a.get(criteria);
+          IScoreCriteria icriteria = (IScoreCriteria)IScoreCriteria.INSTANCES.get(criteria);
           if (icriteria == null) {
                throw new CustomNPCsException("Unknown score criteria: %s", new Object[]{criteria});
           } else if (objective.length() > 0 && objective.length() <= 16) {

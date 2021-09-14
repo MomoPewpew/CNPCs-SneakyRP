@@ -15,7 +15,7 @@ public class CustomGuiSlot extends Slot {
 
      public void onSlotChanged() {
           if (this.clientSide) {
-               ((GuiCustom)Minecraft.getMinecraft().field_71462_r).slotChange(this);
+               ((GuiCustom)Minecraft.getMinecraft().currentScreen).slotChange(this);
           }
 
           super.onSlotChanged();

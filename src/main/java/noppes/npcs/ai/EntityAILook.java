@@ -36,7 +36,7 @@ public class EntityAILook extends EntityAIBase {
 
      public void rotate(int degrees) {
           this.forced = true;
-          this.npc.field_70759_as = this.npc.field_70177_z = this.npc.field_70761_aq = (float)degrees;
+          this.npc.rotationYawHead = this.npc.rotationYaw = this.npc.renderYawOffset = (float)degrees;
      }
 
      public void resetTask() {
@@ -84,12 +84,12 @@ public class EntityAILook extends EntityAIBase {
 
                     if (this.idle > 0) {
                          --this.idle;
-                         this.npc.getLookHelper().setLookPosition(this.npc.field_70165_t + this.lookX, this.npc.field_70163_u + (double)this.npc.getEyeHeight(), this.npc.field_70161_v + this.lookZ, 10.0F, (float)this.npc.getVerticalFaceSpeed());
+                         this.npc.getLookHelper().setLookPosition(this.npc.posX + this.lookX, this.npc.posY + (double)this.npc.getEyeHeight(), this.npc.posZ + this.lookZ, 10.0F, (float)this.npc.getVerticalFaceSpeed());
                     }
                }
 
                if (this.npc.ais.getStandingType() == 1 && !this.forced) {
-                    this.npc.field_70759_as = this.npc.field_70177_z = this.npc.field_70761_aq = (float)this.npc.ais.orientation;
+                    this.npc.rotationYawHead = this.npc.rotationYaw = this.npc.renderYawOffset = (float)this.npc.ais.orientation;
                }
 
           }

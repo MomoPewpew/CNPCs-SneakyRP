@@ -317,7 +317,7 @@ public class DataScenes {
 
                          BlockPos pos = null;
                          if (args[0].startsWith("@")) {
-                              EntityLivingBase entitylivingbase = (EntityLivingBase)CommandBase.func_184884_a(DataScenes.this.npc.getServer(), DataScenes.this.npc, args[0], EntityLivingBase.class);
+                              EntityLivingBase entitylivingbase = (EntityLivingBase)CommandBase.getEntity(DataScenes.this.npc.getServer(), DataScenes.this.npc, args[0], EntityLivingBase.class);
                               if (entitylivingbase != null) {
                                    pos = entitylivingbase.getPosition();
                               }
@@ -328,7 +328,7 @@ public class DataScenes {
                                    return;
                               }
 
-                              pos = CommandBase.func_175757_a(DataScenes.this.npc, args, 1, false);
+                              pos = CommandBase.parseBlockPos(DataScenes.this.npc, args, 1, false);
                               args = (String[])Arrays.copyOfRange(args, 4, args.length);
                          }
 
@@ -336,7 +336,7 @@ public class DataScenes {
                               DataScenes.this.npc.ais.setStartPos(pos);
                               DataScenes.this.npc.getNavigator().clearPath();
                               if (move) {
-                                   Path pathentity = DataScenes.this.npc.getNavigator().func_179680_a(pos);
+                                   Path pathentity = DataScenes.this.npc.getNavigator().getPathToPos(pos);
                                    DataScenes.this.npc.getNavigator().setPath(pathentity, 1.0D);
                               } else if (!DataScenes.this.npc.isInRange((double)pos.getX() + 0.5D, (double)pos.getY(), (double)pos.getZ() + 0.5D, 2.0D)) {
                                    DataScenes.this.npc.setPosition((double)pos.getX() + 0.5D, (double)pos.getY(), (double)pos.getZ() + 0.5D);
@@ -350,7 +350,7 @@ public class DataScenes {
                     if (event.type == DataScenes.SceneType.ROTATE) {
                          DataScenes.this.npc.lookAi.resetTask();
                          if (event.param.startsWith("@")) {
-                              entity = (EntityLivingBase)CommandBase.func_184884_a(DataScenes.this.npc.getServer(), DataScenes.this.npc, event.param, EntityLivingBase.class);
+                              entity = (EntityLivingBase)CommandBase.getEntity(DataScenes.this.npc.getServer(), DataScenes.this.npc, event.param, EntityLivingBase.class);
                               DataScenes.this.npc.lookAi.rotate(DataScenes.this.npc.world.getClosestPlayerToEntity(entity, 30.0D));
                          } else {
                               DataScenes.this.npc.lookAi.rotate(Integer.parseInt(event.param));
@@ -363,9 +363,9 @@ public class DataScenes {
 
                          IItemStack itemstack = null;
                          if (!args[1].equalsIgnoreCase("none")) {
-                              Item item = CommandBase.func_147179_f(DataScenes.this.npc, args[1]);
-                              int i = args.length >= 3 ? CommandBase.func_175764_a(args[2], 1, 64) : 1;
-                              int j = args.length >= 4 ? CommandBase.func_175755_a(args[3]) : 0;
+                              Item item = CommandBase.getItemByText(DataScenes.this.npc, args[1]);
+                              int i = args.length >= 3 ? CommandBase.parseInt(args[2], 1, 64) : 1;
+                              int j = args.length >= 4 ? CommandBase.parseInt(args[3]) : 0;
                               itemstack = NpcAPI.Instance().getIItemStack(new ItemStack(item, i, j));
                          }
 
@@ -388,14 +388,14 @@ public class DataScenes {
                          if (event.param.equals("none")) {
                               DataScenes.this.npc.setAttackTarget((EntityLivingBase)null);
                          } else {
-                              entity = (EntityLivingBase)CommandBase.func_184884_a(DataScenes.this.npc.getServer(), DataScenes.this.npc, event.param, EntityLivingBase.class);
+                              entity = (EntityLivingBase)CommandBase.getEntity(DataScenes.this.npc.getServer(), DataScenes.this.npc, event.param, EntityLivingBase.class);
                               if (entity != null) {
                                    DataScenes.this.npc.setAttackTarget(entity);
                               }
                          }
                     } else if (event.type == DataScenes.SceneType.THROW) {
                          args = event.param.split(" ");
-                         EntityLivingBase entityx = (EntityLivingBase)CommandBase.func_184884_a(DataScenes.this.npc.getServer(), DataScenes.this.npc, args[0], EntityLivingBase.class);
+                         EntityLivingBase entityx = (EntityLivingBase)CommandBase.getEntity(DataScenes.this.npc.getServer(), DataScenes.this.npc, args[0], EntityLivingBase.class);
                          if (entityx == null) {
                               return;
                          }
@@ -407,7 +407,7 @@ public class DataScenes {
 
                          ItemStack stack = ItemStackWrapper.MCItem(DataScenes.this.npc.inventory.getProjectile());
                          if (args.length > 2) {
-                              Item itemx = CommandBase.func_147179_f(DataScenes.this.npc, args[2]);
+                              Item itemx = CommandBase.getItemByText(DataScenes.this.npc, args[2]);
                               stack = new ItemStack(itemx, 1, 0);
                          }
 
@@ -461,7 +461,7 @@ public class DataScenes {
                               DataScenes.this.owner = null;
                               DataScenes.this.ownerScene = null;
                          } else {
-                              entity = (EntityLivingBase)CommandBase.func_184884_a(DataScenes.this.npc.getServer(), DataScenes.this.npc, event.param, EntityLivingBase.class);
+                              entity = (EntityLivingBase)CommandBase.getEntity(DataScenes.this.npc.getServer(), DataScenes.this.npc, event.param, EntityLivingBase.class);
                               if (entity == null) {
                                    return;
                               }

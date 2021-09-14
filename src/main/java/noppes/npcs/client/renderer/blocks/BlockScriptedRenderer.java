@@ -26,24 +26,24 @@ import noppes.npcs.client.TextBlockClient;
 public class BlockScriptedRenderer extends BlockRendererInterface {
      private static Random random = new Random();
 
-     public void func_192841_a(TileEntity te, double x, double y, double z, float partialTicks, int blockDamage, float alpha) {
+     public void render(TileEntity te, double x, double y, double z, float partialTicks, int blockDamage, float alpha) {
           TileScripted tile = (TileScripted)te;
-          GlStateManager.func_179094_E();
-          GlStateManager.func_179084_k();
+          GlStateManager.pushMatrix();
+          GlStateManager.disableBlend();
           RenderHelper.enableStandardItemLighting();
-          GlStateManager.func_179137_b(x + 0.5D, y, z + 0.5D);
+          GlStateManager.translate(x + 0.5D, y, z + 0.5D);
           if (this.overrideModel()) {
-               GlStateManager.func_179137_b(0.0D, 0.5D, 0.0D);
+               GlStateManager.translate(0.0D, 0.5D, 0.0D);
                this.renderItem(new ItemStack(CustomItems.scripted));
           } else {
-               GlStateManager.func_179114_b((float)tile.rotationY, 0.0F, 1.0F, 0.0F);
-               GlStateManager.func_179114_b((float)tile.rotationX, 1.0F, 0.0F, 0.0F);
-               GlStateManager.func_179114_b((float)tile.rotationZ, 0.0F, 0.0F, 1.0F);
-               GlStateManager.func_179152_a(tile.scaleX, tile.scaleY, tile.scaleZ);
+               GlStateManager.rotate((float)tile.rotationY, 0.0F, 1.0F, 0.0F);
+               GlStateManager.rotate((float)tile.rotationX, 1.0F, 0.0F, 0.0F);
+               GlStateManager.rotate((float)tile.rotationZ, 0.0F, 0.0F, 1.0F);
+               GlStateManager.scale(tile.scaleX, tile.scaleY, tile.scaleZ);
                Block b = tile.blockModel;
-               if (b != null && b != Blocks.field_150350_a) {
+               if (b != null && b != Blocks.AIR) {
                     if (b == CustomItems.scripted) {
-                         GlStateManager.func_179137_b(0.0D, 0.5D, 0.0D);
+                         GlStateManager.translate(0.0D, 0.5D, 0.0D);
                          this.renderItem(tile.itemModel);
                     } else {
                          IBlockState state = b.getStateFromMeta(tile.itemModel.getItemDamage());
@@ -51,9 +51,9 @@ public class BlockScriptedRenderer extends BlockRendererInterface {
                          if (b.hasTileEntity(state) && !tile.renderTileErrored) {
                               try {
                                    if (tile.renderTile == null) {
-                                        TileEntity entity = b.createTileEntity(this.func_178459_a(), state);
-                                        entity.func_174878_a(tile.getPos());
-                                        entity.func_145834_a(this.func_178459_a());
+                                        TileEntity entity = b.createTileEntity(this.getWorld(), state);
+                                        entity.setPos(tile.getPos());
+                                        entity.setWorld(this.getWorld());
                                         ObfuscationReflectionHelper.setPrivateValue(TileEntity.class, entity, tile.itemModel.getItemDamage(), 5);
                                         ObfuscationReflectionHelper.setPrivateValue(TileEntity.class, entity, b, 6);
                                         tile.renderTile = entity;
@@ -62,9 +62,9 @@ public class BlockScriptedRenderer extends BlockRendererInterface {
                                         }
                                    }
 
-                                   TileEntitySpecialRenderer renderer = TileEntityRendererDispatcher.field_147556_a.func_147547_b(tile.renderTile);
+                                   TileEntitySpecialRenderer renderer = TileEntityRendererDispatcher.instance.getRenderer(tile.renderTile);
                                    if (renderer != null) {
-                                        renderer.func_192841_a(tile.renderTile, -0.5D, 0.0D, -0.5D, partialTicks, blockDamage, alpha);
+                                        renderer.render(tile.renderTile, -0.5D, 0.0D, -0.5D, partialTicks, blockDamage, alpha);
                                    } else {
                                         tile.renderTileErrored = true;
                                    }
@@ -74,12 +74,12 @@ public class BlockScriptedRenderer extends BlockRendererInterface {
                          }
                     }
                } else {
-                    GlStateManager.func_179137_b(0.0D, 0.5D, 0.0D);
+                    GlStateManager.translate(0.0D, 0.5D, 0.0D);
                     this.renderItem(tile.itemModel);
                }
           }
 
-          GlStateManager.func_179121_F();
+          GlStateManager.popMatrix();
           if (!tile.text1.text.isEmpty()) {
                this.drawText(tile.text1, x, y, z);
           }
@@ -112,55 +112,55 @@ public class BlockScriptedRenderer extends BlockRendererInterface {
                text1.textHasChanged = false;
           }
 
-          GlStateManager.func_179084_k();
+          GlStateManager.disableBlend();
           GlStateManager.enableLighting();
-          GlStateManager.func_179124_c(1.0F, 1.0F, 1.0F);
-          GlStateManager.func_179094_E();
-          GlStateManager.func_179137_b(x + 0.5D, y + 0.5D, z + 0.5D);
-          GlStateManager.func_179114_b((float)text1.rotationY, 0.0F, 1.0F, 0.0F);
-          GlStateManager.func_179114_b((float)text1.rotationX, 1.0F, 0.0F, 0.0F);
-          GlStateManager.func_179114_b((float)text1.rotationZ, 0.0F, 0.0F, 1.0F);
-          GlStateManager.func_179152_a(text1.scale, text1.scale, 1.0F);
+          GlStateManager.color(1.0F, 1.0F, 1.0F);
+          GlStateManager.pushMatrix();
+          GlStateManager.translate(x + 0.5D, y + 0.5D, z + 0.5D);
+          GlStateManager.rotate((float)text1.rotationY, 0.0F, 1.0F, 0.0F);
+          GlStateManager.rotate((float)text1.rotationX, 1.0F, 0.0F, 0.0F);
+          GlStateManager.rotate((float)text1.rotationZ, 0.0F, 0.0F, 1.0F);
+          GlStateManager.scale(text1.scale, text1.scale, 1.0F);
           GlStateManager.translate(text1.offsetX, text1.offsetY, text1.offsetZ);
           float f1 = 0.6666667F;
           float f3 = 0.0133F * f1;
           GlStateManager.translate(0.0F, 0.5F, 0.01F);
-          GlStateManager.func_179152_a(f3, -f3, f3);
-          GlStateManager.func_187432_a(0.0F, 0.0F, -1.0F * f3);
-          GlStateManager.func_179132_a(false);
-          FontRenderer fontrenderer = this.func_147498_b();
+          GlStateManager.scale(f3, -f3, f3);
+          GlStateManager.glNormal3f(0.0F, 0.0F, -1.0F * f3);
+          GlStateManager.depthMask(false);
+          FontRenderer fontrenderer = this.getFontRenderer();
           float lineOffset = 0.0F;
           if (text1.textBlock.lines.size() < 14) {
                lineOffset = (14.0F - (float)text1.textBlock.lines.size()) / 2.0F;
           }
 
           for(int i = 0; i < text1.textBlock.lines.size(); ++i) {
-               String text = ((ITextComponent)text1.textBlock.lines.get(i)).func_150254_d();
-               fontrenderer.func_78276_b(text, -fontrenderer.getStringWidth(text) / 2, (int)((double)(lineOffset + (float)i) * ((double)fontrenderer.field_78288_b - 0.3D)), 0);
+               String text = ((ITextComponent)text1.textBlock.lines.get(i)).getFormattedText();
+               fontrenderer.drawString(text, -fontrenderer.getStringWidth(text) / 2, (int)((double)(lineOffset + (float)i) * ((double)fontrenderer.FONT_HEIGHT - 0.3D)), 0);
           }
 
-          GlStateManager.func_179132_a(true);
+          GlStateManager.depthMask(true);
           GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-          GlStateManager.func_179121_F();
+          GlStateManager.popMatrix();
      }
 
      private void renderItem(ItemStack item) {
-          Minecraft.getMinecraft().getRenderItem().func_181564_a(item, TransformType.NONE);
+          Minecraft.getMinecraft().getRenderItem().renderItem(item, TransformType.NONE);
      }
 
      private void renderBlock(TileScripted tile, Block b, IBlockState state) {
-          GlStateManager.func_179094_E();
-          this.func_147499_a(TextureMap.field_110575_b);
-          GlStateManager.func_187401_a(SourceFactor.SRC_ALPHA, DestFactor.ONE_MINUS_SRC_ALPHA);
-          GlStateManager.func_179147_l();
-          GlStateManager.func_179129_p();
+          GlStateManager.pushMatrix();
+          this.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+          GlStateManager.blendFunc(SourceFactor.SRC_ALPHA, DestFactor.ONE_MINUS_SRC_ALPHA);
+          GlStateManager.enableBlend();
+          GlStateManager.disableCull();
           GlStateManager.translate(-0.5F, 0.0F, 0.5F);
-          Minecraft.getMinecraft().func_175602_ab().func_175016_a(state, 1.0F);
-          if (b.func_149653_t() && random.nextInt(12) == 1) {
-               b.func_180655_c(state, tile.getWorld(), tile.getPos(), random);
+          Minecraft.getMinecraft().getBlockRendererDispatcher().renderBlockBrightness(state, 1.0F);
+          if (b.getTickRandomly() && random.nextInt(12) == 1) {
+               b.randomDisplayTick(state, tile.getWorld(), tile.getPos(), random);
           }
 
-          GlStateManager.func_179121_F();
+          GlStateManager.popMatrix();
      }
 
      private boolean overrideModel() {

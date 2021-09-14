@@ -72,7 +72,7 @@ public class Server {
      }
 
      public static void sendAssociatedData(Entity entity, EnumPacketClient type, Object... obs) {
-          List list = entity.world.getEntitiesWithinAABB(EntityPlayerMP.class, entity.getEntityBoundingBox().expand(160.0D, 160.0D, 160.0D));
+          List list = entity.world.getEntitiesWithinAABB(EntityPlayerMP.class, entity.getEntityBoundingBox().grow(160.0D, 160.0D, 160.0D));
           if (!list.isEmpty()) {
                CustomNPCsScheduler.runTack(() -> {
                     ByteBuf buffer = Unpooled.buffer();
@@ -100,7 +100,7 @@ public class Server {
      }
 
      public static void sendRangedData(Entity entity, int range, EnumPacketClient type, Object... obs) {
-          List list = entity.world.getEntitiesWithinAABB(EntityPlayerMP.class, entity.getEntityBoundingBox().expand((double)range, (double)range, (double)range));
+          List list = entity.world.getEntitiesWithinAABB(EntityPlayerMP.class, entity.getEntityBoundingBox().grow((double)range, (double)range, (double)range));
           if (!list.isEmpty()) {
                CustomNPCsScheduler.runTack(() -> {
                     ByteBuf buffer = Unpooled.buffer();
@@ -128,7 +128,7 @@ public class Server {
      }
 
      public static void sendRangedData(World world, BlockPos pos, int range, EnumPacketClient type, Object... obs) {
-          List list = world.getEntitiesWithinAABB(EntityPlayerMP.class, (new AxisAlignedBB(pos)).expand((double)range, (double)range, (double)range));
+          List list = world.getEntitiesWithinAABB(EntityPlayerMP.class, (new AxisAlignedBB(pos)).grow((double)range, (double)range, (double)range));
           if (!list.isEmpty()) {
                CustomNPCsScheduler.runTack(() -> {
                     ByteBuf buffer = Unpooled.buffer();
@@ -269,7 +269,7 @@ public class Server {
 
           NBTTagCompound var3;
           try {
-               var3 = CompressedStreamTools.read(datainputstream, new NBTSizeTracker(2097152L));
+               var3 = CompressedStreamTools.read(datainputstream, NBTSizeTracker.INFINITE);
           } finally {
                datainputstream.close();
           }

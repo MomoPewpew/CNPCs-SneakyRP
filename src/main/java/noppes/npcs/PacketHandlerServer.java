@@ -246,7 +246,7 @@ public class PacketHandlerServer {
                               }
 
                               npc = (EntityNPCInterface)entity;
-                              player.field_71135_a.setPlayerLocation(npc.field_70165_t, npc.field_70163_u, npc.field_70161_v, 0.0F, 0.0F);
+                              player.connection.setPlayerLocation(npc.posX, npc.posY, npc.posZ, 0.0F, 0.0F);
                          } else {
                               int z;
                               int t;
@@ -755,7 +755,7 @@ public class PacketHandlerServer {
                                                                                                                    wrapper.lastInited = -1L;
                                                                                                                    wrapper.saveScriptData();
                                                                                                                    wrapper.updateClient = true;
-                                                                                                                   player.sendContainerToPlayer(player.field_71069_bz);
+                                                                                                                   player.sendContainerToPlayer(player.inventoryContainer);
                                                                                                               } else if (type == EnumPacketServer.ScriptForgeGet) {
                                                                                                                    ForgeScriptData data = ScriptController.Instance.forgeScripts;
                                                                                                                    compound = data.writeToNBT(new NBTTagCompound());

@@ -35,8 +35,8 @@ public class GuiNpcPuppet extends GuiNPCInterface implements ISliderListener, IC
           this.closeOnEsc = true;
      }
 
-     public void func_73866_w_() {
-          super.func_73866_w_();
+     public void initGui() {
+          super.initGui();
           int y = this.guiTop;
           int var10004 = this.guiLeft + 110;
           y += 14;
@@ -115,13 +115,13 @@ public class GuiNpcPuppet extends GuiNPCInterface implements ISliderListener, IC
           this.addSlider(new GuiNpcSlider(this, 12, this.guiLeft + 120, y, (config.rotationZ + 1.0F) / 2.0F));
      }
 
-     public void func_73863_a(int i, int j, float f) {
+     public void drawScreen(int i, int j, float f) {
           this.drawNpc(320, 200);
-          super.func_73863_a(i, j, f);
+          super.drawScreen(i, j, f);
      }
 
-     protected void func_146284_a(GuiButton btn) {
-          super.func_146284_a(btn);
+     protected void actionPerformed(GuiButton btn) {
+          super.actionPerformed(btn);
           if (btn instanceof GuiNpcButton) {
                GuiNpcButton button = (GuiNpcButton)btn;
                if (btn.id == 29) {
@@ -143,7 +143,7 @@ public class GuiNpcPuppet extends GuiNPCInterface implements ISliderListener, IC
                if (btn.id == 33) {
                     this.job.animate = button.getValue() == 0;
                     this.isStart = true;
-                    this.func_73866_w_();
+                    this.initGui();
                }
 
                if (btn.id == 34) {
@@ -156,19 +156,19 @@ public class GuiNpcPuppet extends GuiNPCInterface implements ISliderListener, IC
 
                if (btn.id == 67) {
                     this.isStart = true;
-                    this.func_73866_w_();
+                    this.initGui();
                }
 
                if (btn.id == 68) {
                     this.isStart = false;
-                    this.func_73866_w_();
+                    this.initGui();
                }
 
           }
      }
 
      public void close() {
-          this.field_146297_k.displayGuiScreen(this.parent);
+          this.mc.displayGuiScreen(this.parent);
           Client.sendData(EnumPacketServer.JobSave, this.job.writeToNBT(new NBTTagCompound()));
      }
 
@@ -202,7 +202,7 @@ public class GuiNpcPuppet extends GuiNPCInterface implements ISliderListener, IC
 
      public void scrollClicked(int i, int j, int k, GuiCustomScroll guiCustomScroll) {
           this.selectedName = guiCustomScroll.getSelected();
-          this.func_73866_w_();
+          this.initGui();
      }
 
      public void scrollDoubleClicked(String selection, GuiCustomScroll scroll) {

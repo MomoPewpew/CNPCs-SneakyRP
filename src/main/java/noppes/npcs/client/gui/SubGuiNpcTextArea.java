@@ -28,7 +28,7 @@ public class SubGuiNpcTextArea extends SubGuiInterface implements ITextChangeLis
           this.originalText = originalText;
      }
 
-     public void func_73866_w_() {
+     public void initGui() {
           this.xSize = (int)((double)this.width * 0.88D);
           this.ySize = (int)((double)this.xSize * 0.56D);
           if ((double)this.ySize > (double)this.height * 0.95D) {
@@ -37,7 +37,7 @@ public class SubGuiNpcTextArea extends SubGuiInterface implements ITextChangeLis
           }
 
           this.bgScale = (float)this.xSize / 440.0F;
-          super.func_73866_w_();
+          super.initGui();
           if (this.textarea != null) {
                this.text = this.textarea.getText();
           }
@@ -50,11 +50,11 @@ public class SubGuiNpcTextArea extends SubGuiInterface implements ITextChangeLis
           }
 
           this.add(this.textarea);
-          this.field_146292_n.add(new GuiNpcButton(102, this.guiLeft + this.xSize - 90 - yoffset, this.guiTop + 20, 56, 20, "gui.clear"));
-          this.field_146292_n.add(new GuiNpcButton(101, this.guiLeft + this.xSize - 90 - yoffset, this.guiTop + 43, 56, 20, "gui.paste"));
-          this.field_146292_n.add(new GuiNpcButton(100, this.guiLeft + this.xSize - 90 - yoffset, this.guiTop + 66, 56, 20, "gui.copy"));
-          this.field_146292_n.add(new GuiNpcButton(103, this.guiLeft + this.xSize - 90 - yoffset, this.guiTop + 89, 56, 20, "remote.reset"));
-          this.field_146292_n.add(new GuiNpcButton(0, this.guiLeft + this.xSize - 90 - yoffset, this.guiTop + 160, 56, 20, "gui.close"));
+          this.buttonList.add(new GuiNpcButton(102, this.guiLeft + this.xSize - 90 - yoffset, this.guiTop + 20, 56, 20, "gui.clear"));
+          this.buttonList.add(new GuiNpcButton(101, this.guiLeft + this.xSize - 90 - yoffset, this.guiTop + 43, 56, 20, "gui.paste"));
+          this.buttonList.add(new GuiNpcButton(100, this.guiLeft + this.xSize - 90 - yoffset, this.guiTop + 66, 56, 20, "gui.copy"));
+          this.buttonList.add(new GuiNpcButton(103, this.guiLeft + this.xSize - 90 - yoffset, this.guiTop + 89, 56, 20, "remote.reset"));
+          this.buttonList.add(new GuiNpcButton(0, this.guiLeft + this.xSize - 90 - yoffset, this.guiTop + 160, 56, 20, "gui.close"));
           this.xSize = 420;
           this.ySize = 256;
      }

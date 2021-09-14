@@ -36,11 +36,11 @@ public abstract class GuiNpcSelectionInterface extends GuiNPCInterface {
           this.parent = parent;
      }
 
-     public void func_73866_w_() {
-          super.func_73866_w_();
+     public void initGui() {
+          super.initGui();
           this.dataFolder.clear();
           String ss = "Current Folder: /assets" + this.root;
-          this.addLabel(new GuiNpcLabel(0, ss, this.width / 2 - this.field_146289_q.getStringWidth(ss) / 2, 20, 16777215));
+          this.addLabel(new GuiNpcLabel(0, ss, this.width / 2 - this.fontRenderer.getStringWidth(ss) / 2, 20, 16777215));
           Vector list = new Vector();
           if (!this.assets.isRoot) {
                list.add(this.up);
@@ -65,15 +65,15 @@ public abstract class GuiNpcSelectionInterface extends GuiNPCInterface {
 
           Collections.sort(list, new NaturalOrderComparator());
           this.slot = new GuiNPCStringSlot(list, this, false, 18);
-          this.slot.func_148134_d(4, 5);
+          this.slot.registerScrollButtons(4, 5);
           this.addButton(new GuiNpcButton(2, this.width / 2 - 100, this.height - 44, 98, 20, "gui.back"));
           this.addButton(new GuiNpcButton(3, this.width / 2 + 2, this.height - 44, 98, 20, "gui.up"));
           this.getButton(3).enabled = !this.assets.isRoot;
      }
 
-     public void func_73863_a(int i, int j, float f) {
-          this.slot.func_148128_a(i, j, f);
-          super.func_73863_a(i, j, f);
+     public void drawScreen(int i, int j, float f) {
+          this.slot.drawScreen(i, j, f);
+          super.drawScreen(i, j, f);
      }
 
      public void elementClicked() {
@@ -87,20 +87,20 @@ public abstract class GuiNpcSelectionInterface extends GuiNPCInterface {
 
      }
 
-     public void func_146274_d() throws IOException {
-          this.slot.func_178039_p();
-          super.func_146274_d();
+     public void handleMouseInput() throws IOException {
+          this.slot.handleMouseInput();
+          super.handleMouseInput();
      }
 
      public void doubleClicked() {
           if (this.slot.selected.equals(this.up)) {
                this.root = this.root.substring(0, this.root.lastIndexOf("/"));
                this.assets = new AssetsBrowser(this.root, this.getExtension());
-               this.func_73866_w_();
+               this.initGui();
           } else if (this.dataFolder.contains(this.slot.selected)) {
                this.root = this.root + this.slot.selected;
                this.assets = new AssetsBrowser(this.root, this.getExtension());
-               this.func_73866_w_();
+               this.initGui();
           } else {
                this.close();
                NoppesUtil.openGUI(this.player, this.parent);
@@ -108,7 +108,7 @@ public abstract class GuiNpcSelectionInterface extends GuiNPCInterface {
 
      }
 
-     protected void func_146284_a(GuiButton guibutton) {
+     protected void actionPerformed(GuiButton guibutton) {
           int id = guibutton.id;
           if (id == 2) {
                this.close();
@@ -118,7 +118,7 @@ public abstract class GuiNpcSelectionInterface extends GuiNPCInterface {
           if (id == 3) {
                this.root = this.root.substring(0, this.root.lastIndexOf("/"));
                this.assets = new AssetsBrowser(this.root, this.getExtension());
-               this.func_73866_w_();
+               this.initGui();
           }
 
      }

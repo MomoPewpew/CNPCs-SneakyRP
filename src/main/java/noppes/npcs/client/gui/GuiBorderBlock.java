@@ -20,19 +20,19 @@ public class GuiBorderBlock extends GuiNPCInterface implements IGuiData {
           Client.sendData(EnumPacketServer.GetTileEntity, x, y, z);
      }
 
-     public void func_73866_w_() {
-          super.func_73866_w_();
+     public void initGui() {
+          super.initGui();
           this.addButton(new GuiNpcButton(4, this.guiLeft + 40, this.guiTop + 40, 120, 20, "Availability Options"));
           this.addLabel(new GuiNpcLabel(0, "Height", this.guiLeft + 1, this.guiTop + 76, 16777215));
-          this.addTextField(new GuiNpcTextField(0, this, this.field_146289_q, this.guiLeft + 60, this.guiTop + 71, 40, 20, this.tile.height + ""));
+          this.addTextField(new GuiNpcTextField(0, this, this.fontRenderer, this.guiLeft + 60, this.guiTop + 71, 40, 20, this.tile.height + ""));
           this.getTextField(0).numbersOnly = true;
           this.getTextField(0).setMinMaxDefault(0, 500, 6);
           this.addLabel(new GuiNpcLabel(1, "Message", this.guiLeft + 1, this.guiTop + 100, 16777215));
-          this.addTextField(new GuiNpcTextField(1, this, this.field_146289_q, this.guiLeft + 60, this.guiTop + 95, 200, 20, this.tile.message));
+          this.addTextField(new GuiNpcTextField(1, this, this.fontRenderer, this.guiLeft + 60, this.guiTop + 95, 200, 20, this.tile.message));
           this.addButton(new GuiNpcButton(0, this.guiLeft + 40, this.guiTop + 190, 120, 20, "Done"));
      }
 
-     protected void func_146284_a(GuiButton guibutton) {
+     protected void actionPerformed(GuiButton guibutton) {
           int id = guibutton.id;
           if (id == 0) {
                this.close();
@@ -48,7 +48,7 @@ public class GuiBorderBlock extends GuiNPCInterface implements IGuiData {
      public void save() {
           if (this.tile != null) {
                this.tile.height = this.getTextField(0).getInteger();
-               this.tile.message = this.getTextField(1).func_146179_b();
+               this.tile.message = this.getTextField(1).getText();
                NBTTagCompound compound = new NBTTagCompound();
                this.tile.writeToNBT(compound);
                Client.sendData(EnumPacketServer.SaveTileEntity, compound);
@@ -57,6 +57,6 @@ public class GuiBorderBlock extends GuiNPCInterface implements IGuiData {
 
      public void setGuiData(NBTTagCompound compound) {
           this.tile.readFromNBT(compound);
-          this.func_73866_w_();
+          this.initGui();
      }
 }

@@ -34,7 +34,7 @@ public class VersionCompatibility {
                }
 
                int i;
-               int n;
+               int i;
                if (npc.npcVersion < 6 && compound.getTag("NpcInteractLines") instanceof NBTTagList) {
                     List interactLines = NBTTags.getStringList(compound.getTagList("NpcInteractLines", 10));
                     Lines lines = new Lines();
@@ -49,30 +49,30 @@ public class VersionCompatibility {
                     List worldLines = NBTTags.getStringList(compound.getTagList("NpcLines", 10));
                     lines = new Lines();
 
-                    for(n = 0; n < worldLines.size(); ++n) {
+                    for(i = 0; i < worldLines.size(); ++i) {
                          Line line = new Line();
-                         line.setText((String)worldLines.toArray()[n]);
-                         lines.lines.put(n, line);
+                         line.setText((String)worldLines.toArray()[i]);
+                         lines.lines.put(i, line);
                     }
 
                     compound.setTag("NpcLines", lines.writeToNBT());
                     List attackLines = NBTTags.getStringList(compound.getTagList("NpcAttackLines", 10));
                     lines = new Lines();
 
-                    for(int l = 0; l < attackLines.size(); ++l) {
+                    for(int i = 0; i < attackLines.size(); ++i) {
                          Line line = new Line();
-                         line.setText((String)attackLines.toArray()[l]);
-                         lines.lines.put(l, line);
+                         line.setText((String)attackLines.toArray()[i]);
+                         lines.lines.put(i, line);
                     }
 
                     compound.setTag("NpcAttackLines", lines.writeToNBT());
                     List killedLines = NBTTags.getStringList(compound.getTagList("NpcKilledLines", 10));
                     lines = new Lines();
 
-                    for(int k = 0; k < killedLines.size(); ++k) {
+                    for(int i = 0; i < killedLines.size(); ++i) {
                          Line line = new Line();
-                         line.setText((String)killedLines.toArray()[k]);
-                         lines.lines.put(k, line);
+                         line.setText((String)killedLines.toArray()[i]);
+                         lines.lines.put(i, line);
                     }
 
                     compound.setTag("NpcKilledLines", lines.writeToNBT());
@@ -84,8 +84,8 @@ public class VersionCompatibility {
                     if (list.tagCount() == 3) {
                          int z = ((NBTTagInt)list.removeTag(2)).getInt();
                          i = ((NBTTagInt)list.removeTag(1)).getInt();
-                         n = ((NBTTagInt)list.removeTag(0)).getInt();
-                         compound.setIntArray("StartPosNew", new int[]{n, i, z});
+                         i = ((NBTTagInt)list.removeTag(0)).getInt();
+                         compound.setIntArray("StartPosNew", new int[]{i, i, z});
                     }
                }
 

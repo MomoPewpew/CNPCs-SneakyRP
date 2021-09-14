@@ -155,7 +155,7 @@ public class CmdFaction extends CommandNoppesBase {
 
      }
 
-     public List func_184883_a(MinecraftServer server, ICommandSender par1, String[] args, BlockPos pos) {
-          return args.length == 3 ? CommandBase.func_71530_a(args, new String[]{"add", "subtract", "set", "reset", "drop", "create"}) : null;
+     public List getTabCompletions(MinecraftServer server, ICommandSender par1, String[] args, BlockPos pos) {
+          return args.length == 3 ? CommandBase.getListOfStringsMatchingLastWord(args, new String[]{"add", "subtract", "set", "reset", "drop", "create"}) : null;
      }
 }

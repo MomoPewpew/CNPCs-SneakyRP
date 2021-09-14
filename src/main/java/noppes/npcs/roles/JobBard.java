@@ -42,7 +42,7 @@ public class JobBard extends JobInterface implements IJobBard {
           if (this.npc.isRemote() && !this.song.isEmpty()) {
                List list;
                if (!MusicController.Instance.isPlaying(this.song)) {
-                    list = this.npc.world.getEntitiesWithinAABB(EntityPlayer.class, this.npc.getEntityBoundingBox().expand((double)this.minRange, (double)(this.minRange / 2), (double)this.minRange));
+                    list = this.npc.world.getEntitiesWithinAABB(EntityPlayer.class, this.npc.getEntityBoundingBox().grow((double)this.minRange, (double)(this.minRange / 2), (double)this.minRange));
                     if (!list.contains(CustomNpcs.proxy.getPlayer())) {
                          return;
                     }
@@ -58,14 +58,14 @@ public class JobBard extends JobInterface implements IJobBard {
                          MusicController.Instance.playingEntity = this.npc;
                     }
                } else if (this.hasOffRange) {
-                    list = this.npc.world.getEntitiesWithinAABB(EntityPlayer.class, this.npc.getEntityBoundingBox().expand((double)this.maxRange, (double)(this.maxRange / 2), (double)this.maxRange));
+                    list = this.npc.world.getEntitiesWithinAABB(EntityPlayer.class, this.npc.getEntityBoundingBox().grow((double)this.maxRange, (double)(this.maxRange / 2), (double)this.maxRange));
                     if (!list.contains(CustomNpcs.proxy.getPlayer())) {
                          MusicController.Instance.stopMusic();
                     }
                }
 
                if (MusicController.Instance.isPlaying(this.song)) {
-                    Minecraft.getMinecraft().func_181535_r().field_147676_d = 12000;
+                    Minecraft.getMinecraft().getMusicTicker().timeUntilNextMusic = 12000;
                }
 
           }

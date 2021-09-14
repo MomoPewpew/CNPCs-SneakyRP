@@ -14,7 +14,7 @@ public class EntityAIClosestTarget extends EntityAITarget {
      private final Class targetClass;
      private final int targetChance;
      private final Sorter theNearestAttackableTargetSorter;
-     private final Predicate field_82643_g;
+     private final Predicate targetEntitySelector;
      private EntityLivingBase targetEntity;
      private EntityNPCInterface npc;
 
@@ -24,16 +24,16 @@ public class EntityAIClosestTarget extends EntityAITarget {
           this.targetChance = par3;
           this.theNearestAttackableTargetSorter = new Sorter(npc);
           this.setMutexBits(1);
-          this.field_82643_g = par6IEntitySelector;
+          this.targetEntitySelector = par6IEntitySelector;
           this.npc = npc;
      }
 
      public boolean shouldExecute() {
-          if (this.targetChance > 0 && this.field_75299_d.getRNG().nextInt(this.targetChance) != 0) {
+          if (this.targetChance > 0 && this.taskOwner.getRNG().nextInt(this.targetChance) != 0) {
                return false;
           } else {
                double d0 = this.getTargetDistance();
-               List list = this.field_75299_d.world.getEntitiesWithinAABB(this.targetClass, this.field_75299_d.getEntityBoundingBox().expand(d0, (double)MathHelper.ceil(d0 / 2.0D), d0), this.field_82643_g);
+               List list = this.taskOwner.world.getEntitiesWithinAABB(this.targetClass, this.taskOwner.getEntityBoundingBox().grow(d0, (double)MathHelper.ceil(d0 / 2.0D), d0), this.targetEntitySelector);
                Collections.sort(list, this.theNearestAttackableTargetSorter);
                if (list.isEmpty()) {
                     return false;
@@ -45,9 +45,9 @@ public class EntityAIClosestTarget extends EntityAITarget {
      }
 
      public void startExecuting() {
-          this.field_75299_d.setAttackTarget(this.targetEntity);
+          this.taskOwner.setAttackTarget(this.targetEntity);
           if (this.targetEntity instanceof EntityMob && ((EntityMob)this.targetEntity).getAttackTarget() == null) {
-               ((EntityMob)this.targetEntity).setAttackTarget(this.field_75299_d);
+               ((EntityMob)this.targetEntity).setAttackTarget(this.taskOwner);
           }
 
           super.startExecuting();

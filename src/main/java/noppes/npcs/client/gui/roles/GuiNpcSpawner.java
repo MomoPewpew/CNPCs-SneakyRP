@@ -31,8 +31,8 @@ public class GuiNpcSpawner extends GuiNPCInterface2 implements ITextfieldListene
           this.job = (JobSpawner)npc.jobInterface;
      }
 
-     public void func_73866_w_() {
-          super.func_73866_w_();
+     public void initGui() {
+          super.initGui();
           int y = this.guiTop + 6;
           this.addButton(new GuiNpcButton(20, this.guiLeft + 25, y, 20, 20, "X"));
           this.addLabel(new GuiNpcLabel(0, "1:", this.guiLeft + 4, y + 5));
@@ -64,15 +64,15 @@ public class GuiNpcSpawner extends GuiNPCInterface2 implements ITextfieldListene
           this.addButton(new GuiNpcButton(11, this.guiLeft + 335, y, 40, 20, new String[]{"gui.no", "gui.yes"}, this.job.despawnOnTargetLost ? 1 : 0));
           y += 23;
           this.addLabel(new GuiNpcLabel(7, I18n.translateToLocal("spawner.posoffset") + " X:", this.guiLeft + 4, y + 5));
-          this.addTextField(new GuiNpcTextField(7, this, this.field_146289_q, this.guiLeft + 99, y, 24, 20, this.job.xOffset + ""));
+          this.addTextField(new GuiNpcTextField(7, this, this.fontRenderer, this.guiLeft + 99, y, 24, 20, this.job.xOffset + ""));
           this.getTextField(7).numbersOnly = true;
           this.getTextField(7).setMinMaxDefault(-9, 9, 0);
           this.addLabel(new GuiNpcLabel(8, "Y:", this.guiLeft + 125, y + 5));
-          this.addTextField(new GuiNpcTextField(8, this, this.field_146289_q, this.guiLeft + 135, y, 24, 20, this.job.yOffset + ""));
+          this.addTextField(new GuiNpcTextField(8, this, this.fontRenderer, this.guiLeft + 135, y, 24, 20, this.job.yOffset + ""));
           this.getTextField(8).numbersOnly = true;
           this.getTextField(8).setMinMaxDefault(-9, 9, 0);
           this.addLabel(new GuiNpcLabel(9, "Z:", this.guiLeft + 161, y + 5));
-          this.addTextField(new GuiNpcTextField(9, this, this.field_146289_q, this.guiLeft + 171, y, 24, 20, this.job.zOffset + ""));
+          this.addTextField(new GuiNpcTextField(9, this, this.fontRenderer, this.guiLeft + 171, y, 24, 20, this.job.zOffset + ""));
           this.getTextField(9).numbersOnly = true;
           this.getTextField(9).setMinMaxDefault(-9, 9, 0);
           y += 23;
@@ -83,7 +83,7 @@ public class GuiNpcSpawner extends GuiNPCInterface2 implements ITextfieldListene
      public void elementClicked() {
      }
 
-     protected void func_146284_a(GuiButton guibutton) {
+     protected void actionPerformed(GuiButton guibutton) {
           GuiNpcButton button = (GuiNpcButton)guibutton;
           if (button.id >= 0 && button.id < 6) {
                this.slot = button.id + 1;
@@ -125,7 +125,7 @@ public class GuiNpcSpawner extends GuiNPCInterface2 implements ITextfieldListene
                }
           }
 
-          this.func_73866_w_();
+          this.initGui();
      }
 
      public void save() {
@@ -135,15 +135,15 @@ public class GuiNpcSpawner extends GuiNPCInterface2 implements ITextfieldListene
      }
 
      public void unFocused(GuiNpcTextField textfield) {
-          if (textfield.field_175208_g == 7) {
+          if (textfield.id == 7) {
                this.job.xOffset = textfield.getInteger();
           }
 
-          if (textfield.field_175208_g == 8) {
+          if (textfield.id == 8) {
                this.job.yOffset = textfield.getInteger();
           }
 
-          if (textfield.field_175208_g == 9) {
+          if (textfield.id == 9) {
                this.job.zOffset = textfield.getInteger();
           }
 
@@ -156,6 +156,6 @@ public class GuiNpcSpawner extends GuiNPCInterface2 implements ITextfieldListene
           this.title4 = compound.getString("Title4");
           this.title5 = compound.getString("Title5");
           this.title6 = compound.getString("Title6");
-          this.func_73866_w_();
+          this.initGui();
      }
 }

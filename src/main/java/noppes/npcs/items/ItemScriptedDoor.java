@@ -22,12 +22,12 @@ import noppes.npcs.util.IPermission;
 public class ItemScriptedDoor extends ItemDoor implements IPermission {
      public ItemScriptedDoor(Block block) {
           super(block);
-          this.field_77777_bU = 1;
+          this.maxStackSize = 1;
           this.setCreativeTab(CustomItems.tab);
      }
 
-     public EnumActionResult func_180614_a(EntityPlayer playerIn, World worldIn, BlockPos pos, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
-          EnumActionResult res = super.func_180614_a(playerIn, worldIn, pos, hand, side, hitX, hitY, hitZ);
+     public EnumActionResult onItemUse(EntityPlayer playerIn, World worldIn, BlockPos pos, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
+          EnumActionResult res = super.onItemUse(playerIn, worldIn, pos, hand, side, hitX, hitY, hitZ);
           if (res == EnumActionResult.SUCCESS && !worldIn.isRemote) {
                BlockPos newPos = pos.up();
                NoppesUtilServer.sendOpenGui(playerIn, EnumGuiType.ScriptDoor, (EntityNPCInterface)null, newPos.getX(), newPos.getY(), newPos.getZ());
@@ -37,13 +37,13 @@ public class ItemScriptedDoor extends ItemDoor implements IPermission {
           }
      }
 
-     public ItemStack func_77654_b(ItemStack stack, World worldIn, EntityLivingBase playerIn) {
+     public ItemStack onItemUseFinish(ItemStack stack, World worldIn, EntityLivingBase playerIn) {
           return stack;
      }
 
-     public Item setUnlocalizedName(String name) {
+     public Item setTranslationKey(String name) {
           this.setRegistryName(new ResourceLocation("customnpcs", name));
-          return super.setUnlocalizedName(name);
+          return super.setTranslationKey(name);
      }
 
      public boolean isAllowed(EnumPacketServer e) {

@@ -93,15 +93,15 @@ public class GuiCustomScroll extends GuiScreen {
           if (this.visible) {
                this.drawGradientRect(this.guiLeft, this.guiTop, this.xSize + this.guiLeft, this.ySize + this.guiTop, -1072689136, -804253680);
                GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-               this.field_146297_k.renderEngine.bindTexture(resource);
+               this.mc.renderEngine.bindTexture(resource);
                if (this.scrollHeight < this.ySize - 8) {
                     this.drawScrollBar();
                }
 
-               GlStateManager.func_179094_E();
-               GlStateManager.func_179114_b(180.0F, 1.0F, 0.0F, 0.0F);
-               GlStateManager.func_179121_F();
-               GlStateManager.func_179094_E();
+               GlStateManager.pushMatrix();
+               GlStateManager.rotate(180.0F, 1.0F, 0.0F, 0.0F);
+               GlStateManager.popMatrix();
+               GlStateManager.pushMatrix();
                GlStateManager.translate((float)this.guiLeft, (float)this.guiTop, 0.0F);
                GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
                if (this.selectable) {
@@ -109,7 +109,7 @@ public class GuiCustomScroll extends GuiScreen {
                }
 
                this.drawItems();
-               GlStateManager.func_179121_F();
+               GlStateManager.popMatrix();
                if (this.scrollHeight < this.ySize - 8) {
                     i -= this.guiLeft;
                     j -= this.guiTop;
@@ -162,11 +162,11 @@ public class GuiCustomScroll extends GuiScreen {
                     String displayString = I18n.translateToLocal((String)this.list.get(i));
                     String text = "";
                     float maxWidth = (float)(this.xSize + xOffset - 8) * 0.8F;
-                    if ((float)this.field_146289_q.getStringWidth(displayString) > maxWidth) {
+                    if ((float)this.fontRenderer.getStringWidth(displayString) > maxWidth) {
                          for(int h = 0; h < displayString.length(); ++h) {
                               char c = displayString.charAt(h);
                               text = text + c;
-                              if ((float)this.field_146289_q.getStringWidth(text) > maxWidth) {
+                              if ((float)this.fontRenderer.getStringWidth(text) > maxWidth) {
                                    break;
                               }
                          }
@@ -179,15 +179,15 @@ public class GuiCustomScroll extends GuiScreen {
                     }
 
                     if (this.multipleSelection && this.selectedList.contains(text) || !this.multipleSelection && this.selected == i) {
-                         this.func_73728_b(j - 2, k - 4, k + 10, -1);
-                         this.func_73728_b(j + this.xSize - 18 + xOffset, k - 4, k + 10, -1);
-                         this.func_73730_a(j - 2, j + this.xSize - 18 + xOffset, k - 3, -1);
-                         this.func_73730_a(j - 2, j + this.xSize - 18 + xOffset, k + 10, -1);
-                         this.field_146289_q.func_78276_b(text, j, k, 16777215);
+                         this.drawVerticalLine(j - 2, k - 4, k + 10, -1);
+                         this.drawVerticalLine(j + this.xSize - 18 + xOffset, k - 4, k + 10, -1);
+                         this.drawHorizontalLine(j - 2, j + this.xSize - 18 + xOffset, k - 3, -1);
+                         this.drawHorizontalLine(j - 2, j + this.xSize - 18 + xOffset, k + 10, -1);
+                         this.fontRenderer.drawString(text, j, k, 16777215);
                     } else if (i == this.hover) {
-                         this.field_146289_q.func_78276_b(text, j, k, 65280);
+                         this.fontRenderer.drawString(text, j, k, 65280);
                     } else {
-                         this.field_146289_q.func_78276_b(text, j, k, 16777215);
+                         this.fontRenderer.drawString(text, j, k, 16777215);
                     }
                }
           }
@@ -212,7 +212,7 @@ public class GuiCustomScroll extends GuiScreen {
           return -1;
      }
 
-     public void func_73864_a(int i, int j, int k) {
+     public void mouseClicked(int i, int j, int k) {
           if (k == 0 && this.hover >= 0) {
                if (this.multipleSelection) {
                     if (this.selectedList.contains(this.list.get(this.hover))) {

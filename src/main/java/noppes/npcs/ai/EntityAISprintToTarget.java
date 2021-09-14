@@ -18,9 +18,9 @@ public class EntityAISprintToTarget extends EntityAIBase {
           if (runTarget != null && !this.npc.getNavigator().noPath()) {
                switch(this.npc.ais.onAttack) {
                case 0:
-                    return !this.npc.isInRange(runTarget, 8.0D) ? this.npc.field_70122_E : false;
+                    return !this.npc.isInRange(runTarget, 8.0D) ? this.npc.onGround : false;
                case 2:
-                    return this.npc.isInRange(runTarget, 7.0D) ? this.npc.field_70122_E : false;
+                    return this.npc.isInRange(runTarget, 7.0D) ? this.npc.onGround : false;
                default:
                     return false;
                }
@@ -30,7 +30,7 @@ public class EntityAISprintToTarget extends EntityAIBase {
      }
 
      public boolean shouldContinueExecuting() {
-          return this.npc.isEntityAlive() && this.npc.field_70122_E && this.npc.field_70737_aN <= 0 && this.npc.motionX != 0.0D && this.npc.motionZ != 0.0D;
+          return this.npc.isEntityAlive() && this.npc.onGround && this.npc.hurtTime <= 0 && this.npc.motionX != 0.0D && this.npc.motionZ != 0.0D;
      }
 
      public void startExecuting() {

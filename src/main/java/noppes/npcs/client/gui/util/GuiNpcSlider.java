@@ -42,9 +42,9 @@ public class GuiNpcSlider extends GuiButton {
 
      }
 
-     public void func_146119_b(Minecraft mc, int par2, int par3) {
+     public void mouseDragged(Minecraft mc, int par2, int par3) {
           if (this.visible) {
-               mc.func_110434_K().bindTexture(field_146122_a);
+               mc.getTextureManager().bindTexture(BUTTON_TEXTURES);
                if (this.dragging) {
                     this.sliderValue = (float)(par2 - (this.x + 4)) / (float)(this.width - 8);
                     if (this.sliderValue < 0.0F) {
@@ -60,7 +60,7 @@ public class GuiNpcSlider extends GuiButton {
                     }
 
                     if (!Mouse.isButtonDown(0)) {
-                         this.func_146118_a(0, 0);
+                         this.mouseReleased(0, 0);
                     }
                }
 
@@ -71,14 +71,14 @@ public class GuiNpcSlider extends GuiButton {
      }
 
      public String getDisplayString() {
-          return this.field_146126_j;
+          return this.displayString;
      }
 
      public void setString(String str) {
-          this.field_146126_j = NoppesStringUtils.translate(str);
+          this.displayString = NoppesStringUtils.translate(str);
      }
 
-     public boolean func_146116_c(Minecraft par1Minecraft, int par2, int par3) {
+     public boolean mousePressed(Minecraft par1Minecraft, int par2, int par3) {
           if (this.enabled && this.visible && par2 >= this.x && par3 >= this.y && par2 < this.x + this.width && par3 < this.y + this.height) {
                this.sliderValue = (float)(par2 - (this.x + 4)) / (float)(this.width - 8);
                if (this.sliderValue < 0.0F) {
@@ -100,7 +100,7 @@ public class GuiNpcSlider extends GuiButton {
           }
      }
 
-     public void func_146118_a(int par1, int par2) {
+     public void mouseReleased(int par1, int par2) {
           this.dragging = false;
           if (this.listener != null) {
                this.listener.mouseReleased(this);
@@ -108,7 +108,7 @@ public class GuiNpcSlider extends GuiButton {
 
      }
 
-     public int func_146114_a(boolean par1) {
+     public int getHoverState(boolean par1) {
           return 0;
      }
 }

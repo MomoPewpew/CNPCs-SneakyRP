@@ -22,7 +22,7 @@ public class TileWaypoint extends TileNpcEntity implements ITickable {
      public int range = 10;
 
      public void update() {
-          if (!this.field_145850_b.isRemote && !this.name.isEmpty()) {
+          if (!this.world.isRemote && !this.name.isEmpty()) {
                --this.ticks;
                if (this.ticks <= 0) {
                     this.ticks = 10;
@@ -59,7 +59,7 @@ public class TileWaypoint extends TileNpcEntity implements ITickable {
      }
 
      private List getPlayerList(int x, int y, int z) {
-          return this.field_145850_b.getEntitiesWithinAABB(EntityPlayer.class, (new AxisAlignedBB(this.field_174879_c, this.field_174879_c.add(1, 1, 1))).expand((double)x, (double)y, (double)z));
+          return this.world.getEntitiesWithinAABB(EntityPlayer.class, (new AxisAlignedBB(this.pos, this.pos.add(1, 1, 1))).grow((double)x, (double)y, (double)z));
      }
 
      public void readFromNBT(NBTTagCompound compound) {

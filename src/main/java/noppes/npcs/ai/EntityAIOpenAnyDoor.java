@@ -30,15 +30,15 @@ public class EntityAIOpenAnyDoor extends EntityAIBase {
      }
 
      public boolean shouldExecute() {
-          if (!this.npc.field_70123_F) {
+          if (!this.npc.collidedHorizontally) {
                return false;
           } else {
                Path pathentity = this.npc.getNavigator().getPath();
                if (pathentity != null && !pathentity.isFinished()) {
                     for(int i = 0; i < Math.min(pathentity.getCurrentPathIndex() + 2, pathentity.getCurrentPathLength()); ++i) {
                          PathPoint pathpoint = pathentity.getPathPointFromIndex(i);
-                         this.position = new BlockPos(pathpoint.field_75839_a, pathpoint.field_75837_b + 1, pathpoint.field_75838_c);
-                         if (this.npc.getDistanceSq((double)this.position.getX(), this.npc.field_70163_u, (double)this.position.getZ()) <= 2.25D) {
+                         this.position = new BlockPos(pathpoint.x, pathpoint.y + 1, pathpoint.z);
+                         if (this.npc.getDistanceSq((double)this.position.getX(), this.npc.posY, (double)this.position.getZ()) <= 2.25D) {
                               this.door = this.getDoor(this.position);
                               if (this.door != null) {
                                    return true;
@@ -61,8 +61,8 @@ public class EntityAIOpenAnyDoor extends EntityAIBase {
 
      public void startExecuting() {
           this.hasStoppedDoorInteraction = false;
-          this.entityX = (float)((double)((float)this.position.getX() + 0.5F) - this.npc.field_70165_t);
-          this.entityZ = (float)((double)((float)this.position.getZ() + 0.5F) - this.npc.field_70161_v);
+          this.entityX = (float)((double)((float)this.position.getX() + 0.5F) - this.npc.posX);
+          this.entityZ = (float)((double)((float)this.position.getZ() + 0.5F) - this.npc.posZ);
           this.closeDoorTemporisation = 20;
           this.setDoorState(this.door, this.position, true);
      }
@@ -73,8 +73,8 @@ public class EntityAIOpenAnyDoor extends EntityAIBase {
 
      public void updateTask() {
           --this.closeDoorTemporisation;
-          float f = (float)((double)((float)this.position.getX() + 0.5F) - this.npc.field_70165_t);
-          float f1 = (float)((double)((float)this.position.getZ() + 0.5F) - this.npc.field_70161_v);
+          float f = (float)((double)((float)this.position.getX() + 0.5F) - this.npc.posX);
+          float f1 = (float)((double)((float)this.position.getZ() + 0.5F) - this.npc.posZ);
           float f2 = this.entityX * f + this.entityZ * f1;
           if (f2 < 0.0F) {
                this.hasStoppedDoorInteraction = true;
@@ -85,7 +85,7 @@ public class EntityAIOpenAnyDoor extends EntityAIBase {
      public Block getDoor(BlockPos pos) {
           IBlockState state = this.npc.world.getBlockState(pos);
           Block block = state.getBlock();
-          if (!state.isFullBlock() && block != Blocks.field_150454_av) {
+          if (!state.isFullBlock() && block != Blocks.IRON_DOOR) {
                if (block instanceof BlockDoor) {
                     return block;
                } else {

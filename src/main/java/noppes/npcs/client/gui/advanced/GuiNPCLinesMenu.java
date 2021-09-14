@@ -17,8 +17,8 @@ public class GuiNPCLinesMenu extends GuiNPCInterface2 {
           super(npc);
      }
 
-     public void func_73866_w_() {
-          super.func_73866_w_();
+     public void initGui() {
+          super.initGui();
           this.addButton(new GuiNpcButton(0, this.guiLeft + 85, this.guiTop + 20, "lines.world"));
           this.addButton(new GuiNpcButton(1, this.guiLeft + 85, this.guiTop + 43, "lines.attack"));
           this.addButton(new GuiNpcButton(2, this.guiLeft + 85, this.guiTop + 66, "lines.interact"));
@@ -29,7 +29,7 @@ public class GuiNPCLinesMenu extends GuiNPCInterface2 {
           this.addButton(new GuiNpcButtonYesNo(16, this.guiLeft + 175, this.guiTop + 152, !this.npc.advanced.orderedLines));
      }
 
-     protected void func_146284_a(GuiButton guibutton) {
+     protected void actionPerformed(GuiButton guibutton) {
           int id = guibutton.id;
           if (id == 0) {
                NoppesUtil.openGUI(this.player, new GuiNPCLinesEdit(this.npc, this.npc.advanced.worldLines));

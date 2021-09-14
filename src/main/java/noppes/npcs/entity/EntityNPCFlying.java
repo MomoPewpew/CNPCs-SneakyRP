@@ -15,73 +15,73 @@ public abstract class EntityNPCFlying extends EntityNPCInterface {
           return this.ais.movementType > 0;
      }
 
-     public void func_180430_e(float distance, float damageMultiplier) {
+     public void fall(float distance, float damageMultiplier) {
           if (!this.canFly()) {
-               super.func_180430_e(distance, damageMultiplier);
+               super.fall(distance, damageMultiplier);
           }
 
      }
 
-     protected void func_184231_a(double y, boolean onGroundIn, IBlockState state, BlockPos pos) {
+     protected void updateFallState(double y, boolean onGroundIn, IBlockState state, BlockPos pos) {
           if (!this.canFly()) {
-               super.func_184231_a(y, onGroundIn, state, pos);
+               super.updateFallState(y, onGroundIn, state, pos);
           }
 
      }
 
-     public void func_191986_a(float par1, float par2, float par3) {
+     public void travel(float par1, float par2, float par3) {
           if (!this.canFly()) {
-               super.func_191986_a(par1, par2, par3);
+               super.travel(par1, par2, par3);
           } else {
                if (!this.isInWater() && this.ais.movementType == 2) {
                     this.motionY = -0.15D;
                }
 
                if (this.isInWater() && this.ais.movementType == 1) {
-                    this.func_191958_b(par1, par2, par3, 0.02F);
-                    this.func_70091_d(MoverType.SELF, this.motionX, this.motionY, this.motionZ);
+                    this.moveRelative(par1, par2, par3, 0.02F);
+                    this.move(MoverType.SELF, this.motionX, this.motionY, this.motionZ);
                     this.motionX *= 0.800000011920929D;
                     this.motionY *= 0.800000011920929D;
                     this.motionZ *= 0.800000011920929D;
                } else if (this.isInLava()) {
-                    this.func_191958_b(par1, par2, par3, 0.02F);
-                    this.func_70091_d(MoverType.SELF, this.motionX, this.motionY, this.motionZ);
+                    this.moveRelative(par1, par2, par3, 0.02F);
+                    this.move(MoverType.SELF, this.motionX, this.motionY, this.motionZ);
                     this.motionX *= 0.5D;
                     this.motionY *= 0.5D;
                     this.motionZ *= 0.5D;
                } else {
                     float f2 = 0.91F;
-                    if (this.field_70122_E) {
-                         f2 = this.world.getBlockState(new BlockPos(this.field_70165_t, this.getEntityBoundingBox().field_72338_b - 1.0D, this.field_70161_v)).getBlock().field_149765_K * 0.91F;
+                    if (this.onGround) {
+                         f2 = this.world.getBlockState(new BlockPos(this.posX, this.getEntityBoundingBox().minY - 1.0D, this.posZ)).getBlock().slipperiness * 0.91F;
                     }
 
                     float f3 = 0.16277136F / (f2 * f2 * f2);
-                    this.func_191958_b(par1, par2, par3, this.field_70122_E ? 0.1F * f3 : 0.02F);
+                    this.moveRelative(par1, par2, par3, this.onGround ? 0.1F * f3 : 0.02F);
                     f2 = 0.91F;
-                    if (this.field_70122_E) {
-                         f2 = this.world.getBlockState(new BlockPos(this.field_70165_t, this.getEntityBoundingBox().field_72338_b - 1.0D, this.field_70161_v)).getBlock().field_149765_K * 0.91F;
+                    if (this.onGround) {
+                         f2 = this.world.getBlockState(new BlockPos(this.posX, this.getEntityBoundingBox().minY - 1.0D, this.posZ)).getBlock().slipperiness * 0.91F;
                     }
 
-                    this.func_70091_d(MoverType.SELF, this.motionX, this.motionY, this.motionZ);
+                    this.move(MoverType.SELF, this.motionX, this.motionY, this.motionZ);
                     this.motionX *= (double)f2;
                     this.motionY *= (double)f2;
                     this.motionZ *= (double)f2;
                }
 
-               this.field_184618_aE = this.field_70721_aZ;
-               double d1 = this.field_70165_t - this.field_70169_q;
-               double d0 = this.field_70161_v - this.field_70166_s;
+               this.prevLimbSwingAmount = this.limbSwingAmount;
+               double d1 = this.posX - this.prevPosX;
+               double d0 = this.posZ - this.prevPosZ;
                float f4 = MathHelper.sqrt(d1 * d1 + d0 * d0) * 4.0F;
                if (f4 > 1.0F) {
                     f4 = 1.0F;
                }
 
-               this.field_70721_aZ += (f4 - this.field_70721_aZ) * 0.4F;
-               this.field_184619_aG += this.field_70721_aZ;
+               this.limbSwingAmount += (f4 - this.limbSwingAmount) * 0.4F;
+               this.limbSwing += this.limbSwingAmount;
           }
      }
 
-     public boolean func_70617_f_() {
+     public boolean isOnLadder() {
           return false;
      }
 }

@@ -21,9 +21,9 @@ public class SpawnData extends Item {
      public void readNBT(NBTTagCompound compound) {
           this.id = compound.getInteger("SpawnId");
           this.name = compound.getString("SpawnName");
-          this.field_76292_a = compound.getInteger("SpawnWeight");
-          if (this.field_76292_a == 0) {
-               this.field_76292_a = 1;
+          this.itemWeight = compound.getInteger("SpawnWeight");
+          if (this.itemWeight == 0) {
+               this.itemWeight = 1;
           }
 
           this.biomes = NBTTags.getStringList(compound.getTagList("SpawnBiomes", 10));
@@ -34,7 +34,7 @@ public class SpawnData extends Item {
      public NBTTagCompound writeNBT(NBTTagCompound compound) {
           compound.setInteger("SpawnId", this.id);
           compound.setString("SpawnName", this.name);
-          compound.setInteger("SpawnWeight", this.field_76292_a);
+          compound.setInteger("SpawnWeight", this.itemWeight);
           compound.setTag("SpawnBiomes", NBTTags.nbtStringList(this.biomes));
           compound.setTag("SpawnCompound1", this.compound1);
           compound.setInteger("SpawnType", this.type);

@@ -28,8 +28,8 @@ public class GuiNpcBankSetup extends GuiNPCInterface2 implements IScrollData, IC
           Client.sendData(EnumPacketServer.BanksGet);
      }
 
-     public void func_73866_w_() {
-          super.func_73866_w_();
+     public void initGui() {
+          super.initGui();
           if (this.scroll == null) {
                this.scroll = new GuiCustomScroll(this, 0);
           }
@@ -40,7 +40,7 @@ public class GuiNpcBankSetup extends GuiNPCInterface2 implements IScrollData, IC
           this.addScroll(this.scroll);
      }
 
-     protected void func_146284_a(GuiButton guibutton) {
+     protected void actionPerformed(GuiButton guibutton) {
      }
 
      public void setData(Vector list, HashMap data) {
@@ -58,10 +58,10 @@ public class GuiNpcBankSetup extends GuiNPCInterface2 implements IScrollData, IC
 
      }
 
-     public void func_73864_a(int i, int j, int k) {
-          super.func_73864_a(i, j, k);
+     public void mouseClicked(int i, int j, int k) {
+          super.mouseClicked(i, j, k);
           if (k == 0 && this.scroll != null) {
-               this.scroll.func_73864_a(i, j, k);
+               this.scroll.mouseClicked(i, j, k);
           }
 
      }

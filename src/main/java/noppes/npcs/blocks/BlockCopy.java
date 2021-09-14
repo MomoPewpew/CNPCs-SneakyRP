@@ -21,8 +21,8 @@ import noppes.npcs.util.IPermission;
 
 public class BlockCopy extends BlockInterface implements IPermission {
      public BlockCopy() {
-          super(Material.field_151576_e);
-          this.setSoundType(SoundType.field_185851_d);
+          super(Material.ROCK);
+          this.setSoundType(SoundType.STONE);
      }
 
      public boolean onBlockActivated(World par1World, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {

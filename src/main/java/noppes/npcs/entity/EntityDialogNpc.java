@@ -9,18 +9,18 @@ public class EntityDialogNpc extends EntityNPCInterface {
           super(world);
      }
 
-     public boolean func_98034_c(EntityPlayer player) {
+     public boolean isInvisibleToPlayer(EntityPlayer player) {
           return true;
      }
 
-     public boolean func_82150_aj() {
+     public boolean isInvisible() {
           return true;
      }
 
-     public void func_70071_h_() {
+     public void onUpdate() {
      }
 
-     public boolean func_184645_a(EntityPlayer player, EnumHand hand) {
+     public boolean processInteract(EntityPlayer player, EnumHand hand) {
           return false;
      }
 }

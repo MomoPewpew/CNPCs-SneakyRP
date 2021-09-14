@@ -20,8 +20,8 @@ public class GuiNPCNightSetup extends GuiNPCInterface2 implements IGuiData {
           Client.sendData(EnumPacketServer.TransformGet);
      }
 
-     public void func_73866_w_() {
-          super.func_73866_w_();
+     public void initGui() {
+          super.initGui();
           this.addLabel(new GuiNpcLabel(0, "menu.display", this.guiLeft + 4, this.guiTop + 25));
           this.addButton(new GuiNpcButton(0, this.guiLeft + 104, this.guiTop + 20, 50, 20, new String[]{"gui.no", "gui.yes"}, this.data.hasDisplay ? 1 : 0));
           this.addLabel(new GuiNpcLabel(1, "menu.stats", this.guiLeft + 4, this.guiTop + 47));
@@ -78,7 +78,7 @@ public class GuiNPCNightSetup extends GuiNPCInterface2 implements IGuiData {
           if (button.id == 10) {
                this.data.editingModus = button.getValue() == 1;
                this.save();
-               this.func_73866_w_();
+               this.initGui();
           }
 
           if (button.id == 11) {
@@ -97,6 +97,6 @@ public class GuiNPCNightSetup extends GuiNPCInterface2 implements IGuiData {
 
      public void setGuiData(NBTTagCompound compound) {
           this.data.readOptions(compound);
-          this.func_73866_w_();
+          this.initGui();
      }
 }

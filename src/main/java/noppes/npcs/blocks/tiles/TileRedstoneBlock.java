@@ -29,11 +29,11 @@ public class TileRedstoneBlock extends TileNpcEntity implements ITickable {
      private int ticks = 10;
 
      public void update() {
-          if (!this.field_145850_b.isRemote) {
+          if (!this.world.isRemote) {
                --this.ticks;
                if (this.ticks <= 0) {
                     this.ticks = this.onRange > 10 ? 20 : 10;
-                    Block block = this.func_145838_q();
+                    Block block = this.getBlockType();
                     if (block != null && block instanceof BlockNpcRedstone) {
                          if (CustomNpcs.FreezeNPCs) {
                               if (this.isActivated) {
@@ -95,14 +95,14 @@ public class TileRedstoneBlock extends TileNpcEntity implements ITickable {
      private void setActive(Block block, boolean bo) {
           this.isActivated = bo;
           IBlockState state = block.getDefaultState().withProperty(BlockNpcRedstone.ACTIVE, this.isActivated);
-          this.field_145850_b.setBlockState(this.field_174879_c, state, 2);
+          this.world.setBlockState(this.pos, state, 2);
           this.markDirty();
-          this.field_145850_b.notifyBlockUpdate(this.field_174879_c, state, state, 3);
-          block.func_176213_c(this.field_145850_b, this.field_174879_c, state);
+          this.world.notifyBlockUpdate(this.pos, state, state, 3);
+          block.onBlockAdded(this.world, this.pos, state);
      }
 
      private List getPlayerList(int x, int y, int z) {
-          return this.field_145850_b.getEntitiesWithinAABB(EntityPlayer.class, (new AxisAlignedBB((double)this.field_174879_c.getX(), (double)this.field_174879_c.getY(), (double)this.field_174879_c.getZ(), (double)(this.field_174879_c.getX() + 1), (double)(this.field_174879_c.getY() + 1), (double)(this.field_174879_c.getZ() + 1))).expand((double)x, (double)y, (double)z));
+          return this.world.getEntitiesWithinAABB(EntityPlayer.class, (new AxisAlignedBB((double)this.pos.getX(), (double)this.pos.getY(), (double)this.pos.getZ(), (double)(this.pos.getX() + 1), (double)(this.pos.getY() + 1), (double)(this.pos.getZ() + 1))).grow((double)x, (double)y, (double)z));
      }
 
      public void readFromNBT(NBTTagCompound compound) {

@@ -20,13 +20,13 @@ public class SubGuiNpcRespawn extends SubGuiInterface implements ITextfieldListe
           this.closeOnEsc = true;
      }
 
-     public void func_73866_w_() {
-          super.func_73866_w_();
+     public void initGui() {
+          super.initGui();
           this.addLabel(new GuiNpcLabel(0, "stats.respawn", this.guiLeft + 5, this.guiTop + 35));
           this.addButton(new GuiButtonBiDirectional(0, this.guiLeft + 122, this.guiTop + 30, 80, 20, new String[]{"gui.yes", "gui.day", "gui.night", "gui.no", "stats.naturally"}, this.stats.spawnCycle));
           if (this.stats.respawnTime > 0) {
                this.addLabel(new GuiNpcLabel(3, "gui.time", this.guiLeft + 5, this.guiTop + 57));
-               this.addTextField(new GuiNpcTextField(2, this, this.field_146289_q, this.guiLeft + 122, this.guiTop + 53, 50, 18, this.stats.respawnTime + ""));
+               this.addTextField(new GuiNpcTextField(2, this, this.fontRenderer, this.guiLeft + 122, this.guiTop + 53, 50, 18, this.stats.respawnTime + ""));
                this.getTextField(2).numbersOnly = true;
                this.getTextField(2).setMinMaxDefault(1, Integer.MAX_VALUE, 20);
                this.addLabel(new GuiNpcLabel(4, "stats.deadbody", this.guiLeft + 4, this.guiTop + 79));
@@ -36,7 +36,7 @@ public class SubGuiNpcRespawn extends SubGuiInterface implements ITextfieldListe
           this.addButton(new GuiNpcButton(66, this.guiLeft + 82, this.guiTop + 190, 98, 20, "gui.done"));
      }
 
-     protected void func_146284_a(GuiButton guibutton) {
+     protected void actionPerformed(GuiButton guibutton) {
           int id = guibutton.id;
           GuiNpcButton button = (GuiNpcButton)guibutton;
           if (button.id == 0) {
@@ -47,7 +47,7 @@ public class SubGuiNpcRespawn extends SubGuiInterface implements ITextfieldListe
                     this.stats.respawnTime = 0;
                }
 
-               this.func_73866_w_();
+               this.initGui();
           } else if (button.id == 4) {
                this.stats.hideKilledBody = button.getValue() == 1;
           }
@@ -59,7 +59,7 @@ public class SubGuiNpcRespawn extends SubGuiInterface implements ITextfieldListe
      }
 
      public void unFocused(GuiNpcTextField textfield) {
-          if (textfield.field_175208_g == 2) {
+          if (textfield.id == 2) {
                this.stats.respawnTime = textfield.getInteger();
           }
 

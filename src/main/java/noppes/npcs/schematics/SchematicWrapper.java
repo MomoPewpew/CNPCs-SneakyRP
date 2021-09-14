@@ -32,8 +32,8 @@ public class SchematicWrapper {
      private Map[] tileEntities;
 
      public SchematicWrapper(ISchematic schematic) {
-          this.offset = BlockPos.field_177992_a;
-          this.start = BlockPos.field_177992_a;
+          this.offset = BlockPos.ORIGIN;
+          this.start = BlockPos.ORIGIN;
           this.rotation = 0;
           this.isBuilding = false;
           this.firstLayer = true;
@@ -101,7 +101,7 @@ public class SchematicWrapper {
 
      public void place(int x, int y, int z, int flag) {
           IBlockState state = this.schema.getBlockState(x, y, z);
-          if (state != null && (flag != 1 || state.isFullBlock() || state.getBlock() == Blocks.field_150350_a) && (flag != 2 || !state.isFullBlock() && state.getBlock() != Blocks.field_150350_a)) {
+          if (state != null && (flag != 1 || state.isFullBlock() || state.getBlock() == Blocks.AIR) && (flag != 2 || !state.isFullBlock() && state.getBlock() != Blocks.AIR)) {
                int rotation = this.rotation / 90;
                BlockPos pos = this.start.add(this.rotatePos(x, y, z, rotation));
                state = this.rotationState(state, rotation);
@@ -132,7 +132,7 @@ public class SchematicWrapper {
                          EnumFacing direction = (EnumFacing)state.getValue(prop);
                          if (direction != EnumFacing.UP && direction != EnumFacing.DOWN) {
                               for(int i = 0; i < rotation; ++i) {
-                                   direction = direction.func_176746_e();
+                                   direction = direction.rotateY();
                               }
 
                               return state.withProperty(prop, direction);
@@ -171,8 +171,8 @@ public class SchematicWrapper {
 
           for(int i = 0; i < this.size && i < 25000; ++i) {
                IBlockState state = this.schema.getBlockState(i);
-               if (state.getBlock() != Blocks.field_150350_a && state.getBlock() != Blocks.field_189881_dj) {
-                    list.appendTag(NBTUtil.func_190009_a(new NBTTagCompound(), this.schema.getBlockState(i)));
+               if (state.getBlock() != Blocks.AIR && state.getBlock() != Blocks.STRUCTURE_VOID) {
+                    list.appendTag(NBTUtil.writeBlockState(new NBTTagCompound(), this.schema.getBlockState(i)));
                } else {
                     list.appendTag(new NBTTagCompound());
                }

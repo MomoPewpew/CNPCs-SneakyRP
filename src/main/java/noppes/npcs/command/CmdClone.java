@@ -158,7 +158,7 @@ public class CmdClone extends CommandNoppesBase {
                          }
 
                          try {
-                              pos = CommandBase.func_175757_a(sender, par, 0, false);
+                              pos = CommandBase.parseBlockPos(sender, par, 0, false);
                          } catch (NumberInvalidException var13) {
                               throw new CommandException("Location should be in numbers", new Object[0]);
                          }
@@ -238,7 +238,7 @@ public class CmdClone extends CommandNoppesBase {
                          }
 
                          try {
-                              curpos = CommandBase.func_175757_a(sender, par, 0, false);
+                              curpos = CommandBase.parseBlockPos(sender, par, 0, false);
                          } catch (NumberInvalidException var20) {
                               throw new CommandException("Location should be in numbers", new Object[0]);
                          }
@@ -263,7 +263,7 @@ public class CmdClone extends CommandNoppesBase {
                                    BlockPos pos2 = pos.up();
                                    IBlockState b = world.getBlockState(pos);
                                    IBlockState b2 = world.getBlockState(pos2);
-                                   if (b.func_191058_s() && !b2.func_191058_s()) {
+                                   if (b.causesSuffocation() && !b2.causesSuffocation()) {
                                         npcpos = pos;
                                         break;
                                    }
@@ -295,7 +295,7 @@ public class CmdClone extends CommandNoppesBase {
 
           for(int var6 = 0; var6 < var5; ++var6) {
                WorldServer w = var4[var6];
-               if (w != null && (w.field_73011_w.getDimension() + "").equalsIgnoreCase(t)) {
+               if (w != null && (w.provider.getDimension() + "").equalsIgnoreCase(t)) {
                     return w;
                }
           }
@@ -304,6 +304,6 @@ public class CmdClone extends CommandNoppesBase {
      }
 
      public List getEntities(Class cls, World world, BlockPos pos, int range) {
-          return world.getEntitiesWithinAABB(cls, (new AxisAlignedBB(pos, pos.add(1, 1, 1))).expand((double)range, (double)range, (double)range));
+          return world.getEntitiesWithinAABB(cls, (new AxisAlignedBB(pos, pos.add(1, 1, 1))).grow((double)range, (double)range, (double)range));
      }
 }

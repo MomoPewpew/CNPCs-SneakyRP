@@ -23,27 +23,27 @@ public class GuiNpcBard extends GuiNPCInterface2 implements ISubGuiListener {
           this.job = (JobBard)npc.jobInterface;
      }
 
-     public void func_73866_w_() {
-          super.func_73866_w_();
+     public void initGui() {
+          super.initGui();
           this.addButton(new GuiNpcButton(1, this.guiLeft + 55, this.guiTop + 15, 20, 20, "X"));
           this.addLabel(new GuiNpcLabel(0, this.job.song, this.guiLeft + 80, this.guiTop + 20));
           this.addButton(new GuiNpcButton(0, this.guiLeft + 75, this.guiTop + 50, "gui.selectSound"));
           this.addButton(new GuiNpcButton(3, this.guiLeft + 75, this.guiTop + 92, new String[]{"bard.jukebox", "bard.background"}, this.job.isStreamer ? 0 : 1));
           this.addLabel(new GuiNpcLabel(2, "bard.ondistance", this.guiLeft + 60, this.guiTop + 143));
-          this.addTextField(new GuiNpcTextField(2, this, this.field_146289_q, this.guiLeft + 160, this.guiTop + 138, 40, 20, this.job.minRange + ""));
+          this.addTextField(new GuiNpcTextField(2, this, this.fontRenderer, this.guiLeft + 160, this.guiTop + 138, 40, 20, this.job.minRange + ""));
           this.getTextField(2).numbersOnly = true;
           this.getTextField(2).setMinMaxDefault(2, 64, 5);
           this.addLabel(new GuiNpcLabel(4, "bard.hasoff", this.guiLeft + 60, this.guiTop + 166));
           this.addButton(new GuiNpcButton(4, this.guiLeft + 160, this.guiTop + 161, 60, 20, new String[]{"gui.no", "gui.yes"}, this.job.hasOffRange ? 1 : 0));
           this.addLabel(new GuiNpcLabel(3, "bard.offdistance", this.guiLeft + 60, this.guiTop + 189));
-          this.addTextField(new GuiNpcTextField(3, this, this.field_146289_q, this.guiLeft + 160, this.guiTop + 184, 40, 20, this.job.maxRange + ""));
+          this.addTextField(new GuiNpcTextField(3, this, this.fontRenderer, this.guiLeft + 160, this.guiTop + 184, 40, 20, this.job.maxRange + ""));
           this.getTextField(3).numbersOnly = true;
           this.getTextField(3).setMinMaxDefault(2, 64, 10);
           this.getLabel(3).enabled = this.job.hasOffRange;
           this.getTextField(3).enabled = this.job.hasOffRange;
      }
 
-     protected void func_146284_a(GuiButton guibutton) {
+     protected void actionPerformed(GuiButton guibutton) {
           GuiNpcButton button = (GuiNpcButton)guibutton;
           if (button.id == 0) {
                this.setSubGui(new GuiSoundSelection(this.job.song));
@@ -58,12 +58,12 @@ public class GuiNpcBard extends GuiNPCInterface2 implements ISubGuiListener {
 
           if (button.id == 3) {
                this.job.isStreamer = button.getValue() == 0;
-               this.func_73866_w_();
+               this.initGui();
           }
 
           if (button.id == 4) {
                this.job.hasOffRange = button.getValue() == 1;
-               this.func_73866_w_();
+               this.initGui();
           }
 
      }

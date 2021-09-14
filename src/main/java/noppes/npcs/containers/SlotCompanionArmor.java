@@ -20,18 +20,18 @@ class SlotCompanionArmor extends Slot {
           this.role = role;
      }
 
-     public int func_75219_a() {
+     public int getSlotStackLimit() {
           return 1;
      }
 
      @SideOnly(Side.CLIENT)
-     public String func_178171_c() {
-          return ItemArmor.field_94603_a[this.armorType.func_188454_b()];
+     public String getSlotTexture() {
+          return ItemArmor.EMPTY_SLOT_NAMES[this.armorType.getIndex()];
      }
 
-     public boolean func_75214_a(ItemStack itemstack) {
+     public boolean isItemValid(ItemStack itemstack) {
           if (itemstack.getItem() instanceof ItemArmor && this.role.canWearArmor(itemstack)) {
-               return ((ItemArmor)itemstack.getItem()).field_77881_a == this.armorType;
+               return ((ItemArmor)itemstack.getItem()).armorType == this.armorType;
           } else if (itemstack.getItem() instanceof ItemBlock) {
                return this.armorType == EntityEquipmentSlot.HEAD;
           } else {

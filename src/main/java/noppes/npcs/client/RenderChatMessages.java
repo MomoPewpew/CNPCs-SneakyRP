@@ -57,7 +57,7 @@ public class RenderChatMessages implements IChatMessages {
           FontRenderer font = Minecraft.getMinecraft().fontRenderer;
           float var13 = 1.6F;
           float var14 = 0.016666668F * var13;
-          GlStateManager.func_179094_E();
+          GlStateManager.pushMatrix();
           int size = 0;
 
           TextBlockClient block;
@@ -66,17 +66,17 @@ public class RenderChatMessages implements IChatMessages {
           }
 
           Minecraft mc = Minecraft.getMinecraft();
-          int textYSize = (int)((float)(size * font.field_78288_b) * this.scale);
+          int textYSize = (int)((float)(size * font.FONT_HEIGHT) * this.scale);
           GlStateManager.translate((float)par3 + 0.0F, (float)par5 + (float)textYSize * textscale * var14, (float)par7);
-          GlStateManager.func_179152_a(textscale, textscale, textscale);
+          GlStateManager.scale(textscale, textscale, textscale);
           GL11.glNormal3f(0.0F, 1.0F, 0.0F);
-          GlStateManager.func_179114_b(-mc.func_175598_ae().field_78735_i, 0.0F, 1.0F, 0.0F);
-          GlStateManager.func_179114_b(mc.func_175598_ae().field_78732_j, 1.0F, 0.0F, 0.0F);
-          GlStateManager.func_179152_a(-var14, -var14, var14);
+          GlStateManager.rotate(-mc.getRenderManager().playerViewY, 0.0F, 1.0F, 0.0F);
+          GlStateManager.rotate(mc.getRenderManager().playerViewX, 1.0F, 0.0F, 0.0F);
+          GlStateManager.scale(-var14, -var14, var14);
           GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-          GlStateManager.func_179132_a(true);
+          GlStateManager.depthMask(true);
           GlStateManager.disableLighting();
-          GlStateManager.func_179147_l();
+          GlStateManager.enableBlend();
           if (depth) {
                GlStateManager.enableDepth();
           } else {
@@ -85,9 +85,9 @@ public class RenderChatMessages implements IChatMessages {
 
           int black = depth ? -16777216 : 1426063360;
           int white = depth ? -1140850689 : 1157627903;
-          GlStateManager.func_187428_a(SourceFactor.SRC_ALPHA, DestFactor.ONE_MINUS_SRC_ALPHA, SourceFactor.ONE, DestFactor.ZERO);
-          GlStateManager.func_179090_x();
-          GlStateManager.func_179089_o();
+          GlStateManager.tryBlendFuncSeparate(SourceFactor.SRC_ALPHA, DestFactor.ONE_MINUS_SRC_ALPHA, SourceFactor.ONE, DestFactor.ZERO);
+          GlStateManager.disableTexture2D();
+          GlStateManager.enableCull();
           this.drawRect(-this.boxLength - 2, -2, this.boxLength + 2, textYSize + 1, white, 0.11D);
           this.drawRect(-this.boxLength - 1, -3, this.boxLength + 1, -2, black, 0.1D);
           this.drawRect(-this.boxLength - 1, textYSize + 2, -1, textYSize + 1, black, 0.1D);
@@ -106,9 +106,9 @@ public class RenderChatMessages implements IChatMessages {
           this.drawRect(1, textYSize + 4, 2, textYSize + 5, black, 0.1D);
           this.drawRect(-2, textYSize + 4, -1, textYSize + 5, black, 0.1D);
           this.drawRect(-2, textYSize + 5, 1, textYSize + 6, black, 0.1D);
-          GlStateManager.func_179098_w();
-          GlStateManager.func_179132_a(true);
-          GlStateManager.func_179152_a(this.scale, this.scale, this.scale);
+          GlStateManager.enableTexture2D();
+          GlStateManager.depthMask(true);
+          GlStateManager.scale(this.scale, this.scale, this.scale);
           int index = 0;
           Iterator var18 = this.messages.values().iterator();
 
@@ -117,17 +117,17 @@ public class RenderChatMessages implements IChatMessages {
 
                for(Iterator var20 = block.lines.iterator(); var20.hasNext(); ++index) {
                     ITextComponent chat = (ITextComponent)var20.next();
-                    String message = chat.func_150254_d();
-                    font.func_78276_b(message, -font.getStringWidth(message) / 2, index * font.field_78288_b, black);
+                    String message = chat.getFormattedText();
+                    font.drawString(message, -font.getStringWidth(message) / 2, index * font.FONT_HEIGHT, black);
                }
           }
 
-          GlStateManager.func_179129_p();
+          GlStateManager.disableCull();
           GlStateManager.enableLighting();
-          GlStateManager.func_179084_k();
+          GlStateManager.disableBlend();
           GlStateManager.enableDepth();
           GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-          GlStateManager.func_179121_F();
+          GlStateManager.popMatrix();
      }
 
      private void drawRect(int par0, int par1, int par2, int par3, int par4, double par5) {
@@ -148,14 +148,14 @@ public class RenderChatMessages implements IChatMessages {
           float f1 = (float)(par4 >> 16 & 255) / 255.0F;
           float f2 = (float)(par4 >> 8 & 255) / 255.0F;
           float f3 = (float)(par4 & 255) / 255.0F;
-          BufferBuilder tessellator = Tessellator.func_178181_a().func_178180_c();
+          BufferBuilder tessellator = Tessellator.getInstance().getBuffer();
           GlStateManager.color(f1, f2, f3, f);
-          tessellator.func_181668_a(7, DefaultVertexFormats.field_181705_e);
-          tessellator.func_181662_b((double)par0, (double)par3, par5).func_181675_d();
-          tessellator.func_181662_b((double)par2, (double)par3, par5).func_181675_d();
-          tessellator.func_181662_b((double)par2, (double)par1, par5).func_181675_d();
-          tessellator.func_181662_b((double)par0, (double)par1, par5).func_181675_d();
-          Tessellator.func_178181_a().func_78381_a();
+          tessellator.begin(7, DefaultVertexFormats.POSITION);
+          tessellator.pos((double)par0, (double)par3, par5).endVertex();
+          tessellator.pos((double)par2, (double)par3, par5).endVertex();
+          tessellator.pos((double)par2, (double)par1, par5).endVertex();
+          tessellator.pos((double)par0, (double)par1, par5).endVertex();
+          Tessellator.getInstance().draw();
      }
 
      private Map getMessages() {

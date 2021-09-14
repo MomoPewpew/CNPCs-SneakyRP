@@ -24,8 +24,8 @@ public class GuiRoleDialog extends GuiNPCInterface2 implements ISubGuiListener {
           this.role = (RoleDialog)npc.roleInterface;
      }
 
-     public void func_73866_w_() {
-          super.func_73866_w_();
+     public void initGui() {
+          super.initGui();
           this.addLabel(new GuiNpcLabel(0, "dialog.starttext", this.guiLeft + 4, this.guiTop + 10));
           this.addButton(new GuiNpcButton(0, this.guiLeft + 60, this.guiTop + 5, 50, 20, "selectServer.edit"));
           this.addLabel(new GuiNpcLabel(100, "dialog.options", this.guiLeft + 4, this.guiTop + 34));
@@ -44,7 +44,7 @@ public class GuiRoleDialog extends GuiNPCInterface2 implements ISubGuiListener {
 
      }
 
-     protected void func_146284_a(GuiButton guibutton) {
+     protected void actionPerformed(GuiButton guibutton) {
           if (guibutton.id <= 6) {
                this.save();
                this.slot = guibutton.id;
@@ -66,7 +66,7 @@ public class GuiRoleDialog extends GuiNPCInterface2 implements ISubGuiListener {
           HashMap map = new HashMap();
 
           for(int i = 1; i <= 6; ++i) {
-               String text = this.getTextField(i).func_146179_b();
+               String text = this.getTextField(i).getText();
                if (!text.isEmpty()) {
                     map.put(i, text);
                }

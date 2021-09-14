@@ -56,8 +56,8 @@ public class GuiTextArea extends Gui implements IGui, IKeyListener, IMouseListen
 
      public void drawScreen(int xMouse, int yMouse) {
           if (this.visible) {
-               func_73734_a(this.x - 1, this.y - 1, this.x + this.width + 1, this.y + this.height + 1, -6250336);
-               func_73734_a(this.x, this.y, this.x + this.width, this.y + this.height, -16777216);
+               drawRect(this.x - 1, this.y - 1, this.x + this.width + 1, this.y + this.height + 1, -6250336);
+               drawRect(this.x, this.y, this.x + this.width, this.y + this.height, -16777216);
                this.container.visibleLines = this.height / this.container.lineHeight;
                int startBracket;
                if (this.clicked) {
@@ -131,14 +131,14 @@ public class GuiTextArea extends Gui implements IGui, IKeyListener, IMouseListen
                               yPos = font.width(line.substring(0, startBracket - data.start));
                               posX = font.width(line.substring(0, startBracket - data.start + 1)) + 1;
                               e = this.y + 1 + (i - this.scrolledLine) * this.container.lineHeight;
-                              func_73734_a(this.x + 1 + yPos, e, this.x + 1 + posX, e + this.container.lineHeight + 1, -1728001024);
+                              drawRect(this.x + 1 + yPos, e, this.x + 1 + posX, e + this.container.lineHeight + 1, -1728001024);
                          }
 
                          if (endBracket >= data.start && endBracket < data.end) {
                               yPos = font.width(line.substring(0, endBracket - data.start));
                               posX = font.width(line.substring(0, endBracket - data.start + 1)) + 1;
                               e = this.y + 1 + (i - this.scrolledLine) * this.container.lineHeight;
-                              func_73734_a(this.x + 1 + yPos, e, this.x + 1 + posX, e + this.container.lineHeight + 1, -1728001024);
+                              drawRect(this.x + 1 + yPos, e, this.x + 1 + posX, e + this.container.lineHeight + 1, -1728001024);
                          }
                     }
 
@@ -151,7 +151,7 @@ public class GuiTextArea extends Gui implements IGui, IKeyListener, IMouseListen
                                         posX = font.width(line.substring(0, m.start()));
                                         e = font.width(line.substring(0, m.end())) + 1;
                                         int posY = this.y + 1 + (i - this.scrolledLine) * this.container.lineHeight;
-                                        func_73734_a(this.x + 1 + posX, posY, this.x + 1 + e, posY + this.container.lineHeight + 1, -1728033792);
+                                        drawRect(this.x + 1 + posX, posY, this.x + 1 + e, posY + this.container.lineHeight + 1, -1728033792);
                                    }
                               }
                          }
@@ -160,14 +160,14 @@ public class GuiTextArea extends Gui implements IGui, IKeyListener, IMouseListen
                               yPos = font.width(line.substring(0, Math.max(this.startSelection - data.start, 0)));
                               posX = font.width(line.substring(0, Math.min(this.endSelection - data.start, w))) + 1;
                               e = this.y + 1 + (i - this.scrolledLine) * this.container.lineHeight;
-                              func_73734_a(this.x + 1 + yPos, e, this.x + 1 + posX, e + this.container.lineHeight + 1, -1728052993);
+                              drawRect(this.x + 1 + yPos, e, this.x + 1 + posX, e + this.container.lineHeight + 1, -1728052993);
                          }
 
                          yPos = this.y + (i - this.scrolledLine) * this.container.lineHeight + 1;
                          font.draw(data.getFormattedString(), (float)(this.x + 1), (float)yPos, -2039584);
                          if (this.active && this.isEnabled() && this.cursorCounter / 6 % 2 == 0 && this.cursorPosition >= data.start && this.cursorPosition < data.end) {
                               posX = this.x + font.width(line.substring(0, this.cursorPosition - data.start));
-                              func_73734_a(posX + 1, yPos, posX + 2, yPos + 1 + this.container.lineHeight, -3092272);
+                              drawRect(posX + 1, yPos, posX + 2, yPos + 1 + this.container.lineHeight, -3092272);
                          }
                     }
                }
@@ -177,7 +177,7 @@ public class GuiTextArea extends Gui implements IGui, IKeyListener, IMouseListen
                     i = Math.max((int)(1.0F * (float)this.container.visibleLines / (float)this.container.linesCount * (float)this.height), 2);
                     int posX = this.x + this.width - 6;
                     int posY = (int)((float)this.y + 1.0F * (float)this.scrolledLine / (float)this.container.linesCount * (float)(this.height - 4)) + 1;
-                    func_73734_a(posX, posY, posX + 5, posY + i, -2039584);
+                    drawRect(posX, posY, posX + 5, posY + i, -2039584);
                }
 
           }
@@ -257,7 +257,7 @@ public class GuiTextArea extends Gui implements IGui, IKeyListener, IMouseListen
 
      public void keyTyped(char c, int i) {
           if (this.active) {
-               if (GuiScreen.func_175278_g(i)) {
+               if (GuiScreen.isKeyComboCtrlA(i)) {
                     this.startSelection = this.cursorPosition = 0;
                     this.endSelection = this.text.length();
                } else if (this.isEnabled()) {
@@ -266,7 +266,7 @@ public class GuiTextArea extends Gui implements IGui, IKeyListener, IMouseListen
                     Matcher m;
                     if (i == 203) {
                          j = 1;
-                         if (GuiScreen.func_146271_m()) {
+                         if (GuiScreen.isCtrlKeyDown()) {
                               m = this.container.regexWord.matcher(this.text.substring(0, this.cursorPosition));
 
                               while(m.find()) {
@@ -276,12 +276,12 @@ public class GuiTextArea extends Gui implements IGui, IKeyListener, IMouseListen
                               }
                          }
 
-                         this.setCursor(this.cursorPosition - j, GuiScreen.func_146272_n());
+                         this.setCursor(this.cursorPosition - j, GuiScreen.isShiftKeyDown());
                     } else if (i != 205) {
                          if (i == 200) {
-                              this.setCursor(this.cursorUp(), GuiScreen.func_146272_n());
+                              this.setCursor(this.cursorUp(), GuiScreen.isShiftKeyDown());
                          } else if (i == 208) {
-                              this.setCursor(this.cursorDown(), GuiScreen.func_146272_n());
+                              this.setCursor(this.cursorDown(), GuiScreen.isShiftKeyDown());
                          } else {
                               String s;
                               if (i == 211) {
@@ -301,7 +301,7 @@ public class GuiTextArea extends Gui implements IGui, IKeyListener, IMouseListen
 
                                    this.setText(s + this.getSelectionAfterText());
                                    this.endSelection = this.cursorPosition = this.startSelection;
-                              } else if (GuiScreen.func_175277_d(i)) {
+                              } else if (GuiScreen.isKeyComboCtrlX(i)) {
                                    if (this.startSelection != this.endSelection) {
                                         NoppesStringUtils.setClipboardContents(this.text.substring(this.startSelection, this.endSelection));
                                         s = this.getSelectionBeforeText();
@@ -309,16 +309,16 @@ public class GuiTextArea extends Gui implements IGui, IKeyListener, IMouseListen
                                         this.endSelection = this.startSelection = this.cursorPosition = s.length();
                                    }
 
-                              } else if (GuiScreen.func_175280_f(i)) {
+                              } else if (GuiScreen.isKeyComboCtrlC(i)) {
                                    if (this.startSelection != this.endSelection) {
                                         NoppesStringUtils.setClipboardContents(this.text.substring(this.startSelection, this.endSelection));
                                    }
 
-                              } else if (GuiScreen.func_175279_e(i)) {
+                              } else if (GuiScreen.isKeyComboCtrlV(i)) {
                                    this.addText(NoppesStringUtils.getClipboardContents());
                               } else {
                                    GuiTextArea.UndoData data;
-                                   if (i == 44 && GuiScreen.func_146271_m()) {
+                                   if (i == 44 && GuiScreen.isCtrlKeyDown()) {
                                         if (!this.undoList.isEmpty()) {
                                              this.undoing = true;
                                              this.redoList.add(new GuiTextArea.UndoData(this.text, this.cursorPosition));
@@ -327,7 +327,7 @@ public class GuiTextArea extends Gui implements IGui, IKeyListener, IMouseListen
                                              this.endSelection = this.startSelection = this.cursorPosition = data.cursorPosition;
                                              this.undoing = false;
                                         }
-                                   } else if (i == 21 && GuiScreen.func_146271_m()) {
+                                   } else if (i == 21 && GuiScreen.isCtrlKeyDown()) {
                                         if (!this.redoList.isEmpty()) {
                                              this.undoing = true;
                                              this.undoList.add(new GuiTextArea.UndoData(this.text, this.cursorPosition));
@@ -345,7 +345,7 @@ public class GuiTextArea extends Gui implements IGui, IKeyListener, IMouseListen
                                              this.addText(Character.toString('\n') + this.getIndentCurrentLine());
                                         }
 
-                                        if (ChatAllowedCharacters.func_71566_a(c)) {
+                                        if (ChatAllowedCharacters.isAllowedCharacter(c)) {
                                              this.addText(Character.toString(c));
                                         }
 
@@ -354,14 +354,14 @@ public class GuiTextArea extends Gui implements IGui, IKeyListener, IMouseListen
                          }
                     } else {
                          j = 1;
-                         if (GuiScreen.func_146271_m()) {
+                         if (GuiScreen.isCtrlKeyDown()) {
                               m = this.container.regexWord.matcher(this.text.substring(this.cursorPosition));
                               if (m.find() && m.start() > 0 || m.find()) {
                                    j = m.start();
                               }
                          }
 
-                         this.setCursor(this.cursorPosition + j, GuiScreen.func_146272_n());
+                         this.setCursor(this.cursorPosition + j, GuiScreen.isShiftKeyDown());
                     }
                }
           }

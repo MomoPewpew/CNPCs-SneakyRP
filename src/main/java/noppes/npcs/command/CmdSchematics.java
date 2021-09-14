@@ -64,7 +64,7 @@ public class CmdSchematics extends CommandNoppesBase {
                          }
 
                          try {
-                              pos = CommandBase.func_175757_a(sender, par, 0, false);
+                              pos = CommandBase.parseBlockPos(sender, par, 0, false);
                          } catch (NumberInvalidException var12) {
                               throw new CommandException("Location should be in numbers", new Object[0]);
                          }
@@ -116,10 +116,10 @@ public class CmdSchematics extends CommandNoppesBase {
           }
      }
 
-     public List func_184883_a(MinecraftServer server, ICommandSender par1, String[] args, BlockPos pos) {
+     public List getTabCompletions(MinecraftServer server, ICommandSender par1, String[] args, BlockPos pos) {
           if (args[0].equalsIgnoreCase("build") && args.length == 2) {
                List list = SchematicController.Instance.list();
-               return CommandBase.func_71530_a(args, (String[])list.toArray(new String[list.size()]));
+               return CommandBase.getListOfStringsMatchingLastWord(args, (String[])list.toArray(new String[list.size()]));
           } else {
                return null;
           }
@@ -132,7 +132,7 @@ public class CmdSchematics extends CommandNoppesBase {
 
           for(int var6 = 0; var6 < var5; ++var6) {
                WorldServer w = var4[var6];
-               if (w != null && (w.field_73011_w.getDimension() + "").equalsIgnoreCase(t)) {
+               if (w != null && (w.provider.getDimension() + "").equalsIgnoreCase(t)) {
                     return w;
                }
           }

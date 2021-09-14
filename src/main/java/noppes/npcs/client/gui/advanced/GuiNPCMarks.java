@@ -23,8 +23,8 @@ public class GuiNPCMarks extends GuiNPCInterface2 implements ISubGuiListener {
           this.data = MarkData.get(npc);
      }
 
-     public void func_73866_w_() {
-          super.func_73866_w_();
+     public void initGui() {
+          super.initGui();
           int y = this.guiTop + 14;
 
           for(int i = 0; i < this.data.marks.size(); ++i) {
@@ -65,13 +65,13 @@ public class GuiNPCMarks extends GuiNPCInterface2 implements ISubGuiListener {
 
                if (button.id % 10 == 4) {
                     this.data.marks.remove(this.selectedMark);
-                    this.func_73866_w_();
+                    this.initGui();
                }
           }
 
           if (button.id == 101) {
                this.data.addMark(0);
-               this.func_73866_w_();
+               this.initGui();
           }
 
      }
@@ -79,7 +79,7 @@ public class GuiNPCMarks extends GuiNPCInterface2 implements ISubGuiListener {
      public void subGuiClosed(SubGuiInterface subgui) {
           if (subgui instanceof SubGuiColorSelector) {
                this.selectedMark.color = ((SubGuiColorSelector)subgui).color;
-               this.func_73866_w_();
+               this.initGui();
           }
 
      }

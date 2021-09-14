@@ -24,11 +24,11 @@ class SlotNpcTraderItems extends Slot {
           }
      }
 
-     public int func_75219_a() {
+     public int getSlotStackLimit() {
           return 64;
      }
 
-     public boolean func_75214_a(ItemStack itemstack) {
+     public boolean isItemValid(ItemStack itemstack) {
           return false;
      }
 }

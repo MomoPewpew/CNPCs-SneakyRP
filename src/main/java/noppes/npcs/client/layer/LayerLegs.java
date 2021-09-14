@@ -50,28 +50,28 @@ public class LayerLegs extends LayerInterface implements LayerPreRender {
           this.digitigrade = new ModelDigitigradeLegs(this.model);
           this.fox = new ModelCanineTail(this.model);
           this.tail = new ModelRenderer(this.model, 56, 21);
-          this.tail.func_78789_a(-1.0F, 0.0F, 0.0F, 2, 9, 2);
-          this.tail.func_78793_a(0.0F, 0.0F, 1.0F);
+          this.tail.addBox(-1.0F, 0.0F, 0.0F, 2, 9, 2);
+          this.tail.setRotationPoint(0.0F, 0.0F, 1.0F);
           this.setRotation(this.tail, 0.8714253F, 0.0F, 0.0F);
           this.horse = new ModelRenderer(this.model);
-          this.horse.func_78787_b(32, 32);
-          this.horse.func_78793_a(0.0F, -1.0F, 1.0F);
+          this.horse.setTextureSize(32, 32);
+          this.horse.setRotationPoint(0.0F, -1.0F, 1.0F);
           ModelRenderer tailBase = new ModelRenderer(this.model, 0, 26);
-          tailBase.func_78787_b(32, 32);
-          tailBase.func_78789_a(-1.0F, -1.0F, 0.0F, 2, 2, 3);
+          tailBase.setTextureSize(32, 32);
+          tailBase.addBox(-1.0F, -1.0F, 0.0F, 2, 2, 3);
           this.setRotation(tailBase, -1.134464F, 0.0F, 0.0F);
-          this.horse.func_78792_a(tailBase);
+          this.horse.addChild(tailBase);
           ModelRenderer tailMiddle = new ModelRenderer(this.model, 0, 13);
-          tailMiddle.func_78787_b(32, 32);
-          tailMiddle.func_78789_a(-1.5F, -2.0F, 3.0F, 3, 4, 7);
+          tailMiddle.setTextureSize(32, 32);
+          tailMiddle.addBox(-1.5F, -2.0F, 3.0F, 3, 4, 7);
           this.setRotation(tailMiddle, -1.134464F, 0.0F, 0.0F);
-          this.horse.func_78792_a(tailMiddle);
+          this.horse.addChild(tailMiddle);
           ModelRenderer tailTip = new ModelRenderer(this.model, 0, 0);
-          tailTip.func_78787_b(32, 32);
-          tailTip.func_78789_a(-1.5F, -4.5F, 9.0F, 3, 4, 7);
+          tailTip.setTextureSize(32, 32);
+          tailTip.addBox(-1.5F, -4.5F, 9.0F, 3, 4, 7);
           this.setRotation(tailTip, -1.40215F, 0.0F, 0.0F);
-          this.horse.func_78792_a(tailTip);
-          this.horse.field_78795_f = 0.5F;
+          this.horse.addChild(tailTip);
+          this.horse.rotateAngleX = 0.5F;
           this.dragon = new ModelDragonTail(this.model);
           this.squirrel = new ModelSquirrelTail(this.model);
           this.fin = new ModelTailFin(this.model);
@@ -87,61 +87,61 @@ public class LayerLegs extends LayerInterface implements LayerPreRender {
      private void renderTails(float par7) {
           ModelPartData data = this.playerdata.getPartData(EnumParts.TAIL);
           if (data != null) {
-               GlStateManager.func_179094_E();
+               GlStateManager.pushMatrix();
                ModelPartConfig config = this.playerdata.getPartConfig(EnumParts.LEG_LEFT);
                GlStateManager.translate(config.transX * par7, config.transY + this.rotationPointY * par7, config.transZ * par7 + this.rotationPointZ * par7);
                GlStateManager.translate(0.0F, 0.0F, (config.scaleZ - 1.0F) * 5.0F * par7);
-               GlStateManager.func_179152_a(config.scaleX, config.scaleY, config.scaleZ);
+               GlStateManager.scale(config.scaleX, config.scaleY, config.scaleZ);
                this.preRender(data);
                if (data.type == 0) {
                     if (data.pattern == 1) {
-                         this.tail.field_78800_c = -0.5F;
+                         this.tail.rotationPointX = -0.5F;
                          ModelRenderer var10000 = this.tail;
-                         var10000.field_78796_g = (float)((double)var10000.field_78796_g - 0.2D);
-                         this.tail.func_78785_a(par7);
-                         ++this.tail.field_78800_c;
+                         var10000.rotateAngleY = (float)((double)var10000.rotateAngleY - 0.2D);
+                         this.tail.render(par7);
+                         ++this.tail.rotationPointX;
                          var10000 = this.tail;
-                         var10000.field_78796_g = (float)((double)var10000.field_78796_g + 0.4D);
-                         this.tail.func_78785_a(par7);
-                         this.tail.field_78800_c = 0.0F;
+                         var10000.rotateAngleY = (float)((double)var10000.rotateAngleY + 0.4D);
+                         this.tail.render(par7);
+                         this.tail.rotationPointX = 0.0F;
                     } else {
-                         this.tail.func_78785_a(par7);
+                         this.tail.render(par7);
                     }
                } else if (data.type == 1) {
-                    this.dragon.func_78785_a(par7);
+                    this.dragon.render(par7);
                } else if (data.type == 2) {
-                    this.horse.func_78785_a(par7);
+                    this.horse.render(par7);
                } else if (data.type == 3) {
-                    this.squirrel.func_78785_a(par7);
+                    this.squirrel.render(par7);
                } else if (data.type == 4) {
-                    this.fin.func_78785_a(par7);
+                    this.fin.render(par7);
                } else if (data.type == 5) {
-                    this.rodent.func_78785_a(par7);
+                    this.rodent.render(par7);
                } else if (data.type == 6) {
-                    this.feathers.func_78785_a(par7);
+                    this.feathers.render(par7);
                } else if (data.type == 7) {
-                    this.fox.func_78785_a(par7);
+                    this.fox.render(par7);
                }
 
-               GlStateManager.func_179121_F();
+               GlStateManager.popMatrix();
           }
      }
 
      private void renderLegs(float par7) {
           ModelPartData data = this.playerdata.getPartData(EnumParts.LEGS);
           if (data.type > 0) {
-               GlStateManager.func_179094_E();
+               GlStateManager.pushMatrix();
                ModelPartConfig config = this.playerdata.getPartConfig(EnumParts.LEG_LEFT);
                this.preRender(data);
                if (data.type == 1) {
                     GlStateManager.translate(0.0F, config.transY * 2.0F, config.transZ * par7 + 0.04F);
-                    GlStateManager.func_179152_a(config.scaleX, config.scaleY, config.scaleZ);
-                    this.naga.func_78785_a(par7);
+                    GlStateManager.scale(config.scaleX, config.scaleY, config.scaleZ);
+                    this.naga.render(par7);
                } else if (data.type == 2) {
-                    GlStateManager.func_179137_b(0.0D, (double)(config.transY * 1.76F) - 0.1D * (double)config.scaleY, (double)(config.transZ * par7));
-                    GlStateManager.func_179152_a(1.06F, 1.06F, 1.06F);
-                    GlStateManager.func_179152_a(config.scaleX, config.scaleY, config.scaleZ);
-                    this.spiderLegs.func_78785_a(par7);
+                    GlStateManager.translate(0.0D, (double)(config.transY * 1.76F) - 0.1D * (double)config.scaleY, (double)(config.transZ * par7));
+                    GlStateManager.scale(1.06F, 1.06F, 1.06F);
+                    GlStateManager.scale(config.scaleX, config.scaleY, config.scaleZ);
+                    this.spiderLegs.render(par7);
                } else if (data.type == 3) {
                     if (config.scaleY >= 1.0F) {
                          GlStateManager.translate(0.0F, config.transY * 1.76F, config.transZ * par7);
@@ -149,20 +149,20 @@ public class LayerLegs extends LayerInterface implements LayerPreRender {
                          GlStateManager.translate(0.0F, config.transY * 1.86F, config.transZ * par7);
                     }
 
-                    GlStateManager.func_179152_a(0.79F, 0.9F - config.scaleY / 10.0F, 0.79F);
-                    GlStateManager.func_179152_a(config.scaleX, config.scaleY, config.scaleZ);
-                    this.horseLegs.func_78785_a(par7);
+                    GlStateManager.scale(0.79F, 0.9F - config.scaleY / 10.0F, 0.79F);
+                    GlStateManager.scale(config.scaleX, config.scaleY, config.scaleZ);
+                    this.horseLegs.render(par7);
                } else if (data.type == 4) {
                     GlStateManager.translate(0.0F, config.transY * 1.86F, config.transZ * par7);
-                    GlStateManager.func_179152_a(config.scaleX, config.scaleY, config.scaleZ);
-                    this.mermaid.func_78785_a(par7);
+                    GlStateManager.scale(config.scaleX, config.scaleY, config.scaleZ);
+                    this.mermaid.render(par7);
                } else if (data.type == 5) {
                     GlStateManager.translate(0.0F, config.transY * 1.86F, config.transZ * par7);
-                    GlStateManager.func_179152_a(config.scaleX, config.scaleY, config.scaleZ);
-                    this.digitigrade.func_78785_a(par7);
+                    GlStateManager.scale(config.scaleX, config.scaleY, config.scaleZ);
+                    this.digitigrade.render(par7);
                }
 
-               GlStateManager.func_179121_F();
+               GlStateManager.popMatrix();
           }
      }
 
@@ -178,10 +178,10 @@ public class LayerLegs extends LayerInterface implements LayerPreRender {
           } else if (part.type == 3) {
                this.horseLegs.setRotationAngles(this.playerdata, par1, par2, par3, par4, par5, par6, this.npc);
           } else if (part.type == 1) {
-               this.naga.isRiding = this.model.field_78093_q;
+               this.naga.isRiding = this.model.isRiding;
                this.naga.isSleeping = this.npc.isPlayerSleeping();
                this.naga.isCrawling = this.npc.currentAnimation == 7;
-               this.naga.isSneaking = this.model.field_78117_n;
+               this.naga.isSneaking = this.model.isSneak;
                this.naga.setRotationAngles(par1, par2, par3, par4, par5, par6, this.npc);
           } else if (part.type == 4) {
                this.mermaid.setRotationAngles(par1, par2, par3, par4, par5, par6, this.npc);
@@ -228,15 +228,15 @@ public class LayerLegs extends LayerInterface implements LayerPreRender {
                }
           }
 
-          this.rotationPointZ += this.model.field_178721_j.field_78798_e + 0.5F;
-          this.fox.field_78795_f = this.tail.field_78795_f = this.feathers.field_78795_f = this.dragon.field_78795_f = this.squirrel.field_78795_f = this.horse.field_78795_f = this.fin.field_78795_f = this.rodent.field_78795_f = rotateAngleX;
-          this.fox.field_78796_g = this.tail.field_78796_g = this.feathers.field_78796_g = this.dragon.field_78796_g = this.squirrel.field_78796_g = this.horse.field_78796_g = this.fin.field_78796_g = this.rodent.field_78796_g = rotateAngleY;
+          this.rotationPointZ += this.model.bipedRightLeg.rotationPointZ + 0.5F;
+          this.fox.rotateAngleX = this.tail.rotateAngleX = this.feathers.rotateAngleX = this.dragon.rotateAngleX = this.squirrel.rotateAngleX = this.horse.rotateAngleX = this.fin.rotateAngleX = this.rodent.rotateAngleX = rotateAngleX;
+          this.fox.rotateAngleY = this.tail.rotateAngleY = this.feathers.rotateAngleY = this.dragon.rotateAngleY = this.squirrel.rotateAngleY = this.horse.rotateAngleY = this.fin.rotateAngleY = this.rodent.rotateAngleY = rotateAngleY;
      }
 
      public void preRender(EntityCustomNpc player) {
           this.npc = player;
           this.playerdata = player.modelData;
           ModelPartData data = this.playerdata.getPartData(EnumParts.LEGS);
-          this.model.field_178722_k.field_78807_k = this.model.field_178721_j.field_78807_k = data == null || data.type != 0;
+          this.model.bipedLeftLeg.isHidden = this.model.bipedRightLeg.isHidden = data == null || data.type != 0;
      }
 }

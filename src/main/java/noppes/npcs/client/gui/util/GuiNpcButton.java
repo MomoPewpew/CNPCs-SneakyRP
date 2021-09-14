@@ -45,7 +45,7 @@ public class GuiNpcButton extends GuiButton {
      }
 
      public void setDisplayText(String text) {
-          this.field_146126_j = I18n.translateToLocal(text);
+          this.displayString = I18n.translateToLocal(text);
      }
 
      public int getValue() {
@@ -73,8 +73,8 @@ public class GuiNpcButton extends GuiButton {
           this.packedFGColour = color;
      }
 
-     public boolean func_146116_c(Minecraft minecraft, int i, int j) {
-          boolean bo = super.func_146116_c(minecraft, i, j);
+     public boolean mousePressed(Minecraft minecraft, int i, int j) {
+          boolean bo = super.mousePressed(minecraft, i, j);
           if (bo && this.display != null && this.display.length != 0) {
                this.displayValue = (this.displayValue + 1) % this.display.length;
                this.setDisplayText(this.display[this.displayValue]);

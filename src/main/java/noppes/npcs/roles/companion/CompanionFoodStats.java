@@ -22,11 +22,11 @@ public class CompanionFoodStats {
      }
 
      public void onFoodEaten(ItemFood food, ItemStack itemstack) {
-          this.addStats(food.getHealAmount(itemstack), food.func_150906_h(itemstack));
+          this.addStats(food.getHealAmount(itemstack), food.getSaturationModifier(itemstack));
      }
 
      public void onUpdate(EntityNPCInterface npc) {
-          EnumDifficulty enumdifficulty = npc.world.func_175659_aa();
+          EnumDifficulty enumdifficulty = npc.world.getDifficulty();
           this.prevFoodLevel = this.foodLevel;
           if (this.foodExhaustionLevel > 4.0F) {
                this.foodExhaustionLevel -= 4.0F;
@@ -40,7 +40,7 @@ public class CompanionFoodStats {
           if (npc.world.getGameRules().getBoolean("naturalRegeneration") && this.foodLevel >= 18 && npc.getHealth() > 0.0F && npc.getHealth() < npc.getMaxHealth()) {
                ++this.foodTimer;
                if (this.foodTimer >= 80) {
-                    npc.func_70691_i(1.0F);
+                    npc.heal(1.0F);
                     this.addExhaustion(3.0F);
                     this.foodTimer = 0;
                }
@@ -48,7 +48,7 @@ public class CompanionFoodStats {
                ++this.foodTimer;
                if (this.foodTimer >= 80) {
                     if (npc.getHealth() > 10.0F || enumdifficulty == EnumDifficulty.HARD || npc.getHealth() > 1.0F && enumdifficulty == EnumDifficulty.NORMAL) {
-                         npc.attackEntityFrom(DamageSource.field_76366_f, 1.0F);
+                         npc.attackEntityFrom(DamageSource.STARVE, 1.0F);
                     }
 
                     this.foodTimer = 0;

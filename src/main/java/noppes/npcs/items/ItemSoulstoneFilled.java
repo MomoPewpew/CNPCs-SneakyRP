@@ -26,17 +26,17 @@ import noppes.npcs.roles.RoleFollower;
 
 public class ItemSoulstoneFilled extends Item {
      public ItemSoulstoneFilled() {
-          this.func_77625_d(1);
+          this.setMaxStackSize(1);
      }
 
-     public Item setUnlocalizedName(String name) {
-          super.setUnlocalizedName(name);
+     public Item setTranslationKey(String name) {
+          super.setTranslationKey(name);
           this.setRegistryName(new ResourceLocation("customnpcs", name));
           return this;
      }
 
      @SideOnly(Side.CLIENT)
-     public void func_77624_a(ItemStack stack, World world, List list, ITooltipFlag flag) {
+     public void addInformation(ItemStack stack, World world, List list, ITooltipFlag flag) {
           NBTTagCompound compound = stack.getTagCompound();
           if (compound != null && compound.hasKey("Entity", 10)) {
                String name = I18n.translateToLocal(compound.getString("Name"));
@@ -64,15 +64,15 @@ public class ItemSoulstoneFilled extends Item {
           }
      }
 
-     public EnumActionResult func_180614_a(EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
+     public EnumActionResult onItemUse(EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
           if (world.isRemote) {
                return EnumActionResult.SUCCESS;
           } else {
-               ItemStack stack = player.func_184586_b(hand);
+               ItemStack stack = player.getHeldItem(hand);
                if (Spawn(player, stack, world, pos) == null) {
                     return EnumActionResult.FAIL;
                } else {
-                    if (!player.field_71075_bZ.field_75098_d) {
+                    if (!player.capabilities.isCreativeMode) {
                          stack.splitStack(1);
                     }
 

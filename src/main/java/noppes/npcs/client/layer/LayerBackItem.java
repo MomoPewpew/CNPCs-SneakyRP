@@ -25,17 +25,17 @@ public class LayerBackItem extends LayerInterface {
           if (!NoppesUtilServer.IsItemStackNull(itemstack) && !this.npc.isAttacking()) {
                Item item = itemstack.getItem();
                if (!(item instanceof ItemBlock)) {
-                    this.model.field_78115_e.func_78794_c(par7);
-                    GlStateManager.func_179137_b(0.0D, 0.36D, 0.14D);
-                    GlStateManager.func_179114_b(180.0F, 1.0F, 0.0F, 0.0F);
+                    this.model.bipedBody.postRender(par7);
+                    GlStateManager.translate(0.0D, 0.36D, 0.14D);
+                    GlStateManager.rotate(180.0F, 1.0F, 0.0F, 0.0F);
                     if (item instanceof ItemSword) {
-                         GlStateManager.func_179114_b(180.0F, -1.0F, 0.0F, 0.0F);
+                         GlStateManager.rotate(180.0F, -1.0F, 0.0F, 0.0F);
                     }
 
-                    IBakedModel model = minecraft.getRenderItem().func_175037_a().func_178089_a(itemstack);
-                    ItemTransformVec3f p_175034_1_ = model.func_177552_f().field_188037_l;
-                    GlStateManager.func_179152_a(p_175034_1_.field_178363_d.x + ItemCameraTransforms.field_181696_h, p_175034_1_.field_178363_d.y + ItemCameraTransforms.field_181697_i, p_175034_1_.field_178363_d.z + ItemCameraTransforms.field_181698_j);
-                    minecraft.func_175597_ag().func_178099_a(this.npc, itemstack, TransformType.NONE);
+                    IBakedModel model = minecraft.getRenderItem().getItemModelMesher().getItemModel(itemstack);
+                    ItemTransformVec3f p_175034_1_ = model.getItemCameraTransforms().thirdperson_right;
+                    GlStateManager.scale(p_175034_1_.scale.x + ItemCameraTransforms.offsetScaleX, p_175034_1_.scale.y + ItemCameraTransforms.offsetScaleY, p_175034_1_.scale.z + ItemCameraTransforms.offsetScaleZ);
+                    minecraft.getItemRenderer().renderItem(this.npc, itemstack, TransformType.NONE);
                }
           }
      }

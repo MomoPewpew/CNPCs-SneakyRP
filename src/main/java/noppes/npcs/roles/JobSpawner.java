@@ -201,7 +201,7 @@ public class JobSpawner extends JobInterface implements IJobSpawner {
           while(iterator.hasNext()) {
                EntityLivingBase spawn = (EntityLivingBase)iterator.next();
                if (this.shouldDelete(spawn)) {
-                    spawn.field_70128_L = true;
+                    spawn.isDead = true;
                     iterator.remove();
                } else {
                     this.checkTarget(spawn);
@@ -223,7 +223,7 @@ public class JobSpawner extends JobInterface implements IJobSpawner {
      }
 
      public boolean shouldDelete(EntityLivingBase entity) {
-          return !this.npc.isInRange(entity, 60.0D) || entity.field_70128_L || entity.getHealth() <= 0.0F || this.despawnOnTargetLost && this.target == null;
+          return !this.npc.isInRange(entity, 60.0D) || entity.isDead || entity.getHealth() <= 0.0F || this.despawnOnTargetLost && this.target == null;
      }
 
      private EntityLivingBase getTarget() {
@@ -249,13 +249,13 @@ public class JobSpawner extends JobInterface implements IJobSpawner {
      private EntityLivingBase getTarget(EntityLivingBase entity) {
           if (entity instanceof EntityLiving) {
                this.target = ((EntityLiving)entity).getAttackTarget();
-               if (this.target != null && !this.target.field_70128_L && this.target.getHealth() > 0.0F) {
+               if (this.target != null && !this.target.isDead && this.target.getHealth() > 0.0F) {
                     return this.target;
                }
           }
 
           this.target = entity.getRevengeTarget();
-          return this.target != null && !this.target.field_70128_L && this.target.getHealth() > 0.0F ? this.target : null;
+          return this.target != null && !this.target.isDead && this.target.getHealth() > 0.0F ? this.target : null;
      }
 
      private boolean isEmpty() {
@@ -338,9 +338,9 @@ public class JobSpawner extends JobInterface implements IJobSpawner {
 
      private EntityLivingBase spawnEntity(NBTTagCompound compound) {
           if (compound != null && compound.hasKey("id")) {
-               double x = this.npc.field_70165_t + (double)this.xOffset - 0.5D + (double)this.npc.getRNG().nextFloat();
-               double y = this.npc.field_70163_u + (double)this.yOffset;
-               double z = this.npc.field_70161_v + (double)this.zOffset - 0.5D + (double)this.npc.getRNG().nextFloat();
+               double x = this.npc.posX + (double)this.xOffset - 0.5D + (double)this.npc.getRNG().nextFloat();
+               double y = this.npc.posY + (double)this.yOffset;
+               double z = this.npc.posZ + (double)this.zOffset - 0.5D + (double)this.npc.getRNG().nextFloat();
                Entity entity = NoppesUtilServer.spawnClone(compound, x, y, z, this.npc.world);
                if (entity != null && entity instanceof EntityLivingBase) {
                     EntityLivingBase living = (EntityLivingBase)entity;
@@ -391,12 +391,12 @@ public class JobSpawner extends JobInterface implements IJobSpawner {
 
      private List getNearbySpawned() {
           List spawnList = new ArrayList();
-          List list = this.npc.world.getEntitiesWithinAABB(EntityLivingBase.class, this.npc.getEntityBoundingBox().expand(40.0D, 40.0D, 40.0D));
+          List list = this.npc.world.getEntitiesWithinAABB(EntityLivingBase.class, this.npc.getEntityBoundingBox().grow(40.0D, 40.0D, 40.0D));
           Iterator var3 = list.iterator();
 
           while(var3.hasNext()) {
                EntityLivingBase entity = (EntityLivingBase)var3.next();
-               if (entity.getEntityData().getString("NpcSpawnerId").equals(this.id) && !entity.field_70128_L) {
+               if (entity.getEntityData().getString("NpcSpawnerId").equals(this.id) && !entity.isDead) {
                     spawnList.add(entity);
                }
           }
@@ -429,7 +429,7 @@ public class JobSpawner extends JobInterface implements IJobSpawner {
 
      public void removeAllSpawned() {
           EntityLivingBase entity;
-          for(Iterator var1 = this.spawned.iterator(); var1.hasNext(); entity.field_70128_L = true) {
+          for(Iterator var1 = this.spawned.iterator(); var1.hasNext(); entity.isDead = true) {
                entity = (EntityLivingBase)var1.next();
           }
 

@@ -126,7 +126,7 @@ public class DialogController implements IDialogHandler {
      }
 
      private void loadCategoriesOld(File file) throws Exception {
-          NBTTagCompound nbttagcompound1 = CompressedStreamTools.func_74796_a(new FileInputStream(file));
+          NBTTagCompound nbttagcompound1 = CompressedStreamTools.readCompressed(new FileInputStream(file));
           NBTTagList list = nbttagcompound1.getTagList("Data", 10);
           if (list != null) {
                for(int i = 0; i < list.tagCount(); ++i) {

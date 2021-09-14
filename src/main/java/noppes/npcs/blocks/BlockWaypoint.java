@@ -23,8 +23,8 @@ import noppes.npcs.util.IPermission;
 
 public class BlockWaypoint extends BlockInterface implements IPermission {
      public BlockWaypoint() {
-          super(Material.field_151573_f);
-          this.setSoundType(SoundType.field_185852_e);
+          super(Material.IRON);
+          this.setSoundType(SoundType.METAL);
           this.setCreativeTab(CustomItems.tab);
      }
 

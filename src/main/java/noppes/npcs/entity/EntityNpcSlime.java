@@ -11,18 +11,18 @@ public class EntityNpcSlime extends EntityNPCInterface {
           this.scaleY = 2.0F;
           this.scaleZ = 2.0F;
           this.display.setSkinTexture("customnpcs:textures/entity/slime/Slime.png");
-          this.field_70130_N = 0.8F;
+          this.width = 0.8F;
           this.height = 0.8F;
      }
 
      public void updateHitbox() {
-          this.field_70130_N = 0.8F;
+          this.width = 0.8F;
           this.height = 0.8F;
      }
 
-     public void func_70071_h_() {
-          this.field_70128_L = true;
-          this.func_94061_f(true);
+     public void onUpdate() {
+          this.isDead = true;
+          this.setNoAI(true);
           if (!this.world.isRemote) {
                NBTTagCompound compound = new NBTTagCompound();
                this.writeToNBT(compound);
@@ -33,6 +33,6 @@ public class EntityNpcSlime extends EntityNPCInterface {
                this.world.spawnEntity(npc);
           }
 
-          super.func_70071_h_();
+          super.onUpdate();
      }
 }

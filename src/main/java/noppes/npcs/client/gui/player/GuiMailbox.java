@@ -32,8 +32,8 @@ public class GuiMailbox extends GuiNPCInterface implements IGuiData, ICustomScro
           NoppesUtilPlayer.sendData(EnumPlayerPacket.MailGet);
      }
 
-     public void func_73866_w_() {
-          super.func_73866_w_();
+     public void initGui() {
+          super.initGui();
           if (this.scroll == null) {
                this.scroll = new GuiCustomScroll(this, 0);
                this.scroll.setSize(165, 186);
@@ -43,12 +43,12 @@ public class GuiMailbox extends GuiNPCInterface implements IGuiData, ICustomScro
           this.scroll.guiTop = this.guiTop + 4;
           this.addScroll(this.scroll);
           String title = I18n.translateToLocal("mailbox.name");
-          int x = (this.xSize - this.field_146289_q.getStringWidth(title)) / 2;
+          int x = (this.xSize - this.fontRenderer.getStringWidth(title)) / 2;
           this.addLabel(new GuiNpcLabel(0, title, this.guiLeft + x, this.guiTop - 8));
           if (this.selected != null) {
                this.addLabel(new GuiNpcLabel(3, I18n.translateToLocal("mailbox.sender") + ":", this.guiLeft + 170, this.guiTop + 6));
                this.addLabel(new GuiNpcLabel(1, this.selected.sender, this.guiLeft + 174, this.guiTop + 18));
-               this.addLabel(new GuiNpcLabel(2, I18n.func_74837_a("mailbox.timesend", new Object[]{this.getTimePast()}), this.guiLeft + 174, this.guiTop + 30));
+               this.addLabel(new GuiNpcLabel(2, I18n.translateToLocalFormatted("mailbox.timesend", new Object[]{this.getTimePast()}), this.guiLeft + 174, this.guiTop + 30));
           }
 
           this.addButton(new GuiNpcButton(0, this.guiLeft + 4, this.guiTop + 192, 82, 20, "mailbox.read"));
@@ -70,7 +70,7 @@ public class GuiMailbox extends GuiNPCInterface implements IGuiData, ICustomScro
           }
      }
 
-     public void func_73878_a(boolean flag, int i) {
+     public void confirmClicked(boolean flag, int i) {
           if (flag && this.selected != null) {
                NoppesUtilPlayer.sendData(EnumPlayerPacket.MailDelete, this.selected.time, this.selected.sender);
                this.selected = null;
@@ -79,7 +79,7 @@ public class GuiMailbox extends GuiNPCInterface implements IGuiData, ICustomScro
           NoppesUtil.openGUI(this.player, this);
      }
 
-     protected void func_146284_a(GuiButton guibutton) {
+     protected void actionPerformed(GuiButton guibutton) {
           int id = guibutton.id;
           if (this.scroll.selected >= 0) {
                if (id == 0) {
@@ -98,12 +98,12 @@ public class GuiMailbox extends GuiNPCInterface implements IGuiData, ICustomScro
           }
      }
 
-     public void func_73864_a(int i, int j, int k) {
-          super.func_73864_a(i, j, k);
-          this.scroll.func_73864_a(i, j, k);
+     public void mouseClicked(int i, int j, int k) {
+          super.mouseClicked(i, j, k);
+          this.scroll.mouseClicked(i, j, k);
      }
 
-     public void func_73869_a(char c, int i) {
+     public void keyTyped(char c, int i) {
           if (i == 1 || this.isInventoryKey(i)) {
                this.close();
           }
@@ -139,7 +139,7 @@ public class GuiMailbox extends GuiNPCInterface implements IGuiData, ICustomScro
 
      public void scrollClicked(int i, int j, int k, GuiCustomScroll guiCustomScroll) {
           this.selected = (PlayerMail)this.data.playermail.get(guiCustomScroll.selected);
-          this.func_73866_w_();
+          this.initGui();
           if (this.selected != null && !this.selected.beenRead) {
                this.selected.beenRead = true;
                NoppesUtilPlayer.sendData(EnumPlayerPacket.MailRead, this.selected.time, this.selected.sender);

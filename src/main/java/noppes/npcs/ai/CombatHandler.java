@@ -83,7 +83,7 @@ public class CombatHandler {
      }
 
      public boolean checkTarget() {
-          if (!this.aggressors.isEmpty() && this.npc.field_70173_aa % 10 == 0) {
+          if (!this.aggressors.isEmpty() && this.npc.ticksExisted % 10 == 0) {
                EntityLivingBase target = this.npc.getAttackTarget();
                Float current = 0.0F;
                if (this.isValidTarget(target)) {
@@ -113,7 +113,7 @@ public class CombatHandler {
 
      public boolean isValidTarget(EntityLivingBase target) {
           if (target != null && target.isEntityAlive()) {
-               return target instanceof EntityPlayer && ((EntityPlayer)target).field_71075_bZ.field_75102_a ? false : this.npc.isInRange(target, (double)this.npc.stats.aggroRange);
+               return target instanceof EntityPlayer && ((EntityPlayer)target).capabilities.disableDamage ? false : this.npc.isInRange(target, (double)this.npc.stats.aggroRange);
           } else {
                return false;
           }

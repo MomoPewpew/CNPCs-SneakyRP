@@ -16,21 +16,21 @@ public class GuiScriptGlobal extends GuiNPCInterface {
           this.title = "";
      }
 
-     public void func_73866_w_() {
-          super.func_73866_w_();
+     public void initGui() {
+          super.initGui();
           this.addButton(new GuiNpcButton(0, this.guiLeft + 38, this.guiTop + 20, 100, 20, "Players"));
           this.addButton(new GuiNpcButton(1, this.guiLeft + 38, this.guiTop + 50, 100, 20, "Forge"));
      }
 
-     public void func_73863_a(int i, int j, float f) {
-          this.func_146276_q_();
+     public void drawScreen(int i, int j, float f) {
+          this.drawDefaultBackground();
           GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-          this.field_146297_k.renderEngine.bindTexture(this.resource);
+          this.mc.renderEngine.bindTexture(this.resource);
           this.drawTexturedModalRect(this.guiLeft, this.guiTop, 0, 0, this.xSize, this.ySize);
-          super.func_73863_a(i, j, f);
+          super.drawScreen(i, j, f);
      }
 
-     protected void func_146284_a(GuiButton guibutton) {
+     protected void actionPerformed(GuiButton guibutton) {
           if (guibutton.id == 0) {
                this.displayGuiScreen(new GuiScriptPlayers());
           }
@@ -41,7 +41,7 @@ public class GuiScriptGlobal extends GuiNPCInterface {
 
      }
 
-     public void func_73869_a(char c, int i) {
+     public void keyTyped(char c, int i) {
           if (i == 1 || this.isInventoryKey(i)) {
                this.close();
           }

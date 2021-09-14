@@ -29,12 +29,12 @@ public class GuiTransportSelection extends GuiNPCInterface implements ITopButton
           this.title = "";
      }
 
-     public void func_73866_w_() {
-          super.func_73866_w_();
+     public void initGui() {
+          super.initGui();
           this.guiLeft = (this.width - this.xSize) / 2;
           this.guiTop = (this.height - 222) / 2;
           String name = "";
-          this.addLabel(new GuiNpcLabel(0, name, this.guiLeft + (this.xSize - this.field_146289_q.getStringWidth(name)) / 2, this.guiTop + 10));
+          this.addLabel(new GuiNpcLabel(0, name, this.guiLeft + (this.xSize - this.fontRenderer.getStringWidth(name)) / 2, this.guiTop + 10));
           this.addButton(new GuiNpcButton(0, this.guiLeft + 10, this.guiTop + 192, 156, 20, I18n.translateToLocal("transporter.travel")));
           if (this.scroll == null) {
                this.scroll = new GuiCustomScroll(this, 0);
@@ -46,15 +46,15 @@ public class GuiTransportSelection extends GuiNPCInterface implements ITopButton
           this.addScroll(this.scroll);
      }
 
-     public void func_73863_a(int i, int j, float f) {
-          this.func_146276_q_();
+     public void drawScreen(int i, int j, float f) {
+          this.drawDefaultBackground();
           GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-          this.field_146297_k.renderEngine.bindTexture(this.resource);
+          this.mc.renderEngine.bindTexture(this.resource);
           this.drawTexturedModalRect(this.guiLeft, this.guiTop, 0, 0, 176, 222);
-          super.func_73863_a(i, j, f);
+          super.drawScreen(i, j, f);
      }
 
-     protected void func_146284_a(GuiButton guibutton) {
+     protected void actionPerformed(GuiButton guibutton) {
           GuiNpcButton button = (GuiNpcButton)guibutton;
           String sel = this.scroll.getSelected();
           if (button.id == 0 && sel != null) {
@@ -64,12 +64,12 @@ public class GuiTransportSelection extends GuiNPCInterface implements ITopButton
 
      }
 
-     public void func_73864_a(int i, int j, int k) {
-          super.func_73864_a(i, j, k);
-          this.scroll.func_73864_a(i, j, k);
+     public void mouseClicked(int i, int j, int k) {
+          super.mouseClicked(i, j, k);
+          this.scroll.mouseClicked(i, j, k);
      }
 
-     public void func_73869_a(char c, int i) {
+     public void keyTyped(char c, int i) {
           if (i == 1 || this.isInventoryKey(i)) {
                this.close();
           }

@@ -48,25 +48,25 @@ public class GuiMenuTopIconButton extends GuiMenuTopButton {
           this.item = item;
      }
 
-     public void func_191745_a(Minecraft minecraft, int i, int j, float partialTicks) {
+     public void drawButton(Minecraft minecraft, int i, int j, float partialTicks) {
           if (this.getVisible()) {
                if (this.item.getItem() == null) {
-                    this.item = new ItemStack(Blocks.field_150346_d);
+                    this.item = new ItemStack(Blocks.DIRT);
                }
 
                this.hover = i >= this.x && j >= this.y && i < this.x + this.getWidth() && j < this.y + this.height;
                Minecraft mc = Minecraft.getMinecraft();
                if (this.hover && !this.active) {
-                    int x = i + mc.fontRenderer.getStringWidth(this.field_146126_j);
+                    int x = i + mc.fontRenderer.getStringWidth(this.displayString);
                     GlStateManager.translate((float)x, (float)(this.y + 2), 0.0F);
-                    this.drawHoveringText(Arrays.asList(this.field_146126_j), 0, 0, mc.fontRenderer);
+                    this.drawHoveringText(Arrays.asList(this.displayString), 0, 0, mc.fontRenderer);
                     GlStateManager.translate((float)(-x), (float)(-(this.y + 2)), 0.0F);
                }
 
-               mc.func_110434_K().bindTexture(resource);
-               GlStateManager.func_179094_E();
+               mc.getTextureManager().bindTexture(resource);
+               GlStateManager.pushMatrix();
                GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-               GlStateManager.func_179147_l();
+               GlStateManager.enableBlend();
                GlStateManager.disableLighting();
                this.drawTexturedModalRect(this.x, this.y + (this.active ? 2 : 0), 0, this.active ? 32 : 0, 28, 28);
                this.zLevel = 100.0F;
@@ -75,12 +75,12 @@ public class GuiMenuTopIconButton extends GuiMenuTopButton {
                GlStateManager.enableRescaleNormal();
                RenderHelper.enableGUIStandardItemLighting();
                itemRender.renderItemAndEffectIntoGUI(this.item, this.x + 6, this.y + 10);
-               itemRender.func_175030_a(mc.fontRenderer, this.item, this.x + 6, this.y + 10);
+               itemRender.renderItemOverlays(mc.fontRenderer, this.item, this.x + 6, this.y + 10);
                RenderHelper.disableStandardItemLighting();
                GlStateManager.disableLighting();
                itemRender.zLevel = 0.0F;
                this.zLevel = 0.0F;
-               GlStateManager.func_179121_F();
+               GlStateManager.popMatrix();
           }
      }
 

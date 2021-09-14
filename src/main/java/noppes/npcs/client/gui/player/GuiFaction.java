@@ -38,31 +38,31 @@ public class GuiFaction extends GuiNPCInterface implements IGuiData {
           this.indicator = this.getResource("standardbg.png");
      }
 
-     public void func_73866_w_() {
-          super.func_73866_w_();
+     public void initGui() {
+          super.initGui();
           this.guiLeft = (this.width - this.xSize) / 2;
           this.guiTop = (this.height - this.ySize) / 2 + 12;
           TabRegistry.updateTabValues(this.guiLeft, this.guiTop + 8, InventoryTabFactions.class);
-          TabRegistry.addTabsToList(this.field_146292_n);
-          this.field_146292_n.add(this.buttonNextPage = new GuiButtonNextPage(1, this.guiLeft + this.xSize - 43, this.guiTop + 180, true));
-          this.field_146292_n.add(this.buttonPreviousPage = new GuiButtonNextPage(2, this.guiLeft + 20, this.guiTop + 180, false));
+          TabRegistry.addTabsToList(this.buttonList);
+          this.buttonList.add(this.buttonNextPage = new GuiButtonNextPage(1, this.guiLeft + this.xSize - 43, this.guiTop + 180, true));
+          this.buttonList.add(this.buttonPreviousPage = new GuiButtonNextPage(2, this.guiLeft + 20, this.guiTop + 180, false));
           this.updateButtons();
      }
 
-     public void func_73863_a(int i, int j, float f) {
-          this.func_146276_q_();
+     public void drawScreen(int i, int j, float f) {
+          this.drawDefaultBackground();
           GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-          this.field_146297_k.renderEngine.bindTexture(this.indicator);
+          this.mc.renderEngine.bindTexture(this.indicator);
           this.drawTexturedModalRect(this.guiLeft, this.guiTop + 8, 0, 0, this.xSize, this.ySize);
           this.drawTexturedModalRect(this.guiLeft + 4, this.guiTop + 8, 56, 0, 200, this.ySize);
           if (this.playerFactions.isEmpty()) {
                String noFaction = I18n.translateToLocal("faction.nostanding");
-               this.field_146289_q.func_78276_b(noFaction, this.guiLeft + (this.xSize - this.field_146289_q.getStringWidth(noFaction)) / 2, this.guiTop + 80, CustomNpcResourceListener.DefaultTextColor);
+               this.fontRenderer.drawString(noFaction, this.guiLeft + (this.xSize - this.fontRenderer.getStringWidth(noFaction)) / 2, this.guiTop + 80, CustomNpcResourceListener.DefaultTextColor);
           } else {
                this.renderScreen();
           }
 
-          super.func_73863_a(i, j, f);
+          super.drawScreen(i, j, f);
      }
 
      private void renderScreen() {
@@ -72,7 +72,7 @@ public class GuiFaction extends GuiNPCInterface implements IGuiData {
           }
 
           for(int id = 0; id < size; ++id) {
-               this.func_73730_a(this.guiLeft + 2, this.guiLeft + this.xSize, this.guiTop + 14 + id * 30, -16777216 + CustomNpcResourceListener.DefaultTextColor);
+               this.drawHorizontalLine(this.guiLeft + 2, this.guiLeft + this.xSize, this.guiTop + 14 + id * 30, -16777216 + CustomNpcResourceListener.DefaultTextColor);
                Faction faction = (Faction)this.playerFactions.get((this.page - 1) * 5 + id);
                String name = faction.name;
                String points = " : " + faction.defaultPoints;
@@ -90,20 +90,20 @@ public class GuiFaction extends GuiNPCInterface implements IGuiData {
                     points = points + "/-";
                }
 
-               this.field_146289_q.func_78276_b(name, this.guiLeft + (this.xSize - this.field_146289_q.getStringWidth(name)) / 2, this.guiTop + 19 + id * 30, faction.color);
-               this.field_146289_q.func_78276_b(standing, this.width / 2 - this.field_146289_q.getStringWidth(standing) - 1, this.guiTop + 33 + id * 30, color);
-               this.field_146289_q.func_78276_b(points, this.width / 2, this.guiTop + 33 + id * 30, CustomNpcResourceListener.DefaultTextColor);
+               this.fontRenderer.drawString(name, this.guiLeft + (this.xSize - this.fontRenderer.getStringWidth(name)) / 2, this.guiTop + 19 + id * 30, faction.color);
+               this.fontRenderer.drawString(standing, this.width / 2 - this.fontRenderer.getStringWidth(standing) - 1, this.guiTop + 33 + id * 30, color);
+               this.fontRenderer.drawString(points, this.width / 2, this.guiTop + 33 + id * 30, CustomNpcResourceListener.DefaultTextColor);
           }
 
-          this.func_73730_a(this.guiLeft + 2, this.guiLeft + this.xSize, this.guiTop + 14 + size * 30, -16777216 + CustomNpcResourceListener.DefaultTextColor);
+          this.drawHorizontalLine(this.guiLeft + 2, this.guiLeft + this.xSize, this.guiTop + 14 + size * 30, -16777216 + CustomNpcResourceListener.DefaultTextColor);
           if (this.pages > 1) {
                String s = this.page + "/" + this.pages;
-               this.field_146289_q.func_78276_b(s, this.guiLeft + (this.xSize - this.field_146289_q.getStringWidth(s)) / 2, this.guiTop + 203, CustomNpcResourceListener.DefaultTextColor);
+               this.fontRenderer.drawString(s, this.guiLeft + (this.xSize - this.fontRenderer.getStringWidth(s)) / 2, this.guiTop + 203, CustomNpcResourceListener.DefaultTextColor);
           }
 
      }
 
-     protected void func_146284_a(GuiButton guibutton) {
+     protected void actionPerformed(GuiButton guibutton) {
           if (guibutton instanceof GuiButtonNextPage) {
                int id = guibutton.id;
                if (id == 1) {
@@ -126,7 +126,7 @@ public class GuiFaction extends GuiNPCInterface implements IGuiData {
      protected void drawGuiContainerBackgroundLayer(float f, int i, int j) {
      }
 
-     public void func_73869_a(char c, int i) {
+     public void keyTyped(char c, int i) {
           if (i == 1 || this.isInventoryKey(i)) {
                this.close();
           }

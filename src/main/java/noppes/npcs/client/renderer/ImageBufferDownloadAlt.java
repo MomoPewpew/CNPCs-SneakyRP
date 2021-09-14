@@ -11,7 +11,7 @@ public class ImageBufferDownloadAlt extends ImageBufferDownload {
      private int imageWidth;
      private int imageHeight;
 
-     public BufferedImage func_78432_a(BufferedImage bufferedimage) {
+     public BufferedImage parseUserSkin(BufferedImage bufferedimage) {
           this.imageWidth = bufferedimage.getWidth((ImageObserver)null);
           this.imageHeight = bufferedimage.getHeight((ImageObserver)null);
           BufferedImage bufferedimage1 = new BufferedImage(this.imageWidth, this.imageHeight, 2);

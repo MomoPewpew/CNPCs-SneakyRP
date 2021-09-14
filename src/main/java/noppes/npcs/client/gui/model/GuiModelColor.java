@@ -33,59 +33,59 @@ public class GuiModelColor extends SubGuiInterface implements ITextfieldListener
           this.color = color;
      }
 
-     public void func_73866_w_() {
-          super.func_73866_w_();
+     public void initGui() {
+          super.initGui();
           this.colorX = this.guiLeft + 4;
           this.colorY = this.guiTop + 50;
           this.addTextField(this.textfield = new GuiNpcTextField(0, this, this.guiLeft + 35, this.guiTop + 25, 60, 20, this.getColor()));
           this.addButton(new GuiNpcButton(66, this.guiLeft + 107, this.guiTop + 8, 20, 20, "X"));
-          this.textfield.func_146193_g(this.color);
+          this.textfield.setTextColor(this.color);
      }
 
-     protected void func_146284_a(GuiButton guibutton) {
+     protected void actionPerformed(GuiButton guibutton) {
           if (guibutton.id == 66) {
                this.close();
           }
 
      }
 
-     public void func_73869_a(char c, int i) {
-          String prev = this.textfield.func_146179_b();
-          super.func_73869_a(c, i);
-          String newText = this.textfield.func_146179_b();
+     public void keyTyped(char c, int i) {
+          String prev = this.textfield.getText();
+          super.keyTyped(c, i);
+          String newText = this.textfield.getText();
           if (!newText.equals(prev)) {
                try {
-                    this.color = Integer.parseInt(this.textfield.func_146179_b(), 16);
+                    this.color = Integer.parseInt(this.textfield.getText(), 16);
                     this.callback.color(this.color);
-                    this.textfield.func_146193_g(this.color);
+                    this.textfield.setTextColor(this.color);
                } catch (NumberFormatException var6) {
-                    this.textfield.func_146180_a(prev);
+                    this.textfield.setText(prev);
                }
 
           }
      }
 
-     public void func_73863_a(int par1, int par2, float par3) {
-          super.func_73863_a(par1, par2, par3);
+     public void drawScreen(int par1, int par2, float par3) {
+          super.drawScreen(par1, par2, par3);
           GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-          this.field_146297_k.func_110434_K().bindTexture(colorPicker);
+          this.mc.getTextureManager().bindTexture(colorPicker);
           this.drawTexturedModalRect(this.colorX, this.colorY, 0, 0, 120, 120);
      }
 
-     public void func_73864_a(int i, int j, int k) {
-          super.func_73864_a(i, j, k);
+     public void mouseClicked(int i, int j, int k) {
+          super.mouseClicked(i, j, k);
           if (i >= this.colorX && i <= this.colorX + 120 && j >= this.colorY && j <= this.colorY + 120) {
                InputStream stream = null;
 
                try {
-                    IResource resource = this.field_146297_k.func_110442_L().func_110536_a(colorPicker);
-                    BufferedImage bufferedimage = ImageIO.read(stream = resource.func_110527_b());
+                    IResource resource = this.mc.getResourceManager().getResource(colorPicker);
+                    BufferedImage bufferedimage = ImageIO.read(stream = resource.getInputStream());
                     int color = bufferedimage.getRGB((i - this.guiLeft - 4) * 4, (j - this.guiTop - 50) * 4) & 16777215;
                     if (color != 0) {
                          this.color = color;
                          this.callback.color(color);
-                         this.textfield.func_146193_g(color);
-                         this.textfield.func_146180_a(this.getColor());
+                         this.textfield.setTextColor(color);
+                         this.textfield.setText(this.getColor());
                     }
                } catch (IOException var16) {
                } finally {
@@ -103,13 +103,13 @@ public class GuiModelColor extends SubGuiInterface implements ITextfieldListener
 
      public void unFocused(GuiNpcTextField textfield) {
           try {
-               this.color = Integer.parseInt(textfield.func_146179_b(), 16);
+               this.color = Integer.parseInt(textfield.getText(), 16);
           } catch (NumberFormatException var3) {
                this.color = 0;
           }
 
           this.callback.color(this.color);
-          textfield.func_146193_g(this.color);
+          textfield.setTextColor(this.color);
      }
 
      public String getColor() {

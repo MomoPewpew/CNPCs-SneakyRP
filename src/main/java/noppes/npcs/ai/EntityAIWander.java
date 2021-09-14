@@ -36,9 +36,9 @@ public class EntityAIWander extends EntityAIBase {
                }
 
                if (this.nearbyNPC != null) {
-                    this.x = (double)MathHelper.floor(this.nearbyNPC.field_70165_t);
-                    this.y = (double)MathHelper.floor(this.nearbyNPC.field_70163_u);
-                    this.zPosition = (double)MathHelper.floor(this.nearbyNPC.field_70161_v);
+                    this.x = (double)MathHelper.floor(this.nearbyNPC.posX);
+                    this.y = (double)MathHelper.floor(this.nearbyNPC.posY);
+                    this.zPosition = (double)MathHelper.floor(this.nearbyNPC.posZ);
                     this.nearbyNPC.addInteract(this.entity);
                } else {
                     Vec3d vec = this.getVec();
@@ -67,7 +67,7 @@ public class EntityAIWander extends EntityAIBase {
      }
 
      private EntityNPCInterface getNearbyNPC() {
-          List list = this.entity.world.getEntitiesInAABBexcluding(this.entity, this.entity.getEntityBoundingBox().expand((double)this.entity.ais.walkingRange, this.entity.ais.walkingRange > 7 ? 7.0D : (double)this.entity.ais.walkingRange, (double)this.entity.ais.walkingRange), this.selector);
+          List list = this.entity.world.getEntitiesInAABBexcluding(this.entity, this.entity.getEntityBoundingBox().grow((double)this.entity.ais.walkingRange, this.entity.ais.walkingRange > 7 ? 7.0D : (double)this.entity.ais.walkingRange, (double)this.entity.ais.walkingRange), this.selector);
           Iterator ita = list.iterator();
 
           while(true) {
@@ -103,7 +103,7 @@ public class EntityAIWander extends EntityAIBase {
                          range = CustomNpcs.NpcNavRange;
                     }
 
-                    Vec3d pos2 = new Vec3d((this.entity.field_70165_t + (double)start.getX()) / 2.0D, (this.entity.field_70163_u + (double)start.getY()) / 2.0D, (this.entity.field_70161_v + (double)start.getZ()) / 2.0D);
+                    Vec3d pos2 = new Vec3d((this.entity.posX + (double)start.getX()) / 2.0D, (this.entity.posY + (double)start.getY()) / 2.0D, (this.entity.posZ + (double)start.getZ()) / 2.0D);
                     return RandomPositionGenerator.findRandomTargetBlockTowards(this.entity, distance / 2, distance / 2 > 7 ? 7 : distance / 2, pos2);
                } else {
                     return RandomPositionGenerator.findRandomTarget(this.entity, range / 2, range / 2 > 7 ? 7 : range / 2);
@@ -114,7 +114,7 @@ public class EntityAIWander extends EntityAIBase {
      }
 
      public boolean shouldContinueExecuting() {
-          if (this.nearbyNPC != null && (!this.selector.apply(this.nearbyNPC) || this.entity.isInRange(this.nearbyNPC, (double)this.entity.field_70130_N))) {
+          if (this.nearbyNPC != null && (!this.selector.apply(this.nearbyNPC) || this.entity.isInRange(this.nearbyNPC, (double)this.entity.width))) {
                return false;
           } else {
                return !this.entity.getNavigator().noPath() && this.entity.isEntityAlive() && !this.entity.isInteracting();

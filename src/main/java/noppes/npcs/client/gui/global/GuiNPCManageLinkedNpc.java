@@ -28,8 +28,8 @@ public class GuiNPCManageLinkedNpc extends GuiNPCInterface2 implements IScrollDa
           Client.sendData(EnumPacketServer.LinkedGetAll);
      }
 
-     public void func_73866_w_() {
-          super.func_73866_w_();
+     public void initGui() {
+          super.initGui();
           this.addButton(new GuiNpcButton(1, this.guiLeft + 358, this.guiTop + 38, 58, 20, "gui.add"));
           this.addButton(new GuiNpcButton(2, this.guiLeft + 358, this.guiTop + 61, 58, 20, "gui.remove"));
           if (this.scroll == null) {
@@ -64,7 +64,7 @@ public class GuiNPCManageLinkedNpc extends GuiNPCInterface2 implements IScrollDa
 
      public void setData(Vector list, HashMap data) {
           this.data = new ArrayList(list);
-          this.func_73866_w_();
+          this.initGui();
      }
 
      public void setSelected(String selected) {

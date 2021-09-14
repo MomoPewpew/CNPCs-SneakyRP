@@ -11,7 +11,7 @@ public class TileNpcEntity extends TileEntity {
      public void readFromNBT(NBTTagCompound compound) {
           super.readFromNBT(compound);
           NBTTagCompound extraData = compound.getCompoundTag("ExtraData");
-          if (extraData.func_186856_d() > 0) {
+          if (extraData.getSize() > 0) {
                this.getTileData().setTag("CustomNPCsData", extraData);
           }
 

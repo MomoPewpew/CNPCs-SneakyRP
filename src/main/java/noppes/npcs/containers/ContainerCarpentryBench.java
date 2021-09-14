@@ -55,12 +55,12 @@ public class ContainerCarpentryBench extends Container {
                RecipeCarpentry recipe = RecipeController.instance.findMatchingRecipe(this.craftMatrix);
                ItemStack item = ItemStack.EMPTY;
                if (recipe != null && recipe.availability.isAvailable(this.player)) {
-                    item = recipe.func_77572_b(this.craftMatrix);
+                    item = recipe.getCraftingResult(this.craftMatrix);
                }
 
                this.craftResult.setInventorySlotContents(0, item);
                EntityPlayerMP plmp = (EntityPlayerMP)this.player;
-               plmp.field_71135_a.sendPacket(new SPacketSetSlot(this.windowId, 0, item));
+               plmp.connection.sendPacket(new SPacketSetSlot(this.windowId, 0, item));
           }
 
      }
@@ -123,6 +123,6 @@ public class ContainerCarpentryBench extends Container {
      }
 
      public boolean canMergeSlot(ItemStack stack, Slot slotIn) {
-          return slotIn.field_75224_c != this.craftResult && super.canMergeSlot(stack, slotIn);
+          return slotIn.inventory != this.craftResult && super.canMergeSlot(stack, slotIn);
      }
 }

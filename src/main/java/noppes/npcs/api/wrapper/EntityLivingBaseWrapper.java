@@ -157,11 +157,11 @@ public class EntityLivingBaseWrapper extends EntityWrapper implements IEntityLiv
      }
 
      public float getRotation() {
-          return ((EntityLivingBase)this.entity).field_70761_aq;
+          return ((EntityLivingBase)this.entity).renderYawOffset;
      }
 
      public void setRotation(float rotation) {
-          ((EntityLivingBase)this.entity).field_70761_aq = rotation;
+          ((EntityLivingBase)this.entity).renderYawOffset = rotation;
      }
 
      public int getType() {
@@ -193,26 +193,26 @@ public class EntityLivingBaseWrapper extends EntityWrapper implements IEntityLiv
      }
 
      public float getMoveForward() {
-          return ((EntityLivingBase)this.entity).field_191988_bg;
+          return ((EntityLivingBase)this.entity).moveForward;
      }
 
      public void setMoveForward(float move) {
-          ((EntityLivingBase)this.entity).field_191988_bg = move;
+          ((EntityLivingBase)this.entity).moveForward = move;
      }
 
      public float getMoveStrafing() {
-          return ((EntityLivingBase)this.entity).field_70702_br;
+          return ((EntityLivingBase)this.entity).moveStrafing;
      }
 
      public void setMoveStrafing(float move) {
-          ((EntityLivingBase)this.entity).field_70702_br = move;
+          ((EntityLivingBase)this.entity).moveStrafing = move;
      }
 
      public float getMoveVertical() {
-          return ((EntityLivingBase)this.entity).field_70701_bs;
+          return ((EntityLivingBase)this.entity).moveVertical;
      }
 
      public void setMoveVertical(float move) {
-          ((EntityLivingBase)this.entity).field_70701_bs = move;
+          ((EntityLivingBase)this.entity).moveVertical = move;
      }
 }

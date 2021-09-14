@@ -25,10 +25,10 @@ import noppes.npcs.entity.EntityNPCInterface;
 import noppes.npcs.util.IPermission;
 
 public class BlockNpcRedstone extends BlockInterface implements IPermission {
-     public static final PropertyBool ACTIVE = PropertyBool.func_177716_a("active");
+     public static final PropertyBool ACTIVE = PropertyBool.create("active");
 
      public BlockNpcRedstone() {
-          super(Material.field_151576_e);
+          super(Material.ROCK);
      }
 
      public boolean onBlockActivated(World par1World, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
@@ -45,7 +45,7 @@ public class BlockNpcRedstone extends BlockInterface implements IPermission {
           }
      }
 
-     public void func_176213_c(World par1World, BlockPos pos, IBlockState state) {
+     public void onBlockAdded(World par1World, BlockPos pos, IBlockState state) {
           par1World.notifyNeighborsOfStateChange(pos, this, false);
           par1World.notifyNeighborsOfStateChange(pos.down(), this, false);
           par1World.notifyNeighborsOfStateChange(pos.up(), this, false);
@@ -62,8 +62,8 @@ public class BlockNpcRedstone extends BlockInterface implements IPermission {
 
      }
 
-     public void func_176206_d(World par1World, BlockPos pos, IBlockState state) {
-          this.func_176213_c(par1World, pos, state);
+     public void onPlayerDestroy(World par1World, BlockPos pos, IBlockState state) {
+          this.onBlockAdded(par1World, pos, state);
      }
 
      public int getWeakPower(IBlockState state, IBlockAccess worldIn, BlockPos pos, EnumFacing side) {

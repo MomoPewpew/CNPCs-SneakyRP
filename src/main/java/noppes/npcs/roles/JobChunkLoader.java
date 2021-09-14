@@ -36,7 +36,7 @@ public class JobChunkLoader extends JobInterface {
                return false;
           } else {
                this.ticks = 20;
-               List players = this.npc.world.getEntitiesWithinAABB(EntityPlayer.class, this.npc.getEntityBoundingBox().expand(48.0D, 48.0D, 48.0D));
+               List players = this.npc.world.getEntitiesWithinAABB(EntityPlayer.class, this.npc.getEntityBoundingBox().grow(48.0D, 48.0D, 48.0D));
                if (!players.isEmpty()) {
                     this.playerLastSeen = System.currentTimeMillis();
                }
@@ -50,8 +50,8 @@ public class JobChunkLoader extends JobInterface {
                     if (ticket == null) {
                          return false;
                     } else {
-                         double x = this.npc.field_70165_t / 16.0D;
-                         double z = this.npc.field_70161_v / 16.0D;
+                         double x = this.npc.posX / 16.0D;
+                         double z = this.npc.posZ / 16.0D;
                          List list = new ArrayList();
                          list.add(new ChunkPos(MathHelper.floor(x), MathHelper.floor(z)));
                          list.add(new ChunkPos(MathHelper.ceil(x), MathHelper.ceil(z)));

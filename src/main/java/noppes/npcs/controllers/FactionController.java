@@ -43,27 +43,23 @@ public class FactionController implements IFactionHandler {
 
           try {
                File saveDir = CustomNpcs.getWorldSaveDirectory();
-               if (saveDir != null) {
+               if (saveDir == null) {
+                    return;
+               }
+
+               try {
+                    File file = new File(saveDir, "factions.dat");
+                    if (file.exists()) {
+                         this.loadFactionsFile(file);
+                    }
+               } catch (Exception var9) {
                     try {
-                         File file = new File(saveDir, "factions.dat");
+                         File file = new File(saveDir, "factions.dat_old");
                          if (file.exists()) {
                               this.loadFactionsFile(file);
-                              return;
                          }
-                    } catch (Exception var9) {
-                         try {
-                              File file = new File(saveDir, "factions.dat_old");
-                              if (file.exists()) {
-                                   this.loadFactionsFile(file);
-                                   return;
-                              }
-                         } catch (Exception var8) {
-                         }
-
-                         return;
+                    } catch (Exception var8) {
                     }
-
-                    return;
                }
           } finally {
                EventHooks.onGlobalFactionsLoaded(this);
@@ -85,7 +81,7 @@ public class FactionController implements IFactionHandler {
 
      public void loadFactions(DataInputStream stream) throws IOException {
           HashMap factions = new HashMap();
-          NBTTagCompound nbttagcompound1 = CompressedStreamTools.func_74794_a(stream);
+          NBTTagCompound nbttagcompound1 = CompressedStreamTools.read(stream);
           this.lastUsedID = nbttagcompound1.getInteger("lastID");
           NBTTagList list = nbttagcompound1.getTagList("NPCFactions", 10);
           if (list != null) {
@@ -124,7 +120,7 @@ public class FactionController implements IFactionHandler {
                File file = new File(saveDir, "factions.dat_new");
                File file1 = new File(saveDir, "factions.dat_old");
                File file2 = new File(saveDir, "factions.dat");
-               CompressedStreamTools.func_74799_a(this.getNBT(), new FileOutputStream(file));
+               CompressedStreamTools.writeCompressed(this.getNBT(), new FileOutputStream(file));
                if (file1.exists()) {
                     file1.delete();
                }

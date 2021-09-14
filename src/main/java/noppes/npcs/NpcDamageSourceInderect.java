@@ -8,7 +8,7 @@ public class NpcDamageSourceInderect extends EntityDamageSourceIndirect {
           super(par1Str, par2Entity, par3Entity);
      }
 
-     public boolean func_76350_n() {
+     public boolean isDifficultyScaled() {
           return false;
      }
 }

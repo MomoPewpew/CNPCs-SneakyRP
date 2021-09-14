@@ -9,6 +9,6 @@ public class CustomTeleporter extends Teleporter {
           super(par1WorldServer);
      }
 
-     public void func_180266_a(Entity entityIn, float rotationYaw) {
+     public void placeInPortal(Entity entityIn, float rotationYaw) {
      }
 }

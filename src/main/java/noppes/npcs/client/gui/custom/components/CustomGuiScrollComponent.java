@@ -22,14 +22,14 @@ public class CustomGuiScrollComponent extends GuiCustomScroll implements IDataHo
 
      public CustomGuiScrollComponent(Minecraft mc, GuiScreen parent, int id) {
           super(parent, id);
-          this.field_146297_k = mc;
-          this.field_146289_q = mc.fontRenderer;
+          this.mc = mc;
+          this.fontRenderer = mc.fontRenderer;
      }
 
      public CustomGuiScrollComponent(Minecraft mc, GuiScreen parent, int id, boolean multiSelect) {
           super(parent, id, multiSelect);
-          this.field_146297_k = mc;
-          this.field_146289_q = mc.fontRenderer;
+          this.mc = mc;
+          this.fontRenderer = mc.fontRenderer;
           this.multiSelect = multiSelect;
      }
 
@@ -42,7 +42,7 @@ public class CustomGuiScrollComponent extends GuiCustomScroll implements IDataHo
      }
 
      public void onRender(Minecraft mc, int mouseX, int mouseY, int mouseWheel, float partialTicks) {
-          GlStateManager.func_179094_E();
+          GlStateManager.pushMatrix();
           GlStateManager.translate(0.0F, 0.0F, (float)this.id);
           boolean hovered = mouseX >= this.guiLeft && mouseY >= this.guiTop && mouseX < this.guiLeft + this.getXSize() && mouseY < this.guiTop + this.getYSize();
           super.drawScreen(mouseX, mouseY, partialTicks, mouseWheel);
@@ -50,11 +50,11 @@ public class CustomGuiScrollComponent extends GuiCustomScroll implements IDataHo
                this.parent.hoverText = this.hoverText;
           }
 
-          GlStateManager.func_179121_F();
+          GlStateManager.popMatrix();
      }
 
      public boolean mouseClicked(GuiCustom gui, int mouseX, int mouseY, int mouseButton) {
-          super.func_73864_a(mouseX, mouseY, mouseButton);
+          super.mouseClicked(mouseX, mouseY, mouseButton);
           return this.isMouseOver(mouseX, mouseY);
      }
 

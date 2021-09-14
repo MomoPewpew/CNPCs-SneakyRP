@@ -16,7 +16,7 @@ public class EntityAIPounceTarget extends EntityAIBase {
      }
 
      public boolean shouldExecute() {
-          if (!this.npc.field_70122_E) {
+          if (!this.npc.onGround) {
                return false;
           } else {
                this.leapTarget = this.npc.getAttackTarget();
@@ -29,13 +29,13 @@ public class EntityAIPounceTarget extends EntityAIBase {
      }
 
      public boolean shouldContinueExecuting() {
-          return !this.npc.field_70122_E;
+          return !this.npc.onGround;
      }
 
      public void startExecuting() {
-          double varX = this.leapTarget.field_70165_t - this.npc.field_70165_t;
-          double varY = this.leapTarget.getEntityBoundingBox().field_72338_b - this.npc.getEntityBoundingBox().field_72338_b;
-          double varZ = this.leapTarget.field_70161_v - this.npc.field_70161_v;
+          double varX = this.leapTarget.posX - this.npc.posX;
+          double varY = this.leapTarget.getEntityBoundingBox().minY - this.npc.getEntityBoundingBox().minY;
+          double varZ = this.leapTarget.posZ - this.npc.posZ;
           float varF = MathHelper.sqrt(varX * varX + varZ * varZ);
           float angle = this.getAngleForXYZ(varX, varY, varZ, (double)varF);
           float yaw = (float)(Math.atan2(varX, varZ) * 180.0D / 3.141592653589793D);

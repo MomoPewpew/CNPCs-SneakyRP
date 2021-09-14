@@ -34,8 +34,8 @@ public class GuiBlockCopy extends GuiNPCInterface implements IGuiData, ITextfiel
      public void initPacket() {
      }
 
-     public void func_73866_w_() {
-          super.func_73866_w_();
+     public void initGui() {
+          super.initGui();
           int y = this.guiTop + 4;
           this.addTextField(new GuiNpcTextField(0, this, this.guiLeft + 104, y, 50, 20, this.tile.height + ""));
           this.addLabel(new GuiNpcLabel(0, "schematic.height", this.guiLeft + 5, y + 5));
@@ -66,11 +66,11 @@ public class GuiBlockCopy extends GuiNPCInterface implements IGuiData, ITextfiel
           this.addButton(new GuiNpcButton(1, this.guiLeft + 67, y, 60, 20, "gui.cancel"));
      }
 
-     protected void func_146284_a(GuiButton guibutton) {
+     protected void actionPerformed(GuiButton guibutton) {
           if (guibutton.id == 0) {
                NBTTagCompound compound = new NBTTagCompound();
                this.tile.writeToNBT(compound);
-               Client.sendData(EnumPacketServer.SchematicStore, this.getTextField(5).func_146179_b(), this.getButton(6).getValue(), compound);
+               Client.sendData(EnumPacketServer.SchematicStore, this.getTextField(5).getText(), this.getButton(6).getValue(), compound);
                this.close();
           }
 
@@ -88,19 +88,19 @@ public class GuiBlockCopy extends GuiNPCInterface implements IGuiData, ITextfiel
 
      public void setGuiData(NBTTagCompound compound) {
           this.tile.readFromNBT(compound);
-          this.func_73866_w_();
+          this.initGui();
      }
 
      public void unFocused(GuiNpcTextField textfield) {
-          if (textfield.field_175208_g == 0) {
+          if (textfield.id == 0) {
                this.tile.height = (short)textfield.getInteger();
           }
 
-          if (textfield.field_175208_g == 1) {
+          if (textfield.id == 1) {
                this.tile.width = (short)textfield.getInteger();
           }
 
-          if (textfield.field_175208_g == 2) {
+          if (textfield.id == 2) {
                this.tile.length = (short)textfield.getInteger();
           }
 

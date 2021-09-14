@@ -168,7 +168,7 @@ public class DataInventory implements IInventory, INPCInventory {
 
           int enchant = 0;
           if (damagesource.getTrueSource() instanceof EntityPlayer) {
-               enchant = EnchantmentHelper.func_185283_h((EntityLivingBase)damagesource.getTrueSource());
+               enchant = EnchantmentHelper.getLootingModifier((EntityLivingBase)damagesource.getTrueSource());
           }
 
           if (!ForgeHooks.onLivingDrops(this.npc, damagesource, list, enchant, true)) {
@@ -189,7 +189,7 @@ public class DataInventory implements IInventory, INPCInventory {
                               ItemStack stack = item.getItem();
                               int i = stack.getCount();
                               if (player.inventory.addItemStackToInventory(stack)) {
-                                   entity.world.playSound((EntityPlayer)null, player.field_70165_t, player.field_70163_u, player.field_70161_v, SoundEvents.field_187638_cR, SoundCategory.PLAYERS, 0.2F, ((player.getRNG().nextFloat() - player.getRNG().nextFloat()) * 0.7F + 1.0F) * 2.0F);
+                                   entity.world.playSound((EntityPlayer)null, player.posX, player.posY, player.posZ, SoundEvents.ENTITY_ITEM_PICKUP, SoundCategory.PLAYERS, 0.2F, ((player.getRNG().nextFloat() - player.getRNG().nextFloat()) * 0.7F + 1.0F) * 2.0F);
                                    player.onItemPickup(item, i);
                                    if (stack.getCount() <= 0) {
                                         item.setDead();
@@ -206,12 +206,12 @@ public class DataInventory implements IInventory, INPCInventory {
 
           while(true) {
                while(exp > 0) {
-                    var2 = EntityXPOrb.func_70527_a(exp);
+                    var2 = EntityXPOrb.getXPSplit(exp);
                     exp -= var2;
                     if (this.lootMode == 1 && entity instanceof EntityPlayer) {
-                         this.npc.world.spawnEntity(new EntityXPOrb(entity.world, entity.field_70165_t, entity.field_70163_u, entity.field_70161_v, var2));
+                         this.npc.world.spawnEntity(new EntityXPOrb(entity.world, entity.posX, entity.posY, entity.posZ, var2));
                     } else {
-                         this.npc.world.spawnEntity(new EntityXPOrb(this.npc.world, this.npc.field_70165_t, this.npc.field_70163_u, this.npc.field_70161_v, var2));
+                         this.npc.world.spawnEntity(new EntityXPOrb(this.npc.world, this.npc.posX, this.npc.posY, this.npc.posZ, var2));
                     }
                }
 
@@ -221,7 +221,7 @@ public class DataInventory implements IInventory, INPCInventory {
 
      public EntityItem getEntityItem(ItemStack itemstack) {
           if (itemstack != null && !itemstack.isEmpty()) {
-               EntityItem entityitem = new EntityItem(this.npc.world, this.npc.field_70165_t, this.npc.field_70163_u - 0.30000001192092896D + (double)this.npc.getEyeHeight(), this.npc.field_70161_v, itemstack);
+               EntityItem entityitem = new EntityItem(this.npc.world, this.npc.posX, this.npc.posY - 0.30000001192092896D + (double)this.npc.getEyeHeight(), this.npc.posZ, itemstack);
                entityitem.setPickupDelay(40);
                float f2 = this.npc.getRNG().nextFloat() * 0.5F;
                float f4 = this.npc.getRNG().nextFloat() * 3.141593F * 2.0F;

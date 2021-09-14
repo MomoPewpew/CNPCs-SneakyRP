@@ -30,8 +30,8 @@ public class GuiNpcGuard extends GuiNPCInterface2 {
           this.role = (JobGuard)npc.jobInterface;
      }
 
-     public void func_73866_w_() {
-          super.func_73866_w_();
+     public void initGui() {
+          super.initGui();
           this.addButton(new GuiNpcButton(0, this.guiLeft + 10, this.guiTop + 4, 100, 20, "guard.animals"));
           this.addButton(new GuiNpcButton(1, this.guiLeft + 140, this.guiTop + 4, 100, 20, "guard.mobs"));
           this.addButton(new GuiNpcButton(2, this.guiLeft + 275, this.guiTop + 4, 100, 20, "guard.creepers"));
@@ -73,7 +73,7 @@ public class GuiNpcGuard extends GuiNPCInterface2 {
           this.addButton(new GuiNpcButton(14, this.guiLeft + 180, this.guiTop + 152, 55, 20, "<<"));
      }
 
-     protected void func_146284_a(GuiButton guibutton) {
+     protected void actionPerformed(GuiButton guibutton) {
           GuiNpcButton button = (GuiNpcButton)guibutton;
           Iterator var3;
           EntityEntry ent;
@@ -93,7 +93,7 @@ public class GuiNpcGuard extends GuiNPCInterface2 {
 
                this.scroll1.selected = -1;
                this.scroll2.selected = -1;
-               this.func_73866_w_();
+               this.initGui();
           }
 
           if (button.id == 1) {
@@ -110,7 +110,7 @@ public class GuiNpcGuard extends GuiNPCInterface2 {
 
                this.scroll1.selected = -1;
                this.scroll2.selected = -1;
-               this.func_73866_w_();
+               this.initGui();
           }
 
           if (button.id == 2) {
@@ -127,20 +127,20 @@ public class GuiNpcGuard extends GuiNPCInterface2 {
 
                this.scroll1.selected = -1;
                this.scroll2.selected = -1;
-               this.func_73866_w_();
+               this.initGui();
           }
 
           if (button.id == 11 && this.scroll1.hasSelected()) {
                this.role.targets.add(this.scroll1.getSelected());
                this.scroll1.selected = -1;
                this.scroll2.selected = -1;
-               this.func_73866_w_();
+               this.initGui();
           }
 
           if (button.id == 12 && this.scroll2.hasSelected()) {
                this.role.targets.remove(this.scroll2.getSelected());
                this.scroll2.selected = -1;
-               this.func_73866_w_();
+               this.initGui();
           }
 
           if (button.id == 13) {
@@ -160,14 +160,14 @@ public class GuiNpcGuard extends GuiNPCInterface2 {
                this.role.targets = all;
                this.scroll1.selected = -1;
                this.scroll2.selected = -1;
-               this.func_73866_w_();
+               this.initGui();
           }
 
           if (button.id == 14) {
                this.role.targets.clear();
                this.scroll1.selected = -1;
                this.scroll2.selected = -1;
-               this.func_73866_w_();
+               this.initGui();
           }
 
      }

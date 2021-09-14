@@ -41,8 +41,8 @@ public class GuiNpcAdvanced extends GuiNPCInterface2 implements IGuiData {
           Client.sendData(EnumPacketServer.MainmenuAdvancedGet);
      }
 
-     public void func_73866_w_() {
-          super.func_73866_w_();
+     public void initGui() {
+          super.initGui();
           int y = this.guiTop + 8;
           this.addButton(new GuiNpcButton(3, this.guiLeft + 85 + 160, y, 52, 20, "selectServer.edit"));
           this.addButton(new GuiButtonBiDirectional(8, this.guiLeft + 85, y, 155, 20, new String[]{"role.none", "role.trader", "role.follower", "role.bank", "role.transporter", "role.mailman", NoppesStringUtils.translate("role.companion", "(WIP)"), "dialog.dialog"}, this.npc.advanced.role));
@@ -70,7 +70,7 @@ public class GuiNpcAdvanced extends GuiNPCInterface2 implements IGuiData {
           this.addButton(new GuiNpcButton(15, this.guiLeft + 208, y, 190, 20, "advanced.marks"));
      }
 
-     protected void func_146284_a(GuiButton guibutton) {
+     protected void actionPerformed(GuiButton guibutton) {
           GuiNpcButton button = (GuiNpcButton)guibutton;
           if (button.id == 3) {
                this.save();
@@ -181,7 +181,7 @@ public class GuiNpcAdvanced extends GuiNPCInterface2 implements IGuiData {
                }
           } else {
                this.npc.advanced.readToNBT(compound);
-               this.func_73866_w_();
+               this.initGui();
           }
 
      }

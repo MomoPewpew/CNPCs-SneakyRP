@@ -98,7 +98,7 @@ public class CmdSlay extends CommandNoppesBase {
           } catch (NumberFormatException var12) {
           }
 
-          AxisAlignedBB box = (new AxisAlignedBB(sender.getPosition(), sender.getPosition().add(1, 1, 1))).expand((double)range, (double)range, (double)range);
+          AxisAlignedBB box = (new AxisAlignedBB(sender.getPosition(), sender.getPosition().add(1, 1, 1))).grow((double)range, (double)range, (double)range);
           List list = sender.getEntityWorld().getEntitiesWithinAABB(EntityLivingBase.class, box);
           Iterator var16 = list.iterator();
 
@@ -113,7 +113,7 @@ public class CmdSlay extends CommandNoppesBase {
 
                                         for(var16 = list.iterator(); var16.hasNext(); ++count) {
                                              entity = (Entity)var16.next();
-                                             entity.field_70128_L = true;
+                                             entity.isDead = true;
                                         }
                                    }
 
@@ -122,7 +122,7 @@ public class CmdSlay extends CommandNoppesBase {
 
                                         for(var16 = list.iterator(); var16.hasNext(); ++count) {
                                              entity = (Entity)var16.next();
-                                             entity.field_70128_L = true;
+                                             entity.isDead = true;
                                         }
                                    }
 
@@ -132,7 +132,7 @@ public class CmdSlay extends CommandNoppesBase {
 
                               entity = (Entity)var16.next();
                          } while(entity instanceof EntityPlayer);
-                    } while(entity instanceof EntityTameable && ((EntityTameable)entity).func_70909_n());
+                    } while(entity instanceof EntityTameable && ((EntityTameable)entity).isTamed());
                } while(entity instanceof EntityNPCInterface && !deleteNPCs);
 
                if (this.delete(entity, toDelete)) {
@@ -155,11 +155,11 @@ public class CmdSlay extends CommandNoppesBase {
                } while(delete == EntityAnimal.class && entity instanceof EntityHorse);
           } while(!delete.isAssignableFrom(entity.getClass()));
 
-          entity.field_70128_L = true;
+          entity.isDead = true;
           return true;
      }
 
-     public List func_184883_a(MinecraftServer server, ICommandSender sender, String[] args, BlockPos pos) {
-          return CommandBase.func_71530_a(args, (String[])this.SlayMap.keySet().toArray(new String[this.SlayMap.size()]));
+     public List getTabCompletions(MinecraftServer server, ICommandSender sender, String[] args, BlockPos pos) {
+          return CommandBase.getListOfStringsMatchingLastWord(args, (String[])this.SlayMap.keySet().toArray(new String[this.SlayMap.size()]));
      }
 }

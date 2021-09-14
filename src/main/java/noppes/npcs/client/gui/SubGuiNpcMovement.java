@@ -20,8 +20,8 @@ public class SubGuiNpcMovement extends SubGuiInterface implements ITextfieldList
           this.closeOnEsc = true;
      }
 
-     public void func_73866_w_() {
-          super.func_73866_w_();
+     public void initGui() {
+          super.initGui();
           int y = this.guiTop + 4;
           this.addLabel(new GuiNpcLabel(0, "movement.type", this.guiLeft + 4, y + 5));
           this.addButton(new GuiNpcButton(0, this.guiLeft + 80, y, 100, 20, new String[]{"ai.standing", "ai.wandering", "ai.movingpath"}, this.ai.getMovingType()));
@@ -119,7 +119,7 @@ public class SubGuiNpcMovement extends SubGuiInterface implements ITextfieldList
           this.addButton(new GuiNpcButton(66, this.guiLeft + 190, this.guiTop + 190, 60, 20, "gui.done"));
      }
 
-     protected void func_146284_a(GuiButton guibutton) {
+     protected void actionPerformed(GuiButton guibutton) {
           GuiNpcButton button = (GuiNpcButton)guibutton;
           if (button.id == 0) {
                this.ai.setMovingType(button.getValue());
@@ -129,13 +129,13 @@ public class SubGuiNpcMovement extends SubGuiInterface implements ITextfieldList
                     this.ai.bodyOffsetX = this.ai.bodyOffsetY = this.ai.bodyOffsetZ = 5.0F;
                }
 
-               this.func_73866_w_();
+               this.initGui();
           } else if (button.id == 3) {
                this.ai.animationType = button.getValue();
-               this.func_73866_w_();
+               this.initGui();
           } else if (button.id == 4) {
                this.ai.setStandingType(button.getValue());
-               this.func_73866_w_();
+               this.initGui();
           } else if (button.id == 5) {
                this.ai.npcInteracting = button.getValue() == 1;
           } else if (button.id == 8) {
@@ -177,17 +177,17 @@ public class SubGuiNpcMovement extends SubGuiInterface implements ITextfieldList
      }
 
      public void unFocused(GuiNpcTextField textfield) {
-          if (textfield.field_175208_g == 7) {
+          if (textfield.id == 7) {
                this.ai.bodyOffsetX = (float)textfield.getInteger();
-          } else if (textfield.field_175208_g == 8) {
+          } else if (textfield.id == 8) {
                this.ai.bodyOffsetY = (float)textfield.getInteger();
-          } else if (textfield.field_175208_g == 9) {
+          } else if (textfield.id == 9) {
                this.ai.bodyOffsetZ = (float)textfield.getInteger();
-          } else if (textfield.field_175208_g == 5) {
+          } else if (textfield.id == 5) {
                this.ai.orientation = textfield.getInteger();
-          } else if (textfield.field_175208_g == 4) {
+          } else if (textfield.id == 4) {
                this.ai.walkingRange = textfield.getInteger();
-          } else if (textfield.field_175208_g == 14) {
+          } else if (textfield.id == 14) {
                this.ai.setWalkingSpeed(textfield.getInteger());
           }
 

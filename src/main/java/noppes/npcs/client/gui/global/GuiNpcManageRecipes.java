@@ -39,36 +39,36 @@ public class GuiNpcManageRecipes extends GuiContainerNPCInterface2 implements IS
           Client.sendData(EnumPacketServer.RecipesGet, container.width, 100);
           this.setBackground("inventorymenu.png");
           this.slot = this.getResource("slot.png");
-          this.field_147000_g = 200;
+          this.ySize = 200;
      }
 
-     public void func_73866_w_() {
-          super.func_73866_w_();
+     public void initGui() {
+          super.initGui();
           if (this.scroll == null) {
                this.scroll = new GuiCustomScroll(this, 0);
           }
 
           this.scroll.setSize(130, 180);
-          this.scroll.guiLeft = this.field_147003_i + 172;
-          this.scroll.guiTop = this.field_147009_r + 8;
+          this.scroll.guiLeft = this.guiLeft + 172;
+          this.scroll.guiTop = this.guiTop + 8;
           this.addScroll(this.scroll);
-          this.addButton(new GuiNpcButton(0, this.field_147003_i + 306, this.field_147009_r + 10, 84, 20, "menu.global"));
-          this.addButton(new GuiNpcButton(1, this.field_147003_i + 306, this.field_147009_r + 32, 84, 20, "tile.npccarpentybench.name"));
+          this.addButton(new GuiNpcButton(0, this.guiLeft + 306, this.guiTop + 10, 84, 20, "menu.global"));
+          this.addButton(new GuiNpcButton(1, this.guiLeft + 306, this.guiTop + 32, 84, 20, "tile.npccarpentybench.name"));
           this.getButton(0).setEnabled(this.container.width == 4);
           this.getButton(1).setEnabled(this.container.width == 3);
-          this.addButton(new GuiNpcButton(3, this.field_147003_i + 306, this.field_147009_r + 60, 84, 20, "gui.add"));
-          this.addButton(new GuiNpcButton(4, this.field_147003_i + 306, this.field_147009_r + 82, 84, 20, "gui.remove"));
-          this.addLabel(new GuiNpcLabel(0, "gui.ignoreDamage", this.field_147003_i + 86, this.field_147009_r + 32));
-          this.addButton(new GuiNpcButtonYesNo(5, this.field_147003_i + 114, this.field_147009_r + 40, 50, 20, this.container.recipe.ignoreDamage));
-          this.addLabel(new GuiNpcLabel(1, "gui.ignoreNBT", this.field_147003_i + 86, this.field_147009_r + 82));
-          this.addButton(new GuiNpcButtonYesNo(6, this.field_147003_i + 114, this.field_147009_r + 90, 50, 20, this.container.recipe.ignoreNBT));
-          this.addTextField(new GuiNpcTextField(0, this, this.field_146289_q, this.field_147003_i + 8, this.field_147009_r + 8, 160, 20, this.container.recipe.name));
+          this.addButton(new GuiNpcButton(3, this.guiLeft + 306, this.guiTop + 60, 84, 20, "gui.add"));
+          this.addButton(new GuiNpcButton(4, this.guiLeft + 306, this.guiTop + 82, 84, 20, "gui.remove"));
+          this.addLabel(new GuiNpcLabel(0, "gui.ignoreDamage", this.guiLeft + 86, this.guiTop + 32));
+          this.addButton(new GuiNpcButtonYesNo(5, this.guiLeft + 114, this.guiTop + 40, 50, 20, this.container.recipe.ignoreDamage));
+          this.addLabel(new GuiNpcLabel(1, "gui.ignoreNBT", this.guiLeft + 86, this.guiTop + 82));
+          this.addButton(new GuiNpcButtonYesNo(6, this.guiLeft + 114, this.guiTop + 90, 50, 20, this.container.recipe.ignoreNBT));
+          this.addTextField(new GuiNpcTextField(0, this, this.fontRenderer, this.guiLeft + 8, this.guiTop + 8, 160, 20, this.container.recipe.name));
           this.getTextField(0).enabled = false;
           this.getButton(5).setEnabled(false);
           this.getButton(6).setEnabled(false);
      }
 
-     protected void func_146284_a(GuiButton guibutton) {
+     protected void actionPerformed(GuiButton guibutton) {
           GuiNpcButton button = (GuiNpcButton)guibutton;
           if (button.id == 0) {
                this.save();
@@ -110,7 +110,7 @@ public class GuiNpcManageRecipes extends GuiContainerNPCInterface2 implements IS
 
      public void setGuiData(NBTTagCompound compound) {
           RecipeCarpentry recipe = RecipeCarpentry.read(compound);
-          this.getTextField(0).func_146180_a(recipe.name);
+          this.getTextField(0).setText(recipe.name);
           this.container.setRecipe(recipe);
           this.getTextField(0).enabled = true;
           this.getButton(5).setEnabled(true);
@@ -120,18 +120,18 @@ public class GuiNpcManageRecipes extends GuiContainerNPCInterface2 implements IS
           this.setSelected(recipe.name);
      }
 
-     protected void func_146976_a(float f, int x, int y) {
-          super.func_146976_a(f, x, y);
+     protected void drawGuiContainerBackgroundLayer(float f, int x, int y) {
+          super.drawGuiContainerBackgroundLayer(f, x, y);
           GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-          this.field_146297_k.renderEngine.bindTexture(this.slot);
+          this.mc.renderEngine.bindTexture(this.slot);
 
           for(int i = 0; i < this.container.width; ++i) {
                for(int j = 0; j < this.container.width; ++j) {
-                    this.drawTexturedModalRect(this.field_147003_i + i * 18 + 7, this.field_147009_r + j * 18 + 34, 0, 0, 18, 18);
+                    this.drawTexturedModalRect(this.guiLeft + i * 18 + 7, this.guiTop + j * 18 + 34, 0, 0, 18, 18);
                }
           }
 
-          this.drawTexturedModalRect(this.field_147003_i + 86, this.field_147009_r + 60, 0, 0, 18, 18);
+          this.drawTexturedModalRect(this.guiLeft + 86, this.guiTop + 60, 0, 0, 18, 18);
      }
 
      public void setData(Vector list, HashMap data) {
@@ -167,7 +167,7 @@ public class GuiNpcManageRecipes extends GuiContainerNPCInterface2 implements IS
      }
 
      public void unFocused(GuiNpcTextField guiNpcTextField) {
-          String name = guiNpcTextField.func_146179_b();
+          String name = guiNpcTextField.getText();
           if (!name.isEmpty() && !this.data.containsKey(name)) {
                String old = this.container.recipe.name;
                this.data.remove(this.container.recipe.name);

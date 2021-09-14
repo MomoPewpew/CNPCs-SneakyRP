@@ -39,7 +39,7 @@ public class GuiScriptInterface extends GuiNPCInterface implements IGuiData, ITe
           this.setBackground("menubg.png");
      }
 
-     public void func_73866_w_() {
+     public void initGui() {
           this.xSize = (int)((double)this.width * 0.88D);
           this.ySize = (int)((double)this.xSize * 0.56D);
           if ((double)this.ySize > (double)this.height * 0.95D) {
@@ -48,7 +48,7 @@ public class GuiScriptInterface extends GuiNPCInterface implements IGuiData, ITe
           }
 
           this.bgScale = (float)this.xSize / 400.0F;
-          super.func_73866_w_();
+          super.initGui();
           this.guiTop += 10;
           int yoffset = (int)((double)this.ySize * 0.02D);
           GuiMenuTopButton top;
@@ -143,7 +143,7 @@ public class GuiScriptInterface extends GuiNPCInterface implements IGuiData, ITe
           return 0;
      }
 
-     public void func_73878_a(boolean flag, int i) {
+     public void confirmClicked(boolean flag, int i) {
           if (flag) {
                if (i == 0) {
                     this.openLink("http://www.kodevelopment.nl/minecraft/customnpcs/scripting");
@@ -170,17 +170,17 @@ public class GuiScriptInterface extends GuiNPCInterface implements IGuiData, ITe
           this.displayGuiScreen(this);
      }
 
-     protected void func_146284_a(GuiButton guibutton) {
+     protected void actionPerformed(GuiButton guibutton) {
           if (guibutton.id >= 0 && guibutton.id < 12) {
                this.setScript();
                this.activeTab = guibutton.id;
-               this.func_73866_w_();
+               this.initGui();
           }
 
           if (guibutton.id == 12) {
                this.handler.getScripts().add(new ScriptContainer(this.handler));
                this.activeTab = this.handler.getScripts().size();
-               this.func_73866_w_();
+               this.initGui();
           }
 
           if (guibutton.id == 109) {
@@ -216,11 +216,11 @@ public class GuiScriptInterface extends GuiNPCInterface implements IGuiData, ITe
                     this.handler.clearConsole();
                }
 
-               this.func_73866_w_();
+               this.initGui();
           }
 
           if (guibutton.id == 103) {
-               this.handler.setLanguage(((GuiNpcButton)guibutton).field_146126_j);
+               this.handler.setLanguage(((GuiNpcButton)guibutton).displayString);
           }
 
           if (guibutton.id == 104) {
@@ -286,7 +286,7 @@ public class GuiScriptInterface extends GuiNPCInterface implements IGuiData, ITe
           }
 
           this.languages = languages;
-          this.func_73866_w_();
+          this.initGui();
      }
 
      public void save() {

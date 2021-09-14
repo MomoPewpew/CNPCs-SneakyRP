@@ -52,7 +52,7 @@ public class ContainerNPCTrader extends ContainerNpcInterface {
           return ItemStack.EMPTY;
      }
 
-     public ItemStack func_184996_a(int i, int j, ClickType par3, EntityPlayer entityplayer) {
+     public ItemStack slotClick(int i, int j, ClickType par3, EntityPlayer entityplayer) {
           if (par3 != ClickType.PICKUP) {
                return ItemStack.EMPTY;
           } else if (i >= 0 && i < 18) {
@@ -105,7 +105,7 @@ public class ContainerNPCTrader extends ContainerNpcInterface {
                     }
                }
           } else {
-               return super.func_184996_a(i, j, par3, entityplayer);
+               return super.slotClick(i, j, par3, entityplayer);
           }
      }
 
@@ -120,7 +120,7 @@ public class ContainerNPCTrader extends ContainerNpcInterface {
 
                if (NoppesUtilPlayer.compareItems(currency, currency2, this.role.ignoreDamage, this.role.ignoreNBT)) {
                     currency = currency.copy();
-                    currency.func_190917_f(currency2.getCount());
+                    currency.grow(currency2.getCount());
                     currency2 = ItemStack.EMPTY;
                }
 
@@ -133,7 +133,7 @@ public class ContainerNPCTrader extends ContainerNpcInterface {
      }
 
      private boolean canGivePlayer(ItemStack item, EntityPlayer entityplayer) {
-          ItemStack itemstack3 = entityplayer.inventory.func_70445_o();
+          ItemStack itemstack3 = entityplayer.inventory.getItemStack();
           if (NoppesUtilServer.IsItemStackNull(itemstack3)) {
                return true;
           } else {
@@ -149,13 +149,13 @@ public class ContainerNPCTrader extends ContainerNpcInterface {
      }
 
      private void givePlayer(ItemStack item, EntityPlayer entityplayer) {
-          ItemStack itemstack3 = entityplayer.inventory.func_70445_o();
+          ItemStack itemstack3 = entityplayer.inventory.getItemStack();
           if (NoppesUtilServer.IsItemStackNull(itemstack3)) {
-               entityplayer.inventory.func_70437_b(item);
+               entityplayer.inventory.setItemStack(item);
           } else if (NoppesUtilPlayer.compareItems(itemstack3, item, false, false)) {
                int k1 = item.getCount();
                if (k1 > 0 && k1 + itemstack3.getCount() <= itemstack3.getMaxStackSize()) {
-                    itemstack3.func_190917_f(k1);
+                    itemstack3.grow(k1);
                }
           }
 

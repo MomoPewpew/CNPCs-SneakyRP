@@ -17,11 +17,11 @@ import noppes.npcs.util.IPermission;
 
 public class ItemNpcCloner extends Item implements IPermission {
      public ItemNpcCloner() {
-          this.field_77777_bU = 1;
+          this.maxStackSize = 1;
           this.setCreativeTab(CustomItems.tab);
      }
 
-     public EnumActionResult func_180614_a(EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
+     public EnumActionResult onItemUse(EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
           if (!world.isRemote) {
                NoppesUtilServer.sendOpenGui(player, EnumGuiType.MobSpawner, (EntityNPCInterface)null, pos.getX(), pos.getY(), pos.getZ());
           }
@@ -29,9 +29,9 @@ public class ItemNpcCloner extends Item implements IPermission {
           return EnumActionResult.SUCCESS;
      }
 
-     public Item setUnlocalizedName(String name) {
+     public Item setTranslationKey(String name) {
           this.setRegistryName(new ResourceLocation("customnpcs", name));
-          return super.setUnlocalizedName(name);
+          return super.setTranslationKey(name);
      }
 
      public boolean isAllowed(EnumPacketServer e) {

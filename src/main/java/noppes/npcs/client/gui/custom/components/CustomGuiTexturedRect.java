@@ -51,22 +51,22 @@ public class CustomGuiTexturedRect extends Gui implements IGuiComponent {
 
      public void onRender(Minecraft mc, int mouseX, int mouseY, int mouseWheel, float partialTicks) {
           boolean hovered = mouseX >= this.x && mouseY >= this.y && mouseX < this.x + this.width && mouseY < this.y + this.height;
-          GlStateManager.func_179094_E();
-          GlStateManager.func_179124_c(1.0F, 1.0F, 1.0F);
-          mc.func_110434_K().bindTexture(this.texture);
-          Tessellator tessellator = Tessellator.func_178181_a();
-          BufferBuilder bufferbuilder = tessellator.func_178180_c();
-          bufferbuilder.func_181668_a(7, DefaultVertexFormats.field_181707_g);
-          bufferbuilder.func_181662_b((double)this.x, (double)((float)this.y + (float)this.height * this.scale), (double)this.id).func_187315_a((double)((float)(this.textureX + 0) * 0.00390625F), (double)((float)(this.textureY + this.height) * 0.00390625F)).func_181675_d();
-          bufferbuilder.func_181662_b((double)((float)this.x + (float)this.width * this.scale), (double)((float)this.y + (float)this.height * this.scale), (double)this.id).func_187315_a((double)((float)(this.textureX + this.width) * 0.00390625F), (double)((float)(this.textureY + this.height) * 0.00390625F)).func_181675_d();
-          bufferbuilder.func_181662_b((double)((float)this.x + (float)this.width * this.scale), (double)this.y, (double)this.id).func_187315_a((double)((float)(this.textureX + this.width) * 0.00390625F), (double)((float)(this.textureY + 0) * 0.00390625F)).func_181675_d();
-          bufferbuilder.func_181662_b((double)this.x, (double)this.y, (double)this.id).func_187315_a((double)((float)(this.textureX + 0) * 0.00390625F), (double)((float)(this.textureY + 0) * 0.00390625F)).func_181675_d();
-          tessellator.func_78381_a();
+          GlStateManager.pushMatrix();
+          GlStateManager.color(1.0F, 1.0F, 1.0F);
+          mc.getTextureManager().bindTexture(this.texture);
+          Tessellator tessellator = Tessellator.getInstance();
+          BufferBuilder bufferbuilder = tessellator.getBuffer();
+          bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX);
+          bufferbuilder.pos((double)this.x, (double)((float)this.y + (float)this.height * this.scale), (double)this.id).tex((double)((float)(this.textureX + 0) * 0.00390625F), (double)((float)(this.textureY + this.height) * 0.00390625F)).endVertex();
+          bufferbuilder.pos((double)((float)this.x + (float)this.width * this.scale), (double)((float)this.y + (float)this.height * this.scale), (double)this.id).tex((double)((float)(this.textureX + this.width) * 0.00390625F), (double)((float)(this.textureY + this.height) * 0.00390625F)).endVertex();
+          bufferbuilder.pos((double)((float)this.x + (float)this.width * this.scale), (double)this.y, (double)this.id).tex((double)((float)(this.textureX + this.width) * 0.00390625F), (double)((float)(this.textureY + 0) * 0.00390625F)).endVertex();
+          bufferbuilder.pos((double)this.x, (double)this.y, (double)this.id).tex((double)((float)(this.textureX + 0) * 0.00390625F), (double)((float)(this.textureY + 0) * 0.00390625F)).endVertex();
+          tessellator.draw();
           if (hovered && this.hoverText != null && this.hoverText.length > 0) {
                this.parent.hoverText = this.hoverText;
           }
 
-          GlStateManager.func_179121_F();
+          GlStateManager.popMatrix();
      }
 
      public ICustomGuiComponent toComponent() {

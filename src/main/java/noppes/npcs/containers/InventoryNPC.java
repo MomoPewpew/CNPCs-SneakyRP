@@ -52,7 +52,7 @@ public class InventoryNPC implements IInventory {
      }
 
      public ItemStack removeStackFromSlot(int i) {
-          return ItemStackHelper.func_188383_a(this.inventoryContents, i);
+          return ItemStackHelper.getAndRemove(this.inventoryContents, i);
      }
 
      public boolean isItemValidForSlot(int i, ItemStack itemstack) {

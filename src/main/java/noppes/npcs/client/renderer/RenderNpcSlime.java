@@ -9,6 +9,6 @@ public class RenderNpcSlime extends RenderNPCInterface {
      public RenderNpcSlime(ModelBase par1ModelBase, ModelBase par2ModelBase, float par3) {
           super(par1ModelBase, par3);
           this.scaleAmount = par2ModelBase;
-          this.func_177094_a(new LayerSlimeNpc(this));
+          this.addLayer(new LayerSlimeNpc(this));
      }
 }

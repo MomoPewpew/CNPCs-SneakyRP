@@ -20,19 +20,19 @@ public class TextureCache extends SimpleTexture {
           super(location);
      }
 
-     public int func_110552_b() {
+     public int getGlTextureId() {
           this.checkTextureUploaded();
-          return super.func_110552_b();
+          return super.getGlTextureId();
      }
 
      private void checkTextureUploaded() {
           if (!this.textureUploaded && this.bufferedImage != null) {
-               if (this.field_110568_b != null && this.field_110553_a != -1) {
-                    TextureUtil.func_147942_a(this.field_110553_a);
-                    this.field_110553_a = -1;
+               if (this.textureLocation != null && this.glTextureId != -1) {
+                    TextureUtil.deleteTexture(this.glTextureId);
+                    this.glTextureId = -1;
                }
 
-               TextureUtil.func_110987_a(super.func_110552_b(), this.bufferedImage);
+               TextureUtil.uploadTextureImage(super.getGlTextureId(), this.bufferedImage);
                this.textureUploaded = true;
           }
 
@@ -40,8 +40,8 @@ public class TextureCache extends SimpleTexture {
 
      public void setImage(ResourceLocation location) {
           try {
-               IResourceManager manager = Minecraft.getMinecraft().func_110442_L();
-               BufferedImage bufferedimage = ImageIO.read(manager.func_110536_a(location).func_110527_b());
+               IResourceManager manager = Minecraft.getMinecraft().getResourceManager();
+               BufferedImage bufferedimage = ImageIO.read(manager.getResource(location).getInputStream());
                int i = bufferedimage.getWidth();
                int j = bufferedimage.getHeight();
                this.bufferedImage = new BufferedImage(i * 4, j * 2, 1);
@@ -61,6 +61,6 @@ public class TextureCache extends SimpleTexture {
 
      }
 
-     public void func_110551_a(IResourceManager resourceManager) throws IOException {
+     public void loadTexture(IResourceManager resourceManager) throws IOException {
      }
 }

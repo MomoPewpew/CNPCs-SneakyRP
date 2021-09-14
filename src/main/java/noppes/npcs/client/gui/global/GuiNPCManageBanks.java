@@ -32,44 +32,44 @@ public class GuiNPCManageBanks extends GuiContainerNPCInterface2 implements IScr
           this.container = container;
           this.drawDefaultBackground = false;
           this.setBackground("npcbanksetup.png");
-          this.field_147000_g = 200;
+          this.ySize = 200;
      }
 
      public void initPacket() {
           Client.sendData(EnumPacketServer.BanksGet);
      }
 
-     public void func_73866_w_() {
-          super.func_73866_w_();
-          this.addButton(new GuiNpcButton(6, this.field_147003_i + 340, this.field_147009_r + 10, 45, 20, "gui.add"));
-          this.addButton(new GuiNpcButton(7, this.field_147003_i + 340, this.field_147009_r + 32, 45, 20, "gui.remove"));
+     public void initGui() {
+          super.initGui();
+          this.addButton(new GuiNpcButton(6, this.guiLeft + 340, this.guiTop + 10, 45, 20, "gui.add"));
+          this.addButton(new GuiNpcButton(7, this.guiLeft + 340, this.guiTop + 32, 45, 20, "gui.remove"));
           if (this.scroll == null) {
                this.scroll = new GuiCustomScroll(this, 0);
           }
 
           this.scroll.setSize(160, 180);
-          this.scroll.guiLeft = this.field_147003_i + 174;
-          this.scroll.guiTop = this.field_147009_r + 8;
+          this.scroll.guiLeft = this.guiLeft + 174;
+          this.scroll.guiTop = this.guiTop + 8;
           this.addScroll(this.scroll);
 
           for(int i = 0; i < 6; ++i) {
-               int x = this.field_147003_i + 6;
-               int y = this.field_147009_r + 36 + i * 22;
+               int x = this.guiLeft + 6;
+               int y = this.guiTop + 36 + i * 22;
                this.addButton(new GuiNpcButton(i, x + 50, y, 80, 20, new String[]{"bank.canUpgrade", "bank.cantUpgrade", "bank.upgraded"}, 0));
                this.getButton(i).setEnabled(false);
           }
 
-          this.addTextField(new GuiNpcTextField(0, this, this.field_146289_q, this.field_147003_i + 8, this.field_147009_r + 8, 160, 16, ""));
-          this.getTextField(0).func_146203_f(20);
-          this.addTextField(new GuiNpcTextField(1, this, this.field_146289_q, this.field_147003_i + 10, this.field_147009_r + 80, 16, 16, ""));
+          this.addTextField(new GuiNpcTextField(0, this, this.fontRenderer, this.guiLeft + 8, this.guiTop + 8, 160, 16, ""));
+          this.getTextField(0).setMaxStringLength(20);
+          this.addTextField(new GuiNpcTextField(1, this, this.fontRenderer, this.guiLeft + 10, this.guiTop + 80, 16, 16, ""));
           this.getTextField(1).numbersOnly = true;
-          this.getTextField(1).func_146203_f(1);
-          this.addTextField(new GuiNpcTextField(2, this, this.field_146289_q, this.field_147003_i + 10, this.field_147009_r + 110, 16, 16, ""));
+          this.getTextField(1).setMaxStringLength(1);
+          this.addTextField(new GuiNpcTextField(2, this, this.fontRenderer, this.guiLeft + 10, this.guiTop + 110, 16, 16, ""));
           this.getTextField(2).numbersOnly = true;
-          this.getTextField(2).func_146203_f(1);
+          this.getTextField(2).setMaxStringLength(1);
      }
 
-     protected void func_146284_a(GuiButton guibutton) {
+     protected void actionPerformed(GuiButton guibutton) {
           GuiNpcButton button = (GuiNpcButton)guibutton;
           if (button.id == 6) {
                this.save();
@@ -94,11 +94,11 @@ public class GuiNPCManageBanks extends GuiContainerNPCInterface2 implements IScr
 
      }
 
-     protected void func_146979_b(int par1, int par2) {
-          this.field_146289_q.func_78276_b(I18n.translateToLocal("bank.tabCost"), 23, 28, CustomNpcResourceListener.DefaultTextColor);
-          this.field_146289_q.func_78276_b(I18n.translateToLocal("bank.upgCost"), 123, 28, CustomNpcResourceListener.DefaultTextColor);
-          this.field_146289_q.func_78276_b(I18n.translateToLocal("gui.start"), 6, 70, CustomNpcResourceListener.DefaultTextColor);
-          this.field_146289_q.func_78276_b(I18n.translateToLocal("gui.max"), 9, 100, CustomNpcResourceListener.DefaultTextColor);
+     protected void drawGuiContainerForegroundLayer(int par1, int par2) {
+          this.fontRenderer.drawString(I18n.translateToLocal("bank.tabCost"), 23, 28, CustomNpcResourceListener.DefaultTextColor);
+          this.fontRenderer.drawString(I18n.translateToLocal("bank.upgCost"), 123, 28, CustomNpcResourceListener.DefaultTextColor);
+          this.fontRenderer.drawString(I18n.translateToLocal("gui.start"), 6, 70, CustomNpcResourceListener.DefaultTextColor);
+          this.fontRenderer.drawString(I18n.translateToLocal("gui.max"), 9, 100, CustomNpcResourceListener.DefaultTextColor);
      }
 
      public void setGuiData(NBTTagCompound compound) {
@@ -107,18 +107,18 @@ public class GuiNPCManageBanks extends GuiContainerNPCInterface2 implements IScr
           this.bank = bank;
           int i;
           if (bank.id == -1) {
-               this.getTextField(0).func_146180_a("");
-               this.getTextField(1).func_146180_a("");
-               this.getTextField(2).func_146180_a("");
+               this.getTextField(0).setText("");
+               this.getTextField(1).setText("");
+               this.getTextField(2).setText("");
 
                for(i = 0; i < 6; ++i) {
                     this.getButton(i).setDisplay(0);
                     this.getButton(i).setEnabled(false);
                }
           } else {
-               this.getTextField(0).func_146180_a(bank.name);
-               this.getTextField(1).func_146180_a(Integer.toString(bank.startSlots));
-               this.getTextField(2).func_146180_a(Integer.toString(bank.maxSlots));
+               this.getTextField(0).setText(bank.name);
+               this.getTextField(1).setText(Integer.toString(bank.startSlots));
+               this.getTextField(2).setText(Integer.toString(bank.maxSlots));
 
                for(i = 0; i < 6; ++i) {
                     int type = 0;
@@ -171,8 +171,8 @@ public class GuiNPCManageBanks extends GuiContainerNPCInterface2 implements IScr
 
      public void unFocused(GuiNpcTextField guiNpcTextField) {
           if (this.bank.id != -1) {
-               if (guiNpcTextField.field_175208_g == 0) {
-                    String name = guiNpcTextField.func_146179_b();
+               if (guiNpcTextField.id == 0) {
+                    String name = guiNpcTextField.getText();
                     if (!name.isEmpty() && !this.data.containsKey(name)) {
                          String old = this.bank.name;
                          this.data.remove(this.bank.name);
@@ -181,7 +181,7 @@ public class GuiNPCManageBanks extends GuiContainerNPCInterface2 implements IScr
                          this.selected = name;
                          this.scroll.replace(old, this.bank.name);
                     }
-               } else if (guiNpcTextField.field_175208_g == 1 || guiNpcTextField.field_175208_g == 2) {
+               } else if (guiNpcTextField.id == 1 || guiNpcTextField.id == 2) {
                     int num = 1;
                     if (!guiNpcTextField.isEmpty()) {
                          num = guiNpcTextField.getInteger();
@@ -195,9 +195,9 @@ public class GuiNPCManageBanks extends GuiContainerNPCInterface2 implements IScr
                          num = 0;
                     }
 
-                    if (guiNpcTextField.field_175208_g == 1) {
+                    if (guiNpcTextField.id == 1) {
                          this.bank.startSlots = num;
-                    } else if (guiNpcTextField.field_175208_g == 2) {
+                    } else if (guiNpcTextField.id == 2) {
                          this.bank.maxSlots = num;
                     }
 
@@ -205,7 +205,7 @@ public class GuiNPCManageBanks extends GuiContainerNPCInterface2 implements IScr
                          this.bank.maxSlots = this.bank.startSlots;
                     }
 
-                    guiNpcTextField.func_146180_a(Integer.toString(num));
+                    guiNpcTextField.setText(Integer.toString(num));
                }
           }
 

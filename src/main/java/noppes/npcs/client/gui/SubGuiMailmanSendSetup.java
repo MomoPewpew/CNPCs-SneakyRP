@@ -25,12 +25,12 @@ public class SubGuiMailmanSendSetup extends SubGuiInterface implements ITextfiel
           this.mail = mail;
      }
 
-     public void func_73866_w_() {
-          super.func_73866_w_();
+     public void initGui() {
+          super.initGui();
           this.addLabel(new GuiNpcLabel(1, "mailbox.subject", this.guiLeft + 4, this.guiTop + 19));
-          this.addTextField(new GuiNpcTextField(1, this, this.field_146289_q, this.guiLeft + 60, this.guiTop + 14, 180, 20, this.mail.subject));
+          this.addTextField(new GuiNpcTextField(1, this, this.fontRenderer, this.guiLeft + 60, this.guiTop + 14, 180, 20, this.mail.subject));
           this.addLabel(new GuiNpcLabel(0, "mailbox.sender", this.guiLeft + 4, this.guiTop + 41));
-          this.addTextField(new GuiNpcTextField(0, this, this.field_146289_q, this.guiLeft + 60, this.guiTop + 36, 180, 20, this.mail.sender));
+          this.addTextField(new GuiNpcTextField(0, this, this.fontRenderer, this.guiLeft + 60, this.guiTop + 36, 180, 20, this.mail.sender));
           this.addButton(new GuiNpcButton(2, this.guiLeft + 29, this.guiTop + 100, "mailbox.write"));
           this.addLabel(new GuiNpcLabel(3, "quest.quest", this.guiLeft + 13, this.guiTop + 135));
           IQuest quest = this.mail.getQuest();
@@ -74,26 +74,26 @@ public class SubGuiMailmanSendSetup extends SubGuiInterface implements ITextfiel
 
           if (id == 4) {
                this.mail.questId = -1;
-               this.func_73866_w_();
+               this.initGui();
           }
 
      }
 
      public void selected(int ob, String name) {
           this.mail.questId = ob;
-          this.func_73866_w_();
+          this.initGui();
      }
 
      public void save() {
      }
 
      public void unFocused(GuiNpcTextField textField) {
-          if (textField.field_175208_g == 0) {
-               this.mail.sender = textField.func_146179_b();
+          if (textField.id == 0) {
+               this.mail.sender = textField.getText();
           }
 
-          if (textField.field_175208_g == 1) {
-               this.mail.subject = textField.func_146179_b();
+          if (textField.id == 1) {
+               this.mail.subject = textField.getText();
           }
 
      }

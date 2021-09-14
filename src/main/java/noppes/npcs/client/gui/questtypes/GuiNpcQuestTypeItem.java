@@ -25,22 +25,22 @@ public class GuiNpcQuestTypeItem extends GuiContainerNPCInterface implements ITe
           super(npc, container);
           this.quest = NoppesUtilServer.getEditingQuest(this.player);
           this.title = "";
-          this.field_147000_g = 202;
+          this.ySize = 202;
           this.closeOnEsc = false;
      }
 
-     public void func_73866_w_() {
-          super.func_73866_w_();
-          this.addLabel(new GuiNpcLabel(0, "quest.takeitems", this.field_147003_i + 4, this.field_147009_r + 8));
-          this.addButton(new GuiNpcButton(0, this.field_147003_i + 90, this.field_147009_r + 3, 60, 20, new String[]{"gui.yes", "gui.no"}, ((QuestItem)this.quest.questInterface).leaveItems ? 1 : 0));
-          this.addLabel(new GuiNpcLabel(1, "gui.ignoreDamage", this.field_147003_i + 4, this.field_147009_r + 29));
-          this.addButton(new GuiNpcButtonYesNo(1, this.field_147003_i + 90, this.field_147009_r + 24, 50, 20, ((QuestItem)this.quest.questInterface).ignoreDamage));
-          this.addLabel(new GuiNpcLabel(2, "gui.ignoreNBT", this.field_147003_i + 62, this.field_147009_r + 51));
-          this.addButton(new GuiNpcButtonYesNo(2, this.field_147003_i + 120, this.field_147009_r + 46, 50, 20, ((QuestItem)this.quest.questInterface).ignoreNBT));
-          this.addButton(new GuiNpcButton(5, this.field_147003_i, this.field_147009_r + this.field_147000_g, 98, 20, "gui.back"));
+     public void initGui() {
+          super.initGui();
+          this.addLabel(new GuiNpcLabel(0, "quest.takeitems", this.guiLeft + 4, this.guiTop + 8));
+          this.addButton(new GuiNpcButton(0, this.guiLeft + 90, this.guiTop + 3, 60, 20, new String[]{"gui.yes", "gui.no"}, ((QuestItem)this.quest.questInterface).leaveItems ? 1 : 0));
+          this.addLabel(new GuiNpcLabel(1, "gui.ignoreDamage", this.guiLeft + 4, this.guiTop + 29));
+          this.addButton(new GuiNpcButtonYesNo(1, this.guiLeft + 90, this.guiTop + 24, 50, 20, ((QuestItem)this.quest.questInterface).ignoreDamage));
+          this.addLabel(new GuiNpcLabel(2, "gui.ignoreNBT", this.guiLeft + 62, this.guiTop + 51));
+          this.addButton(new GuiNpcButtonYesNo(2, this.guiLeft + 120, this.guiTop + 46, 50, 20, ((QuestItem)this.quest.questInterface).ignoreNBT));
+          this.addButton(new GuiNpcButton(5, this.guiLeft, this.guiTop + this.ySize, 98, 20, "gui.back"));
      }
 
-     public void func_146284_a(GuiButton guibutton) {
+     public void actionPerformed(GuiButton guibutton) {
           if (guibutton.id == 0) {
                ((QuestItem)this.quest.questInterface).leaveItems = ((GuiNpcButton)guibutton).getValue() == 1;
           }
@@ -59,14 +59,14 @@ public class GuiNpcQuestTypeItem extends GuiContainerNPCInterface implements ITe
 
      }
 
-     protected void func_146976_a(float f, int i, int j) {
-          this.func_146270_b(0);
+     protected void drawGuiContainerBackgroundLayer(float f, int i, int j) {
+          this.drawWorldBackground(0);
           GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-          this.field_146297_k.renderEngine.bindTexture(field_110422_t);
-          int l = (this.width - this.field_146999_f) / 2;
-          int i1 = (this.height - this.field_147000_g) / 2;
-          this.drawTexturedModalRect(l, i1, 0, 0, this.field_146999_f, this.field_147000_g);
-          super.func_146976_a(f, i, j);
+          this.mc.renderEngine.bindTexture(field_110422_t);
+          int l = (this.width - this.xSize) / 2;
+          int i1 = (this.height - this.ySize) / 2;
+          this.drawTexturedModalRect(l, i1, 0, 0, this.xSize, this.ySize);
+          super.drawGuiContainerBackgroundLayer(f, i, j);
      }
 
      public void save() {

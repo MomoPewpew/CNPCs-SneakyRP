@@ -15,14 +15,14 @@ public class ContainerNpcInterface extends Container {
 
      public ContainerNpcInterface(EntityPlayer player) {
           this.player = player;
-          this.posX = MathHelper.floor(player.field_70165_t);
-          this.posZ = MathHelper.floor(player.field_70161_v);
+          this.posX = MathHelper.floor(player.posX);
+          this.posZ = MathHelper.floor(player.posZ);
           player.motionX = 0.0D;
           player.motionZ = 0.0D;
      }
 
      public boolean canInteractWith(EntityPlayer player) {
-          return !player.field_70128_L && this.posX == MathHelper.floor(player.field_70165_t) && this.posZ == MathHelper.floor(player.field_70161_v);
+          return !player.isDead && this.posX == MathHelper.floor(player.posX) && this.posZ == MathHelper.floor(player.posZ);
      }
 
      public static IContainer getOrCreateIContainer(ContainerNpcInterface container) {

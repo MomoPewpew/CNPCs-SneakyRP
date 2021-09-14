@@ -25,18 +25,18 @@ public class GuiNpcMobSpawnerAdd extends GuiNPCInterface implements GuiYesNoCall
      private static int tab = 1;
 
      public GuiNpcMobSpawnerAdd(NBTTagCompound compound) {
-          this.toClone = EntityList.createEntityFromNBT(compound, Minecraft.getMinecraft().field_71441_e);
+          this.toClone = EntityList.createEntityFromNBT(compound, Minecraft.getMinecraft().world);
           this.compound = compound;
           this.setBackground("menubg.png");
           this.xSize = 256;
           this.ySize = 216;
      }
 
-     public void func_73866_w_() {
-          super.func_73866_w_();
+     public void initGui() {
+          super.initGui();
           String name = this.toClone.getName();
           this.addLabel(new GuiNpcLabel(0, "Save as", this.guiLeft + 4, this.guiTop + 6));
-          this.addTextField(new GuiNpcTextField(0, this, this.field_146289_q, this.guiLeft + 4, this.guiTop + 18, 200, 20, name));
+          this.addTextField(new GuiNpcTextField(0, this, this.fontRenderer, this.guiLeft + 4, this.guiTop + 18, 200, 20, name));
           this.addLabel(new GuiNpcLabel(1, "Tab", this.guiLeft + 10, this.guiTop + 50));
           this.addButton(new GuiNpcButton(2, this.guiLeft + 40, this.guiTop + 45, 20, 20, new String[]{"1", "2", "3", "4", "5", "6", "7", "8", "9"}, tab - 1));
           this.addButton(new GuiNpcButton(3, this.guiLeft + 4, this.guiTop + 95, new String[]{"clone.client", "clone.server"}, serverSide ? 1 : 0));
@@ -47,7 +47,7 @@ public class GuiNpcMobSpawnerAdd extends GuiNPCInterface implements GuiYesNoCall
      public void buttonEvent(GuiButton guibutton) {
           int id = guibutton.id;
           if (id == 0) {
-               String name = this.getTextField(0).func_146179_b();
+               String name = this.getTextField(0).getText();
                if (name.isEmpty()) {
                     return;
                }
@@ -57,7 +57,7 @@ public class GuiNpcMobSpawnerAdd extends GuiNPCInterface implements GuiYesNoCall
                     if (ClientCloneController.Instance.getCloneData((ICommandSender)null, name, tab) != null) {
                          this.displayGuiScreen(new GuiYesNo(this, "", I18n.translateToLocal("clone.overwrite"), 1));
                     } else {
-                         this.func_73878_a(true, 0);
+                         this.confirmClicked(true, 0);
                     }
                } else {
                     Client.sendData(EnumPacketServer.ClonePreSave, name, tab);
@@ -78,9 +78,9 @@ public class GuiNpcMobSpawnerAdd extends GuiNPCInterface implements GuiYesNoCall
 
      }
 
-     public void func_73878_a(boolean confirm, int id) {
+     public void confirmClicked(boolean confirm, int id) {
           if (confirm) {
-               String name = this.getTextField(0).func_146179_b();
+               String name = this.getTextField(0).getText();
                if (!serverSide) {
                     ClientCloneController.Instance.addClone(this.compound, name, tab);
                } else {
@@ -102,7 +102,7 @@ public class GuiNpcMobSpawnerAdd extends GuiNPCInterface implements GuiYesNoCall
                if (compound.getBoolean("NameExists")) {
                     this.displayGuiScreen(new GuiYesNo(this, "", I18n.translateToLocal("clone.overwrite"), 1));
                } else {
-                    this.func_73878_a(true, 0);
+                    this.confirmClicked(true, 0);
                }
           }
 

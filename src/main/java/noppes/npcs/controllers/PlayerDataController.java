@@ -104,7 +104,7 @@ public class PlayerDataController {
 
      public List getPlayersData(ICommandSender sender, String username) throws CommandException {
           ArrayList list = new ArrayList();
-          List players = EntitySelector.func_179656_b(sender, username, EntityPlayerMP.class);
+          List players = EntitySelector.matchEntities(sender, username, EntityPlayerMP.class);
           if (players.isEmpty()) {
                PlayerData data = this.getDataFromUsername(sender.getServer(), username);
                if (data != null) {

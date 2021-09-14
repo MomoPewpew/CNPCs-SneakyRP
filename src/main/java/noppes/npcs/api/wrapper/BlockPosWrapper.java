@@ -88,11 +88,11 @@ public class BlockPosWrapper implements IPos {
      }
 
      public IPos offset(int direction) {
-          return new BlockPosWrapper(this.blockPos.offset(EnumFacing.field_82609_l[direction]));
+          return new BlockPosWrapper(this.blockPos.offset(EnumFacing.VALUES[direction]));
      }
 
      public IPos offset(int direction, int n) {
-          return new BlockPosWrapper(this.blockPos.offset(EnumFacing.field_82609_l[direction], n));
+          return new BlockPosWrapper(this.blockPos.offset(EnumFacing.VALUES[direction], n));
      }
 
      public BlockPos getMCBlockPos() {

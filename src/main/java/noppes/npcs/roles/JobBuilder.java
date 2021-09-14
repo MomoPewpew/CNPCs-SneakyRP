@@ -101,7 +101,7 @@ public class JobBuilder extends JobInterface implements IJobBuilder {
      }
 
      public void aiUpdateTask() {
-          if ((!this.build.finished || this.placingList != null) && this.build.enabled && !this.build.func_145837_r()) {
+          if ((!this.build.finished || this.placingList != null) && this.build.enabled && !this.build.isInvalid()) {
                if (this.ticks++ >= 10) {
                     this.ticks = 0;
                     if ((this.placingList == null || this.placingList.isEmpty()) && this.placing == null) {
@@ -110,7 +110,7 @@ public class JobBuilder extends JobInterface implements IJobBuilder {
                     } else {
                          if (this.placing == null) {
                               this.placing = (BlockData)this.placingList.pop();
-                              if (this.placing.state.getBlock() == Blocks.field_189881_dj) {
+                              if (this.placing.state.getBlock() == Blocks.STRUCTURE_VOID) {
                                    this.placing = null;
                                    return;
                               }
@@ -138,7 +138,7 @@ public class JobBuilder extends JobInterface implements IJobBuilder {
      }
 
      private String blockToString(BlockData data) {
-          return data.state.getBlock() == Blocks.field_150350_a ? Items.field_151035_b.getRegistryName().toString() : this.itemToString(data.getStack());
+          return data.state.getBlock() == Blocks.AIR ? Items.IRON_PICKAXE.getRegistryName().toString() : this.itemToString(data.getStack());
      }
 
      public void resetTask() {

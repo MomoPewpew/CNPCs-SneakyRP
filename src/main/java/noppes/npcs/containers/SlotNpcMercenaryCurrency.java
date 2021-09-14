@@ -15,11 +15,11 @@ class SlotNpcMercenaryCurrency extends Slot {
           this.role = role;
      }
 
-     public int func_75219_a() {
+     public int getSlotStackLimit() {
           return 64;
      }
 
-     public boolean func_75214_a(ItemStack itemstack) {
+     public boolean isItemValid(ItemStack itemstack) {
           Item item = itemstack.getItem();
           Iterator var3 = this.role.inventory.items.iterator();
 

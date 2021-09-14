@@ -30,11 +30,11 @@ public class CustomGuiLabel extends GuiLabel implements IGuiComponent {
           this.colour = colour;
           FontRenderer fontRenderer = Minecraft.getMinecraft().fontRenderer;
           fontRenderer.getStringWidth(label);
-          Iterator var10 = fontRenderer.func_78271_c(label, width).iterator();
+          Iterator var10 = fontRenderer.listFormattedStringToWidth(label, width).iterator();
 
           while(var10.hasNext()) {
                String s = (String)var10.next();
-               this.func_175202_a(s);
+               this.addLine(s);
           }
 
      }
@@ -44,19 +44,19 @@ public class CustomGuiLabel extends GuiLabel implements IGuiComponent {
      }
 
      public void onRender(Minecraft mc, int mouseX, int mouseY, int mouseWheel, float partialTicks) {
-          GlStateManager.func_179094_E();
-          GlStateManager.translate(0.0F, 0.0F, (float)this.field_175204_i);
-          boolean hovered = mouseX >= this.field_146162_g && mouseY >= this.field_146174_h && mouseX < this.field_146162_g + this.field_146167_a && mouseY < this.field_146174_h + this.field_146161_f;
-          this.func_146159_a(mc, mouseX, mouseY);
+          GlStateManager.pushMatrix();
+          GlStateManager.translate(0.0F, 0.0F, (float)this.id);
+          boolean hovered = mouseX >= this.x && mouseY >= this.y && mouseX < this.x + this.width && mouseY < this.y + this.height;
+          this.drawLabel(mc, mouseX, mouseY);
           if (hovered && this.hoverText != null && this.hoverText.length > 0) {
                this.parent.hoverText = this.hoverText;
           }
 
-          GlStateManager.func_179121_F();
+          GlStateManager.popMatrix();
      }
 
      public int getID() {
-          return this.field_175204_i;
+          return this.id;
      }
 
      public void setScale(float scale) {
@@ -74,7 +74,7 @@ public class CustomGuiLabel extends GuiLabel implements IGuiComponent {
      }
 
      public ICustomGuiComponent toComponent() {
-          CustomGuiLabelWrapper component = new CustomGuiLabelWrapper(this.field_175204_i, this.fullLabel, this.field_146162_g, this.field_146174_h, this.field_146167_a, this.field_146161_f, this.colour);
+          CustomGuiLabelWrapper component = new CustomGuiLabelWrapper(this.id, this.fullLabel, this.x, this.y, this.width, this.height, this.colour);
           component.setHoverText(this.hoverText);
           return component;
      }

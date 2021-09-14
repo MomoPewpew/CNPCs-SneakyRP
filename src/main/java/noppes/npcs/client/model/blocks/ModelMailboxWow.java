@@ -11,27 +11,27 @@ public class ModelMailboxWow extends ModelBase {
      ModelRenderer Shape3;
 
      public ModelMailboxWow() {
-          this.field_78090_t = 128;
-          this.field_78089_u = 64;
+          this.textureWidth = 128;
+          this.textureHeight = 64;
           this.Shape4 = new ModelRenderer(this, 59, 0);
-          this.Shape4.func_78789_a(0.0F, 0.0F, 0.0F, 8, 6, 0);
-          this.Shape4.func_78793_a(-4.0F, -4.0F, 0.0F);
+          this.Shape4.addBox(0.0F, 0.0F, 0.0F, 8, 6, 0);
+          this.Shape4.setRotationPoint(-4.0F, -4.0F, 0.0F);
           this.Shape1 = new ModelRenderer(this, 0, 39);
-          this.Shape1.func_78789_a(0.0F, 0.0F, 0.0F, 8, 5, 8);
-          this.Shape1.func_78793_a(-4.0F, 19.0F, -4.0F);
+          this.Shape1.addBox(0.0F, 0.0F, 0.0F, 8, 5, 8);
+          this.Shape1.setRotationPoint(-4.0F, 19.0F, -4.0F);
           this.Shape2 = new ModelRenderer(this, 0, 21);
-          this.Shape2.func_78789_a(0.0F, 0.0F, 0.0F, 6, 9, 6);
-          this.Shape2.func_78793_a(-3.0F, 10.0F, -3.0F);
+          this.Shape2.addBox(0.0F, 0.0F, 0.0F, 6, 9, 6);
+          this.Shape2.setRotationPoint(-3.0F, 10.0F, -3.0F);
           this.Shape3 = new ModelRenderer(this, 0, 0);
-          this.Shape3.func_78789_a(0.0F, 0.0F, 0.0F, 12, 8, 12);
-          this.Shape3.func_78793_a(-6.0F, 2.0F, -6.0F);
+          this.Shape3.addBox(0.0F, 0.0F, 0.0F, 12, 8, 12);
+          this.Shape3.setRotationPoint(-6.0F, 2.0F, -6.0F);
      }
 
-     public void func_78088_a(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
-          super.func_78088_a(entity, f, f1, f2, f3, f4, f5);
-          this.Shape4.func_78785_a(f5);
-          this.Shape1.func_78785_a(f5);
-          this.Shape2.func_78785_a(f5);
-          this.Shape3.func_78785_a(f5);
+     public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
+          super.render(entity, f, f1, f2, f3, f4, f5);
+          this.Shape4.render(f5);
+          this.Shape1.render(f5);
+          this.Shape2.render(f5);
+          this.Shape3.render(f5);
      }
 }

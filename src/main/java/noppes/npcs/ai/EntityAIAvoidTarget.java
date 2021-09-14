@@ -41,7 +41,7 @@ public class EntityAIAvoidTarget extends EntityAIBase {
                          return false;
                     }
                } else {
-                    List var1 = this.npc.world.getEntitiesWithinAABB(this.targetEntityClass, this.npc.getEntityBoundingBox().expand((double)this.distanceFromEntity, 3.0D, (double)this.distanceFromEntity));
+                    List var1 = this.npc.world.getEntitiesWithinAABB(this.targetEntityClass, this.npc.getEntityBoundingBox().grow((double)this.distanceFromEntity, 3.0D, (double)this.distanceFromEntity));
                     if (var1.isEmpty()) {
                          return false;
                     }
@@ -52,7 +52,7 @@ public class EntityAIAvoidTarget extends EntityAIBase {
                if (!this.npc.getEntitySenses().canSee(this.closestLivingEntity) && this.npc.ais.directLOS) {
                     return false;
                } else {
-                    Vec3d var2 = RandomPositionGenerator.findRandomTargetBlockAwayFrom(this.npc, 16, 7, new Vec3d(this.closestLivingEntity.field_70165_t, this.closestLivingEntity.field_70163_u, this.closestLivingEntity.field_70161_v));
+                    Vec3d var2 = RandomPositionGenerator.findRandomTargetBlockAwayFrom(this.npc, 16, 7, new Vec3d(this.closestLivingEntity.posX, this.closestLivingEntity.posY, this.closestLivingEntity.posZ));
                     boolean var3 = this.npc.inventory.getProjectile() == null;
                     boolean var4 = var3 ? this.health == this.npc.getHealth() : this.npc.getRangedTask() != null && !this.npc.getRangedTask().hasFired();
                     if (var2 == null) {

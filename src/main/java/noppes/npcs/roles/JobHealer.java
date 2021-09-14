@@ -47,7 +47,7 @@ public class JobHealer extends JobInterface {
                return false;
           } else {
                this.healTicks = 0;
-               this.affected = this.npc.world.getEntitiesWithinAABB(EntityLivingBase.class, this.npc.getEntityBoundingBox().expand((double)this.range, (double)this.range / 2.0D, (double)this.range));
+               this.affected = this.npc.world.getEntitiesWithinAABB(EntityLivingBase.class, this.npc.getEntityBoundingBox().grow((double)this.range, (double)this.range / 2.0D, (double)this.range));
                return !this.affected.isEmpty();
           }
      }

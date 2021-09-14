@@ -25,22 +25,22 @@ public class GuiNPCTrader extends GuiContainerNPCInterface {
           this.container = container;
           this.role = (RoleTrader)npc.roleInterface;
           this.closeOnEsc = true;
-          this.field_147000_g = 224;
-          this.field_146999_f = 223;
+          this.ySize = 224;
+          this.xSize = 223;
           this.title = "role.trader";
      }
 
-     protected void func_146976_a(float f, int i, int j) {
-          this.func_146270_b(0);
+     protected void drawGuiContainerBackgroundLayer(float f, int i, int j) {
+          this.drawWorldBackground(0);
           GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-          this.field_146297_k.renderEngine.bindTexture(this.resource);
-          this.drawTexturedModalRect(this.field_147003_i, this.field_147009_r, 0, 0, this.field_146999_f, this.field_147000_g);
+          this.mc.renderEngine.bindTexture(this.resource);
+          this.drawTexturedModalRect(this.guiLeft, this.guiTop, 0, 0, this.xSize, this.ySize);
           GlStateManager.enableRescaleNormal();
-          this.field_146297_k.renderEngine.bindTexture(this.slot);
+          this.mc.renderEngine.bindTexture(this.slot);
 
           for(int slot = 0; slot < 18; ++slot) {
-               int x = this.field_147003_i + slot % 3 * 72 + 10;
-               int y = this.field_147009_r + slot / 3 * 21 + 6;
+               int x = this.guiLeft + slot % 3 * 72 + 10;
+               int y = this.guiTop + slot / 3 * 21 + 6;
                ItemStack item = (ItemStack)this.role.inventoryCurrency.items.get(slot);
                ItemStack item2 = (ItemStack)this.role.inventoryCurrency.items.get(slot + 18);
                if (NoppesUtilServer.IsItemStackNull(item)) {
@@ -56,27 +56,27 @@ public class GuiNPCTrader extends GuiContainerNPCInterface {
 
                ItemStack sold = (ItemStack)this.role.inventorySold.items.get(slot);
                GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-               this.field_146297_k.renderEngine.bindTexture(this.slot);
+               this.mc.renderEngine.bindTexture(this.slot);
                this.drawTexturedModalRect(x + 42, y, 0, 0, 18, 18);
                if (!NoppesUtilServer.IsItemStackNull(item) && !NoppesUtilServer.IsItemStackNull(sold)) {
                     RenderHelper.enableGUIStandardItemLighting();
                     if (!NoppesUtilServer.IsItemStackNull(item2)) {
-                         this.field_146296_j.renderItemAndEffectIntoGUI(item2, x, y + 1);
-                         this.field_146296_j.func_175030_a(this.field_146289_q, item2, x, y + 1);
+                         this.itemRender.renderItemAndEffectIntoGUI(item2, x, y + 1);
+                         this.itemRender.renderItemOverlays(this.fontRenderer, item2, x, y + 1);
                     }
 
-                    this.field_146296_j.renderItemAndEffectIntoGUI(item, x + 18, y + 1);
-                    this.field_146296_j.func_175030_a(this.field_146289_q, item, x + 18, y + 1);
+                    this.itemRender.renderItemAndEffectIntoGUI(item, x + 18, y + 1);
+                    this.itemRender.renderItemOverlays(this.fontRenderer, item, x + 18, y + 1);
                     RenderHelper.disableStandardItemLighting();
-                    this.field_146289_q.func_78276_b("=", x + 36, y + 5, CustomNpcResourceListener.DefaultTextColor);
+                    this.fontRenderer.drawString("=", x + 36, y + 5, CustomNpcResourceListener.DefaultTextColor);
                }
           }
 
           GlStateManager.disableRescaleNormal();
-          super.func_146976_a(f, i, j);
+          super.drawGuiContainerBackgroundLayer(f, i, j);
      }
 
-     protected void func_146979_b(int par1, int par2) {
+     protected void drawGuiContainerForegroundLayer(int par1, int par2) {
           for(int slot = 0; slot < 18; ++slot) {
                int x = slot % 3 * 72 + 10;
                int y = slot / 3 * 21 + 6;
@@ -95,7 +95,7 @@ public class GuiNPCTrader extends GuiContainerNPCInterface {
 
                ItemStack sold = (ItemStack)this.role.inventorySold.items.get(slot);
                if (!NoppesUtilServer.IsItemStackNull(sold)) {
-                    if (this.func_146978_c(x + 43, y + 1, 16, 16, par1, par2)) {
+                    if (this.isPointInRegion(x + 43, y + 1, 16, 16, par1, par2)) {
                          String title;
                          if (!this.container.canBuy(item, item2, this.player)) {
                               GlStateManager.translate(0.0F, 0.0F, 300.0F);
@@ -108,20 +108,20 @@ public class GuiNPCTrader extends GuiContainerNPCInterface {
                               }
 
                               title = I18n.translateToLocal("trader.insufficient");
-                              this.field_146289_q.func_78276_b(title, (this.field_146999_f - this.field_146289_q.getStringWidth(title)) / 2, 131, 14483456);
+                              this.fontRenderer.drawString(title, (this.xSize - this.fontRenderer.getStringWidth(title)) / 2, 131, 14483456);
                               GlStateManager.translate(0.0F, 0.0F, -300.0F);
                          } else {
                               title = I18n.translateToLocal("trader.sufficient");
-                              this.field_146289_q.func_78276_b(title, (this.field_146999_f - this.field_146289_q.getStringWidth(title)) / 2, 131, 56576);
+                              this.fontRenderer.drawString(title, (this.xSize - this.fontRenderer.getStringWidth(title)) / 2, 131, 56576);
                          }
                     }
 
-                    if (this.func_146978_c(x, y, 16, 16, par1, par2) && !NoppesUtilServer.IsItemStackNull(item2)) {
-                         this.func_146285_a(item2, par1 - this.field_147003_i, par2 - this.field_147009_r);
+                    if (this.isPointInRegion(x, y, 16, 16, par1, par2) && !NoppesUtilServer.IsItemStackNull(item2)) {
+                         this.renderToolTip(item2, par1 - this.guiLeft, par2 - this.guiTop);
                     }
 
-                    if (this.func_146978_c(x + 18, y, 16, 16, par1, par2)) {
-                         this.func_146285_a(item, par1 - this.field_147003_i, par2 - this.field_147009_r);
+                    if (this.isPointInRegion(x + 18, y, 16, 16, par1, par2)) {
+                         this.renderToolTip(item, par1 - this.guiLeft, par2 - this.guiTop);
                     }
                }
           }

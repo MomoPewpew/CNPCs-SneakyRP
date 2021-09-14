@@ -222,12 +222,12 @@ public class JobItemGiver extends JobInterface {
      }
 
      private boolean playerHasItem(EntityPlayer player, Item item) {
-          Iterator var3 = player.inventory.field_70462_a.iterator();
+          Iterator var3 = player.inventory.mainInventory.iterator();
 
           ItemStack is;
           do {
                if (!var3.hasNext()) {
-                    var3 = player.inventory.field_70460_b.iterator();
+                    var3 = player.inventory.armorInventory.iterator();
 
                     do {
                          if (!var3.hasNext()) {
@@ -248,7 +248,7 @@ public class JobItemGiver extends JobInterface {
 
      private int freeInventorySlots(EntityPlayer player) {
           int i = 0;
-          Iterator var3 = player.inventory.field_70462_a.iterator();
+          Iterator var3 = player.inventory.mainInventory.iterator();
 
           while(var3.hasNext()) {
                ItemStack is = (ItemStack)var3.next();
@@ -301,9 +301,9 @@ public class JobItemGiver extends JobInterface {
                     return false;
                } else {
                     this.ticks = 10;
-                    this.toCheck = this.npc.world.getEntitiesWithinAABB(EntityPlayer.class, this.npc.getEntityBoundingBox().expand(3.0D, 3.0D, 3.0D));
+                    this.toCheck = this.npc.world.getEntitiesWithinAABB(EntityPlayer.class, this.npc.getEntityBoundingBox().grow(3.0D, 3.0D, 3.0D));
                     this.toCheck.removeAll(this.recentlyChecked);
-                    List listMax = this.npc.world.getEntitiesWithinAABB(EntityPlayer.class, this.npc.getEntityBoundingBox().expand(10.0D, 10.0D, 10.0D));
+                    List listMax = this.npc.world.getEntitiesWithinAABB(EntityPlayer.class, this.npc.getEntityBoundingBox().grow(10.0D, 10.0D, 10.0D));
                     this.recentlyChecked.retainAll(listMax);
                     this.recentlyChecked.addAll(this.toCheck);
                     return this.toCheck.size() > 0;

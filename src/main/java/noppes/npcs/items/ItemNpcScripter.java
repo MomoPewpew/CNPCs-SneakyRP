@@ -16,17 +16,17 @@ import noppes.npcs.util.IPermission;
 
 public class ItemNpcScripter extends Item implements IPermission {
      public ItemNpcScripter() {
-          this.field_77777_bU = 1;
+          this.maxStackSize = 1;
           this.setCreativeTab(CustomItems.tab);
      }
 
-     public Item setUnlocalizedName(String name) {
+     public Item setTranslationKey(String name) {
           this.setRegistryName(new ResourceLocation("customnpcs", name));
-          return super.setUnlocalizedName(name);
+          return super.setTranslationKey(name);
      }
 
-     public ActionResult func_77659_a(World world, EntityPlayer player, EnumHand hand) {
-          ItemStack itemstack = player.func_184586_b(hand);
+     public ActionResult onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
+          ItemStack itemstack = player.getHeldItem(hand);
           if (world.isRemote && hand == EnumHand.MAIN_HAND) {
                CustomNpcs.proxy.openGui(0, 0, 0, EnumGuiType.ScriptPlayers, player);
                return new ActionResult(EnumActionResult.SUCCESS, itemstack);

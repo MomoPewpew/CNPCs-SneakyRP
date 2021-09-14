@@ -19,23 +19,23 @@ public class CustomGuiTextField extends GuiTextField implements IDataHolder, ICl
           int var10003 = GuiCustom.guiLeft + x;
           int var10004 = GuiCustom.guiTop + y;
           super(id, Minecraft.getMinecraft().fontRenderer, var10003, var10004, width, height);
-          this.func_146203_f(500);
+          this.setMaxStringLength(500);
      }
 
      public void keyTyped(char typedChar, int keyCode) {
-          this.func_146201_a(typedChar, keyCode);
+          this.textboxKeyTyped(typedChar, keyCode);
      }
 
      public void onRender(Minecraft mc, int mouseX, int mouseY, int mouseWheel, float partialTicks) {
-          GlStateManager.func_179094_E();
-          GlStateManager.translate(0.0F, 0.0F, (float)this.field_175208_g);
-          boolean hovered = mouseX >= this.field_146209_f && mouseY >= this.field_146210_g && mouseX < this.field_146209_f + this.field_146218_h && mouseY < this.field_146210_g + this.field_146219_i;
-          this.func_146194_f();
+          GlStateManager.pushMatrix();
+          GlStateManager.translate(0.0F, 0.0F, (float)this.id);
+          boolean hovered = mouseX >= this.x && mouseY >= this.y && mouseX < this.x + this.width && mouseY < this.y + this.height;
+          this.drawTextBox();
           if (hovered && this.hoverText != null && this.hoverText.length > 0) {
                this.parent.hoverText = this.hoverText;
           }
 
-          GlStateManager.func_179121_F();
+          GlStateManager.popMatrix();
      }
 
      public void setParent(GuiCustom parent) {
@@ -43,19 +43,19 @@ public class CustomGuiTextField extends GuiTextField implements IDataHolder, ICl
      }
 
      public int getID() {
-          return this.field_175208_g;
+          return this.id;
      }
 
      public NBTTagCompound toNBT() {
           NBTTagCompound tag = new NBTTagCompound();
-          tag.setInteger("id", this.field_175208_g);
-          tag.setString("text", this.field_146216_j);
+          tag.setInteger("id", this.id);
+          tag.setString("text", this.text);
           return tag;
      }
 
      public ICustomGuiComponent toComponent() {
-          CustomGuiTextFieldWrapper component = new CustomGuiTextFieldWrapper(this.field_175208_g, this.field_146209_f - GuiCustom.guiLeft, this.field_146210_g - GuiCustom.guiTop, this.field_146218_h, this.field_146219_i);
-          component.setText(this.func_146179_b());
+          CustomGuiTextFieldWrapper component = new CustomGuiTextFieldWrapper(this.id, this.x - GuiCustom.guiLeft, this.y - GuiCustom.guiTop, this.width, this.height);
+          component.setText(this.getText());
           component.setHoverText(this.hoverText);
           return component;
      }
@@ -67,13 +67,13 @@ public class CustomGuiTextField extends GuiTextField implements IDataHolder, ICl
           }
 
           if (component.getText() != null && !component.getText().isEmpty()) {
-               txt.field_146216_j = component.getText();
+               txt.text = component.getText();
           }
 
           return txt;
      }
 
      public boolean mouseClicked(GuiCustom gui, int mouseX, int mouseY, int mouseButton) {
-          return this.func_146192_a(mouseX, mouseY, mouseButton);
+          return this.mouseClicked(mouseX, mouseY, mouseButton);
      }
 }

@@ -27,60 +27,60 @@ public class SubGuiNpcRangeProperties extends SubGuiInterface implements ITextfi
           this.closeOnEsc = true;
      }
 
-     public void func_73866_w_() {
-          super.func_73866_w_();
+     public void initGui() {
+          super.initGui();
           int y = this.guiTop + 4;
-          this.addTextField(new GuiNpcTextField(1, this, this.field_146289_q, this.guiLeft + 80, y, 50, 18, this.ranged.getAccuracy() + ""));
+          this.addTextField(new GuiNpcTextField(1, this, this.fontRenderer, this.guiLeft + 80, y, 50, 18, this.ranged.getAccuracy() + ""));
           this.addLabel(new GuiNpcLabel(1, "stats.accuracy", this.guiLeft + 5, y + 5));
           this.getTextField(1).numbersOnly = true;
           this.getTextField(1).setMinMaxDefault(0, 100, 90);
-          this.addTextField(new GuiNpcTextField(8, this, this.field_146289_q, this.guiLeft + 200, y, 50, 18, this.ranged.getShotCount() + ""));
+          this.addTextField(new GuiNpcTextField(8, this, this.fontRenderer, this.guiLeft + 200, y, 50, 18, this.ranged.getShotCount() + ""));
           this.addLabel(new GuiNpcLabel(8, "stats.shotcount", this.guiLeft + 135, y + 5));
           this.getTextField(8).numbersOnly = true;
           this.getTextField(8).setMinMaxDefault(1, 10, 1);
           int var10006 = this.guiLeft + 80;
           y += 22;
-          this.addTextField(new GuiNpcTextField(2, this, this.field_146289_q, var10006, y, 50, 18, this.ranged.getRange() + ""));
+          this.addTextField(new GuiNpcTextField(2, this, this.fontRenderer, var10006, y, 50, 18, this.ranged.getRange() + ""));
           this.addLabel(new GuiNpcLabel(2, "gui.range", this.guiLeft + 5, y + 5));
           this.getTextField(2).numbersOnly = true;
           this.getTextField(2).setMinMaxDefault(1, 64, 2);
-          this.addTextField(new GuiNpcTextField(9, this, this.field_146289_q, this.guiLeft + 200, y, 30, 20, this.ranged.getMeleeRange() + ""));
+          this.addTextField(new GuiNpcTextField(9, this, this.fontRenderer, this.guiLeft + 200, y, 30, 20, this.ranged.getMeleeRange() + ""));
           this.addLabel(new GuiNpcLabel(16, "stats.meleerange", this.guiLeft + 135, y + 5));
           this.getTextField(9).numbersOnly = true;
           this.getTextField(9).setMinMaxDefault(0, this.stats.aggroRange, 5);
           var10006 = this.guiLeft + 80;
           y += 22;
-          this.addTextField(new GuiNpcTextField(3, this, this.field_146289_q, var10006, y, 50, 18, this.ranged.getDelayMin() + ""));
+          this.addTextField(new GuiNpcTextField(3, this, this.fontRenderer, var10006, y, 50, 18, this.ranged.getDelayMin() + ""));
           this.addLabel(new GuiNpcLabel(3, "stats.mindelay", this.guiLeft + 5, y + 5));
           this.getTextField(3).numbersOnly = true;
           this.getTextField(3).setMinMaxDefault(1, 9999, 20);
-          this.addTextField(new GuiNpcTextField(4, this, this.field_146289_q, this.guiLeft + 200, y, 50, 18, this.ranged.getDelayMax() + ""));
+          this.addTextField(new GuiNpcTextField(4, this, this.fontRenderer, this.guiLeft + 200, y, 50, 18, this.ranged.getDelayMax() + ""));
           this.addLabel(new GuiNpcLabel(4, "stats.maxdelay", this.guiLeft + 135, y + 5));
           this.getTextField(4).numbersOnly = true;
           this.getTextField(4).setMinMaxDefault(1, 9999, 20);
           var10006 = this.guiLeft + 80;
           y += 22;
-          this.addTextField(new GuiNpcTextField(6, this, this.field_146289_q, var10006, y, 50, 18, this.ranged.getBurst() + ""));
+          this.addTextField(new GuiNpcTextField(6, this, this.fontRenderer, var10006, y, 50, 18, this.ranged.getBurst() + ""));
           this.addLabel(new GuiNpcLabel(6, "stats.burstcount", this.guiLeft + 5, y + 5));
           this.getTextField(6).numbersOnly = true;
           this.getTextField(6).setMinMaxDefault(1, 100, 20);
-          this.addTextField(new GuiNpcTextField(5, this, this.field_146289_q, this.guiLeft + 200, y, 50, 18, this.ranged.getBurstDelay() + ""));
+          this.addTextField(new GuiNpcTextField(5, this, this.fontRenderer, this.guiLeft + 200, y, 50, 18, this.ranged.getBurstDelay() + ""));
           this.addLabel(new GuiNpcLabel(5, "stats.burstspeed", this.guiLeft + 135, y + 5));
           this.getTextField(5).numbersOnly = true;
           this.getTextField(5).setMinMaxDefault(0, 30, 0);
           var10006 = this.guiLeft + 80;
           y += 22;
-          this.addTextField(new GuiNpcTextField(7, this, this.field_146289_q, var10006, y, 100, 20, this.ranged.getSound(0)));
+          this.addTextField(new GuiNpcTextField(7, this, this.fontRenderer, var10006, y, 100, 20, this.ranged.getSound(0)));
           this.addLabel(new GuiNpcLabel(7, "stats.firesound", this.guiLeft + 5, y + 5));
           this.addButton(new GuiNpcButton(7, this.guiLeft + 187, y, 60, 20, "mco.template.button.select"));
           var10006 = this.guiLeft + 80;
           y += 22;
-          this.addTextField(new GuiNpcTextField(11, this, this.field_146289_q, var10006, y, 100, 20, this.ranged.getSound(1)));
+          this.addTextField(new GuiNpcTextField(11, this, this.fontRenderer, var10006, y, 100, 20, this.ranged.getSound(1)));
           this.addLabel(new GuiNpcLabel(11, "stats.hitsound", this.guiLeft + 5, y + 5));
           this.addButton(new GuiNpcButton(11, this.guiLeft + 187, y, 60, 20, "mco.template.button.select"));
           var10006 = this.guiLeft + 80;
           y += 22;
-          this.addTextField(new GuiNpcTextField(10, this, this.field_146289_q, var10006, y, 100, 20, this.ranged.getSound(2)));
+          this.addTextField(new GuiNpcTextField(10, this, this.fontRenderer, var10006, y, 100, 20, this.ranged.getSound(2)));
           this.addLabel(new GuiNpcLabel(10, "stats.groundsound", this.guiLeft + 5, y + 5));
           this.addButton(new GuiNpcButton(10, this.guiLeft + 187, y, 60, 20, "mco.template.button.select"));
           int var10004 = this.guiLeft + 100;
@@ -95,49 +95,49 @@ public class SubGuiNpcRangeProperties extends SubGuiInterface implements ITextfi
      }
 
      public void unFocused(GuiNpcTextField textfield) {
-          if (textfield.field_175208_g == 1) {
+          if (textfield.id == 1) {
                this.ranged.setAccuracy(textfield.getInteger());
-          } else if (textfield.field_175208_g == 2) {
+          } else if (textfield.id == 2) {
                this.ranged.setRange(textfield.getInteger());
-          } else if (textfield.field_175208_g == 3) {
+          } else if (textfield.id == 3) {
                this.ranged.setDelay(textfield.getInteger(), this.ranged.getDelayMax());
-               this.func_73866_w_();
-          } else if (textfield.field_175208_g == 4) {
+               this.initGui();
+          } else if (textfield.id == 4) {
                this.ranged.setDelay(this.ranged.getDelayMin(), textfield.getInteger());
-               this.func_73866_w_();
-          } else if (textfield.field_175208_g == 5) {
+               this.initGui();
+          } else if (textfield.id == 5) {
                this.ranged.setBurstDelay(textfield.getInteger());
-          } else if (textfield.field_175208_g == 6) {
+          } else if (textfield.id == 6) {
                this.ranged.setBurst(textfield.getInteger());
-          } else if (textfield.field_175208_g == 7) {
-               this.ranged.setSound(0, textfield.func_146179_b());
-          } else if (textfield.field_175208_g == 8) {
+          } else if (textfield.id == 7) {
+               this.ranged.setSound(0, textfield.getText());
+          } else if (textfield.id == 8) {
                this.ranged.setShotCount(textfield.getInteger());
-          } else if (textfield.field_175208_g == 9) {
+          } else if (textfield.id == 9) {
                this.ranged.setMeleeRange(textfield.getInteger());
-          } else if (textfield.field_175208_g == 10) {
-               this.ranged.setSound(2, textfield.func_146179_b());
-          } else if (textfield.field_175208_g == 11) {
-               this.ranged.setSound(1, textfield.func_146179_b());
+          } else if (textfield.id == 10) {
+               this.ranged.setSound(2, textfield.getText());
+          } else if (textfield.id == 11) {
+               this.ranged.setSound(1, textfield.getText());
           }
 
      }
 
-     protected void func_146284_a(GuiButton guibutton) {
+     protected void actionPerformed(GuiButton guibutton) {
           int id = guibutton.id;
           if (id == 7) {
                this.soundSelected = this.getTextField(7);
-               this.setSubGui(new GuiSoundSelection(this.soundSelected.func_146179_b()));
+               this.setSubGui(new GuiSoundSelection(this.soundSelected.getText()));
           }
 
           if (id == 11) {
                this.soundSelected = this.getTextField(11);
-               this.setSubGui(new GuiSoundSelection(this.soundSelected.func_146179_b()));
+               this.setSubGui(new GuiSoundSelection(this.soundSelected.getText()));
           }
 
           if (id == 10) {
                this.soundSelected = this.getTextField(10);
-               this.setSubGui(new GuiSoundSelection(this.soundSelected.func_146179_b()));
+               this.setSubGui(new GuiSoundSelection(this.soundSelected.getText()));
           } else if (id == 66) {
                this.close();
           } else if (id == 9) {
@@ -151,7 +151,7 @@ public class SubGuiNpcRangeProperties extends SubGuiInterface implements ITextfi
      public void subGuiClosed(SubGuiInterface subgui) {
           GuiSoundSelection gss = (GuiSoundSelection)subgui;
           if (gss.selectedResource != null) {
-               this.soundSelected.func_146180_a(gss.selectedResource.toString());
+               this.soundSelected.setText(gss.selectedResource.toString());
                this.unFocused(this.soundSelected);
           }
 

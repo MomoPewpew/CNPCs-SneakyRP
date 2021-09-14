@@ -29,8 +29,8 @@ public class BlockBorder extends BlockInterface implements IPermission {
      public static final PropertyInteger ROTATION = PropertyInteger.create("rotation", 0, 3);
 
      public BlockBorder() {
-          super(Material.field_151576_e);
-          this.setSoundType(SoundType.field_185851_d);
+          super(Material.ROCK);
+          this.setSoundType(SoundType.STONE);
           this.setBlockUnbreakable();
      }
 
@@ -45,7 +45,7 @@ public class BlockBorder extends BlockInterface implements IPermission {
      }
 
      public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase entity, ItemStack stack) {
-          int l = MathHelper.floor((double)(entity.field_70177_z * 4.0F / 360.0F) + 0.5D) & 3;
+          int l = MathHelper.floor((double)(entity.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3;
           l %= 4;
           world.setBlockState(pos, state.withProperty(ROTATION, l));
           TileBorder tile = (TileBorder)world.getTileEntity(pos);

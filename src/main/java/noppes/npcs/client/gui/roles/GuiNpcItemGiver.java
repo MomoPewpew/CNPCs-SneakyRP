@@ -21,39 +21,39 @@ public class GuiNpcItemGiver extends GuiContainerNPCInterface2 {
 
      public GuiNpcItemGiver(EntityNPCInterface npc, ContainerNpcItemGiver container) {
           super(npc, container);
-          this.field_147000_g = 200;
+          this.ySize = 200;
           this.role = (JobItemGiver)npc.jobInterface;
           this.setBackground("npcitemgiver.png");
      }
 
-     public void func_73866_w_() {
-          super.func_73866_w_();
-          this.addButton(new GuiNpcButton(0, this.field_147003_i + 6, this.field_147009_r + 6, 140, 20, new String[]{"Random Item", "All Items", "Give Not Owned Items", "Give When Doesnt Own Any", "Chained"}, this.role.givingMethod));
-          this.addButton(new GuiNpcButton(1, this.field_147003_i + 6, this.field_147009_r + 29, 140, 20, new String[]{"Timer", "Give Only Once", "Daily"}, this.role.cooldownType));
-          this.addTextField(new GuiNpcTextField(0, this, this.field_146289_q, this.field_147003_i + 55, this.field_147009_r + 54, 90, 20, this.role.cooldown + ""));
+     public void initGui() {
+          super.initGui();
+          this.addButton(new GuiNpcButton(0, this.guiLeft + 6, this.guiTop + 6, 140, 20, new String[]{"Random Item", "All Items", "Give Not Owned Items", "Give When Doesnt Own Any", "Chained"}, this.role.givingMethod));
+          this.addButton(new GuiNpcButton(1, this.guiLeft + 6, this.guiTop + 29, 140, 20, new String[]{"Timer", "Give Only Once", "Daily"}, this.role.cooldownType));
+          this.addTextField(new GuiNpcTextField(0, this, this.fontRenderer, this.guiLeft + 55, this.guiTop + 54, 90, 20, this.role.cooldown + ""));
           this.getTextField(0).numbersOnly = true;
-          this.addLabel(new GuiNpcLabel(0, "Cooldown:", this.field_147003_i + 6, this.field_147009_r + 59));
-          this.addLabel(new GuiNpcLabel(1, "Items to give", this.field_147003_i + 46, this.field_147009_r + 79));
+          this.addLabel(new GuiNpcLabel(0, "Cooldown:", this.guiLeft + 6, this.guiTop + 59));
+          this.addLabel(new GuiNpcLabel(1, "Items to give", this.guiLeft + 46, this.guiTop + 79));
           this.getTextField(0).numbersOnly = true;
           int i = 0;
 
           for(Iterator var2 = this.role.lines.iterator(); var2.hasNext(); ++i) {
                String line = (String)var2.next();
-               this.addTextField(new GuiNpcTextField(i + 1, this, this.field_146289_q, this.field_147003_i + 150, this.field_147009_r + 6 + i * 24, 236, 20, line));
+               this.addTextField(new GuiNpcTextField(i + 1, this, this.fontRenderer, this.guiLeft + 150, this.guiTop + 6 + i * 24, 236, 20, line));
           }
 
           while(i < 3) {
-               this.addTextField(new GuiNpcTextField(i + 1, this, this.field_146289_q, this.field_147003_i + 150, this.field_147009_r + 6 + i * 24, 236, 20, ""));
+               this.addTextField(new GuiNpcTextField(i + 1, this, this.fontRenderer, this.guiLeft + 150, this.guiTop + 6 + i * 24, 236, 20, ""));
                ++i;
           }
 
           this.getTextField(0).enabled = this.role.isOnTimer();
           this.getLabel(0).enabled = this.role.isOnTimer();
-          this.addLabel(new GuiNpcLabel(4, "availability.options", this.field_147003_i + 180, this.field_147009_r + 101));
-          this.addButton(new GuiNpcButton(4, this.field_147003_i + 280, this.field_147009_r + 96, 50, 20, "selectServer.edit"));
+          this.addLabel(new GuiNpcLabel(4, "availability.options", this.guiLeft + 180, this.guiTop + 101));
+          this.addButton(new GuiNpcButton(4, this.guiLeft + 280, this.guiTop + 96, 50, 20, "selectServer.edit"));
      }
 
-     public void func_146284_a(GuiButton guibutton) {
+     public void actionPerformed(GuiButton guibutton) {
           GuiNpcButton button = (GuiNpcButton)guibutton;
           if (button.id == 0) {
                this.role.givingMethod = button.getValue();
@@ -78,7 +78,7 @@ public class GuiNpcItemGiver extends GuiContainerNPCInterface2 {
           for(cc = 1; cc < 4; ++cc) {
                GuiNpcTextField tf = this.getTextField(cc);
                if (!tf.isEmpty()) {
-                    lines.add(tf.func_146179_b());
+                    lines.add(tf.getText());
                }
           }
 

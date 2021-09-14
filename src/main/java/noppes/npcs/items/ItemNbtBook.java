@@ -17,12 +17,12 @@ import noppes.npcs.util.IPermission;
 
 public class ItemNbtBook extends Item implements IPermission {
      public ItemNbtBook() {
-          this.field_77777_bU = 1;
+          this.maxStackSize = 1;
           this.setCreativeTab(CustomItems.tab);
      }
 
-     public Item setUnlocalizedName(String name) {
-          super.setUnlocalizedName(name);
+     public Item setTranslationKey(String name) {
+          super.setTranslationKey(name);
           this.setRegistryName(new ResourceLocation("customnpcs", name));
           return this;
      }

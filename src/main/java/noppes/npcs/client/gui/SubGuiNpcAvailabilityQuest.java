@@ -24,8 +24,8 @@ public class SubGuiNpcAvailabilityQuest extends SubGuiInterface implements GuiSe
           this.closeOnEsc = true;
      }
 
-     public void func_73866_w_() {
-          super.func_73866_w_();
+     public void initGui() {
+          super.initGui();
           this.addLabel(new GuiNpcLabel(1, "availability.available", this.guiLeft, this.guiTop + 4));
           this.getLabel(1).center(this.xSize);
           int y = this.guiTop + 12;
@@ -88,7 +88,7 @@ public class SubGuiNpcAvailabilityQuest extends SubGuiInterface implements GuiSe
 
      }
 
-     protected void func_146284_a(GuiButton guibutton) {
+     protected void actionPerformed(GuiButton guibutton) {
           GuiNpcButton button = (GuiNpcButton)guibutton;
           if (button.id == 0) {
                this.availabitily.questAvailable = EnumAvailabilityQuest.values()[button.getValue()];
@@ -96,7 +96,7 @@ public class SubGuiNpcAvailabilityQuest extends SubGuiInterface implements GuiSe
                     this.availabitily.questId = -1;
                }
 
-               this.func_73866_w_();
+               this.initGui();
           }
 
           if (button.id == 1) {
@@ -105,7 +105,7 @@ public class SubGuiNpcAvailabilityQuest extends SubGuiInterface implements GuiSe
                     this.availabitily.quest2Id = -1;
                }
 
-               this.func_73866_w_();
+               this.initGui();
           }
 
           if (button.id == 2) {
@@ -114,7 +114,7 @@ public class SubGuiNpcAvailabilityQuest extends SubGuiInterface implements GuiSe
                     this.availabitily.quest3Id = -1;
                }
 
-               this.func_73866_w_();
+               this.initGui();
           }
 
           if (button.id == 3) {
@@ -123,7 +123,7 @@ public class SubGuiNpcAvailabilityQuest extends SubGuiInterface implements GuiSe
                     this.availabitily.quest4Id = -1;
                }
 
-               this.func_73866_w_();
+               this.initGui();
           }
 
           if (button.id == 10) {

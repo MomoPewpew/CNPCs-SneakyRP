@@ -25,8 +25,8 @@ public class GuiNPCScenes extends GuiNPCInterface2 {
           this.scenes = npc.advanced.scenes;
      }
 
-     public void func_73866_w_() {
-          super.func_73866_w_();
+     public void initGui() {
+          super.initGui();
           this.addLabel(new GuiNpcLabel(102, "gui.button", this.guiLeft + 236, this.guiTop + 4));
           int y = this.guiTop + 14;
 
@@ -37,7 +37,7 @@ public class GuiNPCScenes extends GuiNPCInterface2 {
                this.addButton(new GuiNpcButton(2 + i * 10, this.guiLeft + 181, y, 50, 20, "selectServer.edit"));
                this.addButton(new GuiNpcButton(3 + i * 10, this.guiLeft + 293, y, 50, 20, "X"));
                if (CustomNpcs.SceneButtonsEnabled) {
-                    this.addButton(new GuiNpcButton(4 + i * 10, this.guiLeft + 232, y, 60, 20, new String[]{"gui.none", GameSettings.func_74298_c(ClientProxy.Scene1.getKeyCode()), GameSettings.func_74298_c(ClientProxy.Scene2.getKeyCode()), GameSettings.func_74298_c(ClientProxy.Scene3.getKeyCode())}, scene.btn));
+                    this.addButton(new GuiNpcButton(4 + i * 10, this.guiLeft + 232, y, 60, 20, new String[]{"gui.none", GameSettings.getKeyDisplayString(ClientProxy.Scene1.getKeyCode()), GameSettings.getKeyDisplayString(ClientProxy.Scene2.getKeyCode()), GameSettings.getKeyDisplayString(ClientProxy.Scene3.getKeyCode())}, scene.btn));
                }
 
                y += 22;
@@ -64,18 +64,18 @@ public class GuiNPCScenes extends GuiNPCInterface2 {
 
                if (button.id % 10 == 3) {
                     this.scenes.scenes.remove(scene);
-                    this.func_73866_w_();
+                    this.initGui();
                }
 
                if (button.id % 10 == 4) {
                     scene.btn = ((GuiNpcButton)button).getValue();
-                    this.func_73866_w_();
+                    this.initGui();
                }
           }
 
           if (button.id == 101) {
-               this.scenes.addScene(this.getTextField(101).func_146179_b());
-               this.func_73866_w_();
+               this.scenes.addScene(this.getTextField(101).getText());
+               this.initGui();
           }
 
      }

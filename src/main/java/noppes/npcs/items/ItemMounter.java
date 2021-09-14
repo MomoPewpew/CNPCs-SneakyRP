@@ -8,13 +8,13 @@ import noppes.npcs.util.IPermission;
 
 public class ItemMounter extends Item implements IPermission {
      public ItemMounter() {
-          this.field_77777_bU = 1;
+          this.maxStackSize = 1;
           this.setCreativeTab(CustomItems.tab);
      }
 
-     public Item setUnlocalizedName(String name) {
+     public Item setTranslationKey(String name) {
           this.setRegistryName(new ResourceLocation("customnpcs", name));
-          return super.setUnlocalizedName(name);
+          return super.setTranslationKey(name);
      }
 
      public boolean isAllowed(EnumPacketServer e) {

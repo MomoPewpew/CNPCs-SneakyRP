@@ -32,8 +32,8 @@ public class RecipesDefault {
 
      public static void loadDefaultRecipes(int i) {
           if (i < 0) {
-               addRecipe("Npc Wand", CustomItems.wand, true, "XX", " Y", " Y", 'X', Items.field_151025_P, 'Y', Items.field_151055_y);
-               addRecipe("Mob Cloner", CustomItems.cloner, true, "XX", "XY", " Y", 'X', Items.field_151025_P, 'Y', Items.field_151055_y);
+               addRecipe("Npc Wand", CustomItems.wand, true, "XX", " Y", " Y", 'X', Items.BREAD, 'Y', Items.STICK);
+               addRecipe("Mob Cloner", CustomItems.cloner, true, "XX", "XY", " Y", 'X', Items.BREAD, 'Y', Items.STICK);
           }
 
      }

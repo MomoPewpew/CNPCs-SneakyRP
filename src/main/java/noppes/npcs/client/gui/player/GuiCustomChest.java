@@ -20,27 +20,27 @@ public class GuiCustomChest extends GuiContainer {
           this.inventoryRows = container.rows;
      }
 
-     public void func_73863_a(int mouseX, int mouseY, float partialTicks) {
-          this.func_146276_q_();
-          super.func_73863_a(mouseX, mouseY, partialTicks);
+     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
+          this.drawDefaultBackground();
+          super.drawScreen(mouseX, mouseY, partialTicks);
           if (this.title != null && !this.title.isEmpty()) {
-               this.field_146289_q.func_78276_b(this.title, (this.width - this.field_146289_q.getStringWidth(this.title)) / 2, (this.height - this.field_147000_g) / 2 + 5, CustomNpcResourceListener.DefaultTextColor);
+               this.fontRenderer.drawString(this.title, (this.width - this.fontRenderer.getStringWidth(this.title)) / 2, (this.height - this.ySize) / 2 + 5, CustomNpcResourceListener.DefaultTextColor);
           }
 
-          this.func_191948_b(mouseX, mouseY);
+          this.renderHoveredToolTip(mouseX, mouseY);
      }
 
-     protected void func_146976_a(float partialTicks, int mouseX, int mouseY) {
+     protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
           GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-          this.field_146297_k.func_110434_K().bindTexture(CHEST_GUI_TEXTURE);
-          int i = (this.width - this.field_146999_f) / 2;
-          int j = (this.height - this.field_147000_g) / 2;
-          this.drawTexturedModalRect(i, j, 0, 0, this.field_146999_f, this.inventoryRows * 18 + 17);
-          this.drawTexturedModalRect(i, j + this.inventoryRows * 18 + 17, 0, 126, this.field_146999_f, 96);
+          this.mc.getTextureManager().bindTexture(CHEST_GUI_TEXTURE);
+          int i = (this.width - this.xSize) / 2;
+          int j = (this.height - this.ySize) / 2;
+          this.drawTexturedModalRect(i, j, 0, 0, this.xSize, this.inventoryRows * 18 + 17);
+          this.drawTexturedModalRect(i, j + this.inventoryRows * 18 + 17, 0, 126, this.xSize, 96);
      }
 
-     public void func_146281_b() {
-          super.func_146281_b();
+     public void onGuiClosed() {
+          super.onGuiClosed();
           NoppesUtilPlayer.sendData(EnumPlayerPacket.CloseGui);
      }
 }

@@ -21,22 +21,22 @@ public class GuiNpcWaypoint extends GuiNPCInterface implements IGuiData {
           this.xSize = 265;
      }
 
-     public void func_73866_w_() {
-          super.func_73866_w_();
+     public void initGui() {
+          super.initGui();
           if (this.tile == null) {
                this.close();
           }
 
           this.addLabel(new GuiNpcLabel(0, "gui.name", this.guiLeft + 1, this.guiTop + 76, 16777215));
-          this.addTextField(new GuiNpcTextField(0, this, this.field_146289_q, this.guiLeft + 60, this.guiTop + 71, 200, 20, this.tile.name));
+          this.addTextField(new GuiNpcTextField(0, this, this.fontRenderer, this.guiLeft + 60, this.guiTop + 71, 200, 20, this.tile.name));
           this.addLabel(new GuiNpcLabel(1, "gui.range", this.guiLeft + 1, this.guiTop + 97, 16777215));
-          this.addTextField(new GuiNpcTextField(1, this, this.field_146289_q, this.guiLeft + 60, this.guiTop + 92, 200, 20, this.tile.range + ""));
+          this.addTextField(new GuiNpcTextField(1, this, this.fontRenderer, this.guiLeft + 60, this.guiTop + 92, 200, 20, this.tile.range + ""));
           this.getTextField(1).numbersOnly = true;
           this.getTextField(1).setMinMaxDefault(2, 60, 10);
           this.addButton(new GuiNpcButton(0, this.guiLeft + 40, this.guiTop + 190, 120, 20, "Done"));
      }
 
-     protected void func_146284_a(GuiButton guibutton) {
+     protected void actionPerformed(GuiButton guibutton) {
           int id = guibutton.id;
           if (id == 0) {
                this.close();
@@ -45,7 +45,7 @@ public class GuiNpcWaypoint extends GuiNPCInterface implements IGuiData {
      }
 
      public void save() {
-          this.tile.name = this.getTextField(0).func_146179_b();
+          this.tile.name = this.getTextField(0).getText();
           this.tile.range = this.getTextField(1).getInteger();
           NBTTagCompound compound = new NBTTagCompound();
           this.tile.writeToNBT(compound);
@@ -54,6 +54,6 @@ public class GuiNpcWaypoint extends GuiNPCInterface implements IGuiData {
 
      public void setGuiData(NBTTagCompound compound) {
           this.tile.readFromNBT(compound);
-          this.func_73866_w_();
+          this.initGui();
      }
 }

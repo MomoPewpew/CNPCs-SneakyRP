@@ -130,12 +130,12 @@ public class WrapperNpcAPI extends NpcAPI {
      }
 
      public IWorld getIWorld(WorldServer world) {
-          WorldWrapper w = (WorldWrapper)worldCache.get(world.field_73011_w.getDimension());
+          WorldWrapper w = (WorldWrapper)worldCache.get(world.provider.getDimension());
           if (w != null) {
                w.world = world;
                return w;
           } else {
-               worldCache.put(world.field_73011_w.getDimension(), w = WorldWrapper.createNew(world));
+               worldCache.put(world.provider.getDimension(), w = WorldWrapper.createNew(world));
                return w;
           }
      }
@@ -146,7 +146,7 @@ public class WrapperNpcAPI extends NpcAPI {
 
           for(int var4 = 0; var4 < var3; ++var4) {
                WorldServer world = var2[var4];
-               if (world.field_73011_w.getDimension() == dimensionId) {
+               if (world.provider.getDimension() == dimensionId) {
                     return this.getIWorld(world);
                }
           }
@@ -242,7 +242,7 @@ public class WrapperNpcAPI extends NpcAPI {
           FakePlayer player = EntityNPCInterface.CommandPlayer;
           player.setWorld(world.getMCWorld());
           player.setPosition(0.0D, 0.0D, 0.0D);
-          return NoppesUtilServer.runCommand(world.getMCWorld(), BlockPos.field_177992_a, "API", command, (EntityPlayer)null, player);
+          return NoppesUtilServer.runCommand(world.getMCWorld(), BlockPos.ORIGIN, "API", command, (EntityPlayer)null, player);
      }
 
      public INbt getRawPlayerData(String uuid) {

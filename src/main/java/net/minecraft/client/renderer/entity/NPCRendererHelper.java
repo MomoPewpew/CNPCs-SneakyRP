@@ -13,7 +13,7 @@ public class NPCRendererHelper {
 
      public static String getTexture(RenderLivingBase render, Entity entity) {
           ResourceLocation location = render.getEntityTexture(entity);
-          return location != null ? location.toString() : TextureMap.field_174945_f.toString();
+          return location != null ? location.toString() : TextureMap.LOCATION_MISSING_TEXTURE.toString();
      }
 
      public static void preRenderCallback(EntityLivingBase entity, float f, RenderLivingBase render) {
@@ -21,11 +21,11 @@ public class NPCRendererHelper {
      }
 
      public static void renderModel(EntityLivingBase entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, RenderLivingBase render, ModelBase main, ResourceLocation resource) {
-          wrapper.mainModelOld = render.field_77045_g;
+          wrapper.mainModelOld = render.mainModel;
           if (!(main instanceof ModelWrapper)) {
                wrapper.wrapped = main;
                wrapper.texture = resource;
-               render.field_77045_g = wrapper;
+               render.mainModel = wrapper;
           }
 
           try {
@@ -34,7 +34,7 @@ public class NPCRendererHelper {
                LogWriter.except(var11);
           }
 
-          render.field_77045_g = wrapper.mainModelOld;
+          render.mainModel = wrapper.mainModelOld;
      }
 
      public static float handleRotationFloat(EntityLivingBase entity, float par2, RenderLivingBase renderEntity) {

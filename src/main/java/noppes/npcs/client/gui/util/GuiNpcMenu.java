@@ -49,7 +49,7 @@ public class GuiNpcMenu implements GuiYesNoCallback {
      }
 
      private void topButtonPressed(GuiMenuTopButton button) {
-          if (!button.field_146126_j.equals(this.activeMenu)) {
+          if (!button.displayString.equals(this.activeMenu)) {
                Minecraft mc = Minecraft.getMinecraft();
                NoppesUtil.clickSound();
                int id = button.id;
@@ -115,7 +115,7 @@ public class GuiNpcMenu implements GuiYesNoCallback {
 
                for(int var7 = 0; var7 < var6; ++var7) {
                     GuiMenuTopButton button = var5[var7];
-                    if (button.func_146116_c(mc, i, j)) {
+                    if (button.mousePressed(mc, i, j)) {
                          this.topButtonPressed(button);
                     }
                }
@@ -129,17 +129,17 @@ public class GuiNpcMenu implements GuiYesNoCallback {
 
           for(int var8 = 0; var8 < var7; ++var8) {
                GuiMenuTopButton button = var6[var8];
-               button.func_191745_a(mc, i, j, f);
+               button.drawButton(mc, i, j, f);
           }
 
      }
 
-     public void func_73878_a(boolean flag, int i) {
+     public void confirmClicked(boolean flag, int i) {
           Minecraft mc = Minecraft.getMinecraft();
           if (flag) {
                Client.sendData(EnumPacketServer.Delete);
                mc.displayGuiScreen((GuiScreen)null);
-               mc.func_71381_h();
+               mc.setIngameFocus();
           } else {
                NoppesUtil.openGUI(mc.player, this.parent);
           }

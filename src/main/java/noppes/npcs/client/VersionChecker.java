@@ -28,7 +28,7 @@ public class VersionChecker extends Thread {
           }
 
           TextComponentTranslation message = new TextComponentTranslation(text, new Object[0]);
-          message.getStyle().func_150241_a(new ClickEvent(Action.OPEN_URL, "http://www.kodevelopment.nl/minecraft/customnpcs/"));
+          message.getStyle().setClickEvent(new ClickEvent(Action.OPEN_URL, "http://www.kodevelopment.nl/minecraft/customnpcs/"));
           player.sendMessage(message);
      }
 }

@@ -14,40 +14,40 @@ public class ModelNpcCrystal extends ModelBase {
      float ticks;
 
      public ModelNpcCrystal(float par1) {
-          this.field_41058_h.func_78784_a(0, 0).func_78789_a(-4.0F, -4.0F, -4.0F, 8, 8, 8);
+          this.field_41058_h.setTextureOffset(0, 0).addBox(-4.0F, -4.0F, -4.0F, 8, 8, 8);
           this.field_41057_g = new ModelRenderer(this, "cube");
-          this.field_41057_g.func_78784_a(32, 0).func_78789_a(-4.0F, -4.0F, -4.0F, 8, 8, 8);
+          this.field_41057_g.setTextureOffset(32, 0).addBox(-4.0F, -4.0F, -4.0F, 8, 8, 8);
           this.field_41059_i = new ModelRenderer(this, "base");
-          this.field_41059_i.func_78784_a(0, 16).func_78789_a(-6.0F, 16.0F, -6.0F, 12, 4, 12);
+          this.field_41059_i.setTextureOffset(0, 16).addBox(-6.0F, 16.0F, -6.0F, 12, 4, 12);
      }
 
-     public void func_78086_a(EntityLivingBase par1EntityLiving, float f6, float f5, float par9) {
+     public void setLivingAnimations(EntityLivingBase par1EntityLiving, float f6, float f5, float par9) {
           this.ticks = par9;
      }
 
-     public void func_78088_a(Entity par1Entity, float par2, float par3, float par4, float par5, float par6, float par7) {
-          GlStateManager.func_179094_E();
-          GlStateManager.func_179152_a(2.0F, 2.0F, 2.0F);
+     public void render(Entity par1Entity, float par2, float par3, float par4, float par5, float par6, float par7) {
+          GlStateManager.pushMatrix();
+          GlStateManager.scale(2.0F, 2.0F, 2.0F);
           GlStateManager.translate(0.0F, -0.5F, 0.0F);
-          this.field_41059_i.func_78785_a(par7);
-          float f = (float)par1Entity.field_70173_aa + this.ticks;
+          this.field_41059_i.render(par7);
+          float f = (float)par1Entity.ticksExisted + this.ticks;
           float f1 = MathHelper.sin(f * 0.2F) / 2.0F + 0.5F;
           f1 += f1 * f1;
           par3 = f * 3.0F;
           par4 = f1 * 0.2F;
-          GlStateManager.func_179114_b(par3, 0.0F, 1.0F, 0.0F);
+          GlStateManager.rotate(par3, 0.0F, 1.0F, 0.0F);
           GlStateManager.translate(0.0F, 0.1F + par4, 0.0F);
-          GlStateManager.func_179114_b(60.0F, 0.7071F, 0.0F, 0.7071F);
-          this.field_41058_h.func_78785_a(par7);
+          GlStateManager.rotate(60.0F, 0.7071F, 0.0F, 0.7071F);
+          this.field_41058_h.render(par7);
           float sca = 0.875F;
-          GlStateManager.func_179152_a(sca, sca, sca);
-          GlStateManager.func_179114_b(60.0F, 0.7071F, 0.0F, 0.7071F);
-          GlStateManager.func_179114_b(par3, 0.0F, 1.0F, 0.0F);
-          this.field_41058_h.func_78785_a(par7);
-          GlStateManager.func_179152_a(sca, sca, sca);
-          GlStateManager.func_179114_b(60.0F, 0.7071F, 0.0F, 0.7071F);
-          GlStateManager.func_179114_b(par3, 0.0F, 1.0F, 0.0F);
-          this.field_41057_g.func_78785_a(par7);
-          GlStateManager.func_179121_F();
+          GlStateManager.scale(sca, sca, sca);
+          GlStateManager.rotate(60.0F, 0.7071F, 0.0F, 0.7071F);
+          GlStateManager.rotate(par3, 0.0F, 1.0F, 0.0F);
+          this.field_41058_h.render(par7);
+          GlStateManager.scale(sca, sca, sca);
+          GlStateManager.rotate(60.0F, 0.7071F, 0.0F, 0.7071F);
+          GlStateManager.rotate(par3, 0.0F, 1.0F, 0.0F);
+          this.field_41057_g.render(par7);
+          GlStateManager.popMatrix();
      }
 }

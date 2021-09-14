@@ -62,7 +62,6 @@ public abstract class TileNpcContainer extends TileColorable implements IInvento
           return super.writeToNBT(compound);
      }
 
-     @Override
      public boolean receiveClientEvent(int id, int type) {
           if (id == 1) {
                this.playerUsing = type;
@@ -117,7 +116,7 @@ public abstract class TileNpcContainer extends TileColorable implements IInvento
      }
 
      public boolean isUsableByPlayer(EntityPlayer player) {
-          return (player.field_70128_L || this.field_145850_b.getTileEntity(this.field_174879_c) == this) && player.getDistanceSq((double)this.field_174879_c.getX() + 0.5D, (double)this.field_174879_c.getY() + 0.5D, (double)this.field_174879_c.getZ() + 0.5D) <= 64.0D;
+          return (player.isDead || this.world.getTileEntity(this.pos) == this) && player.getDistanceSq((double)this.pos.getX() + 0.5D, (double)this.pos.getY() + 0.5D, (double)this.pos.getZ() + 0.5D) <= 64.0D;
      }
 
      public void openInventory(EntityPlayer player) {

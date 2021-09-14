@@ -56,14 +56,14 @@ public class ContainerManageRecipes extends Container {
      }
 
      public void setRecipe(RecipeCarpentry recipe) {
-          this.craftingMatrix.setInventorySlotContents(0, recipe.getResult());
+          this.craftingMatrix.setInventorySlotContents(0, recipe.getRecipeOutput());
 
           for(int i = 0; i < this.width; ++i) {
                for(int j = 0; j < this.width; ++j) {
-                    if (j >= recipe.field_77576_b) {
+                    if (j >= recipe.recipeWidth) {
                          this.craftingMatrix.setInventorySlotContents(i * this.width + j + 1, ItemStack.EMPTY);
                     } else {
-                         this.craftingMatrix.setInventorySlotContents(i * this.width + j + 1, recipe.getCraftingItem(i * recipe.field_77576_b + j));
+                         this.craftingMatrix.setInventorySlotContents(i * this.width + j + 1, recipe.getCraftingItem(i * recipe.recipeWidth + j));
                     }
                }
           }

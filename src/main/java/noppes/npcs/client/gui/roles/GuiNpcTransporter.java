@@ -31,8 +31,8 @@ public class GuiNpcTransporter extends GuiNPCInterface2 implements IScrollData, 
           Client.sendData(EnumPacketServer.TransportGetLocation);
      }
 
-     public void func_73866_w_() {
-          super.func_73866_w_();
+     public void initGui() {
+          super.initGui();
           Vector list = new Vector();
           list.addAll(this.data.keySet());
           if (this.scroll == null) {
@@ -44,11 +44,11 @@ public class GuiNpcTransporter extends GuiNPCInterface2 implements IScrollData, 
           this.scroll.guiTop = this.guiTop + 4;
           this.addScroll(this.scroll);
           this.addLabel(new GuiNpcLabel(0, "gui.name", this.guiLeft + 4, this.height + 8));
-          this.addTextField(new GuiNpcTextField(0, this, this.field_146289_q, this.guiLeft + 60, this.guiTop + 3, 140, 20, this.location.name));
+          this.addTextField(new GuiNpcTextField(0, this, this.fontRenderer, this.guiLeft + 60, this.guiTop + 3, 140, 20, this.location.name));
           this.addButton(new GuiNpcButton(0, this.guiLeft + 4, this.guiTop + 31, new String[]{"transporter.discovered", "transporter.start", "transporter.interaction"}, this.location.type));
      }
 
-     protected void func_146284_a(GuiButton guibutton) {
+     protected void actionPerformed(GuiButton guibutton) {
           GuiNpcButton button = (GuiNpcButton)guibutton;
           if (button.id == 0) {
                this.location.type = button.getValue();
@@ -58,13 +58,13 @@ public class GuiNpcTransporter extends GuiNPCInterface2 implements IScrollData, 
 
      public void save() {
           if (this.scroll.hasSelected()) {
-               String name = this.getTextField(0).func_146179_b();
+               String name = this.getTextField(0).getText();
                if (!name.isEmpty()) {
                     this.location.name = name;
                }
 
                this.location.pos = new BlockPos(this.player);
-               this.location.dimension = this.player.field_71093_bK;
+               this.location.dimension = this.player.dimension;
                int cat = (Integer)this.data.get(this.scroll.getSelected());
                Client.sendData(EnumPacketServer.TransportSave, cat, this.location.writeNBT());
           }
@@ -83,6 +83,6 @@ public class GuiNpcTransporter extends GuiNPCInterface2 implements IScrollData, 
           TransportLocation loc = new TransportLocation();
           loc.readNBT(compound);
           this.location = loc;
-          this.func_73866_w_();
+          this.initGui();
      }
 }

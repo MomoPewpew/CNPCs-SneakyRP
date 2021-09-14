@@ -38,7 +38,7 @@ public class GlobalDataController {
      }
 
      private void loadData(File file) throws Exception {
-          NBTTagCompound nbttagcompound1 = CompressedStreamTools.func_74796_a(new FileInputStream(file));
+          NBTTagCompound nbttagcompound1 = CompressedStreamTools.readCompressed(new FileInputStream(file));
           this.itemGiverId = nbttagcompound1.getInteger("itemGiverId");
      }
 
@@ -50,7 +50,7 @@ public class GlobalDataController {
                File file = new File(saveDir, "global.dat_new");
                File file1 = new File(saveDir, "global.dat_old");
                File file2 = new File(saveDir, "global.dat");
-               CompressedStreamTools.func_74799_a(nbttagcompound, new FileOutputStream(file));
+               CompressedStreamTools.writeCompressed(nbttagcompound, new FileOutputStream(file));
                if (file1.exists()) {
                     file1.delete();
                }

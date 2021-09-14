@@ -15,8 +15,8 @@ import noppes.npcs.util.CustomNPCsScheduler;
 
 public class InventoryTabFactions extends AbstractTab {
      public InventoryTabFactions() {
-          super(0, 0, 0, new ItemStack(Items.field_179564_cE, 1, 1));
-          this.field_146126_j = NoppesStringUtils.translate("menu.factions");
+          super(0, 0, 0, new ItemStack(Items.BANNER, 1, 1));
+          this.displayString = NoppesStringUtils.translate("menu.factions");
      }
 
      public void onTabClicked() {
@@ -30,20 +30,20 @@ public class InventoryTabFactions extends AbstractTab {
           return true;
      }
 
-     public void func_191745_a(Minecraft minecraft, int mouseX, int mouseY, float partialTicks) {
+     public void drawButton(Minecraft minecraft, int mouseX, int mouseY, float partialTicks) {
           if (this.enabled && this.visible) {
                Minecraft mc = Minecraft.getMinecraft();
                boolean hovered = mouseX >= this.x && mouseY >= this.y && mouseX < this.x + this.width && mouseY < this.y + this.height;
                if (hovered) {
-                    int x = mouseX + mc.fontRenderer.getStringWidth(this.field_146126_j);
+                    int x = mouseX + mc.fontRenderer.getStringWidth(this.displayString);
                     GlStateManager.translate((float)x, (float)(this.y + 2), 0.0F);
-                    this.drawHoveringText(Arrays.asList(this.field_146126_j), 0, 0, mc.fontRenderer);
+                    this.drawHoveringText(Arrays.asList(this.displayString), 0, 0, mc.fontRenderer);
                     GlStateManager.translate((float)(-x), (float)(-(this.y + 2)), 0.0F);
                }
 
-               super.func_191745_a(minecraft, mouseX, mouseY, partialTicks);
+               super.drawButton(minecraft, mouseX, mouseY, partialTicks);
           } else {
-               super.func_191745_a(minecraft, mouseX, mouseY, partialTicks);
+               super.drawButton(minecraft, mouseX, mouseY, partialTicks);
           }
      }
 

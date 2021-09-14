@@ -46,8 +46,8 @@ public abstract class GuiCreationScreenInterface extends GuiNPCInterface impleme
           this.closeOnEsc = true;
      }
 
-     public void func_73866_w_() {
-          super.func_73866_w_();
+     public void initGui() {
+          super.initGui();
           this.entity = this.playerdata.getEntity(this.npc);
           Keyboard.enableRepeatEvents(true);
           this.addButton(new GuiNpcButton(1, this.guiLeft + 62, this.guiTop, 60, 20, "gui.entity"));
@@ -59,7 +59,7 @@ public abstract class GuiCreationScreenInterface extends GuiNPCInterface impleme
                if (!gui.getData(this.entity).isEmpty()) {
                     this.addButton(new GuiNpcButton(2, this.guiLeft, this.guiTop + 23, 60, 20, "gui.extra"));
                } else if (this.active == 2) {
-                    this.field_146297_k.displayGuiScreen(new GuiCreationEntities(this.npc));
+                    this.mc.displayGuiScreen(new GuiCreationEntities(this.npc));
                     return;
                }
           }
@@ -84,8 +84,8 @@ public abstract class GuiCreationScreenInterface extends GuiNPCInterface impleme
           }
      }
 
-     protected void func_146284_a(GuiButton btn) {
-          super.func_146284_a(btn);
+     protected void actionPerformed(GuiButton btn) {
+          super.actionPerformed(btn);
           if (btn.id == 1) {
                this.openGui(new GuiCreationEntities(this.npc));
           }
@@ -117,15 +117,15 @@ public abstract class GuiCreationScreenInterface extends GuiNPCInterface impleme
 
      }
 
-     public void func_73864_a(int i, int j, int k) {
+     public void mouseClicked(int i, int j, int k) {
           if (!this.saving) {
-               super.func_73864_a(i, j, k);
+               super.mouseClicked(i, j, k);
           }
 
      }
 
-     public void func_73863_a(int x, int y, float f) {
-          super.func_73863_a(x, y, f);
+     public void drawScreen(int x, int y, float f) {
+          super.drawScreen(x, y, f);
           this.entity = this.playerdata.getEntity(this.npc);
           EntityLivingBase entity = this.entity;
           if (entity == null) {
@@ -137,7 +137,7 @@ public abstract class GuiCreationScreenInterface extends GuiNPCInterface impleme
           this.drawNpc((EntityLivingBase)entity, this.xOffset + 200, 200, 2.0F, (int)(rotation * 360.0F - 180.0F));
      }
 
-     public void func_146281_b() {
+     public void onGuiClosed() {
           Keyboard.enableRepeatEvents(false);
      }
 
@@ -148,11 +148,11 @@ public abstract class GuiCreationScreenInterface extends GuiNPCInterface impleme
      }
 
      public void openGui(GuiScreen gui) {
-          this.field_146297_k.displayGuiScreen(gui);
+          this.mc.displayGuiScreen(gui);
      }
 
      public void subGuiClosed(SubGuiInterface subgui) {
-          this.func_73866_w_();
+          this.initGui();
      }
 
      public void mouseDragged(GuiNpcSlider slider) {

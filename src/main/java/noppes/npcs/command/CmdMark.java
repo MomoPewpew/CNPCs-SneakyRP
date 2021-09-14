@@ -24,7 +24,7 @@ public class CmdMark extends CommandNoppesBase {
           usage = "<@e> <type> [color]"
      )
      public void set(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
-          List list = func_184890_c(server, sender, args[0]);
+          List list = getEntityList(server, sender, args[0]);
           int type = 0;
 
           try {
@@ -58,7 +58,7 @@ public class CmdMark extends CommandNoppesBase {
           usage = "<@e>"
      )
      public void clear(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
-          List list = func_184890_c(server, sender, args[0]);
+          List list = getEntityList(server, sender, args[0]);
           Iterator var5 = list.iterator();
 
           while(var5.hasNext()) {

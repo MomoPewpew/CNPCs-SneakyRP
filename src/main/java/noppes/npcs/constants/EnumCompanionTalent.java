@@ -7,11 +7,11 @@ import net.minecraft.item.ItemStack;
 
 public enum EnumCompanionTalent {
      INVENTORY(Item.getItemFromBlock(Blocks.CRAFTING_TABLE)),
-     ARMOR(Items.field_151030_Z),
-     SWORD(Items.field_151048_u),
-     RANGED(Items.field_151031_f),
-     ACROBATS(Items.field_151021_T),
-     INTEL(Items.field_151122_aG);
+     ARMOR(Items.IRON_CHESTPLATE),
+     SWORD(Items.DIAMOND_SWORD),
+     RANGED(Items.BOW),
+     ACROBATS(Items.LEATHER_BOOTS),
+     INTEL(Items.BOOK);
 
      public ItemStack item;
 

@@ -17,7 +17,7 @@ public class LayerHeadwear extends LayerInterface implements LayerPreRender {
 
      public void render(float par2, float par3, float par4, float par5, float par6, float par7) {
           if (CustomNpcs.HeadWearType == 1) {
-               if (this.npc.field_70737_aN <= 0 && this.npc.field_70725_aQ <= 0) {
+               if (this.npc.hurtTime <= 0 && this.npc.deathTime <= 0) {
                     int color = this.npc.display.getTint();
                     float red = (float)(color >> 16 & 255) / 255.0F;
                     float green = (float)(color >> 8 & 255) / 255.0F;
@@ -26,8 +26,8 @@ public class LayerHeadwear extends LayerInterface implements LayerPreRender {
                }
 
                ClientProxy.bindTexture(this.npc.textureLocation);
-               this.model.field_78116_c.func_78794_c(par7);
-               this.headwear.func_78785_a(par7);
+               this.model.bipedHead.postRender(par7);
+               this.headwear.render(par7);
           }
      }
 
@@ -35,7 +35,7 @@ public class LayerHeadwear extends LayerInterface implements LayerPreRender {
      }
 
      public void preRender(EntityCustomNpc player) {
-          this.model.field_178720_f.field_78807_k = CustomNpcs.HeadWearType == 1;
+          this.model.bipedHeadwear.isHidden = CustomNpcs.HeadWearType == 1;
           this.headwear.config = null;
      }
 }

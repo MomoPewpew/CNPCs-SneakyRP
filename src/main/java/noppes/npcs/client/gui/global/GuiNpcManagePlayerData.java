@@ -33,8 +33,8 @@ public class GuiNpcManagePlayerData extends GuiNPCInterface2 implements IScrollD
           Client.sendData(EnumPacketServer.PlayerDataGet, this.selection);
      }
 
-     public void func_73866_w_() {
-          super.func_73866_w_();
+     public void initGui() {
+          super.initGui();
           this.scroll = new GuiCustomScroll(this, 0);
           this.scroll.setSize(190, 175);
           this.scroll.guiLeft = this.guiLeft + 4;
@@ -49,7 +49,7 @@ public class GuiNpcManagePlayerData extends GuiNPCInterface2 implements IScrollD
           this.addButton(new GuiNpcButton(4, this.guiLeft + 200, this.guiTop + 98, 98, 20, "global.transport"));
           this.addButton(new GuiNpcButton(5, this.guiLeft + 200, this.guiTop + 120, 98, 20, "role.bank"));
           this.addButton(new GuiNpcButton(6, this.guiLeft + 200, this.guiTop + 142, 98, 20, "menu.factions"));
-          this.addTextField(new GuiNpcTextField(0, this, this.field_146289_q, this.guiLeft + 4, this.guiTop + 193, 190, 20, this.search));
+          this.addTextField(new GuiNpcTextField(0, this, this.fontRenderer, this.guiLeft + 4, this.guiTop + 193, 190, 20, this.search));
           this.getTextField(0).enabled = this.selection == EnumPlayerData.Players;
           this.initButtons();
      }
@@ -69,24 +69,24 @@ public class GuiNpcManagePlayerData extends GuiNPCInterface2 implements IScrollD
 
      }
 
-     public void func_73863_a(int i, int j, float f) {
-          super.func_73863_a(i, j, f);
-          this.scroll.func_73863_a(i, j, f);
+     public void drawScreen(int i, int j, float f) {
+          super.drawScreen(i, j, f);
+          this.scroll.drawScreen(i, j, f);
      }
 
-     public void func_73864_a(int i, int j, int k) {
-          super.func_73864_a(i, j, k);
+     public void mouseClicked(int i, int j, int k) {
+          super.mouseClicked(i, j, k);
           if (k == 0 && this.scroll != null) {
-               this.scroll.func_73864_a(i, j, k);
+               this.scroll.mouseClicked(i, j, k);
           }
 
      }
 
-     public void func_73869_a(char c, int i) {
-          super.func_73869_a(c, i);
+     public void keyTyped(char c, int i) {
+          super.keyTyped(c, i);
           if (this.selection == EnumPlayerData.Players) {
-               if (!this.search.equals(this.getTextField(0).func_146179_b())) {
-                    this.search = this.getTextField(0).func_146179_b().toLowerCase();
+               if (!this.search.equals(this.getTextField(0).getText())) {
+                    this.search = this.getTextField(0).getText().toLowerCase();
                     this.scroll.setList(this.getSearchList());
                }
           }
@@ -110,7 +110,7 @@ public class GuiNpcManagePlayerData extends GuiNPCInterface2 implements IScrollD
           }
      }
 
-     protected void func_146284_a(GuiButton guibutton) {
+     protected void actionPerformed(GuiButton guibutton) {
           int id = guibutton.id;
           if (id == 0) {
                if (this.selected != null) {

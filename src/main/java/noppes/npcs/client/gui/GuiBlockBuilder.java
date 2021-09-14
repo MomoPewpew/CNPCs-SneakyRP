@@ -52,8 +52,8 @@ public class GuiBlockBuilder extends GuiNPCInterface implements IGuiData, ICusto
           Client.sendData(EnumPacketServer.SchematicsTile, this.x, this.y, this.z);
      }
 
-     public void func_73866_w_() {
-          super.func_73866_w_();
+     public void initGui() {
+          super.initGui();
           if (this.scroll == null) {
                this.scroll = new GuiCustomScroll(this, 0);
                this.scroll.setSize(125, 208);
@@ -111,7 +111,7 @@ public class GuiBlockBuilder extends GuiNPCInterface implements IGuiData, ICusto
 
      }
 
-     protected void func_146284_a(GuiButton guibutton) {
+     protected void actionPerformed(GuiButton guibutton) {
           if (guibutton.id == 3) {
                GuiNpcButtonYesNo button = (GuiNpcButtonYesNo)guibutton;
                if (button.getBoolean()) {
@@ -167,7 +167,7 @@ public class GuiBlockBuilder extends GuiNPCInterface implements IGuiData, ICusto
                NBTTagList list = compound.getTagList("Data", 10);
 
                for(int i = 0; i < list.tagCount(); ++i) {
-                    states.add(NBTUtil.func_190008_d(list.getCompoundTagAt(i)));
+                    states.add(NBTUtil.readBlockState(list.getCompoundTagAt(i)));
                }
 
                this.selected = new ISchematic() {
@@ -219,10 +219,10 @@ public class GuiBlockBuilder extends GuiNPCInterface implements IGuiData, ICusto
                this.tile.readPartNBT(compound);
           }
 
-          this.func_73866_w_();
+          this.initGui();
      }
 
-     public void func_73878_a(boolean flag, int i) {
+     public void confirmClicked(boolean flag, int i) {
           if (flag) {
                Client.sendData(EnumPacketServer.SchematicsBuild, this.x, this.y, this.z);
                this.close();
@@ -251,7 +251,7 @@ public class GuiBlockBuilder extends GuiNPCInterface implements IGuiData, ICusto
                this.scroll.setSelected(this.selected.getName());
           }
 
-          this.func_73866_w_();
+          this.initGui();
      }
 
      public void setSelected(String selected) {

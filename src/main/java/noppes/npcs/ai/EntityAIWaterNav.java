@@ -16,7 +16,7 @@ public class EntityAIWaterNav extends EntityAIBase {
           if (!this.entity.isInWater() && !this.entity.isInLava()) {
                return false;
           } else {
-               return this.entity.ais.canSwim ? true : this.entity.field_70123_F;
+               return this.entity.ais.canSwim ? true : this.entity.collidedHorizontally;
           }
      }
 

@@ -34,8 +34,8 @@ public class SubGuiNpcFactionOptions extends SubGuiInterface implements IScrollD
           Client.sendData(EnumPacketServer.FactionsGet);
      }
 
-     public void func_73866_w_() {
-          super.func_73866_w_();
+     public void initGui() {
+          super.initGui();
           if (this.scrollFactions == null) {
                this.scrollFactions = new GuiCustomScroll(this, 0);
                this.scrollFactions.setSize(120, 208);
@@ -77,7 +77,7 @@ public class SubGuiNpcFactionOptions extends SubGuiInterface implements IScrollD
 
           if (this.selected >= 0 && (!this.data.containsValue(this.options.faction2Id) || !this.data.containsValue(this.options.factionId)) && !this.options.hasFaction(this.selected)) {
                this.addButton(new GuiNpcButton(2, this.guiLeft + 4, this.guiTop + 60, 90, 20, new String[]{"gui.increase", "gui.decrease"}, 0));
-               this.addTextField(new GuiNpcTextField(1, this, this.field_146289_q, this.guiLeft + 4, this.guiTop + 82, 110, 20, "10"));
+               this.addTextField(new GuiNpcTextField(1, this, this.fontRenderer, this.guiLeft + 4, this.guiTop + 82, 110, 20, "10"));
                this.getTextField(1).numbersOnly = true;
                this.getTextField(1).setMinMaxDefault(1, 100000, 10);
                this.addButton(new GuiNpcButton(3, this.guiLeft + 4, this.guiTop + 104, 60, 20, "gui.add"));
@@ -101,16 +101,16 @@ public class SubGuiNpcFactionOptions extends SubGuiInterface implements IScrollD
           return s;
      }
 
-     protected void func_146284_a(GuiButton guibutton) {
+     protected void actionPerformed(GuiButton guibutton) {
           int id = guibutton.id;
           if (id == 0) {
                this.options.factionId = -1;
-               this.func_73866_w_();
+               this.initGui();
           }
 
           if (id == 1) {
                this.options.faction2Id = -1;
-               this.func_73866_w_();
+               this.initGui();
           }
 
           if (id == 3) {
@@ -124,7 +124,7 @@ public class SubGuiNpcFactionOptions extends SubGuiInterface implements IScrollD
                     this.options.faction2Points = this.getTextField(1).getInteger();
                }
 
-               this.func_73866_w_();
+               this.initGui();
           }
 
           if (id == 66) {
@@ -135,7 +135,7 @@ public class SubGuiNpcFactionOptions extends SubGuiInterface implements IScrollD
 
      public void scrollClicked(int i, int j, int k, GuiCustomScroll guiCustomScroll) {
           this.selected = (Integer)this.data.get(guiCustomScroll.getSelected());
-          this.func_73866_w_();
+          this.initGui();
      }
 
      public void setData(Vector list, HashMap data) {
@@ -147,7 +147,7 @@ public class SubGuiNpcFactionOptions extends SubGuiInterface implements IScrollD
                scroll.setSelected(name);
           }
 
-          this.func_73866_w_();
+          this.initGui();
      }
 
      public void setSelected(String selected) {

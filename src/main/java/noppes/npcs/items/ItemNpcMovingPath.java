@@ -25,12 +25,12 @@ import noppes.npcs.util.IPermission;
 
 public class ItemNpcMovingPath extends Item implements IPermission {
      public ItemNpcMovingPath() {
-          this.field_77777_bU = 1;
+          this.maxStackSize = 1;
           this.setCreativeTab(CustomItems.tab);
      }
 
-     public ActionResult func_77659_a(World world, EntityPlayer player, EnumHand hand) {
-          ItemStack itemstack = player.func_184586_b(hand);
+     public ActionResult onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
+          ItemStack itemstack = player.getHeldItem(hand);
           if (!world.isRemote) {
                CustomNpcsPermissions var10000 = CustomNpcsPermissions.Instance;
                if (CustomNpcsPermissions.hasPermission(player, CustomNpcsPermissions.TOOL_MOUNTER)) {
@@ -46,11 +46,11 @@ public class ItemNpcMovingPath extends Item implements IPermission {
           return new ActionResult(EnumActionResult.PASS, itemstack);
      }
 
-     public EnumActionResult func_180614_a(EntityPlayer player, World world, BlockPos bpos, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
+     public EnumActionResult onItemUse(EntityPlayer player, World world, BlockPos bpos, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
           if (!world.isRemote) {
                CustomNpcsPermissions var10000 = CustomNpcsPermissions.Instance;
                if (CustomNpcsPermissions.hasPermission(player, CustomNpcsPermissions.TOOL_MOUNTER)) {
-                    ItemStack stack = player.func_184586_b(hand);
+                    ItemStack stack = player.getHeldItem(hand);
                     EntityNPCInterface npc = this.getNpc(stack, world);
                     if (npc == null) {
                          return EnumActionResult.PASS;
@@ -87,9 +87,9 @@ public class ItemNpcMovingPath extends Item implements IPermission {
           }
      }
 
-     public Item setUnlocalizedName(String name) {
+     public Item setTranslationKey(String name) {
           this.setRegistryName(new ResourceLocation("customnpcs", name));
-          return super.setUnlocalizedName(name);
+          return super.setTranslationKey(name);
      }
 
      public boolean isAllowed(EnumPacketServer e) {

@@ -23,8 +23,8 @@ public class SubGuiNpcAvailabilityDialog extends SubGuiInterface implements ISub
           this.closeOnEsc = true;
      }
 
-     public void func_73866_w_() {
-          super.func_73866_w_();
+     public void initGui() {
+          super.initGui();
           this.addLabel(new GuiNpcLabel(1, "availability.available", this.guiLeft, this.guiTop + 4));
           this.getLabel(1).center(this.xSize);
           int y = this.guiTop + 12;
@@ -87,7 +87,7 @@ public class SubGuiNpcAvailabilityDialog extends SubGuiInterface implements ISub
 
      }
 
-     protected void func_146284_a(GuiButton guibutton) {
+     protected void actionPerformed(GuiButton guibutton) {
           GuiNpcButton button = (GuiNpcButton)guibutton;
           if (button.id == 0) {
                this.availabitily.dialogAvailable = EnumAvailabilityDialog.values()[button.getValue()];
@@ -95,7 +95,7 @@ public class SubGuiNpcAvailabilityDialog extends SubGuiInterface implements ISub
                     this.availabitily.dialogId = -1;
                }
 
-               this.func_73866_w_();
+               this.initGui();
           }
 
           if (button.id == 1) {
@@ -104,7 +104,7 @@ public class SubGuiNpcAvailabilityDialog extends SubGuiInterface implements ISub
                     this.availabitily.dialog2Id = -1;
                }
 
-               this.func_73866_w_();
+               this.initGui();
           }
 
           if (button.id == 2) {
@@ -113,7 +113,7 @@ public class SubGuiNpcAvailabilityDialog extends SubGuiInterface implements ISub
                     this.availabitily.dialog3Id = -1;
                }
 
-               this.func_73866_w_();
+               this.initGui();
           }
 
           if (button.id == 3) {
@@ -122,7 +122,7 @@ public class SubGuiNpcAvailabilityDialog extends SubGuiInterface implements ISub
                     this.availabitily.dialog4Id = -1;
                }
 
-               this.func_73866_w_();
+               this.initGui();
           }
 
           if (button.id == 10) {
@@ -190,7 +190,7 @@ public class SubGuiNpcAvailabilityDialog extends SubGuiInterface implements ISub
                     this.availabitily.dialog4Id = selector.selectedDialog.id;
                }
 
-               this.func_73866_w_();
+               this.initGui();
           }
      }
 }

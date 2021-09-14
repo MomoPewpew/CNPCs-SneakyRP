@@ -53,13 +53,13 @@ public class PresetController {
           File file;
           try {
                file = new File(this.dir, filename);
-               return !file.exists() ? null : CompressedStreamTools.func_74796_a(new FileInputStream(file));
+               return !file.exists() ? null : CompressedStreamTools.readCompressed(new FileInputStream(file));
           } catch (Exception var4) {
                LogWriter.except(var4);
 
                try {
                     file = new File(this.dir, filename + "_old");
-                    return !file.exists() ? null : CompressedStreamTools.func_74796_a(new FileInputStream(file));
+                    return !file.exists() ? null : CompressedStreamTools.readCompressed(new FileInputStream(file));
                } catch (Exception var3) {
                     LogWriter.except(var3);
                     return null;
@@ -88,7 +88,7 @@ public class PresetController {
                File file = new File(this.dir, filename + "_new");
                File file1 = new File(this.dir, filename + "_old");
                File file2 = new File(this.dir, filename);
-               CompressedStreamTools.func_74799_a(compound, new FileOutputStream(file));
+               CompressedStreamTools.writeCompressed(compound, new FileOutputStream(file));
                if (file1.exists()) {
                     file1.delete();
                }

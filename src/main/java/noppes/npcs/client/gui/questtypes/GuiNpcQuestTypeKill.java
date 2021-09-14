@@ -38,22 +38,22 @@ public class GuiNpcQuestTypeKill extends SubGuiInterface implements ITextfieldLi
           this.closeOnEsc = true;
      }
 
-     public void func_73866_w_() {
-          super.func_73866_w_();
+     public void initGui() {
+          super.initGui();
           int i = 0;
           this.addLabel(new GuiNpcLabel(0, "You can fill in npc or player names too", this.guiLeft + 4, this.guiTop + 50));
 
           for(Iterator var2 = this.quest.targets.keySet().iterator(); var2.hasNext(); ++i) {
                String name = (String)var2.next();
-               this.addTextField(new GuiNpcTextField(i, this, this.field_146289_q, this.guiLeft + 4, this.guiTop + 70 + i * 22, 180, 20, name));
-               this.addTextField(new GuiNpcTextField(i + 3, this, this.field_146289_q, this.guiLeft + 186, this.guiTop + 70 + i * 22, 24, 20, this.quest.targets.get(name) + ""));
+               this.addTextField(new GuiNpcTextField(i, this, this.fontRenderer, this.guiLeft + 4, this.guiTop + 70 + i * 22, 180, 20, name));
+               this.addTextField(new GuiNpcTextField(i + 3, this, this.fontRenderer, this.guiLeft + 186, this.guiTop + 70 + i * 22, 24, 20, this.quest.targets.get(name) + ""));
                this.getTextField(i + 3).numbersOnly = true;
                this.getTextField(i + 3).setMinMaxDefault(1, Integer.MAX_VALUE, 1);
           }
 
           while(i < 3) {
-               this.addTextField(new GuiNpcTextField(i, this, this.field_146289_q, this.guiLeft + 4, this.guiTop + 70 + i * 22, 180, 20, ""));
-               this.addTextField(new GuiNpcTextField(i + 3, this, this.field_146289_q, this.guiLeft + 186, this.guiTop + 70 + i * 22, 24, 20, "1"));
+               this.addTextField(new GuiNpcTextField(i, this, this.fontRenderer, this.guiLeft + 4, this.guiTop + 70 + i * 22, 180, 20, ""));
+               this.addTextField(new GuiNpcTextField(i + 3, this, this.fontRenderer, this.guiLeft + 186, this.guiTop + 70 + i * 22, 24, 20, "1"));
                this.getTextField(i + 3).numbersOnly = true;
                this.getTextField(i + 3).setMinMaxDefault(1, Integer.MAX_VALUE, 1);
                ++i;
@@ -90,16 +90,16 @@ public class GuiNpcQuestTypeKill extends SubGuiInterface implements ITextfieldLi
           this.scroll.visible = this.lastSelected != null;
      }
 
-     protected void func_146284_a(GuiButton guibutton) {
-          super.func_146284_a(guibutton);
+     protected void actionPerformed(GuiButton guibutton) {
+          super.actionPerformed(guibutton);
           if (guibutton.id == 0) {
                this.close();
           }
 
      }
 
-     public void func_73864_a(int i, int j, int k) {
-          super.func_73864_a(i, j, k);
+     public void mouseClicked(int i, int j, int k) {
+          super.mouseClicked(i, j, k);
           this.scroll.visible = this.lastSelected != null;
      }
 
@@ -107,7 +107,7 @@ public class GuiNpcQuestTypeKill extends SubGuiInterface implements ITextfieldLi
      }
 
      public void unFocused(GuiNpcTextField guiNpcTextField) {
-          if (guiNpcTextField.field_175208_g < 3) {
+          if (guiNpcTextField.id < 3) {
                this.lastSelected = guiNpcTextField;
           }
 
@@ -118,7 +118,7 @@ public class GuiNpcQuestTypeKill extends SubGuiInterface implements ITextfieldLi
           TreeMap map = new TreeMap();
 
           for(int i = 0; i < 3; ++i) {
-               String name = this.getTextField(i).func_146179_b();
+               String name = this.getTextField(i).getText();
                if (!name.isEmpty()) {
                     map.put(name, this.getTextField(i + 3).getInteger());
                }
@@ -129,7 +129,7 @@ public class GuiNpcQuestTypeKill extends SubGuiInterface implements ITextfieldLi
 
      public void scrollClicked(int i, int j, int k, GuiCustomScroll guiCustomScroll) {
           if (this.lastSelected != null) {
-               this.lastSelected.func_146180_a(guiCustomScroll.getSelected());
+               this.lastSelected.setText(guiCustomScroll.getSelected());
                this.saveTargets();
           }
      }

@@ -25,8 +25,8 @@ public class GuiCreationScale extends GuiCreationScreenInterface implements ISli
           this.xOffset = 140;
      }
 
-     public void func_73866_w_() {
-          super.func_73866_w_();
+     public void initGui() {
+          super.initGui();
           if (this.scroll == null) {
                this.scroll = new GuiCustomScroll(this, 0);
           }
@@ -82,12 +82,12 @@ public class GuiCreationScale extends GuiCreationScreenInterface implements ISli
 
      }
 
-     protected void func_146284_a(GuiButton btn) {
-          super.func_146284_a(btn);
+     protected void actionPerformed(GuiButton btn) {
+          super.actionPerformed(btn);
           if (btn.id == 13) {
                boolean bo = ((GuiNpcButton)btn).getValue() == 0;
                this.playerdata.getPartConfig(selected).notShared = bo;
-               this.func_73866_w_();
+               this.initGui();
           }
 
      }
@@ -163,7 +163,7 @@ public class GuiCreationScale extends GuiCreationScreenInterface implements ISli
      public void scrollClicked(int i, int j, int k, GuiCustomScroll scroll) {
           if (scroll.selected >= 0) {
                selected = (EnumParts)this.data.get(scroll.selected);
-               this.func_73866_w_();
+               this.initGui();
           }
 
      }

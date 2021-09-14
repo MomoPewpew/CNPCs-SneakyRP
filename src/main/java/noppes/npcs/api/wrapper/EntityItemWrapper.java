@@ -20,7 +20,7 @@ public class EntityItemWrapper extends EntityWrapper implements IEntityItem {
      }
 
      public int getPickupDelay() {
-          return ((EntityItem)this.entity).field_145804_b;
+          return ((EntityItem)this.entity).pickupDelay;
      }
 
      public void setPickupDelay(int delay) {
@@ -32,12 +32,12 @@ public class EntityItemWrapper extends EntityWrapper implements IEntityItem {
      }
 
      public long getAge() {
-          return (long)((EntityItem)this.entity).field_70292_b;
+          return (long)((EntityItem)this.entity).age;
      }
 
      public void setAge(long age) {
           age = Math.max(Math.min(age, 2147483647L), -2147483648L);
-          ((EntityItem)this.entity).field_70292_b = (int)age;
+          ((EntityItem)this.entity).age = (int)age;
      }
 
      public int getLifeSpawn() {

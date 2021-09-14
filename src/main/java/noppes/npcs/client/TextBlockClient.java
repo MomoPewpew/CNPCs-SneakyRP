@@ -78,7 +78,7 @@ public class TextBlockClient extends TextBlock {
 
      private void addLine(String text) {
           TextComponentString line = new TextComponentString(text);
-          line.func_150255_a(this.style);
+          line.setStyle(this.style);
           this.lines.add(line);
      }
 }

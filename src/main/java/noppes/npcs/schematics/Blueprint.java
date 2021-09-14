@@ -43,7 +43,7 @@ public class Blueprint implements ISchematic {
                for(z = 0; z < this.getSizeZ(); ++z) {
                     for(x = 0; x < this.getSizeX(); ++x) {
                          state = pallete[structure[y][z][x] & '\uffff'];
-                         if (state.getBlock() != Blocks.field_189881_dj && state.func_185917_h()) {
+                         if (state.getBlock() != Blocks.STRUCTURE_VOID && state.isFullCube()) {
                               world.setBlockState(pos.add(x, y, z), state, 2);
                          }
                     }
@@ -54,7 +54,7 @@ public class Blueprint implements ISchematic {
                for(z = 0; z < this.getSizeZ(); ++z) {
                     for(x = 0; x < this.getSizeX(); ++x) {
                          state = pallete[structure[y][z][x]];
-                         if (state.getBlock() != Blocks.field_189881_dj && !state.func_185917_h()) {
+                         if (state.getBlock() != Blocks.STRUCTURE_VOID && !state.isFullCube()) {
                               world.setBlockState(pos.add(x, y, z), state, 2);
                          }
                     }

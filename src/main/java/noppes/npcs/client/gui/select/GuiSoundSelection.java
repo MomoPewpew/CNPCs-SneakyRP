@@ -33,25 +33,25 @@ public class GuiSoundSelection extends SubGuiInterface implements ICustomScrollL
           this.setBackground("menubg.png");
           this.xSize = 366;
           this.ySize = 226;
-          SoundHandler handler = Minecraft.getMinecraft().func_147118_V();
+          SoundHandler handler = Minecraft.getMinecraft().getSoundHandler();
           SoundRegistry registry = (SoundRegistry)ObfuscationReflectionHelper.getPrivateValue(SoundHandler.class, handler, 4);
           Set set = registry.getKeys();
           Iterator var5 = set.iterator();
 
           while(var5.hasNext()) {
                ResourceLocation location = (ResourceLocation)var5.next();
-               List list = (List)this.domains.get(location.getResourceDomain());
+               List list = (List)this.domains.get(location.getNamespace());
                if (list == null) {
-                    this.domains.put(location.getResourceDomain(), list = new ArrayList());
+                    this.domains.put(location.getNamespace(), list = new ArrayList());
                }
 
-               ((List)list).add(location.getResourcePath());
-               this.domains.put(location.getResourceDomain(), list);
+               ((List)list).add(location.getPath());
+               this.domains.put(location.getNamespace(), list);
           }
 
           if (sound != null && !sound.isEmpty()) {
                this.selectedResource = new ResourceLocation(sound);
-               this.selectedDomain = this.selectedResource.getResourceDomain();
+               this.selectedDomain = this.selectedResource.getNamespace();
                if (!this.domains.containsKey(this.selectedDomain)) {
                     this.selectedDomain = null;
                }
@@ -59,8 +59,8 @@ public class GuiSoundSelection extends SubGuiInterface implements ICustomScrollL
 
      }
 
-     public void func_73866_w_() {
-          super.func_73866_w_();
+     public void initGui() {
+          super.initGui();
           this.addButton(new GuiNpcButton(2, this.guiLeft + this.xSize - 26, this.guiTop + 4, 20, 20, "X"));
           this.addButton(new GuiNpcButton(1, this.guiLeft + 160, this.guiTop + 212, 70, 20, "gui.play", this.selectedResource != null));
           if (this.scrollCategories == null) {
@@ -86,7 +86,7 @@ public class GuiSoundSelection extends SubGuiInterface implements ICustomScrollL
           }
 
           if (this.selectedResource != null) {
-               this.scrollQuests.setSelected(this.selectedResource.getResourcePath());
+               this.scrollQuests.setSelected(this.selectedResource.getPath());
           }
 
           this.scrollQuests.guiLeft = this.guiLeft + 95;
@@ -94,8 +94,8 @@ public class GuiSoundSelection extends SubGuiInterface implements ICustomScrollL
           this.addScroll(this.scrollQuests);
      }
 
-     protected void func_146284_a(GuiButton guibutton) {
-          super.func_146284_a(guibutton);
+     protected void actionPerformed(GuiButton guibutton) {
+          super.actionPerformed(guibutton);
           if (guibutton.id == 1) {
                MusicController.Instance.stopMusic();
                BlockPos pos = this.player.getPosition();
@@ -119,7 +119,7 @@ public class GuiSoundSelection extends SubGuiInterface implements ICustomScrollL
                this.selectedResource = new ResourceLocation(this.selectedDomain, scroll.getSelected());
           }
 
-          this.func_73866_w_();
+          this.initGui();
      }
 
      public void scrollDoubleClicked(String selection, GuiCustomScroll scroll) {

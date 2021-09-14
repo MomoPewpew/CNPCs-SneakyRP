@@ -103,7 +103,7 @@ public class TileScripted extends TileNpcEntity implements ITickable, IScriptBlo
 
      public IBlock getBlock() {
           if (this.blockDummy == null) {
-               this.blockDummy = new BlockScriptedWrapper(this.getWorld(), this.func_145838_q(), this.getPos());
+               this.blockDummy = new BlockScriptedWrapper(this.getWorld(), this.getBlockType(), this.getPos());
           }
 
           return this.blockDummy;
@@ -220,7 +220,7 @@ public class TileScripted extends TileNpcEntity implements ITickable, IScriptBlo
      }
 
      private boolean isEnabled() {
-          return this.enabled && ScriptController.HasStart && !this.field_145850_b.isRemote;
+          return this.enabled && ScriptController.HasStart && !this.world.isRemote;
      }
 
      public void update() {
@@ -244,8 +244,8 @@ public class TileScripted extends TileNpcEntity implements ITickable, IScriptBlo
                this.ticksExisted = 0;
                if (this.needsClientUpdate) {
                     this.markDirty();
-                    IBlockState state = this.field_145850_b.getBlockState(this.field_174879_c);
-                    this.field_145850_b.notifyBlockUpdate(this.field_174879_c, state, state, 3);
+                    IBlockState state = this.world.getBlockState(this.pos);
+                    this.world.notifyBlockUpdate(this.pos, state, state, 3);
                     this.needsClientUpdate = false;
                }
           }
@@ -253,27 +253,27 @@ public class TileScripted extends TileNpcEntity implements ITickable, IScriptBlo
      }
 
      public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity pkt) {
-          this.handleUpdateTag(pkt.func_148857_g());
+          this.handleUpdateTag(pkt.getNbtCompound());
      }
 
      public void handleUpdateTag(NBTTagCompound tag) {
           int light = this.lightValue;
           this.setDisplayNBT(tag);
           if (light != this.lightValue) {
-               this.field_145850_b.func_175664_x(this.field_174879_c);
+               this.world.checkLight(this.pos);
           }
 
      }
 
-     public SPacketUpdateTileEntity func_189518_D_() {
-          return new SPacketUpdateTileEntity(this.field_174879_c, 0, this.func_189517_E_());
+     public SPacketUpdateTileEntity getUpdatePacket() {
+          return new SPacketUpdateTileEntity(this.pos, 0, this.getUpdateTag());
      }
 
-     public NBTTagCompound func_189517_E_() {
+     public NBTTagCompound getUpdateTag() {
           NBTTagCompound compound = new NBTTagCompound();
-          compound.setInteger("x", this.field_174879_c.getX());
-          compound.setInteger("y", this.field_174879_c.getY());
-          compound.setInteger("z", this.field_174879_c.getZ());
+          compound.setInteger("x", this.pos.getX());
+          compound.setInteger("y", this.pos.getY());
+          compound.setInteger("z", this.pos.getZ());
           this.getDisplayNBT(compound);
           return compound;
      }
@@ -300,7 +300,7 @@ public class TileScripted extends TileNpcEntity implements ITickable, IScriptBlo
      public void setRedstonePower(int strength) {
           if (this.powering != strength) {
                this.prevPower = this.activePowering = ValueUtil.CorrectInt(strength, 0, 15);
-               this.field_145850_b.notifyNeighborsOfStateChange(this.field_174879_c, this.func_145838_q(), false);
+               this.world.notifyNeighborsOfStateChange(this.pos, this.getBlockType(), false);
                this.powering = this.activePowering;
           }
      }
@@ -402,7 +402,7 @@ public class TileScripted extends TileNpcEntity implements ITickable, IScriptBlo
 
      @SideOnly(Side.CLIENT)
      public AxisAlignedBB getRenderBoundingBox() {
-          return Block.field_185505_j.offset(this.getPos());
+          return Block.FULL_BLOCK_AABB.offset(this.getPos());
      }
 
      public class TextPlane implements ITextPlane {

@@ -40,8 +40,8 @@ public class GuiNPCManageDialogs extends GuiNPCInterface2 implements ISubGuiList
           Instance = this;
      }
 
-     public void func_73866_w_() {
-          super.func_73866_w_();
+     public void initGui() {
+          super.initGui();
           this.addLabel(new GuiNpcLabel(0, "gui.categories", this.guiLeft + 8, this.guiTop + 4));
           this.addLabel(new GuiNpcLabel(1, "dialog.dialogs", this.guiLeft + 175, this.guiTop + 4));
           this.addLabel(new GuiNpcLabel(3, "dialog.dialogs", this.guiLeft + 356, this.guiTop + 8));
@@ -155,7 +155,7 @@ public class GuiNPCManageDialogs extends GuiNPCInterface2 implements ISubGuiList
                }
 
                if (subgui instanceof GuiDialogEdit) {
-                    this.func_73866_w_();
+                    this.initGui();
                }
 
           }
@@ -172,7 +172,7 @@ public class GuiNPCManageDialogs extends GuiNPCInterface2 implements ISubGuiList
                this.selectedDialog = (Dialog)this.dialogData.get(this.scrollDialogs.getSelected());
           }
 
-          this.func_73866_w_();
+          this.initGui();
      }
 
      public void scrollDoubleClicked(String selection, GuiCustomScroll scroll) {
@@ -190,7 +190,7 @@ public class GuiNPCManageDialogs extends GuiNPCInterface2 implements ISubGuiList
           GuiNpcTextField.unfocus();
      }
 
-     public void func_73878_a(boolean result, int id) {
+     public void confirmClicked(boolean result, int id) {
           NoppesUtil.openGUI(this.player, this);
           if (result) {
                if (id == 2) {

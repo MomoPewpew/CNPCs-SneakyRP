@@ -35,18 +35,18 @@ public class TileCopy extends TileEntity {
      }
 
      public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity pkt) {
-          this.handleUpdateTag(pkt.func_148857_g());
+          this.handleUpdateTag(pkt.getNbtCompound());
      }
 
-     public SPacketUpdateTileEntity func_189518_D_() {
-          return new SPacketUpdateTileEntity(this.field_174879_c, 0, this.func_189517_E_());
+     public SPacketUpdateTileEntity getUpdatePacket() {
+          return new SPacketUpdateTileEntity(this.pos, 0, this.getUpdateTag());
      }
 
-     public NBTTagCompound func_189517_E_() {
+     public NBTTagCompound getUpdateTag() {
           NBTTagCompound compound = new NBTTagCompound();
-          compound.setInteger("x", this.field_174879_c.getX());
-          compound.setInteger("y", this.field_174879_c.getY());
-          compound.setInteger("z", this.field_174879_c.getZ());
+          compound.setInteger("x", this.pos.getX());
+          compound.setInteger("y", this.pos.getY());
+          compound.setInteger("z", this.pos.getZ());
           compound.setShort("Length", this.length);
           compound.setShort("Width", this.width);
           compound.setShort("Height", this.height);
@@ -54,6 +54,6 @@ public class TileCopy extends TileEntity {
      }
 
      public AxisAlignedBB getRenderBoundingBox() {
-          return new AxisAlignedBB((double)this.field_174879_c.getX(), (double)this.field_174879_c.getY(), (double)this.field_174879_c.getZ(), (double)(this.field_174879_c.getX() + this.width + 1), (double)(this.field_174879_c.getY() + this.height + 1), (double)(this.field_174879_c.getZ() + this.length + 1));
+          return new AxisAlignedBB((double)this.pos.getX(), (double)this.pos.getY(), (double)this.pos.getZ(), (double)(this.pos.getX() + this.width + 1), (double)(this.pos.getY() + this.height + 1), (double)(this.pos.getZ() + this.length + 1));
      }
 }

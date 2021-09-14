@@ -138,7 +138,7 @@ public class SchematicController {
           }
 
           try {
-               NBTTagCompound compound = CompressedStreamTools.func_74796_a((InputStream)stream);
+               NBTTagCompound compound = CompressedStreamTools.readCompressed((InputStream)stream);
                ((InputStream)stream).close();
                if (name.toLowerCase().endsWith(".blueprint")) {
                     Blueprint bp = BlueprintUtil.readBlueprintFromNBT(compound);
@@ -172,7 +172,7 @@ public class SchematicController {
                NoppesUtilServer.NotifyOPs("Schematic " + name + " succesfully created");
 
                try {
-                    CompressedStreamTools.func_74799_a(((ISchematic)schema).getNBT(), new FileOutputStream(file));
+                    CompressedStreamTools.writeCompressed(((ISchematic)schema).getNBT(), new FileOutputStream(file));
                } catch (Exception var12) {
                     var12.printStackTrace();
                }

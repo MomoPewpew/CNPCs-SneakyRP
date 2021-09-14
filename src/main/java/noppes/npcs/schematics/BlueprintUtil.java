@@ -34,7 +34,7 @@ public class BlueprintUtil {
                     for(short x = 0; x < sizeX; ++x) {
                          IBlockState state = world.getBlockState(pos.add(x, y, z));
                          String modName;
-                         if (!requiredMods.contains(modName = state.getBlock().getRegistryName().getResourceDomain())) {
+                         if (!requiredMods.contains(modName = state.getBlock().getRegistryName().getNamespace())) {
                               requiredMods.add(modName);
                          }
 
@@ -83,7 +83,7 @@ public class BlueprintUtil {
 
           for(short i = 0; i < schem.getPalleteSize(); ++i) {
                NBTTagCompound state = new NBTTagCompound();
-               NBTUtil.func_190009_a(state, palette[i]);
+               NBTUtil.writeBlockState(state, palette[i]);
                paletteTag.appendTag(state);
           }
 
@@ -153,7 +153,7 @@ public class BlueprintUtil {
                IBlockState[] palette = new IBlockState[paletteSize];
 
                for(short i = 0; i < palette.length; ++i) {
-                    palette[i] = NBTUtil.func_190008_d(paletteTag.getCompoundTagAt(i));
+                    palette[i] = NBTUtil.readBlockState(paletteTag.getCompoundTagAt(i));
                }
 
                short[][][] blocks = convertSaveDataToBlocks(tag.getIntArray("blocks"), sizeX, sizeY, sizeZ);
@@ -186,7 +186,7 @@ public class BlueprintUtil {
 
      public static void writeToFile(OutputStream os, Blueprint schem) {
           try {
-               CompressedStreamTools.func_74799_a(writeBlueprintToNBT(schem), os);
+               CompressedStreamTools.writeCompressed(writeBlueprintToNBT(schem), os);
           } catch (IOException var3) {
                var3.printStackTrace();
           }
@@ -195,7 +195,7 @@ public class BlueprintUtil {
 
      public static Blueprint readFromFile(InputStream is) {
           try {
-               NBTTagCompound tag = CompressedStreamTools.func_74796_a(is);
+               NBTTagCompound tag = CompressedStreamTools.readCompressed(is);
                return readBlueprintFromNBT(tag);
           } catch (IOException var3) {
                var3.printStackTrace();

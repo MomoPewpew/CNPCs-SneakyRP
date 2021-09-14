@@ -26,18 +26,18 @@ public class RenderNPCInterface extends RenderLiving {
      public static int LastTextureTick;
 
      public RenderNPCInterface(ModelBase model, float f) {
-          super(Minecraft.getMinecraft().func_175598_ae(), model, f);
+          super(Minecraft.getMinecraft().getRenderManager(), model, f);
      }
 
      public void renderName(EntityNPCInterface npc, double d, double d1, double d2) {
-          if (npc != null && this.func_177070_b(npc) && this.field_76990_c.field_78734_h != null) {
-               double d0 = npc.getDistanceSq(this.field_76990_c.field_78734_h);
+          if (npc != null && this.canRenderName(npc) && this.renderManager.renderViewEntity != null) {
+               double d0 = npc.getDistanceSq(this.renderManager.renderViewEntity);
                if (d0 <= 512.0D) {
                     float scale;
                     if (npc.messages != null) {
                          scale = npc.baseHeight / 5.0F * (float)npc.display.getSize();
                          float offset = npc.height * (1.2F + (!npc.display.showName() ? 0.0F : (npc.display.getTitle().isEmpty() ? 0.15F : 0.25F)));
-                         npc.messages.renderMessages(d, d1 + (double)offset, d2, 0.666667F * scale, npc.isInRange(this.field_76990_c.field_78734_h, 4.0D));
+                         npc.messages.renderMessages(d, d1 + (double)offset, d2, 0.666667F * scale, npc.isInRange(this.renderManager.renderViewEntity, 4.0D));
                     }
 
                     scale = npc.baseHeight / 5.0F * (float)npc.display.getSize();
@@ -49,59 +49,59 @@ public class RenderNPCInterface extends RenderLiving {
           }
      }
 
-     public void func_76979_b(Entity par1Entity, double par2, double par4, double par6, float par8, float par9) {
+     public void doRenderShadowAndFire(Entity par1Entity, double par2, double par4, double par6, float par8, float par9) {
           EntityNPCInterface npc = (EntityNPCInterface)par1Entity;
-          this.field_76989_e = npc.field_70130_N;
+          this.shadowSize = npc.width;
           if (!npc.isKilled()) {
-               super.func_76979_b(par1Entity, par2, par4, par6, par8, par9);
+               super.doRenderShadowAndFire(par1Entity, par2, par4, par6, par8, par9);
           }
 
      }
 
      protected void renderLivingLabel(EntityNPCInterface npc, float d, float d1, float d2, int i, String name, String title) {
-          FontRenderer fontrenderer = this.func_76983_a();
+          FontRenderer fontrenderer = this.getFontRendererFromRenderManager();
           float f1 = npc.baseHeight / 5.0F * (float)npc.display.getSize();
           float f2 = 0.01666667F * f1;
-          GlStateManager.func_179094_E();
+          GlStateManager.pushMatrix();
           GlStateManager.translate(d, d1, d2);
           GL11.glNormal3f(0.0F, 1.0F, 0.0F);
-          GlStateManager.func_179114_b(-this.field_76990_c.field_78735_i, 0.0F, 1.0F, 0.0F);
-          GlStateManager.func_179114_b(this.field_76990_c.field_78732_j, 1.0F, 0.0F, 0.0F);
+          GlStateManager.rotate(-this.renderManager.playerViewY, 0.0F, 1.0F, 0.0F);
+          GlStateManager.rotate(this.renderManager.playerViewX, 1.0F, 0.0F, 0.0F);
           float height = f1 / 6.5F * 2.0F;
           int color = npc.getFaction().color;
           GlStateManager.disableLighting();
-          GlStateManager.func_179132_a(false);
+          GlStateManager.depthMask(false);
           GlStateManager.translate(0.0F, height, 0.0F);
-          GlStateManager.func_179147_l();
-          GlStateManager.func_187428_a(SourceFactor.SRC_ALPHA, DestFactor.ONE_MINUS_SRC_ALPHA, SourceFactor.ONE, DestFactor.ZERO);
+          GlStateManager.enableBlend();
+          GlStateManager.tryBlendFuncSeparate(SourceFactor.SRC_ALPHA, DestFactor.ONE_MINUS_SRC_ALPHA, SourceFactor.ONE, DestFactor.ZERO);
           if (!title.isEmpty()) {
                title = "<" + title + ">";
                float f3 = 0.01666667F * f1 * 0.6F;
                GlStateManager.translate(0.0F, -f1 / 6.5F * 0.4F, 0.0F);
-               GlStateManager.func_179152_a(-f3, -f3, f3);
-               fontrenderer.func_78276_b(title, -fontrenderer.getStringWidth(title) / 2, 0, color);
-               GlStateManager.func_179152_a(1.0F / -f3, 1.0F / -f3, 1.0F / f3);
+               GlStateManager.scale(-f3, -f3, f3);
+               fontrenderer.drawString(title, -fontrenderer.getStringWidth(title) / 2, 0, color);
+               GlStateManager.scale(1.0F / -f3, 1.0F / -f3, 1.0F / f3);
                GlStateManager.translate(0.0F, f1 / 6.5F * 0.85F, 0.0F);
           }
 
-          GlStateManager.func_179152_a(-f2, -f2, f2);
-          if (npc.isInRange(this.field_76990_c.field_78734_h, 4.0D)) {
+          GlStateManager.scale(-f2, -f2, f2);
+          if (npc.isInRange(this.renderManager.renderViewEntity, 4.0D)) {
                GlStateManager.disableDepth();
-               fontrenderer.func_78276_b(name, -fontrenderer.getStringWidth(name) / 2, 0, color + 1426063360);
+               fontrenderer.drawString(name, -fontrenderer.getStringWidth(name) / 2, 0, color + 1426063360);
                GlStateManager.enableDepth();
           }
 
-          GlStateManager.func_179132_a(true);
+          GlStateManager.depthMask(true);
           GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-          fontrenderer.func_78276_b(name, -fontrenderer.getStringWidth(name) / 2, 0, color);
+          fontrenderer.drawString(name, -fontrenderer.getStringWidth(name) / 2, 0, color);
           GlStateManager.enableLighting();
-          GlStateManager.func_179084_k();
+          GlStateManager.disableBlend();
           GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-          GlStateManager.func_179121_F();
+          GlStateManager.popMatrix();
      }
 
      protected void renderColor(EntityNPCInterface npc) {
-          if (npc.field_70737_aN <= 0 && npc.field_70725_aQ <= 0) {
+          if (npc.hurtTime <= 0 && npc.deathTime <= 0) {
                float red = (float)(npc.display.getTint() >> 16 & 255) / 255.0F;
                float green = (float)(npc.display.getTint() >> 8 & 255) / 255.0F;
                float blue = (float)(npc.display.getTint() & 255) / 255.0F;
@@ -115,17 +115,17 @@ public class RenderNPCInterface extends RenderLiving {
 
      protected void applyRotations(EntityNPCInterface npc, float f, float f1, float f2) {
           if (npc.isEntityAlive() && npc.isPlayerSleeping()) {
-               GlStateManager.func_179114_b((float)npc.ais.orientation, 0.0F, 1.0F, 0.0F);
-               GlStateManager.func_179114_b(this.func_77037_a(npc), 0.0F, 0.0F, 1.0F);
-               GlStateManager.func_179114_b(270.0F, 0.0F, 1.0F, 0.0F);
+               GlStateManager.rotate((float)npc.ais.orientation, 0.0F, 1.0F, 0.0F);
+               GlStateManager.rotate(this.getDeathMaxRotation(npc), 0.0F, 0.0F, 1.0F);
+               GlStateManager.rotate(270.0F, 0.0F, 1.0F, 0.0F);
           } else if (npc.isEntityAlive() && npc.currentAnimation == 7) {
-               GlStateManager.func_179114_b(270.0F - f1, 0.0F, 1.0F, 0.0F);
+               GlStateManager.rotate(270.0F - f1, 0.0F, 1.0F, 0.0F);
                float scale = (float)((EntityCustomNpc)npc).display.getSize() / 5.0F;
                GlStateManager.translate(-scale + ((EntityCustomNpc)npc).modelData.getLegsY() * scale, 0.14F, 0.0F);
-               GlStateManager.func_179114_b(270.0F, 0.0F, 0.0F, 1.0F);
-               GlStateManager.func_179114_b(270.0F, 0.0F, 1.0F, 0.0F);
+               GlStateManager.rotate(270.0F, 0.0F, 0.0F, 1.0F);
+               GlStateManager.rotate(270.0F, 0.0F, 1.0F, 0.0F);
           } else {
-               super.func_77043_a(npc, f, f1, f2);
+               super.applyRotations(npc, f, f1, f2);
           }
 
      }
@@ -133,50 +133,50 @@ public class RenderNPCInterface extends RenderLiving {
      protected void preRenderCallback(EntityNPCInterface npc, float f) {
           this.renderColor(npc);
           int size = npc.display.getSize();
-          GlStateManager.func_179152_a(npc.scaleX / 5.0F * (float)size, npc.scaleY / 5.0F * (float)size, npc.scaleZ / 5.0F * (float)size);
+          GlStateManager.scale(npc.scaleX / 5.0F * (float)size, npc.scaleY / 5.0F * (float)size, npc.scaleZ / 5.0F * (float)size);
      }
 
      public void doRender(EntityNPCInterface npc, double d, double d1, double d2, float f, float f1) {
-          if (!npc.isKilled() || !npc.stats.hideKilledBody || npc.field_70725_aQ <= 20) {
-               if ((npc.display.getBossbar() == 1 || npc.display.getBossbar() == 2 && npc.isAttacking()) && !npc.isKilled() && npc.field_70725_aQ <= 20 && npc.canSee(Minecraft.getMinecraft().player)) {
+          if (!npc.isKilled() || !npc.stats.hideKilledBody || npc.deathTime <= 20) {
+               if ((npc.display.getBossbar() == 1 || npc.display.getBossbar() == 2 && npc.isAttacking()) && !npc.isKilled() && npc.deathTime <= 20 && npc.canSee(Minecraft.getMinecraft().player)) {
                }
 
                if (npc.ais.getStandingType() == 3 && !npc.isWalking() && !npc.isInteracting()) {
-                    npc.field_70760_ar = npc.field_70761_aq = (float)npc.ais.orientation;
+                    npc.prevRenderYawOffset = npc.renderYawOffset = (float)npc.ais.orientation;
                }
 
-               super.func_76986_a(npc, d, d1, d2, f, f1);
+               super.doRender(npc, d, d1, d2, f, f1);
           }
      }
 
      protected void renderModel(EntityNPCInterface npc, float par2, float par3, float par4, float par5, float par6, float par7) {
           super.renderModel(npc, par2, par3, par4, par5, par6, par7);
           if (!npc.display.getOverlayTexture().isEmpty()) {
-               GlStateManager.func_179143_c(515);
+               GlStateManager.depthFunc(515);
                if (npc.textureGlowLocation == null) {
                     npc.textureGlowLocation = new ResourceLocation(npc.display.getOverlayTexture());
                }
 
-               this.func_110776_a(npc.textureGlowLocation);
+               this.bindTexture(npc.textureGlowLocation);
                float f1 = 1.0F;
-               GlStateManager.func_179147_l();
-               GlStateManager.func_179112_b(1, 1);
+               GlStateManager.enableBlend();
+               GlStateManager.blendFunc(1, 1);
                GlStateManager.disableLighting();
-               if (npc.func_82150_aj()) {
-                    GlStateManager.func_179132_a(false);
+               if (npc.isInvisible()) {
+                    GlStateManager.depthMask(false);
                } else {
-                    GlStateManager.func_179132_a(true);
+                    GlStateManager.depthMask(true);
                }
 
                GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-               GlStateManager.func_179094_E();
-               GlStateManager.func_179152_a(1.001F, 1.001F, 1.001F);
-               this.field_77045_g.func_78088_a(npc, par2, par3, par4, par5, par6, par7);
-               GlStateManager.func_179121_F();
+               GlStateManager.pushMatrix();
+               GlStateManager.scale(1.001F, 1.001F, 1.001F);
+               this.mainModel.render(npc, par2, par3, par4, par5, par6, par7);
+               GlStateManager.popMatrix();
                GlStateManager.enableLighting();
                GlStateManager.color(1.0F, 1.0F, 1.0F, f1);
-               GlStateManager.func_179143_c(515);
-               GlStateManager.func_179084_k();
+               GlStateManager.depthFunc(515);
+               GlStateManager.disableBlend();
           }
 
      }
@@ -186,7 +186,7 @@ public class RenderNPCInterface extends RenderLiving {
      }
 
      protected void renderLivingAt(EntityNPCInterface npc, double d, double d1, double d2) {
-          this.field_76989_e = (float)npc.display.getSize() / 10.0F;
+          this.shadowSize = (float)npc.display.getSize() / 10.0F;
           float xOffset = 0.0F;
           float yOffset = npc.currentAnimation == 0 ? npc.ais.bodyOffsetY / 10.0F - 0.5F : 0.0F;
           float zOffset = 0.0F;
@@ -203,7 +203,7 @@ public class RenderNPCInterface extends RenderLiving {
           xOffset = xOffset / 5.0F * (float)npc.display.getSize();
           yOffset = yOffset / 5.0F * (float)npc.display.getSize();
           zOffset = zOffset / 5.0F * (float)npc.display.getSize();
-          super.func_77039_a(npc, d + (double)xOffset, d1 + (double)yOffset, d2 + (double)zOffset);
+          super.renderLivingAt(npc, d + (double)xOffset, d1 + (double)yOffset, d2 + (double)zOffset);
      }
 
      public ResourceLocation getEntityTexture(EntityNPCInterface npc) {
@@ -212,14 +212,14 @@ public class RenderNPCInterface extends RenderLiving {
                     npc.textureLocation = new ResourceLocation(npc.display.getSkinTexture());
                } else {
                     if (LastTextureTick < 5) {
-                         return DefaultPlayerSkin.func_177335_a();
+                         return DefaultPlayerSkin.getDefaultSkinLegacy();
                     }
 
                     if (npc.display.skinType == 1 && npc.display.playerProfile != null) {
                          Minecraft minecraft = Minecraft.getMinecraft();
-                         Map map = minecraft.func_152342_ad().func_152788_a(npc.display.playerProfile);
+                         Map map = minecraft.getSkinManager().loadSkinFromCache(npc.display.playerProfile);
                          if (map.containsKey(Type.SKIN)) {
-                              npc.textureLocation = minecraft.func_152342_ad().func_152792_a((MinecraftProfileTexture)map.get(Type.SKIN), Type.SKIN);
+                              npc.textureLocation = minecraft.getSkinManager().loadSkin((MinecraftProfileTexture)map.get(Type.SKIN), Type.SKIN);
                          }
                     } else if (npc.display.skinType == 2) {
                          try {
@@ -242,14 +242,14 @@ public class RenderNPCInterface extends RenderLiving {
                }
           }
 
-          return npc.textureLocation == null ? DefaultPlayerSkin.func_177335_a() : npc.textureLocation;
+          return npc.textureLocation == null ? DefaultPlayerSkin.getDefaultSkinLegacy() : npc.textureLocation;
      }
 
      private void loadSkin(File file, ResourceLocation resource, String par1Str) {
-          TextureManager texturemanager = Minecraft.getMinecraft().func_110434_K();
-          if (texturemanager.func_110581_b(resource) == null) {
-               ITextureObject object = new ImageDownloadAlt(file, par1Str, DefaultPlayerSkin.func_177335_a(), new ImageBufferDownloadAlt());
-               texturemanager.func_110579_a(resource, object);
+          TextureManager texturemanager = Minecraft.getMinecraft().getTextureManager();
+          if (texturemanager.getTexture(resource) == null) {
+               ITextureObject object = new ImageDownloadAlt(file, par1Str, DefaultPlayerSkin.getDefaultSkinLegacy(), new ImageBufferDownloadAlt());
+               texturemanager.loadTexture(resource, object);
           }
      }
 }

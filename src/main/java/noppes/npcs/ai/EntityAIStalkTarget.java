@@ -123,16 +123,16 @@ public class EntityAIStalkTarget extends EntityAIBase {
           }
 
           for(int y = -2; y <= 2; ++y) {
-               double k = (double)MathHelper.floor(this.npc.getEntityBoundingBox().field_72338_b + (double)y);
+               double k = (double)MathHelper.floor(this.npc.getEntityBoundingBox().minY + (double)y);
 
                for(int x = -radius; x <= radius; ++x) {
-                    double j = (double)MathHelper.floor(this.npc.field_70165_t + (double)x) + 0.5D;
+                    double j = (double)MathHelper.floor(this.npc.posX + (double)x) + 0.5D;
 
                     for(int z = -radius; z <= radius; ++z) {
-                         double l = (double)MathHelper.floor(this.npc.field_70161_v + (double)z) + 0.5D;
+                         double l = (double)MathHelper.floor(this.npc.posZ + (double)z) + 0.5D;
                          BlockPos pos = new BlockPos(j, k, l);
                          if (this.isOpaque(pos) && !this.isOpaque(pos.up()) && !this.isOpaque(pos.up(2))) {
-                              Vec3d vec1 = new Vec3d(this.targetEntity.field_70165_t, this.targetEntity.field_70163_u + (double)this.targetEntity.getEyeHeight(), this.targetEntity.field_70161_v);
+                              Vec3d vec1 = new Vec3d(this.targetEntity.posX, this.targetEntity.posY + (double)this.targetEntity.getEyeHeight(), this.targetEntity.posZ);
                               Vec3d vec2 = new Vec3d(j, k + (double)this.npc.getEyeHeight(), l);
                               RayTraceResult movingobjectposition = this.world.rayTraceBlocks(vec1, vec2);
                               if (movingobjectposition != null) {
@@ -158,8 +158,8 @@ public class EntityAIStalkTarget extends EntityAIBase {
 
      private boolean isLookingAway() {
           Vec3d vec3 = this.targetEntity.getLook(1.0F).normalize();
-          Vec3d vec31 = new Vec3d(this.npc.field_70165_t - this.targetEntity.field_70165_t, this.npc.getEntityBoundingBox().field_72338_b + (double)(this.npc.height / 2.0F) - (this.targetEntity.field_70163_u + (double)this.targetEntity.getEyeHeight()), this.npc.field_70161_v - this.targetEntity.field_70161_v);
-          double d0 = vec31.lengthVector();
+          Vec3d vec31 = new Vec3d(this.npc.posX - this.targetEntity.posX, this.npc.getEntityBoundingBox().minY + (double)(this.npc.height / 2.0F) - (this.targetEntity.posY + (double)this.targetEntity.getEyeHeight()), this.npc.posZ - this.targetEntity.posZ);
+          double d0 = vec31.length();
           vec31 = vec31.normalize();
           double d1 = vec3.dotProduct(vec31);
           return d1 < 0.6D;

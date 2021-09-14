@@ -108,8 +108,8 @@ public class JobFarmer extends JobInterface implements MassBlockController.IMass
      }
 
      private void dropItem(ItemStack item) {
-          EntityItem entityitem = new EntityItem(this.npc.world, this.npc.field_70165_t, this.npc.field_70163_u, this.npc.field_70161_v, item);
-          entityitem.func_174869_p();
+          EntityItem entityitem = new EntityItem(this.npc.world, this.npc.posX, this.npc.posY, this.npc.posZ, item);
+          entityitem.setDefaultPickupDelay();
           this.npc.world.spawnEntity(entityitem);
      }
 
@@ -189,23 +189,23 @@ public class JobFarmer extends JobInterface implements MassBlockController.IMass
                this.npc.swingArm(EnumHand.MAIN_HAND);
                IBlockState state = this.npc.world.getBlockState(pos);
                Block b = state.getBlock();
-               if (b instanceof BlockCrops && ((BlockCrops)b).func_185525_y(state)) {
+               if (b instanceof BlockCrops && ((BlockCrops)b).isMaxAge(state)) {
                     BlockCrops crop = (BlockCrops)b;
-                    this.npc.world.setBlockState(pos, crop.func_185528_e(0));
+                    this.npc.world.setBlockState(pos, crop.withAge(0));
                     this.holding = new ItemStack(NpcBlockHelper.getCrop((BlockCrops)b));
                }
 
                if (b instanceof BlockStem) {
                     state = b.getActualState(state, this.npc.world, pos);
-                    EnumFacing facing = (EnumFacing)state.getValue(BlockStem.field_176483_b);
+                    EnumFacing facing = (EnumFacing)state.getValue(BlockStem.FACING);
                     if (facing == EnumFacing.UP || facing == EnumFacing.DOWN) {
                          return;
                     }
 
-                    pos = pos.add(facing.func_176730_m());
+                    pos = pos.add(facing.getDirectionVec());
                     b = this.npc.world.getBlockState(pos).getBlock();
                     this.npc.world.setBlockToAir(pos);
-                    if (b != Blocks.field_150350_a) {
+                    if (b != Blocks.AIR) {
                          this.holding = new ItemStack(b);
                     }
                }
@@ -227,12 +227,12 @@ public class JobFarmer extends JobInterface implements MassBlockController.IMass
                IBlockState state = this.npc.world.getBlockState(pos);
                Block b = state.getBlock();
                if (b instanceof BlockCrops) {
-                    if (((BlockCrops)b).func_185525_y(state)) {
+                    if (((BlockCrops)b).isMaxAge(state)) {
                          this.ripe = pos;
                     }
                } else if (b instanceof BlockStem) {
                     state = b.getActualState(state, this.npc.world, pos);
-                    EnumFacing facing = (EnumFacing)state.getValue(BlockStem.field_176483_b);
+                    EnumFacing facing = (EnumFacing)state.getValue(BlockStem.FACING);
                     if (facing != EnumFacing.UP) {
                          this.ripe = pos;
                     }

@@ -80,7 +80,7 @@ public class BankController {
      }
 
      private void loadBanks(File file) throws IOException {
-          this.loadBanks(CompressedStreamTools.func_74796_a(new FileInputStream(file)));
+          this.loadBanks(CompressedStreamTools.readCompressed(new FileInputStream(file)));
      }
 
      public void loadBanks(NBTTagCompound nbttagcompound1) throws IOException {
@@ -125,7 +125,7 @@ public class BankController {
                File file = new File(saveDir, "bank.dat_new");
                File file1 = new File(saveDir, "bank.dat_old");
                File file2 = new File(saveDir, "bank.dat");
-               CompressedStreamTools.func_74799_a(this.getNBT(), new FileOutputStream(file));
+               CompressedStreamTools.writeCompressed(this.getNBT(), new FileOutputStream(file));
                if (file1.exists()) {
                     file1.delete();
                }

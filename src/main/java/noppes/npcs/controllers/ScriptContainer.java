@@ -231,7 +231,7 @@ public class ScriptContainer {
           FillMap(TacticalType.class);
           FillMap(PotionType.class);
           FillMap(ParticleType.class);
-          Data.put("PosZero", new BlockPosWrapper(BlockPos.field_177992_a));
+          Data.put("PosZero", new BlockPosWrapper(BlockPos.ORIGIN));
      }
 
      private class Log implements Function {

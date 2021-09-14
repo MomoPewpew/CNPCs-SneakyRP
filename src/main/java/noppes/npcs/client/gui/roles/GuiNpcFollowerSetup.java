@@ -23,21 +23,21 @@ public class GuiNpcFollowerSetup extends GuiContainerNPCInterface2 {
 
      public GuiNpcFollowerSetup(EntityNPCInterface npc, ContainerNPCFollowerSetup container) {
           super(npc, container);
-          this.field_147000_g = 200;
+          this.ySize = 200;
           this.role = (RoleFollower)npc.roleInterface;
           this.setBackground("followersetup.png");
      }
 
-     public void func_73866_w_() {
-          super.func_73866_w_();
+     public void initGui() {
+          super.initGui();
 
           int i;
           int day;
           for(i = 0; i < 3; ++i) {
-               int x = this.field_147003_i + 66;
-               day = this.field_147009_r + 37;
+               int x = this.guiLeft + 66;
+               day = this.guiTop + 37;
                day += i * 25;
-               GuiNpcTextField tf = new GuiNpcTextField(i, this, this.field_146289_q, x, day, 24, 20, "1");
+               GuiNpcTextField tf = new GuiNpcTextField(i, this, this.fontRenderer, x, day, 24, 20, "1");
                tf.numbersOnly = true;
                tf.setMinMaxDefault(1, Integer.MAX_VALUE, 1);
                this.addTextField(tf);
@@ -47,21 +47,21 @@ public class GuiNpcFollowerSetup extends GuiContainerNPCInterface2 {
 
           for(Iterator var5 = this.role.rates.values().iterator(); var5.hasNext(); ++i) {
                day = (Integer)var5.next();
-               this.getTextField(i).func_146180_a(day + "");
+               this.getTextField(i).setText(day + "");
           }
 
-          this.addTextField(new GuiNpcTextField(3, this, this.field_146289_q, this.field_147003_i + 100, this.field_147009_r + 6, 286, 20, this.role.dialogHire));
-          this.addTextField(new GuiNpcTextField(4, this, this.field_146289_q, this.field_147003_i + 100, this.field_147009_r + 30, 286, 20, this.role.dialogFarewell));
-          this.addLabel(new GuiNpcLabel(7, "follower.infiniteDays", this.field_147003_i + 180, this.field_147009_r + 80));
-          this.addButton(new GuiNpcButtonYesNo(7, this.field_147003_i + 260, this.field_147009_r + 75, this.role.infiniteDays));
-          this.addLabel(new GuiNpcLabel(8, "follower.guiDisabled", this.field_147003_i + 180, this.field_147009_r + 104));
-          this.addButton(new GuiNpcButtonYesNo(8, this.field_147003_i + 260, this.field_147009_r + 99, this.role.disableGui));
-          this.addLabel(new GuiNpcLabel(9, "follower.allowSoulstone", this.field_147003_i + 180, this.field_147009_r + 128));
-          this.addButton(new GuiNpcButtonYesNo(9, this.field_147003_i + 260, this.field_147009_r + 123, !this.role.refuseSoulStone));
-          this.addButton(new GuiNpcButton(10, this.field_147003_i + 195, this.field_147009_r + 147, 100, 20, "remote.reset"));
+          this.addTextField(new GuiNpcTextField(3, this, this.fontRenderer, this.guiLeft + 100, this.guiTop + 6, 286, 20, this.role.dialogHire));
+          this.addTextField(new GuiNpcTextField(4, this, this.fontRenderer, this.guiLeft + 100, this.guiTop + 30, 286, 20, this.role.dialogFarewell));
+          this.addLabel(new GuiNpcLabel(7, "follower.infiniteDays", this.guiLeft + 180, this.guiTop + 80));
+          this.addButton(new GuiNpcButtonYesNo(7, this.guiLeft + 260, this.guiTop + 75, this.role.infiniteDays));
+          this.addLabel(new GuiNpcLabel(8, "follower.guiDisabled", this.guiLeft + 180, this.guiTop + 104));
+          this.addButton(new GuiNpcButtonYesNo(8, this.guiLeft + 260, this.guiTop + 99, this.role.disableGui));
+          this.addLabel(new GuiNpcLabel(9, "follower.allowSoulstone", this.guiLeft + 180, this.guiTop + 128));
+          this.addButton(new GuiNpcButtonYesNo(9, this.guiLeft + 260, this.guiTop + 123, !this.role.refuseSoulStone));
+          this.addButton(new GuiNpcButton(10, this.guiLeft + 195, this.guiTop + 147, 100, 20, "remote.reset"));
      }
 
-     protected void func_146284_a(GuiButton guibutton) {
+     protected void actionPerformed(GuiButton guibutton) {
           if (guibutton.id == 7) {
                this.role.infiniteDays = ((GuiNpcButtonYesNo)guibutton).getBoolean();
           }
@@ -80,7 +80,7 @@ public class GuiNpcFollowerSetup extends GuiContainerNPCInterface2 {
 
      }
 
-     protected void func_146979_b(int par1, int par2) {
+     protected void drawGuiContainerForegroundLayer(int par1, int par2) {
      }
 
      public void save() {
@@ -103,8 +103,8 @@ public class GuiNpcFollowerSetup extends GuiContainerNPCInterface2 {
           }
 
           this.role.rates = map;
-          this.role.dialogHire = this.getTextField(3).func_146179_b();
-          this.role.dialogFarewell = this.getTextField(4).func_146179_b();
+          this.role.dialogHire = this.getTextField(3).getText();
+          this.role.dialogFarewell = this.getTextField(4).getText();
           Client.sendData(EnumPacketServer.RoleSave, this.role.writeToNBT(new NBTTagCompound()));
      }
 }

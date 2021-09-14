@@ -31,8 +31,8 @@ public class GuiNpcRemoteEditor extends GuiNPCInterface implements IScrollData, 
           Client.sendData(EnumPacketServer.RemoteNpcsGet);
      }
 
-     public void func_73866_w_() {
-          super.func_73866_w_();
+     public void initGui() {
+          super.initGui();
           if (this.scroll == null) {
                this.scroll = new GuiCustomScroll(this, 0);
                this.scroll.setSize(165, 208);
@@ -42,7 +42,7 @@ public class GuiNpcRemoteEditor extends GuiNPCInterface implements IScrollData, 
           this.scroll.guiTop = this.guiTop + 4;
           this.addScroll(this.scroll);
           String title = I18n.translateToLocal("remote.title");
-          int x = (this.xSize - this.field_146289_q.getStringWidth(title)) / 2;
+          int x = (this.xSize - this.fontRenderer.getStringWidth(title)) / 2;
           this.addLabel(new GuiNpcLabel(0, title, this.guiLeft + x, this.guiTop - 8));
           this.addButton(new GuiNpcButton(0, this.guiLeft + 170, this.guiTop + 6, 82, 20, "selectServer.edit"));
           this.addButton(new GuiNpcButton(1, this.guiLeft + 170, this.guiTop + 28, 82, 20, "selectWorld.deleteButton"));
@@ -52,7 +52,7 @@ public class GuiNpcRemoteEditor extends GuiNPCInterface implements IScrollData, 
           this.addButton(new GuiNpcButton(3, this.guiLeft + 170, this.guiTop + 132, 82, 20, "remote.freeze"));
      }
 
-     public void func_73878_a(boolean flag, int i) {
+     public void confirmClicked(boolean flag, int i) {
           if (flag) {
                Client.sendData(EnumPacketServer.RemoteDelete, this.data.get(this.scroll.getSelected()));
           }
@@ -60,7 +60,7 @@ public class GuiNpcRemoteEditor extends GuiNPCInterface implements IScrollData, 
           NoppesUtil.openGUI(this.player, this);
      }
 
-     protected void func_146284_a(GuiButton guibutton) {
+     protected void actionPerformed(GuiButton guibutton) {
           int id = guibutton.id;
           if (id == 3) {
                Client.sendData(EnumPacketServer.RemoteFreeze);
@@ -105,12 +105,12 @@ public class GuiNpcRemoteEditor extends GuiNPCInterface implements IScrollData, 
           }
      }
 
-     public void func_73864_a(int i, int j, int k) {
-          super.func_73864_a(i, j, k);
-          this.scroll.func_73864_a(i, j, k);
+     public void mouseClicked(int i, int j, int k) {
+          super.mouseClicked(i, j, k);
+          this.scroll.mouseClicked(i, j, k);
      }
 
-     public void func_73869_a(char c, int i) {
+     public void keyTyped(char c, int i) {
           if (i == 1 || this.isInventoryKey(i)) {
                this.close();
           }

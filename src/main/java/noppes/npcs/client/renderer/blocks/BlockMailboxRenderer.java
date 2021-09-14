@@ -21,35 +21,35 @@ public class BlockMailboxRenderer extends TileEntitySpecialRenderer {
           this.type = i;
      }
 
-     public void func_192841_a(TileEntity te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
+     public void render(TileEntity te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
           int meta = 0;
           int type = this.type;
-          if (te != null && te.getPos() != BlockPos.field_177992_a) {
-               meta = te.func_145832_p() | 4;
-               type = te.func_145832_p() >> 2;
+          if (te != null && te.getPos() != BlockPos.ORIGIN) {
+               meta = te.getBlockMetadata() | 4;
+               type = te.getBlockMetadata() >> 2;
           }
 
-          GlStateManager.func_179094_E();
+          GlStateManager.pushMatrix();
           GlStateManager.enableLighting();
-          GlStateManager.func_179084_k();
+          GlStateManager.disableBlend();
           GlStateManager.translate((float)x + 0.5F, (float)y + 1.5F, (float)z + 0.5F);
-          GlStateManager.func_179114_b(180.0F, 0.0F, 0.0F, 1.0F);
-          GlStateManager.func_179114_b((float)(90 * meta), 0.0F, 1.0F, 0.0F);
+          GlStateManager.rotate(180.0F, 0.0F, 0.0F, 1.0F);
+          GlStateManager.rotate((float)(90 * meta), 0.0F, 1.0F, 0.0F);
           if (type == 0) {
-               this.func_147499_a(text1);
-               this.model.func_78088_a((Entity)null, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0625F);
+               this.bindTexture(text1);
+               this.model.render((Entity)null, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0625F);
           }
 
           if (type == 1) {
-               this.func_147499_a(text2);
-               this.model2.func_78088_a((Entity)null, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0625F);
+               this.bindTexture(text2);
+               this.model2.render((Entity)null, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0625F);
           }
 
           if (type == 2) {
-               this.func_147499_a(text3);
-               this.model2.func_78088_a((Entity)null, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0625F);
+               this.bindTexture(text3);
+               this.model2.render((Entity)null, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0625F);
           }
 
-          GlStateManager.func_179121_F();
+          GlStateManager.popMatrix();
      }
 }

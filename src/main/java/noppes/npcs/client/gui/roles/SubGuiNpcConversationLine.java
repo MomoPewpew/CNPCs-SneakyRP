@@ -23,10 +23,10 @@ public class SubGuiNpcConversationLine extends SubGuiInterface implements ITextf
           this.closeOnEsc = true;
      }
 
-     public void func_73866_w_() {
-          super.func_73866_w_();
+     public void initGui() {
+          super.initGui();
           this.addLabel(new GuiNpcLabel(0, "Line", this.guiLeft + 4, this.guiTop + 10));
-          this.addTextField(new GuiNpcTextField(0, this, this.field_146289_q, this.guiLeft + 4, this.guiTop + 22, 200, 20, this.line));
+          this.addTextField(new GuiNpcTextField(0, this, this.fontRenderer, this.guiLeft + 4, this.guiTop + 22, 200, 20, this.line));
           this.addButton(new GuiNpcButton(1, this.guiLeft + 4, this.guiTop + 55, 90, 20, "Select Sound"));
           this.addButton(new GuiNpcButton(2, this.guiLeft + 96, this.guiTop + 55, 20, 20, "X"));
           this.addLabel(new GuiNpcLabel(1, this.sound, this.guiLeft + 4, this.guiTop + 81));
@@ -34,10 +34,10 @@ public class SubGuiNpcConversationLine extends SubGuiInterface implements ITextf
      }
 
      public void unFocused(GuiNpcTextField textfield) {
-          this.line = textfield.func_146179_b();
+          this.line = textfield.getText();
      }
 
-     protected void func_146284_a(GuiButton guibutton) {
+     protected void actionPerformed(GuiButton guibutton) {
           int id = guibutton.id;
           if (id == 1) {
                this.setSubGui(new GuiSoundSelection(this.sound));
@@ -45,7 +45,7 @@ public class SubGuiNpcConversationLine extends SubGuiInterface implements ITextf
 
           if (id == 2) {
                this.sound = "";
-               this.func_73866_w_();
+               this.initGui();
           }
 
           if (id == 66) {

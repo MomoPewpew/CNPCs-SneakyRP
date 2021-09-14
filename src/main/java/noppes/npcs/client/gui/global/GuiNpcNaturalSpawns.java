@@ -34,8 +34,8 @@ public class GuiNpcNaturalSpawns extends GuiNPCInterface2 implements IGuiData, I
           Client.sendData(EnumPacketServer.NaturalSpawnGetAll);
      }
 
-     public void func_73866_w_() {
-          super.func_73866_w_();
+     public void initGui() {
+          super.initGui();
           if (this.scroll == null) {
                this.scroll = new GuiCustomScroll(this, 0);
                this.scroll.setSize(143, 208);
@@ -54,10 +54,10 @@ public class GuiNpcNaturalSpawns extends GuiNPCInterface2 implements IGuiData, I
 
      private void showSpawn() {
           this.addLabel(new GuiNpcLabel(1, "gui.title", this.guiLeft + 4, this.guiTop + 8));
-          this.addTextField(new GuiNpcTextField(1, this, this.field_146289_q, this.guiLeft + 60, this.guiTop + 3, 140, 20, this.spawn.name));
+          this.addTextField(new GuiNpcTextField(1, this, this.fontRenderer, this.guiLeft + 60, this.guiTop + 3, 140, 20, this.spawn.name));
           this.addLabel(new GuiNpcLabel(3, "spawning.biomes", this.guiLeft + 4, this.guiTop + 30));
           this.addButton(new GuiNpcButton(3, this.guiLeft + 120, this.guiTop + 25, 50, 20, "selectServer.edit"));
-          this.addSlider(new GuiNpcSlider(this, 4, this.guiLeft + 4, this.guiTop + 47, 180, 20, (float)this.spawn.field_76292_a / 100.0F));
+          this.addSlider(new GuiNpcSlider(this, 4, this.guiLeft + 4, this.guiTop + 47, 180, 20, (float)this.spawn.itemWeight / 100.0F));
           int y = this.guiTop + 70;
           this.addButton(new GuiNpcButton(25, this.guiLeft + 14, y, 20, 20, "X"));
           this.addLabel(new GuiNpcLabel(5, "1:", this.guiLeft + 4, y + 5));
@@ -100,7 +100,7 @@ public class GuiNpcNaturalSpawns extends GuiNPCInterface2 implements IGuiData, I
 
           if (id == 25) {
                this.spawn.compound1 = new NBTTagCompound();
-               this.func_73866_w_();
+               this.initGui();
           }
 
           if (id == 27) {
@@ -110,7 +110,7 @@ public class GuiNpcNaturalSpawns extends GuiNPCInterface2 implements IGuiData, I
      }
 
      public void unFocused(GuiNpcTextField guiNpcTextField) {
-          String name = guiNpcTextField.func_146179_b();
+          String name = guiNpcTextField.getText();
           if (!name.isEmpty() && !this.data.containsKey(name)) {
                String old = this.spawn.name;
                this.data.remove(old);
@@ -118,7 +118,7 @@ public class GuiNpcNaturalSpawns extends GuiNPCInterface2 implements IGuiData, I
                this.data.put(this.spawn.name, this.spawn.id);
                this.scroll.replace(old, this.spawn.name);
           } else {
-               guiNpcTextField.func_146180_a(this.spawn.name);
+               guiNpcTextField.setText(this.spawn.name);
           }
 
      }
@@ -131,7 +131,7 @@ public class GuiNpcNaturalSpawns extends GuiNPCInterface2 implements IGuiData, I
                this.scroll.setSelected(name);
           }
 
-          this.func_73866_w_();
+          this.initGui();
      }
 
      public void scrollClicked(int i, int j, int k, GuiCustomScroll guiCustomScroll) {
@@ -164,7 +164,7 @@ public class GuiNpcNaturalSpawns extends GuiNPCInterface2 implements IGuiData, I
                     this.spawn.compound1 = compound;
                }
 
-               this.func_73866_w_();
+               this.initGui();
           }
 
      }
@@ -172,18 +172,18 @@ public class GuiNpcNaturalSpawns extends GuiNPCInterface2 implements IGuiData, I
      public void setGuiData(NBTTagCompound compound) {
           this.spawn.readNBT(compound);
           this.setSelected(this.spawn.name);
-          this.func_73866_w_();
+          this.initGui();
      }
 
      public void mouseDragged(GuiNpcSlider guiNpcSlider) {
-          guiNpcSlider.field_146126_j = I18n.translateToLocal("spawning.weightedChance") + ": " + (int)(guiNpcSlider.sliderValue * 100.0F);
+          guiNpcSlider.displayString = I18n.translateToLocal("spawning.weightedChance") + ": " + (int)(guiNpcSlider.sliderValue * 100.0F);
      }
 
      public void mousePressed(GuiNpcSlider guiNpcSlider) {
      }
 
      public void mouseReleased(GuiNpcSlider guiNpcSlider) {
-          this.spawn.field_76292_a = (int)(guiNpcSlider.sliderValue * 100.0F);
+          this.spawn.itemWeight = (int)(guiNpcSlider.sliderValue * 100.0F);
      }
 
      public void scrollDoubleClicked(String selection, GuiCustomScroll scroll) {

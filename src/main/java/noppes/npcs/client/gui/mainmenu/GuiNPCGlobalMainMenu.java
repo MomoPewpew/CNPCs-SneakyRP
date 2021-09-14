@@ -15,8 +15,8 @@ public class GuiNPCGlobalMainMenu extends GuiNPCInterface2 {
           super(npc, 5);
      }
 
-     public void func_73866_w_() {
-          super.func_73866_w_();
+     public void initGui() {
+          super.initGui();
           int y = this.guiTop + 10;
           this.addButton(new GuiNpcButton(2, this.guiLeft + 85, y, "global.banks"));
           int var10004 = this.guiLeft + 85;
@@ -45,7 +45,7 @@ public class GuiNPCGlobalMainMenu extends GuiNPCInterface2 {
           this.addButton(new GuiNpcButton(16, var10004, y, "global.linked"));
      }
 
-     protected void func_146284_a(GuiButton guibutton) {
+     protected void actionPerformed(GuiButton guibutton) {
           int id = guibutton.id;
           if (id == 11) {
                NoppesUtil.requestOpenGUI(EnumGuiType.ManageQuests);

@@ -52,7 +52,7 @@ public class AssetsBrowser {
      private void getFiles() {
           this.folders.clear();
           this.files.clear();
-          SimpleReloadableResourceManager simplemanager = (SimpleReloadableResourceManager)Minecraft.getMinecraft().func_110442_L();
+          SimpleReloadableResourceManager simplemanager = (SimpleReloadableResourceManager)Minecraft.getMinecraft().getResourceManager();
           Map map = (Map)ObfuscationReflectionHelper.getPrivateValue(SimpleReloadableResourceManager.class, simplemanager, 2);
           HashSet set = new HashSet();
           Iterator var4 = map.keySet().iterator();
@@ -77,14 +77,14 @@ public class AssetsBrowser {
                               }
                          }
 
-                         ResourcePackRepository repos = Minecraft.getMinecraft().func_110438_M();
-                         List list = repos.func_110613_c();
+                         ResourcePackRepository repos = Minecraft.getMinecraft().getResourcePackRepository();
+                         List list = repos.getRepositoryEntries();
                          Iterator var15 = list.iterator();
 
                          while(var15.hasNext()) {
                               Entry entry = (Entry)var15.next();
-                              System.out.println(entry.func_110514_c());
-                              File file = new File(repos.func_110612_e(), entry.func_110515_d());
+                              System.out.println(entry.getResourcePack());
+                              File file = new File(repos.getDirResourcepacks(), entry.getResourcePackName());
                               if (file.exists()) {
                                    this.progressFile(file);
                               }
@@ -105,7 +105,7 @@ public class AssetsBrowser {
                     IResourcePack pack = (IResourcePack)var8.next();
                     if (pack instanceof AbstractResourcePack) {
                          AbstractResourcePack p = (AbstractResourcePack)pack;
-                         File file = p.field_110597_b;
+                         File file = p.resourcePackFile;
                          if (file != null) {
                               set.add(file.getAbsolutePath());
                          }

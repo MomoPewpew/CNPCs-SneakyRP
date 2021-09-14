@@ -30,13 +30,13 @@ public class GuiNpcFollowerHire extends GuiContainerNPCInterface {
           this.closeOnEsc = true;
      }
 
-     public void func_73866_w_() {
-          super.func_73866_w_();
-          this.addButton(new GuiNpcButton(5, this.field_147003_i + 26, this.field_147009_r + 60, 50, 20, I18n.translateToLocal("follower.hire")));
+     public void initGui() {
+          super.initGui();
+          this.addButton(new GuiNpcButton(5, this.guiLeft + 26, this.guiTop + 60, 50, 20, I18n.translateToLocal("follower.hire")));
      }
 
-     public void func_146284_a(GuiButton guibutton) {
-          super.func_146284_a(guibutton);
+     public void actionPerformed(GuiButton guibutton) {
+          super.actionPerformed(guibutton);
           if (guibutton.id == 5) {
                NoppesUtilPlayer.sendData(EnumPlayerPacket.FollowerHire);
                this.close();
@@ -44,15 +44,15 @@ public class GuiNpcFollowerHire extends GuiContainerNPCInterface {
 
      }
 
-     protected void func_146979_b(int par1, int par2) {
+     protected void drawGuiContainerForegroundLayer(int par1, int par2) {
      }
 
-     protected void func_146976_a(float f, int i, int j) {
+     protected void drawGuiContainerBackgroundLayer(float f, int i, int j) {
           GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-          this.field_146297_k.renderEngine.bindTexture(this.resource);
-          int l = (this.width - this.field_146999_f) / 2;
-          int i1 = (this.height - this.field_147000_g) / 2;
-          this.drawTexturedModalRect(l, i1, 0, 0, this.field_146999_f, this.field_147000_g);
+          this.mc.renderEngine.bindTexture(this.resource);
+          int l = (this.width - this.xSize) / 2;
+          int i1 = (this.height - this.ySize) / 2;
+          this.drawTexturedModalRect(l, i1, 0, 0, this.xSize, this.ySize);
           int index = 0;
 
           for(int slot = 0; slot < this.role.inventory.items.size(); ++slot) {
@@ -64,18 +64,18 @@ public class GuiNpcFollowerHire extends GuiContainerNPCInterface {
                     }
 
                     int yOffset = index * 26;
-                    int x = this.field_147003_i + 78;
-                    int y = this.field_147009_r + yOffset + 10;
+                    int x = this.guiLeft + 78;
+                    int y = this.guiTop + yOffset + 10;
                     GlStateManager.enableRescaleNormal();
                     RenderHelper.enableGUIStandardItemLighting();
-                    this.field_146296_j.renderItemAndEffectIntoGUI(itemstack, x + 11, y);
-                    this.field_146296_j.func_175030_a(this.field_146289_q, itemstack, x + 11, y);
+                    this.itemRender.renderItemAndEffectIntoGUI(itemstack, x + 11, y);
+                    this.itemRender.renderItemOverlays(this.fontRenderer, itemstack, x + 11, y);
                     RenderHelper.disableStandardItemLighting();
                     GlStateManager.disableRescaleNormal();
                     String daysS = days + " " + (days == 1 ? I18n.translateToLocal("follower.day") : I18n.translateToLocal("follower.days"));
-                    this.field_146289_q.func_78276_b(" = " + daysS, x + 27, y + 4, CustomNpcResourceListener.DefaultTextColor);
-                    if (this.func_146978_c(x - this.field_147003_i + 11, y - this.field_147009_r, 16, 16, this.mouseX, this.mouseY)) {
-                         this.func_146285_a(itemstack, this.mouseX, this.mouseY);
+                    this.fontRenderer.drawString(" = " + daysS, x + 27, y + 4, CustomNpcResourceListener.DefaultTextColor);
+                    if (this.isPointInRegion(x - this.guiLeft + 11, y - this.guiTop, 16, 16, this.mouseX, this.mouseY)) {
+                         this.renderToolTip(itemstack, this.mouseX, this.mouseY);
                     }
 
                     ++index;

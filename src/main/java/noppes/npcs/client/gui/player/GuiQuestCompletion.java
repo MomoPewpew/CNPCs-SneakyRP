@@ -27,22 +27,22 @@ public class GuiQuestCompletion extends GuiNPCInterface implements ITopButtonLis
           this.title = "";
      }
 
-     public void func_73866_w_() {
-          super.func_73866_w_();
+     public void initGui() {
+          super.initGui();
           String questTitle = I18n.translateToLocal(this.quest.getName());
-          int left = (this.xSize - this.field_146289_q.getStringWidth(questTitle)) / 2;
+          int left = (this.xSize - this.fontRenderer.getStringWidth(questTitle)) / 2;
           this.addLabel(new GuiNpcLabel(0, questTitle, this.guiLeft + left, this.guiTop + 4));
           this.addButton(new GuiNpcButton(0, this.guiLeft + 38, this.guiTop + this.ySize - 24, 100, 20, I18n.translateToLocal("quest.complete")));
      }
 
-     public void func_73863_a(int i, int j, float f) {
-          this.func_146276_q_();
+     public void drawScreen(int i, int j, float f) {
+          this.drawDefaultBackground();
           GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-          this.field_146297_k.renderEngine.bindTexture(this.resource);
+          this.mc.renderEngine.bindTexture(this.resource);
           this.drawTexturedModalRect(this.guiLeft, this.guiTop, 0, 0, this.xSize, this.ySize);
-          this.func_73730_a(this.guiLeft + 4, this.guiLeft + 170, this.guiTop + 13, -16777216 + CustomNpcResourceListener.DefaultTextColor);
+          this.drawHorizontalLine(this.guiLeft + 4, this.guiLeft + 170, this.guiTop + 13, -16777216 + CustomNpcResourceListener.DefaultTextColor);
           this.drawQuestText();
-          super.func_73863_a(i, j, f);
+          super.drawScreen(i, j, f);
      }
 
      private void drawQuestText() {
@@ -51,13 +51,13 @@ public class GuiQuestCompletion extends GuiNPCInterface implements ITopButtonLis
           int yoffset = this.guiTop + 20;
 
           for(int i = 0; i < block.lines.size(); ++i) {
-               String text = ((ITextComponent)block.lines.get(i)).func_150254_d();
-               this.field_146289_q.func_78276_b(text, this.guiLeft + 4, this.guiTop + 16 + i * this.field_146289_q.field_78288_b, CustomNpcResourceListener.DefaultTextColor);
+               String text = ((ITextComponent)block.lines.get(i)).getFormattedText();
+               this.fontRenderer.drawString(text, this.guiLeft + 4, this.guiTop + 16 + i * this.fontRenderer.FONT_HEIGHT, CustomNpcResourceListener.DefaultTextColor);
           }
 
      }
 
-     protected void func_146284_a(GuiButton guibutton) {
+     protected void actionPerformed(GuiButton guibutton) {
           if (guibutton.id == 0) {
                NoppesUtilPlayer.sendData(EnumPlayerPacket.QuestCompletion, this.quest.getId());
                this.close();
@@ -65,7 +65,7 @@ public class GuiQuestCompletion extends GuiNPCInterface implements ITopButtonLis
 
      }
 
-     public void func_73869_a(char c, int i) {
+     public void keyTyped(char c, int i) {
           if (i == 1 || this.isInventoryKey(i)) {
                this.close();
           }

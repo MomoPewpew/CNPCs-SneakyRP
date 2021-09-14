@@ -29,15 +29,15 @@ public class GuiNpcStats extends GuiNPCInterface2 implements ITextfieldListener,
           Client.sendData(EnumPacketServer.MainmenuStatsGet);
      }
 
-     public void func_73866_w_() {
-          super.func_73866_w_();
+     public void initGui() {
+          super.initGui();
           int y = this.guiTop + 10;
           this.addLabel(new GuiNpcLabel(0, "stats.health", this.guiLeft + 5, y + 5));
           this.addTextField(new GuiNpcTextField(0, this, this.guiLeft + 85, y, 50, 18, this.stats.maxHealth + ""));
           this.getTextField(0).numbersOnly = true;
           this.getTextField(0).setMinMaxDefault(0, Integer.MAX_VALUE, 20);
           this.addLabel(new GuiNpcLabel(1, "stats.aggro", this.guiLeft + 140, y + 5));
-          this.addTextField(new GuiNpcTextField(1, this, this.field_146289_q, this.guiLeft + 220, y, 50, 18, this.stats.aggroRange + ""));
+          this.addTextField(new GuiNpcTextField(1, this, this.fontRenderer, this.guiLeft + 220, y, 50, 18, this.stats.aggroRange + ""));
           this.getTextField(1).numbersOnly = true;
           this.getTextField(1).setMinMaxDefault(1, 64, 2);
           this.addLabel(new GuiNpcLabel(34, "stats.creaturetype", this.guiLeft + 275, y + 5));
@@ -62,7 +62,7 @@ public class GuiNpcStats extends GuiNPCInterface2 implements ITextfieldListener,
           this.addLabel(new GuiNpcLabel(15, "effect.resistance", this.guiLeft + 5, y + 5));
           var10004 = this.guiLeft + 82;
           y += 34;
-          this.addButton(new GuiNpcButton(4, var10004, y, 56, 20, new String[]{"gui.no", "gui.yes"}, this.npc.func_70045_F() ? 1 : 0));
+          this.addButton(new GuiNpcButton(4, var10004, y, 56, 20, new String[]{"gui.no", "gui.yes"}, this.npc.isImmuneToFire() ? 1 : 0));
           this.addLabel(new GuiNpcLabel(10, "stats.fireimmune", this.guiLeft + 5, y + 5));
           this.addButton(new GuiNpcButton(5, this.guiLeft + 217, y, 56, 20, new String[]{"gui.no", "gui.yes"}, this.stats.canDrown ? 1 : 0));
           this.addLabel(new GuiNpcLabel(11, "stats.candrown", this.guiLeft + 140, y + 5));
@@ -85,20 +85,20 @@ public class GuiNpcStats extends GuiNPCInterface2 implements ITextfieldListener,
      }
 
      public void unFocused(GuiNpcTextField textfield) {
-          if (textfield.field_175208_g == 0) {
+          if (textfield.id == 0) {
                this.stats.maxHealth = textfield.getInteger();
-               this.npc.func_70691_i((float)this.stats.maxHealth);
-          } else if (textfield.field_175208_g == 1) {
+               this.npc.heal((float)this.stats.maxHealth);
+          } else if (textfield.id == 1) {
                this.stats.aggroRange = textfield.getInteger();
-          } else if (textfield.field_175208_g == 14) {
+          } else if (textfield.id == 14) {
                this.stats.healthRegen = textfield.getInteger();
-          } else if (textfield.field_175208_g == 16) {
+          } else if (textfield.id == 16) {
                this.stats.combatRegen = textfield.getInteger();
           }
 
      }
 
-     protected void func_146284_a(GuiButton guibutton) {
+     protected void actionPerformed(GuiButton guibutton) {
           GuiNpcButton button = (GuiNpcButton)guibutton;
           if (button.id == 0) {
                this.setSubGui(new SubGuiNpcRespawn(this.stats));
@@ -134,6 +134,6 @@ public class GuiNpcStats extends GuiNPCInterface2 implements ITextfieldListener,
 
      public void setGuiData(NBTTagCompound compound) {
           this.stats.readToNBT(compound);
-          this.func_73866_w_();
+          this.initGui();
      }
 }

@@ -123,7 +123,7 @@ public class WorldWrapper implements IWorld {
 
      private WorldWrapper(World world) {
           this.world = (WorldServer)world;
-          this.dimension = new DimensionWrapper(world.field_73011_w.getDimension(), world.field_73011_w.getDimensionType());
+          this.dimension = new DimensionWrapper(world.provider.getDimension(), world.provider.getDimensionType());
      }
 
      public WorldServer getMCWorld() {
@@ -135,7 +135,7 @@ public class WorldWrapper implements IWorld {
      }
 
      public IEntity[] getNearbyEntities(IPos pos, int range, int type) {
-          AxisAlignedBB bb = (new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 1.0D, 1.0D)).offset(pos.getMCBlockPos()).expand((double)range, (double)range, (double)range);
+          AxisAlignedBB bb = (new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 1.0D, 1.0D)).offset(pos.getMCBlockPos()).grow((double)range, (double)range, (double)range);
           List entities = this.world.getEntitiesWithinAABB(this.getClassForType(type), bb);
           List list = new ArrayList();
           Iterator var7 = entities.iterator();
@@ -149,7 +149,7 @@ public class WorldWrapper implements IWorld {
      }
 
      public IEntity[] getAllEntities(int type) {
-          List entities = this.world.getEntities(this.getClassForType(type), EntitySelectors.field_180132_d);
+          List entities = this.world.getEntities(this.getClassForType(type), EntitySelectors.NOT_SPECTATING);
           List list = new ArrayList();
           Iterator var4 = entities.iterator();
 
@@ -166,7 +166,7 @@ public class WorldWrapper implements IWorld {
      }
 
      public IEntity getClosestEntity(IPos pos, int range, int type) {
-          AxisAlignedBB bb = (new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 1.0D, 1.0D)).offset(pos.getMCBlockPos()).expand((double)range, (double)range, (double)range);
+          AxisAlignedBB bb = (new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 1.0D, 1.0D)).offset(pos.getMCBlockPos()).grow((double)range, (double)range, (double)range);
           List entities = this.world.getEntitiesWithinAABB(this.getClassForType(type), bb);
           double distance = (double)(range * range * range);
           Entity entity = null;
@@ -354,7 +354,7 @@ public class WorldWrapper implements IWorld {
      }
 
      public IItemStack createItem(String name, int damage, int size) {
-          Item item = (Item)Item.field_150901_e.getObject(new ResourceLocation(name));
+          Item item = (Item)Item.REGISTRY.getObject(new ResourceLocation(name));
           if (item == null) {
                throw new CustomNPCsException("Unknown item id: " + name, new Object[0]);
           } else {
@@ -387,7 +387,7 @@ public class WorldWrapper implements IWorld {
      }
 
      public String getBiomeName(int x, int z) {
-          return this.world.getBiomeForCoordsBody(new BlockPos(x, 0, z)).field_76791_y;
+          return this.world.getBiomeForCoordsBody(new BlockPos(x, 0, z)).biomeName;
      }
 
      public IEntity spawnClone(double x, double y, double z, int tab, String name) {
@@ -399,7 +399,7 @@ public class WorldWrapper implements IWorld {
           if (this.world.getEntityFromUuid(e.getUniqueID()) != null) {
                throw new CustomNPCsException("Entity with this UUID already exists", new Object[0]);
           } else {
-               e.setPosition(e.field_70165_t, e.field_70163_u, e.field_70161_v);
+               e.setPosition(e.posX, e.posY, e.posZ);
                this.world.spawnEntity(e);
           }
      }

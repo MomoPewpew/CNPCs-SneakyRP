@@ -20,14 +20,14 @@ public class GuiHoverText extends GuiScreen {
           this.y = y;
      }
 
-     public void func_73863_a(int par1, int par2, float par3) {
+     public void drawScreen(int par1, int par2, float par3) {
           GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-          this.field_146297_k.func_110434_K().bindTexture(buttonTextures);
+          this.mc.getTextureManager().bindTexture(buttonTextures);
           this.drawTexturedModalRect(this.x, this.y, 0, 0, 12, 12);
           if (this.inArea(this.x, this.y, 12, 12, par1, par2)) {
                List lines = new ArrayList();
                lines.add(this.text);
-               this.drawHoveringText(lines, this.x + 8, this.y + 6, this.field_146289_q);
+               this.drawHoveringText(lines, this.x + 8, this.y + 6, this.fontRenderer);
                GlStateManager.disableLighting();
           }
 

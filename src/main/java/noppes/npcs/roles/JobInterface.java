@@ -79,13 +79,13 @@ public abstract class JobInterface implements INPCJob {
                     }
                }
 
-               Item item = Item.func_111206_d(s);
+               Item item = Item.getByNameOrId(s);
                return item == null ? ItemStack.EMPTY : new ItemStack(item, 1, damage);
           }
      }
 
      public String itemToString(ItemStack item) {
-          return item != null && !item.isEmpty() ? Item.field_150901_e.getNameForObject(item.getItem()) + " - " + item.getItemDamage() : "";
+          return item != null && !item.isEmpty() ? Item.REGISTRY.getNameForObject(item.getItem()) + " - " + item.getItemDamage() : "";
      }
 
      public int getType() {

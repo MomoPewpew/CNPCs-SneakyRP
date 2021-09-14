@@ -75,63 +75,63 @@ public class GuiMailmanWrite extends GuiContainerNPCInterface implements ITextfi
                this.bookTotalPages = 1;
           }
 
-          this.field_146999_f = 360;
-          this.field_147000_g = 260;
+          this.xSize = 360;
+          this.ySize = 260;
           this.drawDefaultBackground = false;
           this.closeOnEsc = true;
      }
 
-     public void func_73876_c() {
-          super.func_73876_c();
+     public void updateScreen() {
+          super.updateScreen();
           ++this.updateCount;
      }
 
-     public void func_73866_w_() {
-          super.func_73866_w_();
-          this.field_146292_n.clear();
+     public void initGui() {
+          super.initGui();
+          this.buttonList.clear();
           Keyboard.enableRepeatEvents(true);
           if (this.canEdit && !this.canSend) {
-               this.addLabel(new GuiNpcLabel(0, "mailbox.sender", this.field_147003_i + 170, this.field_147009_r + 32, 0));
+               this.addLabel(new GuiNpcLabel(0, "mailbox.sender", this.guiLeft + 170, this.guiTop + 32, 0));
           } else {
-               this.addLabel(new GuiNpcLabel(0, "mailbox.username", this.field_147003_i + 170, this.field_147009_r + 32, 0));
+               this.addLabel(new GuiNpcLabel(0, "mailbox.username", this.guiLeft + 170, this.guiTop + 32, 0));
           }
 
           if (this.canEdit && !this.canSend) {
-               this.addTextField(new GuiNpcTextField(2, this, this.field_146289_q, this.field_147003_i + 170, this.field_147009_r + 42, 114, 20, mail.sender));
+               this.addTextField(new GuiNpcTextField(2, this, this.fontRenderer, this.guiLeft + 170, this.guiTop + 42, 114, 20, mail.sender));
           } else if (this.canEdit) {
-               this.addTextField(new GuiNpcTextField(0, this, this.field_146289_q, this.field_147003_i + 170, this.field_147009_r + 42, 114, 20, this.username));
+               this.addTextField(new GuiNpcTextField(0, this, this.fontRenderer, this.guiLeft + 170, this.guiTop + 42, 114, 20, this.username));
           } else {
-               this.addLabel(new GuiNpcLabel(10, mail.sender, this.field_147003_i + 170, this.field_147009_r + 42, 0));
+               this.addLabel(new GuiNpcLabel(10, mail.sender, this.guiLeft + 170, this.guiTop + 42, 0));
           }
 
-          this.addLabel(new GuiNpcLabel(1, "mailbox.subject", this.field_147003_i + 170, this.field_147009_r + 72, 0));
+          this.addLabel(new GuiNpcLabel(1, "mailbox.subject", this.guiLeft + 170, this.guiTop + 72, 0));
           if (this.canEdit) {
-               this.addTextField(new GuiNpcTextField(1, this, this.field_146289_q, this.field_147003_i + 170, this.field_147009_r + 82, 114, 20, mail.subject));
+               this.addTextField(new GuiNpcTextField(1, this, this.fontRenderer, this.guiLeft + 170, this.guiTop + 82, 114, 20, mail.subject));
           } else {
-               this.addLabel(new GuiNpcLabel(11, mail.subject, this.field_147003_i + 170, this.field_147009_r + 82, 0));
+               this.addLabel(new GuiNpcLabel(11, mail.subject, this.guiLeft + 170, this.guiTop + 82, 0));
           }
 
-          this.addLabel(this.error = new GuiNpcLabel(2, "", this.field_147003_i + 170, this.field_147009_r + 114, 16711680));
+          this.addLabel(this.error = new GuiNpcLabel(2, "", this.guiLeft + 170, this.guiTop + 114, 16711680));
           if (this.canEdit && !this.canSend) {
-               this.addButton(new GuiNpcButton(0, this.field_147003_i + 200, this.field_147009_r + 171, 60, 20, "gui.done"));
+               this.addButton(new GuiNpcButton(0, this.guiLeft + 200, this.guiTop + 171, 60, 20, "gui.done"));
           } else if (this.canEdit) {
-               this.addButton(new GuiNpcButton(0, this.field_147003_i + 200, this.field_147009_r + 171, 60, 20, "mailbox.send"));
+               this.addButton(new GuiNpcButton(0, this.guiLeft + 200, this.guiTop + 171, 60, 20, "mailbox.send"));
           }
 
           if (!this.canEdit && !this.canSend) {
-               this.addButton(new GuiNpcButton(4, this.field_147003_i + 200, this.field_147009_r + 171, 60, 20, "selectWorld.deleteButton"));
+               this.addButton(new GuiNpcButton(4, this.guiLeft + 200, this.guiTop + 171, 60, 20, "selectWorld.deleteButton"));
           }
 
           if (!this.canEdit || this.canSend) {
-               this.addButton(new GuiNpcButton(3, this.field_147003_i + 200, this.field_147009_r + 194, 60, 20, "gui.cancel"));
+               this.addButton(new GuiNpcButton(3, this.guiLeft + 200, this.guiTop + 194, 60, 20, "gui.cancel"));
           }
 
-          this.field_146292_n.add(this.buttonNextPage = new GuiButtonNextPage(1, this.field_147003_i + 120, this.field_147009_r + 156, true));
-          this.field_146292_n.add(this.buttonPreviousPage = new GuiButtonNextPage(2, this.field_147003_i + 38, this.field_147009_r + 156, false));
+          this.buttonList.add(this.buttonNextPage = new GuiButtonNextPage(1, this.guiLeft + 120, this.guiTop + 156, true));
+          this.buttonList.add(this.buttonPreviousPage = new GuiButtonNextPage(2, this.guiLeft + 38, this.guiTop + 156, false));
           this.updateButtons();
      }
 
-     public void func_146281_b() {
+     public void onGuiClosed() {
           Keyboard.enableRepeatEvents(false);
      }
 
@@ -140,7 +140,7 @@ public class GuiMailmanWrite extends GuiContainerNPCInterface implements ITextfi
           this.buttonPreviousPage.setVisible(this.currPage > 0);
      }
 
-     public void func_73878_a(boolean flag, int i) {
+     public void confirmClicked(boolean flag, int i) {
           if (flag) {
                NoppesUtilPlayer.sendData(EnumPlayerPacket.MailDelete, mail.time, mail.sender);
                this.close();
@@ -150,7 +150,7 @@ public class GuiMailmanWrite extends GuiContainerNPCInterface implements ITextfi
 
      }
 
-     protected void func_146284_a(GuiButton par1GuiButton) {
+     protected void actionPerformed(GuiButton par1GuiButton) {
           if (par1GuiButton.enabled) {
                int id = par1GuiButton.id;
                if (id == 0) {
@@ -198,11 +198,11 @@ public class GuiMailmanWrite extends GuiContainerNPCInterface implements ITextfi
 
      }
 
-     public void func_73869_a(char par1, int par2) {
+     public void keyTyped(char par1, int par2) {
           if (!GuiNpcTextField.isActive() && this.canEdit) {
                this.keyTypedInBook(par1, par2);
           } else {
-               super.func_73869_a(par1, par2);
+               super.keyTyped(par1, par2);
           }
 
      }
@@ -210,7 +210,7 @@ public class GuiMailmanWrite extends GuiContainerNPCInterface implements ITextfi
      private void keyTypedInBook(char par1, int par2) {
           switch(par1) {
           case '\u0016':
-               this.func_74160_b(GuiScreen.func_146277_j());
+               this.func_74160_b(GuiScreen.getClipboardString());
                return;
           default:
                switch(par2) {
@@ -226,7 +226,7 @@ public class GuiMailmanWrite extends GuiContainerNPCInterface implements ITextfi
                     this.func_74160_b("\n");
                     return;
                default:
-                    if (ChatAllowedCharacters.func_71566_a(par1)) {
+                    if (ChatAllowedCharacters.isAllowedCharacter(par1)) {
                          this.func_74160_b(Character.toString(par1));
                     }
 
@@ -240,7 +240,7 @@ public class GuiMailmanWrite extends GuiContainerNPCInterface implements ITextfi
 
      private void func_74159_a(String par1Str) {
           if (this.bookPages != null && this.currPage >= 0 && this.currPage < this.bookPages.tagCount()) {
-               this.bookPages.func_150304_a(this.currPage, new NBTTagString(par1Str));
+               this.bookPages.set(this.currPage, new NBTTagString(par1Str));
           }
 
      }
@@ -248,31 +248,31 @@ public class GuiMailmanWrite extends GuiContainerNPCInterface implements ITextfi
      private void func_74160_b(String par1Str) {
           String s1 = this.func_74158_i();
           String s2 = s1 + par1Str;
-          int i = this.mc.fontRenderer.func_78267_b(s2 + "" + TextFormatting.BLACK + "_", 118);
+          int i = this.mc.fontRenderer.getWordWrappedHeight(s2 + "" + TextFormatting.BLACK + "_", 118);
           if (i <= 118 && s2.length() < 256) {
                this.func_74159_a(s2);
           }
 
      }
 
-     public void func_73863_a(int par1, int par2, float par3) {
-          this.func_146270_b(0);
+     public void drawScreen(int par1, int par2, float par3) {
+          this.drawWorldBackground(0);
           GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-          this.mc.func_110434_K().bindTexture(bookGuiTextures);
-          this.drawTexturedModalRect(this.field_147003_i + 130, this.field_147009_r + 22, 0, 0, this.bookImageWidth, this.bookImageHeight / 3);
-          this.drawTexturedModalRect(this.field_147003_i + 130, this.field_147009_r + 22 + this.bookImageHeight / 3, 0, this.bookImageHeight / 2, this.bookImageWidth, this.bookImageHeight / 2);
-          this.drawTexturedModalRect(this.field_147003_i, this.field_147009_r + 2, 0, 0, this.bookImageWidth, this.bookImageHeight);
-          this.mc.func_110434_K().bindTexture(bookInventory);
-          this.drawTexturedModalRect(this.field_147003_i + 20, this.field_147009_r + 173, 0, 82, 180, 55);
-          this.drawTexturedModalRect(this.field_147003_i + 20, this.field_147009_r + 228, 0, 140, 180, 28);
-          String s = net.minecraft.client.resources.I18n.func_135052_a("book.pageIndicator", new Object[]{this.currPage + 1, this.bookTotalPages});
+          this.mc.getTextureManager().bindTexture(bookGuiTextures);
+          this.drawTexturedModalRect(this.guiLeft + 130, this.guiTop + 22, 0, 0, this.bookImageWidth, this.bookImageHeight / 3);
+          this.drawTexturedModalRect(this.guiLeft + 130, this.guiTop + 22 + this.bookImageHeight / 3, 0, this.bookImageHeight / 2, this.bookImageWidth, this.bookImageHeight / 2);
+          this.drawTexturedModalRect(this.guiLeft, this.guiTop + 2, 0, 0, this.bookImageWidth, this.bookImageHeight);
+          this.mc.getTextureManager().bindTexture(bookInventory);
+          this.drawTexturedModalRect(this.guiLeft + 20, this.guiTop + 173, 0, 82, 180, 55);
+          this.drawTexturedModalRect(this.guiLeft + 20, this.guiTop + 228, 0, 140, 180, 28);
+          String s = net.minecraft.client.resources.I18n.format("book.pageIndicator", new Object[]{this.currPage + 1, this.bookTotalPages});
           String s1 = "";
           if (this.bookPages != null && this.currPage >= 0 && this.currPage < this.bookPages.tagCount()) {
                s1 = this.bookPages.getStringTagAt(this.currPage);
           }
 
           if (this.canEdit) {
-               if (this.mc.fontRenderer.func_78260_a()) {
+               if (this.mc.fontRenderer.getBidiFlag()) {
                     s1 = s1 + "_";
                } else if (this.updateCount / 6 % 2 == 0) {
                     s1 = s1 + "" + TextFormatting.BLACK + "_";
@@ -282,17 +282,17 @@ public class GuiMailmanWrite extends GuiContainerNPCInterface implements ITextfi
           }
 
           int l = this.mc.fontRenderer.getStringWidth(s);
-          this.mc.fontRenderer.func_78276_b(s, this.field_147003_i - l + this.bookImageWidth - 44, this.field_147009_r + 18, 0);
-          this.mc.fontRenderer.func_78279_b(s1, this.field_147003_i + 36, this.field_147009_r + 18 + 16, 116, 0);
-          this.drawGradientRect(this.field_147003_i + 175, this.field_147009_r + 136, this.field_147003_i + 269, this.field_147009_r + 154, -1072689136, -804253680);
+          this.mc.fontRenderer.drawString(s, this.guiLeft - l + this.bookImageWidth - 44, this.guiTop + 18, 0);
+          this.mc.fontRenderer.drawSplitString(s1, this.guiLeft + 36, this.guiTop + 18 + 16, 116, 0);
+          this.drawGradientRect(this.guiLeft + 175, this.guiTop + 136, this.guiLeft + 269, this.guiTop + 154, -1072689136, -804253680);
           GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-          this.mc.func_110434_K().bindTexture(bookWidgets);
+          this.mc.getTextureManager().bindTexture(bookWidgets);
 
           for(int i = 0; i < 4; ++i) {
-               this.drawTexturedModalRect(this.field_147003_i + 175 + i * 24, this.field_147009_r + 134, 0, 22, 24, 24);
+               this.drawTexturedModalRect(this.guiLeft + 175 + i * 24, this.guiTop + 134, 0, 22, 24, 24);
           }
 
-          super.func_73863_a(par1, par2, par3);
+          super.drawScreen(par1, par2, par3);
      }
 
      public void close() {
@@ -302,16 +302,16 @@ public class GuiMailmanWrite extends GuiContainerNPCInterface implements ITextfi
      }
 
      public void unFocused(GuiNpcTextField textField) {
-          if (textField.field_175208_g == 0) {
-               this.username = textField.func_146179_b();
+          if (textField.id == 0) {
+               this.username = textField.getText();
           }
 
-          if (textField.field_175208_g == 1) {
-               mail.subject = textField.func_146179_b();
+          if (textField.id == 1) {
+               mail.subject = textField.getText();
           }
 
-          if (textField.field_175208_g == 2) {
-               mail.sender = textField.func_146179_b();
+          if (textField.id == 2) {
+               mail.sender = textField.getText();
           }
 
      }

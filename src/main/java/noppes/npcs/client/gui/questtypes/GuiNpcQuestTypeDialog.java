@@ -33,8 +33,8 @@ public class GuiNpcQuestTypeDialog extends SubGuiInterface implements GuiSelecti
           Client.sendData(EnumPacketServer.QuestDialogGetTitle, this.quest.dialogs.containsKey(0) ? this.quest.dialogs.get(0) : -1, this.quest.dialogs.containsKey(1) ? this.quest.dialogs.get(1) : -1, this.quest.dialogs.containsKey(2) ? this.quest.dialogs.get(2) : -1);
      }
 
-     public void func_73866_w_() {
-          super.func_73866_w_();
+     public void initGui() {
+          super.initGui();
 
           for(int i = 0; i < 3; ++i) {
                String title = "dialog.selectoption";
@@ -49,7 +49,7 @@ public class GuiNpcQuestTypeDialog extends SubGuiInterface implements GuiSelecti
           this.addButton(new GuiNpcButton(0, this.guiLeft + 150, this.guiTop + 190, 98, 20, "gui.back"));
      }
 
-     protected void func_146284_a(GuiButton guibutton) {
+     protected void actionPerformed(GuiButton guibutton) {
           GuiNpcButton button = (GuiNpcButton)guibutton;
           if (button.id == 0) {
                this.close();
@@ -71,7 +71,7 @@ public class GuiNpcQuestTypeDialog extends SubGuiInterface implements GuiSelecti
                this.quest.dialogs.remove(slot);
                this.data.remove(slot);
                this.save();
-               this.func_73866_w_();
+               this.initGui();
           }
 
      }
@@ -98,6 +98,6 @@ public class GuiNpcQuestTypeDialog extends SubGuiInterface implements GuiSelecti
                this.data.put(2, compound.getString("3"));
           }
 
-          this.func_73866_w_();
+          this.initGui();
      }
 }

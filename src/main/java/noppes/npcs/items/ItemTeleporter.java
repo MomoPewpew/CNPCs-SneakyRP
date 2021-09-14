@@ -27,12 +27,12 @@ import noppes.npcs.util.IPermission;
 
 public class ItemTeleporter extends Item implements IPermission {
      public ItemTeleporter() {
-          this.field_77777_bU = 1;
+          this.maxStackSize = 1;
           this.setCreativeTab(CustomItems.tab);
      }
 
-     public ActionResult func_77659_a(World world, EntityPlayer player, EnumHand hand) {
-          ItemStack itemstack = player.func_184586_b(hand);
+     public ActionResult onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
+          ItemStack itemstack = player.getHeldItem(hand);
           if (!world.isRemote) {
                return new ActionResult(EnumActionResult.SUCCESS, itemstack);
           } else {
@@ -46,11 +46,11 @@ public class ItemTeleporter extends Item implements IPermission {
                return false;
           } else {
                float f = 1.0F;
-               float f1 = par3EntityPlayer.field_70127_C + (par3EntityPlayer.field_70125_A - par3EntityPlayer.field_70127_C) * f;
-               float f2 = par3EntityPlayer.field_70126_B + (par3EntityPlayer.field_70177_z - par3EntityPlayer.field_70126_B) * f;
-               double d0 = par3EntityPlayer.field_70169_q + (par3EntityPlayer.field_70165_t - par3EntityPlayer.field_70169_q) * (double)f;
-               double d1 = par3EntityPlayer.field_70167_r + (par3EntityPlayer.field_70163_u - par3EntityPlayer.field_70167_r) * (double)f + 1.62D;
-               double d2 = par3EntityPlayer.field_70166_s + (par3EntityPlayer.field_70161_v - par3EntityPlayer.field_70166_s) * (double)f;
+               float f1 = par3EntityPlayer.prevRotationPitch + (par3EntityPlayer.rotationPitch - par3EntityPlayer.prevRotationPitch) * f;
+               float f2 = par3EntityPlayer.prevRotationYaw + (par3EntityPlayer.rotationYaw - par3EntityPlayer.prevRotationYaw) * f;
+               double d0 = par3EntityPlayer.prevPosX + (par3EntityPlayer.posX - par3EntityPlayer.prevPosX) * (double)f;
+               double d1 = par3EntityPlayer.prevPosY + (par3EntityPlayer.posY - par3EntityPlayer.prevPosY) * (double)f + 1.62D;
+               double d2 = par3EntityPlayer.prevPosZ + (par3EntityPlayer.posZ - par3EntityPlayer.prevPosZ) * (double)f;
                Vec3d vec3 = new Vec3d(d0, d1, d2);
                float f3 = MathHelper.cos(-f2 * 0.017453292F - 3.1415927F);
                float f4 = MathHelper.sin(-f2 * 0.017453292F - 3.1415927F);
@@ -59,22 +59,22 @@ public class ItemTeleporter extends Item implements IPermission {
                float f7 = f4 * f5;
                float f8 = f3 * f5;
                double d3 = 80.0D;
-               Vec3d vec31 = vec3.addVector((double)f7 * d3, (double)f6 * d3, (double)f8 * d3);
-               RayTraceResult movingobjectposition = par3EntityPlayer.world.func_72901_a(vec3, vec31, true);
+               Vec3d vec31 = vec3.add((double)f7 * d3, (double)f6 * d3, (double)f8 * d3);
+               RayTraceResult movingobjectposition = par3EntityPlayer.world.rayTraceBlocks(vec3, vec31, true);
                if (movingobjectposition == null) {
                     return false;
                } else {
                     Vec3d vec32 = par3EntityPlayer.getLook(f);
                     boolean flag = false;
                     float f9 = 1.0F;
-                    List list = par3EntityPlayer.world.getEntitiesWithinAABBExcludingEntity(par3EntityPlayer, par3EntityPlayer.getEntityBoundingBox().expand(vec32.x * d3, vec32.y * d3, vec32.z * d3).expand((double)f9, (double)f9, (double)f9));
+                    List list = par3EntityPlayer.world.getEntitiesWithinAABBExcludingEntity(par3EntityPlayer, par3EntityPlayer.getEntityBoundingBox().grow(vec32.x * d3, vec32.y * d3, vec32.z * d3).grow((double)f9, (double)f9, (double)f9));
 
                     for(int i = 0; i < list.size(); ++i) {
                          Entity entity = (Entity)list.get(i);
                          if (entity.canBeCollidedWith()) {
                               float f10 = entity.getCollisionBorderSize();
-                              AxisAlignedBB axisalignedbb = entity.getEntityBoundingBox().expand((double)f10, (double)f10, (double)f10);
-                              if (axisalignedbb.func_72318_a(vec3)) {
+                              AxisAlignedBB axisalignedbb = entity.getEntityBoundingBox().grow((double)f10, (double)f10, (double)f10);
+                              if (axisalignedbb.contains(vec3)) {
                                    flag = true;
                               }
                          }
@@ -83,9 +83,9 @@ public class ItemTeleporter extends Item implements IPermission {
                     if (flag) {
                          return false;
                     } else {
-                         if (movingobjectposition.field_72313_a == Type.BLOCK) {
+                         if (movingobjectposition.typeOfHit == Type.BLOCK) {
                               BlockPos pos;
-                              for(pos = movingobjectposition.getBlockPos(); par3EntityPlayer.world.getBlockState(pos).getBlock() != Blocks.field_150350_a; pos = pos.up()) {
+                              for(pos = movingobjectposition.getBlockPos(); par3EntityPlayer.world.getBlockState(pos).getBlock() != Blocks.AIR; pos = pos.up()) {
                               }
 
                               par3EntityPlayer.setPositionAndUpdate((double)((float)pos.getX() + 0.5F), (double)((float)pos.getY() + 1.0F), (double)((float)pos.getZ() + 0.5F));
@@ -97,9 +97,9 @@ public class ItemTeleporter extends Item implements IPermission {
           }
      }
 
-     public Item setUnlocalizedName(String name) {
+     public Item setTranslationKey(String name) {
           this.setRegistryName(new ResourceLocation("customnpcs", name));
-          return super.setUnlocalizedName(name);
+          return super.setTranslationKey(name);
      }
 
      public boolean isAllowed(EnumPacketServer e) {

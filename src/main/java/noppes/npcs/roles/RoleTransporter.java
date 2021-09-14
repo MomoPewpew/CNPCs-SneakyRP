@@ -54,7 +54,7 @@ public class RoleTransporter extends RoleInterface implements IRoleTransporter {
                     if (loc.type != 0) {
                          return false;
                     } else {
-                         List inRange = this.npc.world.getEntitiesWithinAABB(EntityPlayer.class, this.npc.getEntityBoundingBox().expand(6.0D, 6.0D, 6.0D));
+                         List inRange = this.npc.world.getEntitiesWithinAABB(EntityPlayer.class, this.npc.getEntityBoundingBox().grow(6.0D, 6.0D, 6.0D));
                          Iterator var3 = inRange.iterator();
 
                          while(var3.hasNext()) {

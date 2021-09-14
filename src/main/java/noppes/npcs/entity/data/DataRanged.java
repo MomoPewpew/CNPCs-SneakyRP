@@ -297,7 +297,7 @@ public class DataRanged implements INPCRanged {
                return null;
           } else {
                ResourceLocation res = new ResourceLocation(sound);
-               SoundEvent ev = (SoundEvent)SoundEvent.field_187505_a.getObject(res);
+               SoundEvent ev = (SoundEvent)SoundEvent.REGISTRY.getObject(res);
                return ev != null ? ev : new SoundEvent(res);
           }
      }

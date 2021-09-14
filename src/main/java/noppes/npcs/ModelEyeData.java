@@ -30,7 +30,7 @@ public class ModelEyeData extends ModelPartData {
      }
 
      public void readFromNBT(NBTTagCompound compound) {
-          if (!compound.hasNoTags()) {
+          if (!compound.isEmpty()) {
                super.readFromNBT(compound);
                this.glint = compound.getBoolean("Glint");
                this.skinColor = compound.getInteger("SkinColor");

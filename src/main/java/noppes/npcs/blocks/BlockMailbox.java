@@ -30,8 +30,8 @@ public class BlockMailbox extends BlockInterface {
      public static final PropertyInteger TYPE = PropertyInteger.create("type", 0, 2);
 
      public BlockMailbox() {
-          super(Material.field_151573_f);
-          this.setSoundType(SoundType.field_185852_e);
+          super(Material.IRON);
+          this.setSoundType(SoundType.METAL);
      }
 
      public void getSubBlocks(CreativeTabs par2CreativeTabs, NonNullList par3List) {
@@ -72,7 +72,7 @@ public class BlockMailbox extends BlockInterface {
      }
 
      public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase entity, ItemStack stack) {
-          int l = MathHelper.floor((double)(entity.field_70177_z * 4.0F / 360.0F) + 0.5D) & 3;
+          int l = MathHelper.floor((double)(entity.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3;
           world.setBlockState(pos, state.withProperty(TYPE, stack.getItemDamage()).withProperty(ROTATION, l % 4), 2);
      }
 

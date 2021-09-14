@@ -52,11 +52,11 @@ public class ContainerCustomChest extends ContainerNpcInterface {
           return true;
      }
 
-     public ItemStack func_184996_a(int slotId, int dragType, ClickType clickType, EntityPlayer player) {
+     public ItemStack slotClick(int slotId, int dragType, ClickType clickType, EntityPlayer player) {
           if (clickType == ClickType.QUICK_MOVE) {
                return ItemStack.EMPTY;
           } else if (slotId < 36) {
-               return super.func_184996_a(slotId, dragType, clickType, player);
+               return super.slotClick(slotId, dragType, clickType, player);
           } else if (clickType == ClickType.PICKUP && dragType == 0 && player instanceof EntityPlayerMP && this.container != null) {
                Slot slot = (Slot)this.inventorySlots.get(slotId);
                if (slot == null) {
@@ -64,11 +64,11 @@ public class ContainerCustomChest extends ContainerNpcInterface {
                } else {
                     PlayerData data = PlayerData.get(player);
                     IItemStack item = NpcAPI.Instance().getIItemStack(slot.getStack());
-                    IItemStack heldItem = NpcAPI.Instance().getIItemStack(player.inventory.func_70445_o());
+                    IItemStack heldItem = NpcAPI.Instance().getIItemStack(player.inventory.getItemStack());
                     CustomContainerEvent.SlotClickedEvent event = new CustomContainerEvent.SlotClickedEvent(data.scriptData.getPlayer(), this.container, slotId, item, heldItem);
                     EventHooks.onCustomChestClicked(event);
-                    player.inventory.func_70437_b(event.heldItem == null ? ItemStack.EMPTY : event.heldItem.getMCItemStack());
-                    ((EntityPlayerMP)player).func_71113_k();
+                    player.inventory.setItemStack(event.heldItem == null ? ItemStack.EMPTY : event.heldItem.getMCItemStack());
+                    ((EntityPlayerMP)player).updateHeldItem();
                     this.putStackInSlot(slotId, event.slotItem == null ? ItemStack.EMPTY : event.slotItem.getMCItemStack());
                     this.detectAndSendChanges();
                     return ItemStack.EMPTY;
@@ -79,7 +79,7 @@ public class ContainerCustomChest extends ContainerNpcInterface {
      }
 
      public boolean canMergeSlot(ItemStack stack, Slot slotId) {
-          return slotId.field_75224_c == this.player.inventory;
+          return slotId.inventory == this.player.inventory;
      }
 
      public void onContainerClosed(EntityPlayer player) {

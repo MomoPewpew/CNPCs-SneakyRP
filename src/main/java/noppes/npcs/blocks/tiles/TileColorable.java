@@ -26,15 +26,15 @@ public class TileColorable extends TileNpcEntity {
      }
 
      public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity pkt) {
-          NBTTagCompound compound = pkt.func_148857_g();
+          NBTTagCompound compound = pkt.getNbtCompound();
           this.readFromNBT(compound);
      }
 
-     public SPacketUpdateTileEntity func_189518_D_() {
-          return new SPacketUpdateTileEntity(this.field_174879_c, 0, this.func_189517_E_());
+     public SPacketUpdateTileEntity getUpdatePacket() {
+          return new SPacketUpdateTileEntity(this.pos, 0, this.getUpdateTag());
      }
 
-     public NBTTagCompound func_189517_E_() {
+     public NBTTagCompound getUpdateTag() {
           NBTTagCompound compound = new NBTTagCompound();
           this.writeToNBT(compound);
           compound.removeTag("Items");
@@ -43,7 +43,7 @@ public class TileColorable extends TileNpcEntity {
      }
 
      public AxisAlignedBB getRenderBoundingBox() {
-          return new AxisAlignedBB((double)this.field_174879_c.getX(), (double)this.field_174879_c.getY(), (double)this.field_174879_c.getZ(), (double)(this.field_174879_c.getX() + 1), (double)(this.field_174879_c.getY() + 1), (double)(this.field_174879_c.getZ() + 1));
+          return new AxisAlignedBB((double)this.pos.getX(), (double)this.pos.getY(), (double)this.pos.getZ(), (double)(this.pos.getX() + 1), (double)(this.pos.getY() + 1), (double)(this.pos.getZ() + 1));
      }
 
      public int powerProvided() {

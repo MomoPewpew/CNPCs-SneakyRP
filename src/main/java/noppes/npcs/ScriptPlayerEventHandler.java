@@ -76,7 +76,7 @@ public class ScriptPlayerEventHandler {
           if (event.side == Side.SERVER && event.phase == Phase.START) {
                EntityPlayer player = event.player;
                PlayerData data = PlayerData.get(player);
-               if (player.field_70173_aa % 10 == 0) {
+               if (player.ticksExisted % 10 == 0) {
                     EventHooks.onPlayerTick(data.scriptData);
 
                     for(int i = 0; i < player.inventory.getSizeInventory(); ++i) {
@@ -92,9 +92,9 @@ public class ScriptPlayerEventHandler {
                     }
                }
 
-               if (data.playerLevel != player.field_71068_ca) {
-                    EventHooks.onPlayerLevelUp(data.scriptData, data.playerLevel - player.field_71068_ca);
-                    data.playerLevel = player.field_71068_ca;
+               if (data.playerLevel != player.experienceLevel) {
+                    EventHooks.onPlayerLevelUp(data.scriptData, data.playerLevel - player.experienceLevel);
+                    data.playerLevel = player.experienceLevel;
                }
 
                data.timers.update();
