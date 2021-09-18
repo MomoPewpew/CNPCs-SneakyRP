@@ -32,7 +32,7 @@ public class EntityItemWrapper extends EntityWrapper implements IEntityItem {
 	}
 
 	public long getAge() {
-		return (long) ((EntityItem) this.entity).age;
+		return (long) ((EntityItem) this.entity).getAge();
 	}
 
 	public void setAge(long age) {

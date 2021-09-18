@@ -213,4 +213,16 @@ public class NBTWrapper implements INbt {
 	public void merge(INbt nbt) {
 		this.compound.merge(nbt.getMCNBT());
 	}
+
+	@Override
+	public void mcSetTag(String key, NBTBase base) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public NBTBase mcGetTag(String key) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

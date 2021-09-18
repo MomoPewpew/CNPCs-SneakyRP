@@ -13,6 +13,7 @@ import noppes.npcs.api.gui.ICustomGuiComponent;
 import noppes.npcs.api.gui.IItemSlot;
 import noppes.npcs.api.gui.ILabel;
 import noppes.npcs.api.gui.IScroll;
+import noppes.npcs.api.gui.ITextArea;
 import noppes.npcs.api.gui.ITextField;
 import noppes.npcs.api.gui.ITexturedRect;
 import noppes.npcs.api.item.IItemStack;
@@ -292,5 +293,11 @@ public class CustomGuiWrapper implements ICustomGui {
 		}
 
 		return tag;
+	}
+
+	@Override
+	public ITextArea addTextArea(int id, int x, int y, int width, int height) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

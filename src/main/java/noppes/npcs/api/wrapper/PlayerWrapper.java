@@ -576,4 +576,16 @@ public class PlayerWrapper extends EntityLivingBaseWrapper implements IPlayer {
 		data.mailData.playermail.add(((PlayerMail) mail).copy());
 		data.save(false);
 	}
+
+	@Override
+	public IItemStack getInventoryHeldItem() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public EntityPlayerMP getMCEntity() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
