@@ -78,7 +78,8 @@ public class GuiTextureSelection extends SubGuiInterface implements ICustomScrol
 
 				if (pack instanceof AbstractResourcePack) {
 					AbstractResourcePack p = (AbstractResourcePack) pack;
-					File file1 = p.resourcePackFile;
+					File file1 = (File)ObfuscationReflectionHelper.getPrivateValue(AbstractResourcePack.class, p, "resourcePackFile");
+					// File file1 = p.resourcePackFile;
 					if (file1 != null) {
 						set.add(file1.getAbsolutePath());
 					}
@@ -113,7 +114,8 @@ public class GuiTextureSelection extends SubGuiInterface implements ICustomScrol
 		File f;
 		if (repos.getServerResourcePack() != null) {
 			AbstractResourcePack p = (AbstractResourcePack) repos.getServerResourcePack();
-			f = p.resourcePackFile;
+			f = (File)ObfuscationReflectionHelper.getPrivateValue(AbstractResourcePack.class, p, "resourcePackFile");
+			// f = p.resourcePackFile;
 			if (f != null) {
 				this.progressFile(f);
 			}

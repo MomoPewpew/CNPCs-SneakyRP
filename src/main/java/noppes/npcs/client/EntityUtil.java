@@ -5,6 +5,7 @@ import net.minecraft.entity.boss.EntityDragon;
 import net.minecraft.entity.passive.EntityChicken;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 import noppes.npcs.entity.EntityCustomNpc;
 import noppes.npcs.entity.EntityNPCInterface;
 
@@ -102,6 +103,7 @@ public class EntityUtil {
 	}
 
 	public static void setRecentlyHit(EntityLivingBase entity) {
-		entity.recentlyHit = 100;
+		// entity.recentlyHit = 100;
+		ObfuscationReflectionHelper.setPrivateValue(EntityLivingBase.class, entity, 100, "recentlyHit");
 	}
 }
