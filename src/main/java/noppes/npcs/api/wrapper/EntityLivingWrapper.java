@@ -64,4 +64,10 @@ public class EntityLivingWrapper extends EntityLivingBaseWrapper implements IEnt
 	public void jump() {
 		((EntityLiving) this.entity).getJumpHelper().setJumping();
 	}
+
+	@Override
+	public EntityLiving getMCEntity() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

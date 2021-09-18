@@ -20,4 +20,10 @@ public class PixelmonWrapper extends AnimalWrapper implements IPixelmon {
 	public boolean typeOf(int type) {
 		return type == 8 ? true : super.typeOf(type);
 	}
+
+	@Override
+	public EntityTameable getMCEntity() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

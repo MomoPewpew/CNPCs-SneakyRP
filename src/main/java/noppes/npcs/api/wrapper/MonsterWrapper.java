@@ -15,4 +15,10 @@ public class MonsterWrapper extends EntityLivingWrapper implements IMonster {
 	public boolean typeOf(int type) {
 		return type == 3 ? true : super.typeOf(type);
 	}
+
+	@Override
+	public EntityMob getMCEntity() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

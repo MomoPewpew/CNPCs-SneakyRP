@@ -1,5 +1,6 @@
 package noppes.npcs.api.wrapper;
 
+import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.math.BlockPos;
@@ -230,5 +231,11 @@ public class NPCWrapper extends EntityLivingWrapper implements ICustomNpc {
 	public IEntityLivingBase getOwner() {
 		EntityLivingBase owner = ((EntityNPCInterface) this.entity).getOwner();
 		return owner != null ? (IEntityLivingBase) NpcAPI.Instance().getIEntity(owner) : null;
+	}
+
+	@Override
+	public EntityCreature getMCEntity() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

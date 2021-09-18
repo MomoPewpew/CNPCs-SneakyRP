@@ -222,4 +222,10 @@ public class EntityLivingBaseWrapper extends EntityWrapper implements IEntityLiv
 	public void setMoveVertical(float move) {
 		((EntityLivingBase) this.entity).moveVertical = move;
 	}
+
+	@Override
+	public EntityLivingBase getMCEntity() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
