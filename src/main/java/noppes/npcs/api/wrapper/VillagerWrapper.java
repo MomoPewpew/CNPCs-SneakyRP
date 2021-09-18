@@ -14,7 +14,7 @@ public class VillagerWrapper extends EntityLivingWrapper implements IVillager {
 	}
 
 	public String getCareer() {
-		return ((EntityVillager) this.entity).getProfessionForge().getCareer(((EntityVillager) this.entity).careerId)
+		return ((EntityVillager) this.entity).getProfessionForge().getCareer(((EntityVillager) this.entity).getProfession())
 				.getName();
 	}
 
