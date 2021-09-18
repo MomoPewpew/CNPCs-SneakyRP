@@ -147,4 +147,16 @@ public class CustomGuiButtonWrapper extends CustomGuiComponentWrapper implements
 
 		return this;
 	}
+
+	@Override
+	public void setEnabled(boolean bo) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public boolean getEnabled() {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }
