@@ -312,6 +312,6 @@ public class BlockWrapper implements IBlock {
 		player.setWorld(w);
 		player.setPosition((double) this.pos.getX(), (double) this.pos.getY(), (double) this.pos.getZ());
 		this.block.onBlockActivated(w, this.pos, w.getBlockState(this.pos), EntityNPCInterface.CommandPlayer,
-				EnumHand.MAIN_HAND, EnumFacing.byIndex(side), 0.0F, 0.0F, 0.0F);
+				EnumHand.MAIN_HAND, EnumFacing.getFront(side), 0.0F, 0.0F, 0.0F);
 	}
 }
