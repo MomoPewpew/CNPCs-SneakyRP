@@ -125,22 +125,22 @@ public class CustomItems {
 		GameRegistry.registerTileEntity(TileCopy.class, "TileNPCCopy");
 		GameRegistry.registerTileEntity(TileBorder.class, "TileNPCBorder");
 		Block redstoneBlock = ((BlockInterface) (new BlockNpcRedstone()).setHardness(50.0F).setResistance(2000.0F))
-				.setTranslationKey("npcredstoneblock").setCreativeTab(tab);
-		Block mailbox = (new BlockMailbox()).setTranslationKey("npcmailbox").setHardness(5.0F).setResistance(10.0F)
+				.setUnlocalizedName("npcredstoneblock").setCreativeTab(tab);
+		Block mailbox = (new BlockMailbox()).setUnlocalizedName("npcmailbox").setHardness(5.0F).setResistance(10.0F)
 				.setCreativeTab(tab);
-		Block waypoint = (new BlockWaypoint()).setTranslationKey("npcwaypoint").setHardness(5.0F).setResistance(10.0F)
+		Block waypoint = (new BlockWaypoint()).setUnlocalizedName("npcwaypoint").setHardness(5.0F).setResistance(10.0F)
 				.setCreativeTab(tab);
-		Block border = (new BlockBorder()).setTranslationKey("npcborder").setHardness(5.0F).setResistance(10.0F)
+		Block border = (new BlockBorder()).setUnlocalizedName("npcborder").setHardness(5.0F).setResistance(10.0F)
 				.setCreativeTab(tab);
-		Block scripted = (new BlockScripted()).setTranslationKey("npcscripted").setHardness(5.0F).setResistance(10.0F)
+		Block scripted = (new BlockScripted()).setUnlocalizedName("npcscripted").setHardness(5.0F).setResistance(10.0F)
 				.setCreativeTab(tab);
-		Block scriptedDoor = (new BlockScriptedDoor()).setTranslationKey("npcscripteddoor").setHardness(5.0F)
+		Block scriptedDoor = (new BlockScriptedDoor()).setUnlocalizedName("npcscripteddoor").setHardness(5.0F)
 				.setResistance(10.0F);
-		Block builder = (new BlockBuilder()).setTranslationKey("npcbuilderblock").setHardness(5.0F).setResistance(10.0F)
+		Block builder = (new BlockBuilder()).setUnlocalizedName("npcbuilderblock").setHardness(5.0F).setResistance(10.0F)
 				.setCreativeTab(tab);
-		Block copy = (new BlockCopy()).setTranslationKey("npccopyblock").setHardness(5.0F).setResistance(10.0F)
+		Block copy = (new BlockCopy()).setUnlocalizedName("npccopyblock").setHardness(5.0F).setResistance(10.0F)
 				.setCreativeTab(tab);
-		Block carpentyBench = (new BlockCarpentryBench()).setTranslationKey("npccarpentybench").setHardness(5.0F)
+		Block carpentyBench = (new BlockCarpentryBench()).setUnlocalizedName("npccarpentybench").setHardness(5.0F)
 				.setResistance(10.0F).setCreativeTab(tab);
 		event.getRegistry().registerAll(new Block[] { redstoneBlock, carpentyBench, mailbox, waypoint, border, scripted,
 				scriptedDoor, builder, copy });
@@ -148,18 +148,18 @@ public class CustomItems {
 
 	@SubscribeEvent
 	public void registerItems(Register event) {
-		Item wand = (new ItemNpcWand()).setTranslationKey("npcwand").setFull3D();
-		Item cloner = (new ItemNpcCloner()).setTranslationKey("npcmobcloner").setFull3D();
-		Item scripter = (new ItemNpcScripter()).setTranslationKey("npcscripter").setFull3D();
-		Item moving = (new ItemNpcMovingPath()).setTranslationKey("npcmovingpath").setFull3D();
-		Item mount = (new ItemMounter()).setTranslationKey("npcmounter").setFull3D();
-		Item teleporter = (new ItemTeleporter()).setTranslationKey("npcteleporter").setFull3D();
-		Item scriptedDoorTool = (new ItemScriptedDoor(scriptedDoor)).setTranslationKey("npcscripteddoortool")
+		Item wand = (new ItemNpcWand()).setUnlocalizedName("npcwand").setFull3D();
+		Item cloner = (new ItemNpcCloner()).setUnlocalizedName("npcmobcloner").setFull3D();
+		Item scripter = (new ItemNpcScripter()).setUnlocalizedName("npcscripter").setFull3D();
+		Item moving = (new ItemNpcMovingPath()).setUnlocalizedName("npcmovingpath").setFull3D();
+		Item mount = (new ItemMounter()).setUnlocalizedName("npcmounter").setFull3D();
+		Item teleporter = (new ItemTeleporter()).setUnlocalizedName("npcteleporter").setFull3D();
+		Item scriptedDoorTool = (new ItemScriptedDoor(scriptedDoor)).setUnlocalizedName("npcscripteddoortool")
 				.setFull3D();
-		Item soulstoneEmpty = (new ItemSoulstoneEmpty()).setTranslationKey("npcsoulstoneempty").setCreativeTab(tab);
-		Item soulstoneFull = (new ItemSoulstoneFilled()).setTranslationKey("npcsoulstonefilled");
-		Item scripted_item = (new ItemScripted()).setTranslationKey("scripted_item");
-		Item nbt_book = (new ItemNbtBook()).setTranslationKey("nbt_book");
+		Item soulstoneEmpty = (new ItemSoulstoneEmpty()).setUnlocalizedName("npcsoulstoneempty").setCreativeTab(tab);
+		Item soulstoneFull = (new ItemSoulstoneFilled()).setUnlocalizedName("npcsoulstonefilled");
+		Item scripted_item = (new ItemScripted()).setUnlocalizedName("scripted_item");
+		Item nbt_book = (new ItemNbtBook()).setUnlocalizedName("nbt_book");
 		event.getRegistry().registerAll(new Item[] { wand, cloner, scripter, moving, mount, teleporter,
 				scriptedDoorTool, soulstoneEmpty, soulstoneFull, scripted_item, nbt_book });
 		event.getRegistry()
