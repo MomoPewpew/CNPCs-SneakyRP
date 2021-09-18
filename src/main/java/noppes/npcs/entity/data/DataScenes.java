@@ -200,8 +200,9 @@ public class DataScenes {
 			}
 		}
 
-		public int compareTo(DataScenes.SceneEvent o) {
-			return this.ticks - o.ticks;
+		@Override
+		public int compareTo(Object o) {
+			return this.ticks - ((DataScenes.SceneEvent) o).ticks;
 		}
 	}
 

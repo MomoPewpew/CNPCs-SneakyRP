@@ -20,6 +20,7 @@ import noppes.npcs.CustomNpcs;
 import noppes.npcs.ModelData;
 import noppes.npcs.ModelPartConfig;
 import noppes.npcs.api.CustomNPCsException;
+import noppes.npcs.api.entity.IPlayer;
 import noppes.npcs.api.entity.data.INPCDisplay;
 import noppes.npcs.constants.EnumParts;
 import noppes.npcs.entity.EntityCustomNpc;
@@ -454,5 +455,10 @@ public class DataDisplay implements INPCDisplay {
 			this.noHitbox = !bo;
 			this.npc.updateClient = true;
 		}
+	}
+
+	@Override
+	public boolean isVisibleTo(IPlayer player) {
+		return this.visible == 0 ? false : true;
 	}
 }
