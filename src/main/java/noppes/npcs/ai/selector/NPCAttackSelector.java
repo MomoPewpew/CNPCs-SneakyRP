@@ -78,7 +78,8 @@ public class NPCAttackSelector implements Predicate {
 		}
 	}
 
-	public boolean apply(EntityLivingBase ob) {
-		return this.isEntityApplicable(ob);
+	@Override
+	public boolean apply(Object ob) {
+		return this.isEntityApplicable((EntityLivingBase) ob);
 	}
 }

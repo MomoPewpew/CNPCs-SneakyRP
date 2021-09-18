@@ -10,13 +10,13 @@ import noppes.npcs.config.TrueTypeFont;
 
 public class TextContainer {
 	private static final char colorChar = '\uffff';
-	private static final Comparator MarkUpComparator = (o1, o2) -> {
+/*	private static final Comparator MarkUpComparator = (o1, o2) -> {
 		if (o1.start > o2.start) {
 			return 1;
 		} else {
 			return o1.start < o2.start ? -1 : 0;
 		}
-	};
+	};*/
 	public final Pattern regexString = Pattern.compile("([\"'])(?:(?=(\\\\?))\\2.)*?\\1", 8);
 	public final Pattern regexFunction = Pattern.compile(
 			"\\b(if|else|switch|with|for|while|in|var|const|let|throw|then|function|continue|break|foreach|return|try|catch|finally|do|this|typeof|instanceof|new)(?=[^\\w])");

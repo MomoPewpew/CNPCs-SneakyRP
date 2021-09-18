@@ -124,10 +124,10 @@ public class GuiMailbox extends GuiNPCInterface implements IGuiData, ICustomScro
 		data.loadNBTData(compound);
 		List list = new ArrayList();
 		Collections.sort(data.playermail, (o1, o2) -> {
-			if (o1.time == o2.time) {
+			if (((PlayerMail) o1).time == ((PlayerMail) o2).time) {
 				return 0;
 			} else {
-				return o1.time > o2.time ? -1 : 1;
+				return ((PlayerMail) o1).time > ((PlayerMail) o2).time ? -1 : 1;
 			}
 		});
 		Iterator var4 = data.playermail.iterator();

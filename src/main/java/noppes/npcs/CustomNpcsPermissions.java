@@ -77,8 +77,8 @@ public class CustomNpcsPermissions {
 		if (!CustomNpcs.DisablePermissions) {
 			LogManager.getLogger(CustomNpcs.class).info("CustomNPC Permissions available:");
 			Collections.sort(CustomNpcsPermissions.Permission.permissions, (o1, o2) -> {
-				return o1.toString().compareToIgnoreCase(o2.toString());
-			});
+                return ((Permission) o1).name.compareToIgnoreCase(((Permission) o2).name);
+            });
 			Iterator var1 = CustomNpcsPermissions.Permission.permissions.iterator();
 
 			while (var1.hasNext()) {

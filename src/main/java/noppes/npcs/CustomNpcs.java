@@ -176,11 +176,13 @@ public class CustomNpcs {
 			}
 		}, MarkData.class);
 		CapabilityManager.INSTANCE.register(ItemStackWrapper.class, new IStorage() {
-			public NBTBase writeNBT(Capability capability, ItemStackWrapper instance, EnumFacing side) {
-				return null;
+			@Override
+			public void readNBT(Capability capability, Object instance, EnumFacing side, NBTBase nbt) {
 			}
 
-			public void readNBT(Capability capability, ItemStackWrapper instance, EnumFacing side, NBTBase nbt) {
+			@Override
+			public NBTBase writeNBT(Capability capability, Object instance, EnumFacing side) {
+				return null;
 			}
 		}, () -> {
 			return null;
