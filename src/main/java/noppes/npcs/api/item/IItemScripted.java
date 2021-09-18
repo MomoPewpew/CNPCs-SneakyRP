@@ -1,27 +1,62 @@
 package noppes.npcs.api.item;
 
 public interface IItemScripted extends IItemStack {
-	boolean hasTexture(int var1);
+	
+	public boolean hasTexture(int damage);
 
-	String getTexture(int var1);
+	/**
+	 * @param damage
+	 * @return Returns the texture associated with this damage value
+	 */
+	public String getTexture(int damage);
+	
+	/**
+	 * All scripted items with the same damage value have the same texture.
+	 * To change the actual texture of the item call setItemDamage afterwards with the same damage value
+	 * @param damage The damage value
+	 * @param texture Texture you want this damage value to have
+	 */
+	public void setTexture(int damage, String texture);
 
-	void setTexture(int var1, String var2);
+	public void setMaxStackSize(int size);
 
-	void setMaxStackSize(int var1);
+	/**
+	 * @return Returns a value between 0 and 1, 0 is an empty durability bar and 1 a full one
+	 */
+	public double getDurabilityValue();
 
-	double getDurabilityValue();
+	/**
+	 * @param value A value between 0 and 1, 0 is an empty durability bar and 1 a full one
+	 */
+	public void setDurabilityValue(float value);
 
-	void setDurabilityValue(float var1);
+	/**
+	 * @return Returns whether the durability is visible or not
+	 */
+	public boolean getDurabilityShow();
 
-	boolean getDurabilityShow();
+	/**
+	 * @param bo Set whether the durability is visible
+	 */
+	public void setDurabilityShow(boolean bo);
 
-	void setDurabilityShow(boolean var1);
+	/**
+	 * @return Returns the customly set durability color for the bar. If no custom value is set it will return -1
+	 */
+	public int getDurabilityColor();
 
-	int getDurabilityColor();
+	/**
+	 * @param color Set a custom color hex value for durability bar.
+	 */
+	public void setDurabilityColor(int color);
 
-	void setDurabilityColor(int var1);
+	/**
+	 * @return Returns the color of the item. -1 for no color
+	 */
+	public int getColor();
 
-	int getColor();
-
-	void setColor(int var1);
+	/**
+	 * @param color Set a custom color hex value for the item tint. -1 to remove the color
+	 */
+	public void setColor(int color);
 }

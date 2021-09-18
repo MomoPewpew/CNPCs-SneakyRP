@@ -1,73 +1,108 @@
 package noppes.npcs.api;
 
+import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
 
+/**
+ * @author Karel
+ *
+ */
 public interface INbt {
-	void remove(String var1);
+	
+	public void remove(String key);
 
-	boolean has(String var1);
+	public boolean has(String key);
 
-	boolean getBoolean(String var1);
+	public boolean getBoolean(String key);
 
-	void setBoolean(String var1, boolean var2);
+	public void setBoolean(String key, boolean value);
 
-	short getShort(String var1);
+	public short getShort(String key);
 
-	void setShort(String var1, short var2);
+	public void setShort(String key, short value);
 
-	int getInteger(String var1);
+	public int getInteger(String key);
 
-	void setInteger(String var1, int var2);
+	public void setInteger(String key, int value);
 
-	byte getByte(String var1);
+	public byte getByte(String key);
 
-	void setByte(String var1, byte var2);
+	public void setByte(String key, byte value);
 
-	long getLong(String var1);
+	public long getLong(String key);
 
-	void setLong(String var1, long var2);
+	public void setLong(String key, long value);
 
-	double getDouble(String var1);
+	public double getDouble(String key);
 
-	void setDouble(String var1, double var2);
+	public void setDouble(String key, double value);
 
-	float getFloat(String var1);
+	public float getFloat(String key);
 
-	void setFloat(String var1, float var2);
+	public void setFloat(String key, float value);
 
-	String getString(String var1);
+	public String getString(String key);
 
-	void setString(String var1, String var2);
+	public void setString(String key, String value);
 
-	byte[] getByteArray(String var1);
+	public byte[] getByteArray(String key);
 
-	void setByteArray(String var1, byte[] var2);
+	public void setByteArray(String key, byte[] value);
 
-	int[] getIntegerArray(String var1);
+	public int[] getIntegerArray(String key);
 
-	void setIntegerArray(String var1, int[] var2);
+	public void setIntegerArray(String key, int[] value);
 
-	Object[] getList(String var1, int var2);
+	/**
+	 * @param key
+	 * @param type The Type of the list 3:Integer, 5:Float, 6:Double, 8:String,
+	 *             10:INbt, 11:Integer[]
+	 * @return
+	 */
+	public Object[] getList(String key, int type);
 
-	int getListType(String var1);
+	/**
+	 * @param key
+	 * @return 3:Integer, 5:Float, 6:Double, 8:String, 10:INbt, 11:Integer[]
+	 */
+	public int getListType(String key);
 
-	void setList(String var1, Object[] var2);
+	public void setList(String key, Object[] value);
 
-	INbt getCompound(String var1);
+	public INbt getCompound(String key);
 
-	void setCompound(String var1, INbt var2);
+	public void setCompound(String key, INbt value);
 
-	String[] getKeys();
+	public String[] getKeys();
 
-	int getType(String var1);
+	/**
+	 * @param key
+	 * @return 1:Byte, 2:Short 3:Integer, 4:Long, 5:Float, 6:Double, 7:Byte[],
+	 *         8:String, 9:List, 10:INbt, 11:Integer[]
+	 */
+	public int getType(String key);
 
-	NBTTagCompound getMCNBT();
+	public NBTTagCompound getMCNBT();
 
-	String toJsonString();
+	public String toJsonString();
 
-	boolean isEqual(INbt var1);
+	/**
+	 * Compares if two nbt tags are the same/contain the same data
+	 */
+	public boolean isEqual(INbt nbt);
 
-	void clear();
+	/**
+	 * Clears all tags
+	 */
+	public void clear();
 
-	void merge(INbt var1);
+	/**
+	 * Merges two nbt tabs, note that nbt tags will be overwritten if they have the
+	 * same keys
+	 */
+	public void merge(INbt nbt);
+
+	public void mcSetTag(String key, NBTBase base);
+	
+	public NBTBase mcGetTag(String key);
 }

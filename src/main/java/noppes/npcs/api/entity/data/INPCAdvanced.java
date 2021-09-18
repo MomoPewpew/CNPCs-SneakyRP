@@ -1,13 +1,32 @@
 package noppes.npcs.api.entity.data;
 
 public interface INPCAdvanced {
-	void setLine(int var1, int var2, String var3, String var4);
 
-	String getLine(int var1, int var2);
+	/**
+	 * @param type 0:Interact, 1:Attack, 2:World, 3:Killed, 4:Kill, 5:NPC Interact
+	 * @param slot 0-7
+	 */
+	public void setLine(int type, int slot, String text, String sound);
 
-	int getLineCount(int var1);
+	/**
+	 * @param type 0:Interact, 1:Attack, 2:World, 3:Killed, 4:Kill, 5:NPC Interact
+	 * @param slot 0-7
+	 */
+	public String getLine(int type, int slot);
 
-	String getSound(int var1);
+	/**
+	 * @param type 0:Interact, 1:Attack, 2:World, 3:Killed, 4:Kill, 5:NPC Interact
+	 */
+	public int getLineCount(int type);
 
-	void setSound(int var1, String var2);
+	/**
+	 * @param type 0:Idle, 1:Angry, 2:Hurt, 3:Death, 4:Step
+	 */
+	public String getSound(int type);
+	
+	/**
+	 * @param type 0:Idle, 1:Angry, 2:Hurt, 3:Death, 4:Step
+	 */
+	public void setSound(int type, String sound);
+
 }

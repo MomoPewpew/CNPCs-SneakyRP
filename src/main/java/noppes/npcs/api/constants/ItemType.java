@@ -1,5 +1,7 @@
 package noppes.npcs.api.constants;
-
+/**
+ * Item Types
+ */
 public class ItemType {
 	public static final int NORMAL = 0;
 	public static final int BOOK = 1;

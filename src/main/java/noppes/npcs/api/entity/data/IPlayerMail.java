@@ -4,21 +4,23 @@ import noppes.npcs.api.IContainer;
 import noppes.npcs.api.handler.data.IQuest;
 
 public interface IPlayerMail {
-	String getSender();
-
-	void setSender(String var1);
-
-	String getSubject();
-
-	void setSubject(String var1);
-
-	String[] getText();
-
-	void setText(String[] var1);
-
-	IQuest getQuest();
-
-	void setQuest(int var1);
-
-	IContainer getContainer();
+	
+	public String getSender();
+	
+	public void setSender(String sender);
+	
+	public String getSubject();
+	
+	public void setSubject(String subject);
+	
+	public String[] getText();
+	
+	public void setText(String[] text);
+	
+	public IQuest getQuest();
+	
+	public void setQuest(int id);
+	
+	public IContainer getContainer();
+	
 }

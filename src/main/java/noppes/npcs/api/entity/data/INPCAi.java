@@ -1,87 +1,154 @@
 package noppes.npcs.api.entity.data;
 
 public interface INPCAi {
-	int getAnimation();
 
-	void setAnimation(int var1);
+	public int getAnimation();
 
-	int getCurrentAnimation();
+	public void setAnimation(int type);
 
-	void setReturnsHome(boolean var1);
+	/**
+	 * @return Returns the npcs current animation. E.g. when npc is set to LYING it wont be lying while walking so it will be NORMAL
+	 * @see noppes.npcs.api.constants.AnimationType
+	 */
+	public int getCurrentAnimation();
 
-	boolean getReturnsHome();
+	/**
+	 * @param bo Whether or not the npc will try to return to his home position
+	 */
+	public void setReturnsHome(boolean bo);
 
-	int getRetaliateType();
+	public boolean getReturnsHome();
 
-	void setRetaliateType(int var1);
+	/**
+	 * @return Retaliation type. 0:Normal, 1:Panic, 2:Retreat, 3:Nothing
+	 */
+	public int getRetaliateType();
 
-	int getMovingType();
+	/**
+	 * @param type Retaliation type. 0:Normal, 1:Panic, 2:Retreat, 3:Nothing
+	 */
+	public void setRetaliateType(int type);
 
-	void setMovingType(int var1);
+	/**
+	 * @return 0:Standing, 1:Wandering, 2:MovingPath
+	 */
+	public int getMovingType();
 
-	int getNavigationType();
+	/**
+	 * @param type 0:Standing, 1:Wandering, 2:MovingPath
+	 */
+	public void setMovingType(int type);
 
-	void setNavigationType(int var1);
+	/**
+	 * @return type 0:Ground, 1:Flying, 2:Swimming
+	 */
+	public int getNavigationType();
 
-	int getStandingType();
+	/**
+	 * @param type 0:Ground, 1:Flying, 2:Swimming
+	 */
+	public void setNavigationType(int type);
 
-	void setStandingType(int var1);
+	/**
+	 * @return 0:RotateBody, 1:NoRotation, 2:Stalking, 3:HeadRotation
+	 */
+	public int getStandingType();
 
-	boolean getAttackInvisible();
+	/**
+	 * @param type 0:RotateBody, 1:NoRotation, 2:Stalking, 3:HeadRotation
+	 */
+	public void setStandingType(int type);
 
-	void setAttackInvisible(boolean var1);
+	/**
+	 * @return Returns whether or not he can attack invisible entities
+	 */
+	public boolean getAttackInvisible();
 
-	int getWanderingRange();
+	public void setAttackInvisible(boolean attack);
 
-	void setWanderingRange(int var1);
+	public int getWanderingRange();
 
-	boolean getInteractWithNPCs();
+	/**
+	 * @param range (1-50)
+	 */
+	public void setWanderingRange(int range);
 
-	void setInteractWithNPCs(boolean var1);
+	public boolean getInteractWithNPCs();
 
-	boolean getStopOnInteract();
+	public void setInteractWithNPCs(boolean interact);
 
-	void setStopOnInteract(boolean var1);
+	public boolean getStopOnInteract();
 
-	int getWalkingSpeed();
+	public void setStopOnInteract(boolean stopOnInteract);
 
-	void setWalkingSpeed(int var1);
+	public int getWalkingSpeed();
 
-	int getMovingPathType();
+	/**
+	 * @param speed 0-10
+	 */	
+	public void setWalkingSpeed(int speed);
+	
+	/**
+	 * @return 0:Looping, 1:Backtracking
+	 */
+	public int getMovingPathType();
 
-	boolean getMovingPathPauses();
+	public boolean getMovingPathPauses();
 
-	void setMovingPathType(int var1, boolean var2);
+	/**
+	 * @param type 0:Looping, 1:Backtracking
+	 */
+	public void setMovingPathType(int type, boolean pauses);
 
-	int getDoorInteract();
+	public int getDoorInteract();
 
-	void setDoorInteract(int var1);
+	public void setDoorInteract(int type);
 
-	boolean getCanSwim();
+	public boolean getCanSwim();
 
-	void setCanSwim(boolean var1);
+	public void setCanSwim(boolean canSwim);
 
-	int getSheltersFrom();
+	/**
+	 * @return 0:Darkness, 1:Sunlight, 2:Disabled
+	 */
+	public int getSheltersFrom();
 
-	void setSheltersFrom(int var1);
+	/**
+	 * @param type 0:Darkness, 1:Sunlight, 2:Disabled
+	 */
+	public void setSheltersFrom(int type);
 
-	boolean getAttackLOS();
+	/**
+	 * @return Whether the NPC requires Direct Line of Sight to Attack
+	 */
+	public boolean getAttackLOS();
 
-	void setAttackLOS(boolean var1);
+	/**
+	 * @param mustSee Whether the NPC requires Direct Line of Sight to Attack
+	 */
+	public void setAttackLOS(boolean enabled);
 
-	boolean getAvoidsWater();
+	public boolean getAvoidsWater();
 
-	void setAvoidsWater(boolean var1);
+	public void setAvoidsWater(boolean enabled);
 
-	boolean getLeapAtTarget();
+	public boolean getLeapAtTarget();
 
-	void setLeapAtTarget(boolean var1);
+	public void setLeapAtTarget(boolean leap);
 
-	int getTacticalType();
+	/**
+	 * @see noppes.npcs.api.constants.TacticalType
+	 */
+	public int getTacticalType();
 
-	void setTacticalType(int var1);
+	
+	/**
+	 * @see noppes.npcs.api.constants.TacticalType
+	 */
+	public void setTacticalType(int type);
 
-	int getTacticalRange();
+	public int getTacticalRange();
 
-	void setTacticalRange(int var1);
+	public void setTacticalRange(int range);
+	
 }

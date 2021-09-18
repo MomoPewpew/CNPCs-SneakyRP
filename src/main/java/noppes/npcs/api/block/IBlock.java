@@ -8,57 +8,112 @@ import noppes.npcs.api.INbt;
 import noppes.npcs.api.IPos;
 import noppes.npcs.api.IWorld;
 import noppes.npcs.api.entity.data.IData;
+import noppes.npcs.api.item.IItemStack;
 
 public interface IBlock {
-	int getX();
 
-	int getY();
+	public int getX();
+	
+	public int getY();
+	
+	public int getZ();
+	
+	public IPos getPos();
+	
+	public int getMetadata();
+	
+	public void setMetadata(int i);
+	
+	/**
+	 * @return Returns this blocks name
+	 */
+	public String getName();
 
-	int getZ();
+	/**
+	 * Removes this block
+	 */
+	public void remove();
+	
+	/**
+	 * @return Returns whether or not this block has been replaced by another
+	 */
+	public boolean isRemoved();
+	
+	public boolean isAir();
+	
+	/*
+	 * @param name Sets the block to replace this one using the blocks name
+	 * @return Returns the new block
+	 */
+	public IBlock setBlock(String name);
 
-	IPos getPos();
+	/**
+	 * @param block Sets the block to replace this one
+	 * @return Returns the new block
+	 */
+	public IBlock setBlock(IBlock block);
+	
+	public boolean hasTileEntity();
 
-	int getMetadata();
+	/**
+	 * @return Returns whether it has items stored inside it (e.g. chests, droppers, hoppers, etc)
+	 */
+	public boolean isContainer();
+	
+	public IContainer getContainer();
+	
+	/**
+	 * Temp data stores anything but only untill it's reloaded. 
+	 * (works only for customnpcs blocks)
+	 */
+	public IData getTempdata();
+	
+	/**
+	 * Stored data persists through world restart. Unlike tempdata only Strings and Numbers can be saved 
+	 * (works only for blocks with TileEntities)
+	 */
+	public IData getStoreddata();
+		
+	public IWorld getWorld();
+	
 
-	void setMetadata(int var1);
+	public INbt getTileEntityNBT();
 
-	String getName();
+	public void setTileEntityNBT(INbt nbt);
+	
+	/**
+	 * Expert users only
+	 * @return Returns minecrafts tilentity
+	 */
+	public TileEntity getMCTileEntity();
+	
+	/**
+	 * Expert users only
+	 * @return Returns minecrafts block
+	 */
+	public Block getMCBlock();
 
-	void remove();
+	/**
+	 * @param type Event type
+	 * @param data Event data
+	 * Example: 
+	 * 	Chests - type:1 data:1 opens the lid, type:1 data:0 closes the lid
+	 * 	Note block - type:(0-9) data:(0-24) plays different notes
+	 * 
+	 */
+	public void blockEvent(int type, int data);
 
-	boolean isRemoved();
+	public String getDisplayName();
 
-	boolean isAir();
+	/**
+	 * Expert users only
+	 * @return Returns minecrafts iblockstate
+	 */
+	public IBlockState getMCBlockState();
 
-	IBlock setBlock(String var1);
-
-	IBlock setBlock(IBlock var1);
-
-	boolean hasTileEntity();
-
-	boolean isContainer();
-
-	IContainer getContainer();
-
-	IData getTempdata();
-
-	IData getStoreddata();
-
-	IWorld getWorld();
-
-	INbt getTileEntityNBT();
-
-	void setTileEntityNBT(INbt var1);
-
-	TileEntity getMCTileEntity();
-
-	Block getMCBlock();
-
-	void blockEvent(int var1, int var2);
-
-	String getDisplayName();
-
-	IBlockState getMCBlockState();
-
-	void interact(int var1);
+	/**
+	 * Simulates a player interacting with this block (can give weird results)
+	 * @param side The side of the block interacted with
+	 */
+	public void interact(int side);
 }

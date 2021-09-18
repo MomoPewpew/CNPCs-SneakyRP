@@ -3,33 +3,59 @@ package noppes.npcs.api.entity.data;
 import noppes.npcs.api.item.IItemStack;
 
 public interface INPCInventory {
-	IItemStack getRightHand();
 
-	void setRightHand(IItemStack var1);
+	public IItemStack getRightHand();
+	
+	public void setRightHand(IItemStack item);
 
-	IItemStack getLeftHand();
+	public IItemStack getLeftHand();
+	
+	public void setLeftHand(IItemStack item);
 
-	void setLeftHand(IItemStack var1);
+	public IItemStack getProjectile();
+	
+	public void setProjectile(IItemStack item);
+	
 
-	IItemStack getProjectile();
+	/**
+	 * @param slot The armor slot to return. 0:head, 1:body, 2:legs, 3:boots
+	 * @return Returns the armor item
+	 */
+	public IItemStack getArmor(int slot);
+	
 
-	void setProjectile(IItemStack var1);
+	/**
+	 * @param slot The armor slot to return. 0:head, 1:body, 2:legs, 3:boots
+	 * @param item
+	 */
+	public void setArmor(int slot, IItemStack item);
 
-	IItemStack getArmor(int var1);
+	/**
+	 * @param slot 0-8
+	 * @param item
+	 * @param chance 1-100
+	 */
+	public void setDropItem(int slot, IItemStack item, int chance);
 
-	void setArmor(int var1, IItemStack var2);
+	/**
+	 * @param slot 0-8
+	 */
+	public IItemStack getDropItem(int slot);
 
-	void setDropItem(int var1, IItemStack var2, int var3);
+	public int getExpMin();
 
-	IItemStack getDropItem(int var1);
+	public int getExpMax();
 
-	int getExpMin();
+	/**
+	 * @return Returns a value between expMin and expMax
+	 */
+	public int getExpRNG();
 
-	int getExpMax();
+	/**
+	 * Sets the random exp dropped when the npc dies
+	 */
+	public void setExp(int min, int max);
 
-	int getExpRNG();
+	public IItemStack[] getItemsRNG();
 
-	void setExp(int var1, int var2);
-
-	IItemStack[] getItemsRNG();
 }

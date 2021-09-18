@@ -1,4 +1,8 @@
 package noppes.npcs.api.entity;
 
-public interface IVillager extends IEntityLiving {
+import net.minecraft.entity.monster.EntityMob;
+
+public interface IVillager<T extends EntityMob> extends IEntityLiving<T>{
+
+	
 }

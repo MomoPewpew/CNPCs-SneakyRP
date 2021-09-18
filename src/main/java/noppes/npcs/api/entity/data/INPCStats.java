@@ -1,47 +1,83 @@
 package noppes.npcs.api.entity.data;
 
 public interface INPCStats {
-	int getMaxHealth();
 
-	void setMaxHealth(int var1);
+	public int getMaxHealth();
 
-	float getResistance(int var1);
+	public void setMaxHealth(int maxHealth);
+	
+	/**
+	 * @param type 0:Melee, 1:Ranged, 2:Explosion, 3:Knockback
+	 * @return Returns value between 0 and 2. 0 being no resistance so increased damage and 2 being fully resistant. Normal is 1
+	 */
+	public float getResistance(int type);
+	
+	public void setResistance(int type, float value);
 
-	void setResistance(int var1, float var2);
+	/**
+	 * @return Returns the combat health regen per second
+	 */
+	public int getCombatRegen();
 
-	int getCombatRegen();
+	/**
+	 * @param regen The combat health regen per second
+	 */
+	public void setCombatRegen(int regen);
 
-	void setCombatRegen(int var1);
+	/**
+	 * @return Returns the health regen per second when not in combat
+	 */
+	public int getHealthRegen();
 
-	int getHealthRegen();
+	/**
+	 * @param regen The health regen per second when not in combat
+	 */
+	public void setHealthRegen(int regen);
 
-	void setHealthRegen(int var1);
+	public INPCMelee getMelee();
 
-	INPCMelee getMelee();
+	public INPCRanged getRanged();
 
-	INPCRanged getRanged();
+	/**
+	 * @param type 0:Potion, 1:Falldamage, 2:Sunburning, 3:Fire, 4:Drowning, 5:Cobweb
+	 */
+	public boolean getImmune(int type);
 
-	boolean getImmune(int var1);
+	/**
+	 * @param type 0:Potion, 1:Falldamage, 2:Sunburning, 3:Fire, 4:Drowning, 5:Cobweb
+	 */
+	public void setImmune(int type, boolean bo);
 
-	void setImmune(int var1, boolean var2);
+	/**
+	 * (0=Normal, 1=Undead, 2=Arthropod) Only used for damage calculations with enchants
+	 */
+	public void setCreatureType(int type);
 
-	void setCreatureType(int var1);
+	/**
+	 * (0=Normal, 1=Undead, 2=Arthropod) Only used for damage calculations with enchants
+	 */
+	public int getCreatureType();
 
-	int getCreatureType();
+	/**
+	 * @return 0:Yes, 1:Day, 2:Night, 3:No, 4:Naturally
+	 */
+	public int getRespawnType();
 
-	int getRespawnType();
+	/**
+	 * @param type 0:Yes, 1:Day, 2:Night, 3:No, 4:Naturally
+	 */
+	public void setRespawnType(int type);
 
-	void setRespawnType(int var1);
+	public int getRespawnTime();
 
-	int getRespawnTime();
+	public void setRespawnTime(int seconds);
 
-	void setRespawnTime(int var1);
+	public boolean getHideDeadBody();
 
-	boolean getHideDeadBody();
+	public void setHideDeadBody(boolean hide);
 
-	void setHideDeadBody(boolean var1);
+	public int getAggroRange();
 
-	int getAggroRange();
+	public void setAggroRange(int range);
 
-	void setAggroRange(int var1);
 }

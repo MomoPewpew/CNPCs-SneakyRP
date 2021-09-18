@@ -4,68 +4,92 @@ import net.minecraft.entity.EntityLivingBase;
 import noppes.npcs.api.entity.data.IMark;
 import noppes.npcs.api.item.IItemStack;
 
-public interface IEntityLivingBase extends IEntity {
-	float getHealth();
+public interface IEntityLivingBase<T extends EntityLivingBase> extends IEntity<T>{
 
-	void setHealth(float var1);
+	public float getHealth();
+	
+	public void setHealth(float health);
+	
+	public float getMaxHealth();
+	
+	public void setMaxHealth(float health);
+	
+	public boolean isAttacking();
+	
+	public void setAttackTarget(IEntityLivingBase living);
+	
+	public IEntityLivingBase getAttackTarget();
+	
+	/**
+	 * @return Returns the last Entity this Entity attacked
+	 */
+	public IEntityLivingBase getLastAttacked();
 
-	float getMaxHealth();
+	/**
+	 * @return Returns the age of this entity when it was last attacked
+	 */
+	public int getLastAttackedTime();
+	
+	public boolean canSeeEntity(IEntity entity);
 
-	void setMaxHealth(float var1);
+	public void swingMainhand();
 
-	boolean isAttacking();
+	public void swingOffhand();
+	
+	public IItemStack getMainhandItem();
 
-	void setAttackTarget(IEntityLivingBase var1);
+	public void setMainhandItem(IItemStack item);
 
-	IEntityLivingBase getAttackTarget();
+	public IItemStack getOffhandItem();
 
-	IEntityLivingBase getLastAttacked();
+	public void setOffhandItem(IItemStack item);
+	
+	/**
+	 * Note not all Living Entities support this
+	 * @param slot Slot of what armor piece to get, 0:boots, 1:pants, 2:body, 3:head
+	 * @return The item in the given slot
+	 */
+	public IItemStack getArmor(int slot);
+	
+	/**
+	 * @param slot Slot of what armor piece to set, 0:boots, 1:pants, 2:body, 3:head
+	 * @param item Item to be set
+	 */
+	public void setArmor(int slot, IItemStack item);
+	
+	/**
+	 * Works the same as the <a href="http://minecraft.gamepedia.com/Commands#effect">/effect command</a>
+	 * @param effect
+	 * @param duration The duration in seconds
+	 * @param strength The amplifier of the potion effect
+	 * @param hideParticles Whether or not you want to hide potion particles
+	 */
+	public void addPotionEffect(int effect, int duration, int strength, boolean hideParticles);
+	
+	public void clearPotionEffects();
+	
+	public int getPotionEffect(int effect);
+	
+	public IMark addMark(int type);
+	
+	public void removeMark(IMark mark);
+	
+	public IMark[] getMarks();
+	
+	public boolean isChild();
 
-	int getLastAttackedTime();
+	@Override
+	public T getMCEntity();
 
-	boolean canSeeEntity(IEntity var1);
+	public float getMoveForward();
 
-	void swingMainhand();
+	public void setMoveForward(float move);
 
-	void swingOffhand();
+	public float getMoveStrafing();
 
-	IItemStack getMainhandItem();
+	public void setMoveStrafing(float move);
 
-	void setMainhandItem(IItemStack var1);
+	public float getMoveVertical();
 
-	IItemStack getOffhandItem();
-
-	void setOffhandItem(IItemStack var1);
-
-	IItemStack getArmor(int var1);
-
-	void setArmor(int var1, IItemStack var2);
-
-	void addPotionEffect(int var1, int var2, int var3, boolean var4);
-
-	void clearPotionEffects();
-
-	int getPotionEffect(int var1);
-
-	IMark addMark(int var1);
-
-	void removeMark(IMark var1);
-
-	IMark[] getMarks();
-
-	boolean isChild();
-
-	EntityLivingBase getMCEntity();
-
-	float getMoveForward();
-
-	void setMoveForward(float var1);
-
-	float getMoveStrafing();
-
-	void setMoveStrafing(float var1);
-
-	float getMoveVertical();
-
-	void setMoveVertical(float var1);
+	public void setMoveVertical(float move);
 }

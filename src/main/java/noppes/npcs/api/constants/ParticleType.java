@@ -12,24 +12,25 @@ public class ParticleType {
 	public static final int MAGIC = 6;
 	public static final int ENCHANT = 7;
 	public static final int CRIT = 8;
-
-	public static EnumParticleTypes getMCType(int type) {
-		if (type == 1) {
+	
+	public static EnumParticleTypes getMCType(int type){
+		if(type == SMOKE)
 			return EnumParticleTypes.SMOKE_NORMAL;
-		} else if (type == 2) {
+		if(type == PORTAL)
 			return EnumParticleTypes.PORTAL;
-		} else if (type == 3) {
+		if(type == REDSTONE)
 			return EnumParticleTypes.REDSTONE;
-		} else if (type == 4) {
+		if(type == LIGHTNING)
 			return EnumParticleTypes.CRIT_MAGIC;
-		} else if (type == 5) {
+		if(type == LARGE_SMOKE)
 			return EnumParticleTypes.SMOKE_LARGE;
-		} else if (type == 6) {
+		if(type == MAGIC)
 			return EnumParticleTypes.SPELL_WITCH;
-		} else if (type == 7) {
+		if(type == ENCHANT)
 			return EnumParticleTypes.ENCHANTMENT_TABLE;
-		} else {
-			return type == 8 ? EnumParticleTypes.CRIT : null;
-		}
+		if(type == CRIT)
+			return EnumParticleTypes.CRIT;
+		
+		return null;
 	}
 }

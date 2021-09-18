@@ -1,27 +1,29 @@
 package noppes.npcs.api.entity.data;
 
 public interface INPCMelee {
-	int getStrength();
 
-	void setStrength(int var1);
+	public int getStrength();
 
-	int getDelay();
+	public void setStrength(int strength);
 
-	void setDelay(int var1);
+	public int getDelay();
 
-	int getRange();
+	public void setDelay(int speed);
 
-	void setRange(int var1);
+	public int getRange();
 
-	int getKnockback();
+	public void setRange(int range);
 
-	void setKnockback(int var1);
+	public int getKnockback();
 
-	int getEffectType();
+	public void setKnockback(int knockback);
 
-	int getEffectTime();
+	public int getEffectType();
 
-	int getEffectStrength();
+	public int getEffectTime();
 
-	void setEffect(int var1, int var2, int var3);
+	public int getEffectStrength();
+
+	public void setEffect(int type, int strength, int time);
+
 }

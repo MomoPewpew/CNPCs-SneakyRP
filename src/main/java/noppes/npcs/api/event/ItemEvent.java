@@ -1,6 +1,8 @@
 package noppes.npcs.api.event;
 
 import net.minecraftforge.fml.common.eventhandler.Cancelable;
+import noppes.npcs.api.IDamageSource;
+import noppes.npcs.api.entity.IEntity;
 import noppes.npcs.api.entity.IEntityItem;
 import noppes.npcs.api.entity.IPlayer;
 import noppes.npcs.api.item.IItemScripted;
@@ -12,22 +14,78 @@ public class ItemEvent extends CustomNPCsEvent {
 		this.item = item;
 	}
 
-	@Cancelable
-	public static class AttackEvent extends ItemEvent {
-		public final int type;
-		public final Object target;
-		public IPlayer player;
-
-		public AttackEvent(IItemScripted item, IPlayer player, int type, Object target) {
+	/**
+	 * init
+	 */
+	public static class InitEvent extends ItemEvent {
+		public InitEvent(IItemScripted item) {
 			super(item);
-			this.type = type;
-			this.target = target;
+		}
+	}
+
+	/**
+	 * tick <br>
+	 * When the item is in an inventory this will be called every 10 ticks (0.5 seconds)
+	 */
+	public static class UpdateEvent extends ItemEvent {
+		public IPlayer player;
+		public UpdateEvent(IItemScripted item, IPlayer player) {
+			super(item);
 			this.player = player;
 		}
 	}
 
+	/**
+	 * spawn
+	 */
+	@Cancelable
+	public static class SpawnEvent extends ItemEvent {
+		public IEntityItem entity;
+		public SpawnEvent(IItemScripted item, IEntityItem entity) {
+			super(item);
+			this.entity = entity;
+		}
+	}
+
+	/**
+	 * toss <br>
+	 * When Cancelled it prevents the item from spawning in the world, the item still disappears from the inventory
+	 */
+	@Cancelable
+	public static class TossedEvent extends ItemEvent {
+		public IEntityItem entity;
+		public IPlayer player;
+		public TossedEvent(IItemScripted item, IPlayer player, IEntityItem entity) {
+			super(item);
+			this.entity = entity;
+			this.player = player;
+		}
+	}
+
+	/**
+	 * pickedUp <br>
+	 * When Cancelled it prevents the item from spawning in the world, the item still disappears from the inventory
+	 */
+	public static class PickedUpEvent extends ItemEvent {
+		public IEntityItem entity;
+		public IPlayer player;
+		public PickedUpEvent(IItemScripted item, IPlayer player, IEntityItem entity) {
+			super(item);
+			this.entity = entity;
+			this.player = player;
+		}
+	}
+
+	/**
+	 * interact <br>
+	 * Will trigger if you have an item and right click into the air Or right
+	 * click a block Or right click an entity
+	 */
 	@Cancelable
 	public static class InteractEvent extends ItemEvent {
+		/**
+		 * 0:air, 1:entity, 2:block
+		 */
 		public final int type;
 		public final Object target;
 		public IPlayer player;
@@ -40,51 +98,42 @@ public class ItemEvent extends CustomNPCsEvent {
 		}
 	}
 
-	public static class PickedUpEvent extends ItemEvent {
-		public IEntityItem entity;
-		public IPlayer player;
-
-		public PickedUpEvent(IItemScripted item, IPlayer player, IEntityItem entity) {
-			super(item);
-			this.entity = entity;
-			this.player = player;
-		}
-	}
-
+	/**
+	 * attack <br>
+	 * Will trigger if you have an item and left click into the air or left
+	 * click a block or left click an entity
+	 */
 	@Cancelable
-	public static class TossedEvent extends ItemEvent {
-		public IEntityItem entity;
+	public static class AttackEvent extends ItemEvent {
+		/**
+		 * 0:air, 1:entity, 2:block
+		 */
+		public final int type;
+		
+		public final Object target;
+		
 		public IPlayer player;
+		
+		/**
+		 * The attack event for entities also has the damageSource
+		 */
+		public final IDamageSource damageSource;
 
-		public TossedEvent(IItemScripted item, IPlayer player, IEntityItem entity) {
+		public AttackEvent(IItemScripted item, IPlayer player, int type, Object target) {
 			super(item);
-			this.entity = entity;
+			this.type = type;
+			this.target = target;
 			this.player = player;
+			this.damageSource = null;
 		}
-	}
 
-	@Cancelable
-	public static class SpawnEvent extends ItemEvent {
-		public IEntityItem entity;
-
-		public SpawnEvent(IItemScripted item, IEntityItem entity) {
+		public AttackEvent(IItemScripted item, IPlayer player, IEntity target, IDamageSource damageSource) {
 			super(item);
-			this.entity = entity;
-		}
-	}
-
-	public static class UpdateEvent extends ItemEvent {
-		public IPlayer player;
-
-		public UpdateEvent(IItemScripted item, IPlayer player) {
-			super(item);
+			this.type = 1;
+			this.target = target;
 			this.player = player;
+			this.damageSource = damageSource;
 		}
 	}
 
-	public static class InitEvent extends ItemEvent {
-		public InitEvent(IItemScripted item) {
-			super(item);
-		}
-	}
 }

@@ -1,103 +1,130 @@
 package noppes.npcs.api.entity.data;
 
 public interface INPCRanged {
-	int getStrength();
 
-	void setStrength(int var1);
+	public int getStrength();
 
-	int getSpeed();
+	public void setStrength(int strength);
 
-	void setSpeed(int var1);
+	/**
+	 * @return Speed of the projectile shot
+	 */
+	public int getSpeed();
 
-	int getBurst();
+	/**
+	 * @param speed Speed of the projectile shot (default:10)
+	 */
+	public void setSpeed(int speed);
 
-	void setBurst(int var1);
+	/**
+	 * Burst is the ammount shot at a time. E.g. a burst of 5 burst delay of 2 and a normal delay of 20, 
+	 * will shoot 5 projectiles with a delay of 2 ticks every 20 ticks.
+	 */
+	public int getBurst();
 
-	int getBurstDelay();
+	public void setBurst(int count);
 
-	void setBurstDelay(int var1);
+	public int getBurstDelay();
 
-	int getKnockback();
+	public void setBurstDelay(int delay);
 
-	void setKnockback(int var1);
+	public int getKnockback();
 
-	int getSize();
+	public void setKnockback(int punch);
 
-	void setSize(int var1);
+	public int getSize();
 
-	boolean getRender3D();
+	public void setSize(int size);
 
-	void setRender3D(boolean var1);
+	public boolean getRender3D();
 
-	boolean getSpins();
+	public void setRender3D(boolean render3d);
 
-	void setSpins(boolean var1);
+	public boolean getSpins();
 
-	boolean getSticks();
+	public void setSpins(boolean spins);
 
-	void setSticks(boolean var1);
+	public boolean getSticks();
 
-	boolean getHasGravity();
+	public void setSticks(boolean sticks);
 
-	void setHasGravity(boolean var1);
+	public boolean getHasGravity();
 
-	boolean getAccelerate();
+	public void setHasGravity(boolean hasGravity);
 
-	void setAccelerate(boolean var1);
+	public boolean getAccelerate();
 
-	int getExplodeSize();
+	public void setAccelerate(boolean accelerate);
 
-	void setExplodeSize(int var1);
+	public int getExplodeSize();
 
-	int getEffectType();
+	public void setExplodeSize(int size);
 
-	int getEffectTime();
+	/**
+	 * @see noppes.npcs.api.constants.PotionEffectType
+	 */
+	public int getEffectType();
+	
+	public int getEffectTime();
 
-	int getEffectStrength();
+	public int getEffectStrength();
 
-	void setEffect(int var1, int var2, int var3);
+	public void setEffect(int type, int strength, int time);
 
-	boolean getGlows();
+	public boolean getGlows();
 
-	void setGlows(boolean var1);
+	public void setGlows(boolean glows);
 
-	int getParticle();
+	/**
+	 * @see noppes.npcs.api.constants.ParticleType
+	 */
+	public int getParticle();
 
-	void setParticle(int var1);
+	public void setParticle(int type);
+	
+	/**
+	 * @param type 0:Fire
+	 */
+	public String getSound(int type);
 
-	String getSound(int var1);
+	/**
+	 * @param type 0:Fire, 1:Hit, 2:Ground
+	 */
+	public void setSound(int type, String sound);
 
-	void setSound(int var1, String var2);
+	public int getShotCount();
 
-	int getShotCount();
+	public void setShotCount(int count);
 
-	void setShotCount(int var1);
+	public boolean getHasAimAnimation();
 
-	boolean getHasAimAnimation();
+	public void setHasAimAnimation(boolean aim);
 
-	void setHasAimAnimation(boolean var1);
+	public int getAccuracy();
 
-	int getAccuracy();
+	public void setAccuracy(int accuracy);
 
-	void setAccuracy(int var1);
+	public int getRange();
 
-	int getRange();
+	public void setRange(int range);
 
-	void setRange(int var1);
+	public int getDelayMin();
 
-	int getDelayMin();
+	public int getDelayMax();
+	
+	/**
+	 * @return Returns a value between delayMin and delayMax
+	 */
+	public int getDelayRNG();
 
-	int getDelayMax();
+	public void setDelay(int min, int max);
 
-	int getDelayRNG();
+	public int getFireType();
 
-	void setDelay(int var1, int var2);
+	public void setFireType(int type);
 
-	int getFireType();
+	public int getMeleeRange();
 
-	void setFireType(int var1);
+	public void setMeleeRange(int range);
 
-	int getMeleeRange();
-
-	void setMeleeRange(int var1);
 }

@@ -4,11 +4,13 @@ import noppes.npcs.api.IWorld;
 import noppes.npcs.api.entity.IEntity;
 
 public interface ICloneHandler {
-	IEntity spawn(double var1, double var3, double var5, int var7, String var8, IWorld var9);
 
-	IEntity get(int var1, String var2, IWorld var3);
+	public IEntity spawn(double x, double y, double z, int tab, String name, IWorld world);
 
-	void set(int var1, String var2, IEntity var3);
-
-	void remove(int var1, String var2);
+	public IEntity get(int tab, String name, IWorld world);
+	
+	public void set(int tab, String name, IEntity entity);
+	
+	public void remove(int tab, String name);
+	
 }

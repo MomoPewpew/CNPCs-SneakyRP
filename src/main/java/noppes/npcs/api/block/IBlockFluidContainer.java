@@ -1,13 +1,18 @@
 package noppes.npcs.api.block;
 
-public interface IBlockFluidContainer extends IBlock {
-	float getFluidPercentage();
+/**
+ * Used for certain technical mods which use FluidContainer blocks *
+ */
+public interface IBlockFluidContainer extends IBlock{
 
-	float getFuildDensity();
+	public float getFluidPercentage();
 
-	float getFuildTemperature();
+	public float getFuildDensity();
 
-	float getFluidValue();
+	public float getFuildTemperature();
 
-	String getFluidName();
+	public float getFluidValue();
+
+	public String getFluidName();
+
 }

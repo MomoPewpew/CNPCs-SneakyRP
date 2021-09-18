@@ -1,23 +1,31 @@
 package noppes.npcs.api;
 
 public interface IScoreboardObjective {
-	String getName();
 
-	String getDisplayName();
+	public String getName();
 
-	void setDisplayName(String var1);
+	public String getDisplayName();
 
-	String getCriteria();
+	/**
+	 * @param name Name used for display (1-32 chars)
+	 */
+	public void setDisplayName(String name);
 
-	boolean isReadyOnly();
+	public String getCriteria();
 
-	IScoreboardScore[] getScores();
+	/**
+	 * @return Return whether or not the objective value can be changed. E.g. player health can't be changed
+	 */
+	public boolean isReadyOnly();
+	
+	public IScoreboardScore[] getScores();
+	
+	public IScoreboardScore getScore(String player);
+	
+	public boolean hasScore(String player);
+	
+	public IScoreboardScore createScore(String player);
+	
+	public void removeScore(String player);
 
-	IScoreboardScore getScore(String var1);
-
-	boolean hasScore(String var1);
-
-	IScoreboardScore createScore(String var1);
-
-	void removeScore(String var1);
 }

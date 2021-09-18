@@ -1,5 +1,6 @@
 package noppes.npcs.api.entity;
 
+import net.minecraft.entity.EntityCreature;
 import noppes.npcs.api.ITimers;
 import noppes.npcs.api.entity.data.INPCAdvanced;
 import noppes.npcs.api.entity.data.INPCAi;
@@ -12,54 +13,91 @@ import noppes.npcs.api.handler.data.IDialog;
 import noppes.npcs.api.handler.data.IFaction;
 import noppes.npcs.api.item.IItemStack;
 
-public interface ICustomNpc extends IEntityLiving {
-	INPCDisplay getDisplay();
+public interface ICustomNpc<T extends EntityCreature> extends IEntityLiving<T>{
+	
+	public INPCDisplay getDisplay();
 
-	INPCInventory getInventory();
+	public INPCInventory getInventory();
 
-	INPCStats getStats();
+	public INPCStats getStats();
 
-	INPCAi getAi();
+	public INPCAi getAi();
 
-	INPCAdvanced getAdvanced();
+	public INPCAdvanced getAdvanced();
+	
+	public IFaction getFaction();
 
-	IFaction getFaction();
+	public void setFaction(int id);
 
-	void setFaction(int var1);
+	public INPCRole getRole();
+	
+	public INPCJob getJob();
+	
+	public ITimers getTimers();
 
-	INPCRole getRole();
+	public int getHomeX();
 
-	INPCJob getJob();
+	public int getHomeY();
 
-	ITimers getTimers();
+	public int getHomeZ();
+	
+	/**
+	 * @return Incase the npc is a Follower or Companion it will return the one who its following. Also works for scene followers
+	 */
+	public IEntityLivingBase getOwner();
 
-	int getHomeX();
+	public void setHome(int x, int y, int z);
 
-	int getHomeY();
+	/**
+	 * Basically completely resets the npc. This will also call the Init script
+	 */
+	public void reset();
 
-	int getHomeZ();
+	public void say(String message);
 
-	IEntityLivingBase getOwner();
+	public void sayTo(IPlayer player, String message);
 
-	void setHome(int var1, int var2, int var3);
+	/**
+	 * @param item The item you want to shoot
+	 * @param accuracy Accuracy of the shot (1-100)
+	 */
+	public IProjectile shootItem(IEntityLivingBase target, IItemStack item, int accuracy);
 
-	void reset();
+	/**
+	 * @param item The item you want to shoot
+	 * @param accuracy Accuracy of the shot (1-100)
+	 * @return 
+	 */
+	public IProjectile shootItem(double x, double y, double z, IItemStack item, int accuracy);
 
-	void say(String var1);
+	/**
+	 * If the player can't carry the item it will fall on the ground. (unless the player is in creative)
+	 */
+	public void giveItem(IPlayer player, IItemStack item);
 
-	void sayTo(IPlayer var1, String var2);
+	/**
+	 * @param slot (0-11)
+	 */
+	public void setDialog(int slot, IDialog dialog);
+	
+	/**
+	 * @param slot (0-11)
+	 */
+	public IDialog getDialog(int slot);
+	
+	/**
+	 * Force update client. Normally it updates client once every 10 ticks
+	 */
+	public void updateClient();
 
-	IProjectile shootItem(IEntityLivingBase var1, IItemStack var2, int var3);
-
-	IProjectile shootItem(double var1, double var3, double var5, IItemStack var7, int var8);
-
-	void giveItem(IPlayer var1, IItemStack var2);
-
-	void setDialog(int var1, IDialog var2);
-
-	IDialog getDialog(int var1);
-
-	void updateClient();
-
-	String executeCommand(String var1);
+	/**
+	 * On servers the enable-command-block option in the server.properties needs to be set to true <br>
+	 * Use /gamerule commandBlockOutput false/true to turn off/on command block feedback <br>
+	 * Setting NpcUseOpCommands to true in the CustomNPCs.cfg should allow the npc to run op commands, be warned this could be a major security risk, use at own risk <br>
+	 * For permission plugins the commands are run under uuid:c9c843f8-4cb1-4c82-aa61-e264291b7bd6 and name:[customnpcs]
+	 * @param command The command to be executed
+	 * @return Returns the commands output
+	 */
+	public String executeCommand(String command);
+	
 }

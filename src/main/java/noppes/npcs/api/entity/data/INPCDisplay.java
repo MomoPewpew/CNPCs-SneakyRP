@@ -1,71 +1,123 @@
 package noppes.npcs.api.entity.data;
 
+import noppes.npcs.api.entity.IPlayer;
+
 public interface INPCDisplay {
-	String getName();
 
-	void setName(String var1);
+	public String getName();
 
-	String getTitle();
+	public void setName(String name);
 
-	void setTitle(String var1);
+	public String getTitle();
 
-	String getSkinUrl();
+	public void setTitle(String title);
 
-	void setSkinUrl(String var1);
+	public String getSkinUrl();
 
-	String getSkinPlayer();
+	public void setSkinUrl(String url);
 
-	void setSkinPlayer(String var1);
+	public String getSkinPlayer();
 
-	String getSkinTexture();
+	public void setSkinPlayer(String name);
 
-	void setSkinTexture(String var1);
+	public String getSkinTexture();
 
-	boolean getHasLivingAnimation();
+	public void setSkinTexture(String texture);
 
-	void setHasLivingAnimation(boolean var1);
+	public boolean getHasLivingAnimation();
 
-	int getVisible();
+	public void setHasLivingAnimation(boolean enabled);
 
-	void setVisible(int var1);
+	/**
+	 * @return 0:visible, 1:invisible, 2:semi-invisible
+	 */
+	public int getVisible();
 
-	int getBossbar();
+	/**
+	 * @param type 0:visible, 1:invisible, 2:semi-invisible
+	 */
+	public void setVisible(int type);
 
-	void setBossbar(int var1);
+	/**
+	 * If the availability is set, you can check if its visible to the player or not
+	 */
+	public boolean isVisibleTo(IPlayer player);
 
-	int getSize();
+	/**
+	 * @return 0:invisible, 1:visible, 2:when-attacking
+	 */
+	public int getBossbar();
 
-	void setSize(int var1);
+	/**
+	 * @param type 0:invisible, 1:visible, 2:when-attacking
+	 */
+	public void setBossbar(int type);
+	
+	/**
+	 * @return 1-30
+	 */
+	public int getSize();
 
-	int getTint();
+	/**
+	 * @param size 1-30
+	 */
+	public void setSize(int size);
 
-	void setTint(int var1);
+	public int getTint();
 
-	int getShowName();
+	/**
+	 * @param color E.g. setTint(0xFF0000) sets the tint to red. (depending on the language you might want to look up how to convert hexadecimals to integers)
+	 */
+	public void setTint(int color);
 
-	void setShowName(int var1);
+	/**
+	 * @return 0:visible, 1:invisible, 2:when-attacking
+	 */
+	public int getShowName();
+	
+	/**
+	 * @param type 0:visible, 1:invisible, 2:when-attacking
+	 */
+	public void setShowName(int type);
 
-	void setCapeTexture(String var1);
+	public void setCapeTexture(String texture);
 
-	String getCapeTexture();
+	public String getCapeTexture();
 
-	void setOverlayTexture(String var1);
+	public void setOverlayTexture(String texture);
 
-	String getOverlayTexture();
+	public String getOverlayTexture();
 
-	void setModelScale(int var1, float var2, float var3, float var4);
+	/**
+	 * @param part 0:Head, 1:Body, 2:ArmLeft, 3:ArmRight, 4:LegLeft, 5:LegRight
+	 */
+	public void setModelScale(int part, float x, float y, float z);
 
-	float[] getModelScale(int var1);
+	/**
+	 * @param part 0:Head, 1:Body, 2:ArmLeft, 3:ArmRight, 4:LegLeft, 5:LegRight
+	 * @return Returns a float array
+	 */
+	public float[] getModelScale(int part);
 
-	int getBossColor();
+	/**
+	 * @return 0:Pink, 1:Blue, 2:Red, 3:Green, 4:Yellow, 5:Purple, 6:White
+	 */
+	public int getBossColor();
 
-	void setBossColor(int var1);
+	/**
+	 * @param color 0:Pink, 1:Blue, 2:Red, 3:Green, 4:Yellow, 5:Purple, 6:White
+	 */
+	public void setBossColor(int color);
+	
+	/**
+	 * @param model Entity id from <a href="https://minecraft.gamepedia.com/Java_Edition_data_values/Entity_IDs">here</a>
+	 */
+	public void setModel(String model);
+	
+	public String getModel();
 
-	void setModel(String var1);
+	public void setHasHitbox(boolean bo);
 
-	String getModel();
+	public boolean getHasHitbox();
 
-	void setHasHitbox(boolean var1);
-
-	boolean getHasHitbox();
 }

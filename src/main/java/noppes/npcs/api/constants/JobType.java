@@ -1,5 +1,7 @@
 package noppes.npcs.api.constants;
-
+/**
+ * Job Types
+ */
 public class JobType {
 	public static final int NONE = 0;
 	public static final int BARD = 1;
@@ -13,5 +15,7 @@ public class JobType {
 	public static final int PUPPET = 9;
 	public static final int BUILDER = 10;
 	public static final int FARMER = 11;
+	
+
 	public static final int MAXSIZE = 12;
 }

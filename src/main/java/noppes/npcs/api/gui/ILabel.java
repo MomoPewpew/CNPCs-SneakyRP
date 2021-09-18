@@ -1,21 +1,18 @@
 package noppes.npcs.api.gui;
 
 public interface ILabel extends ICustomGuiComponent {
-	String getText();
 
-	ILabel setText(String var1);
+    String getText();
+    ILabel setText(String label);
 
-	int getWidth();
+    int getWidth();
+    int getHeight();
+    ILabel setSize(int width, int height);
 
-	int getHeight();
+    int getColor();
+    ILabel setColor(int color);
 
-	ILabel setSize(int var1, int var2);
+    float getScale();
+    ILabel setScale(float scale);
 
-	int getColor();
-
-	ILabel setColor(int var1);
-
-	float getScale();
-
-	ILabel setScale(float var1);
 }

@@ -1,7 +1,12 @@
 package noppes.npcs.api;
 
-public interface IContainerCustomChest extends IContainer {
-	void setName(String var1);
+import net.minecraft.inventory.Container;
+import net.minecraft.inventory.IInventory;
+import noppes.npcs.api.item.IItemStack;
 
-	String getName();
+public interface IContainerCustomChest extends IContainer {
+
+	public void setName(String name);
+
+	public String getName();
 }

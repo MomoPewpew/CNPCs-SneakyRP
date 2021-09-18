@@ -1,31 +1,42 @@
 package noppes.npcs.api;
 
 public interface IScoreboardTeam {
-	String getName();
 
-	String getDisplayName();
+	public String getName();
 
-	void setDisplayName(String var1);
+	public String getDisplayName();
 
-	void addPlayer(String var1);
+	/**
+	 * @param name Name used as display (1-32 chars)
+	 */
+	public void setDisplayName(String name);
 
-	boolean hasPlayer(String var1);
+	public void addPlayer(String player);
 
-	void removePlayer(String var1);
+	public boolean hasPlayer(String player);
 
-	String[] getPlayers();
+	public void removePlayer(String player);
 
-	void clearPlayers();
+	public String[] getPlayers();
 
-	boolean getFriendlyFire();
+	public void clearPlayers();
 
-	void setFriendlyFire(boolean var1);
+	public boolean getFriendlyFire();
 
-	void setColor(String var1);
+	public void setFriendlyFire(boolean bo);
 
-	String getColor();
+	/**
+	 * @param color Valid color values are "black", "dark_blue", "dark_green", "dark_aqua", "dark_red", "dark_purple", "gold", "gray", "dark_gray", "blue", "green", "aqua", "red", "light_purple", "yellow", and "white". Or "reset" if you want default 
+	 */
+	public void setColor(String color);
 
-	void setSeeInvisibleTeamPlayers(boolean var1);
+	/**
+	 * @return Returns color string. Returns null if no color was set
+	 */
+	public String getColor();
 
-	boolean getSeeInvisibleTeamPlayers();
+	public void setSeeInvisibleTeamPlayers(boolean bo);
+
+	public boolean getSeeInvisibleTeamPlayers();
+
 }

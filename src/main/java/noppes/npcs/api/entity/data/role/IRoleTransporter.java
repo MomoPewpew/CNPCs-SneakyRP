@@ -3,21 +3,28 @@ package noppes.npcs.api.entity.data.role;
 import noppes.npcs.api.entity.data.INPCRole;
 
 public interface IRoleTransporter extends INPCRole {
-	IRoleTransporter.ITransportLocation getLocation();
+	
+	public ITransportLocation getLocation();
 
-	public interface ITransportLocation {
-		int getId();
+	public static interface ITransportLocation{
 
-		int getDimension();
+		public int getId();
 
-		int getX();
+		public int getDimension();
 
-		int getY();
+		public int getX();
 
-		int getZ();
+		public int getY();
 
-		String getName();
+		public int getZ();
 
-		int getType();
+		public String getName();
+
+		/**
+		 * Returns the unlock type
+		 * @return 0:discover, 1:from start, 2:from start
+		 */
+		public int getType();
+		
 	}
 }

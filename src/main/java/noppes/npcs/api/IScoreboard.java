@@ -1,37 +1,79 @@
 package noppes.npcs.api;
 
 public interface IScoreboard {
-	IScoreboardObjective[] getObjectives();
 
-	IScoreboardObjective getObjective(String var1);
+	public IScoreboardObjective[] getObjectives();
 
-	boolean hasObjective(String var1);
+	
+	/**
+	 * @return Returns null if the objective is not found
+	 */
+	public IScoreboardObjective getObjective(String name);
 
-	void removeObjective(String var1);
 
-	IScoreboardObjective addObjective(String var1, String var2);
+	public boolean hasObjective(String objective);
 
-	void setPlayerScore(String var1, String var2, int var3, String var4);
 
-	int getPlayerScore(String var1, String var2, String var3);
+	public void removeObjective(String objective);
 
-	boolean hasPlayerObjective(String var1, String var2, String var3);
 
-	void deletePlayerScore(String var1, String var2, String var3);
+	/**
+	 * @param objective Scoreboard objective name (1-16 chars)
+	 * @param criteria The criteria see http://minecraft.gamepedia.com/Scoreboard#Objectives
+	 * @return Returns the created ScoreboardObjective
+	 */
+	public IScoreboardObjective addObjective(String objective, String criteria);
 
-	IScoreboardTeam[] getTeams();
 
-	boolean hasTeam(String var1);
+	/**
+	 * @param datatag Can be left empty
+	 */
+	public void setPlayerScore(String player, String objective, int score, String datatag);
 
-	IScoreboardTeam addTeam(String var1);
 
-	IScoreboardTeam getTeam(String var1);
+	/**
+	 * @param datatag Can be left empty
+	 */
+	public int getPlayerScore(String player, String objective, String datatag);
 
-	void removeTeam(String var1);
 
-	IScoreboardTeam getPlayerTeam(String var1);
+	/**
+	 * @param datatag Can be left empty
+	 */
+	public boolean hasPlayerObjective(String player, String objective, String datatag);
 
-	void removePlayerTeam(String var1);
 
-	String[] getPlayerList();
+	/**
+	 * @param datatag Can be left empty
+	 */
+	public void deletePlayerScore(String player, String objective, String datatag);
+
+
+	public IScoreboardTeam[] getTeams();
+
+
+	public boolean hasTeam(String name);
+
+
+	public IScoreboardTeam addTeam(String name);
+
+
+	public IScoreboardTeam getTeam(String name);
+
+
+	public void removeTeam(String name); 
+
+	/**
+	 * @param player the player whos team you want to get
+	 * @return The players team
+	 */
+	public IScoreboardTeam getPlayerTeam(String player);
+
+	/**
+	 * @param player The players who should be removed from his team
+	 */
+	public void removePlayerTeam(String player);
+
+
+	public String[] getPlayerList();
 }

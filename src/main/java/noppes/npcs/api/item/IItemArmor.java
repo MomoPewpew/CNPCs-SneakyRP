@@ -1,7 +1,11 @@
 package noppes.npcs.api.item;
 
-public interface IItemArmor extends IItemStack {
-	int getArmorSlot();
+import noppes.npcs.api.block.IBlock;
 
-	String getArmorMaterial();
+public interface IItemArmor extends IItemStack {
+
+	public int getArmorSlot();
+	
+	public String getArmorMaterial();
+	
 }

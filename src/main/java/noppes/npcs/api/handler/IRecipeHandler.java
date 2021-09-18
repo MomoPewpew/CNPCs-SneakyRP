@@ -1,17 +1,19 @@
 package noppes.npcs.api.handler;
 
 import java.util.List;
+
 import net.minecraft.item.ItemStack;
 import noppes.npcs.api.handler.data.IRecipe;
 
 public interface IRecipeHandler {
-	List getGlobalList();
+	
+	public List<IRecipe> getGlobalList();
+	
+	public List<IRecipe> getCarpentryList();
 
-	List getCarpentryList();
+	public IRecipe addRecipe(String name, boolean global, ItemStack result, Object... objects);
 
-	IRecipe addRecipe(String var1, boolean var2, ItemStack var3, Object... var4);
+	public IRecipe addRecipe(String name, boolean global, ItemStack result, int width, int height, ItemStack... recipe);
 
-	IRecipe addRecipe(String var1, boolean var2, ItemStack var3, int var4, int var5, ItemStack... var6);
-
-	IRecipe delete(int var1);
+	public IRecipe delete(int id);
 }

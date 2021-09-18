@@ -1,5 +1,8 @@
 package noppes.npcs.api.constants;
 
+/**
+ * Entity Types
+ */
 public class EntityType {
 	public static final int ANY = -1;
 	public static final int UNKNOWN = 0;

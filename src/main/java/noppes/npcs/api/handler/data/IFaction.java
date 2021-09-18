@@ -4,37 +4,41 @@ import noppes.npcs.api.entity.ICustomNpc;
 import noppes.npcs.api.entity.IPlayer;
 
 public interface IFaction {
-	int getId();
 
-	String getName();
-
-	int getDefaultPoints();
-
-	void setDefaultPoints(int var1);
-
-	int getColor();
-
-	int playerStatus(IPlayer var1);
-
-	boolean hostileToNpc(ICustomNpc var1);
-
-	boolean hostileToFaction(int var1);
-
-	int[] getHostileList();
-
-	void addHostile(int var1);
-
-	void removeHostile(int var1);
-
-	boolean hasHostile(int var1);
-
-	boolean getIsHidden();
-
-	void setIsHidden(boolean var1);
-
-	boolean getAttackedByMobs();
-
-	void setAttackedByMobs(boolean var1);
-
-	void save();
+	public int getId();
+	
+	public String getName();
+	
+	public int getDefaultPoints();
+	
+	public void setDefaultPoints(int points);
+	
+	public int getColor();
+	
+	/**
+	 * @return Returns -1:Unfriendly, 0:Neutral, 1:Friendly
+	 */
+	public int playerStatus(IPlayer player);
+	
+	public boolean hostileToNpc(ICustomNpc npc);
+	
+	public boolean hostileToFaction(int factionId);
+	
+	public int[] getHostileList();
+	
+	public void addHostile(int id);
+	
+	public void removeHostile(int id);
+	
+	public boolean hasHostile(int id);
+	
+	public boolean getIsHidden();
+	
+	public void setIsHidden(boolean bo);
+	
+	public boolean getAttackedByMobs();
+	
+	public void setAttackedByMobs(boolean bo);
+	
+	public void save();
 }

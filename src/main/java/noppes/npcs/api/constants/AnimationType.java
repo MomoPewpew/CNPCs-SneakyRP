@@ -1,5 +1,7 @@
 package noppes.npcs.api.constants;
-
+/**
+ * Animation Types
+ */
 public class AnimationType {
 	public static final int NORMAL = 0;
 	public static final int SIT = 1;

@@ -3,66 +3,107 @@ package noppes.npcs.api.block;
 import noppes.npcs.api.ITimers;
 import noppes.npcs.api.item.IItemStack;
 
-public interface IBlockScripted extends IBlock {
-	void setModel(IItemStack var1);
+public interface IBlockScripted extends IBlock{
 
-	void setModel(String var1);
+	/**
+	 * @param item The item to be set as model
+	 */
+	public void setModel(IItemStack item);
 
-	IItemStack getModel();
+	public void setModel(String name);
 
-	ITimers getTimers();
+	public IItemStack getModel();
+	
+	public ITimers getTimers();
 
-	void setRedstonePower(int var1);
+	/**
+	 * @param strength Sets the strength of the redstone signal (0-15)
+	 */
+	public void setRedstonePower(int strength);
 
-	int getRedstonePower();
+	/**
+	 * @return Returns the current redstone power (0-15) this block is giving off
+	 */
+	public int getRedstonePower();
 
-	void setIsLadder(boolean var1);
+	public void setIsLadder(boolean enabled);
 
-	boolean getIsLadder();
+	public boolean getIsLadder();
 
-	void setLight(int var1);
+	/**
+	 * @param value Sets the light value (0-15)
+	 */
+	public void setLight(int value);
 
-	int getLight();
+	/**
+	 * @return Returns the light value (0-15)
+	 */
+	public int getLight();
 
-	void setScale(float var1, float var2, float var3);
+	/**
+	 * @param x Scale x (0-10)
+	 * @param y Scale y (0-10)
+	 * @param z Scale z (0-10)
+	 */
+	public void setScale(float x, float y, float z);
 
-	float getScaleX();
+	public float getScaleX();
 
-	float getScaleY();
+	public float getScaleY();
 
-	float getScaleZ();
+	public float getScaleZ();
 
-	void setRotation(int var1, int var2, int var3);
+	/**
+	 * @param x Rotation x (0-359)
+	 * @param y Rotation y (0-359)
+	 * @param z Rotation z (0-359)
+	 */
+	public void setRotation(int x, int y, int z);
 
-	int getRotationX();
+	public int getRotationX();
 
-	int getRotationY();
+	public int getRotationY();
 
-	int getRotationZ();
+	public int getRotationZ();
 
-	String executeCommand(String var1);
+	/**
+	 * On servers the enable-command-block option in the server.properties needs to be set to true <br>
+	 * Use /gamerule commandBlockOutput false/true to turn off/on command block feedback <br>
+	 * Setting NpcUseOpCommands to true in the CustomNPCs.cfg should allow the npc to run op commands, be warned this could be a major security risk, use at own risk <br>
+	 * For permission plugins the commands are run under uuid:c9c843f8-4cb1-4c82-aa61-e264291b7bd6 and name:[customnpcs]
+	 * @param command The command to be executed
+	 * @return Returns the commands output
+	 */
+	public String executeCommand(String command);
 
-	boolean getIsPassible();
+	public boolean getIsPassible();
+	
+	public void setIsPassible(boolean bo);
+	
+	/**
+	 * @return Harvesting hardness (-1 makes it unharvestable)
+	 */
+	public float getHardness();
+	
+	public void setHardness(float hardness);
+	
+	/**
+	 * @return Explosion resistance (-1 makes it unexplodable)
+	 */
+	public float getResistance();
+	
+	public void setResistance(float resistance);
 
-	void setIsPassible(boolean var1);
+	public ITextPlane getTextPlane();
 
-	float getHardness();
+	public ITextPlane getTextPlane2();
 
-	void setHardness(float var1);
+	public ITextPlane getTextPlane3();
 
-	float getResistance();
+	public ITextPlane getTextPlane4();
 
-	void setResistance(float var1);
+	public ITextPlane getTextPlane5();
 
-	ITextPlane getTextPlane();
+	public ITextPlane getTextPlane6();
 
-	ITextPlane getTextPlane2();
-
-	ITextPlane getTextPlane3();
-
-	ITextPlane getTextPlane4();
-
-	ITextPlane getTextPlane5();
-
-	ITextPlane getTextPlane6();
 }

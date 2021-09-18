@@ -1,4 +1,7 @@
 package noppes.npcs.api.entity;
 
-public interface IArrow extends IEntity {
+import net.minecraft.entity.projectile.EntityArrow;
+
+public interface IArrow<T extends EntityArrow> extends IEntity<T>{
+	
 }

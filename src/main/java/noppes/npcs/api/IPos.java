@@ -1,53 +1,66 @@
 package noppes.npcs.api;
 
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
 
+/**
+ * All the methods in IPos create a new IPos object
+ */
 public interface IPos {
-	int getX();
 
-	int getY();
+	public int getX();
 
-	int getZ();
+	public int getY();
 
-	IPos up();
+	public int getZ();
 
-	IPos up(int var1);
+	public IPos up();
 
-	IPos down();
+	public IPos up(int n);
 
-	IPos down(int var1);
+	public IPos down();
 
-	IPos north();
+	public IPos down(int n);
 
-	IPos north(int var1);
+	public IPos north();
 
-	IPos east();
+	public IPos north(int n);
 
-	IPos east(int var1);
+	public IPos east();
 
-	IPos south();
+	public IPos east(int n);
 
-	IPos south(int var1);
+	public IPos south();
 
-	IPos west();
+	public IPos south(int n);
 
-	IPos west(int var1);
+	public IPos west();
 
-	IPos add(int var1, int var2, int var3);
+	public IPos west(int n);
 
-	IPos add(IPos var1);
+	public IPos add(int x, int y, int z);
 
-	IPos subtract(int var1, int var2, int var3);
+	public IPos add(IPos pos);
 
-	IPos subtract(IPos var1);
+	public IPos subtract(int x, int y, int z);
 
-	double[] normalize();
+	public IPos subtract(IPos pos);
+	
+	public double[] normalize();
 
-	BlockPos getMCBlockPos();
+	public BlockPos getMCBlockPos();
 
-	IPos offset(int var1);
+	/**
+	 * @param direction {@link noppes.npcs.api.constants.SideType} 
+	 */
+	public IPos offset(int direction);
 
-	IPos offset(int var1, int var2);
+	/**
+	 * @param direction {@link noppes.npcs.api.constants.SideType} 
+	 * @param n how many positions
+	 */
+	public IPos offset(int direction, int n);
+	
+	public double distanceTo(IPos pos);
 
-	double distanceTo(IPos var1);
 }

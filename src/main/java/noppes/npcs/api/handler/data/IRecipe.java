@@ -3,35 +3,40 @@ package noppes.npcs.api.handler.data;
 import net.minecraft.item.ItemStack;
 
 public interface IRecipe {
-	String getName();
+	
+	public String getName();
+	
+	
+	public boolean isGlobal();
+	
+	public void setIsGlobal(boolean bo);
+	
+	public boolean getIgnoreNBT();
+	
+	public void setIgnoreNBT(boolean bo);
+	
+	public boolean getIgnoreDamage();
+	
+	public void setIgnoreDamage(boolean bo);
+	
+	public int getWidth();
+	
+	public int getHeight();
+	
+	public ItemStack getResult();
+	
+	public ItemStack[] getRecipe();
+	
+	/**
+	 * @param bo Whether or not the recipe saves with customnpcs recipes
+	 */
+	public void saves(boolean bo);
+	
+	public boolean saves();
+	
+	public void save();
+	
+	public void delete();
 
-	boolean isGlobal();
-
-	void setIsGlobal(boolean var1);
-
-	boolean getIgnoreNBT();
-
-	void setIgnoreNBT(boolean var1);
-
-	boolean getIgnoreDamage();
-
-	void setIgnoreDamage(boolean var1);
-
-	int getWidth();
-
-	int getHeight();
-
-	ItemStack getResult();
-
-	ItemStack[] getRecipe();
-
-	void saves(boolean var1);
-
-	boolean saves();
-
-	void save();
-
-	void delete();
-
-	int getId();
+	public int getId();
 }

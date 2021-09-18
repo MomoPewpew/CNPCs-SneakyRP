@@ -1,5 +1,7 @@
 package noppes.npcs.api.entity.data;
 
 public interface INPCRole {
-	int getType();
+	
+	public int getType();
+	
 }

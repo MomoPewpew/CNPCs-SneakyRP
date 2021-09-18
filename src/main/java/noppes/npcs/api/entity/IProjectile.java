@@ -1,25 +1,50 @@
 package noppes.npcs.api.entity;
 
+import net.minecraft.entity.projectile.EntityThrowable;
 import noppes.npcs.api.item.IItemStack;
 
-public interface IProjectile extends IThrowable {
-	IItemStack getItem();
+public interface IProjectile<T extends EntityThrowable> extends IThrowable<T> {
 
-	void setItem(IItemStack var1);
+	public IItemStack getItem();
+	
+	public void setItem(IItemStack item);
 
-	boolean getHasGravity();
+	/**
+	 * @return Returns whether the arrow flies in a straight line or not
+	 */
+	public boolean getHasGravity();
 
-	void setHasGravity(boolean var1);
+	/**
+	 * @param bo Whether the arrow flies in a straight line or not
+	 */
+	public void setHasGravity(boolean bo);
 
-	int getAccuracy();
+	public int getAccuracy();
 
-	void setAccuracy(int var1);
+	public void setAccuracy(int accuracy);
 
-	void setHeading(IEntity var1);
+	/**
+	 * Entity where the projectile heads towards
+	 * The position for the projectile needs to have been set for this
+	 */
+	public void setHeading(IEntity entity);
 
-	void setHeading(double var1, double var3, double var5);
+	/**
+	 * Position where the projectile heads towards.
+	 * The position for the projectile needs to have been set for this
+	 */
+	public void setHeading(double x, double y, double z);
 
-	void setHeading(float var1, float var2);
+	/**
+	 * @param yaw Rotation yaw
+	 * @param pitch Rotation pitch
+	 */
+	public void setHeading(float yaw, float pitch);
+	
+	/**
+	 * For scripters to enable projectile events in their current scripting container
+	 */
+	public void enableEvents();
 
-	void enableEvents();
+	
 }
