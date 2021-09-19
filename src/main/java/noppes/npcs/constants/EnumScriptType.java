@@ -52,7 +52,8 @@ public enum EnumScriptType {
 	CUSTOM_GUI_CLOSED("customGuiClosed"),
 	CUSTOM_GUI_BUTTON("customGuiButton"),
 	CUSTOM_GUI_SLOT("customGuiSlot"),
-	CUSTOM_GUI_SCROLL("customGuiScroll");
+	CUSTOM_GUI_SCROLL("customGuiScroll"),
+	TARGET("target");
 
 	public String function;
 
