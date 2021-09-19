@@ -2,6 +2,7 @@ package noppes.npcs.api.wrapper;
 
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 import noppes.npcs.api.NpcAPI;
 import noppes.npcs.api.entity.IEntityItem;
 import noppes.npcs.api.item.IItemStack;
@@ -20,7 +21,7 @@ public class EntityItemWrapper extends EntityWrapper implements IEntityItem {
 	}
 
 	public int getPickupDelay() {
-		return ((EntityItem) this.entity).pickupDelay;
+		return (int)ObfuscationReflectionHelper.getPrivateValue(EntityItem.class, (EntityItem)this.entity, "pickupDelay");
 	}
 
 	public void setPickupDelay(int delay) {
@@ -37,7 +38,8 @@ public class EntityItemWrapper extends EntityWrapper implements IEntityItem {
 
 	public void setAge(long age) {
 		age = Math.max(Math.min(age, 2147483647L), -2147483648L);
-		((EntityItem) this.entity).age = (int) age;
+		ObfuscationReflectionHelper.setPrivateValue(EntityItem.class, (EntityItem)this.entity, (int)age, "age");
+		// ((EntityItem) this.entity).age = (int) age;
 	}
 
 	public int getLifeSpawn() {

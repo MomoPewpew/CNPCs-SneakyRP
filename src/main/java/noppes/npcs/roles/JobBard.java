@@ -4,6 +4,8 @@ import java.util.List;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.client.audio.MusicTicker;
+import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 import noppes.npcs.CustomNpcs;
 import noppes.npcs.api.entity.data.role.IJobBard;
 import noppes.npcs.client.controllers.MusicController;
@@ -67,7 +69,8 @@ public class JobBard extends JobInterface implements IJobBard {
 			}
 
 			if (MusicController.Instance.isPlaying(this.song)) {
-				Minecraft.getMinecraft().getMusicTicker().timeUntilNextMusic = 12000;
+				ObfuscationReflectionHelper.setPrivateValue(MusicTicker.class, Minecraft.getMinecraft().getMusicTicker(), 12000, "timeUntilNextMusic");
+				// Minecraft.getMinecraft().getMusicTicker().timeUntilNextMusic = 12000;
 			}
 
 		}

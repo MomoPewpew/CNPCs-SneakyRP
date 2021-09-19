@@ -45,6 +45,7 @@ import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.pathfinding.PathNavigateFlying;
 import net.minecraft.pathfinding.PathNavigateGround;
 import net.minecraft.pathfinding.PathNavigateSwimmer;
+import net.minecraft.pathfinding.PathWorldListener;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumFacing;
@@ -67,6 +68,8 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.FakePlayer;
 import net.minecraftforge.event.ServerChatEvent;
 import net.minecraftforge.fml.common.registry.IEntityAdditionalSpawnData;
+import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
+
 import noppes.npcs.CustomItems;
 import noppes.npcs.CustomNpcs;
 import noppes.npcs.EventHooks;
@@ -789,7 +792,11 @@ public abstract class EntityNPCInterface extends EntityCreature
 						this.ais.directLOS, false, attackEntitySelector));
 				this.targetTasks.addTask(3, new EntityAIOwnerHurtByTarget(this));
 				this.targetTasks.addTask(4, new EntityAIOwnerHurtTarget(this));
-				this.world.pathListener.onEntityRemoved(this);
+
+				PathWorldListener listener = (PathWorldListener)ObfuscationReflectionHelper.getPrivateValue(World.class, this.world, "pathListener");
+				listener.onEntityRemoved(this);
+				// this.world.pathListener.onEntityRemoved(this);
+
 				if (this.ais.movementType == 1) {
 					this.moveHelper = new FlyingMoveHelper(this);
 					this.navigator = new PathNavigateFlying(this, this.world);
@@ -802,7 +809,7 @@ public abstract class EntityNPCInterface extends EntityCreature
 					this.tasks.addTask(0, new EntityAIWaterNav(this));
 				}
 
-				this.world.pathListener.onEntityAdded(this);
+				listener.onEntityAdded(this);
 				this.taskCount = 1;
 				this.addRegularEntries();
 				this.doorInteractType();
