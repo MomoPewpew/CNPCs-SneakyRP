@@ -114,7 +114,7 @@ public class CustomItems {
 	}
 
 	@SubscribeEvent
-	public void registerBlocks(Register event) {
+	public void registerBlocks(Register<Block> event) {
 		GameRegistry.registerTileEntity(TileRedstoneBlock.class, "TileRedstoneBlock");
 		GameRegistry.registerTileEntity(TileBlockAnvil.class, "TileBlockAnvil");
 		GameRegistry.registerTileEntity(TileMailbox.class, "TileMailbox");
@@ -147,7 +147,7 @@ public class CustomItems {
 	}
 
 	@SubscribeEvent
-	public void registerItems(Register event) {
+	public void registerItems(Register<Item> event) {
 		Item wand = (new ItemNpcWand()).setUnlocalizedName("npcwand").setFull3D();
 		Item cloner = (new ItemNpcCloner()).setUnlocalizedName("npcmobcloner").setFull3D();
 		Item scripter = (new ItemNpcScripter()).setUnlocalizedName("npcscripter").setFull3D();

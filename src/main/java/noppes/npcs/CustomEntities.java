@@ -40,7 +40,7 @@ public class CustomEntities {
 	private int newEntityStartId = 0;
 
 	@SubscribeEvent
-	public void register(Register event) {
+	public void register(Register<EntityEntry> event) {
 		EntityEntry[] entries = new EntityEntry[] { this.registerNpc(EntityNPCHumanMale.class, "npchumanmale"),
 				this.registerNpc(EntityNPCVillager.class, "npcvillager"),
 				this.registerNpc(EntityNpcPony.class, "npcpony"),

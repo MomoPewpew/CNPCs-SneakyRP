@@ -279,7 +279,7 @@ public class ServerEventsHandler {
 	}
 
 	@SubscribeEvent(priority = EventPriority.LOW)
-	public void attachEntity(AttachCapabilitiesEvent event) {
+	public void attachEntity(AttachCapabilitiesEvent<Entity> event) {
 		if (event.getObject() instanceof EntityPlayer) {
 			PlayerData.register(event);
 		}
@@ -296,7 +296,7 @@ public class ServerEventsHandler {
 	}
 
 	@SubscribeEvent
-	public void attachItem(AttachCapabilitiesEvent event) {
+	public void attachItem(AttachCapabilitiesEvent<ItemStack> event) {
 		ItemStackWrapper.register(event);
 	}
 
