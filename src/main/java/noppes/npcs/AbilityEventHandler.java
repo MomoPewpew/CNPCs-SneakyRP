@@ -9,6 +9,8 @@ import noppes.npcs.entity.EntityNPCInterface;
 public class AbilityEventHandler {
 	@SubscribeEvent
 	public void invoke(NpcEvent.DamagedEvent event) {
+		if (event.npc.getMCEntity() == null) return;
+
 		IAbilityDamaged ab = (IAbilityDamaged) ((EntityNPCInterface) event.npc.getMCEntity()).abilities
 				.getAbility(EnumAbilityType.ATTACKED);
 		if (ab != null) {
