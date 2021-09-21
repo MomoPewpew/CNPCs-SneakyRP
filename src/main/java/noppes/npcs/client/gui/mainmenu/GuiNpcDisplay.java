@@ -37,8 +37,8 @@ public class GuiNpcDisplay extends GuiNPCInterface2 implements ITextfieldListene
           this.addLabel(new GuiNpcLabel(0, "gui.name", this.guiLeft + 5, y + 5));
           this.addTextField(new GuiNpcTextField(0, this, this.fontRenderer, this.guiLeft + 50, y, 206, 20, this.display.getName()));
           this.addButton(new GuiNpcButton(0, this.guiLeft + 253 + 52, y, 110, 20, new String[]{"display.show", "display.hide", "display.showAttacking"}, this.display.getShowName()));
-          this.addButton(new GuiNpcButton(14, this.guiLeft + 259, y, 20, 20, "↻"));
-          this.addButton(new GuiNpcButton(15, this.guiLeft + 259 + 22, y, 20, 20, "⋮"));
+          this.addButton(new GuiNpcButton(14, this.guiLeft + 259, y, 20, 20, Character.toString((char) 0x21BB)));
+          this.addButton(new GuiNpcButton(15, this.guiLeft + 259 + 22, y, 20, 20, Character.toString((char) 0x003A)));
           y += 23;
           this.addLabel(new GuiNpcLabel(11, "gui.title", this.guiLeft + 5, y + 5));
           this.addTextField(new GuiNpcTextField(11, this, this.fontRenderer, this.guiLeft + 50, y, 186, 20, this.display.getTitle()));
