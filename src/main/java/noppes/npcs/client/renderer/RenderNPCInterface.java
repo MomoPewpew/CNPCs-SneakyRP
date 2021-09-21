@@ -22,7 +22,7 @@ import noppes.npcs.entity.EntityCustomNpc;
 import noppes.npcs.entity.EntityNPCInterface;
 import org.lwjgl.opengl.GL11;
 
-public class RenderNPCInterface extends RenderLiving {
+public class RenderNPCInterface extends RenderLiving<EntityNPCInterface> {
 	public static int LastTextureTick;
 
 	public RenderNPCInterface(ModelBase model, float f) {
@@ -226,7 +226,7 @@ public class RenderNPCInterface extends RenderLiving {
 	}
 
 	@Override
-	protected ResourceLocation getEntityTexture(Entity npc) {
+	protected ResourceLocation getEntityTexture(EntityNPCInterface npc) {
 		if (((EntityNPCInterface) npc).textureLocation == null) {
 			if (((EntityNPCInterface) npc).display.skinType == 0) {
 				((EntityNPCInterface) npc).textureLocation = new ResourceLocation(((EntityNPCInterface) npc).display.getSkinTexture());
