@@ -22,14 +22,16 @@ import noppes.npcs.entity.EntityCustomNpc;
 import noppes.npcs.entity.EntityNPCInterface;
 import org.lwjgl.opengl.GL11;
 
-public class RenderNPCInterface extends RenderLiving<EntityNPCInterface> {
+import noppes.npcs.LogWriter;
+
+public class RenderNPCInterface<T extends EntityNPCInterface> extends RenderLiving<T> {
 	public static int LastTextureTick;
 
 	public RenderNPCInterface(ModelBase model, float f) {
 		super(Minecraft.getMinecraft().getRenderManager(), model, f);
 	}
 
-	public void renderName(EntityNPCInterface npc, double d, double d1, double d2) {
+	public void renderName(T npc, double d, double d1, double d2) {
 		if (npc != null && this.canRenderName(npc) && this.renderManager.renderViewEntity != null) {
 			double d0 = npc.getDistanceSq(this.renderManager.renderViewEntity);
 			if (d0 <= 512.0D) {
@@ -120,7 +122,7 @@ public class RenderNPCInterface extends RenderLiving<EntityNPCInterface> {
 			float zoffset) {
 	}
 
-	protected void applyRotations(EntityNPCInterface npc, float f, float f1, float f2) {
+	protected void applyRotations(T npc, float f, float f1, float f2) {
 		if (npc.isEntityAlive() && npc.isPlayerSleeping()) {
 			GlStateManager.rotate((float) npc.ais.orientation, 0.0F, 1.0F, 0.0F);
 			GlStateManager.rotate(this.getDeathMaxRotation(npc), 0.0F, 0.0F, 1.0F);
@@ -144,7 +146,16 @@ public class RenderNPCInterface extends RenderLiving<EntityNPCInterface> {
 				npc.scaleZ / 5.0F * (float) size);
 	}
 
-	public void doRender(EntityNPCInterface npc, double d, double d1, double d2, float f, float f1) {
+	public void doRender(T npc, double d, double d1, double d2, float f, float f1) {
+		// if(this instanceof RenderCustomNpc) {
+		// 	RenderCustomNpc aaaa = ((RenderCustomNpc)this);
+		// 	if(!aaaa.isRendering) {
+		// 		aaaa.isRendering = true;
+		// 		aaaa.doRender((EntityCustomNpc)npc, d, d1, d2, f, f1);
+		// 		aaaa.isRendering = false;
+		// 		return;
+		// 	}
+		// }
 		if (!npc.isKilled() || !npc.stats.hideKilledBody || npc.deathTime <= 20) {
 			if ((npc.display.getBossbar() == 1 || npc.display.getBossbar() == 2 && npc.isAttacking()) && !npc.isKilled()
 					&& npc.deathTime <= 20 && npc.canSee(Minecraft.getMinecraft().player)) {
@@ -158,8 +169,17 @@ public class RenderNPCInterface extends RenderLiving<EntityNPCInterface> {
 		}
 	}
 
-	protected void renderModel(EntityNPCInterface npc, float par2, float par3, float par4, float par5, float par6,
-			float par7) {
+	protected void renderModel(T npc, float par2, float par3, float par4, float par5, float par6, float par7) {
+		// Float o = null;
+		// if(this instanceof RenderCustomNpc) {
+		// 	RenderCustomNpc aaaa = ((RenderCustomNpc)this);
+		// 	if(!aaaa.isRenderingModel) {
+		// 		aaaa.isRenderingModel = true;
+		// 		aaaa.renderModel((EntityCustomNpc)npc, par2, par3, par4, par5, par6, par7);
+		// 		aaaa.isRenderingModel = false;
+		// 		return;
+		// 	}
+		// }
 		super.renderModel(npc, par2, par3, par4, par5, par6, par7);
 		if (!npc.display.getOverlayTexture().isEmpty()) {
 			GlStateManager.depthFunc(515);
@@ -191,11 +211,11 @@ public class RenderNPCInterface extends RenderLiving<EntityNPCInterface> {
 
 	}
 
-	protected float handleRotationFloat(EntityNPCInterface npc, float par2) {
+	protected float handleRotationFloat(T npc, float par2) {
 		return !npc.isKilled() && npc.display.getHasLivingAnimation() ? super.handleRotationFloat(npc, par2) : 0.0F;
 	}
 
-	protected void renderLivingAt(EntityNPCInterface npc, double d, double d1, double d2) {
+	protected void renderLivingAt(T npc, double d, double d1, double d2) {
 		this.shadowSize = (float) npc.display.getSize() / 10.0F;
 		float xOffset = 0.0F;
 		float yOffset = npc.currentAnimation == 0 ? npc.ais.bodyOffsetY / 10.0F - 0.5F : 0.0F;
@@ -225,8 +245,8 @@ public class RenderNPCInterface extends RenderLiving<EntityNPCInterface> {
 		}
 	}
 
-	@Override
-	protected ResourceLocation getEntityTexture(EntityNPCInterface npc) {
+	// @Override
+	protected ResourceLocation getEntityTexture(T npc) {
 		if (((EntityNPCInterface) npc).textureLocation == null) {
 			if (((EntityNPCInterface) npc).display.skinType == 0) {
 				((EntityNPCInterface) npc).textureLocation = new ResourceLocation(((EntityNPCInterface) npc).display.getSkinTexture());

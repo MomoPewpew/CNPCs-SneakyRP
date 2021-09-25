@@ -9,6 +9,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import noppes.npcs.client.renderer.RenderCustomNpc;
 import noppes.npcs.entity.EntityNPCInterface;
+import noppes.npcs.entity.EntityCustomNpc;
 
 @SideOnly(Side.CLIENT)
 public class LayerGlow implements LayerRenderer {
@@ -43,7 +44,7 @@ public class LayerGlow implements LayerRenderer {
 			GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
 			this.renderer.getMainModel().render(((EntityNPCInterface) npc), limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch,
 					scale);
-			this.renderer.setLightmap(((EntityNPCInterface) npc));
+			this.renderer.setLightmap(((EntityCustomNpc) npc));
 			GlStateManager.disableBlend();
 			GlStateManager.enableAlpha();
 			GlStateManager.depthFunc(515);
