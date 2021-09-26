@@ -85,9 +85,9 @@ public interface INPCAi {
 
 	/**
 	 * @param speed 0-10
-	 */
+	 */	
 	public void setWalkingSpeed(int speed);
-
+	
 	/**
 	 * @return 0:Looping, 1:Backtracking
 	 */
@@ -100,6 +100,9 @@ public interface INPCAi {
 	 */
 	public void setMovingPathType(int type, boolean pauses);
 
+	public int getDoorInteract();
+
+	public void setDoorInteract(int type);
 
 	public boolean getCanSwim();
 
@@ -138,7 +141,7 @@ public interface INPCAi {
 	 */
 	public int getTacticalType();
 
-
+	
 	/**
 	 * @see noppes.npcs.api.constants.TacticalType
 	 */
@@ -147,5 +150,5 @@ public interface INPCAi {
 	public int getTacticalRange();
 
 	public void setTacticalRange(int range);
-
+	
 }

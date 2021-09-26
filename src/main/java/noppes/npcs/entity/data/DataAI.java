@@ -406,6 +406,15 @@ public class DataAI implements INPCAi {
 		}
 	}
 
+	public int getDoorInteract() {
+		return this.doorInteract;
+	}
+
+	public void setDoorInteract(int type) {
+		this.doorInteract = type;
+		this.npc.updateAI = true;
+	}
+
 	public boolean getCanSwim() {
 		return this.canSwim;
 	}

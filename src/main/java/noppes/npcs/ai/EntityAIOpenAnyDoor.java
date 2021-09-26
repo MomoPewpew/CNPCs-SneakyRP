@@ -13,18 +13,12 @@ import net.minecraft.init.Blocks;
 import net.minecraft.pathfinding.Path;
 import net.minecraft.pathfinding.PathPoint;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.tileentity.TileEntity;
-
 import noppes.npcs.entity.EntityNPCInterface;
-
-import net.malisis.doors.tileentity.DoorTileEntity;
-
 
 public class EntityAIOpenAnyDoor extends EntityAIBase {
 	private EntityNPCInterface npc;
 	private BlockPos position;
 	private Block door;
-	private DoorTileEntity malisisDoor;
 	private IProperty property;
 	private boolean hasStoppedDoorInteraction;
 	private float entityX;
@@ -41,25 +35,27 @@ public class EntityAIOpenAnyDoor extends EntityAIBase {
 		} else {
 			Path pathentity = this.npc.getNavigator().getPath();
 			if (pathentity != null && !pathentity.isFinished()) {
-				for (int i = 0; i < Math.min(pathentity.getCurrentPathIndex() + 2, pathentity.getCurrentPathLength()); ++i) {
+				for (int i = 0; i < Math.min(pathentity.getCurrentPathIndex() + 2,
+						pathentity.getCurrentPathLength()); ++i) {
 					PathPoint pathpoint = pathentity.getPathPointFromIndex(i);
-					if (this.npc.getDistanceSq(pathpoint.x, pathpoint.y, pathpoint.z) <= 2.25D) {
-						if(checkBlock(new BlockPos(pathpoint.x, pathpoint.y, pathpoint.z))) return true;
-						if(checkBlock(new BlockPos(pathpoint.x, pathpoint.y + 1, pathpoint.z))) return true;
-						if(checkBlock(new BlockPos(pathpoint.x, pathpoint.y - 1, pathpoint.z))) return true;
-						if(checkBlock(new BlockPos(pathpoint.x + 1, pathpoint.y, pathpoint.z))) return true;
-						if(checkBlock(new BlockPos(pathpoint.x - 1, pathpoint.y, pathpoint.z))) return true;
-						if(checkBlock(new BlockPos(pathpoint.x, pathpoint.y, pathpoint.z + 1))) return true;
-						if(checkBlock(new BlockPos(pathpoint.x, pathpoint.y, pathpoint.z - 1))) return true;
+					this.position = new BlockPos(pathpoint.x, pathpoint.y + 1, pathpoint.z);
+					if (this.npc.getDistanceSq((double) this.position.getX(), this.npc.posY,
+							(double) this.position.getZ()) <= 2.25D) {
+						this.door = this.getDoor(this.position);
+						if (this.door != null) {
+							return true;
+						}
 					}
 				}
-				return false;
+
+				this.position = (new BlockPos(this.npc)).up();
+				this.door = this.getDoor(this.position);
+				return this.door != null;
 			} else {
 				return false;
 			}
 		}
 	}
-
 
 	public boolean shouldContinueExecuting() {
 		return this.closeDoorTemporisation > 0 && !this.hasStoppedDoorInteraction;
@@ -70,23 +66,10 @@ public class EntityAIOpenAnyDoor extends EntityAIBase {
 		this.entityX = (float) ((double) ((float) this.position.getX() + 0.5F) - this.npc.posX);
 		this.entityZ = (float) ((double) ((float) this.position.getZ() + 0.5F) - this.npc.posZ);
 		this.closeDoorTemporisation = 20;
-
-		if(this.malisisDoor != null) {
-			this.malisisDoor.open();
-			return;
-		}
-
 		this.setDoorState(this.door, this.position, true);
 	}
 
 	public void resetTask() {
-
-		if(this.malisisDoor != null) {
-			this.malisisDoor.close();
-			this.malisisDoor = null;
-			return;
-		}
-
 		this.setDoorState(this.door, this.position, false);
 	}
 
@@ -101,22 +84,12 @@ public class EntityAIOpenAnyDoor extends EntityAIBase {
 
 	}
 
-	public boolean checkBlock(BlockPos pos) {
-
-		TileEntity tile = this.npc.world.getTileEntity(pos);
-		if(tile != null && tile instanceof DoorTileEntity) {
-			this.position = pos;
-			this.malisisDoor = (DoorTileEntity)tile;
-			return true;
-		}
-
+	public Block getDoor(BlockPos pos) {
 		IBlockState state = this.npc.world.getBlockState(pos);
 		Block block = state.getBlock();
 		if (!state.isFullBlock() && block != Blocks.IRON_DOOR) {
 			if (block instanceof BlockDoor) {
-				this.position = pos;
-				this.door = block;
-				return true;
+				return block;
 			} else {
 				Set set = state.getProperties().keySet();
 				Iterator var5 = set.iterator();
@@ -124,19 +97,17 @@ public class EntityAIOpenAnyDoor extends EntityAIBase {
 				IProperty prop;
 				do {
 					if (!var5.hasNext()) {
-						return false;
+						return null;
 					}
 
 					prop = (IProperty) var5.next();
 				} while (!(prop instanceof PropertyBool) || !prop.getName().equals("open"));
 
 				this.property = prop;
-				this.position = pos;
-				this.door = block;
-				return true;
+				return block;
 			}
 		} else {
-			return false;
+			return null;
 		}
 	}
 

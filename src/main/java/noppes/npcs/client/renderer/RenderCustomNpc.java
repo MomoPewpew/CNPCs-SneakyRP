@@ -34,14 +34,20 @@ import noppes.npcs.controllers.PixelmonHelper;
 import noppes.npcs.entity.EntityCustomNpc;
 import noppes.npcs.entity.EntityNPCInterface;
 
+import noppes.npcs.LogWriter;
+
 public class RenderCustomNpc extends RenderNPCInterface<EntityCustomNpc> {
 	private float partialTicks;
 	private EntityLivingBase entity;
 	private RenderLivingBase renderEntity;
 	public ModelBiped npcmodel;
+	// public boolean isRendering;
+	// public boolean isRenderingModel;
 
 	public RenderCustomNpc(ModelBiped model) {
 		super(model, 0.5F);
+		// this.isRendering = false;
+		// this.isRenderingModel = false;
 		this.npcmodel = (ModelBiped) this.mainModel;
 		this.layerRenderers.add(new LayerEyes(this));
 		this.layerRenderers.add(new LayerHeadwear(this));
@@ -58,6 +64,9 @@ public class RenderCustomNpc extends RenderNPCInterface<EntityCustomNpc> {
 		ObfuscationReflectionHelper.setPrivateValue(LayerArmorBase.class, armor, new ModelBipedAlt(1.0F), 2);
 	}
 
+	// public void doRender(EntityNPCInterface npc, double d, double d1, double d2, float f, float f1) {
+	// 	this.doRender((EntityCustomNpc)npc, d, d1, d2, f, f1);
+	// }
 	public void doRender(EntityCustomNpc npc, double d, double d1, double d2, float f, float partialTicks) {
 		this.partialTicks = partialTicks;
 		this.entity = npc.modelData.getEntity(npc);
@@ -106,6 +115,9 @@ public class RenderCustomNpc extends RenderNPCInterface<EntityCustomNpc> {
 		}
 	}
 
+	// protected void renderModel(EntityNPCInterface npc, float par2, float par3, float par4, float par5, float par6, float par7) {
+	// 	this.renderModel((EntityCustomNpc)npc, par2, par3, par4, par5, par6, par7);
+	// }
 	protected void renderModel(EntityCustomNpc npc, float par2, float par3, float par4, float par5, float par6, float par7) {
 		if (this.renderEntity != null) {
 			boolean flag = !npc.isInvisible();

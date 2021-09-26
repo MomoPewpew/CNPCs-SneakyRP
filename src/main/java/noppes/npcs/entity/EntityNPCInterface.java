@@ -85,7 +85,6 @@ import noppes.npcs.ai.EntityAIAnimation;
 import noppes.npcs.ai.EntityAIAttackTarget;
 import noppes.npcs.ai.EntityAIAvoidTarget;
 import noppes.npcs.ai.EntityAIBustDoor;
-import noppes.npcs.ai.EntityAIOpenAnyDoor;
 import noppes.npcs.ai.EntityAIDodgeShoot;
 import noppes.npcs.ai.EntityAIFindShade;
 import noppes.npcs.ai.EntityAIFollow;
@@ -900,17 +899,15 @@ public abstract class EntityNPCInterface extends EntityCreature
 
 	public void doorInteractType() {
 		if (!this.canFly()) {
-			boolean aiDoor = false;
+			EntityAIBase aiDoor = null;
 			if (this.ais.doorInteract == 1) {
-				aiDoor = true;
-				this.tasks.addTask(this.taskCount++, (EntityAIBase) new EntityAIOpenAnyDoor(this));
+				this.tasks.addTask(this.taskCount++, (EntityAIBase) (aiDoor = new EntityAIOpenDoor(this, true)));
 			} else if (this.ais.doorInteract == 0) {
-				aiDoor = true;
-				this.tasks.addTask(this.taskCount++, (EntityAIBase) new EntityAIBustDoor(this));
+				this.tasks.addTask(this.taskCount++, (EntityAIBase) (aiDoor = new EntityAIBustDoor(this)));
 			}
 
 			if (this.getNavigator() instanceof PathNavigateGround) {
-				((PathNavigateGround) this.getNavigator()).setBreakDoors(aiDoor);
+				((PathNavigateGround) this.getNavigator()).setBreakDoors(aiDoor != null);
 			}
 
 		}

@@ -22,6 +22,8 @@ import noppes.npcs.entity.EntityCustomNpc;
 import noppes.npcs.entity.EntityNPCInterface;
 import org.lwjgl.opengl.GL11;
 
+import noppes.npcs.LogWriter;
+
 public class RenderNPCInterface<T extends EntityNPCInterface> extends RenderLiving<T> {
 	public static int LastTextureTick;
 
