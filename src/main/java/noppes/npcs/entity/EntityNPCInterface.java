@@ -794,7 +794,7 @@ public abstract class EntityNPCInterface extends EntityCreature
 				this.targetTasks.addTask(3, new EntityAIOwnerHurtByTarget(this));
 				this.targetTasks.addTask(4, new EntityAIOwnerHurtTarget(this));
 
-				PathWorldListener listener = (PathWorldListener)ObfuscationReflectionHelper.getPrivateValue(World.class, this.world, "pathListener");
+				PathWorldListener listener = (PathWorldListener)ObfuscationReflectionHelper.getPrivateValue(World.class, this.world, "field_184152_t");
 				listener.onEntityRemoved(this);
 				// this.world.pathListener.onEntityRemoved(this);
 

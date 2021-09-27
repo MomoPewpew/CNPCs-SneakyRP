@@ -69,7 +69,7 @@ public class JobBard extends JobInterface implements IJobBard {
 			}
 
 			if (MusicController.Instance.isPlaying(this.song)) {
-				ObfuscationReflectionHelper.setPrivateValue(MusicTicker.class, Minecraft.getMinecraft().getMusicTicker(), 12000, "timeUntilNextMusic");
+				ObfuscationReflectionHelper.setPrivateValue(MusicTicker.class, Minecraft.getMinecraft().getMusicTicker(), 12000, "field_147676_d");
 				// Minecraft.getMinecraft().getMusicTicker().timeUntilNextMusic = 12000;
 			}
 

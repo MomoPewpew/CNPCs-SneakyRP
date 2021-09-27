@@ -108,7 +108,7 @@ public class AssetsBrowser {
 				if (pack instanceof AbstractResourcePack) {
 					AbstractResourcePack p = (AbstractResourcePack) pack;
 					// File file = p.resourcePackFile;
-					File file = (File)ObfuscationReflectionHelper.getPrivateValue(AbstractResourcePack.class, p, "resourcePackFile");
+					File file = (File)ObfuscationReflectionHelper.getPrivateValue(AbstractResourcePack.class, p, "field_110597_b");
 					if (file != null) {
 						set.add(file.getAbsolutePath());
 					}

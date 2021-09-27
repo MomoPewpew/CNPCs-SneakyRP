@@ -21,7 +21,7 @@ public class EntityItemWrapper extends EntityWrapper implements IEntityItem {
 	}
 
 	public int getPickupDelay() {
-		return (int)ObfuscationReflectionHelper.getPrivateValue(EntityItem.class, (EntityItem)this.entity, "pickupDelay");
+		return (int)ObfuscationReflectionHelper.getPrivateValue(EntityItem.class, (EntityItem)this.entity, "field_145804_b");
 	}
 
 	public void setPickupDelay(int delay) {
@@ -38,7 +38,7 @@ public class EntityItemWrapper extends EntityWrapper implements IEntityItem {
 
 	public void setAge(long age) {
 		age = Math.max(Math.min(age, 2147483647L), -2147483648L);
-		ObfuscationReflectionHelper.setPrivateValue(EntityItem.class, (EntityItem)this.entity, (int)age, "age");
+		ObfuscationReflectionHelper.setPrivateValue(EntityItem.class, (EntityItem)this.entity, (int)age, "field_70292_b");
 		// ((EntityItem) this.entity).age = (int) age;
 	}
 

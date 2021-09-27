@@ -104,6 +104,6 @@ public class EntityUtil {
 
 	public static void setRecentlyHit(EntityLivingBase entity) {
 		// entity.recentlyHit = 100;
-		ObfuscationReflectionHelper.setPrivateValue(EntityLivingBase.class, entity, 100, "recentlyHit");
+		ObfuscationReflectionHelper.setPrivateValue(EntityLivingBase.class, entity, 100, "field_70718_bc");
 	}
 }
