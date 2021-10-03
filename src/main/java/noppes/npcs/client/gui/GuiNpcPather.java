@@ -20,6 +20,8 @@ public class GuiNpcPather extends GuiNPCInterface implements IGuiData {
 	private GuiCustomScroll scroll;
 	private HashMap data = new HashMap();
 	private DataAI ai;
+	private static int selected;
+	private boolean select = false;
 
 	public GuiNpcPather(EntityNPCInterface npc) {
 		this.drawDefaultBackground = false;
@@ -49,6 +51,14 @@ public class GuiNpcPather extends GuiNPCInterface implements IGuiData {
 		this.scroll.guiLeft = this.guiLeft + 7;
 		this.scroll.guiTop = this.guiTop + 12;
 		this.addScroll(this.scroll);
+
+		if (select) {
+			if (selected < list.size())
+				this.scroll.selected = selected;
+
+			select = false;
+		}
+
 		this.addButton(new GuiNpcButton(0, this.guiLeft + 6, this.guiTop + 178, 52, 20, "gui.down"));
 		this.addButton(new GuiNpcButton(1, this.guiLeft + 62, this.guiTop + 178, 52, 20, "gui.up"));
 		this.addButton(new GuiNpcButton(2, this.guiLeft + 118, this.guiTop + 178, 52, 20, "selectWorld.deleteButton"));
@@ -58,7 +68,6 @@ public class GuiNpcPather extends GuiNPCInterface implements IGuiData {
 		if (this.scroll.selected >= 0) {
 			int id = guibutton.id;
 			List list;
-			int selected;
 			int[] a;
 			int[] b;
 			if (id == 0) {
@@ -99,8 +108,13 @@ public class GuiNpcPather extends GuiNPCInterface implements IGuiData {
 					return;
 				}
 
-				list.remove(this.scroll.selected);
+				selected = new Integer(this.scroll.selected);
+
+				list.remove(selected);
 				this.ai.setMovingPath(list);
+
+				select = true;
+
 				this.initGui();
 			}
 
