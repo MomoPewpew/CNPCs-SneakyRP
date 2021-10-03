@@ -35,7 +35,7 @@ public class ItemNpcMovingPath extends Item implements IPermission {
 			CustomNpcsPermissions var10000 = CustomNpcsPermissions.Instance;
 			if (CustomNpcsPermissions.hasPermission(player, CustomNpcsPermissions.TOOL_MOUNTER)) {
 				EntityNPCInterface npc = this.getNpc(itemstack, world);
-				if (npc != null) {
+				if (npc != null && player.isSneaking()) {
 					NoppesUtilServer.sendOpenGui(player, EnumGuiType.MovingPath, npc);
 				}
 
@@ -51,6 +51,8 @@ public class ItemNpcMovingPath extends Item implements IPermission {
 		if (!world.isRemote) {
 			CustomNpcsPermissions var10000 = CustomNpcsPermissions.Instance;
 			if (CustomNpcsPermissions.hasPermission(player, CustomNpcsPermissions.TOOL_MOUNTER)) {
+				if (player.isSneaking()) return EnumActionResult.SUCCESS;
+
 				ItemStack stack = player.getHeldItem(hand);
 				EntityNPCInterface npc = this.getNpc(stack, world);
 				if (npc == null) {
