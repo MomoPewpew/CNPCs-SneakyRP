@@ -14,6 +14,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLiving.SpawnPlacementType;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.server.management.PlayerChunkMapEntry;
@@ -26,6 +27,7 @@ import net.minecraft.world.WorldServer;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraftforge.event.ForgeEventFactory;
+import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 import net.minecraftforge.fml.common.eventhandler.Event.Result;
 import noppes.npcs.controllers.SpawnController;
 import noppes.npcs.controllers.data.SpawnData;
@@ -83,7 +85,7 @@ public class NPCSpawning {
 						int z = l1 + (world.rand.nextInt(b1) - world.rand.nextInt(b1));
 						BlockPos pos = new BlockPos(x, y, z);
 						IBlockState state = world.getBlockState(pos);
-						String name = world.getBiomeForCoordsBody(pos).getBiomeName();
+						String name = ObfuscationReflectionHelper.getPrivateValue(Biome.class, world.getBiomeForCoordsBody(pos), "field_76791_y");
 						SpawnData data = SpawnController.instance.getRandomSpawnData(name,
 								state.getMaterial() == Material.AIR);
 						if (data != null && canCreatureTypeSpawnAtLocation(data, world, pos)
