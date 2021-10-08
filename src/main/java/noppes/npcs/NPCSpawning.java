@@ -133,7 +133,7 @@ public class NPCSpawning {
 					return;
 				}
 
-				data = SpawnController.instance.getRandomSpawnData(biome.getBiomeName(), true);
+				data = SpawnController.instance.getRandomSpawnData(ObfuscationReflectionHelper.getPrivateValue(Biome.class, biome, "field_76791_y"), true);
 			} while (data == null);
 
 			int size = 16;

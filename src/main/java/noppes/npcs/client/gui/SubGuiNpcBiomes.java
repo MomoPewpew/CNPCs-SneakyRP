@@ -5,6 +5,7 @@ import java.util.Iterator;
 import java.util.List;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.world.biome.Biome;
+import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 import noppes.npcs.client.gui.util.GuiCustomScroll;
 import noppes.npcs.client.gui.util.GuiNpcButton;
 import noppes.npcs.client.gui.util.GuiNpcLabel;
@@ -49,8 +50,8 @@ public class SubGuiNpcBiomes extends SubGuiInterface {
 
 		while (ita.hasNext()) {
 			Biome base = (Biome) ita.next();
-			if (base != null && base.getBiomeName() != null && !this.data.biomes.contains(base.getBiomeName())) {
-				biomes.add(base.getBiomeName());
+			if (base != null && ObfuscationReflectionHelper.getPrivateValue(Biome.class, base, "field_76791_y") != null && !this.data.biomes.contains(ObfuscationReflectionHelper.getPrivateValue(Biome.class, base, "field_76791_y"))) {
+				biomes.add(ObfuscationReflectionHelper.getPrivateValue(Biome.class, base, "field_76791_y"));
 			}
 		}
 
@@ -85,7 +86,7 @@ public class SubGuiNpcBiomes extends SubGuiInterface {
 			while (ita.hasNext()) {
 				Biome base = (Biome) ita.next();
 				if (base != null) {
-					this.data.biomes.add(base.getBiomeName());
+					this.data.biomes.add(ObfuscationReflectionHelper.getPrivateValue(Biome.class, base, "field_76791_y"));
 				}
 			}
 

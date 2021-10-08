@@ -32,6 +32,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
+import net.minecraft.world.biome.Biome;
+import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 import noppes.npcs.Server;
 import noppes.npcs.api.CustomNPCsException;
 import noppes.npcs.api.IDimension;
@@ -392,7 +394,7 @@ public class WorldWrapper implements IWorld {
 	}
 
 	public String getBiomeName(int x, int z) {
-		return this.world.getBiomeForCoordsBody(new BlockPos(x, 0, z)).getBiomeName();
+		return ObfuscationReflectionHelper.getPrivateValue(Biome.class, this.world.getBiomeForCoordsBody(new BlockPos(x, 0, z)), "field_76791_y");
 	}
 
 	public IEntity spawnClone(double x, double y, double z, int tab, String name) {
