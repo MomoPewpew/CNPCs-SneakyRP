@@ -9,7 +9,7 @@ import net.minecraft.util.math.BlockPos;
 import noppes.npcs.client.model.blocks.ModelMailboxUS;
 import noppes.npcs.client.model.blocks.ModelMailboxWow;
 
-public class BlockMailboxRenderer extends TileEntitySpecialRenderer {
+public class BlockMailboxRenderer extends TileEntitySpecialRenderer<TileEntity> {
 	private final ModelMailboxUS model = new ModelMailboxUS();
 	private final ModelMailboxWow model2 = new ModelMailboxWow();
 	private static final ResourceLocation text1 = new ResourceLocation("customnpcs", "textures/models/mailbox1.png");

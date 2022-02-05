@@ -114,7 +114,7 @@ public class CustomItems {
 	}
 
 	@SubscribeEvent
-	public void registerBlocks(Register event) {
+	public void registerBlocks(Register<Block> event) {
 		GameRegistry.registerTileEntity(TileRedstoneBlock.class, "TileRedstoneBlock");
 		GameRegistry.registerTileEntity(TileBlockAnvil.class, "TileBlockAnvil");
 		GameRegistry.registerTileEntity(TileMailbox.class, "TileMailbox");
@@ -147,7 +147,7 @@ public class CustomItems {
 	}
 
 	@SubscribeEvent
-	public void registerItems(Register event) {
+	public void registerItems(Register<Item> event) {
 		Item wand = (new ItemNpcWand()).setUnlocalizedName("npcwand").setFull3D();
 		Item cloner = (new ItemNpcCloner()).setUnlocalizedName("npcmobcloner").setFull3D();
 		Item scripter = (new ItemNpcScripter()).setUnlocalizedName("npcscripter").setFull3D();
@@ -160,8 +160,7 @@ public class CustomItems {
 		Item soulstoneFull = (new ItemSoulstoneFilled()).setUnlocalizedName("npcsoulstonefilled");
 		Item scripted_item = (new ItemScripted()).setUnlocalizedName("scripted_item");
 		Item nbt_book = (new ItemNbtBook()).setUnlocalizedName("nbt_book");
-		event.getRegistry().registerAll(new Item[] { wand, cloner, scripter, moving, mount, teleporter,
-				scriptedDoorTool, soulstoneEmpty, soulstoneFull, scripted_item, nbt_book });
+		event.getRegistry().registerAll(new Item[] { wand, cloner, scripter, moving, mount, teleporter, scriptedDoorTool, soulstoneEmpty, soulstoneFull, scripted_item, nbt_book });
 		event.getRegistry()
 				.registerAll(new Item[] { new ItemNpcBlock(redstoneBlock), new ItemNpcBlock(carpentyBench),
 						(new ItemNpcBlock(mailbox)).setHasSubtypes(true), new ItemNpcBlock(waypoint),

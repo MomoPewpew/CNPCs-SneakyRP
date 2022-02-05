@@ -18,10 +18,10 @@ import noppes.npcs.CustomItems;
 import noppes.npcs.blocks.BlockNpcDoorInterface;
 import noppes.npcs.blocks.tiles.TileDoor;
 
-public class BlockDoorRenderer extends BlockRendererInterface {
+public class BlockDoorRenderer extends BlockRendererInterface<TileDoor> {
 	private static Random random = new Random();
 
-	public void render(TileEntity te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
+	public void render(TileDoor te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
 		TileDoor tile = (TileDoor) te;
 		IBlockState original = CustomItems.scriptedDoor.getStateFromMeta(tile.getBlockMetadata());
 		BlockPos lowerPos = tile.getPos();

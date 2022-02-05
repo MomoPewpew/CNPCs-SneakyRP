@@ -7,13 +7,14 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import noppes.npcs.client.model.blocks.ModelCarpentryBench;
+import noppes.npcs.blocks.tiles.TileBlockAnvil;
 
-public class BlockCarpentryBenchRenderer extends TileEntitySpecialRenderer {
+public class BlockCarpentryBenchRenderer extends TileEntitySpecialRenderer<TileBlockAnvil> {
 	private final ModelCarpentryBench model = new ModelCarpentryBench();
 	private static final ResourceLocation TEXTURE = new ResourceLocation("customnpcs",
 			"textures/models/carpentrybench.png");
 
-	public void render(TileEntity te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
+	public void render(TileBlockAnvil te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
 		int rotation = 0;
 		if (te != null && te.getPos() != BlockPos.ORIGIN) {
 			rotation = te.getBlockMetadata() % 4;

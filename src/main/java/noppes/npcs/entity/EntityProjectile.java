@@ -46,16 +46,16 @@ import noppes.npcs.api.event.ProjectileEvent;
 import noppes.npcs.entity.data.DataRanged;
 
 public class EntityProjectile extends EntityThrowable {
-	private static final DataParameter Gravity;
-	private static final DataParameter Arrow;
-	private static final DataParameter Is3d;
-	private static final DataParameter Glows;
-	private static final DataParameter Rotating;
-	private static final DataParameter Sticks;
-	private static final DataParameter ItemStackThrown;
-	private static final DataParameter Velocity;
-	private static final DataParameter Size;
-	private static final DataParameter Particle;
+	private static final DataParameter<Boolean> Gravity;
+	private static final DataParameter<Boolean> Arrow;
+	private static final DataParameter<Boolean> Is3d;
+	private static final DataParameter<Boolean> Glows;
+	private static final DataParameter<Boolean> Rotating;
+	private static final DataParameter<Boolean> Sticks;
+	private static final DataParameter<ItemStack> ItemStackThrown;
+	private static final DataParameter<Integer> Velocity;
+	private static final DataParameter<Integer> Size;
+	private static final DataParameter<Integer> Particle;
 	private BlockPos tilePos;
 	private Block inTile;
 	protected boolean inGround;
@@ -176,7 +176,7 @@ public class EntityProjectile extends EntityThrowable {
 	}
 
 	public int getSize() {
-		return (Integer) this.dataManager.get(Size);
+		return this.dataManager.get(Size);
 	}
 
 	public void shoot(double par1, double par3, double par5, float par7, float par8) {
@@ -414,8 +414,8 @@ public class EntityProjectile extends EntityThrowable {
 				this.motionZ += this.accelerationZ;
 			}
 
-			if (this.world.isRemote && (Integer) this.dataManager.get(Particle) > 0) {
-				this.world.spawnParticle(ParticleType.getMCType((Integer) this.dataManager.get(Particle)), this.posX,
+			if (this.world.isRemote && this.dataManager.get(Particle) > 0) {
+				this.world.spawnParticle(ParticleType.getMCType(this.dataManager.get(Particle)), this.posX,
 						this.posY, this.posZ, 0.0D, 0.0D, 0.0D, new int[0]);
 			}
 
@@ -624,18 +624,18 @@ public class EntityProjectile extends EntityThrowable {
 		par1NBTTagCompound.setTag("Item", this.getItemDisplay().writeToNBT(new NBTTagCompound()));
 		par1NBTTagCompound.setFloat("damagev2", this.damage);
 		par1NBTTagCompound.setInteger("punch", this.punch);
-		par1NBTTagCompound.setInteger("size", (Integer) this.dataManager.get(Size));
-		par1NBTTagCompound.setInteger("velocity", (Integer) this.dataManager.get(Velocity));
+		par1NBTTagCompound.setInteger("size", this.dataManager.get(Size));
+		par1NBTTagCompound.setInteger("velocity", this.dataManager.get(Velocity));
 		par1NBTTagCompound.setInteger("explosiveRadius", this.explosiveRadius);
 		par1NBTTagCompound.setInteger("effectDuration", this.duration);
 		par1NBTTagCompound.setBoolean("gravity", this.hasGravity());
 		par1NBTTagCompound.setBoolean("accelerate", this.accelerate);
-		par1NBTTagCompound.setBoolean("glows", (Boolean) this.dataManager.get(Glows));
+		par1NBTTagCompound.setBoolean("glows", this.dataManager.get(Glows));
 		par1NBTTagCompound.setInteger("PotionEffect", this.effect);
-		par1NBTTagCompound.setInteger("trailenum", (Integer) this.dataManager.get(Particle));
-		par1NBTTagCompound.setBoolean("Render3D", (Boolean) this.dataManager.get(Is3d));
-		par1NBTTagCompound.setBoolean("Spins", (Boolean) this.dataManager.get(Rotating));
-		par1NBTTagCompound.setBoolean("Sticks", (Boolean) this.dataManager.get(Sticks));
+		par1NBTTagCompound.setInteger("trailenum", this.dataManager.get(Particle));
+		par1NBTTagCompound.setBoolean("Render3D", this.dataManager.get(Is3d));
+		par1NBTTagCompound.setBoolean("Spins", this.dataManager.get(Rotating));
+		par1NBTTagCompound.setBoolean("Sticks", this.dataManager.get(Sticks));
 		par1NBTTagCompound.setInteger("accuracy", this.accuracy);
 	}
 
@@ -756,20 +756,20 @@ public class EntityProjectile extends EntityThrowable {
 	}
 
 	public ItemStack getItemDisplay() {
-		return (ItemStack) this.dataManager.get(ItemStackThrown);
+		return this.dataManager.get(ItemStackThrown);
 	}
 
 	public float getBrightness() {
-		return (Boolean) this.dataManager.get(Glows) ? 1.0F : super.getBrightness();
+		return this.dataManager.get(Glows) ? 1.0F : super.getBrightness();
 	}
 
 	@SideOnly(Side.CLIENT)
 	public int getBrightnessForRender() {
-		return (Boolean) this.dataManager.get(Glows) ? 15728880 : super.getBrightnessForRender();
+		return this.dataManager.get(Glows) ? 15728880 : super.getBrightnessForRender();
 	}
 
 	public boolean hasGravity() {
-		return (Boolean) this.dataManager.get(Gravity);
+		return this.dataManager.get(Gravity);
 	}
 
 	public void setSpeed(int speed) {
@@ -777,11 +777,11 @@ public class EntityProjectile extends EntityThrowable {
 	}
 
 	public float getSpeed() {
-		return (float) (Integer) this.dataManager.get(Velocity) / 10.0F;
+		return (float) this.dataManager.get(Velocity) / 10.0F;
 	}
 
 	public boolean isArrow() {
-		return (Boolean) this.dataManager.get(Arrow);
+		return this.dataManager.get(Arrow);
 	}
 
 	public void setRotating(boolean bo) {
@@ -789,19 +789,19 @@ public class EntityProjectile extends EntityThrowable {
 	}
 
 	public boolean isRotating() {
-		return (Boolean) this.dataManager.get(Rotating);
+		return this.dataManager.get(Rotating);
 	}
 
 	public boolean glows() {
-		return (Boolean) this.dataManager.get(Glows);
+		return this.dataManager.get(Glows);
 	}
 
 	public boolean is3D() {
-		return (Boolean) this.dataManager.get(Is3d) || this.isBlock();
+		return this.dataManager.get(Is3d) || this.isBlock();
 	}
 
 	public boolean sticksToWalls() {
-		return this.is3D() && (Boolean) this.dataManager.get(Sticks);
+		return this.is3D() && this.dataManager.get(Sticks);
 	}
 
 	public void onCollideWithPlayer(EntityPlayer par1EntityPlayer) {

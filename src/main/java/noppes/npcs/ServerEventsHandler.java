@@ -279,7 +279,7 @@ public class ServerEventsHandler {
 	}
 
 	@SubscribeEvent(priority = EventPriority.LOW)
-	public void attachEntity(AttachCapabilitiesEvent event) {
+	public void attachEntity(AttachCapabilitiesEvent<Entity> event) {
 		if (event.getObject() instanceof EntityPlayer) {
 			PlayerData.register(event);
 		}
@@ -288,15 +288,15 @@ public class ServerEventsHandler {
 			MarkData.register(event);
 		}
 
-		if (((Entity) event.getObject()).world != null && !((Entity) event.getObject()).world.isRemote
-				&& ((Entity) event.getObject()).world instanceof WorldServer) {
+		if ((event.getObject()).world != null && !(event.getObject()).world.isRemote
+				&& (event.getObject()).world instanceof WorldServer) {
 			WrapperEntityData.register(event);
 		}
 
 	}
 
 	@SubscribeEvent
-	public void attachItem(AttachCapabilitiesEvent event) {
+	public void attachItem(AttachCapabilitiesEvent<ItemStack> event) {
 		ItemStackWrapper.register(event);
 	}
 
