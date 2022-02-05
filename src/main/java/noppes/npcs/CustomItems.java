@@ -160,8 +160,7 @@ public class CustomItems {
 		Item soulstoneFull = (new ItemSoulstoneFilled()).setUnlocalizedName("npcsoulstonefilled");
 		Item scripted_item = (new ItemScripted()).setUnlocalizedName("scripted_item");
 		Item nbt_book = (new ItemNbtBook()).setUnlocalizedName("nbt_book");
-		event.getRegistry().registerAll(new Item[] { wand, cloner, scripter, moving, mount, teleporter,
-				scriptedDoorTool, soulstoneEmpty, soulstoneFull, scripted_item, nbt_book });
+		event.getRegistry().registerAll(new Item[] { wand, cloner, scripter, moving, mount, teleporter, scriptedDoorTool, soulstoneEmpty, soulstoneFull, scripted_item, nbt_book });
 		event.getRegistry()
 				.registerAll(new Item[] { new ItemNpcBlock(redstoneBlock), new ItemNpcBlock(carpentyBench),
 						(new ItemNpcBlock(mailbox)).setHasSubtypes(true), new ItemNpcBlock(waypoint),

@@ -1,5 +1,6 @@
 package noppes.npcs;
 
+import net.minecraft.entity.Entity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.RegistryEvent.Register;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -73,7 +74,7 @@ public class CustomEntities {
 		event.getRegistry().registerAll(entries);
 	}
 
-	private EntityEntry registerNpc(Class cl, String name) {
+	private EntityEntry registerNpc(Class<? extends Entity> cl, String name) {
 		if (CustomNpcs.FixUpdateFromPre_1_12) {
 			ForgeRegistries.ENTITIES
 					.register((new EntityEntry(cl, name)).setRegistryName(new ResourceLocation("customnpcs." + name)));
@@ -82,8 +83,8 @@ public class CustomEntities {
 		return this.registerNewentity(name, 64, 3, true).entity(cl).build();
 	}
 
-	private EntityEntryBuilder registerNewentity(String name, int range, int update, boolean velocity) {
-		EntityEntryBuilder builder = EntityEntryBuilder.create();
+	private EntityEntryBuilder<Entity> registerNewentity(String name, int range, int update, boolean velocity) {
+		EntityEntryBuilder<Entity> builder = EntityEntryBuilder.create();
 		ResourceLocation registryName = new ResourceLocation("customnpcs", name);
 		return builder.id(registryName, this.newEntityStartId++).name(name).tracker(range, update, velocity);
 	}

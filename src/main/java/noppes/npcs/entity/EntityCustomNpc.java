@@ -96,9 +96,7 @@ public class EntityCustomNpc extends EntityNPCFlying {
 			}
 
 			double var10000 = (double) (this.width / 2.0F);
-			World var10001 = this.world;
 			if (var10000 > World.MAX_ENTITY_RADIUS) {
-				World var2 = this.world;
 				World.MAX_ENTITY_RADIUS = (double) (this.width / 2.0F);
 			}
 

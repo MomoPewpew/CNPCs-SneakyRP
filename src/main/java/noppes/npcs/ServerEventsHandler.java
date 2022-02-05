@@ -288,8 +288,8 @@ public class ServerEventsHandler {
 			MarkData.register(event);
 		}
 
-		if (((Entity) event.getObject()).world != null && !((Entity) event.getObject()).world.isRemote
-				&& ((Entity) event.getObject()).world instanceof WorldServer) {
+		if ((event.getObject()).world != null && !(event.getObject()).world.isRemote
+				&& (event.getObject()).world instanceof WorldServer) {
 			WrapperEntityData.register(event);
 		}
 

@@ -6,7 +6,7 @@ import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 
-public abstract class BlockRendererInterface extends TileEntitySpecialRenderer {
+public abstract class BlockRendererInterface<T extends TileEntity> extends TileEntitySpecialRenderer<T> {
 	protected static final ResourceLocation Stone = new ResourceLocation("customnpcs", "textures/cache/stone.png");
 	protected static final ResourceLocation Iron = new ResourceLocation("customnpcs", "textures/cache/iron_block.png");
 	protected static final ResourceLocation Gold = new ResourceLocation("customnpcs", "textures/cache/gold_block.png");

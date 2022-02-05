@@ -13,12 +13,12 @@ import noppes.npcs.CustomItems;
 import noppes.npcs.blocks.tiles.TileCopy;
 import noppes.npcs.schematics.Schematic;
 
-public class BlockCopyRenderer extends BlockRendererInterface {
+public class BlockCopyRenderer extends BlockRendererInterface<TileCopy> {
 	private static final ItemStack item;
 	public static Schematic schematic;
 	public static BlockPos pos;
 
-	public void render(TileEntity var1, double x, double y, double z, float var8, int blockDamage, float alpha) {
+	public void render(TileCopy var1, double x, double y, double z, float var8, int blockDamage, float alpha) {
 		TileCopy tile = (TileCopy) var1;
 		GlStateManager.pushMatrix();
 		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);

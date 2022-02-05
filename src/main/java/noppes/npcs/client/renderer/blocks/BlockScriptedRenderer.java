@@ -23,10 +23,10 @@ import noppes.npcs.CustomItems;
 import noppes.npcs.blocks.tiles.TileScripted;
 import noppes.npcs.client.TextBlockClient;
 
-public class BlockScriptedRenderer extends BlockRendererInterface {
+public class BlockScriptedRenderer extends BlockRendererInterface<TileScripted> {
 	private static Random random = new Random();
 
-	public void render(TileEntity te, double x, double y, double z, float partialTicks, int blockDamage, float alpha) {
+	public void render(TileScripted te, double x, double y, double z, float partialTicks, int blockDamage, float alpha) {
 		TileScripted tile = (TileScripted) te;
 		GlStateManager.pushMatrix();
 		GlStateManager.disableBlend();
