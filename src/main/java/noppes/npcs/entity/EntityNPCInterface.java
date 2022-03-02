@@ -214,6 +214,7 @@ public abstract class EntityNPCInterface extends EntityCreature implements IEnti
 	public double field_20062_v;
 	public double field_20061_w;
 	private double startYPos;
+	private long voiceLineLast = 0L;
 
 	public EntityNPCInterface(World world) {
 		super(world);
@@ -1001,6 +1002,24 @@ public abstract class EntityNPCInterface extends EntityCreature implements IEnti
 			super.playStepSound(pos, block);
 		}
 
+	}
+
+	public void playGreetingSound() {
+		Long t = System.currentTimeMillis();
+
+		if (t > (this.voiceLineLast + 3000L)) {
+			this.advanced.playSound(5, this.getSoundVolume(), this.getSoundPitch());
+			this.voiceLineLast = t;
+		}
+	}
+
+	public void playFarewellSound() {
+		Long t = System.currentTimeMillis();
+
+		if (t > (this.voiceLineLast + 3000L)) {
+			this.advanced.playSound(6, this.getSoundVolume(), this.getSoundPitch());
+			this.voiceLineLast = t;
+		}
 	}
 
 	public EntityPlayerMP getFakeChatPlayer() {
