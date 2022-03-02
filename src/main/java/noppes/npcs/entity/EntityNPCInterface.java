@@ -1008,7 +1008,7 @@ public abstract class EntityNPCInterface extends EntityCreature implements IEnti
 	public void playGreetingSound() {
 		Long t = System.currentTimeMillis();
 
-		if (t > (this.voiceLineLast + 3000L) && this.advanced.getSound(5).length() > 0) {
+		if (t > (this.voiceLineLast + 3000L) && this.advanced.getSound(5) != null) {
 			this.advanced.playSound(5, this.getSoundVolume(), this.getSoundPitch());
 			this.voiceLineLast = t;
 		}
@@ -1017,7 +1017,7 @@ public abstract class EntityNPCInterface extends EntityCreature implements IEnti
 	public void playFarewellSound() {
 		Long t = System.currentTimeMillis();
 
-		if (t > (this.voiceLineLast + 3000L) && this.advanced.getSound(5).length() > 0) {
+		if (t > (this.voiceLineLast + 3000L) && this.advanced.getSound(6) != null) {
 			this.advanced.playSound(6, this.getSoundVolume(), this.getSoundPitch());
 			this.voiceLineLast = t;
 		}
