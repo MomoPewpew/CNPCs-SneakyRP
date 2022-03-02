@@ -46,6 +46,8 @@ public class DataAdvanced implements INPCAdvanced {
 	private String hurtSound = "minecraft:entity.player.hurt";
 	private String deathSound = "minecraft:entity.player.hurt";
 	private String stepSound = "";
+	private String greetingSound = "";
+	private String farewellSound = "";
 	private EntityNPCInterface npc;
 	public FactionOptions factions = new FactionOptions();
 	public int role = 0;
@@ -73,6 +75,8 @@ public class DataAdvanced implements INPCAdvanced {
 		compound.setString("NpcHurtSound", this.hurtSound);
 		compound.setString("NpcDeathSound", this.deathSound);
 		compound.setString("NpcStepSound", this.stepSound);
+		compound.setString("NpcGreetingSound", this.greetingSound);
+		compound.setString("NpcFarewellSound", this.farewellSound);
 		compound.setInteger("FactionID", this.npc.getFaction().id);
 		compound.setBoolean("AttackOtherFactions", this.attackOtherFactions);
 		compound.setBoolean("DefendFaction", this.defendFaction);
@@ -98,6 +102,8 @@ public class DataAdvanced implements INPCAdvanced {
 		this.hurtSound = compound.getString("NpcHurtSound");
 		this.deathSound = compound.getString("NpcDeathSound");
 		this.stepSound = compound.getString("NpcStepSound");
+		this.greetingSound = compound.getString("NpcGreetingSound");
+		this.farewellSound = compound.getString("NpcFarewellSound");
 		this.npc.setFaction(compound.getInteger("FactionID"));
 		this.npc.faction = this.npc.getFaction();
 		this.attackOtherFactions = compound.getBoolean("AttackOtherFactions");
@@ -194,6 +200,10 @@ public class DataAdvanced implements INPCAdvanced {
 			sound = this.deathSound;
 		} else if (type == 4) {
 			sound = this.stepSound;
+		} else if (type == 5) {
+			sound = this.greetingSound;
+		} else if (type == 6) {
+			sound = this.farewellSound;
 		}
 
 		return sound != null && sound.isEmpty() ? null : sound;
@@ -223,6 +233,10 @@ public class DataAdvanced implements INPCAdvanced {
 			this.deathSound = sound;
 		} else if (type == 4) {
 			this.stepSound = sound;
+		} else if (type == 5) {
+			this.greetingSound = sound;
+		} else if (type == 6) {
+			this.farewellSound = sound;
 		}
 
 	}

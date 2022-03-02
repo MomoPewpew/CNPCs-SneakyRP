@@ -44,8 +44,17 @@ public class GuiNPCSoundsMenu extends GuiNPCInterface2 implements ITextfieldList
 		this.addTextField(new GuiNpcTextField(5, this, this.fontRenderer, this.guiLeft + 80, this.guiTop + 115, 200, 20,
 				this.npc.advanced.getSound(4)));
 		this.addButton(new GuiNpcButton(5, this.guiLeft + 290, this.guiTop + 115, 80, 20, "gui.selectSound"));
-		this.addLabel(new GuiNpcLabel(6, "advanced.haspitch", this.guiLeft + 5, this.guiTop + 150));
-		this.addButton(new GuiNpcButton(6, this.guiLeft + 120, this.guiTop + 145, 80, 20,
+		this.addLabel(new GuiNpcLabel(7, "advanced.greetingsound", this.guiLeft + 5, this.guiTop + 145));
+		this.addTextField(new GuiNpcTextField(7, this, this.fontRenderer, this.guiLeft + 80, this.guiTop + 140, 200, 20,
+				this.npc.advanced.getSound(5)));
+		this.addButton(new GuiNpcButton(7, this.guiLeft + 290, this.guiTop + 140, 80, 20, "gui.selectSound"));
+		this.addLabel(new GuiNpcLabel(8, "advanced.farewellsound", this.guiLeft + 5, this.guiTop + 170));
+		this.addTextField(new GuiNpcTextField(8, this, this.fontRenderer, this.guiLeft + 80, this.guiTop + 165, 200, 20,
+				this.npc.advanced.getSound(6)));
+		this.addButton(new GuiNpcButton(8, this.guiLeft + 290, this.guiTop + 165, 80, 20, "gui.selectSound"));
+
+		this.addLabel(new GuiNpcLabel(6, "advanced.haspitch", this.guiLeft + 5, this.guiTop + 195));
+		this.addButton(new GuiNpcButton(6, this.guiLeft + 120, this.guiTop + 190, 80, 20,
 				new String[] { "gui.no", "gui.yes" }, this.npc.advanced.disablePitch ? 0 : 1));
 	}
 
@@ -78,6 +87,14 @@ public class GuiNPCSoundsMenu extends GuiNPCInterface2 implements ITextfieldList
 
 		if (textfield.getId() == 5) {
 			this.npc.advanced.setSound(4, textfield.getText());
+		}
+
+		if (textfield.getId() == 7) {
+			this.npc.advanced.setSound(5, textfield.getText());
+		}
+
+		if (textfield.getId() == 8) {
+			this.npc.advanced.setSound(6, textfield.getText());
 		}
 
 	}
