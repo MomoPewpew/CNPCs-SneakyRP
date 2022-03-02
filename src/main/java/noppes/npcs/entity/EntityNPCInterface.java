@@ -519,6 +519,7 @@ public abstract class EntityNPCInterface extends EntityCreature implements IEnti
 				} else if (dialog != null) {
 					NoppesUtilServer.openDialog(player, this, dialog);
 				} else if (this.roleInterface != null) {
+					this.playGreetingSound();
 					this.roleInterface.interact(player);
 				} else {
 					this.say(player, this.advanced.getInteractLine());
