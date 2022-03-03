@@ -213,7 +213,7 @@ public class DataAdvanced implements INPCAdvanced {
 		String sound = this.getSound(type);
 		if (sound != null) {
 			BlockPos pos = this.npc.getPosition();
-			Server.sendRangedData(this.npc, 16, EnumPacketClient.PLAY_SOUND, sound, pos.getX(), pos.getY(), pos.getZ(),
+			Server.sendRangedData(this.npc, 8, EnumPacketClient.PLAY_SOUND, sound, pos.getX(), pos.getY(), pos.getZ(),
 					volume, pitch);
 		}
 	}
