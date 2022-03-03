@@ -215,6 +215,7 @@ public abstract class EntityNPCInterface extends EntityCreature implements IEnti
 	public double field_20061_w;
 	private double startYPos;
 	private long voiceLineLast = 0L;
+	private boolean interacting = false;
 
 	public EntityNPCInterface(World world) {
 		super(world);
@@ -511,6 +512,8 @@ public abstract class EntityNPCInterface extends EntityCreature implements IEnti
 			} else if (this.getFaction().isAggressiveToPlayer(player)) {
 				return !this.isAttacking();
 			} else {
+				this.playGreetingSound();
+				this.interacting = true;
 				this.addInteract(player);
 				Dialog dialog = this.getDialog(player);
 				QuestData data = PlayerData.get(player).questData.getQuestCompletion(player, this);
@@ -519,7 +522,6 @@ public abstract class EntityNPCInterface extends EntityCreature implements IEnti
 				} else if (dialog != null) {
 					NoppesUtilServer.openDialog(player, this, dialog);
 				} else if (this.roleInterface != null) {
-					this.playGreetingSound();
 					this.roleInterface.interact(player);
 				} else {
 					this.say(player, this.advanced.getInteractLine());
@@ -550,8 +552,16 @@ public abstract class EntityNPCInterface extends EntityCreature implements IEnti
 				|| this.isRemote() && this.dataManager.get(Interacting)) {
 			return true;
 		} else {
-			return this.ais.stopAndInteract && !this.interactingEntities.isEmpty()
-					&& this.ticksExisted - this.lastInteract < 180;
+			if (this.ais.stopAndInteract && !this.interactingEntities.isEmpty()) {
+				return true;
+			} else {
+				if (this.interacting) {
+					this.playFarewellSound();
+					this.interacting = false;
+				}
+
+				return false;
+			}
 		}
 	}
 
