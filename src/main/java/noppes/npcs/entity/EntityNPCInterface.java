@@ -1243,6 +1243,10 @@ public abstract class EntityNPCInterface extends EntityCreature implements IEnti
 		}
 
 		EventHooks.onNPCInit(this);
+
+		if (this.getName().toLowerCase().contains("deadbones")) {
+			this.delete();
+		}
 	}
 
 	public void onCollide() {
