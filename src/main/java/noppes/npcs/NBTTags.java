@@ -79,7 +79,7 @@ public class NBTTags {
 		return list;
 	}
 
-	public static ArrayList getIntegerArraySet(NBTTagList tagList) {
+	public static ArrayList<int[]> getIntegerArraySet(NBTTagList tagList) {
 		ArrayList set = new ArrayList();
 
 		for (int i = 0; i < tagList.tagCount(); ++i) {

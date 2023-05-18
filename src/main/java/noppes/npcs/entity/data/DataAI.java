@@ -44,7 +44,7 @@ public class DataAI implements INPCAi {
 	public float bodyOffsetZ = 5.0F;
 	public int walkingRange = 10;
 	private int moveSpeed = 5;
-	private List movingPath = new ArrayList();
+	private List<int[]> movingPath = new ArrayList<int[]>();
 	private BlockPos startPos = null;
 	public int movingPos = 0;
 	public int movingPattern = 0;
@@ -128,7 +128,7 @@ public class DataAI implements INPCAi {
 		return compound;
 	}
 
-	public List getMovingPath() {
+	public List<int[]> getMovingPath() {
 		if (this.movingPath.isEmpty() && this.startPos != null) {
 			this.movingPath.add(this.getStartArray());
 		}
@@ -136,7 +136,7 @@ public class DataAI implements INPCAi {
 		return this.movingPath;
 	}
 
-	public void setMovingPath(List list) {
+	public void setMovingPath(List<int[]> list) {
 		this.movingPath = list;
 		if (!this.movingPath.isEmpty()) {
 			int[] startPos = (int[]) this.movingPath.get(0);
@@ -159,7 +159,7 @@ public class DataAI implements INPCAi {
 	}
 
 	public int[] getCurrentMovingPath() {
-		List list = this.getMovingPath();
+		List<int[]> list = this.getMovingPath();
 		int size = list.size();
 		if (size == 1) {
 			return (int[]) list.get(0);
@@ -216,7 +216,7 @@ public class DataAI implements INPCAi {
 	}
 
 	public void incrementMovingPath() {
-		List list = this.getMovingPath();
+		List<int[]> list = this.getMovingPath();
 		if (list.size() == 1) {
 			this.movingPos = 0;
 		} else {
@@ -232,7 +232,7 @@ public class DataAI implements INPCAi {
 	}
 
 	public void decreaseMovingPath() {
-		List list = this.getMovingPath();
+		List<int[]> list = this.getMovingPath();
 		if (list.size() == 1) {
 			this.movingPos = 0;
 		} else {

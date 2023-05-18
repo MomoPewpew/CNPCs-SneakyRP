@@ -19,7 +19,7 @@ public class EntityAIMovingPath extends EntityAIBase {
 		if (!this.npc.isAttacking() && !this.npc.isInteracting()
 				&& (this.npc.getRNG().nextInt(40) == 0 || !this.npc.ais.movingPause)
 				&& this.npc.getNavigator().noPath()) {
-			List list = this.npc.ais.getMovingPath();
+			List<int[]> list = this.npc.ais.getMovingPath();
 			if (list.size() < 2) {
 				return false;
 			} else {
