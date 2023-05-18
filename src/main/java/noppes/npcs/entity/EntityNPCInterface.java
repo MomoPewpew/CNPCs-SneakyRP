@@ -196,7 +196,7 @@ public abstract class EntityNPCInterface extends EntityCreature implements IEnti
 	private EntityAIBase aiAttackTarget;
 	public EntityAILook lookAi;
 	public EntityAIAnimation animateAi;
-	public List interactingEntities = new ArrayList();
+	public List<EntityLivingBase> interactingEntities = new ArrayList<EntityLivingBase>();
 	public ResourceLocation textureLocation = null;
 	public ResourceLocation textureGlowLocation = null;
 	public ResourceLocation textureCloakLocation = null;
@@ -552,6 +552,17 @@ public abstract class EntityNPCInterface extends EntityCreature implements IEnti
 				|| this.isRemote() && this.dataManager.get(Interacting)) {
 			return true;
 		} else {
+			boolean interactingWithPlayer = false;
+
+			for (EntityLivingBase e : this.interactingEntities) {
+				if (e instanceof EntityPlayer) interactingWithPlayer = true;
+			}
+
+			if (!interactingWithPlayer) {
+				return this.ais.stopAndInteract && !this.interactingEntities.isEmpty()
+						&& this.ticksExisted - this.lastInteract < 180;
+			}
+
 			if (this.ais.stopAndInteract && !this.interactingEntities.isEmpty()) {
 				return true;
 			} else {
