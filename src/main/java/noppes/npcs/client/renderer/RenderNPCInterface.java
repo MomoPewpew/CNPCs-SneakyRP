@@ -30,7 +30,9 @@ public class RenderNPCInterface<T extends EntityNPCInterface> extends RenderLivi
 	}
 
 	public void renderName(T npc, double d, double d1, double d2) {
-		if (npc != null && this.canRenderName(npc) && this.renderManager.renderViewEntity != null) {
+		super.renderName(npc, d, d1, d2);
+
+/*		if (npc != null && this.canRenderName(npc) && this.renderManager.renderViewEntity != null) {
 			double d0 = npc.getDistanceSq(this.renderManager.renderViewEntity);
 			if (d0 <= 512.0D) {
 				float scale;
@@ -49,7 +51,7 @@ public class RenderNPCInterface<T extends EntityNPCInterface> extends RenderLivi
 				}
 
 			}
-		}
+		}*/
 	}
 
 	public void doRenderShadowAndFire(Entity par1Entity, double par2, double par4, double par6, float par8,
