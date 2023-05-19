@@ -48,7 +48,7 @@ public class DataAI implements INPCAi {
 	private BlockPos startPos = null;
 	public int movingPos = 0;
 	public int movingPattern = 0;
-	public boolean movingPause = true;
+	public boolean movingPause = false;
 
 	public DataAI(EntityNPCInterface npc) {
 		this.npc = npc;
