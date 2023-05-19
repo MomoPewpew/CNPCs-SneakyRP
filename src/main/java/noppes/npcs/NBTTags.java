@@ -134,11 +134,12 @@ public class NBTTags {
 		return list;
 	}
 
-	public static List getIntegerList(NBTTagList tagList) {
-		List list = new ArrayList();
+	public static List<Integer> getIntegerList(NBTTagList tagList) {
+		List<Integer> list = new ArrayList<Integer>();
 
 		for (int i = 0; i < tagList.tagCount(); ++i) {
 			NBTTagCompound nbttagcompound = tagList.getCompoundTagAt(i);
+			System.out.print("Get" + nbttagcompound.getInteger("Integer"));
 			list.add(nbttagcompound.getInteger("Integer"));
 		}
 
@@ -376,12 +377,12 @@ public class NBTTags {
 		}
 	}
 
-	public static NBTTagList nbtIntegerCollection(Collection set) {
+	public static NBTTagList nbtIntegerCollection(Collection<Integer> set) {
 		NBTTagList nbttaglist = new NBTTagList();
 		if (set == null) {
 			return nbttaglist;
 		} else {
-			Iterator var2 = set.iterator();
+			Iterator<Integer> var2 = set.iterator();
 
 			while (var2.hasNext()) {
 				int slot = (Integer) var2.next();

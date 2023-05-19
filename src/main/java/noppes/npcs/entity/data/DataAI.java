@@ -138,6 +138,18 @@ public class DataAI implements INPCAi {
 
 	public void setMovingPath(List<int[]> list) {
 		this.movingPath = list;
+
+		int i = 0;
+		for (int[] array : this.movingPath) {
+			if (array.length == 3) {
+				int[] newArray = new int[4];
+				System.arraycopy(array, 0, newArray, 0, 3);
+				newArray[3] = 0;
+				this.movingPath.set(i, newArray);
+			}
+			i++;
+		}
+
 		if (!this.movingPath.isEmpty()) {
 			int[] startPos = (int[]) this.movingPath.get(0);
 			this.startPos = new BlockPos(startPos[0], startPos[1], startPos[2]);
@@ -150,12 +162,13 @@ public class DataAI implements INPCAi {
 			this.startPos = new BlockPos(this.npc);
 		}
 
+
 		return this.startPos;
 	}
 
 	public int[] getStartArray() {
 		BlockPos pos = this.startPos();
-		return new int[] { pos.getX(), pos.getY(), pos.getZ() };
+		return new int[] { pos.getX(), pos.getY(), pos.getZ(), 0};
 	}
 
 	public int[] getCurrentMovingPath() {
@@ -180,6 +193,14 @@ public class DataAI implements INPCAi {
 
 			return (int[]) list.get(pos);
 		}
+	}
+
+	public boolean isCurrentPathWanderNode() {
+		return (this.getCurrentPathWanderDuration() > 0);
+	}
+
+	public int getCurrentPathWanderDuration() {
+		return this.getCurrentMovingPath()[3];
 	}
 
 	public void clearMovingPath() {

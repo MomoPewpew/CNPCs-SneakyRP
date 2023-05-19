@@ -38,6 +38,7 @@ public class EntityAIMovingPath extends EntityAIBase {
 			if (this.npc.getNavigator().noPath()) {
 				this.npc.getNavigator().clearPath();
 				if (this.npc.getDistanceSq((double) this.pos[0], (double) this.pos[1], (double) this.pos[2]) < 3.0D) {
+					//If mark is roaming mark, start roaming
 					return false;
 				} else if (this.retries++ < 3) {
 					this.startExecuting();
