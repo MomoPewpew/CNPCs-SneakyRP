@@ -43,7 +43,7 @@ public abstract class GuiNPCInterface extends GuiScreen {
 	public int guiTop;
 	public int xSize;
 	public int ySize;
-	private SubGuiInterface subgui;
+	protected SubGuiInterface subgui;
 	public int mouseX;
 	public int mouseY;
 	public float bgScale;
@@ -263,6 +263,8 @@ public abstract class GuiNPCInterface extends GuiScreen {
 		}
 	}
 
+	public void onSubGuiClosed() {}
+
 	public void onGuiClosed() {
 		GuiNpcTextField.unfocus();
 	}
@@ -469,6 +471,7 @@ public abstract class GuiNPCInterface extends GuiScreen {
 
 	public void closeSubGui(SubGuiInterface gui) {
 		this.subgui = null;
+		this.onSubGuiClosed();
 	}
 
 	public boolean hasSubGui() {

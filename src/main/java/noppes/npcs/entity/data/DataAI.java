@@ -44,11 +44,11 @@ public class DataAI implements INPCAi {
 	public float bodyOffsetZ = 5.0F;
 	public int walkingRange = 10;
 	private int moveSpeed = 5;
-	private List movingPath = new ArrayList();
+	private List<int[]> movingPath = new ArrayList<int[]>();
 	private BlockPos startPos = null;
 	public int movingPos = 0;
 	public int movingPattern = 0;
-	public boolean movingPause = true;
+	public boolean movingPause = false;
 
 	public DataAI(EntityNPCInterface npc) {
 		this.npc = npc;
@@ -128,7 +128,7 @@ public class DataAI implements INPCAi {
 		return compound;
 	}
 
-	public List getMovingPath() {
+	public List<int[]> getMovingPath() {
 		if (this.movingPath.isEmpty() && this.startPos != null) {
 			this.movingPath.add(this.getStartArray());
 		}
@@ -136,8 +136,20 @@ public class DataAI implements INPCAi {
 		return this.movingPath;
 	}
 
-	public void setMovingPath(List list) {
+	public void setMovingPath(List<int[]> list) {
 		this.movingPath = list;
+
+		int i = 0;
+		for (int[] array : this.movingPath) {
+			if (array.length == 3) {
+				int[] newArray = new int[4];
+				System.arraycopy(array, 0, newArray, 0, 3);
+				newArray[3] = 0;
+				this.movingPath.set(i, newArray);
+			}
+			i++;
+		}
+
 		if (!this.movingPath.isEmpty()) {
 			int[] startPos = (int[]) this.movingPath.get(0);
 			this.startPos = new BlockPos(startPos[0], startPos[1], startPos[2]);
@@ -150,16 +162,17 @@ public class DataAI implements INPCAi {
 			this.startPos = new BlockPos(this.npc);
 		}
 
+
 		return this.startPos;
 	}
 
 	public int[] getStartArray() {
 		BlockPos pos = this.startPos();
-		return new int[] { pos.getX(), pos.getY(), pos.getZ() };
+		return new int[] { pos.getX(), pos.getY(), pos.getZ(), 0};
 	}
 
 	public int[] getCurrentMovingPath() {
-		List list = this.getMovingPath();
+		List<int[]> list = this.getMovingPath();
 		int size = list.size();
 		if (size == 1) {
 			return (int[]) list.get(0);
@@ -180,6 +193,14 @@ public class DataAI implements INPCAi {
 
 			return (int[]) list.get(pos);
 		}
+	}
+
+	public boolean isCurrentPathWanderNode() {
+		return (this.getCurrentPathWanderDuration() > 0);
+	}
+
+	public int getCurrentPathWanderDuration() {
+		return this.getCurrentMovingPath()[3];
 	}
 
 	public void clearMovingPath() {
@@ -216,7 +237,7 @@ public class DataAI implements INPCAi {
 	}
 
 	public void incrementMovingPath() {
-		List list = this.getMovingPath();
+		List<int[]> list = this.getMovingPath();
 		if (list.size() == 1) {
 			this.movingPos = 0;
 		} else {
@@ -232,7 +253,7 @@ public class DataAI implements INPCAi {
 	}
 
 	public void decreaseMovingPath() {
-		List list = this.getMovingPath();
+		List<int[]> list = this.getMovingPath();
 		if (list.size() == 1) {
 			this.movingPos = 0;
 		} else {

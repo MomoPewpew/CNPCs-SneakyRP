@@ -64,7 +64,7 @@ public class ItemNpcMovingPath extends Item implements IPermission {
 				int x = bpos.getX();
 				int y = bpos.getY();
 				int z = bpos.getZ();
-				list.add(new int[] { x, y, z });
+				list.add(new int[] { x, y, z, 0});
 				double d3 = (double) (x - pos[0]);
 				double d4 = (double) (y - pos[1]);
 				double d5 = (double) (z - pos[2]);

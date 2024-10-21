@@ -39,12 +39,12 @@ public class GuiNpcPather extends GuiNPCInterface implements IGuiData {
 		super.initGui();
 		this.scroll = new GuiCustomScroll(this, 0);
 		this.scroll.setSize(160, 164);
-		List list = new ArrayList();
-		Iterator var2 = this.ai.getMovingPath().iterator();
+		List<String> list = new ArrayList<String>();
+		Iterator<int[]> var2 = this.ai.getMovingPath().iterator();
 
 		while (var2.hasNext()) {
 			int[] arr = (int[]) var2.next();
-			list.add("x:" + arr[0] + " y:" + arr[1] + " z:" + arr[2]);
+			list.add("x:" + arr[0] + " y:" + arr[1] + " z:" + arr[2] + " roam:" + arr[3]);
 		}
 
 		this.scroll.setUnsortedList(list);
@@ -59,9 +59,10 @@ public class GuiNpcPather extends GuiNPCInterface implements IGuiData {
 			select = false;
 		}
 
-		this.addButton(new GuiNpcButton(0, this.guiLeft + 6, this.guiTop + 178, 52, 20, "gui.down"));
-		this.addButton(new GuiNpcButton(1, this.guiLeft + 62, this.guiTop + 178, 52, 20, "gui.up"));
-		this.addButton(new GuiNpcButton(2, this.guiLeft + 118, this.guiTop + 178, 52, 20, "selectWorld.deleteButton"));
+		this.addButton(new GuiNpcButton(0, this.guiLeft + 7, this.guiTop + 178, 30, 20, "gui.down"));
+		this.addButton(new GuiNpcButton(1, this.guiLeft + 39, this.guiTop + 178, 25, 20, "gui.up"));
+		this.addButton(new GuiNpcButton(2, this.guiLeft + 66, this.guiTop + 178, 39, 20, "selectWorld.deleteButton"));
+		this.addButton(new GuiNpcButton(3, this.guiLeft + 107, this.guiTop + 178, 61, 20, "ai.wandering"));
 	}
 
 	protected void actionPerformed(GuiButton guibutton) {
@@ -84,9 +85,7 @@ public class GuiNpcPather extends GuiNPCInterface implements IGuiData {
 				this.ai.setMovingPath(list);
 				this.initGui();
 				this.scroll.selected = selected + 1;
-			}
-
-			if (id == 1) {
+			} else if (id == 1) {
 				if (this.scroll.selected - 1 < 0) {
 					return;
 				}
@@ -100,9 +99,7 @@ public class GuiNpcPather extends GuiNPCInterface implements IGuiData {
 				this.ai.setMovingPath(list);
 				this.initGui();
 				this.scroll.selected = selected - 1;
-			}
-
-			if (id == 2) {
+			} else if (id == 2) {
 				list = this.ai.getMovingPath();
 				if (list.size() <= 1) {
 					return;
@@ -116,6 +113,9 @@ public class GuiNpcPather extends GuiNPCInterface implements IGuiData {
 				select = true;
 
 				this.initGui();
+			} else if (id == 3) {
+				selected = this.scroll.selected;
+				this.setSubGui(new SubGuiNpcWanderNode(this.ai, selected));
 			}
 
 		}
@@ -130,10 +130,11 @@ public class GuiNpcPather extends GuiNPCInterface implements IGuiData {
 	}
 
 	public void keyTyped(char c, int i) {
-		if (i == 1 || this.isInventoryKey(i)) {
+		if (this.subgui != null) {
+			this.subgui.keyTyped(c, i);
+		} else if (i == 1 || this.isInventoryKey(i)) {
 			this.close();
 		}
-
 	}
 
 	public void save() {
@@ -144,6 +145,11 @@ public class GuiNpcPather extends GuiNPCInterface implements IGuiData {
 
 	public void setGuiData(NBTTagCompound compound) {
 		this.ai.readToNBT(compound);
+		this.initGui();
+	}
+
+	@Override
+	public void onSubGuiClosed() {
 		this.initGui();
 	}
 }
